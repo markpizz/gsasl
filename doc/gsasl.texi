@@ -1,21 +1,22 @@
 \input texinfo                  @c -*- Texinfo -*-
-@c This file is part of the GNU SASL Manual.
 @c Copyright (C) 2002, 2003 Simon Josefsson
+@c This file is part of GNU SASL.
 @c See below for copying conditions.
 
 @setfilename gsasl.info
+@documentencoding ISO-8859-1
 @include version.texi
-@settitle The GNU SASL Manual
+@settitle GNU SASL
 
 @c Unify some of the indices.
 @syncodeindex tp fn
 @syncodeindex pg fn
 
 @copying
-This is @cite{The GNU SASL Manual}, last updated @value{UPDATED}, for
-Version @value{VERSION} of GNU SASL.
+This manual is last updated @value{UPDATED} for version
+@value{VERSION} of GNU SASL.
 
-Copyright @copyright{} 2002 Simon Josefsson.
+Copyright @copyright{} 2002, 2003 Simon Josefsson.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -43,9 +44,10 @@ Software Foundation raise funds for GNU development.''
 @end direntry
 
 @titlepage
-@title The GNU SASL Manual
+@title GNU SASL
+@subtitle Simple Authentication and Security Layer for the GNU system
 @subtitle for version @value{VERSION}, @value{UPDATED}
-@author Simon Josefsson (@email{bug-gsasl@@gnu.org})
+@author Simon Josefsson
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -387,10 +389,13 @@ be mentioned here, contact the author (@pxref{Bug Reports}).
 @cindex Installation
 @cindex Download
 
-The package can be downloaded from several places, including
-@url{http://josefsson.org/gsasl/releases/}.  The latest version is
-stored in a file, e.g., @samp{gsasl-0.0.42.tar.gz} where the
-@samp{0.0.42} indicate the highest version number.
+The package can be downloaded from several places, including:
+
+@url{http://josefsson.org/gsasl/releases/}
+
+The latest version is stored in a file, e.g.,
+@samp{gsasl-0.0.42.tar.gz} where the @samp{0.0.42} indicate the
+highest version number.
 
 The package is then extracted, configured and built like many other
 packages that use Autoconf.  For detailed information on configuring
@@ -715,7 +720,7 @@ Autoconf based package.  The preferred approach, is to use Libtool in
 your project, and use the normal Autoconf header file and library
 tests.
 
-@subsubsection Autoconf test via @samp{pkg-config}
+@subsection Autoconf test via @samp{pkg-config}
 
 If your audience is a typical GNU/Linux desktop, you can often assume
 they have the @samp{pkg-config} tool installed, in which you can use
@@ -742,7 +747,7 @@ AC_MSG_CHECKING([if GNU SASL should be used])
 AC_MSG_RESULT($gsasl)
 @end example
 
-@subsubsection Standalone Autoconf test using Libtool
+@subsection Standalone Autoconf test using Libtool
 
 If your package uses Libtool(@pxref{top, GNU Libtool,, libtool}), you
 can use the normal Autoconf tests to find the Shishi library and rely
