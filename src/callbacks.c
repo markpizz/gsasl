@@ -228,14 +228,10 @@ client_callback_passcode (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
   int rc;
 
   if (args_info.passcode_arg == NULL)
-    args_info.passcode_arg = strdup (readline ("Enter passcode: "));
+    args_info.passcode_arg = getpassword ("Enter passcode: ");
 
-  if (args_info.passcode_arg == NULL)
-    return GSASL_AUTHENTICATION_ERROR;
-
-  rc =
-    utf8cpy (out, outlen, args_info.passcode_arg,
-	     strlen (args_info.passcode_arg));
+  rc = utf8cpy (out, outlen, args_info.passcode_arg,
+		strlen (args_info.passcode_arg));
   if (rc != GSASL_OK)
     return rc;
 
