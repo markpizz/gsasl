@@ -52,7 +52,7 @@ gsasl_step (Gsasl_session * sctx,
 {
   _Gsasl_step_function step;
   char *tmp = NULL;
-  size_t tmplen = 200;
+  size_t tmplen = 1000;
   int res;
 
   if (sctx->clientp)
