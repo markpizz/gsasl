@@ -1,4 +1,4 @@
-/* xstart.c	start session
+/* xstart.c	start libgsasl session
  * Copyright (C) 2002  Simon Josefsson
  *
  * This file is part of libgsasl.
@@ -57,6 +57,7 @@ _gsasl_session_start (Gsasl_ctx *ctx,
     }
 
   (*xctx)->ctx = ctx;
+  (*xctx)->clientp = clientp;
   (*xctx)->mech_data = NULL;
   if (clientp)
     res = (*xctx)->mech->client.start(*xctx, &(*xctx)->mech_data);
