@@ -21,32 +21,37 @@ purpose "Authenticate user to a server using Simple Authentication and
 Security Layer.  Currently only IMAP servers are supported.  This is a
 command line interface for the GNU SASL library."
 
+section "Commands"
 option "client" c "Act as client." flag off
 option "server" s "Act as server." flag off
-
 option "client-mechanisms" - "Write name of supported client mechanisms separated by space to stdout." flag off
 option "server-mechanisms" - "Write name of supported server mechanisms separated by space to stdout." flag off
 
-option "connect" - "Connect to TCP server and negotiate on stream instead of stdin/stdout. SERVICE is the protocol service, or an integer denoting the port, and defaults to 143 (imap) if not specified. Also sets the --hostname default." string no
+section "Network options"
+option "connect" - "Connect to TCP server and negotiate on stream instead of stdin/stdout. SERVICE is the protocol service, or an integer denoting the port, and defaults to 143 (imap) if not specified. Also sets the --hostname default." string typestr="HOSTNAME[:SERVICE]" no
+
+section "Generic options"
 option "application-data" d "After authentication, read data from stdin and run it through the mechanism's security layer and print it base64 encoded to stdout. The default is to terminate after authentication." flag off
 option "imap" - "Use a IMAP-like logon procedure (client only). Also sets the --service default to 'imap'." flag off
 option "smtp" - "Use a SMTP-like logon procedure (client only). Also sets the --service default to 'smtp'." flag off
 option "mechanism" m "Mechanism to use." string no
 option "no-client-first" - "Disallow client to send data first (client only)." flag off
 
+section "SASL mechanism options (prompted for if unspecified and needed)"
 option "anonymous-token" n "Token for anonymous authentication, usually mail address (ANONYMOUS only)." string no
 option "authentication-id" a "Identity of credential owner." string no
 option "authorization-id" z "Identity to request service for." string no
 option "password" p "Password for authentication (insecure for non-testing purposes)." string no
 option "realm" r "Realm (may be given more than once iff server). Defaults to hostname." string no multiple
-option "maxbuf" x "Indicate maximum buffer size (DIGEST-MD5 only)." int no
-option "passcode" - "Passcode for authentication (SECURID only)." string no
+option "maxbuf" x "Indicate maximum buffer size (DIGEST-MD5 only)." int typestr="NUMBER" no
+option "passcode" - "Passcode for authentication (SECURID only)." string typestr="NUMBER" no
 option "service" - "Set the requested service name (should be a registered GSSAPI host based service name)." string no
 option "hostname" - "Set the name of the server with the requested service." string no
 option "service-name" - "Set the generic server name in case of a replicated server (DIGEST-MD5 only)." string no
 option "enable-cram-md5-validate" - "Validate CRAM-MD5 challenge and response interactively." flag off
 option "disable-cleartext-validate" - "Disable cleartext validate hook, forcing server to prompt for password." flag off
-option "quality-of-protection" - "How application payload will be protected.  'auth' means no protection, 'auth-int' means integrity protection, 'auth-conf' means integrity and confidentialiy protection.  Currently only used by DIGEST-MD5, where the default is 'auth-conf'." string no
+option "quality-of-protection" - "How application payload will be protected. 'auth' means no protection, 'auth-int' means integrity protection, 'auth-conf' means integrity and confidentialiy protection.  Currently only used by DIGEST-MD5, where the default is 'auth-conf'." string typestr="TYPE" no
 
+section "Other options"
 option "verbose" - "Produce verbose output." flag off
 option "quiet" - "Don't produce any diagnostic output." flag off
