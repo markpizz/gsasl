@@ -284,6 +284,9 @@ if test "$server" != "no"; then
   AC_DEFINE(USE_SERVER, 1, [Define to 1 if you want server code.])
   server=yes
 fi
+if test "$server" = "no" && test "$client" = "no"; then
+  AC_MSG_ERROR([Disabling both client and server mode is meaningless])
+fi
 AC_MSG_CHECKING([if client code should be built])
 AC_MSG_RESULT($client)
 AC_MSG_CHECKING([if server code should be built])
