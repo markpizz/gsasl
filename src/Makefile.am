@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -18,8 +18,6 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-EXTRA_DIST = getopt.h
-
 AM_CPPFLAGS = -I../lib -I$(top_srcdir)/lib
 
 bin_PROGRAMS = gsasl
@@ -28,7 +26,7 @@ BUILT_SOURCES = gsasl_cmd.c gsasl_cmd.h
 gsasl_SOURCES = gsasl.c $(BUILT_SOURCES) gsasl.ggo \
 	imap.c imap.h smtp.c smtp.h \
 	callbacks.h callbacks.c internal.h
-gsasl_LDADD = ../lib/libgsasl.la $(LTLIBOBJS)
+gsasl_LDADD = ../lib/libgsasl.la ../gl/libgl.la
 
 localedir = $(datadir)/locale
 
