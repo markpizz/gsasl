@@ -35,11 +35,12 @@ AC_PROG_LIBTOOL
 # Checks for header files.
 AC_CHECK_HEADERS(sys/types.h sys/poll.h sys/time.h sys/select.h sys/socket.h)
 AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h)
+AC_CHECK_HEADERS(readline/readline.h)
 
 # Checks for library functions.
 AC_SEARCH_LIBS(socket, socket)
 AC_SEARCH_LIBS(gethostbyname, nsl)
-AC_SEARCH_LIBS(readline, readline)
+AC_CHECK_LIB(readline, readline)
 
 # For gnulib stuff in gl/.
 gl_GETOPT
