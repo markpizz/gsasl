@@ -1,3 +1,63 @@
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po, po/sv.po:
+	Generated.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.1.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po, po/sv.po: Sync
+	with TP.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c, digest-md5/server.c, digest-md5/session.c:
+	Fix encode/decode.
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/error.c, src/gsasl-compat.h, src/gsasl.h.in: Obsolete
+	GSASL_CANNOT_GET_CTX.
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/callback.c, src/error.c, src/gsasl.h.in, src/internal.h,
+	src/obsolete.c, src/property.c: Add CPP definition
+	GSASL_NO_OBSOLETE to hide obsolete code (md5pwd.c still todo).
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am, src/common.c, src/init.c: Collapse common.c into
+	init.c.
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/obsolete.c: Doc fix.
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am, src/callback-c.c, src/callback-s.c,
+	src/obsolete.c: Move obsolete callback interface to obsolete.c.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Fix.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2004-11-07  Simon Josefsson <simon@josefsson.org>
 
 	* po/fr.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po, po/sv.po:
