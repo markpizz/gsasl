@@ -73,9 +73,6 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
       return GSASL_MECHANISM_PARSE_ERROR;
   }
 
-  /* Store authzid. */
-  gsasl_property_set (sctx, GSASL_AUTHZID, authzidptr);
-
   /* Store authid, after preparing it... */
   {
     res = gsasl_saslprep (authidptr, GSASL_ALLOW_UNASSIGNED,
@@ -84,6 +81,12 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
       return res;
 
     gsasl_property_set (sctx, GSASL_AUTHID, authidprep);
+
+    /* Store authzid, if absent, use SASLprep(authcid). */
+    if (*authzidptr == '\0')
+      gsasl_property_set (sctx, GSASL_AUTHZID, authidprep);
+    else
+      gsasl_property_set (sctx, GSASL_AUTHZID, authzidptr);
 
     free (authidprep);
   }
