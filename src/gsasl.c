@@ -84,7 +84,9 @@ select_mechanism (char **mechlist)
   if (args_info.smtp_flag)
     return smtp_select_mechanism (mechlist);
 
-  if (args_info.server_flag)
+  if (args_info.mechanism_arg)
+    *mechlist = args_info.mechanism_arg;
+  else if (args_info.server_flag)
     {
       if (!args_info.quiet_given)
 	fprintf (stderr, _("Chose SASL mechanisms:\n"));
