@@ -198,24 +198,24 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
   {_GSASL_CRAM_MD5_NAME,
    {
 #ifdef USE_CLIENT
-    _gsasl_cram_md5_client_init,
-    _gsasl_cram_md5_client_done,
-    _gsasl_cram_md5_client_start,
-    _gsasl_cram_md5_client_step,
-    _gsasl_cram_md5_client_finish,
-    NULL,
-    NULL
+     NULL,
+     NULL,
+     _gsasl_cram_md5_client_start,
+     _gsasl_cram_md5_client_step,
+     _gsasl_cram_md5_client_finish,
+     NULL,
+     NULL
 #endif
     },
    {
 #ifdef USE_SERVER
-    _gsasl_cram_md5_server_init,
-    _gsasl_cram_md5_server_done,
-    _gsasl_cram_md5_server_start,
-    _gsasl_cram_md5_server_step,
-    _gsasl_cram_md5_server_finish,
-    NULL,
-    NULL
+     NULL,
+     NULL,
+     _gsasl_cram_md5_server_start,
+     _gsasl_cram_md5_server_step,
+     _gsasl_cram_md5_server_finish,
+     NULL,
+     NULL
 #endif
     }
    },

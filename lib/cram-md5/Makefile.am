@@ -26,9 +26,9 @@ libgsasl_cram_md5_la_SOURCES = cram-md5.h \
 	challenge.h challenge.c digest.h digest.c
 
 if CLIENT
-libgsasl_cram_md5_la_SOURCES += init_client.c client.c
+libgsasl_cram_md5_la_SOURCES += client.c
 endif
 
 if SERVER
-libgsasl_cram_md5_la_SOURCES += init_server.c server.c
+libgsasl_cram_md5_la_SOURCES += server.c
 endif
