@@ -38,6 +38,7 @@
  *   fully-qualified primary host name of the server.
  * ...
  *   challenge  = "<" 1*DIGIT "." 1*DIGIT "@" hostname ">"
+ *   hostname   = 1*(ALPHA / DIGIT) *("." / "-" / ALPHA / DIGIT)
  *
  * This implementation avoid the information leakage by always using 0
  * as the time stamp and a fixed host name.  This should be
