@@ -37,7 +37,7 @@ locale_to_utf8 (char *str)
   if (str)
     {
       char *from = nl_langinfo (CODESET);
-      char *q = iconv_z (from, "UTF-8", str);
+      char *q = iconv_string (str, from, "UTF-8");
       if (!q)
 	fprintf (stderr, "warning: Could not convert string to UTF-8...\n");
       else
