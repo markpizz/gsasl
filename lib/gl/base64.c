@@ -32,10 +32,8 @@
  * OK: data in OUT/OUTLEN
  *
  * size_t outlen = base64_encode_alloc (in, inlen, &out);
- * if (outlen == SIZE_MAX)
- *   FAIL: integer overflow (too large input)
  * if (out == NULL)
- *   FAIL: memory allocation error
+ *   FAIL: memory allocation error, or input string too long
  * OK: data in OUT/LEN.
  *
  */
@@ -44,14 +42,17 @@
 # include <config.h>
 #endif
 
-/* Get malloc. */
-#include <stdlib.h>
-
 /* Get prototype. */
 #include "base64.h"
 
-/* C89 compliant way to cast 'const char *' to 'const unsigned char *'. */
-static inline const unsigned char *to_cucharp (const char *ch) { return ch; }
+/* Get malloc. */
+#include <stdlib.h>
+
+/* Get UCHAR_MAX. */
+#include <limits.h>
+
+/* C89 compliant way to cast 'char' to 'unsigned char'. */
+static inline unsigned char to_uchar (char ch) { return ch; }
 
 /* Base64 encode IN array of size INLEN into OUT array of size OUTLEN.
    If OUTLEN is less than BASE64_LENGTH(INLEN), write as many bytes as
@@ -62,28 +63,29 @@ base64_encode (const char *in, size_t inlen, char *out, size_t outlen)
 {
   const char b64[64] =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-  const unsigned char *iptr = to_cucharp (in);
 
   while (inlen && outlen)
     {
-      *out++ = b64[iptr[0] >> 2];
+      *out++ = b64[to_uchar (in[0]) >> 2];
       if (!--outlen)
 	break;
-      *out++ = b64[((iptr[0] << 4) + (--inlen ? (iptr[1] >> 4) : 0)) & 0x3f];
+      *out++ = b64[((to_uchar (in[0]) << 4)
+		    + (--inlen ? (to_uchar (in[1]) >> 4) : 0)) & 0x3f];
       if (!--outlen)
 	break;
       *out++ =
 	(inlen
-	 ? b64[((iptr[1] << 2) + (--inlen ? (iptr[2] >> 6) : 0)) & 0x3f]
+	 ? b64[((to_uchar (in[1]) << 2)
+		+ (--inlen ? (to_uchar (in[2]) >> 6) : 0)) & 0x3f]
 	 : '=');
       if (!--outlen)
 	break;
-      *out++ = inlen ? b64[iptr[2] & 0x3f] : '=';
+      *out++ = inlen ? b64[to_uchar (in[2]) & 0x3f] : '=';
       if (!--outlen)
 	break;
       if (inlen)
 	inlen--;
-      iptr += 3;
+      in += 3;
     }
 
   if (outlen)
@@ -94,8 +96,8 @@ base64_encode (const char *in, size_t inlen, char *out, size_t outlen)
    from array IN of size INLEN, returning BASE64_LENGTH(INLEN), i.e.,
    the length of the encoded data, excluding the terminating zero.  On
    return, the OUT variable will hold a pointer to newly allocated
-   memory that must be deallocated by the caller.  If output length
-   would overflow, SIZE_MAX is returned and OUT is set to NULL.  If
+   memory that must be deallocated by the caller.  If output string
+   length would overflow, 0 is returned and OUT is set to NULL.  If
    memory allocation fail, OUT is set to NULL, and the return value
    indicate length of the requested memory block, i.e.,
    BASE64_LENGTH(inlen) + 1. */
@@ -119,7 +121,7 @@ base64_encode_alloc (const char *in, size_t inlen, char **out)
   if (inlen > outlen)
     {
       *out = NULL;
-      return SIZE_MAX;
+      return 0;
     }
 
   *out = malloc (outlen);
@@ -131,7 +133,10 @@ base64_encode_alloc (const char *in, size_t inlen, char **out)
 
 /* With this approach this file work independent of the charset used
    (think EBCDIC).  However, it does assume that the characters in the
-   Base64 alphabet (A-Za-z0-9+/) are encoded in 0..255. */
+   Base64 alphabet (A-Za-z0-9+/) are encoded in 0..255.  POSIX
+   1003.1-2001 require that char and unsigned char are 8-bit
+   quantities, though, taking care of that problem.  But this may be a
+   potential problem on non-POSIX C99 platforms.  */
 #define B64(x)					\
   ((x) == 'A' ? 0				\
    : (x) == 'B' ? 1				\
@@ -266,16 +271,11 @@ static const signed char b64[0x100] = {
   B64 (252), B64 (253), B64 (254), B64 (255)
 };
 
-/* C89 compliant way to cast 'char *' to 'unsigned char *'. */
-static inline unsigned char *to_ucharp (char *ch) { return ch; }
-
-static inline bool isb64 (unsigned char ch)
+static inline bool isb64 (char ch)
 {
-#if UCHAR_MAX > 255
-  if (ch > 255)
+  if (to_uchar (ch) > 255)
     return false;
-#endif
-  if (b64[ch] < 0)
+  if (b64[to_uchar (ch)] < 0)
     return false;
   return true;
 }
@@ -290,75 +290,74 @@ static inline bool isb64 (unsigned char ch)
 bool
 base64_decode (const char *in, size_t inlen, char *out, size_t * outlen)
 {
-  const unsigned char *iptr = to_cucharp (in);
-  unsigned char *optr = to_ucharp (out);
   size_t outleft = *outlen;
 
-  if (outlen)
-    *outlen = 0;
-
-  while (inlen >= 4)
+  while (inlen >= 2)
     {
-      if (!isb64 (iptr[0]) || !isb64 (iptr[1]))
-	return false;
+      if (!isb64 (in[0]) || !isb64 (in[1]))
+	break;
 
       if (outleft)
 	{
-	  *optr++ = (b64[iptr[0]] << 2) | (b64[iptr[1]] >> 4);
-	  if (outlen)
-	    (*outlen)++;
+	  *out++ = (b64[to_uchar (in[0])] << 2) | (b64[to_uchar (in[1])] >> 4);
 	  outleft--;
 	}
 
-      if (iptr[2] == '=')
-	{
-	  if (iptr[3] != '=')
-	    return false;
+      if (inlen == 2)
+	break;
 
+      if (in[2] == '=')
+	{
 	  if (inlen != 4)
-	    return false;
+	    break;
+
+	  if (in[3] != '=')
+	    break;
+
 	}
       else
 	{
-	  if (!isb64 (iptr[2]))
-	    return false;
+	  if (!isb64 (in[2]))
+	    break;
 
 	  if (outleft)
 	    {
-	      *optr++ = ((b64[iptr[1]] << 4) & 0xf0) | (b64[iptr[2]] >> 2);
-	      if (outlen)
-		(*outlen)++;
+	      *out++ = ((b64[to_uchar (in[1])] << 4) & 0xf0)
+		| (b64[to_uchar (in[2])] >> 2);
 	      outleft--;
 	    }
 
-	  if (iptr[3] == '=')
+	  if (inlen == 3)
+	    break;
+
+	  if (in[3] == '=')
 	    {
 	      if (inlen != 4)
-		return false;
+		break;
 	    }
 	  else
 	    {
-	      if (!isb64 (iptr[3]))
-		return false;
+	      if (!isb64 (in[3]))
+		break;
 
 	      if (outleft)
 		{
-		  *optr++ = ((b64[iptr[2]] << 6) & 0xc0) | b64[iptr[3]];
-		  if (outlen)
-		    (*outlen)++;
+		  *out++ = ((b64[to_uchar (in[2])] << 6) & 0xc0)
+		    | b64[to_uchar (in[3])];
 		  outleft--;
 		}
 	    }
 	}
-      iptr += 4;
+      in += 4;
       inlen -= 4;
     }
+
+  *outlen = *outlen - outleft;
 
   if (inlen != 0)
     return false;
 
   return true;
-
 }
 
 /* Allocate an output buffer in *OUT, and decode the base64 encoded
