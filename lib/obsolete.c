@@ -33,6 +33,9 @@
  * the libgsasl client to the output array.  To find out how large the
  * output array must be, call this function with out=NULL.
  *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
@@ -70,6 +73,9 @@ gsasl_client_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
  * Write SASL names, separated by space, of mechanisms supported by
  * the libgsasl server to the output array.  To find out how large the
  * output array must be, call this function with out=NULL.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
  *
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
