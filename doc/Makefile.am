@@ -94,15 +94,15 @@ doit:
 			-seeinfo $(PACKAGE) -verbatimcopying \
 			-copyright "2002, 2003, 2004 Simon Josefsson" \
 			-function $$i \
-			$(GDOC_SRC) >> man/$$i.3 && \
+			$(GDOC_SRC) > man/$$i.3 && \
 		./gdoc -texinfo -function $$i \
-			$(GDOC_SRC) >> texi/$$i.texi && \
+			$(GDOC_SRC) > texi/$$i.texi && \
 		echo "ok"; \
 	done; \
 	for i in $(GDOC_SRC); do \
 		BASE=`basename $$i`; \
 		echo -n "Creating documentation for $$i... " && \
-		./gdoc -texinfo $$i >> texi/$$BASE.texi && \
+		./gdoc -texinfo $$i > texi/$$BASE.texi && \
 		echo "ok"; \
 	done
 
