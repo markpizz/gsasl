@@ -75,11 +75,8 @@
 #include <argp.h>
 #include <gsasl.h>
 
-#ifdef ENABLE_NLS
-extern char *_gsasl_gettext (const char *str);
-#define _(String) _gsasl_gettext (String)
+#define _(String) dgettext (PACKAGE, String)
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
-#endif
 
 #endif /* _INTERNAL_H */

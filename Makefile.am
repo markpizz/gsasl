@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002 Simon Josefsson.
+# Copyright (C) 2002, 2003 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -18,14 +18,12 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-DISTCHECK_CONFIGURE_FLAGS = --without-included-gettext --disable-gtk-doc
-
-EXTRA_DIST = ANNOUNCE config.h.in config.rpath mkinstalldirs libgsasl.pc.in
+EXTRA_DIST = ANNOUNCE config.h.in config.rpath mkinstalldirs gsasl.pc.in
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libgsasl.pc
+pkgconfig_DATA = gsasl.pc
 
-MOST_SUBDIRS = m4 intl po argp lib src tests doc
+MOST_SUBDIRS = m4 po argp lib src tests doc
 
 DIST_SUBDIRS = libstringprep $(MOST_SUBDIRS)
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU libgsasl 0.0\n"
-"POT-Creation-Date: 2003-01-15 18:23+0100\n"
+"POT-Creation-Date: 2003-02-14 17:13+0100\n"
 "PO-Revision-Date: 2002-10-05 19:32+0200\n"
 "Last-Translator: Simon Josefsson <simon@josefsson.org>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -229,26 +229,33 @@ msgid ""
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
 #: lib/error.c:263
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_server_callback_retrieve() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:268
 msgid "SASL mechanism could not parse input"
 msgstr "SASL mekanism kunde inte tolka indata"
 
-#: lib/error.c:267
+#: lib/error.c:272
 msgid "Error authentication user"
 msgstr "Fel vid autentisering av användare"
 
-#: lib/error.c:271
+#: lib/error.c:276
 msgid "Cannot get internal library handle (library error)"
 msgstr "Kan inte hämta internt bibliotekskontext (biblioteksfel)"
 
-#: lib/error.c:275
+#: lib/error.c:280
 msgid "Integrity error in application payload"
 msgstr ""
 
-#: lib/error.c:279
+#: lib/error.c:284
 msgid "No more realms available (non-fatal)"
 msgstr ""
 
-#: lib/error.c:283
+#: lib/error.c:288
 msgid "Libgsasl unknown error"
 msgstr "Okänt fel i libgsasl"
 

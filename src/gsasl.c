@@ -396,7 +396,10 @@ main (int argc, char *argv[])
   int res;
   char input[MAX_LINE_LENGTH];
 
+#ifdef HAVE_LOCALE_H
   setlocale (LC_ALL, "");
+#endif
+  bindtextdomain (PACKAGE, LOCALEDIR);
 
   argp_parse (&argp, argc, argv, 0, 0, NULL);
 

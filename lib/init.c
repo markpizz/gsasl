@@ -21,24 +21,6 @@
 
 #include "internal.h"
 
-#if ENABLE_NLS
-char *
-_gsasl_gettext (const char *str)
-{
-  return dgettext (PACKAGE, str);
-}
-
-static void
-_gsasl_gettext_init (void)
-{
-  bindtextdomain (PACKAGE, LOCALEDIR);
-#ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-  bind_textdomain_codeset (PACKAGE, "UTF-8");
-#endif
-  textdomain (PACKAGE);
-}
-#endif /* ENABLE_NLS */
-
 /**
  * gsasl_init:
  * @ctx: pointer to libgsasl handle.
@@ -54,9 +36,7 @@ gsasl_init (Gsasl_ctx ** ctx)
 {
   int i;
 
-#if ENABLE_NLS
-  _gsasl_gettext_init ();
-#endif
+  bindtextdomain (PACKAGE, LOCALEDIR);
 
   *ctx = (Gsasl_ctx *) malloc (sizeof (**ctx));
   if (*ctx == NULL)

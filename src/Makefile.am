@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002 Simon Josefsson.
+# Copyright (C) 2002, 2003 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -24,6 +24,10 @@ bin_PROGRAMS = gsasl
 
 gsasl_SOURCES = gsasl.c callbacks.h callbacks.c gettext.h internal.h
 gsasl_LDADD = ../lib/libgsasl.la @ARGP_LIBS@ @LIBIDN_LIBS@
+
+localedir = $(datadir)/locale
+
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 indent:
 	indent $(gsasl_SOURCES)

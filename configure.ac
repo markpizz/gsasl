@@ -20,7 +20,7 @@ dnl Process this file with autoconf to produce a configure script.
 # Boston, MA 02111-1307, USA.
 
 AC_PREREQ(2.50)
-AC_INIT(libgsasl, 0.0.5, bug-gsasl@gnu.org)
+AC_INIT(gsasl, 0.0.5, bug-gsasl@gnu.org)
 
 # Interfaces removed:       CURRENT++ AGE=0 REVISION=0
 # Interfaces added:         CURRENT++ AGE++ REVISION=0
@@ -37,7 +37,7 @@ AM_INIT_AUTOMAKE(gnits)
 AM_CONFIG_HEADER(config.h)
 
 # Checks for programs.
-AM_GNU_GETTEXT(use-libtool)
+AM_GNU_GETTEXT(external)
 AM_GNU_GETTEXT_VERSION(0.11.5)
 AC_PROG_LIBTOOL
 AC_PROG_CC
@@ -281,35 +281,18 @@ else
   HTML_DIR=$with_html_dir
 fi
 AC_SUBST(HTML_DIR)
-AC_CHECK_PROG(GTKDOC, gtkdoc-mkdb, true, false)
-gtk_doc_min_version=0.6
-if $GTKDOC ; then 
-    gtk_doc_version=`gtkdoc-mkdb --version`
-    AC_MSG_CHECKING([gtk-doc version ($gtk_doc_version) >= $gtk_doc_min_version])
-    if perl <<EOF ; then
-      exit (("$gtk_doc_version" =~ /^[[0-9]]+\.[[0-9]]+$/) &&
-            ("$gtk_doc_version" >= "$gtk_doc_min_version") ? 0 : 1);
-EOF
-      AC_MSG_RESULT(yes)
-   else
-      AC_MSG_RESULT(no)
-      GTKDOC=false
-   fi
+AC_ARG_ENABLE(gtk-doc,
+	AC_HELP_STRING([--enable-gtk-doc],
+			[Build API reference using GTK-DOC]),
+	enable_gtk_doc="$enableval")
+if test "$enable_gtk_doc" = "yes"; then
+	REFERENCE=reference
 fi
-
-# Let people disable the gtk-doc stuff.
-AC_ARG_ENABLE(gtk-doc, [  --enable-gtk-doc  Use gtk-doc to build documentation [default=auto]], enable_gtk_doc="$enableval", enable_gtk_doc=auto)
-if test x$enable_gtk_doc = xauto ; then
-  if test x$GTKDOC = xtrue ; then
-    enable_gtk_doc=yes
-  else
-    enable_gtk_doc=no 
-  fi
-fi
+AC_SUBST(REFERENCE)
 AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 
-AC_CONFIG_FILES(Makefile po/Makefile.in m4/Makefile intl/Makefile \
+# We are done
+AC_CONFIG_FILES(Makefile po/Makefile.in m4/Makefile \
 		doc/Makefile doc/reference/Makefile lib/gsasl.h lib/Makefile \
-		libgsasl.pc src/Makefile tests/Makefile)
-
+		gsasl.pc src/Makefile tests/Makefile)
 AC_OUTPUT

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-01-15 18:23+0100\n"
+"POT-Creation-Date: 2003-02-14 17:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,26 +207,32 @@ msgid ""
 msgstr ""
 
 #: lib/error.c:263
+msgid ""
+"SASL mechanism needs gsasl_server_callback_retrieve() callback (application "
+"error)"
+msgstr ""
+
+#: lib/error.c:268
 msgid "SASL mechanism could not parse input"
 msgstr ""
 
-#: lib/error.c:267
+#: lib/error.c:272
 msgid "Error authentication user"
 msgstr ""
 
-#: lib/error.c:271
+#: lib/error.c:276
 msgid "Cannot get internal library handle (library error)"
 msgstr ""
 
-#: lib/error.c:275
+#: lib/error.c:280
 msgid "Integrity error in application payload"
 msgstr ""
 
-#: lib/error.c:279
+#: lib/error.c:284
 msgid "No more realms available (non-fatal)"
 msgstr ""
 
-#: lib/error.c:283
+#: lib/error.c:288
 msgid "Libgsasl unknown error"
 msgstr ""
 

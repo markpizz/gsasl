@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002 Simon Josefsson.
+# Copyright (C) 2002, 2003 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -18,7 +18,9 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-SUBDIRS = reference
+DIST_SUBDIRS = reference
+
+SUBDIRS = @REFERENCE@
 
 gsasl_texi_auto_deps = gsasl-api-version.texi gsasl-api-global.texi \
 	gsasl-api-session.texi gsasl-api-callback.texi gsasl-api-utils.texi \

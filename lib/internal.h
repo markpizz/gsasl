@@ -48,12 +48,9 @@
 #include "gettext.h"
 #include "gsasl.h"
 
-#ifdef ENABLE_NLS
-extern char *_gsasl_gettext (const char *str);
-#define _(String) _gsasl_gettext (String)
+#define _(String) dgettext (PACKAGE, String)
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
-#endif
 
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
