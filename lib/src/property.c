@@ -78,59 +78,6 @@ map (Gsasl_session * sctx, Gsasl_property prop)
   return p;
 }
 
-static char **
-map_global (Gsasl * ctx, Gsasl_property prop)
-{
-  char **p = NULL;
-
-  if (!ctx)
-    return NULL;
-
-  switch (prop)
-    {
-    case GSASL_ANONYMOUS_TOKEN:
-      p = &ctx->anonymous_token;
-      break;
-
-    case GSASL_SERVICE:
-      p = &ctx->service;
-      break;
-
-    case GSASL_HOSTNAME:
-      p = &ctx->hostname;
-      break;
-
-    case GSASL_AUTHID:
-      p = &ctx->authid;
-      break;
-
-    case GSASL_AUTHZID:
-      p = &ctx->authzid;
-      break;
-
-    case GSASL_PASSWORD:
-      p = &ctx->password;
-      break;
-
-    case GSASL_PASSCODE:
-      p = &ctx->passcode;
-      break;
-
-    case GSASL_PIN:
-      p = &ctx->pin;
-      break;
-
-    case GSASL_SUGGESTED_PIN:
-      p = &ctx->suggestedpin;
-      break;
-
-    default:
-      break;
-    }
-
-  return p;
-}
-
 /**
  * gsasl_property_set:
  * @sctx: session handle.
@@ -142,13 +89,6 @@ map_global (Gsasl * ctx, Gsasl_property prop)
  * indicated property @prop.  You can immediately deallocate @data
  * after calling this function, without affecting the data stored in
  * the session handle.
- *
- * It is valid, but may be confusing at first, to store both session
- * specific properties, using gsasl_property_set(), and more global
- * library handle properties using gsasl_property_set_global(), at the
- * same time.  The functions gsasl_property_get() and
- * gsasl_property_fast() will fall back to the global variables if no
- * session specific data is present.
  *
  * Since: 0.2.0
  **/
@@ -199,71 +139,6 @@ gsasl_property_set_raw (Gsasl_session * sctx, Gsasl_property prop,
 }
 
 /**
- * gsasl_property_set_global:
- * @ctx: library handle.
- * @prop: enumerated value of Gsasl_property type, indicating the
- *        type of data in @data.
- * @data: zero terminated character string to store.
- *
- * Make a copy of @data and store it in the library handle for the
- * indicated property @prop.  You can immediately deallocate @data
- * after calling this function, without affecting the data stored in
- * the session handle.
- *
- * It is valid, but may be confusing at first, to store both session
- * specific properties, using gsasl_property_set(), and more global
- * library handle properties using gsasl_property_set_global(), at the
- * same time.  The functions gsasl_property_get() and
- * gsasl_property_fast() will fall back to the global variables if no
- * session specific data is present.
- *
- * Since: 0.2.0
- **/
-void
-gsasl_property_set_global (Gsasl * ctx, Gsasl_property prop, const char *data)
-{
-  char **p = map_global (ctx, prop);
-
-  if (p)
-    {
-      if (*p)
-	free (*p);
-      if (data)
-	*p = strdup (data);
-      else
-	*p = NULL;
-    }
-}
-
-/**
- * gsasl_property_fast_global:
- * @ctx: library handle.
- * @prop: enumerated value of Gsasl_property type, indicating the
- *        type of data in @data.
- *
- * Retrieve the data stored in the library handle for given property
- * @prop.  The pointer is to live data, and must not be deallocated or
- * modified in any way.
- *
- * This function will not invoke the application callback if a value
- * is not already known.
- *
- * Return value: Return data for property, or NULL if no value known.
- *
- * Since: 0.2.0
- **/
-const char *
-gsasl_property_fast_global (Gsasl * ctx, Gsasl_property prop)
-{
-  char **p = map_global (ctx, prop);
-
-  if (p && *p)
-    return *p;
-
-  return NULL;
-}
-
-/**
  * gsasl_property_fast:
  * @sctx: session handle.
  * @prop: enumerated value of Gsasl_property type, indicating the
@@ -285,10 +160,10 @@ gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
 {
   char **p = map (sctx, prop);
 
-  if (p && *p)
+  if (p)
     return *p;
 
-  return gsasl_property_fast_global (sctx->ctx, prop);
+  return NULL;
 }
 
 /**
@@ -439,38 +314,6 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 	  break;
 	}
       p = gsasl_property_fast (sctx, prop);
-    }
-
-  return p;
-}
-
-/**
- * gsasl_property_get_global:
- * @ctx: library handle.
- * @prop: enumerated value of Gsasl_property type, indicating the
- *        type of data in @data.
- *
- * Retrieve the data stored in the library handle for given property
- * @prop, possibly invoking the application callback to get the value.
- * The pointer is to live data, and must not be deallocated or
- * modified in any way.
- *
- * This function will invoke the application callback, using
- * gsasl_callback_global(), if a value is not already known.
- *
- * Return value: Return data for property, or NULL if no value known.
- *
- * Since: 0.2.0
- **/
-const char *
-gsasl_property_get_global (Gsasl * ctx, Gsasl_property prop)
-{
-  const char *p = gsasl_property_fast_global (ctx, prop);
-
-  if (!p)
-    {
-      gsasl_callback (ctx, NULL, prop);
-      p = gsasl_property_fast_global (ctx, prop);
     }
 
   return p;

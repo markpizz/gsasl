@@ -149,14 +149,14 @@ extern "C"
    * gsasl_callback_set() to inform the library about your callback
    * function.
    *
-   * It is called by the SASL library when it need some information from
-   * the application.  Depending on the value of @prop, it should either
-   * set some property (e.g., username or password) using
-   * gsasl_property_set() and gsasl_property_set_global(), or it should
-   * extract some properties (e.g., authentication and authorization
-   * identities) using gsasl_property_fast() and use them to make a
-   * policy decision, perhaps returning GSASL_AUTHENTICATION_ERROR or
-   * GSASL_OK depending on whether the policy permitted the operation.
+   * It is called by the SASL library when it need some information
+   * from the application.  Depending on the value of @prop, it should
+   * either set some property (e.g., username or password) using
+   * gsasl_property_set(), or it should extract some properties (e.g.,
+   * authentication and authorization identities) using
+   * gsasl_property_fast() and use them to make a policy decision,
+   * perhaps returning GSASL_AUTHENTICATION_ERROR or GSASL_OK
+   * depending on whether the policy permitted the operation.
    *
    * Return value: Any valid return code, the interpretation of which
    *   depend on the @prop value.
@@ -183,16 +183,10 @@ extern "C"
 				  const char *data);
   extern void gsasl_property_set_raw (Gsasl_session * sctx, Gsasl_property prop,
 				   const char *data, size_t len);
-  extern void gsasl_property_set_global (Gsasl * ctx, Gsasl_property prop,
-					 const char *data);
   extern const char *gsasl_property_get (Gsasl_session * sctx,
 					 Gsasl_property prop);
-  extern const char *gsasl_property_get_global (Gsasl * ctx,
-						Gsasl_property prop);
   extern const char *gsasl_property_fast (Gsasl_session * sctx,
 					  Gsasl_property prop);
-  extern const char *gsasl_property_fast_global (Gsasl * ctx,
-						 Gsasl_property prop);
 
   /* Mechanism handling: listmech.c, supportp.c, suggest.c */
   extern int gsasl_client_mechlist (Gsasl * ctx, char **out);

@@ -32,10 +32,10 @@
  * passwords).  The callback function will be called with a
  * Gsasl_property value indicating the requested behaviour.  For
  * example, for GSASL_ANONYMOUS_TOKEN, the function is expected to
- * invoke gsasl_property_set_global(CTX, GSASL_ANONYMOUS_TOKEN,
- * "token") where "token" is the anonymous token the application
- * wishes the SASL mechanism to use.  See the manual for the meaning
- * of all parameters.
+ * invoke gsasl_property_set(CTX, GSASL_ANONYMOUS_TOKEN, "token")
+ * where "token" is the anonymous token the application wishes the
+ * SASL mechanism to use.  See the manual for the meaning of all
+ * parameters.
  *
  * Since: 0.2.0
  **/
@@ -84,9 +84,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
   {
     /* Call obsolete callbacks.  Remove this when the obsolete
-     * callbacks are no longer supported.  This is done here, not in
-     * gsasl_callback_global, since all obsolete callbacks were
-     * session specific.  */
+     * callbacks are no longer supported.  */
     Gsasl_server_callback_anonymous cb_anonymous;
     Gsasl_server_callback_external cb_external;
     Gsasl_server_callback_securid cb_securid;

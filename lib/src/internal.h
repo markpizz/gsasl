@@ -45,16 +45,6 @@ struct Gsasl
   /* Callback. */
   Gsasl_callback_function cb;
   void *application_hook;
-  /* Global properties. */
-  char *anonymous_token;
-  char *authid;
-  char *authzid;
-  char *password;
-  char *passcode;
-  char *pin;
-  char *suggestedpin;
-  char *service;
-  char *hostname;
   /* Obsolete stuff. */
   Gsasl_client_callback_authorization_id cbc_authorization_id;
   Gsasl_client_callback_authentication_id cbc_authentication_id;
@@ -88,8 +78,7 @@ struct Gsasl_session
   int clientp;
   Gsasl_mechanism *mech;
   void *mech_data;
-  /* Session specific properties.  If NULL, use corresponding global
-   * property. */
+  /* Session specific properties. */
   char *anonymous_token;
   char *authid;
   char *authzid;
