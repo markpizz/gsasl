@@ -11,15 +11,11 @@ Mirror-Site-URL: http://josefsson.org/gsasl/
 Version: 0.2.3
 Release-Focus: Major bugfixes
 
-Fix example code to handle base64 encoded data properly.
-Documentation fixes.  Fix self test bugs.  The NTLM mechanism now set
-the 'domain' field to the GSASL_REALM property value.  The PLAIN
-client no longer perform NFKC on strings.  The LOGIN client no longer
-perform NFKC on strings.  The DIGEST-MD5 mechanism is disabled by
-default, pending a rewrite for the new API.  LOGIN client now uses
-authentication identity, not authorization identity.  PLAIN client now
-work when no authorization identity is provided.  Callback backwards
-compatibility improved.  A crash in the new base64 code was fixed.
-Use of SASLprep in CRAM-MD5 improved.  The shared library version was
-incremented.  Disabling Libidn/SASLprep should now result in a RFC
-2222 compliant library.
+SASLprep related improvements to PLAIN, LOGIN and CRAM-MD5.  The
+DIGEST-MD5 mechanism is disabled by default, pending a rewrite for the
+new API.  LOGIN client now uses authentication identity, not
+authorization identity.  PLAIN client now work when no authorization
+identity is provided.  The NTLM mechanism now support the 'domain'
+field.  Callback backwards compatibility improved.  Disabling
+Libidn/SASLprep should now result in a RFC 2222 compliant library.
+Documentation fixes.  Fix self test bugs.
