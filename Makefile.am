@@ -17,11 +17,14 @@
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
+EXTRA_DIST = config.h.in config.rpath mkinstalldirs libgsasl.pc.in
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libgsasl.pc
+
 SUBDIRS = m4 intl po argp lib src tests doc
 
 ACLOCAL_AMFLAGS = -I m4 -I argp
-
-EXTRA_DIST = config.h.in config.rpath mkinstalldirs
 
 ChangeLog:
 	cvs2cl --fsf --usermap .cvsusers --separate-header

@@ -19,14 +19,7 @@
 
 SUBDIRS=libcharset
 
-EXTRA_DIST = libgsasl-config.in libgsasl.m4
-
 INCLUDES = -I../lib -I../argp -I../intl
-
-bin_SCRIPTS = libgsasl-config
-
-m4datadir = $(datadir)/aclocal
-m4data_DATA = libgsasl.m4
 
 bin_PROGRAMS = gsasl
 

@@ -223,16 +223,9 @@ fi
 AC_SUBST(LIBARGP)
 AC_CONFIG_SUBDIRS(argp)
 
-# Generate src/libgsasl-config.in
-LIBGSASL_CFLAGS="$CFLAGS $LIBGCRYPT_CFLAGS $LIBNTLM_CFLAGS $GSSAPI_CFLAGS -I${includedir}"
-LIBGSASL_LIBS="$LIBS $LIBGCRYPT_LIBS $LIBNTLM_LIBS $GSSAPI_LIBS -L${libdir} -lgsasl"
-AC_SUBST(LIBGSASL_LIBS)
-AC_SUBST(LIBGSASL_CFLAGS)
-AC_CONFIG_COMMANDS([chmod],[[chmod +x src/libgsasl-config]])
-
 AC_CONFIG_FILES(Makefile po/Makefile.in m4/Makefile intl/Makefile \
 		doc/Makefile lib/gsasl.h lib/Makefile \
-		src/libgsasl-config src/libcharset/Makefile src/Makefile \
+		libgsasl.pc src/libcharset/Makefile src/Makefile \
 		tests/Makefile)
 
 AC_OUTPUT
