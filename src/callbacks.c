@@ -69,6 +69,7 @@ extern char *servicename;
 extern char **realms;
 extern size_t nrealms;
 extern int maxbuf;
+extern int qop;
 
 static char *
 readline (const char *prompt)
@@ -305,7 +306,11 @@ Gsasl_qop
 client_callback_qop (Gsasl_session_ctx *ctx, 
 		     Gsasl_qop serverqops)
 {
-  return GSASL_QOP_AUTH;
+  if (serverqops & qop == 0)
+    fprintf(stderr, 
+	    "Warning: Server QOPs %d does not include client QOP %d.\n",
+	    serverqops, qop);
+  return qop;
 }
 
 int
