@@ -22,7 +22,8 @@ if ENABLE_GTK_DOC
 SUBDIRS = reference
 endif
 
-EXTRA_DIST = gdoc gdoc-error controlflow.dia controlflow2.dia \
+EXTRA_DIST = gdoc gdoc-error \
+	controlflow.dia controlflow2.dia abstraction.dia \
 	gsasl.html gsasl.ps gsasl.pdf texinfo.css \
 	doxygen/Doxyfile.in doxygen/gdoc2doxygen
 
@@ -39,6 +40,7 @@ info_TEXINFOS = gsasl.texi
 gsasl_TEXINFOS = fdl.texi $(gdoc_TEXINFOS) \
 	controlflow.eps controlflow.png controlflow.pdf \
 	controlflow2.eps controlflow2.png controlflow2.pdf \
+	abstraction.eps abstraction.png abstraction.pdf \
 	gsasl-callback-password.texi gsasl-callback-authorization.texi \
 	gsasl-callback-authentication.texi gsasl-callback-validate.texi \
 	gsasl-callback-retrieve.texi gsasl-callback-cram-md5.texi \
