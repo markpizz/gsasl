@@ -26,6 +26,26 @@
 /* Get gc_hmac_md5. */
 #include "gc.h"
 
+/*
+ * From draft-ietf-sasl-crammd5-02.txt:
+ *
+ *   The latter is computed by applying the keyed MD5 algorithm from
+ *   [KEYED-MD5] where the key is a shared secret and the digested
+ *   text is the challenge (including angle-brackets). The client
+ *   MUST NOT interpret or attempt to validate the contents of the
+ *   challenge in any way.
+ *
+ *   This shared secret is a string known only to the client and
+ *   server.  The "digest" parameter itself is a 16-octet value which
+ *   is sent in hexadecimal format, using lower-case US-ASCII
+ *   characters.
+ * ...
+ *   digest     = 32(DIGIT / %x61-66)
+ *   ; A hexadecimal string using only lower-case
+ *   ; letters
+ *
+ */
+
 #if CRAM_MD5_DIGEST_LEN != 2* GC_MD5_LEN
 # error MD5 length mismatch
 #endif
