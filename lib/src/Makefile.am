@@ -26,7 +26,8 @@ DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 
 include_HEADERS = gsasl.h gsasl-mech.h gsasl-compat.h
 
-libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
+	-export-symbols-regex ^gsasl\|GSASL
 libgsasl_la_LIBADD = @LTLIBINTL@ ../gl/libgl.la ../crypto/libgc.la
 libgsasl_la_SOURCES = gsasl.h.in internal.h \
 	init.c done.c register.c error.c version.c common.c \
