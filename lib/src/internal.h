@@ -45,6 +45,7 @@ struct Gsasl
   /* Callback. */
   Gsasl_callback_function cb;
   void *application_hook;
+#ifndef GSASL_NO_OBSOLETE
   /* Obsolete stuff. */
   Gsasl_client_callback_authorization_id cbc_authorization_id;
   Gsasl_client_callback_authentication_id cbc_authentication_id;
@@ -69,6 +70,7 @@ struct Gsasl
   Gsasl_server_callback_cipher cbs_cipher;
   Gsasl_server_callback_service cbs_service;
   Gsasl_server_callback_gssapi cbs_gssapi;
+#endif
 };
 
 /* Per-session library handle. */
@@ -89,8 +91,10 @@ struct Gsasl_session
   char *service;
   char *hostname;
   char *gssapi_display_name;
+#ifndef GSASL_NO_OBSOLETE
   /* Obsolete stuff. */
   void *application_data;
+#endif
 };
 
 #endif /* INTERNAL_H */

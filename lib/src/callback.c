@@ -82,6 +82,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
   if (ctx->cb)
     return ctx->cb (ctx, sctx, prop);
 
+#ifndef GSASL_NO_OBSOLETE
   {
     /* Call obsolete callbacks.  Remove this when the obsolete
      * callbacks are no longer supported.  */
@@ -136,6 +137,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	break;
       }
   }
+#endif
 
   return GSASL_NO_CALLBACK;
 }

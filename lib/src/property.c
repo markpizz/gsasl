@@ -207,6 +207,7 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
       p = gsasl_property_fast (sctx, prop);
     }
 
+#ifndef GSASL_NO_OBSOLETE
   if (!p)
     {
       Gsasl_client_callback_anonymous cb_anonymous;
@@ -320,6 +321,7 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 	}
       p = gsasl_property_fast (sctx, prop);
     }
+#endif
 
   return p;
 }

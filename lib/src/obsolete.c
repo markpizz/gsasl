@@ -21,6 +21,8 @@
 
 #include "internal.h"
 
+#ifndef GSASL_NO_OBSOLETE
+
 /**
  * gsasl_client_listmech:
  * @ctx: libgsasl handle.
@@ -1539,3 +1541,4 @@ gsasl_server_callback_service_get (Gsasl * ctx)
 {
   return ctx ? ctx->cbs_service : NULL;
 }
+#endif

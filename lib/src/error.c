@@ -60,10 +60,6 @@ gsasl_strerror (int err)
       p = _("SASL mechanism called too many times");
       break;
 
-    case GSASL_TOO_SMALL_BUFFER:
-      p = _("SASL function need larger buffer (internal error)");
-      break;
-
     case GSASL_FOPEN_ERROR:
       p = _("Could not open file in SASL library");
       break;
@@ -80,8 +76,8 @@ gsasl_strerror (int err)
       p = _("Base 64 coding error in SASL library");
       break;
 
-    case GSASL_GCRYPT_ERROR:
-      p = _("Gcrypt error in SASL library");
+    case GSASL_CRYPTO_ERROR:
+      p = _("Low-level crypto error in SASL library");
       break;
 
     case GSASL_GSSAPI_RELEASE_BUFFER_ERROR:
@@ -153,6 +149,93 @@ gsasl_strerror (int err)
 	_
 	("Other entity requested integrity or confidentiality protection "
 	 "in GSSAPI mechanism but this is currently not implemented.");
+      break;
+
+    case GSASL_MECHANISM_PARSE_ERROR:
+      p = _("SASL mechanism could not parse input");
+      break;
+
+    case GSASL_AUTHENTICATION_ERROR:
+      p = _("Error authentication user");
+      break;
+
+    case GSASL_CANNOT_GET_CTX:
+      p = _("Cannot get internal library handle (library error)");
+      break;
+
+    case GSASL_INTEGRITY_ERROR:
+      p = _("Integrity error in application payload");
+      break;
+
+    case GSASL_NO_MORE_REALMS:
+      p = _("No more realms available (non-fatal)");
+      break;
+
+    case GSASL_NO_CLIENT_CODE:
+      p = _("Client-side functionality not available in library "
+	    "(application error)");
+      break;
+
+    case GSASL_NO_SERVER_CODE:
+      p = _("Server-side functionality not available in library "
+	    "(application error)");
+      break;
+
+    case GSASL_INVALID_HANDLE:
+      p = _("The provided library handle was invalid (application error)");
+      break;
+
+    case GSASL_NO_CALLBACK:
+      p = _("No callback specified by caller (application error).");
+      break;
+
+    case GSASL_NO_ANONYMOUS_TOKEN:
+      p = _("Authentication failed because the "
+	    "anonymous token was not provided.");
+      break;
+
+    case GSASL_NO_AUTHID:
+      p = _("Authentication failed because the "
+	    "authentication identity was not provided.");
+      break;
+
+    case GSASL_NO_AUTHZID:
+      p = _("Authentication failed because the "
+	    "authorization identity was not provided.");
+      break;
+
+    case GSASL_NO_PASSWORD:
+      p = _("Authentication failed because the "
+	    "password was not provided.");
+      break;
+
+    case GSASL_NO_PASSCODE:
+      p = _("Authentication failed because the "
+	    "passcode was not provided.");
+      break;
+
+    case GSASL_NO_PIN:
+      p = _("Authentication failed because the "
+	    "pin code was not provided.");
+      break;
+
+    case GSASL_NO_SERVICE:
+      p = _("Authentication failed because the "
+	    "service name was not provided.");
+      break;
+
+    case GSASL_NO_HOSTNAME:
+      p = _("Authentication failed because the "
+	    "host name was not provided.");
+      break;
+
+    case GSASL_UNICODE_NORMALIZATION_ERROR:
+      p = _("Failed to perform Unicode Normalization on string.");
+      break;
+
+#ifndef GSASL_NO_OBSOLETE
+    case GSASL_TOO_SMALL_BUFFER:
+      p = _("SASL function need larger buffer (internal error)");
       break;
 
     case GSASL_NEED_CLIENT_ANONYMOUS_CALLBACK:
@@ -271,88 +354,7 @@ gsasl_strerror (int err)
       p = _("SASL mechanism needs gsasl_server_callback_retrieve() "
 	    "callback (application error)");
       break;
-
-    case GSASL_MECHANISM_PARSE_ERROR:
-      p = _("SASL mechanism could not parse input");
-      break;
-
-    case GSASL_AUTHENTICATION_ERROR:
-      p = _("Error authentication user");
-      break;
-
-    case GSASL_CANNOT_GET_CTX:
-      p = _("Cannot get internal library handle (library error)");
-      break;
-
-    case GSASL_INTEGRITY_ERROR:
-      p = _("Integrity error in application payload");
-      break;
-
-    case GSASL_NO_MORE_REALMS:
-      p = _("No more realms available (non-fatal)");
-      break;
-
-    case GSASL_NO_CLIENT_CODE:
-      p = _("Client-side functionality not available in library "
-	    "(application error)");
-      break;
-
-    case GSASL_NO_SERVER_CODE:
-      p = _("Server-side functionality not available in library "
-	    "(application error)");
-      break;
-
-    case GSASL_INVALID_HANDLE:
-      p = _("The provided library handle was invalid (application error)");
-      break;
-
-    case GSASL_NO_CALLBACK:
-      p = _("No callback specified by caller (application error).");
-      break;
-
-    case GSASL_NO_ANONYMOUS_TOKEN:
-      p = _("Authentication failed because the "
-	    "anonymous token was not provided.");
-      break;
-
-    case GSASL_NO_AUTHID:
-      p = _("Authentication failed because the "
-	    "authentication identity was not provided.");
-      break;
-
-    case GSASL_NO_AUTHZID:
-      p = _("Authentication failed because the "
-	    "authorization identity was not provided.");
-      break;
-
-    case GSASL_NO_PASSWORD:
-      p = _("Authentication failed because the "
-	    "password was not provided.");
-      break;
-
-    case GSASL_NO_PASSCODE:
-      p = _("Authentication failed because the "
-	    "passcode was not provided.");
-      break;
-
-    case GSASL_NO_PIN:
-      p = _("Authentication failed because the "
-	    "pin code was not provided.");
-      break;
-
-    case GSASL_NO_SERVICE:
-      p = _("Authentication failed because the "
-	    "service name was not provided.");
-      break;
-
-    case GSASL_NO_HOSTNAME:
-      p = _("Authentication failed because the "
-	    "host name was not provided.");
-      break;
-
-    case GSASL_UNICODE_NORMALIZATION_ERROR:
-      p = _("Failed to perform Unicode Normalization on string.");
-      break;
+#endif
 
     default:
       p = _("Libgsasl unknown error");
