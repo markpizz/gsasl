@@ -1,5 +1,5 @@
 /* internal.h	internal header file for gsasl
- * Copyright (C) 2002, 2003  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -69,6 +69,9 @@
 #endif
 
 #include <gsasl.h>
+
+/* Get strdup. */
+#include "strdup.h"
 
 #include "gettext.h"
 #define _(String) dgettext (PACKAGE, String)
