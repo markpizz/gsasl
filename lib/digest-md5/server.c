@@ -109,11 +109,6 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
   *output = NULL;
   *output_len = 0;
 
-#if 0
-  if (input && input_len > 0)
-    fprintf (stderr, "server in: %s\n", input);
-#endif
-
   switch (state->step)
     {
     case 0:
@@ -235,11 +230,6 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
       res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
       break;
     }
-
-#if 0
-  if (output && *output && *output_len > 0)
-    fprintf (stderr, "server out: %s\n", *output);
-#endif
 
   return res;
 }
