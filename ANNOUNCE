@@ -6,24 +6,26 @@ Security Layer framework and a few common SASL mechanisms.  SASL is
 used by network servers (e.g., IMAP, SMTP) to request authentication
 from clients, and in clients to authenticate against servers.
 
-GNU SASL contains of a library (`libgsasl'), a command line utility
+GNU SASL contains a library (`libgsasl'), a command line utility
 (`gsasl') to access the library from the shell, and a manual.  The
-library includes support for the framework (with authentication
+library includes support for the SASL framework (with authentication
 functions and application data privacy and integrity functions) and at
 least partial support for the CRAM-MD5, EXTERNAL, GSSAPI, ANONYMOUS,
 PLAIN, SECURID, DIGEST-MD5, LOGIN, NTLM mechanisms.
 
-The library is easily ported because it does not do network
-communication by itself, but rather leaves it up to the calling
-application.  The library is flexible with regards to the
-authorization infrastructure used, as it utilizes callbacks into the
-application to decide whether a user is authorized or not.  GNU SASL
-has been ported to many Unix flavors.
+The library is portable because it does not do network communication
+by itself, but rather leaves it up to the calling application.  The
+library is flexible with regards to the authorization infrastructure
+used, as it utilizes callbacks into the application to decide whether
+an user is authorized or not.
+
+GNU SASL is developed for the GNU/Linux system, but runs on over 20
+platforms including most major Unix platforms and Windows.
 
 GNU SASL is licensed under the GNU Public License.
 
-The project page of the library is available at:
-http://www.josefsson.org/libgsasl/
+The project web page:
+http://josefsson.org/libgsasl/
 
 For more information see:
 http://www.ietf.org/rfc/rfc2222.txt
