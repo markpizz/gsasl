@@ -21,7 +21,7 @@ SUBDIRS = m4 intl po argp lib src tests doc
 
 ACLOCAL_AMFLAGS = -I m4 -I argp
 
-EXTRA_DIST = config.rpath mkinstalldirs
+EXTRA_DIST = config.h.in config.rpath mkinstalldirs
 
 ChangeLog:
 	cvs2cl --fsf --usermap .cvsusers --separate-header

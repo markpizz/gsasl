@@ -41,7 +41,7 @@ libgsasl_la_SOURCES = init.c done.c error.c version.c callback.c \
 			x-gssapi.h gssapi.c \
 			securid.h securid.c
 
-libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ @GSSAPI_LIBS@ -lm
+libgsasl_la_LIBADD = @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ @GSSAPI_LIBS@ -lm
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 localedir = $(datadir)/locale
