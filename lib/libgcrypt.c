@@ -37,7 +37,7 @@ _gsasl_crypto_init (void)
     {
       if (gcry_check_version (GCRYPT_VERSION) == NULL)
 	{
-	  fprintf (stderr, "gcry_check_version(%s) failed: %s",
+	  fprintf (stderr, "gcry_check_version(%s) failed: %s\n",
 		   GCRYPT_VERSION, gcry_check_version (NULL));
 	  return GSASL_CRYPTO_ERROR;
 	}
@@ -46,7 +46,7 @@ _gsasl_crypto_init (void)
       if (err != GPG_ERR_NO_ERROR)
 	{
 	  fprintf (stderr, "gcry_control (GCRYCTL_DISABLE_SECMEM)"
-		   " failed: %s", gcry_strerror (err));
+		   " failed: %s\n", gcry_strerror (err));
 	  return GSASL_CRYPTO_ERROR;
 	}
 
@@ -54,7 +54,7 @@ _gsasl_crypto_init (void)
       if (err != GPG_ERR_NO_ERROR)
 	{
 	  fprintf (stderr, "gcry_control (GCRYCTL_INITIALIZATION_FINISHED)"
-		   " failed: %s", gcry_strerror (err));
+		   " failed: %s\n", gcry_strerror (err));
 	  return GSASL_CRYPTO_ERROR;
 	}
     }
