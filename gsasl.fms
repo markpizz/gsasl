@@ -1,0 +1,10 @@
+Project: gsasl
+Home-Page-URL: http://www.gnu.org/software/gsasl/
+Gzipped-Tar-URL: http://josefsson.org/gsasl/releases/
+Changelog-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/ChangeLog?rev=HEAD&content-type=text/vnd.viewcvs-markup
+RPM-URL: http://rpmfind.net/linux/rpm2html/search.php?query=gsasl
+Debian-URL: http://packages.debian.org/testing/devel/gsasl
+OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
+BSD-Port-URL: http://www.freshports.org/security/gsasl/
+CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
+Mirror-Site-URL: http://josefsson.org/gsasl/
