@@ -1,4 +1,4 @@
-/* digest-md5.c --- Test the DIGEST-MD5 mechanism.
+/* old-gssapi.c --- Test the GSSAPI mechanism, using old callback API.
  * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -30,6 +30,9 @@
 
 #include "utils.h"
 
+#define SERVICE "host"
+#define HOST "latte.josefsson.org"
+
 #define PASSWORD "Open, Sesame"
 #define USERNAME "Ali Baba"
 /* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
@@ -54,13 +57,47 @@ server_cb_retrieve (Gsasl_session_ctx * xctx,
 }
 
 static int
-client_callback_service (Gsasl_session_ctx * ctx,
-			 char *srv,
-			 size_t * srvlen,
-			 char *host,
-			 size_t * hostlen, char *srvname, size_t * srvnamelen)
+server_cb_service (Gsasl_session_ctx * ctx,
+		   char *srv, size_t * srvlen, char *host, size_t * hostlen)
 {
+  size_t srvneedlen = strlen (SERVICE);
+  size_t hostneedlen = strlen (HOST);
+
+  if (srv && *srvlen < srvneedlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  if (host && *hostlen < hostneedlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  *srvlen = srvneedlen;
+  if (srv)
+    memcpy (srv, SERVICE, *srvlen);
+
+  *hostlen = hostneedlen;
+  if (host)
+    memcpy (host, HOST, *hostlen);
+
   return GSASL_OK;
+}
+
+static int
+server_cb_gssapi (Gsasl_session_ctx * ctx,
+		  const char *client_name, const char *authentication_id)
+{
+  char *data;
+
+  if (client_name)
+    printf ("GSSAPI user: %s\n", client_name);
+
+  if (authentication_id)
+    printf ("Authentication ID: %s\n", authentication_id);
+
+  data = readline ("Admit user? (y/n) ");
+
+  if (*data == 'y' || *data == 'Y')
+    return GSASL_OK;
+  else
+    return GSASL_AUTHENTICATION_ERROR;
 }
 
 static int
@@ -94,13 +131,47 @@ client_cb_password (Gsasl_session_ctx * xctx, char *out, size_t * outlen)
   return GSASL_OK;
 }
 
+static int
+client_cb_service (Gsasl_session_ctx * ctx,
+		   char *srv, size_t * srvlen,
+		   char *host, size_t * hostlen,
+		   char *srvname, size_t * srvnamelen)
+{
+  size_t srvneedlen = strlen (SERVICE);
+  size_t hostneedlen = strlen (HOST);
+
+  if (srv && srvlen && *srvlen < srvneedlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  if (host && hostlen && *hostlen < hostneedlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  if (srvlen)
+    {
+      *srvlen = srvneedlen;
+      if (srv)
+	memcpy (srv, SERVICE, *srvlen);
+    }
+
+  if (hostlen)
+    {
+      *hostlen = hostneedlen;
+      if (host)
+	memcpy (host, HOST, hostneedlen);
+    }
+
+  if (srvnamelen)
+    *srvnamelen = 0;
+
+  return GSASL_OK;
+}
+
 void
 doit (void)
 {
   Gsasl_ctx *ctx = NULL;
   Gsasl_session_ctx *server = NULL, *client = NULL;
-  char *s1, *s2;
-  size_t s1len, s2len;
+  char *s1 = NULL, *s2 = NULL;
   size_t i;
   int res;
 
@@ -112,99 +183,61 @@ doit (void)
     }
 
   gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);
-
-  gsasl_client_callback_service_set (ctx, client_callback_service);
+  gsasl_server_callback_service_set (ctx, server_cb_service);
+  gsasl_server_callback_gssapi_set (ctx, server_cb_gssapi);
 
   gsasl_client_callback_authentication_id_set (ctx,
 					       client_cb_authentication_id);
   gsasl_client_callback_password_set (ctx, client_cb_password);
-
+  gsasl_client_callback_service_set (ctx, client_cb_service);
 
   for (i = 0; i < 5; i++)
     {
-      res = gsasl_server_start (ctx, "DIGEST-MD5", &server);
+      res = gsasl_server_start (ctx, "GSSAPI", &server);
       if (res != GSASL_OK)
 	{
 	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
 	  return;
 	}
-      res = gsasl_client_start (ctx, "DIGEST-MD5", &client);
+      res = gsasl_client_start (ctx, "GSSAPI", &client);
       if (res != GSASL_OK)
 	{
 	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
 	  return;
 	}
 
-      /* Server begins... */
-
-      res = gsasl_step (server, NULL, 0, &s1, &s1len);
-      if (res != GSASL_NEEDS_MORE)
+      do
 	{
-	  fail ("gsasl_step(1) failed (%d):\n%s\n", res,
-		gsasl_strerror (res));
-	  return;
+	  res = gsasl_step64 (server, s1, &s2);
+	  if (s1)
+	    free (s1);
+	  if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
+	    {
+	      fail ("gsasl_step64 (1) failed (%d):\n%s\n", res,
+		    gsasl_strerror (res));
+	      return;
+	    }
+
+	  if (debug)
+	    printf ("S: %s\n", s2);
+
+	  res = gsasl_step64 (client, s2, &s1);
+	  free (s2);
+	  if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
+	    {
+	      fail ("gsasl_step64 (2) failed (%d):\n%s\n", res,
+		    gsasl_strerror (res));
+	      return;
+	    }
+
+	  if (debug)
+	    printf ("C: %s\n", s1);
 	}
+      while (res != GSASL_OK);
 
-      if (debug)
-	printf ("S: %.*s\n", s1len, s1);
-
-      /* Client respond... */
-
-      res = gsasl_step (client, s1, s1len, &s2, &s2len);
-      free (s1);
-      if (res != GSASL_NEEDS_MORE)
+      if (strcmp (s1, "") != 0)
 	{
-	  fail ("gsasl_step(2) failed (%d):\n%s\n", res,
-		gsasl_strerror (res));
-	  return;
-	}
-
-      if (debug)
-	printf ("C: %.*s\n", s2len, s2);
-
-      /* Server finishes... */
-
-      res = gsasl_step (server, s2, s2len, &s1, &s1len);
-      free (s2);
-      if (res != GSASL_NEEDS_MORE)
-	{
-	  fail ("gsasl_step(3) failed (%d):\n%s\n", res,
-		gsasl_strerror (res));
-	  return;
-	}
-
-      if (debug)
-	printf ("S: %.*s\n", s1len, s1);
-
-      /* Client finishes... */
-
-      res = gsasl_step (client, s1, s1len, &s2, &s2len);
-      free (s1);
-      if (res != GSASL_OK)
-	{
-	  fail ("gsasl_step(4) failed (%d):\n%s\n", res,
-		gsasl_strerror (res));
-	  return;
-	}
-
-      if (debug)
-	printf ("C: %.*s\n", s2len, s2);
-
-      /* Server is done. */
-
-      res = gsasl_step (server, s2, s2len, &s1, &s1len);
-      free (s2);
-      if (res != GSASL_OK)
-	{
-	  fail ("gsasl_step(5) failed (%d):\n%s\n", res,
-		gsasl_strerror (res));
-	  return;
-	}
-
-      if (s1len != 0)
-	{
-	  fail ("gsasl_step() failed, additional length=%d:\n", s1len);
-	  fail ("%s\n", s1);
+	  fail ("gsasl_step64() client had additional data: %s\n", s1);
 	  return;
 	}
 

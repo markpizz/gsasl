@@ -1,0 +1,163 @@
+name:NULL  type:SEQUENCE
+  name:pvno  type:INTEGER  value:0x05
+  name:msg-type  type:INTEGER  value:0x0b
+  name:crealm  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+  name:cname  type:SEQUENCE
+    name:name-type  type:INTEGER  value:0x00
+    name:name-string  type:SEQ_OF
+      name:NULL  type:GENERALSTRING
+      name:?1  type:GENERALSTRING  value:6a6173
+  name:ticket  type:SEQUENCE
+    name:tkt-vno  type:INTEGER  value:0x05
+    name:realm  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+    name:sname  type:SEQUENCE
+      name:name-type  type:INTEGER  value:0x01
+      name:name-string  type:SEQ_OF
+        name:NULL  type:GENERALSTRING
+        name:?1  type:GENERALSTRING  value:6b7262746774
+        name:?2  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+    name:enc-part  type:SEQUENCE
+      name:etype  type:INTEGER  value:0x03
+      name:cipher  type:OCT_STR  value:2cfc45fc973b8a8f8dc9dbdba1e5b7fc6d1c6d7929abb91ddac6c6dc5a96eafdbf38d24b2e4e8847215b2d47c771310b6f2ccf6ad4d2a961d37f466810c6f66941e776bdfeaa712a78b346de634efb3e524c36877bf9e393c615f052cf6dadd256304894b93a77d891a7fa738c636146c35fa379b7c4bc9fbde7224bd45d992ab9c5ac3c041419872beaec83c6fa1e95
+  name:enc-part  type:SEQUENCE
+    name:etype  type:INTEGER  value:0x03
+    name:cipher  type:OCT_STR  value:db294db40293d895918c50032d1666b0e0eb2408202a9282d68173af833a32a412ceb91a51f29aadc2913de2b01e779b1dd85528151653646b14c4be2b93a2fccc906011a024a975153acc9b6be255093d5ce7912c651bf4cb04b041e60f04d00b6364b4023b3284f436ef1eeaa7aae15d77ce643daff4e764433c1af43c4591d23e2945d0b27b9709e3c79629484c1e9aefba783570dff7848e6c1b3f861de74a89250fbd125ab2
+-----BEGIN SHISHI KDC-REP-----
+a4IBzjCCAcqgAwIBBaEDAgELow8bDUpPU0VGU1NPTi5PUkekEDAOoAMCAQChBzAF
+GwNqYXOlgeFhgd4wgdugAwIBBaEPGw1KT1NFRlNTT04uT1JHoiIwIKADAgEBoRkw
+FxsGa3JidGd0Gw1KT1NFRlNTT04uT1JHo4GeMIGboAMCAQOigZMEgZAs/EX8lzuK
+j43J29uh5bf8bRxteSmruR3axsbcWpbq/b840ksuTohHIVstR8dxMQtvLM9q1NKp
+YdN/RmgQxvZpQed2vf6qcSp4s0beY077PlJMNod7+eOTxhXwUs9trdJWMEiUuTp3
+2JGn+nOMY2FGw1+jebfEvJ+95yJL1F2ZKrnFrDwEFBmHK+rsg8b6HpWmgbYwgbOg
+AwIBA6KBqwSBqNspTbQCk9iVkYxQAy0WZrDg6yQIICqSgtaBc6+DOjKkEs65GlHy
+mq3CkT3isB53mx3YVSgVFlNkaxTEviuTovzMkGARoCSpdRU6zJtr4lUJPVznkSxl
+G/TLBLBB5g8E0AtjZLQCOzKE9DbvHuqnquFdd85kPa/052RDPBr0PEWR0j4pRdCy
+e5cJ48eWKUhMHprvung1cN/3hI5sGz+GHedKiSUPvRJasg==
+-----END SHISHI KDC-REP-----
+name:NULL  type:SEQUENCE
+  name:key  type:SEQUENCE
+    name:keytype  type:INTEGER  value:0x03
+    name:keyvalue  type:OCT_STR  value:d63e808cfe7f643d
+  name:last-req  type:SEQ_OF
+    name:NULL  type:SEQUENCE
+      name:lr-type  type:INTEGER
+      name:lr-value  type:TIME
+  name:nonce  type:INTEGER  value:0x0c418523
+  name:flags  type:BIT_STR  value(32):00400000
+  name:authtime  type:TIME  value:20040711155558Z
+  name:endtime  type:TIME  value:20240711155558Z
+  name:srealm  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+  name:sname  type:SEQUENCE
+    name:name-type  type:INTEGER  value:0x01
+    name:name-string  type:SEQ_OF
+      name:NULL  type:GENERALSTRING
+      name:?1  type:GENERALSTRING  value:6b7262746774
+      name:?2  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+-----BEGIN SHISHI EncKDCRepPart-----
+eYGIMIGFoBMwEaADAgEDoQoECNY+gIz+f2Q9oQIwAKIGAgQMQYUjpAcDBQAAQAAA
+pREYDzIwMDQwNzExMTU1NTU4WqcRGA8yMDI0MDcxMTE1NTU1OFqpDxsNSk9TRUZT
+U09OLk9SR6oiMCCgAwIBAaEZMBcbBmtyYnRndBsNSk9TRUZTU09OLk9SRw==
+-----END SHISHI EncKDCRepPart-----
+name:NULL  type:SEQUENCE
+  name:tkt-vno  type:INTEGER  value:0x05
+  name:realm  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+  name:sname  type:SEQUENCE
+    name:name-type  type:INTEGER  value:0x01
+    name:name-string  type:SEQ_OF
+      name:NULL  type:GENERALSTRING
+      name:?1  type:GENERALSTRING  value:6b7262746774
+      name:?2  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+  name:enc-part  type:SEQUENCE
+    name:etype  type:INTEGER  value:0x03
+    name:cipher  type:OCT_STR  value:2cfc45fc973b8a8f8dc9dbdba1e5b7fc6d1c6d7929abb91ddac6c6dc5a96eafdbf38d24b2e4e8847215b2d47c771310b6f2ccf6ad4d2a961d37f466810c6f66941e776bdfeaa712a78b346de634efb3e524c36877bf9e393c615f052cf6dadd256304894b93a77d891a7fa738c636146c35fa379b7c4bc9fbde7224bd45d992ab9c5ac3c041419872beaec83c6fa1e95
+-----BEGIN SHISHI Ticket-----
+YYHeMIHboAMCAQWhDxsNSk9TRUZTU09OLk9SR6IiMCCgAwIBAaEZMBcbBmtyYnRn
+dBsNSk9TRUZTU09OLk9SR6OBnjCBm6ADAgEDooGTBIGQLPxF/Jc7io+NydvboeW3
+/G0cbXkpq7kd2sbG3FqW6v2/ONJLLk6IRyFbLUfHcTELbyzPatTSqWHTf0ZoEMb2
+aUHndr3+qnEqeLNG3mNO+z5STDaHe/njk8YV8FLPba3SVjBIlLk6d9iRp/pzjGNh
+RsNfo3m3xLyfveciS9RdmSq5xaw8BBQZhyvq7IPG+h6V
+-----END SHISHI Ticket-----
+
+
+name:NULL  type:SEQUENCE
+  name:pvno  type:INTEGER  value:0x05
+  name:msg-type  type:INTEGER  value:0x0d
+  name:crealm  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+  name:cname  type:SEQUENCE
+    name:name-type  type:INTEGER  value:0x00
+    name:name-string  type:SEQ_OF
+      name:NULL  type:GENERALSTRING
+      name:?1  type:GENERALSTRING  value:6a6173
+  name:ticket  type:SEQUENCE
+    name:tkt-vno  type:INTEGER  value:0x05
+    name:realm  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+    name:sname  type:SEQUENCE
+      name:name-type  type:INTEGER  value:0x01
+      name:name-string  type:SEQ_OF
+        name:NULL  type:GENERALSTRING
+        name:?1  type:GENERALSTRING  value:686f7374
+        name:?2  type:GENERALSTRING  value:6c617474652e6a6f73656673736f6e2e6f7267
+    name:enc-part  type:SEQUENCE
+      name:etype  type:INTEGER  value:0x03
+      name:cipher  type:OCT_STR  value:80f8af4800aecb22c4852cc25cad377332375c7365f4eca15a99c1c13ff785be023e7d0315bd53d2937541aada9b672c62b1df632d33cb85de83e7e7efa2f0fa6551dcab98ac0a910fdb916ea816554fb9aed666133a58984be22d37da46d98252b883a0acee17d8c98c097428866a0906a1dc70c1909eb511618fdadf8c435c39ec154a564a1a2b7508051c663ca8a5
+  name:enc-part  type:SEQUENCE
+    name:etype  type:INTEGER  value:0x03
+    name:cipher  type:OCT_STR  value:87359dbbdd34da11cc17e22e1edb181f14be09749c81af24bb00c0ebe4ae9132449e710a4c455b28f48509ca01ef3ff883c7d9da57bca4e37959e45c1e3fca2355236c3edc87233d30577d5d79f5395d29133c44cac7e5af077d0f40c4e8ab1134c86dad8ebc7251e8178e3f8df4eb3ae00760889716ff4443a40d1ba5995d3a48bea574f41a019fc8467a944f3c700233a6fe42e42057b6e4419cd173e483c8cf3119c39e064cda
+-----BEGIN SHISHI KDC-REP-----
+bYIB0jCCAc6gAwIBBaEDAgENow8bDUpPU0VGU1NPTi5PUkekEDAOoAMCAQChBzAF
+GwNqYXOlgeVhgeIwgd+gAwIBBaEPGw1KT1NFRlNTT04uT1JHoiYwJKADAgEBoR0w
+GxsEaG9zdBsTbGF0dGUuam9zZWZzc29uLm9yZ6OBnjCBm6ADAgEDooGTBIGQgPiv
+SACuyyLEhSzCXK03czI3XHNl9OyhWpnBwT/3hb4CPn0DFb1T0pN1Qaram2csYrHf
+Yy0zy4Xeg+fn76Lw+mVR3KuYrAqRD9uRbqgWVU+5rtZmEzpYmEviLTfaRtmCUriD
+oKzuF9jJjAl0KIZqCQah3HDBkJ61EWGP2t+MQ1w57BVKVkoaK3UIBRxmPKilpoG2
+MIGzoAMCAQOigasEgaiHNZ273TTaEcwX4i4e2xgfFL4JdJyBryS7AMDr5K6RMkSe
+cQpMRVso9IUJygHvP/iDx9naV7yk43lZ5FweP8ojVSNsPtyHIz0wV31defU5XSkT
+PETKx+WvB30PQMToqxE0yG2tjrxyUegXjj+N9Os64AdgiJcW/0RDpA0bpZldOki+
+pXT0GgGfyEZ6lE88cAIzpv5C5CBXtuRBnNFz5IPIzzEZw54GTNo=
+-----END SHISHI KDC-REP-----
+name:NULL  type:SEQUENCE
+  name:key  type:SEQUENCE
+    name:keytype  type:INTEGER  value:0x03
+    name:keyvalue  type:OCT_STR  value:37705d1c54a84683
+  name:last-req  type:SEQ_OF
+    name:NULL  type:SEQUENCE
+      name:lr-type  type:INTEGER
+      name:lr-value  type:TIME
+  name:nonce  type:INTEGER  value:0x22cc41a9
+  name:flags  type:BIT_STR  value(32):00000000
+  name:authtime  type:TIME  value:20040711155559Z
+  name:endtime  type:TIME  value:20240711155558Z
+  name:srealm  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+  name:sname  type:SEQUENCE
+    name:name-type  type:INTEGER  value:0x01
+    name:name-string  type:SEQ_OF
+      name:NULL  type:GENERALSTRING
+      name:?1  type:GENERALSTRING  value:686f7374
+      name:?2  type:GENERALSTRING  value:6c617474652e6a6f73656673736f6e2e6f7267
+-----BEGIN SHISHI EncKDCRepPart-----
+eYGMMIGJoBMwEaADAgEDoQoECDdwXRxUqEaDoQIwAKIGAgQizEGppAcDBQAAAAAA
+pREYDzIwMDQwNzExMTU1NTU5WqcRGA8yMDI0MDcxMTE1NTU1OFqpDxsNSk9TRUZT
+U09OLk9SR6omMCSgAwIBAaEdMBsbBGhvc3QbE2xhdHRlLmpvc2Vmc3Nvbi5vcmc=
+
+-----END SHISHI EncKDCRepPart-----
+name:NULL  type:SEQUENCE
+  name:tkt-vno  type:INTEGER  value:0x05
+  name:realm  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
+  name:sname  type:SEQUENCE
+    name:name-type  type:INTEGER  value:0x01
+    name:name-string  type:SEQ_OF
+      name:NULL  type:GENERALSTRING
+      name:?1  type:GENERALSTRING  value:686f7374
+      name:?2  type:GENERALSTRING  value:6c617474652e6a6f73656673736f6e2e6f7267
+  name:enc-part  type:SEQUENCE
+    name:etype  type:INTEGER  value:0x03
+    name:cipher  type:OCT_STR  value:80f8af4800aecb22c4852cc25cad377332375c7365f4eca15a99c1c13ff785be023e7d0315bd53d2937541aada9b672c62b1df632d33cb85de83e7e7efa2f0fa6551dcab98ac0a910fdb916ea816554fb9aed666133a58984be22d37da46d98252b883a0acee17d8c98c097428866a0906a1dc70c1909eb511618fdadf8c435c39ec154a564a1a2b7508051c663ca8a5
+-----BEGIN SHISHI Ticket-----
+YYHiMIHfoAMCAQWhDxsNSk9TRUZTU09OLk9SR6ImMCSgAwIBAaEdMBsbBGhvc3Qb
+E2xhdHRlLmpvc2Vmc3Nvbi5vcmejgZ4wgZugAwIBA6KBkwSBkID4r0gArssixIUs
+wlytN3MyN1xzZfTsoVqZwcE/94W+Aj59AxW9U9KTdUGq2ptnLGKx32MtM8uF3oPn
+5++i8PplUdyrmKwKkQ/bkW6oFlVPua7WZhM6WJhL4i032kbZglK4g6Cs7hfYyYwJ
+dCiGagkGodxwwZCetRFhj9rfjENcOewVSlZKGit1CAUcZjyopQ==
+-----END SHISHI Ticket-----
+
+

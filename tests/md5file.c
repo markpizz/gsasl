@@ -55,7 +55,8 @@ doit (void)
     success ("user-found OK\n");
   else
     fail ("user-found FAIL (%d): %s\n", res, gsasl_strerror (res));
-  if (keylen != strlen (BILL_PASSWD) || memcmp (key, BILL_PASSWD, keylen) != 0)
+  if (keylen != strlen (BILL_PASSWD)
+      || memcmp (key, BILL_PASSWD, keylen) != 0)
     fail ("user-password FAIL (%d): %.*s\n", keylen, keylen, key);
   else
     success ("user-password OK\n");

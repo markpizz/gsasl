@@ -27,10 +27,15 @@ LDADD = ../lib/src/libgsasl.la libutils.la
 noinst_LTLIBRARIES = libutils.la
 libutils_la_SOURCES = utils.h utils.c
 
-TESTS_ENVIRONMENT = THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c
+TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
+	SHISHI_TICKETS=$(srcdir)/gssapi.tkt \
+	SHISHI_CONFIG=ignore-this-warning \
+	SHISHI_HOME=ignore-this-warning \
+	SHISHI_USER=ignore-this-warning \
+	THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c
 
 ctests = simple cram-md5 digest-md5 md5file \
-	old-cram-md5
+	old-cram-md5 old-gssapi
 
 TESTS = threadsafety $(ctests)	
 check_PROGRAMS = $(ctests)
