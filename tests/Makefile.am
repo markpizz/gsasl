@@ -27,6 +27,6 @@ libutils_la_SOURCES = utils.h utils.c
 
 TESTS_ENVIRONMENT = THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c
 
-TESTS = simple cram-md5 threadsafety
-check_PROGRAMS = simple cram-md5
+TESTS = simple cram-md5 digest-md5 threadsafety
+check_PROGRAMS = simple cram-md5 digest-md5
 dist_check_SCRIPTS = threadsafety
