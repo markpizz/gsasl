@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2002 Simon Josefsson.
+#
+# This file is part of Shishi.
+#
+# Shishi is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# Shishi is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with Shishi; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
+
+# I consider the output of this program to be unrestricted.  Use it as
+# you will.
+
+use strict;
+
+my ($inerror);
+my ($label, $txt);
+
+while (<>) {
+    if ($inerror) {
+	$txt .= $1 if (m,"(.*)",);
+	$inerror = 0 if m,break;,;
+	if (!$inerror) {
+	    print "\@item $label\n";
+	    print $txt, "\n\n";
+	}
+    } else {
+	next unless m,case (.*):,;
+	next if $1 eq "SHISHI_OK";
+	$inerror = 1;
+	$label = $1;
+	$txt = "";
+    }
+}
