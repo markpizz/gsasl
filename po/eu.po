@@ -7,10 +7,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 0.1.0\n"
+"Project-Id-Version: gsasl 0.1.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-11-07 19:26+0100\n"
-"PO-Revision-Date: 2004-04-21 21:42+0200\n"
+"POT-Creation-Date: 2004-08-08 00:42+0200\n"
+"PO-Revision-Date: 2004-11-05 16:36+0100\n"
 "Last-Translator: Mikel Olasagasti <hey_neken@euskal.org>\n"
 "Language-Team: Basque <translation-team-eu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -42,62 +42,58 @@ msgstr "Bezeroaren irteera:\n"
 msgid "Output from server:\n"
 msgstr "Zerbitzariaren irteera:\n"
 
-#: src/gsasl.c:304 src/gsasl.c:346 src/gsasl.c:397 src/gsasl.c:439
-#: src/gsasl.c:532
-#, fuzzy, c-format
+#: src/gsasl.c:335 src/gsasl.c:377 src/gsasl.c:428 src/gsasl.c:470
+#: src/gsasl.c:562
+#, c-format
 msgid "Libgsasl error (%d): %s"
-msgstr "Libgsasl-ek errorea izan du (%d): %s\n"
+msgstr "Libgsasl errorea (%d): %s"
 
-#: src/gsasl.c:353
+#: src/gsasl.c:384
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Bezero honek mekanismo hauek onartzen ditu:\n"
 
-#: src/gsasl.c:356
+#: src/gsasl.c:387
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Zerbitzari honek mekanismo hauek onartzen ditu:\n"
 
-#: src/gsasl.c:380
+#: src/gsasl.c:411
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Ezin da mekanismoa aurkitu...\n"
 
-#: src/gsasl.c:426
+#: src/gsasl.c:457
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr ""
-"Sartu zerbitzariko egiaztapen datuak base64 moduan (sakatu INTRO behar ez "
-"bada):\n"
+msgstr "Sartu zerbitzariko egiaztapen datuak base64 moduan (sakatu INTRO behar ez bada):\n"
 
-#: src/gsasl.c:429
+#: src/gsasl.c:460
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Sartu bezeroko egiaztapen datuak base64 moduan (sakatu INTRO behar ez "
-"bada):\n"
+msgstr "Sartu bezeroko egiaztapen datuak base64 moduan (sakatu INTRO behar ez bada):\n"
 
-#: src/gsasl.c:448
+#: src/gsasl.c:479
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Bezeroa egiaztatua (zerbitzariak fidatua)...\n"
 
-#: src/gsasl.c:451
+#: src/gsasl.c:482
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Zerbitzaria egiaztatua (bezeroak fidatua)...\n"
 
-#: src/gsasl.c:466
+#: src/gsasl.c:497
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Sartu aplikazioaren datuak (fitxategi-amaiera amaitzeko):\n"
 
-#: src/gsasl.c:510
+#: src/gsasl.c:536
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Bidaliko den aplikazio datuak base64 moduan kodifikatua:\n"
 
-#: src/gsasl.c:537
+#: src/gsasl.c:567
 #, c-format
 msgid "Session finished...\n"
 msgstr "Saioa amaituta...\n"
