@@ -206,14 +206,15 @@ if test "$gssapi" != "no" ; then
 				[AC_DEFINE(GSS_C_NT_HOSTBASED_SERVICE,
 					gss_nt_service_name,
 					[Work around buggy MIT library])],[
-#ifdef HAVE_GSSAPI_H
-#include <gssapi.h>
-#endif
-#ifdef HAVE_GSSAPI_GSSAPI_H
-#include <gssapi/gssapi.h>
-#endif
-#ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
-#include <gssapi/gssapi_generic.h>
+#ifdef HAVE_GSSAPI_H /* MIT GSSAPI */
+# include <gssapi.h>
+#else /* Heimdal GSSAPI */
+# ifdef HAVE_GSSAPI_GSSAPI_H
+#  include <gssapi/gssapi.h>
+# endif
+# ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
+#  include <gssapi/gssapi_generic.h>
+# endif
 #endif
 ])
 			CPPFLAGS=$save_CPPFLAGS
