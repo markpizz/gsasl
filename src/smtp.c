@@ -1,5 +1,5 @@
 /* smtp.c --- Implement SMTP profile of SASL login.
- * Copyright (C) 2002, 2003  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -44,12 +44,16 @@ smtp_select_mechanism (char **mechlist)
       if (!writeln ("EHLO foo"))
 	return 0;
 
-      if (!readln (&in))
-	return 0;
+      do
+	{
+	  if (!readln (&in))
+	    return 0;
 
-      /* XXX parse SMTP EHLO line */
-
-      *mechlist = in;
+#define GREETING "250-AUTH "
+	  if (strncmp (in, GREETING, strlen (GREETING)) == 0)
+	    *mechlist = in + strlen (GREETING);
+	}
+      while (strncmp(in, "250 ", 4) != 0);
     }
 
   return 1;
