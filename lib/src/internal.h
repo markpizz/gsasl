@@ -91,6 +91,7 @@ struct Gsasl_session
   char *service;
   char *hostname;
   char *gssapi_display_name;
+  char *realm;
 #ifndef GSASL_NO_OBSOLETE
   /* Obsolete stuff. */
   void *application_data;

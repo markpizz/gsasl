@@ -71,6 +71,10 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->gssapi_display_name;
       break;
 
+    case GSASL_REALM:
+      p = &sctx->realm;
+      break;
+
     default:
       break;
     }
@@ -217,6 +221,7 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
       Gsasl_client_callback_passcode cb_passcode;
       Gsasl_client_callback_pin cb_pin;
       Gsasl_client_callback_service cb_service;
+      Gsasl_client_callback_realm cb_realm;
       char buf[BUFSIZ];
       size_t buflen = BUFSIZ - 1;
       int res;
@@ -315,6 +320,18 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 	  buf[buflen] = '\0';
 	  gsasl_property_set (sctx, prop, buf);
 	  break;
+
+	case GSASL_REALM:
+	  cb_realm = gsasl_client_callback_realm_get (sctx->ctx);
+	  if (!cb_realm)
+	    break;
+	  res = cb_realm (sctx, buf, &buflen);
+	  if (res != GSASL_OK)
+	    break;
+	  buf[buflen] = '\0';
+	  gsasl_property_set (sctx, prop, buf);
+	  break;
+
 
 	default:
 	  break;
