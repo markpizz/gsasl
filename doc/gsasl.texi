@@ -628,9 +628,9 @@ main()
       if (rc != GSASL_NEEDS_MORE && rc != GSASL_OK)
         break;
 
-      write_to_client(output);
+      write_to_server(output);
 
-      input = read_from_client();
+      input = read_from_server();
     @}
   while (rc == GSASL_NEEDS_MORE);
 
