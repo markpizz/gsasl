@@ -1206,7 +1206,7 @@ mechanism require in order to work.
 @node Properties
 @chapter Properties
 
-Shared client and server properties:
+Properties with associated data:
 
 @itemize
 
@@ -1256,7 +1256,8 @@ A SecurID personal identification number (PIN) suggested by the server.
 
 @end itemize
 
-Server specific properties, used to validate client:
+Abstract properties, used to trigger the callback, typically used in
+servers to validate client credentials:
 
 @itemize
 
