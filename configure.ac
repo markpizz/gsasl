@@ -22,16 +22,16 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.50)
 AC_INIT(gsasl, 0.0.8, bug-gsasl@gnu.org)
 
-# Interfaces removed:       CURRENT++ AGE=0 REVISION=0
-# Interfaces added:         CURRENT++ AGE++ REVISION=0
-# Interfaces changed:       CURRENT++       REVISION=0
-# No interfaces changed:                    REVISION++
-LT_CURRENT=3
-LT_AGE=2
-LT_REVISION=1
+# Library code modified:                              REVISION++
+# Interfaces changed/added/removed:   CURRENT++       REVISION=0
+# Interfaces added:                             AGE++
+# Interfaces removed:                           AGE=0
+LT_CURRENT=4
+LT_REVISION=0
+LT_AGE=3
 AC_SUBST(LT_CURRENT)
-AC_SUBST(LT_AGE)
 AC_SUBST(LT_REVISION)
+AC_SUBST(LT_AGE)
 
 AM_INIT_AUTOMAKE(gnits)
 AM_CONFIG_HEADER(config.h)
