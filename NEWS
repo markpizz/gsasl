@@ -62,6 +62,11 @@ gsasl_client_application_data_set: DEPRECATED: use gsasl_appinfo_set instead.
 gsasl_server_application_data_get: DEPRECATED: use gsasl_appinfo_get instead.
 gsasl_server_application_data_set: DEPRECATED: use gsasl_appinfo_set instead.
 
+Gsasl: ADD.
+Gsasl_ctx: DEPRECATED: use Gsasl instead.
+Gsasl_session: ADD.
+Gsasl_session_ctx: DEPRECATED: use Gsasl_session instead.
+
 GSASL_CRYPTO_ERROR: ADD, replaces deprecated GSASL_LIBGCRYPT_ERROR.
 GSASL_LIBGCRYPT_ERROR: DEPRECATED: use GSASL_CRYPTO_ERROR instead.
 
