@@ -8,10 +8,11 @@ OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
 BSD-Port-URL: http://www.freshports.org/security/gsasl/
 CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
 Mirror-Site-URL: http://josefsson.org/gsasl/
-Version: 0.2.4
-Release-Focus: Major bugfixes
+Version: 0.2.5
+Release-Focus: Minor bugfixes
 
-This version include a re-written implementation of DIGEST-MD5 for the
-new API, some internationalization improvements in the PLAIN server, a
-small number of fixes in the new (0.2.x) API functions, and a new
-simple user database password lookup function API.
+Strings that trigger the Unicode NFKC bug in PR#29 are now rejected.
+ANONYMOUS server reject empty and overlong tokens.  EXTERNAL client
+now return empty data instead of NULL for empty authzid.  Typos in
+gsasl_strerror() messages fixed.  Added self test of EXTERNAL
+mechanism.  Vietnamese translation added.
