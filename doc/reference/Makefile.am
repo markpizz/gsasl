@@ -35,19 +35,17 @@ CFILE_GLOB=$(top_srcdir)/lib/*.c
 # Header files to ignore when scanning.
 IGNORE_HFILES=\
 	anonymous.h \
-	digest-md5.h \
-	gettext.h \
-	internal.h \
-	plain.h \
-	x-gssapi.h \
 	cram-md5.h \
+	digest-md5.h \
 	external.h \
-	login.h \
-	securid.h \
-	x-ntlm.h \
-	internal.h \
 	gettext.h \
-	kerberos_v5.h
+	internal.h \
+	kerberos_v5.h \
+	login.h \
+	plain.h \
+	securid.h \
+	x-gssapi.h \
+	x-ntlm.h
 
 # Images to copy into HTML directory.
 HTML_IMAGES =
@@ -149,6 +147,8 @@ html-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	@echo '-- Fixing Crossreferences' 
 	cd $(srcdir) && gtkdoc-fixxref --module-dir=html --html-dir=$(HTML_DIR) $(FIXXREF_OPTIONS)
 	touch html-build.stamp
+else
+all-local:
 endif
 
 ##############
@@ -158,6 +158,8 @@ clean-local:
 
 maintainer-clean-local: clean
 	cd $(srcdir) && rm -rf sgml html $(DOC_MODULE)-decl-list.txt $(DOC_MODULE)-decl.txt
+	cd $(srcdir) && rm -f $(DOC_MODULE)-sections.txt $(DOC_MODULE)-undocumented.txt $(DOC_MODULE).types
+	cd $(srcdir) && rm -f tmpl/$(DOC_MODULE)*
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(TARGET_DIR)
