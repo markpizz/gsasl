@@ -1,22 +1,21 @@
 /* Name frobnication for compiling argp outside of glibc
-   Copyright (C) 1997 Free Software Foundation, Inc.
+   Copyright (C) 1997, 2003 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
    Written by Miles Bader <miles@gnu.ai.mit.edu>.
 
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
 
-   The GNU C Library is distributed in the hope that it will be useful,
+   This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, write to the Free
-   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307 USA.  */
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation,
+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #if !_LIBC
 /* This code is written for inclusion in gnu-libc, and uses names in the
@@ -138,7 +137,6 @@
 # endif
 
 extern char *__argp_basename (char *name);
-extern char *__argp_short_program_name (void);
 
 #endif /* !_LIBC */
 
@@ -146,26 +144,8 @@ extern char *__argp_short_program_name (void);
 #define __set_errno(e) (errno = (e))
 #endif
 
-/* NOTE BEFORE MODIFYING ARGP: This version number must be
-   incremented whenever callers compiled using an old argp.h can no
-   longer properly call the functions in this argp*.c.  */
-#define ARGP_INTERFACE_VERSION 1
-
-/* Get __GNU_LIBRARY__.  */
-#include <stdio.h>
-
-/* Comment out all this code if we are using the GNU C Library, and are not
-   actually compiling the library itself, and the installed library
-   supports the same library interface we do.  This code is part of the GNU
-   C Library, but also included in many other GNU distributions.  Compiling
-   and linking in this code is a waste when using the GNU C library
-   (especially if it is a shared library).  Rather than having every GNU
-   program understand `configure --with-gnu-libc' and omit the object
-   files, it is simpler to just do this in the source for each such file.  */
-
-#if !defined _LIBC && defined __GNU_LIBRARY__ && __GNU_LIBRARY__ > 1
-# include <gnu-versions.h>
-# if _GNU_ARGP_INTERFACE_VERSION == ARGP_INTERFACE_VERSION
-#  define ELIDE_CODE
-# endif
+#if defined _LIBC || HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME
+# define __argp_short_program_name()	(program_invocation_short_name)
+#else
+extern char *__argp_short_program_name (void);
 #endif

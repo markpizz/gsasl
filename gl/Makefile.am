@@ -8,7 +8,6 @@ AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 noinst_LTLIBRARIES = libfoo.la
 
 libfoo_la_SOURCES =
-#libfoo_a_LIBADD = @LIBOBJS@
 libfoo_la_LIBADD = @LTLIBOBJS@
 EXTRA_DIST =
 BUILT_SOURCES =
@@ -39,6 +38,9 @@ libfoo_la_SOURCES += exit.h
 
 libfoo_la_SOURCES += exitfail.h exitfail.c
 
+
+libfoo_la_SOURCES += getline.h
+EXTRA_DIST += getndelim2.h getndelim2.c
 
 libfoo_la_SOURCES += getopt.h getopt.c getopt1.c
 
