@@ -332,7 +332,7 @@ _gsasl_getsubopt (optionp, tokens, valuep)
 
 static int
 _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
-	       unsigned char secret[MD5LEN], unsigned char *nonce, uint32_t nc, char *cnonce, int qop, char *authzid, char *digesturi, char *a2string,	/* "AUTHENTICATE:" or ":" */
+	       char secret[MD5LEN], char *nonce, uint32_t nc, char *cnonce, int qop, char *authzid, char *digesturi, char *a2string,	/* "AUTHENTICATE:" or ":" */
 	       int cipher,	/* used by kcc and kcs */
 	       char *kic,	/* output client integrity key, may be NULL */
 	       char *kis,	/* output server integrity key, may be NULL */
@@ -342,7 +342,7 @@ _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
   char nchex[NCLEN + 1];
   char a1hexhash[2 * MD5LEN];
   char a2hexhash[2 * MD5LEN];
-  unsigned char *hash;
+  char *hash;
   char *tmp, *p;
   size_t tmplen;
   int rc;
@@ -606,20 +606,20 @@ _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
 struct _Gsasl_digest_md5_client_state
 {
   int step;
-  unsigned char secret[MD5LEN];
-  unsigned char *nonce;
+  char secret[MD5LEN];
+  char *nonce;
   uint32_t nc;
-  unsigned char cnonce[2 * CNONCE_ENTROPY_BITS / 8 + 1];
+  char cnonce[2 * CNONCE_ENTROPY_BITS / 8 + 1];
   Gsasl_qop qop;
   Gsasl_cipher cipher;
-  unsigned char *authzid;
-  unsigned char *digesturi;
-  unsigned char response[RESPONSE_LENGTH + 1];
+  char *authzid;
+  char *digesturi;
+  char response[RESPONSE_LENGTH + 1];
   uint32_t readseqnum, sendseqnum;
-  unsigned char kic[MD5LEN];
-  unsigned char kcc[MD5LEN];
-  unsigned char kis[MD5LEN];
-  unsigned char kcs[MD5LEN];
+  char kic[MD5LEN];
+  char kcc[MD5LEN];
+  char kis[MD5LEN];
+  char kcs[MD5LEN];
 };
 typedef struct _Gsasl_digest_md5_client_state _Gsasl_digest_md5_client_state;
 
@@ -1121,7 +1121,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	}
 	/* response */
 	{
-	  unsigned char *tmp;
+	  char *tmp;
 	  size_t len;
 	  char *secret, *p;
 	  size_t secretlen;
@@ -1415,7 +1415,7 @@ _gsasl_digest_md5_client_encode (Gsasl_session_ctx * sctx,
 	return GSASL_MALLOC_ERROR;
 
       tmp = htonl (state->sendseqnum);
-      memcpy (seqnumin, (unsigned char *) &tmp, MAC_SEQNUM_LEN);
+      memcpy (seqnumin, (char *) &tmp, MAC_SEQNUM_LEN);
       memcpy (seqnumin + MAC_SEQNUM_LEN, input, input_len);
 
       res = gsasl_hmac_md5 (state->kic, MD5LEN,
@@ -1494,7 +1494,7 @@ _gsasl_digest_md5_client_decode (Gsasl_session_ctx * sctx,
 
       tmp = htonl (state->readseqnum);
 
-      memcpy (seqnumin, (unsigned char *) &tmp, SASL_INTEGRITY_PREFIX_LENGTH);
+      memcpy (seqnumin, (char *) &tmp, SASL_INTEGRITY_PREFIX_LENGTH);
       memcpy (seqnumin + SASL_INTEGRITY_PREFIX_LENGTH,
 	      input + MAC_DATA_LEN, len);
 
@@ -1551,10 +1551,10 @@ struct _Gsasl_digest_md5_server_state
   Gsasl_qop qop;
   Gsasl_cipher cipher;
   uint32_t readseqnum, sendseqnum;
-  unsigned char kic[MD5LEN];
-  unsigned char kcc[MD5LEN];
-  unsigned char kis[MD5LEN];
-  unsigned char kcs[MD5LEN];
+  char kic[MD5LEN];
+  char kcc[MD5LEN];
+  char kis[MD5LEN];
+  char kcs[MD5LEN];
 };
 typedef struct _Gsasl_digest_md5_server_state _Gsasl_digest_md5_server_state;
 
@@ -1881,21 +1881,21 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 
     case 1:
       {
-	unsigned char *nonce = NULL;
+	char *nonce = NULL;
 	char *cnonce = NULL;
 	uint32_t nc = 0;
 	char *authzid = NULL;
 	char *digesturi = NULL;
 	const char *subopts, *value;
-	unsigned char *realm = NULL;
-	unsigned char *username = NULL;
-	unsigned char *response = NULL;
+	char *realm = NULL;
+	char *username = NULL;
+	char *response = NULL;
 	char *zinput = NULL;
 	Gsasl_qop qop = 0;
 	long maxbuf = -1;
 	int cipher = 0;
 	int i;
-	unsigned char secret[MD5LEN];
+	char secret[MD5LEN];
 
 	if (input_len == 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
@@ -2103,7 +2103,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	  }
 	if (cb_retrieve)
 	  {
-	    unsigned char *tmp;
+	    char *tmp;
 	    size_t keylen;
 	    char *key;
 	    char *normkey;
@@ -2299,7 +2299,7 @@ _gsasl_digest_md5_server_encode (Gsasl_session_ctx * sctx,
 	return GSASL_MALLOC_ERROR;
 
       tmp = htonl (state->sendseqnum);
-      memcpy (seqnumin, (unsigned char *) &tmp, MAC_SEQNUM_LEN);
+      memcpy (seqnumin, (char *) &tmp, MAC_SEQNUM_LEN);
       memcpy (seqnumin + MAC_SEQNUM_LEN, input, input_len);
 
       res = gsasl_hmac_md5 (state->kis, MD5LEN,
@@ -2378,7 +2378,7 @@ _gsasl_digest_md5_server_decode (Gsasl_session_ctx * sctx,
 
       tmp = htonl (state->readseqnum);
 
-      memcpy (seqnumin, (unsigned char *) &tmp, SASL_INTEGRITY_PREFIX_LENGTH);
+      memcpy (seqnumin, (char *) &tmp, SASL_INTEGRITY_PREFIX_LENGTH);
       memcpy (seqnumin + SASL_INTEGRITY_PREFIX_LENGTH,
 	      input + MAC_DATA_LEN, len);
 
