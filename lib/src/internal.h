@@ -99,6 +99,7 @@ struct Gsasl_session
   char *suggestedpin;
   char *service;
   char *hostname;
+  char *gssapi_display_name;
   /* Obsolete stuff. */
   void *application_data;
 };
