@@ -200,7 +200,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	he = gethostbyname (connect_hostname);
 	if (!he || he->h_addr_list[0] == NULL || he->h_addrtype != AF_INET)
 	  argp_error (state, "unknown host: %s", connect_hostname);
-	memset (sinaddr_inp, 0, sizeof (*sinaddr_inp));
+	memset (&connect_addr, 0, sizeof (connect_addr));
 	sinaddr_inp->sin_family = he->h_addrtype;
 	memcpy (&sinaddr_inp->sin_addr, he->h_addr_list[0], he->h_length);
 	se = getservbyname (connect_service, "tcp");
