@@ -739,7 +739,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	memcpy (zinput, input, input_len);
 	zinput[input_len] = '\0';
 
-	gsasl_randomize (0, state->cnonce, CNONCE_ENTROPY_BITS / 8);
+	gsasl_nonce (state->cnonce, CNONCE_ENTROPY_BITS / 8);
 	for (i = 0; i < CNONCE_ENTROPY_BITS / 8; i++)
 	  {
 	    state->cnonce[CNONCE_ENTROPY_BITS / 8 + i] =
@@ -1588,7 +1588,7 @@ _gsasl_digest_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
   state->qop = GSASL_QOP_AUTH | GSASL_QOP_AUTH_INT | GSASL_QOP_AUTH_CONF;
   state->cipher = GSASL_CIPHER_DES | GSASL_CIPHER_3DES | GSASL_CIPHER_RC4 |
     GSASL_CIPHER_RC4_40 | GSASL_CIPHER_RC4_56 | GSASL_CIPHER_AES;
-  gsasl_randomize (0, state->nonce, NONCE_ENTROPY_BITS / 8);
+  gsasl_nonce (state->nonce, NONCE_ENTROPY_BITS / 8);
   state->readseqnum = 0;
   state->sendseqnum = 0;
 
