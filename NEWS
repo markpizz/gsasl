@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Changes in 0.1.2 (unreleased)
 
+** The SMTP mode in `gsasl' should now work.
+
 ** Cross compile builds should work.
 It should work for any sane cross compile target, but the only tested
 platform is uClibc/uClinux on Motorola Coldfire.
