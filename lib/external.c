@@ -38,15 +38,7 @@ _gsasl_external_client_done (Gsasl_ctx * ctx)
 int
 _gsasl_external_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 {
-  int *step;
-
-  step = (int *) malloc (sizeof (*step));
-  if (step == NULL)
-    return GSASL_MALLOC_ERROR;
-
-  *step = 0;
-
-  *mech_data = step;
+  *mech_data = NULL;
 
   return GSASL_OK;
 }
@@ -58,25 +50,14 @@ _gsasl_external_client_step (Gsasl_session_ctx * cctx,
 			     size_t input_len,
 			     char *output, size_t * output_len)
 {
-  int *step = mech_data;
-
-  if (*step > 0)
-    return GSASL_OK;
-
-  (*step)++;
-
   *output_len = 0;
 
-  return GSASL_NEEDS_MORE;
+  return GSASL_OK;
 }
 
 int
 _gsasl_external_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
 {
-  int *step = mech_data;
-
-  free (step);
-
   return GSASL_OK;
 }
 

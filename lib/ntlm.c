@@ -87,6 +87,8 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
   Gsasl_ctx *ctx;
   /* XXX create callback for domain? Doesn't seem to be needed by servers */
   char *domain = NULL;
+  char *password;
+  size_t len;
   int res;
 
   ctx = gsasl_client_ctx_get (cctx);
@@ -104,21 +106,19 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
   switch (state->step)
     {
     case 0:
-      if (input_len == 0)
-	{
-	  /* Initial client response */
-	  *output_len = 0;
-	  return GSASL_NEEDS_MORE;
-	}
+      /* Isn't this just the IMAP continuation char?  Not part of SASL mech.
+	 if (input_len != 1 && *input != '+')
+	 return GSASL_MECHANISM_PARSE_ERROR; */
 
-      if (input_len != 1 && *input != '+')
-	return GSASL_MECHANISM_PARSE_ERROR;
-
-      res = cb_authorization_id (cctx, output, *output_len);
+      len = *output_len;
+      res = cb_authorization_id (cctx, NULL, &len);
       if (res != GSASL_OK)
 	return res;
-
-      state->username = strdup (output);
+      state->username = malloc(len + 1);
+      res = cb_authorization_id (cctx, state->username, &len);
+      if (res != GSASL_OK)
+	return res;
+      state->username[len] = '\0';
 
       buildSmbNtlmAuthRequest (&request, state->username, domain);
 
@@ -131,7 +131,6 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
       /* dumpSmbNtlmAuthRequest(stdout, &request); */
 
       state->step++;
-
       res = GSASL_NEEDS_MORE;
       break;
 
@@ -144,13 +143,18 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
 
       memcpy (&challenge, input, input_len);
 
-      /* XXX? password stored in callee's output buffer */
-      res = cb_password (cctx, output, *output_len);
+      len = *output_len;
+      res = cb_password (cctx, NULL, &len);
       if (res != GSASL_OK)
 	return res;
+      password = malloc(len + 1);
+      res = cb_password (cctx, password, &len);
+      if (res != GSASL_OK)
+	return res;
+      password[len] = '\0';
 
       buildSmbNtlmAuthResponse (&challenge, &response, state->username,
-				output);
+				password);
 
       if (*output_len < SmbLength (&response))
 	return GSASL_TOO_SMALL_BUFFER;
@@ -161,13 +165,6 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
       /* dumpSmbNtlmAuthResponse(stdout, &response); */
 
       state->step++;
-
-      res = GSASL_NEEDS_MORE;
-      break;
-
-    case 2:
-      state->step++;
-
       res = GSASL_OK;
       break;
 

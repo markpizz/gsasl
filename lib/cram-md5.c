@@ -25,6 +25,11 @@
 
 #include <gcrypt.h>
 
+struct _Gsasl_cram_md5_client_state
+{
+  int step;
+};
+
 int
 _gsasl_cram_md5_client_init (Gsasl_ctx * ctx)
 {
@@ -49,8 +54,8 @@ _gsasl_cram_md5_client_done (Gsasl_ctx * ctx)
 int
 _gsasl_cram_md5_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 {
+  struct _Gsasl_cram_md5_client_state *state;
   Gsasl_ctx *ctx;
-  int *done;
 
   ctx = gsasl_client_ctx_get (cctx);
   if (ctx == NULL)
@@ -62,13 +67,13 @@ _gsasl_cram_md5_client_start (Gsasl_session_ctx * cctx, void **mech_data)
   if (gsasl_client_callback_password_get (ctx) == NULL)
     return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
-  done = (int *) malloc (sizeof (*done));
-  if (done == NULL)
+  state = malloc (sizeof (*state));
+  if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
-  *done = 0;
+  state->step = 0;
 
-  *mech_data = done;
+  *mech_data = state;
 
   return GSASL_OK;
 }
@@ -80,7 +85,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
 			     size_t input_len,
 			     char *output, size_t * output_len)
 {
-  int *step = mech_data;
+  struct _Gsasl_cram_md5_client_state *state = mech_data;
   Gsasl_ctx *ctx;
   Gsasl_client_callback_authentication_id cb_authentication_id;
   Gsasl_client_callback_password cb_password;
@@ -92,87 +97,88 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
   int i;
   int res;
 
-  if (*step > 0)
-    return GSASL_OK;
-
-  if (input_len == 0)
+  switch(state->step)
     {
-      *output_len = 0;
-      return GSASL_NEEDS_MORE;
-    }
+    case 0:
+      ctx = gsasl_client_ctx_get (cctx);
+      if (ctx == NULL)
+	return GSASL_CANNOT_GET_CTX;
 
-  ctx = gsasl_client_ctx_get (cctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
+      cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
+      if (cb_authentication_id == NULL)
+	return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
 
-  cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
-  if (cb_authentication_id == NULL)
-    return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
+      cb_password = gsasl_client_callback_password_get (ctx);
+      if (cb_password == NULL)
+	return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
-  cb_password = gsasl_client_callback_password_get (ctx);
-  if (cb_password == NULL)
-    return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
+      md5h = gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_SECURE|GCRY_MD_FLAG_HMAC);
+      if (md5h == NULL)
+	return GSASL_GCRYPT_ERROR;
 
-  md5h = gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_HMAC);
-  if (md5h == NULL)
-    return GSASL_GCRYPT_ERROR;
-
-  /* XXX? password stored in callee's output buffer */
-  len = *output_len;
-  res = cb_password (cctx, output, &len);
-  if (res != GSASL_OK)
-    return res;
-  tmp = gsasl_utf8_nfkc_normalize (output, len);
-  if (tmp == NULL)
-    return GSASL_UNICODE_NORMALIZATION_ERROR;
-  res = gcry_md_setkey (md5h, tmp, strlen (tmp));
-  free (tmp);
-  if (res != GCRYERR_SUCCESS)
-    return GSASL_GCRYPT_ERROR;
-
-  gcry_md_write (md5h, input, input_len);
-
-  hash = gcry_md_read (md5h, GCRY_MD_MD5);
-  if (hash == NULL)
-    return GSASL_GCRYPT_ERROR;
-
-  len = *output_len;
-  res = cb_authentication_id (cctx, output, &len);
-  if (res != GSASL_OK)
-    return res;
-  tmp = gsasl_utf8_nfkc_normalize (output, len);
-  if (tmp == NULL)
-    return GSASL_UNICODE_NORMALIZATION_ERROR;
-  if (strlen (tmp) + strlen (" ") + 2 * hash_len >= *output_len)
-    {
+      /* XXX? password stored in callee's output buffer */
+      len = *output_len;
+      res = cb_password (cctx, output, &len);
+      if (res != GSASL_OK)
+	return res;
+      tmp = gsasl_utf8_nfkc_normalize (output, len);
+      if (tmp == NULL)
+	return GSASL_UNICODE_NORMALIZATION_ERROR;
+      res = gcry_md_setkey (md5h, tmp, strlen (tmp));
       free (tmp);
-      return GSASL_TOO_SMALL_BUFFER;
+      if (res != GCRYERR_SUCCESS)
+	return GSASL_GCRYPT_ERROR;
+
+      gcry_md_write (md5h, input, input_len);
+
+      hash = gcry_md_read (md5h, GCRY_MD_MD5);
+      if (hash == NULL)
+	return GSASL_GCRYPT_ERROR;
+
+      len = *output_len;
+      res = cb_authentication_id (cctx, output, &len);
+      if (res != GSASL_OK)
+	return res;
+      tmp = gsasl_utf8_nfkc_normalize (output, len);
+      if (tmp == NULL)
+	return GSASL_UNICODE_NORMALIZATION_ERROR;
+      if (strlen (tmp) + strlen (" ") + 2 * hash_len >= *output_len)
+	{
+	  free (tmp);
+	  return GSASL_TOO_SMALL_BUFFER;
+	}
+      len = strlen (tmp);
+      memcpy (output, tmp, len);
+      free (tmp);
+      output[len++] = ' ';
+
+      for (i = 0; i < hash_len; i++)
+	{
+	  output[len + 2 * i + 1] = HEXCHAR (hash[i]);
+	  output[len + 2 * i + 0] = HEXCHAR (hash[i] >> 4);
+	}
+      *output_len = len + 2 * hash_len;
+      
+      gcry_md_close (md5h);
+
+      state->step++;
+      res = GSASL_OK;
+      break;
+
+    default:
+      res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
+      break;
     }
-  len = strlen (tmp);
-  memcpy (output, tmp, len);
-  free (tmp);
-  output[len++] = ' ';
 
-  for (i = 0; i < hash_len; i++)
-    {
-      output[len + 2 * i + 1] = HEXCHAR (hash[i]);
-      output[len + 2 * i + 0] = HEXCHAR (hash[i] >> 4);
-    }
-  *output_len = len + 2 * hash_len;
-
-  gcry_md_close (md5h);
-
-  (*step)++;
-
-  return GSASL_NEEDS_MORE;
+  return res;
 }
 
 int
 _gsasl_cram_md5_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
 {
-  int *step = mech_data;
+  struct _Gsasl_cram_md5_client_state *state = mech_data;
 
-  free (step);
+  free (state);
 
   return GSASL_OK;
 }
@@ -311,7 +317,7 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
       char *normkey;
       int i;
 
-      md5h = gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_HMAC);
+      md5h = gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_SECURE|GCRY_MD_FLAG_HMAC);
       if (md5h == NULL)
 	{
 	  free (username);

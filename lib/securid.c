@@ -108,20 +108,22 @@ _gsasl_securid_client_step (Gsasl_session_ctx * cctx,
   switch (*step)
     {
     case 1:
-      if (input_len > strlen (PASSCODE) &&
-	  memcmp (input, PASSCODE, strlen (PASSCODE) + 1) == 0)
+      if (input_len == strlen (PASSCODE) &&
+	  memcmp (input, PASSCODE, strlen (PASSCODE)) == 0)
 	{
 	  *step = 0;
 	}
-      else if (input_len > strlen (PIN) &&
-	       memcmp (input, PIN, strlen (PIN) + 1) == 0)
+      else if (input_len >= strlen (PIN) &&
+	       memcmp (input, PIN, strlen (PIN)) == 0)
 	{
 	  if (cb_pin == NULL)
 	    return GSASL_NEED_CLIENT_PIN_CALLBACK;
+	  do_pin = 1;
 	  *step = 0;
 	}
       else
 	{
+	  *output_len = 0;
 	  res = GSASL_OK;
 	  break;
 	}
@@ -150,8 +152,19 @@ _gsasl_securid_client_step (Gsasl_session_ctx * cctx,
       if (do_pin)
 	{
 	  len = *output_len - (tmp - output);
-	  if (input_len > strlen (PIN) + 1)
-	    res = cb_pin (cctx, &input[strlen (PIN) + 1], tmp, &len);
+	  if (input_len > strlen (PIN))
+	    {
+	      char *zsuggestedpin;
+
+	      zsuggestedpin = malloc(input_len - strlen(PIN));
+	      if (zsuggestedpin == NULL)
+		return GSASL_MALLOC_ERROR;
+	      memcpy(zsuggestedpin, &input[strlen(PIN)], 
+		     input_len - strlen(PIN));
+	      zsuggestedpin[input_len - strlen(PIN)] = '\0';
+	      res = cb_pin (cctx, zsuggestedpin, tmp, &len);
+	      free(zsuggestedpin);
+	    }
 	  else
 	    res = cb_pin (cctx, NULL, tmp, &len);
 	  if (res != GSASL_OK)
@@ -162,7 +175,7 @@ _gsasl_securid_client_step (Gsasl_session_ctx * cctx,
 
       *output_len = (tmp - output);
       (*step)++;
-      res = GSASL_NEEDS_MORE;
+      res = GSASL_OK;
       break;
 
     case 2:
@@ -253,7 +266,11 @@ _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
 	  pin = memchr (passcode, '\0', input_len -
 			strlen (authorization_id) - strlen (passcode) - 1);
 	  if (pin)
-	    pin++;
+	    {
+	      pin++;
+	      if (pin && strlen(pin) == 0)
+		pin = NULL;
+	    }
 	}
     }
 
@@ -269,26 +286,27 @@ _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
     return GSASL_NEED_SERVER_SECURID_CALLBACK;
 
   len = *output_len;
-  res = cb_securid (ctx, authorization_id, authentication_id,
+  res = cb_securid (sctx, authorization_id, authentication_id,
 		    passcode, pin, output, &len);
   switch (res)
     {
     case GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE:
-      if (*output_len < strlen (PASSCODE) + 1)
+      if (*output_len < strlen (PASSCODE))
 	return GSASL_TOO_SMALL_BUFFER;
-      strcpy (output, PASSCODE);
-      *output_len = strlen (PASSCODE) + 1;
+      memcpy (output, PASSCODE, strlen(PASSCODE));
+      *output_len = strlen (PASSCODE);
       res = GSASL_NEEDS_MORE;
       break;
 
     case GSASL_SECURID_SERVER_NEED_NEW_PIN:
-      memmove (output + strlen (PIN) + 1, output, len);
-      strcpy (output, PIN);
-      *output_len = len + strlen (PIN) + 1;
+      memmove (output + strlen (PIN), output, len);
+      memcpy (output, PIN, strlen(PIN));
+      *output_len = len + strlen (PIN);
       res = GSASL_NEEDS_MORE;
       break;
 
     default:
+      *output_len = 0;
       break;
     }
 

@@ -23,6 +23,11 @@
 
 #ifdef USE_LOGIN
 
+struct _Gsasl_login_client_state
+{
+  int step;
+};
+
 int
 _gsasl_login_client_init (Gsasl_ctx * ctx)
 {
@@ -38,26 +43,26 @@ _gsasl_login_client_done (Gsasl_ctx * ctx)
 int
 _gsasl_login_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 {
-  int *step;
+  struct _Gsasl_login_client_state *state;
   Gsasl_ctx *ctx;
 
   ctx = gsasl_client_ctx_get (cctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
-  if (gsasl_client_callback_authentication_id_get (ctx) == NULL)
-    return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
+  if (gsasl_client_callback_authorization_id_get (ctx) == NULL)
+    return GSASL_NEED_CLIENT_AUTHORIZATION_ID_CALLBACK;
 
   if (gsasl_client_callback_password_get (ctx) == NULL)
     return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
-  step = (int *) malloc (sizeof (*step));
-  if (step == NULL)
+  state = malloc (sizeof (*state));
+  if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
-  *step = 0;
+  state->step = 0;
 
-  *mech_data = step;
+  *mech_data = state;
 
   return GSASL_OK;
 }
@@ -68,8 +73,8 @@ _gsasl_login_client_step (Gsasl_session_ctx * cctx,
 			  const char *input,
 			  size_t input_len, char *output, size_t * output_len)
 {
-  int *step = mech_data;
-  Gsasl_client_callback_authentication_id cb_authentication_id;
+  struct _Gsasl_login_client_state *state = mech_data;
+  Gsasl_client_callback_authorization_id cb_authorization_id;
   Gsasl_client_callback_password cb_password;
   Gsasl_ctx *ctx;
   char *tmp;
@@ -79,23 +84,18 @@ _gsasl_login_client_step (Gsasl_session_ctx * cctx,
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
-  cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
-  if (cb_authentication_id == NULL)
-    return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
+  cb_authorization_id = gsasl_client_callback_authorization_id_get (ctx);
+  if (cb_authorization_id == NULL)
+    return GSASL_NEED_CLIENT_AUTHORIZATION_ID_CALLBACK;
 
   cb_password = gsasl_client_callback_password_get (ctx);
   if (cb_password == NULL)
     return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
-  switch (*step)
+  switch (state->step)
     {
     case 0:
-      if (input_len == 0)
-	{
-	  *output_len = 0;
-	  return GSASL_NEEDS_MORE;
-	}
-      res = cb_authentication_id (cctx, output, output_len);
+      res = cb_authorization_id (cctx, output, output_len);
       if (res != GSASL_OK)
 	return res;
       tmp = gsasl_utf8_nfkc_normalize (output, *output_len);
@@ -104,9 +104,9 @@ _gsasl_login_client_step (Gsasl_session_ctx * cctx,
       if (*output_len < strlen (tmp))
 	return GSASL_TOO_SMALL_BUFFER;
       memcpy (output, tmp, strlen (tmp));
-      *output_len += strlen (tmp);
+      *output_len = strlen (tmp);
       free (tmp);
-      (*step)++;
+      state->step++;
       res = GSASL_NEEDS_MORE;
       break;
 
@@ -120,15 +120,10 @@ _gsasl_login_client_step (Gsasl_session_ctx * cctx,
       if (*output_len < strlen (tmp))
 	return GSASL_TOO_SMALL_BUFFER;
       memcpy (output, tmp, strlen (tmp));
-      *output_len += strlen (tmp);
+      *output_len = strlen (tmp);
       free (tmp);
-      (*step)++;
-      res = GSASL_NEEDS_MORE;
-      break;
-
-    case 2:
+      state->step++;
       res = GSASL_OK;
-      (*step)++;
       break;
 
     default:
@@ -142,21 +137,20 @@ _gsasl_login_client_step (Gsasl_session_ctx * cctx,
 int
 _gsasl_login_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
 {
-  int *step = mech_data;
+  struct _Gsasl_login_client_state *state = mech_data;
 
-  free (step);
+  free (state);
 
   return GSASL_OK;
 }
 
 /* Server */
 
-struct _Gsasl_login_state
+struct _Gsasl_login_server_state
 {
   int step;
   char *username;
 };
-typedef struct _Gsasl_login_state _Gsasl_login_state;
 
 #define CHALLENGE_USERNAME "User Name"
 #define CHALLENGE_PASSWORD "Password"
@@ -176,7 +170,7 @@ _gsasl_login_server_done (Gsasl_ctx * ctx)
 int
 _gsasl_login_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
-  _Gsasl_login_state *state;
+  struct _Gsasl_login_server_state *state;
   Gsasl_ctx *ctx;
 
   ctx = gsasl_server_ctx_get (sctx);
@@ -187,7 +181,7 @@ _gsasl_login_server_start (Gsasl_session_ctx * sctx, void **mech_data)
       gsasl_server_callback_retrieve_get (ctx) == NULL)
     return GSASL_NEED_SERVER_VALIDATE_CALLBACK;
 
-  state = (_Gsasl_login_state *) malloc (sizeof (*state));
+  state = malloc (sizeof (*state));
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
@@ -205,7 +199,7 @@ _gsasl_login_server_step (Gsasl_session_ctx * sctx,
 			  const char *input,
 			  size_t input_len, char *output, size_t * output_len)
 {
-  _Gsasl_login_state *state = mech_data;
+  struct _Gsasl_login_server_state *state = mech_data;
   Gsasl_server_callback_validate cb_validate;
   Gsasl_server_callback_retrieve cb_retrieve;
   Gsasl_ctx *ctx;
@@ -303,6 +297,7 @@ _gsasl_login_server_step (Gsasl_session_ctx * sctx,
 
       free (password);
 
+      *output_len = 0;
       state->step++;
       break;
 
@@ -317,7 +312,7 @@ _gsasl_login_server_step (Gsasl_session_ctx * sctx,
 int
 _gsasl_login_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
-  _Gsasl_login_state *state = mech_data;
+  struct _Gsasl_login_server_state *state = mech_data;
 
   if (state->username)
     free (state->username);

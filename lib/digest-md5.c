@@ -661,20 +661,14 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	int maxbuf = MAXBUF_DEFAULT;
 	char *zinput = NULL;
 
-	if (input_len == 0)
-	  {
-	    *output_len = 0;
-	    return GSASL_NEEDS_MORE;
-	  }
+	if (input == NULL || input_len == 0)
+	  return GSASL_MECHANISM_PARSE_ERROR;
 
-	if (input && input_len > 0)
-	  {
-	    zinput = malloc (input_len + 1);
-	    if (zinput == NULL)
-	      return GSASL_MALLOC_ERROR;
-	    memcpy (zinput, input, input_len);
-	    zinput[input_len] = '\0';
-	  }
+	zinput = malloc (input_len + 1);
+	if (zinput == NULL)
+	  return GSASL_MALLOC_ERROR;
+	memcpy (zinput, input, input_len);
+	zinput[input_len] = '\0';
 
 	gcry_randomize (state->cnonce, CNONCE_ENTROPY_BITS / 8,
 			GCRY_WEAK_RANDOM);

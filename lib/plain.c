@@ -23,6 +23,11 @@
 
 #ifdef USE_PLAIN
 
+struct _Gsasl_plain_client_state
+{
+  int step;
+};
+
 int
 _gsasl_plain_client_init (Gsasl_ctx * ctx)
 {
@@ -38,8 +43,8 @@ _gsasl_plain_client_done (Gsasl_ctx * ctx)
 int
 _gsasl_plain_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 {
+  struct _Gsasl_plain_client_state *state;
   Gsasl_ctx *ctx;
-  int *step;
 
   ctx = gsasl_client_ctx_get (cctx);
   if (ctx == NULL)
@@ -54,13 +59,13 @@ _gsasl_plain_client_start (Gsasl_session_ctx * cctx, void **mech_data)
   if (gsasl_client_callback_password_get (ctx) == NULL)
     return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
-  step = (int *) malloc (sizeof (*step));
-  if (step == NULL)
+  state = malloc (sizeof (*state));
+  if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
-  *step = 0;
+  state->step = 0;
 
-  *mech_data = step;
+  *mech_data = state;
 
   return GSASL_OK;
 }
@@ -71,7 +76,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * cctx,
 			  const char *input,
 			  size_t input_len, char *output, size_t * output_len)
 {
-  int *step = mech_data;
+  struct _Gsasl_plain_client_state *state = mech_data;
   Gsasl_client_callback_authentication_id cb_authentication_id;
   Gsasl_client_callback_authorization_id cb_authorization_id;
   Gsasl_client_callback_password cb_password;
@@ -80,86 +85,98 @@ _gsasl_plain_client_step (Gsasl_session_ctx * cctx,
   size_t len;
   int res;
 
-  if (*step > 0)
-    return GSASL_OK;
+  switch (state->step)
+    {
+    case 0:
+      ctx = gsasl_client_ctx_get (cctx);
+      if (ctx == NULL)
+	return GSASL_CANNOT_GET_CTX;
 
-  ctx = gsasl_client_ctx_get (cctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
+      cb_authorization_id = gsasl_client_callback_authorization_id_get (ctx);
+      if (cb_authorization_id == NULL)
+	return GSASL_NEED_CLIENT_AUTHORIZATION_ID_CALLBACK;
 
-  cb_authorization_id = gsasl_client_callback_authorization_id_get (ctx);
-  if (cb_authorization_id == NULL)
-    return GSASL_NEED_CLIENT_AUTHORIZATION_ID_CALLBACK;
+      cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
+      if (cb_authentication_id == NULL)
+	return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
 
-  cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
-  if (cb_authentication_id == NULL)
-    return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
+      cb_password = gsasl_client_callback_password_get (ctx);
+      if (cb_password == NULL)
+	return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
-  cb_password = gsasl_client_callback_password_get (ctx);
-  if (cb_password == NULL)
-    return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
+      tmp = output;
 
-  tmp = output;
+      len = *output_len - (tmp - output);
+      res = cb_authorization_id (cctx, tmp, &len);
+      if (res != GSASL_OK)
+	return res;
+      tmp2 = gsasl_utf8_nfkc_normalize (tmp, len);
+      if (tmp2 == NULL)
+	return GSASL_UNICODE_NORMALIZATION_ERROR;
+      if (*output_len <= tmp - output + strlen (tmp2))
+	return GSASL_TOO_SMALL_BUFFER;
+      memcpy (tmp, tmp2, strlen (tmp2));
+      tmp += strlen (tmp2);
+      free (tmp2);
+      *tmp++ = '\0';
 
-  len = *output_len - (tmp - output);
-  res = cb_authorization_id (cctx, tmp, &len);
-  if (res != GSASL_OK)
-    return res;
-  tmp2 = gsasl_utf8_nfkc_normalize (tmp, len);
-  if (tmp2 == NULL)
-    return GSASL_UNICODE_NORMALIZATION_ERROR;
-  if (*output_len <= tmp - output + strlen (tmp2))
-    return GSASL_TOO_SMALL_BUFFER;
-  memcpy (tmp, tmp2, strlen (tmp2));
-  tmp += strlen (tmp2);
-  free (tmp2);
-  *tmp++ = '\0';
+      len = *output_len - (tmp - output);
+      res = cb_authentication_id (cctx, tmp, &len);
+      if (res != GSASL_OK)
+	return res;
+      tmp2 = gsasl_utf8_nfkc_normalize (tmp, len);
+      if (tmp2 == NULL)
+	return GSASL_UNICODE_NORMALIZATION_ERROR;
+      if (*output_len <= tmp - output + strlen (tmp2))
+	return GSASL_TOO_SMALL_BUFFER;
+      memcpy (tmp, tmp2, strlen (tmp2));
+      tmp += strlen (tmp2);
+      free (tmp2);
+      *tmp++ = '\0';
 
-  len = *output_len - (tmp - output);
-  res = cb_authentication_id (cctx, tmp, &len);
-  if (res != GSASL_OK)
-    return res;
-  tmp2 = gsasl_utf8_nfkc_normalize (tmp, len);
-  if (tmp2 == NULL)
-    return GSASL_UNICODE_NORMALIZATION_ERROR;
-  if (*output_len <= tmp - output + strlen (tmp2))
-    return GSASL_TOO_SMALL_BUFFER;
-  memcpy (tmp, tmp2, strlen (tmp2));
-  tmp += strlen (tmp2);
-  free (tmp2);
-  *tmp++ = '\0';
+      len = *output_len - (tmp - output);
+      res = cb_password (cctx, tmp, &len);
+      if (res != GSASL_OK)
+	return res;
+      tmp2 = gsasl_utf8_nfkc_normalize (tmp, len);
+      if (tmp2 == NULL)
+	return GSASL_UNICODE_NORMALIZATION_ERROR;
+      if (*output_len <= tmp - output + strlen (tmp2))
+	return GSASL_TOO_SMALL_BUFFER;
+      memcpy (tmp, tmp2, strlen (tmp2));
+      tmp += strlen (tmp2);
+      free (tmp2);
 
-  len = *output_len - (tmp - output);
-  res = cb_password (cctx, tmp, &len);
-  if (res != GSASL_OK)
-    return res;
-  tmp2 = gsasl_utf8_nfkc_normalize (tmp, len);
-  if (tmp2 == NULL)
-    return GSASL_UNICODE_NORMALIZATION_ERROR;
-  if (*output_len <= tmp - output + strlen (tmp2))
-    return GSASL_TOO_SMALL_BUFFER;
-  memcpy (tmp, tmp2, strlen (tmp2));
-  tmp += strlen (tmp2);
-  free (tmp2);
+      *output_len = tmp - output;
 
-  *output_len = tmp - output;
+      state->step++;
+      res = GSASL_OK;
+      break;
 
-  (*step)++;
+    default:
+      res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
+      break;
+    }
 
-  return GSASL_NEEDS_MORE;
+  return res;
 }
 
 int
 _gsasl_plain_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
 {
-  int *step = mech_data;
+  struct _Gsasl_plain_client_state *state = mech_data;
 
-  free (step);
+  free (state);
 
   return GSASL_OK;
 }
 
 /* Server */
+
+struct _Gsasl_plain_server_state
+{
+  int step;
+};
 
 int
 _gsasl_plain_server_init (Gsasl_ctx * ctx)
@@ -177,6 +194,7 @@ int
 _gsasl_plain_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   Gsasl_ctx *ctx;
+  struct _Gsasl_plain_server_state *state;
 
   ctx = gsasl_server_ctx_get (sctx);
   if (ctx == NULL)
@@ -185,6 +203,14 @@ _gsasl_plain_server_start (Gsasl_session_ctx * sctx, void **mech_data)
   if (gsasl_server_callback_validate_get (ctx) == NULL &&
       gsasl_server_callback_retrieve_get (ctx) == NULL)
     return GSASL_NEED_SERVER_VALIDATE_CALLBACK;
+
+  state = malloc (sizeof (*state));
+  if (state == NULL)
+    return GSASL_MALLOC_ERROR;
+
+  state->step = 0;
+
+  *mech_data = state;
 
   return GSASL_OK;
 }
@@ -195,6 +221,7 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 			  const char *input,
 			  size_t input_len, char *output, size_t * output_len)
 {
+  struct _Gsasl_plain_server_state *state = mech_data;
   Gsasl_server_callback_validate cb_validate;
   Gsasl_server_callback_retrieve cb_retrieve;
   char *authorization_id = NULL;
@@ -204,78 +231,91 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
   Gsasl_ctx *ctx;
   int res;
 
-  if (input_len == 0)
+  *output_len = 0;
+
+  switch(state->step)
     {
-      *output_len = 0;
-      return GSASL_NEEDS_MORE;
-    }
+    case 0:
+      state->step++;
+      if (input_len == 0)
+	return GSASL_NEEDS_MORE;
+      /* fall through */
 
-  authorization_id = input;
-  authentication_id = memchr (input, 0, input_len);
-  if (authentication_id)
-    {
-      authentication_id++;
-      passwordptr = memchr (authentication_id, 0,
-			    input_len - strlen (authorization_id) - 1);
-      if (passwordptr != NULL)
-	passwordptr++;
-    }
+    case 1:
+      authorization_id = input;
+      authentication_id = memchr (input, 0, input_len);
+      if (authentication_id)
+	{
+	  authentication_id++;
+	  passwordptr = memchr (authentication_id, 0,
+				input_len - strlen (authorization_id) - 1);
+	  if (passwordptr != NULL)
+	    passwordptr++;
+	}
 
-  if (passwordptr == NULL)
-    return GSASL_MECHANISM_PARSE_ERROR;
+      if (passwordptr == NULL)
+	return GSASL_MECHANISM_PARSE_ERROR;
 
-  password = malloc (input_len - (passwordptr - input) + 1);
-  if (password == NULL)
-    return GSASL_MALLOC_ERROR;
-  memcpy (password, passwordptr, input_len - (passwordptr - input));
-  password[input_len - (passwordptr - input)] = '\0';
-
-  ctx = gsasl_server_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  cb_validate = gsasl_server_callback_validate_get (ctx);
-  cb_retrieve = gsasl_server_callback_retrieve_get (ctx);
-  if (cb_validate == NULL && cb_retrieve == NULL)
-    return GSASL_NEED_SERVER_VALIDATE_CALLBACK;
-
-  if (cb_validate)
-    {
-      res = cb_validate (sctx, authorization_id, authentication_id, password);
-    }
-  else
-    {
-      size_t keylen;
-      char *key;
-      char *normkey;
-
-      res = cb_retrieve (sctx, authentication_id, authorization_id, NULL,
-			 NULL, &keylen);
-      if (res != GSASL_OK)
-	return res;
-      key = malloc (keylen);
-      if (key == NULL)
+      password = malloc (input_len - (passwordptr - input) + 1);
+      if (password == NULL)
 	return GSASL_MALLOC_ERROR;
-      res = cb_retrieve (sctx, authentication_id, authorization_id, NULL,
-			 key, &keylen);
-      if (res != GSASL_OK)
+      memcpy (password, passwordptr, input_len - (passwordptr - input));
+      password[input_len - (passwordptr - input)] = '\0';
+      
+      ctx = gsasl_server_ctx_get (sctx);
+      if (ctx == NULL)
+	return GSASL_CANNOT_GET_CTX;
+      
+      cb_validate = gsasl_server_callback_validate_get (ctx);
+      cb_retrieve = gsasl_server_callback_retrieve_get (ctx);
+      if (cb_validate == NULL && cb_retrieve == NULL)
+	return GSASL_NEED_SERVER_VALIDATE_CALLBACK;
+      
+      if (cb_validate)
 	{
-	  free (key);
-	  return res;
+	  res = cb_validate (sctx, authorization_id, authentication_id, 
+			     password);
 	}
-      normkey = gsasl_utf8_nfkc_normalize (key, keylen);
-      free (key);
-      if (normkey == NULL)
-	{
-	  free (normkey);
-	  return GSASL_UNICODE_NORMALIZATION_ERROR;
-	}
-      if (strlen (password) == strlen (normkey) &&
-	  memcmp (normkey, password, strlen (normkey)) == 0)
-	res = GSASL_OK;
       else
-	res = GSASL_AUTHENTICATION_ERROR;
-      free (normkey);
+	{
+	  size_t keylen;
+	  char *key;
+	  char *normkey;
+	  
+	  res = cb_retrieve (sctx, authentication_id, authorization_id, NULL,
+			     NULL, &keylen);
+	  if (res != GSASL_OK)
+	    return res;
+	  key = malloc (keylen);
+	  if (key == NULL)
+	    return GSASL_MALLOC_ERROR;
+	  res = cb_retrieve (sctx, authentication_id, authorization_id, NULL,
+			     key, &keylen);
+	  if (res != GSASL_OK)
+	    {
+	      free (key);
+	      return res;
+	    }
+	  normkey = gsasl_utf8_nfkc_normalize (key, keylen);
+	  free (key);
+	  if (normkey == NULL)
+	    {
+	      free (normkey);
+	      return GSASL_UNICODE_NORMALIZATION_ERROR;
+	    }
+	  if (strlen (password) == strlen (normkey) &&
+	      memcmp (normkey, password, strlen (normkey)) == 0)
+	    res = GSASL_OK;
+	  else
+	    res = GSASL_AUTHENTICATION_ERROR;
+	  free (normkey);
+	}
+      state->step++;
+      break;
+
+    default:
+      res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
+      break;
     }
 
   return res;
@@ -284,6 +324,10 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 int
 _gsasl_plain_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
+  struct _Gsasl_plain_server_state *state = mech_data;
+
+  free(state);
+
   return GSASL_OK;
 }
 

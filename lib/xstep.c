@@ -125,7 +125,7 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * xctx,
   else
     res = gsasl_server_step (xctx, input, input_len, output, &output_len);
 
-  if (res == GSASL_NEEDS_MORE && output && output_len > 0)
+  if ((res == GSASL_OK || res == GSASL_NEEDS_MORE) && output && output_len > 0)
     {
       output_len = gsasl_base64_encode (output, output_len,
 					b64output, b64output_len);
