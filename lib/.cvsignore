@@ -15,6 +15,7 @@ gsasl.h
 gssapi.lo
 hexdump.lo
 init.lo
+kerberos_v5.lo
 libgsasl.la
 listmech.lo
 login.lo
