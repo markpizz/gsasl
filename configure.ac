@@ -44,6 +44,9 @@ AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h pwd.h)
 AC_SEARCH_LIBS(socket, socket)
 AC_SEARCH_LIBS(gethostbyname, nsl)
 
+# We want getaddrinfo, should be a gnulib module for it.
+AC_CHECK_FUNC(getaddrinfo)
+
 # For gnulib stuff in gl/.
 gl_GETOPT
 gl_FUNC_STRDUP
