@@ -122,6 +122,9 @@ gsasl_callback (Gsasl_session * sctx, Gsasl_property prop)
      * session specific.  */
     Gsasl_server_callback_anonymous cb_anonymous;
     Gsasl_server_callback_external cb_external;
+    Gsasl_server_callback_securid cb_securid;
+    char buf[BUFSIZ];
+    size_t buflen = BUFSIZ - 1;
     int res;
 
     switch (prop)
@@ -141,6 +144,17 @@ gsasl_callback (Gsasl_session * sctx, Gsasl_property prop)
 	if (!cb_external)
 	  break;
 	res = cb_external (sctx);
+	return res;
+	break;
+
+      case GSASL_SERVER_SECURID:
+	cb_securid = gsasl_server_callback_securid_get (sctx->ctx);
+	if (!cb_securid)
+	  break;
+	res = cb_securid (sctx, sctx->authid, sctx->authzid, sctx->passcode,
+			  sctx->pin, buf, &buflen);
+	buf[buflen] = '\0';
+	gsasl_property_set (sctx, GSASL_SUGGESTED_PIN, buf);
 	return res;
 	break;
 

@@ -28,37 +28,27 @@
 int
 _gsasl_securid_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
-  Gsasl_ctx *ctx;
-
-  ctx = gsasl_server_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  if (gsasl_server_callback_securid_get (ctx) == NULL)
-    return GSASL_NEED_SERVER_SECURID_CALLBACK;
-
   return GSASL_OK;
 }
 
 int
 _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
 			    void *mech_data,
-			    const char *input,
-			    size_t input_len,
-			    char *output, size_t * output_len)
+			    const char *input, size_t input_len,
+			    char **output, size_t * output_len)
 {
-  Gsasl_server_callback_securid cb_securid;
   const char *authorization_id = NULL;
   const char *authentication_id = NULL;
   const char *passcode = NULL;
+  const char *suggestedpin;
   char *pin = NULL;
-  Gsasl_ctx *ctx;
   int res;
   size_t len;
 
   if (input_len == 0)
     {
       *output_len = 0;
+      *output = NULL;
       return GSASL_NEEDS_MORE;
     }
 
@@ -86,36 +76,44 @@ _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
   if (passcode == NULL)
     return GSASL_MECHANISM_PARSE_ERROR;
 
-  ctx = gsasl_server_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
+  gsasl_property_set (sctx, GSASL_AUTHID, authentication_id);
+  gsasl_property_set (sctx, GSASL_AUTHZID, authorization_id);
+  gsasl_property_set (sctx, GSASL_PASSCODE, passcode);
+  if (pin)
+    gsasl_property_set (sctx, GSASL_PIN, pin);
+  else
+    gsasl_property_set (sctx, GSASL_PIN, NULL);
 
-  cb_securid = gsasl_server_callback_securid_get (ctx);
-  if (cb_securid == NULL)
-    return GSASL_NEED_SERVER_SECURID_CALLBACK;
-
-  len = *output_len;
-  res = cb_securid (sctx, authentication_id, authorization_id,
-		    passcode, pin, output, &len);
+  res = gsasl_callback (sctx, GSASL_SERVER_SECURID);
   switch (res)
     {
     case GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE:
-      if (*output_len < strlen (PASSCODE))
-	return GSASL_TOO_SMALL_BUFFER;
-      memcpy (output, PASSCODE, strlen (PASSCODE));
+      *output = strdup (PASSCODE);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
       *output_len = strlen (PASSCODE);
       res = GSASL_NEEDS_MORE;
       break;
 
     case GSASL_SECURID_SERVER_NEED_NEW_PIN:
-      memmove (output + strlen (PIN), output, len);
-      memcpy (output, PIN, strlen (PIN));
-      *output_len = len + strlen (PIN);
+      suggestedpin = gsasl_property_get (sctx, GSASL_SUGGESTED_PIN);
+      if (suggestedpin)
+	len = strlen (suggestedpin);
+      else
+	len = 0;
+      *output_len = strlen (PIN) + len;
+      *output = malloc (*output_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, PIN, strlen (PIN));
+      if (suggestedpin)
+	memcpy (*output + strlen (PIN), suggestedpin, len);
       res = GSASL_NEEDS_MORE;
       break;
 
     default:
       *output_len = 0;
+      *output = NULL;
       break;
     }
 
