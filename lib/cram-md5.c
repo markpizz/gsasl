@@ -90,7 +90,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
   Gsasl_client_callback_authentication_id cb_authentication_id;
   Gsasl_client_callback_password cb_password;
   GCRY_MD_HD md5h;
-  char *hash;
+  unsigned char *hash;
   int hash_len = gcry_md_get_algo_dlen (GCRY_MD_MD5);
   size_t len;
   char *tmp;
@@ -143,7 +143,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
       if (res != GCRYERR_SUCCESS)
 	return GSASL_GCRYPT_ERROR;
 
-      gcry_md_write (md5h, input, input_len);
+      gcry_md_write (md5h, /*XXX*/(unsigned char*)input, input_len);
 
       hash = gcry_md_read (md5h, GCRY_MD_MD5);
       if (hash == NULL)
@@ -241,7 +241,8 @@ _gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 
   strcpy (challenge, CHALLENGE_FORMAT);
 
-  gcry_randomize (challenge + 1, NUMBER_OF_XS, GCRY_WEAK_RANDOM);
+  gcry_randomize ((unsigned char*)challenge + 1,
+		  NUMBER_OF_XS, GCRY_WEAK_RANDOM);
 
   for (i = 0; i < NUMBER_OF_XS / 2; i++)
     {
@@ -325,8 +326,7 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
   else if (cb_retrieve)
     {
       GCRY_MD_HD md5h;
-      char *hash;
-      size_t len;
+      unsigned char *hash;
       size_t keylen;
       char *normkey;
       int i;
@@ -366,7 +366,8 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
 	  goto done;
 	}
 
-      gcry_md_write (md5h, challenge, strlen (challenge));
+      gcry_md_write (md5h, /*XXX*/(unsigned char*)challenge, 
+		     strlen (challenge));
 
       hash = gcry_md_read (md5h, GCRY_MD_MD5);
       if (hash == NULL)
