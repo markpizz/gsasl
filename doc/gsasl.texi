@@ -430,6 +430,36 @@ In order to take advantage of the internationalisation features in
 set the current locale using @code{setlocale()} before initializing
 `Libgsasl'.
 
+In order to take advantage of the secure memory features in
+`Libgcrypt', which subsequently makes sensitive key material used in
+`Libgsasl' be allocated in secure memory, you need to initialize
+secure memory in your application, and for some platforms even make
+your application setuid root.  See the libgcrypt documentation for
+more information.  Example code to initialize secure memory in your
+code:
+
+@example
+#include <gcrypt.h>
+
+...
+
+/* Check version of libgcrypt. */
+if (!gcry_check_version (GCRYPT_VERSION))
+  die ("version mismatch\n");
+
+/* Allocate a pool of 16k secure memory.  This also drops priviliges
+   on some systems. */
+gcry_control (GCRYCTL_INIT_SECMEM, 16384, 0);
+
+/* Tell Libgcrypt that initialization has completed. */
+gcry_control (GCRYCTL_INITIALIZATION_FINISHED, 0);
+@end example
+
+If you do not do this, keying material will not be allocated in secure
+memory, which for most application is not the biggest secure problem.
+Note that `Libgsasl' has not been audited to make sure it only ever
+stores passwords or keys in secure memory.
+
 @node Version Check
 @section Version Check
 
