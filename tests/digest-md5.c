@@ -135,9 +135,6 @@ doit (void)
 	  return;
 	}
 
-      s1 = NULL, s2 = NULL;
-      s1len = 0, s2len = 0;
-
       /* Server begins... */
 
       res = gsasl_step (server, NULL, 0, &s1, &s1len);
