@@ -22,8 +22,6 @@
 #include "internal.h"
 #include "callbacks.h"
 
-struct gengetopt_args_info args_info;
-
 #define MAX_LINE_LENGTH BUFSIZ
 
 static char *
