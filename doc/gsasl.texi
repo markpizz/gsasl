@@ -91,7 +91,7 @@ Indices
 @chapter Introduction
 
 GNU SASL is an implementation of the Simple Authentication and
-Security Layer framework and a few common SASL mechanisms.  SASL is
+Security Layer framework and a few common SASL mechanisms.  @acronym{SASL} is
 used by network servers (e.g., IMAP, SMTP) to request authentication
 from clients, and in clients to authenticate against servers.
 
@@ -122,6 +122,14 @@ to the code.  (This figure was accurate as of version 0.0.13.)
 The library is licensed under the GNU Lesser General Public License,
 and the command-line interface, self-tests and examples are licensed
 under the GNU General Public License.
+
+@float Illustration,fig:abstraction
+@image{abstraction,10cm,5cm}
+
+@caption{Logical overview showing how applications use authentication
+mechanisms through an abstract interface.}
+
+@end float
 
 @menu
 * Getting Started::
@@ -853,9 +861,9 @@ AC_MSG_RESULT($gsasl)
 @chapter Using the Library
 
 Your application's use of the library can be roughly modeled into the
-following steps: initialize library, optionally specify the callback,
-perform actual authentication, and finally clean up.  The following
-image illustrate this.
+following steps: initialize the library, optionally specify the
+callback, perform the authentication, and finally clean up.  The
+following image illustrate this.
 
 @image{controlflow,15cm,5cm}
 
@@ -1303,30 +1311,31 @@ new PIN code.
 @chapter Mechanisms
 
 Different SASL mechanisms have different requirements on the
-application using it.  Some simpler mechanisms, such as LOGIN and
-PLAIN, are straight forward to hook into existing authentication
-systems (such as @file{/etc/passwd} via PAM).  The client callback for
-these mechanisms is easy to implement, the user is simply queried for
-the username and password.  The server callbacks pass on the username
-and password into the policy deciding authentication system
-(e.g. PAM).
+application using it.  To handle these differences the library can use
+a callback function into your application in several different ways.
+Some mechanisms, such as @samp{PLAIN}, are simple to explain and use.
+The client callback for these mechanisms is implement by querying the
+user for a username and password.  The server callback hand the
+username and password into any local policy deciding authentication
+system (such as @file{/etc/passwd} via PAM).
 
-Other mechanism like CRAM-MD5, DIGEST-MD5, and SRP uses hashed
-passwords.  The client callback are the same as for PLAIN and LOGIN.
-However, the server do not receive the plaintext password via the
-network but rather a hash of it.  Existing policy deciding systems
-like PAM cannot handle this, so the server callback for these
-mechanisms are more complicated.
+Mechanism such as @samp{CRAM-MD5} and @samp{DIGEST-MD5} uses hashed
+passwords.  The client callback are the same as for PLAIN.  However,
+the server do not receive the plain text password via the network but
+rather a hash of it.  Existing policy deciding systems like PAM cannot
+handle this, so the server callback for these mechanisms are more
+complicated.
 
-Further mechanisms like GSSAPI (Kerberos 5) assume a specific
+Further, mechanisms like GSSAPI (Kerberos 5) assume a specific
 authentication system.  In theory this means that the SASL library
 would not need to interact with the application, but rather call this
 specific authentication system directly.  However, some callbacks are
 supported anyway, to modify the behaviour of how the specific
-authentication system is used.
+authentication system is used (i.e., to handle ``super-user'' login as
+some other user).
 
-Special mechanisms like EXTERNAL and ANONYMOUS are entirely dependent
-on callbacks.
+Some mechanisms, like @samp{EXTERNAL} and @samp{ANONYMOUS} are
+entirely dependent on callbacks.
 
 @menu
 * EXTERNAL::                Authentication via out of band information.
