@@ -69,5 +69,5 @@ AC_CONFIG_SUBDIRS(lib)
 # We are done.
 AC_CONFIG_FILES(Makefile po/Makefile.in \
 		doc/Makefile doc/reference/Makefile doc/doxygen/Doxyfile \
-		gl/Makefile src/Makefile tests/Makefile)
+		gl/Makefile src/Makefile examples/Makefile tests/Makefile)
 AC_OUTPUT

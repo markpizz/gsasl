@@ -66,7 +66,7 @@ section entitled ``GNU Free Documentation License''.
 * Session Functions::           Perform an authentication.
 * Utilities::                   Functions for various odd things.
 * Error Handling::              Error codes and such.
-* Examples::                    Example code.
+* Examples::                    Demonstrate how to use the library.
 * Acknowledgements::            Whom to blame.
 
 * Invoking gsasl::              Command line interface to the library.
@@ -1427,17 +1427,38 @@ This chapter contains example code which illustrate how the GNU SASL
 Library can be used when writing your own application.
 
 @menu
-* Example 1::
+* Example 1::		SASL client.
+* Example 2::		SASL client where server send data first.
+* Example 3::		SASL client, with a choice of mechanism to use.
+* Example 4::		SASL client, with callback for user info.
 @end menu
 
 @node Example 1
 @section Example 1
 
-This is the minimal program which uses the library (including
-internationalization features) without doing anything.
+@example
+@verbatiminclude ../examples/client.c
+@end example
+
+@node Example 2
+@section Example 2
 
 @example
-@verbatiminclude gsasl-example1.c
+@verbatiminclude ../examples/client-serverfirst.c
+@end example
+
+@node Example 3
+@section Example 3
+
+@example
+@verbatiminclude ../examples/client-mech.c
+@end example
+
+@node Example 4
+@section Example 4
+
+@example
+@verbatiminclude ../examples/client-callback.c
 @end example
 
 

@@ -1,0 +1,19 @@
+GNU SASL examples/README -- Information about files in examples/ directory.
+Copyright (C) 2003, 2004 Simon Josefsson
+See the end for copying conditions.
+
+This directory contains examples on how to use GNU SASL.
+
+client: Example SASL client.
+
+client-serverfirst: Same as previous, but server get to send data first.
+
+client-mech: Same as previous, but you get to chose which mechanism is used.
+
+client-callback: Same as client-serverfirst, but user info is retrieved
+                 using a callback, instead of hard coded.
+
+----------------------------------------------------------------------
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
