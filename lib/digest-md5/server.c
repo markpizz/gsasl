@@ -34,6 +34,7 @@
 #include "digest-md5.h"
 #include "shared.h"
 #include "parser.h"
+#include "digesthmac.h"
 
 /* Get digest_md5_encode, digest_md5_decode. */
 #include "session.h"
@@ -665,11 +666,11 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	  }
 
 	/* verify response */
-	res = _gsasl_digest (output + outlen, secret,
-			     nonce, nc, cnonce, state->qop, authzid,
-			     digesturi, A2_PRE,
-			     state->cipher, NULL, NULL, NULL, NULL);
-	if (res != GSASL_OK)
+	res = digest_md5_hmac (output + outlen, secret,
+			       nonce, nc, cnonce, state->qop, authzid,
+			       digesturi, A2_PRE,
+			       state->cipher, NULL, NULL, NULL, NULL);
+	if (res)
 	  goto done;
 
 	if (memcmp (response, output + outlen, RESPONSE_LENGTH) != 0)
@@ -689,12 +690,12 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	strcat (output, RSPAUTH_PRE);
 	outlen += strlen (RSPAUTH_PRE);
 
-	res = _gsasl_digest (output + outlen, secret,
-			     nonce, nc, cnonce, state->qop, authzid,
-			     digesturi, COLON,
-			     state->cipher,
-			     state->kic, state->kis, state->kcc, state->kcs);
-	if (res != GSASL_OK)
+	res = digest_md5_hmac (output + outlen, secret,
+			       nonce, nc, cnonce, state->qop, authzid,
+			       digesturi, COLON,
+			       state->cipher,
+			       state->kic, state->kis, state->kcc, state->kcs);
+	if (res)
 	  goto done;
 	outlen += RSPAUTH_LENGTH;
 	output[outlen] = '\0';
