@@ -4,6 +4,7 @@ Makefile
 Makefile.in
 cram-md5
 digest-md5
+external
 gssapi
 md5file
 old-cram-md5
