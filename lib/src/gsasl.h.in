@@ -168,6 +168,8 @@ extern "C"
    *
    * Return value: Any valid return code, the interpretation of which
    *   depend on the @prop value.
+   *
+   * Since: 0.2.0
    **/
   typedef int (*Gsasl_callback_function) (Gsasl * ctx, Gsasl_session * sctx,
 					  Gsasl_property prop);
