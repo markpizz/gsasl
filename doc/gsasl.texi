@@ -73,7 +73,7 @@ developing GNU and protecting and promoting software freedom.''
 * Examples::                    Example code.
 * Acknowledgements::            Whom to blame.
 
-* Invoking gsasl::              Command line interface to library.
+* Invoking gsasl::              Command line interface to the library.
 
 Appendices
 
