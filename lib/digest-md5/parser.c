@@ -151,6 +151,8 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 	break;
 
       case CHALLENGE_QOP:
+	/* <<What if this directive is present multiple times? Error,
+	   or take the union of all values?>> */
 	if (out->qops)
 	  return -1;
 	{
@@ -236,6 +238,8 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 
 
       case CHALLENGE_CIPHER:
+	/* This directive must be present exactly once if "auth-conf"
+	   is offered in the "qop-options" directive */
 	if (out->ciphers)
 	  return -1;
 	{

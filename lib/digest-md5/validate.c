@@ -68,7 +68,7 @@ digest_md5_validate_response (digest_md5_response *r)
     return -1;
 
   /* This directive is required and MUST be present exactly once;
-     otherwise, authentication fails. */
+     otherwise, or if the value is 0, authentication fails. */
   if (!r->nc)
     return -1;
 
