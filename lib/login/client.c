@@ -72,11 +72,8 @@ _gsasl_login_client_step (Gsasl_session * sctx,
       if (!p)
 	return GSASL_NO_AUTHID;
 
-      res = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED, output, NULL);
-      if (res != GSASL_OK)
-	return res;
-
-      *output_len = strlen (*output);
+      *output = strdup (p);
+      *output_len = strlen (p);
 
       state->step++;
       res = GSASL_NEEDS_MORE;
@@ -87,10 +84,7 @@ _gsasl_login_client_step (Gsasl_session * sctx,
       if (!p)
 	return GSASL_NO_PASSWORD;
 
-      res = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED, output, NULL);
-      if (res != GSASL_OK)
-	return res;
-
+      *output = strdup (p);
       *output_len = strlen (*output);
 
       state->step++;
