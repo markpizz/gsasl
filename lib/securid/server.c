@@ -58,17 +58,18 @@ _gsasl_securid_server_step (Gsasl_session * sctx,
     }
 
   authorization_id = input;
-  authentication_id = memchr (input, '\0', input_len);
+  authentication_id = memchr (input, '\0', input_len - 1);
   if (authentication_id)
     {
       authentication_id++;
       passcode = memchr (authentication_id, '\0',
-			 input_len - strlen (authorization_id) - 1);
+			 input_len - strlen (authorization_id) - 1 - 1);
       if (passcode)
 	{
 	  passcode++;
 	  pin = memchr (passcode, '\0', input_len -
-			strlen (authorization_id) - strlen (passcode) - 1);
+			strlen (authorization_id) - 1 -
+			strlen (authentication_id) - 1 - 1);
 	  if (pin)
 	    {
 	      pin++;
