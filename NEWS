@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Changes in 0.0.13 (unreleased)
 
+** Nettle (the crypto functionality, crypto/) has been updated.
+This fixes two portability issues, the new code should work on
+platforms that doesn't have inttypes.h and alloca.
+
 * Changes in 0.0.12 (released 2004-01-15)
 
 ** Protocol line parser in 'gsasl' tool more reliable.
