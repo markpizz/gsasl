@@ -1,3 +1,113 @@
+2004-01-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.0.11.
+
+2004-01-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Use ASCII encoding.  Bump copyright years.
+
+2004-01-06  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Fix.
+
+2004-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Work with autoconf 2.58, automake 1.7, libtool 1.5.
+
+2004-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/stringprep-no.c: Handle NULL stringprep_rc.
+
+2003-12-22  Simon Josefsson <simon@josefsson.org>
+
+	* po/gsasl.pot, po/sv.po: Generated.
+
+2003-12-22  Simon Josefsson <simon@josefsson.org>
+
+	* COPYING: Remove.
+
+2003-12-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix.
+
+2003-12-22  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/README, crypto/README.gsasl: Fix.
+
+2003-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Fix.
+
+2003-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.tmpl: Sync.
+
+2003-12-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/Makefile.am: Remove DocBook (for now).
+
+2003-12-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/stringprep.c:
+	(gsasl_stringprep_saslprep): Fix return value check.
+	(gsasl_stringprep_trace): Likewise.
+
+2003-12-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-12-01  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c:
+	(select_mechanism): Don't prompt for mechanism name when --mechanism
+	is used.
+
+2003-12-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in: Add GSASL_SASLPREP_ERROR.
+
+2003-12-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cram-md5/cram-md5.c: Use SASLprep.  Fix challenge string to
+	conform to proper syntax.
+
+2003-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* README: Fix.
+
+2003-11-25  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.ggo: Add section and typestr.
+
+2003-11-25  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Disable fortran etc libtool tests.
+
+2003-11-24  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstep.c:
+	(gsasl_step64): Fix deallocation of output.
+
+2003-11-23  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Remove ANNOUNCE.
+
+2003-11-23  Simon Josefsson <simon@josefsson.org>
+
+	* ANNOUNCE: Remove.
+
+2003-11-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* lib/listmech.c: Doc fix.
+
 2003-11-22  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.0.10.
