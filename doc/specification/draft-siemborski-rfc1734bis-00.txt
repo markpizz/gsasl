@@ -1,0 +1,720 @@
+
+
+
+
+
+
+Network Working Group				       Robert Siemborski
+INTERNET-DRAFT				      Carnegie Mellon University
+Intended Category: Proposed Standard			   October, 2003
+
+
+		   POP3 SASL Authentication Mechanism
+
+		  <draft-siemborski-rfc1734bis-00.txt>
+
+
+Status of this Memo
+    This document is an Internet-Draft and is in full conformance with
+    all provisions of Section 10 of RFC2026.
+
+    Internet-Drafts are working documents of the Internet Task Force
+    (IETF), its areas, and its working groups.	Note that other groups
+    may also distribute working documents as Internet-Drafts.
+
+    Internet-Drafts are draft documents valid for a maximum of six
+    months and may be updated, replaced, or obsoleted by other documents
+    at any time.  It is inappropriate to use Internet Drafts as
+    reference material or to cite them other than as "work in progress."
+
+    The list of current Internet-Drafts can be accessed at
+    http://www.ietf.org/ietf/1id-abstracts.txt
+
+    The list of Internet-Draft Shadow Directories can be accessed at
+    http://www.ietf.org/shadow.html.
+
+    Distribution of this memo is unlimited.
+
+Abstract
+
+    This document defines a profile of the Simple Authentication and
+    Security Layer (SASL) for the Post Office Protocol (POP3).	This
+    extension allows a POP3 client to indicate an authentication
+    mechanism to the server, perform an authentication protocol
+    exchange, and optionally negotiate a security layer for subsequent
+    protocol interactions during this session.
+
+    This document obsoletes RFC 1734 and replaces it as a Proposed
+    Standard.  It also updates information contained in Section 6.3 of
+    RFC 2449.
+
+1.  How to Read This Document
+
+    The key words "MUST, "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT",
+    "RECOMMENDED", and "MAY" in this document are to be interpreted as
+
+
+
+Siemborski		   Expires April, 2004		        [Page 1]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+Table of Contents
+
+
+1. How to Read This Document . . . . . . . . . . . . . . . . . . . .   1
+2. Introduction	 . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+3. The SASL Capability . . . . . . . . . . . . . . . . . . . . . . .   3
+4. The AUTH Command  . . . . . . . . . . . . . . . . . . . . . . . .   4
+4.1. Examples  . . . . . . . . . . . . . . . . . . . . . . . . . . .   2
+5. Formal Syntax . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+6. Security Considerations . . . . . . . . . . . . . . . . . . . . .   9
+7. IANA Considerations . . . . . . . . . . . . . . . . . . . . . . .   9
+8. Intellectual Property Rights	 . . . . . . . . . . . . . . . . . .   9
+9. Copyright . . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+10. References . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+11. Changes From RFC 1734 and RFC 2449 . . . . . . . . . . . . . . .  11
+12. Author's Address . . . . . . . . . . . . . . . . . . . . . . . .  12
+13. Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . .  12
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Siemborski		   Expires April, 2004		        [Page 2]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+    defined in "Key words for use in RFCs to Indicate Requirement
+    Levels" [KEYWORDS]
+
+    In examples, "C:" and "S:" indicate lines sent by the client and
+    server respectively.
+
+2.  Introduction
+
+    The AUTH command [POP3-AUTH] in [POP3] has suffered several
+    deficiencies in its specification.	The first is that it was very
+    similar to a [SASL] framework, but pre-dated the initial SASL
+    specification.  It was therefore missing some key components, such
+    as a way to list the available authentication mechanisms.  Later,
+    [POP3-EXT] attempted to remedy this situation by adding the CAPA
+    command, and allowing an initial client response to the AUTH
+    command, however problems in the specification of how the initial
+    client response was to be handled remained.	 This document attempts
+    to combine all of the POP3 SASL authentication related details into
+    a single document.
+
+3.  The SASL Capability
+
+    This section supercedes the definition of the SASL Capability in
+    section 6.3 of [POP3-EXT].
+
+    CAPA tag:
+	SASL
+
+    Arguments:
+	Supported SASL Mechanisms
+
+    Standard Commands Affected
+	None
+
+    Announced states / possible differences:
+	both / no
+
+    Commands valid in states:
+	AUTHENTICATION
+
+    Specification Reference:
+	This Document, [SASL]
+
+    Discussion
+	The SASL capability permits the use of the AUTH command (as
+	defined in section 4 of this document) to begin a [SASL]
+	negotiation.  The arguments to the SASL capability is a space-
+	separated list of SASL mechanisms which are supported.
+
+
+
+Siemborski		   Expires April, 2004		        [Page 3]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+	If a server either does not support the CAPA command or does not
+	advertise the SASL capability, clients SHOULD NOT attempt the
+	AUTH command.  If a client does attempt the AUTH command in such
+	a situation, it MUST NOT supply the client initial response
+	parameter (for backwards compatibility with [POP3-AUTH]).
+
+	Note that the list of available mechanisms MAY change after a
+	successful STLS command [POP3-TLS].  Additionally,
+	implementations MAY choose to omit the SASL capability after a
+	successful AUTH command has been completed.
+
+    Example
+
+	S: +OK pop.example.com BlurdyBlurp POP3 server ready
+	C: CAPA
+	S: +OK List of capabilities follows
+	S: SASL KERBEROS_V4 GSSAPI ANONYMOUS
+	S: STLS
+	S: IMPLEMENTATION BlurdyBlurp POP3 server
+	S: .
+
+
+4.  The AUTH Command
+
+    AUTH mechanism [initial-response]
+
+      Arguments:
+	  mechanism: A string identifying a [SASL] authentication
+	  mechanism.
+
+	  initial-response: An optional initial client response.  If
+	  present, this response MUST be [BASE64] encoded.
+
+      Restrictions:
+	  After an AUTH command has been successfully completed, no more
+	  AUTH commands may be issued in the same session.  After a
+	  successful AUTH command completes, a server MUST reject any
+	  further AUTH commands with a -ERR reply.
+
+	  The AUTH command may only be given during the AUTHORIZATION
+	  state.
+
+      Discussion:
+	  The AUTH command initiates a [SASL] authentication exchange
+	  between the client and the server.  The client identifies the
+	  SASL mechanism to use with the first parameter of the AUTH
+	  command.  If the server supports the requested authentication
+	  mechanism, it performs the SASL exchange to authenticate the
+
+
+
+Siemborski		   Expires April, 2004		        [Page 4]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+	  user.	 Optionally, it also negotiates a security layer for
+	  subsequent protocol interactions during this session.	 If the
+	  requested authentication mechanism is not supported, the
+	  server rejects the AUTH command with a -ERR reply.
+
+	  The authentication protocol exchange consists of a series of
+	  server challenges and client responses that are specific to
+	  the chosen [SASL] mechanism.
+
+	  A server challenge is sent as a line consisting of a "+"
+	  character followed by a single space and a [BASE64] encoded
+	  string supplied by the SASL mechanism.  This challenge MUST
+	  NOT contain any text other than the BASE64 encoded challenge.
+
+	  A client response consists of a line containing a [BASE64]
+	  encoded string.  If the client wishes to cancel the
+	  authentication exchange, it issues a line with a single "*".
+	  If the server receives such a response, it MUST reject the
+	  AUTH command by sending a -ERR reply.
+
+	  The optional initial response argument to the AUTH command is
+	  used to save a round trip when using authentication mechanisms
+	  that support an initial client response.  If the initial
+	  response argument is omitted and the chosen mechanism requires
+	  an initial client response, the server MUST proceed as defined
+	  in section 5.1 of [SASL].  In POP3, a server challenge with no
+	  data is defined as line with only a "+" followed by a single
+	  space.  It MUST NOT contain any other data.
+
+	  For the purposes of the initial client response, the line
+	  length limitation defined in [POP3-EXT] still applies.  If a
+	  client initial send would cause the AUTH command to exceed
+	  this length, the client MUST NOT use the initial response
+	  parameter (and instead proceed as defined in section 5.1 of
+	  [SASL]).
+
+	  If the client needs to send a zero-length initial response,
+	  the client MUST transmit the response as a single equals sign
+	  ("=").  This indicates that the response is present, but
+	  contains no data.
+
+	  If the client uses an initial-response argument to the AUTH
+	  command with a SASL mechanism that does not support an initial
+	  client send, the server MUST reject the AUTH command with a
+	  -ERR reply.
+
+	  If the server cannot [BASE64] decode any client response, it
+	  MUST reject the AUTH command with a -ERR reply.  If the client
+
+
+
+Siemborski		   Expires April, 2004		        [Page 5]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+	  cannot BASE64 decode any of the server's challenges, it MUST
+	  cancel the authentication using the "*" response.  In
+	  particular, servers and clients MUST reject (and not ignore)
+	  any character not explicitly allowed by the BASE64 alphabet,
+	  and MUST reject any sequence of BASE64 characters that
+	  contains the pad character ('=') anywhere other than the end
+	  of the string (e.g. "=AAA" and "AAA=BBB" are not allowed).
+
+	  Note that these [BASE64] strings (excepting the initial client
+	  response) may be of arbitrarily length.  Clients and servers
+	  MUST be able to handle the maximum encoded size of challenges
+	  and responses generated by their supported authentication
+	  mechanisms.  This requirement is independent of any line
+	  length limitations the client or server may have in other
+	  parts of its protocol implementation.
+
+	  If the server is unable to authenticate the client, it MUST
+	  reject the AUTH command with a -ERR reply.  Should the client
+	  successfully complete the exchange, the server issues a +OK
+	  reply.  Additionally, upon success, the POP3 session enters
+	  the TRANSACTION state.
+
+	  If a security layer is negotiated during the SASL exchange, it
+	  takes effect for the client on the octet immediately following
+	  the CRLF that concludes the last response generated by the
+	  client.  For the server, it takes effect immediately following
+	  the CRLF of its success reply.
+
+	  When a security layer takes effect, the server MUST discard
+	  any knowledge previously obtained from the client, which was
+	  not obtained from the SASL negotiation itself.  Likewise, the
+	  client MUST discard any knowledge obtained from the server,
+	  such as the list of available POP3 service extensions.  After
+	  a security layer is established, the server SHOULD NOT
+	  advertise either the SASL or the STLS extension.
+
+	  When both [TLS] and SASL security layers are in effect, the
+	  TLS encoding MUST be applied after the SASL encoding,
+	  regardless of the order in which the layers were negotiated.
+
+	  The service name specified by this protocol's profile of SASL
+	  is "pop".
+
+	  If an AUTH command fails, the client may try another
+	  authentication mechanism or present different credentials by
+	  issuing another AUTH command (or by using one of the other
+	  [POP3] authentication mechanisms).  Likewise, the server MUST
+	  behave as if the client had not issued the AUTH command.
+
+
+
+Siemborski		   Expires April, 2004		        [Page 6]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+	  To ensure interoperability, client and server implementations
+	  of this extension MUST implement the STLS extension, and the
+	  PLAIN SASL mechanism [POP3-TLS].  Implementations MUST support
+	  a configuration where [SASL] mechanisms that are vulnerable to
+	  passive eavesdropping attacks are not advertised or used
+	  without the presence of an external security layer such as
+	  [TLS].
+
+4.1.	Examples
+
+    Here is an example of a client attempting AUTH PLAIN under TLS and
+    making use of the initial client response:
+
+     S: +OK pop.example.com BlurdyBlurp POP3 server ready
+     C: CAPA
+     S: +OK List of capabilities follows
+     S: SASL KERBEROS_V4 GSSAPI ANONYMOUS
+     S: STLS
+     S: IMPLEMENTATION BlurdyBlurp POP3 server
+     S: .
+     C: STLS
+     S: +OK Begin TLS negotiation now
+       ... TLS negotiation proceeds, further commands protected by TLS layer ...
+     C: CAPA
+     S: +OK List of capabilities follows
+     S: SASL PLAIN KERBEROS_V4 GSSAPI ANONYMOUS
+     S: IMPLEMENTATION BlurdyBlurp POP3 server
+     S: .
+     C: AUTH PLAIN dGVzdAB0ZXN0AHRlc3Q=
+     S: +OK Maildrop locked and ready
+
+    Here is another client that is attempting AUTH PLAIN under a TLS
+    layer, this time without the initial response.  Parts of the
+    negotiation before the TLS layer was established have been omitted:
+
+       ... TLS negotiation proceeds, further commands protected by TLS layer ...
+     C: CAPA
+     S: +OK List of capabilities follows
+     S: SASL PLAIN KERBEROS_V4 GSSAPI ANONYMOUS
+     S: IMPLEMENTATION BlurdyBlurp POP3 server
+     S: .
+     C: AUTH PLAIN
+       (note that there is a space following the '+' on the following line)
+     S: +
+     C: dGVzdAB0ZXN0AHRlc3Q=
+     S: +OK Maildrop locked and ready
+
+    Here is an example using a mechanism which does not support an
+
+
+
+Siemborski		   Expires April, 2004		        [Page 7]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+    initial client send, and includes server challenges:
+
+     S: +OK pop.example.com BlurdyBlurp POP3 server ready
+     C: CAPA
+     S: +OK List of capabilities follows
+     S: SASL KERBEROS_V4 GSSAPI ANONYMOUS
+     S: STLS
+     S: IMPLEMENTATION BlurdyBlurp POP3 server
+     S: .
+     C: AUTH KERBEROS_V4
+     S: + ezLUFA==
+	(the following lines are broken for editorial clarity only)
+     C: BAYFQU5EUkVXLkNNVS5FRFUAOCCXeMiVyFe9K6Nwne7+sPLgIoF9YQ5ePfxUsMlJAf
+	C7aoNySU8nrqS9m8JAddsUeuyc5HFXXovaKLrZNo2bTLH0Lyolwy0W9ryJDojbKmHy
+	zSMqFsGD4EL0
+     S: + Z74fTwDw7KQ=
+     C: vSAF7ha6qotK2UHUgKlsEA==
+     S: +OK Maildrop locked and ready
+	... at this point a security layer has been established and additional
+	    commands and responses proceed within it ...
+
+
+5.  Formal Syntax
+
+    The following syntax specification uses the Augmented Backus-Naur
+    Form notation as specified in [ABNF].
+
+    Except as noted otherwise, all alphabetic characters are case-
+    insensitive.  The use of upper or lower case characters to define
+    token strings is for editorial clarity only.  Implementations MUST
+    accept these strings in a case-insensitive fashion.
+
+
+	UPALPHA		= %x41-5A	     ;; Uppercase: A-Z
+
+	LOALPHA		= %x61-7A	     ;; Lowercase: a-z
+
+	ALPHA		= UPALPHA / LOALPHA  ;; case insensitive
+
+	DIGIT		= %x30-39	     ;; Digits 0-9
+
+	AUTH_CHAR	= ALPHA / DIGIT / "-" / "_"
+
+	auth_type	= 1*20AUTH_CHAR
+
+	auth_command	= "AUTH" SPACE auth_type [SPACE (base64 / "=")]
+			  *(CRLF [base64]) CRLF
+
+
+
+
+Siemborski		   Expires April, 2004		        [Page 8]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+	base64		= base64_terminal /
+			  ( 1*(4base64_CHAR) [base64_terminal] )
+
+	base64_char	= UPALPHA / LOALPHA / DIGIT / "+" / "/"
+			  ;; Case-sensitive
+
+	base64_terminal = (2base64_char "==") / (3base64_char "=")
+
+	continue_req	= "+" SPACE [base64] CRLF
+
+	CR		= %x0C		 ;; ASCII CR, carriage return
+
+	CRLF		= CR LF
+
+	LF		= %x0A		 ;; ASCII LF, line feed
+
+	SPACE		= %x20		 ;; ASCII SP, space
+
+
+6.  Security Considerations
+
+    Security issues are discussed throughout this memo.
+
+    Before the [SASL] negotiation has begun, any protocol interactions
+    are performed in the clear and may be modified by an active
+    attacker.  For this reason, clients and servers MUST discard any
+    knowledge obtained prior to the start of the SASL negotiation upon
+    the establishment of a security layer.
+
+7.  IANA Considerations
+
+    This document requests that the IANA update the entry for the "pop"
+    SASL protocol name to point at this document.
+
+    This document requests that the IANA update the entry for the SASL
+    POP3 capability to be as defined in Section 3 of this document.
+
+8.  Intellectual Property Rights
+
+    The IETF takes no position regarding the validity or scope of any
+    intellectual property or other rights that might be claimed to
+    pertain to the implementation or use of the technology described in
+    this document or the extent to which any license under such rights
+    might or might not be available; neither does it represent that it
+    has made any effort to identify any such rights.  Information on the
+    IETF's procedures with respect to rights in standards-track and
+    standards-related documentation can be found in BCP-11.  Copies of
+    claims of rights made available for publication and any assurances
+
+
+
+Siemborski		   Expires April, 2004		        [Page 9]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+    of licenses to be made available, or the result of an attempt made
+    to obtain a general license or permission for the use of such
+    proprietary rights by implementors or users of this specification
+    can be obtained from the IETF Secretariat.
+
+    The IETF invites any interested party to bring to its attention any
+    copyrights, patents or patent applications, or other proprietary
+    rights which may cover technology that may be required to practice
+    this standard.  Please address the information to the IETF Executive
+    Director.
+
+9.  Copyright
+
+    Copyright (C) The Internet Society (2003). All Rights Reserved.
+
+    This document and translations of it may be copied and furnished to
+    others, and derivative works that comment on or otherwise explain it
+    or assist in its implementation may be prepared, copied, published
+    and distributed, in whole or in part, without restriction of any
+    kind, provided that the above copyright notice and this paragraph
+    are included on all such copies and derivative works.  However, this
+    document itself may not be modified in any way, such as by removing
+    the copyright notice or references to the Internet Society or other
+    Internet organizations, except as needed for the  purpose of
+    developing Internet standards in which case the procedures for
+    copyrights defined in the Internet Standards process must be
+    followed, or as required to translate it into languages other than
+    English.
+
+    This document and the information contained herein is provided on an
+    "AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+    TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+    BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+    HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+    MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Siemborski		   Expires April, 2004	               [Page 10]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+10.  References
+
+     The following documents contain normative definitions or
+specifications that are necessary for correct understanding of this
+protocol:
+
+[BASE64]    Josefsson, S., "The Base16, Base32, and Base64 Data
+	    Encodings", RFC 3548, July 2003.
+
+[KEYWORDS]  Bradner, S., "Key words for use in RFCs to Indicate
+	    Requirement Levels", BCP 14, RFC 2119, March 1997
+
+[POP3]	    Myers, J. & Rose, M., "Post Office Protocol - Version 3",
+	    STD 53, RFC 1939, May 1996.
+
+[POP3-EXT]  Gellens, R., Newman, C. & Lundblade, L., "POP3 Extension
+	    Mechanism", RFC 2449, November 1998.
+
+[POP3-TLS]  Newman, C. "Using TLS with IMAP, POP3, and ACAP", RFC 2595,
+	    June 1999.
+
+[SASL]	    Myers, J., "Simple Authentication and Security Layer
+	    (SASL)", RFC 2222, October 1997.
+
+The following references are for informational purposes only:
+
+[POP3-AUTH] Myers, J., "POP3 AUTHentication Command", RFC 1734, January
+	    1994.
+
+[TLS]	    Dierks, T. and C. Allen, "The TLS Protocol Version 1.0", RFC
+	    2246, January 1999.
+
+11.  Changes From RFC 1734 and RFC 2449
+
+	    1.	 The SASL-based semantics defined in RFC 2449 are now
+		 normative for the AUTH extension.
+
+	    2.	 Clarifications and examples of the proper behavior of
+		 initial client response handling.
+
+	    3.	 Minimum requirement of support for TLS+PLAIN.
+
+	    4.	 Clarify ordering of TLS and SASL security layers.
+
+	    5.	 Update references to newer versions of various
+		 specifications.
+
+
+
+
+
+Siemborski		   Expires April, 2004	               [Page 11]
+
+
+
+
+
+POP3 SASL Authentication Mechanism			   October, 2003
+
+
+	    6.	 Clarify that the mechanism list can change.
+
+	    7.	 General other editorial clarifications.
+
+12.  Author's	 Address:
+
+    Robert Siemborski
+    Carnegie Mellon, Andrew Systems Group
+    Cyert Hall 207
+    5000 Forbes Avenue
+    Pittsburgh, PA  15213
+    +1 412 268 7456
+    rjs3+@andrew.cmu.edu
+
+13.  Acknowledgments:
+
+    The author would like to acknowledge the contributions of John Myers
+    and other contributors to RFC 1734, on which this document draws
+    heavily.
+
+    The author would also like to thank Ken Murchison and Mark Crispin
+    for the time they devoted to reviewing early drafts of this
+    document.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Siemborski		   Expires April, 2004	               [Page 12]
+
+
