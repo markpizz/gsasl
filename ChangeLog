@@ -1,3 +1,98 @@
+2003-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.0.7.
+
+2003-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gssapi.c: Use gss.h.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Mention GSS/Heimdal.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump version number.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* README, THANKS: Mention Heimdal.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gssapi.c: SS_C_NT_HOSTBASED_SERVICE work around moved to
+	configure.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: GSS_C_NT_HOSTBASED_SERVICE work around moved to
+	configure.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* README: Mention GSS, CCured.	Remove todo.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Warn if GSS isn't found.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Mention GSS.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: License doesn't have to be invariant.
+
+2003-05-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Replace lt-gsasl with gsasl in man page (work
+	around libtool).
+
+2003-05-24  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gssapi.c: Deallocate GSS context correctly.
+
+2003-05-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gssapi.c: Support GSS.
+
+2003-05-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Add GSS flags.
+
+2003-05-18  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Detect GSS.
+
+2003-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* ANNOUNCE: Mention devices it works on.
+
+2003-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2003-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Fix.
+
+2003-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Don't ack self.  Fix --imap descriptoin.
+
+2003-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
 2003-03-17  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Fix pkg-config filename.  Fix release target.
