@@ -267,6 +267,7 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
   Gsasl_server_callback_retrieve cb_retrieve;
   int hash_len = gcry_md_get_algo_dlen (GCRY_MD_MD5);
   char *username = NULL;
+  char *key = NULL;
   Gsasl_ctx *ctx;
   int res;
 
@@ -310,8 +311,8 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
       response = (char *) malloc (hash_len * 2 + 1);
       if (response == NULL)
 	{
-	  free (username);
-	  return GSASL_MALLOC_ERROR;
+	  res = GSASL_MALLOC_ERROR;
+	  goto done;
 	}
 
       memcpy (response, input + input_len - hash_len * 2, hash_len * 2);
@@ -327,7 +328,6 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
       char *hash;
       size_t len;
       size_t keylen;
-      char *key;
       char *normkey;
       int i;
 
@@ -335,37 +335,35 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
 	gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_SECURE | GCRY_MD_FLAG_HMAC);
       if (md5h == NULL)
 	{
-	  free (username);
-	  return GSASL_GCRYPT_ERROR;
+	  res = GSASL_GCRYPT_ERROR;
+	  goto done;
 	}
 
       res = cb_retrieve (sctx, username, NULL, NULL, NULL, &keylen);
-      if (res != GSASL_OK)
-	return res;
+      if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
+	goto done;
       key = malloc (keylen);
       if (key == NULL)
-	return GSASL_MALLOC_ERROR;
-      res = cb_retrieve (sctx, username, NULL, NULL, key, &keylen);
-      if (res != GSASL_OK)
 	{
-	  free (username);
-	  free (key);
-	  return res;
+	  res = GSASL_MALLOC_ERROR;
+	  goto done;
 	}
+      res = cb_retrieve (sctx, username, NULL, NULL, key, &keylen);
+      if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
+	  goto done;
       normkey = stringprep_utf8_nfkc_normalize (key, keylen);
-      free (key);
       if (normkey == NULL)
 	{
-	  free (username);
-	  return GSASL_UNICODE_NORMALIZATION_ERROR;
+	  res = GSASL_UNICODE_NORMALIZATION_ERROR;
+	  goto done;
 	}
 
       res = gcry_md_setkey (md5h, normkey, strlen (normkey));
       free (normkey);
       if (res != GCRYERR_SUCCESS)
 	{
-	  free (username);
-	  return GSASL_GCRYPT_ERROR;
+	  res = GSASL_GCRYPT_ERROR;
+	  goto done;
 	}
 
       gcry_md_write (md5h, challenge, strlen (challenge));
@@ -373,8 +371,8 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
       hash = gcry_md_read (md5h, GCRY_MD_MD5);
       if (hash == NULL)
 	{
-	  free (username);
-	  return GSASL_GCRYPT_ERROR;
+	  res = GSASL_GCRYPT_ERROR;
+	  goto done;
 	}
 
       res = GSASL_OK;
@@ -386,7 +384,11 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
     }
 
   free (username);
+  if (key)
+    free(key);
+  *output_len = 0;
 
+ done:
   return res;
 }
 
