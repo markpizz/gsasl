@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libgsasl 0.1.0\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-09-18 19:18+0200\n"
+"POT-Creation-Date: 2004-09-24 17:08+0200\n"
 "PO-Revision-Date: 2004-04-18 12:00-0500\n"
 "Last-Translator: Laurentiu Buzdugan <lbuz@rolix.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -330,5 +330,25 @@ msgid "Authentication failed because the password was not provided."
 msgstr ""
 
 #: src/error.c:334
+msgid "Authentication failed because the passcode was not provided."
+msgstr ""
+
+#: src/error.c:339
+msgid "Authentication failed because the pin code was not provided."
+msgstr ""
+
+#: src/error.c:344
+msgid "Authentication failed because the service name was not provided."
+msgstr ""
+
+#: src/error.c:349
+msgid "Authentication failed because the host name was not provided."
+msgstr ""
+
+#: src/error.c:354
+msgid "Failed to perform Unicode Normalization on string."
+msgstr ""
+
+#: src/error.c:358
 msgid "Libgsasl unknown error"
 msgstr "Eroare libgsasl necunoscutã"

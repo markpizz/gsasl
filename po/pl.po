@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-09-18 19:18+0200\n"
+"POT-Creation-Date: 2004-09-24 17:08+0200\n"
 "PO-Revision-Date: 2004-08-25 22:41+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -41,7 +41,7 @@ msgid "Output from server:\n"
 msgstr "Wyj¶cie serwera:\n"
 
 #: src/gsasl.c:304 src/gsasl.c:346 src/gsasl.c:397 src/gsasl.c:439
-#: src/gsasl.c:531
+#: src/gsasl.c:532
 #, c-format
 msgid "Libgsasl error (%d): %s"
 msgstr "B³±d libgsasl (%d): %s"
@@ -86,12 +86,12 @@ msgstr "Uwierzytelnienie serwera zakoñczone (klient zaufa³)...\n"
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Dane aplikacji (EOF aby zakoñczyæ):\n"
 
-#: src/gsasl.c:505
+#: src/gsasl.c:510
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Zakodowane base64 dane aplikacji do wys³ania:\n"
 
-#: src/gsasl.c:536
+#: src/gsasl.c:537
 #, c-format
 msgid "Session finished...\n"
 msgstr "Sesja zakoñczona...\n"
