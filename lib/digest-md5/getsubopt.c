@@ -1,6 +1,9 @@
-/* getsubopt.c --- getsubopt modified for DIGEST-MD5 mechanism from RFC 2831.
+/* getsubopt.c --- Parse comma separate list into words, DIGEST-MD5 style.
  * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  * Copyright (C) 1996, 1997, 1999 Free Software Foundation, Inc.
+ * From the GNU C Library, under GNU LGPL version 2.1.
+ * Contributed by Ulrich Drepper <drepper@cygnus.com>, 1996.
+ * Modified for Libgsasl by Simon Josefsson <simon@josefsson.org>
  *
  * This file is part of GNU SASL Library.
  *
@@ -31,19 +34,14 @@
 /* Get memchr and memcmp. */
 #include <string.h>
 
-/* Parse comma separate list into words.
-   Copyright (C) 1996, 1997, 1999 Free Software Foundation, Inc.
-   From the GNU C Library, under GNU LGPL version 2.1.
-   Contributed by Ulrich Drepper <drepper@cygnus.com>, 1996.
-   Modified for Libgsasl by Simon Josefsson <simon@josefsson.org>
-   Copyright (C) 2002  Simon Josefsson
-
-   Parse comma separated suboption from *OPTIONP and match against
+/* Parse comma separated suboption from *OPTIONP and match against
    strings in TOKENS.  If found return index and set *VALUEP to
    optional value introduced by an equal sign.  If the suboption is
    not part of TOKENS return in *VALUEP beginning of unknown
    suboption.  On exit *OPTIONP is set to the beginning of the next
-   token or at the terminating NUL character.  */
+   token or at the terminating NUL character.
+
+   This function is NOT identical to standard getsubopt! */
 int
 digest_md5_getsubopt (char **optionp,
 		      const char *const *tokens,
