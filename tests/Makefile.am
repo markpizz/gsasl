@@ -20,7 +20,8 @@
 
 dist_noinst_DATA = cram-md5.pwd
 
-AM_CPPFLAGS = -I$(top_builddir)/lib/src -I$(srcdir)/../gl -I../gl
+AM_CPPFLAGS = -I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src \
+	-I$(srcdir)/../gl -I../gl
 AM_LDFLAGS = -no-install
 LDADD = ../lib/src/libgsasl.la libutils.la
 
