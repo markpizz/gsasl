@@ -101,18 +101,18 @@ static struct sasltv sasltv[] = {
 #endif
 #ifdef USE_LOGIN
   {CLIENT, "LOGIN",
-   {"VXNlciBOYW1l", "YXV0aHppZA==", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=", NULL,
+   {"VXNlciBOYW1l", "YXV0aGlk", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=", NULL,
     NULL}, "password", "authzid", "authid"},
   {CLIENT, "LOGIN",
-   {"VXNlciBOYW1l", "YQ==", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}, "a", "a",
+   {"VXNlciBOYW1l", "YXV0aGlk", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}, "a", "a",
    "authid"},
 #ifdef WITH_STRINGPREP
   {CLIENT, "LOGIN",
-   {"VXNlciBOYW1l", "YQ==", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}, UTF8_a,
+   {"VXNlciBOYW1l", "YXV0aGlk", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}, UTF8_a,
    UTF8_a, "authid"},
 #endif
   {SERVER, "LOGIN",
-   {"", "VXNlciBOYW1l", "YXV0aHppZA==", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=",
+   {"", "VXNlciBOYW1l", "YXV0aGlk", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=",
     NULL, NULL}, "password", "authzid", "authid"},
 #endif
 #ifdef USE_CRAM_MD5
