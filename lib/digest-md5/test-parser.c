@@ -33,45 +33,47 @@ main (int argc, char *argv[])
   int rc;
 
   {
-    char *token = "nonce=4711, foo=bar";
+    char *token = "nonce=4711, foo=bar, algorithm=md5-sess";
 
-    printf ("`%s': ", token);
+    printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, &c);
-    if (rc == 0)
-      printf ("nonce `%s': %s", c.nonce,
-	      strcmp ("4711", c.nonce) == 0 ? "PASS" : "FAILURE");
-    else
-      printf ("FAILURE");
+    if (rc != 0)
+      abort ();
+    printf ("nonce `%s': %s", c.nonce,
+	    strcmp ("4711", c.nonce) == 0 ? "PASS" : "FAILURE");
     printf ("\n");
+  }
+
+  {
+    char *token = "qop=\"auth, auth-conf\", nonce=42, algorithm=md5-sess";
+
+    printf ("challenge `%s': ", token);
+    rc = digest_md5_parse_challenge (token, &c);
+    if (rc != 0)
+      abort ();
+    printf ("qop %02x: %s\n", c.qops, c.qops == 5 ? "PASS" : "FAILURE");
   }
 
   {
     char *token = "bar=foo, foo=bar";
 
-    printf ("`%s': ", token);
+    printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, &c);
     if (rc == 0)
-      printf ("FAILURE");
-    else
-      printf ("PASS");
-    printf ("\n");
+      abort ();
+    printf ("PASS\n");
   }
 
   {
-    char *token = "realm=foo, realm=bar, nonce=42";
+    char *token = "realm=foo, realm=bar, nonce=42, algorithm=md5-sess";
 
-    printf ("`%s': ", token);
+    printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, &c);
-    if (rc == 0)
-      {
-	if (c.nrealms == 2)
-	  printf ("realms `%s', `%s' PASS", c.realms[0], c.realms[1]);
-	else
-	  printf ("nrealms %d != 2", c.nrealms);
-      }
-    else
-      printf ("FAILURE");
-    printf ("\n");
+    if (rc != 0)
+      abort ();
+    if (c.nrealms != 2)
+      abort ();
+    printf ("realms `%s', `%s': PASS\n", c.realms[0], c.realms[1]);
   }
 
   /* Response */
@@ -82,10 +84,8 @@ main (int argc, char *argv[])
     printf ("response `%s': ", token);
     rc = digest_md5_parse_response (token, &r);
     if (rc == 0)
-      printf ("FAILURE");
-    else
-      printf ("PASS");
-    printf ("\n");
+      abort ();
+    printf ("PASS\n");
   }
 
   {
@@ -94,13 +94,11 @@ main (int argc, char *argv[])
 
     printf ("response `%s': ", token);
     rc = digest_md5_parse_response (token, &r);
-    if (rc == 0)
-      printf ("username `%s', nonce `%s', cnonce `%s',"
-	      " nc %08lx, digest-uri `%s', response `%s': PASS",
-	      r.username, r.nonce, r.cnonce, r.nc, r.digesturi, r.response);
-    else
-      printf ("FAILURE");
-    printf ("\n");
+    if (rc != 0)
+      abort ();
+    printf ("username `%s', nonce `%s', cnonce `%s',"
+	    " nc %08lx, digest-uri `%s', response `%s': PASS\n",
+	    r.username, r.nonce, r.cnonce, r.nc, r.digesturi, r.response);
   }
 
   /* Auth-response, finish. */
@@ -108,22 +106,22 @@ main (int argc, char *argv[])
   {
     char *token = "rspauth=\"4711\"";
 
+    printf ("finish `%s': ", token);
     rc = digest_md5_parse_finish (token, &f);
-    if (rc == 0)
-      printf ("`%s' -> `%s'? %s\n", token, f.rspauth,
-	      strcmp ("4711", f.rspauth) == 0 ? "ok" : "FAILURE");
-    else
-      printf ("FAILURE\n");
+    if (rc != 0)
+      abort ();
+    printf ("`%s'? %s\n", f.rspauth,
+	    strcmp ("4711", f.rspauth) == 0 ? "ok" : "FAILURE");
   }
 
   {
     char *token = "bar=foo, foo=bar";
 
+    printf ("finish `%s': ", token);
     rc = digest_md5_parse_finish (token, &f);
     if (rc == 0)
-      printf ("FAILURE\n");
-    else
-      printf ("`%s' -> invalid? ok\n", token);
+      abort ();
+    printf ("invalid? PASS\n", token);
   }
 
   return 0;
