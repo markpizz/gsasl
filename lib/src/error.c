@@ -231,6 +231,10 @@ gsasl_strerror (int err)
       p = _("Failed to perform Unicode Normalization on string.");
       break;
 
+    case GSASL_SASLPREP_ERROR:
+      p = _("Could not prepare internationalized (non-ASCII) string.");
+      break;
+
 #ifndef GSASL_NO_OBSOLETE
     case GSASL_TOO_SMALL_BUFFER:
       p = _("SASL function need larger buffer (internal error)");

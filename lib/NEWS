@@ -38,6 +38,8 @@ gsasl_stringprep_nfkc, gsasl_stringprep_saslprep,
 gsasl_stringprep_trace: DEPRECATED.  Use gsasl_saslprep() instead.
 gsasl_saslprep: ADD.
 GSASL_REALM: ADD, new property.
+GSASL_UNICODE_NORMALIZATION_ERROR: DEPRECATED.  Use
+                                   GSASL_SASLPREP_ERROR instead.
 
 * Version 0.2.2 (released 2004-11-29)
 
