@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU libgsasl 0.0.15\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-08-31 19:20+0200\n"
+"POT-Creation-Date: 2004-09-18 19:18+0200\n"
 "PO-Revision-Date: 2004-04-16 00:19+0200\n"
 "Last-Translator: Simon Josefsson <simon@josefsson.org>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -264,5 +264,27 @@ msgid "The provided library handle was invalid (application error)"
 msgstr ""
 
 #: src/error.c:310
+msgid "No callback specified by caller (application error)."
+msgstr ""
+
+#: src/error.c:314
+msgid "Authentication failed because the anonymous token was not provided."
+msgstr ""
+
+#: src/error.c:319
+msgid ""
+"Authentication failed because the authentication identity was not provided."
+msgstr ""
+
+#: src/error.c:324
+msgid ""
+"Authentication failed because the authorization identity was not provided."
+msgstr ""
+
+#: src/error.c:329
+msgid "Authentication failed because the password was not provided."
+msgstr ""
+
+#: src/error.c:334
 msgid "Libgsasl unknown error"
 msgstr "Okänt fel i libgsasl"

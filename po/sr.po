@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-08-08 00:42+0200\n"
+"POT-Creation-Date: 2004-09-18 19:18+0200\n"
 "PO-Revision-Date: 2004-08-26 20:45-0400\n"
 "Last-Translator: Aleksandar Jelenak <jelenak@netlinkplus.net>\n"
 "Language-Team: Serbian <gnu@prevod.org>\n"
@@ -39,58 +39,60 @@ msgstr "Излаз клијента:\n"
 msgid "Output from server:\n"
 msgstr "Излаз сервера:\n"
 
-#: src/gsasl.c:335 src/gsasl.c:377 src/gsasl.c:428 src/gsasl.c:470
-#: src/gsasl.c:562
+#: src/gsasl.c:304 src/gsasl.c:346 src/gsasl.c:397 src/gsasl.c:439
+#: src/gsasl.c:531
 #, c-format
 msgid "Libgsasl error (%d): %s"
 msgstr "Libgsasl грешка (%d): %s"
 
-#: src/gsasl.c:384
+#: src/gsasl.c:353
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Овај клијент подржава следеће методе:\n"
 
-#: src/gsasl.c:387
+#: src/gsasl.c:356
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Овај сервер подржава следеће методе:\n"
 
-#: src/gsasl.c:411
+#: src/gsasl.c:380
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Не може наћи метод...\n"
 
-#: src/gsasl.c:457
+#: src/gsasl.c:426
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Унесите base64 податке за потврду сервера (притисните <RET> ако нема):\n"
+msgstr ""
+"Унесите base64 податке за потврду сервера (притисните <RET> ако нема):\n"
 
-#: src/gsasl.c:460
+#: src/gsasl.c:429
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Унесите base64 податке за потврду клијента (притисните <RET> ако нема):\n"
+msgstr ""
+"Унесите base64 податке за потврду клијента (притисните <RET> ако нема):\n"
 
-#: src/gsasl.c:479
+#: src/gsasl.c:448
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Потврђивање клијента завршено (серверу се верује)...\n"
 
-#: src/gsasl.c:482
+#: src/gsasl.c:451
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Потврђивање сервера завршено (клијенту се верује)...\n"
 
-#: src/gsasl.c:497
+#: src/gsasl.c:466
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Унесите податке за обраду (<EOF> за крај):\n"
 
-#: src/gsasl.c:536
+#: src/gsasl.c:505
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Base64 кодовани подаци за слање:\n"
 
-#: src/gsasl.c:567
+#: src/gsasl.c:536
 #, c-format
 msgid "Session finished...\n"
 msgstr "Сесија завршена...\n"
