@@ -1,4 +1,4 @@
-# argp minmax
+# argp
 SUBDIRS = m4
 
 ## Process this file with automake to produce Makefile.in.
@@ -46,8 +46,6 @@ libfoo_la_SOURCES += gettext.h
 
 
 libfoo_la_SOURCES += mempcpy.h
-
-libfoo_la_SOURCES += minmax.h
 
 
 libfoo_la_SOURCES += strchrnul.h
