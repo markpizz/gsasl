@@ -233,7 +233,7 @@ static struct argp_option options[] = {
    "Identity to request service for."},
 
   {"password", 'p', "STRING", 0,
-   "Password for authentication."},
+   "Password for authentication (insecure for non-testing purposes)."},
 
   {"mechanism", 'm', "STRING", 0,
    "Mechanism to use."},
