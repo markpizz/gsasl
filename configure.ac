@@ -20,7 +20,7 @@ dnl Process this file with autoconf to produce a configure script.
 # Boston, MA 02111-1307, USA.
 
 AC_PREREQ(2.50)
-AC_INIT(libgsasl, 0.0.4, bug-gsasl@gnu.org)
+AC_INIT(libgsasl, 0.0.5, bug-gsasl@gnu.org)
 
 # Interfaces removed:       CURRENT++ AGE=0 REVISION=0
 # Interfaces added:         CURRENT++ AGE++ REVISION=0
@@ -201,35 +201,32 @@ fi
 AC_MSG_CHECKING([if GSSAPI should be used])
 AC_MSG_RESULT($gssapi)
 
-# Check for stringprep
-AC_ARG_WITH(system-stringprep,
-  AC_HELP_STRING([--without-system-stringprep],
-		[don't use the system's libstringprep]))
-if test "$with_system_stringprep" != "no" ; then
-	PKG_CHECK_MODULES(LIBSTRINGPREP, libstringprep >= 0.0.1,
-		with_system_stringprep=yes,
-		with_system_stringprep=no)
+# Check for idn
+AC_ARG_WITH(system-idn,
+  AC_HELP_STRING([--without-system-idn],
+		[don't use the system's libidn]))
+if test "$with_system_idn" != "no" ; then
+	PKG_CHECK_MODULES(LIBIDN, libidn >= 0.1.0,
+		with_system_idn=yes,
+		with_system_idn=no)
 fi
-if test "$with_system_stringprep" = "no"; then
+if test "$with_system_idn" = "no"; then
 	AC_MSG_WARN([[
 
-The system's libstringprep 0.0.1 or later not used. Using copy
-distributed with shishi instead.
+The system's libidn 0.1.0 or later not used. Using copy
+distributed with GNU Ssasl instead.
 
-See <http://josefsson.org/libstringprep/>.
-
-Don't worry.
 ]])
-	LIBSTRINGPREP_CFLAGS="-I\$(top_srcdir)/libstringprep"
-	LIBSTRINGPREP_LIBS="\$(top_builddir)/libstringprep/libstringprep.la"
-	LIBSTRINGPREP=libstringprep
+	LIBIDN_CFLAGS="-I\$(top_srcdir)/libidn"
+	LIBIDN_LIBS="\$(top_builddir)/libidn/libidn.la"
+	LIBIDN=libidn
 fi
-AC_SUBST(LIBSTRINGPREP)
-AC_SUBST(LIBSTRINGPREP_CFLAGS)
-AC_SUBST(LIBSTRINGPREP_LIBS)
-AC_MSG_CHECKING([if system's libstringprep should be used])
-AC_MSG_RESULT($with_system_stringprep)
-AC_CONFIG_SUBDIRS(libstringprep)
+AC_SUBST(LIBIDN)
+AC_SUBST(LIBIDN_CFLAGS)
+AC_SUBST(LIBIDN_LIBS)
+AC_MSG_CHECKING([if system's libidn should be used])
+AC_MSG_RESULT($with_system_idn)
+AC_CONFIG_SUBDIRS(libidn)
 
 # Checks for header files.
 AC_HEADER_STDC

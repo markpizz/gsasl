@@ -29,7 +29,7 @@ MOST_SUBDIRS = m4 intl po argp lib src tests doc
 
 DIST_SUBDIRS = libstringprep $(MOST_SUBDIRS)
 
-SUBDIRS = @LIBSTRINGPREP@ $(MOST_SUBDIRS)
+SUBDIRS = @LIBIDN@ $(MOST_SUBDIRS)
 
 ACLOCAL_AMFLAGS = -I m4 -I argp
 
