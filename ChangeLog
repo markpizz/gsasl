@@ -1,3 +1,113 @@
+2002-11-07 04:45  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac:
+
+	0.0.2 
+
+2002-11-07 04:44  Simon Josefsson <simon@josefsson.org>
+
+	* libgsasl.pc.in:
+
+	Add stringprep.  Add -R.  
+
+2002-11-07 04:35  Simon Josefsson <simon@josefsson.org>
+
+	* libstringprep/: Makefile.am, Makefile.in, NEWS, configure,
+	configure.ac, stringprep.c, stringprep.h, stringprep.h.in,
+	toutf8.c, tst_nfkc.c, tst_stringprep.c:
+
+	Update libstringprep to 0.0.2.  
+
+2002-11-07 04:34  Simon Josefsson <simon@josefsson.org>
+
+	* mkinstalldirs:
+
+	[no log message] 
+
+2002-11-07 03:50  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi:
+
+	Replace libgsasl-config with pkg-config.  
+
+2002-11-07 03:46  Simon Josefsson <simon@josefsson.org>
+
+	* m4/: Makefile.am, pkg.m4:
+
+	Add m4 for pkg-config.  
+
+2002-11-07 03:43  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, NEWS, README, configure.ac, mkinstalldirs,
+	lib/CaseFolding-3.2.0.txt, lib/CompositionExclusions-3.2.0.txt,
+	lib/LineBreak-3.2.0.txt, lib/Makefile.am,
+	lib/SpecialCasing-3.2.0.txt, lib/UnicodeData-3.2.0.txt,
+	lib/cram-md5.c, lib/digest-md5.c, lib/gen-unicode-tables.pl,
+	lib/gsasl.h.in, lib/gunibreak.h, lib/gunicomp.h, lib/gunidecomp.h,
+	lib/internal.h, lib/login.c, lib/plain.c, lib/unicode.c,
+	libstringprep/AUTHORS, libstringprep/COPYING,
+	libstringprep/CaseFolding-3.2.0.txt,
+	libstringprep/CompositionExclusions-3.2.0.txt,
+	libstringprep/INSTALL, libstringprep/LineBreak-3.2.0.txt,
+	libstringprep/Makefile.am, libstringprep/Makefile.in,
+	libstringprep/NEWS, libstringprep/README,
+	libstringprep/SpecialCasing-3.2.0.txt, libstringprep/THANKS,
+	libstringprep/UnicodeData-3.2.0.txt, libstringprep/aclocal.m4,
+	libstringprep/config.guess, libstringprep/config.h.in,
+	libstringprep/config.rpath, libstringprep/config.sub,
+	libstringprep/configure, libstringprep/configure.ac,
+	libstringprep/depcomp,
+	libstringprep/draft-hoffman-stringprep-07.txt,
+	libstringprep/example.c, libstringprep/gen-stringprep-tables.pl,
+	libstringprep/gen-unicode-tables.pl, libstringprep/gunicomp.h,
+	libstringprep/gunidecomp.h, libstringprep/iconv.m4,
+	libstringprep/install-sh, libstringprep/libstringprep.pc.in,
+	libstringprep/ltmain.sh, libstringprep/missing,
+	libstringprep/mkinstalldirs, libstringprep/nfkc.c,
+	libstringprep/profiles.c, libstringprep/stringprep.c,
+	libstringprep/stringprep.h, libstringprep/stringprep.h.in,
+	libstringprep/stringprep_generic.c,
+	libstringprep/stringprep_generic.h,
+	libstringprep/stringprep_kerberos5.h,
+	libstringprep/stringprep_nameprep.h, libstringprep/toutf8.c,
+	libstringprep/tst_stringprep.c, libstringprep/version.c,
+	po/libgsasl.pot, po/sv.po, src/Makefile.am, src/callbacks.c,
+	tests/Makefile.am, tests/unicode.c:
+
+	Use libstringprep (include copy of 0.0.1) instead of internal
+	Unicode stuff.  
+
+2002-10-19 21:41  Simon Josefsson <simon@josefsson.org>
+
+	* lib/securid.c:
+
+	Remove 'const's (causes warnings). Flip order of authorization and 
+	authentication ID.  
+
+2002-10-19 21:40  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac:
+
+	Silently continue if pkg-config isn't available.  
+
+2002-10-19 21:40  Simon Josefsson <simon@josefsson.org>
+
+	* README:
+
+	MIPS build was in 64 bit mode.  
+
+2002-10-19 21:25  Simon Josefsson <simon@josefsson.org>
+
+	* README:
+
+	Update list of systems; GNU make does not seem to be required.  
+
+2002-10-19 20:30  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+
+	Ignore some files for ChangeLog entries.  
+
 2002-10-19 20:25  Simon Josefsson <simon@josefsson.org>
 
 	* src/gsasl.c:
@@ -7,8 +117,7 @@
 
 2002-10-19 20:24  Simon Josefsson <simon@josefsson.org>
 
-	* tests/: .cvsignore, Makefile.am, plain-client.sh, simple.c,
-	unicode.c:
+	* tests/: Makefile.am, plain-client.sh, simple.c, unicode.c:
 
 	Removed plain-client.sh (unreliable with non-ASCII in shell script).  
 	Added C program to check simple SASL mechanisms against test
@@ -25,12 +134,6 @@
 	authentication ID.  NTLM doesn't require initial challenge to be '+'
 	(probably IMAP leftover).  SECURID implements non-initial steps
 	correctly.  
-
-2002-10-19 11:43  Simon Josefsson <simon@josefsson.org>
-
-	* .cvsignore, argp/.cvsignore, src/.cvsignore, .cvsignore:
-
-	[no log message] 
 
 2002-10-19 11:43  Simon Josefsson <simon@josefsson.org>
 
@@ -95,12 +198,6 @@
 	Make distcheck happy.  Shouldn't LTLIBINTL be included in lib/
 	though? Maybe a libtool bug.  
 
-2002-10-17 11:06  Simon Josefsson <simon@josefsson.org>
-
-	* autogen.sh:
-
-	gettextize --copy to shut up cvsco.  
-
 2002-10-17 11:02  Simon Josefsson <simon@josefsson.org>
 
 	* ABOUT-NLS, config.rpath, mkinstalldirs:
@@ -112,12 +209,6 @@
 	* Makefile.am:
 
 	Add ChangeLog target.  
-
-2002-10-13 04:26  Simon Josefsson <simon@josefsson.org>
-
-	* .cvsusers:
-
-	Add full name for better ChangeLog's.  
 
 2002-10-13 03:41  Simon Josefsson <simon@josefsson.org>
 
@@ -137,13 +228,7 @@
 
 2002-10-12 07:34  Simon Josefsson <simon@josefsson.org>
 
-	* po/libgsasl.pot, po/sv.po, ChangeLog:
-
-	[no log message] 
-
-2002-10-12 07:23  Simon Josefsson <simon@josefsson.org>
-
-	* lib/.cvsignore, .cvsusers:
+	* po/: libgsasl.pot, sv.po:
 
 	[no log message] 
 
@@ -250,36 +335,11 @@
 
 	Data is unsigned.  
 
-2002-10-12 06:05  Simon Josefsson <simon@josefsson.org>
-
-	* autogen.sh:
-
-	[no log message] 
-
-2002-10-11 20:01  Simon Josefsson <simon@josefsson.org>
-
-	* doc/specification/: draft-burdis-cat-srp-sasl-04.txt,
-	draft-burdis-cat-srp-sasl-05.txt, draft-leach-cifs-v1-spec-02.txt,
-	draft-leach-digest-sasl-01.txt, draft-leach-digest-sasl-02.txt,
-	draft-leach-digest-sasl-03.txt, draft-leach-digest-sasl-05.txt,
-	draft-myers-saslrev-01.txt, draft-nerenberg-sasl-crammd5-00.txt,
-	draft-newman-sasl-anon-00.txt, rfc2095.txt:
-
-	More specs.  
-
 2002-10-07 03:07  Simon Josefsson <simon@josefsson.org>
 
 	* m4/libgcrypt.m4:
 
 	forgot to add it 
-
-2002-10-07 03:07  Simon Josefsson <simon@josefsson.org>
-
-	* .cvsignore, argp/.cvsignore, doc/.cvsignore, intl/.cvsignore,
-	lib/.cvsignore, m4/.cvsignore, po/.cvsignore, src/.cvsignore,
-	tests/.cvsignore, src/libcharset/.cvsignore, ChangeLog:
-
-	[no log message] 
 
 2002-10-07 03:06  Simon Josefsson <simon@josefsson.org>
 
@@ -295,18 +355,17 @@
 
 2002-10-07 02:11  Simon Josefsson <simon@josefsson.org>
 
-	* AUTHORS, COPYING, COPYING.DOC, COPYING.LIB, ChangeLog,
-	Makefile.am, NEWS, README, THANKS, autogen.sh, configure.ac,
-	argp/Makefile.am, argp/Versions, argp/acinclude.m4,
-	argp/aclocal.m4, argp/argp-ba.c, argp/argp-eexst.c,
-	argp/argp-fmtstream.c, argp/argp-fmtstream.h, argp/argp-fs-xinl.c,
-	argp/argp-help.c, argp/argp-namefrob.h, argp/argp-parse.c,
-	argp/argp-pv.c, argp/argp-pvh.c, argp/argp-test.c,
-	argp/argp-xinl.c, argp/argp.h, argp/config.h.in, argp/configure,
-	argp/configure.ac, argp/depcomp, argp/install-sh, argp/libargp.m4,
-	argp/mempcpy.c, argp/missing, argp/mkinstalldirs, argp/strchrnul.c,
-	argp/strndup.c, doc/Makefile.am, doc/fdl.texi, doc/gdoc,
-	doc/gpl.texi, doc/gsasl-callback-authentication.texi,
+	* AUTHORS, COPYING, COPYING.DOC, COPYING.LIB, Makefile.am, NEWS,
+	README, THANKS, configure.ac, argp/Makefile.am, argp/Versions,
+	argp/acinclude.m4, argp/aclocal.m4, argp/argp-ba.c,
+	argp/argp-eexst.c, argp/argp-fmtstream.c, argp/argp-fmtstream.h,
+	argp/argp-fs-xinl.c, argp/argp-help.c, argp/argp-namefrob.h,
+	argp/argp-parse.c, argp/argp-pv.c, argp/argp-pvh.c,
+	argp/argp-test.c, argp/argp-xinl.c, argp/argp.h, argp/config.h.in,
+	argp/configure, argp/configure.ac, argp/depcomp, argp/install-sh,
+	argp/libargp.m4, argp/mempcpy.c, argp/missing, argp/mkinstalldirs,
+	argp/strchrnul.c, argp/strndup.c, doc/Makefile.am, doc/fdl.texi,
+	doc/gdoc, doc/gpl.texi, doc/gsasl-callback-authentication.texi,
 	doc/gsasl-callback-authorization.texi,
 	doc/gsasl-callback-client-service.texi,
 	doc/gsasl-callback-cram-md5.texi,
@@ -315,77 +374,42 @@
 	doc/gsasl-callback-retrieve.texi, doc/gsasl-callback-securid.texi,
 	doc/gsasl-callback-server-service.texi,
 	doc/gsasl-callback-validate.texi, doc/gsasl-example1.c,
-	doc/gsasl.texi, doc/lgpl.texi,
-	doc/specification/draft-burdis-cat-srp-sasl-06.txt,
-	doc/specification/draft-burdis-cat-srp-sasl-07.txt,
-	doc/specification/draft-ietf-cat-sasl-gssapi-05.txt,
-	doc/specification/draft-ietf-ldapext-x509-sasl-03.txt,
-	doc/specification/draft-melnikov-rfc2831bis-00.txt,
-	doc/specification/draft-melnikov-rfc2831bis-01.txt,
-	doc/specification/draft-melnikov-sasl-digest-aes-00.txt,
-	doc/specification/draft-myers-saslrev-02.txt,
-	doc/specification/draft-naffah-cat-sasl-sm2-02.txt,
-	doc/specification/draft-nerenberg-sasl-crammd5-01.txt,
-	doc/specification/draft-nerenberg-sasl-crammd5-02.txt,
-	doc/specification/draft-newman-auth-scram-03.txt,
-	doc/specification/draft-newman-sasl-passdss-01.txt,
-	doc/specification/draft-newman-telnet-sasl-01.txt,
-	doc/specification/draft-overell-roaming-elgamal-sasl-00.txt,
-	doc/specification/draft-sasl-login.txt,
-	doc/specification/draft-weltman-java-sasl-05.txt,
-	doc/specification/draft-zeilenga-sasl-anon-00.txt,
-	doc/specification/draft-zeilenga-sasl-plain-00.txt,
-	doc/specification/md5.txt, doc/specification/rfc1321.txt,
-	doc/specification/rfc1939.txt, doc/specification/rfc2104.txt,
-	doc/specification/rfc2195.txt, doc/specification/rfc2222.txt,
-	doc/specification/rfc2243.txt, doc/specification/rfc2245.txt,
-	doc/specification/rfc2289.txt, doc/specification/rfc2444.txt,
-	doc/specification/rfc2595.txt, doc/specification/rfc2808.txt,
-	doc/specification/rfc2831.txt, doc/specification/rfc2945.txt,
-	doc/specification/rfc3163.txt, doc/specification/rfc3174.txt,
-	doc/specification/sasl-mechanisms, intl/ChangeLog,
-	intl/Makefile.in, intl/VERSION, intl/bindtextdom.c,
-	intl/config.charset, intl/dcgettext.c, intl/dcigettext.c,
-	intl/dcngettext.c, intl/dgettext.c, intl/dngettext.c,
-	intl/eval-plural.h, intl/explodename.c, intl/finddomain.c,
-	intl/gettext.c, intl/gettextP.h, intl/gmo.h, intl/hash-string.h,
-	intl/intl-compat.c, intl/l10nflist.c, intl/libgnuintl.h,
-	intl/loadinfo.h, intl/loadmsgcat.c, intl/localcharset.c,
-	intl/locale.alias, intl/localealias.c, intl/localename.c,
-	intl/ngettext.c, intl/os2compat.c, intl/os2compat.h, intl/osdep.c,
-	intl/plural-exp.c, intl/plural-exp.h, intl/plural.y,
-	intl/ref-add.sin, intl/ref-del.sin, intl/textdomain.c,
-	lib/CaseFolding-3.2.0.txt, lib/CompositionExclusions-3.2.0.txt,
-	lib/LineBreak-3.2.0.txt, lib/Makefile.am,
-	lib/SpecialCasing-3.2.0.txt, lib/UnicodeData-3.2.0.txt,
-	lib/anonymous.c, lib/anonymous.h, lib/base64.c, lib/callback.c,
-	lib/common.c, lib/cram-md5.c, lib/cram-md5.h, lib/digest-md5.c,
-	lib/digest-md5.h, lib/done.c, lib/error.c, lib/external.c,
-	lib/external.h, lib/gen-unicode-tables.pl, lib/gettext.h,
-	lib/gsasl.h.in, lib/gssapi.c, lib/gunibreak.h, lib/gunicomp.h,
-	lib/gunidecomp.h, lib/hexdump.c, lib/init.c, lib/internal.h,
-	lib/listmech.c, lib/login.c, lib/login.h, lib/md5pwd.c, lib/ntlm.c,
-	lib/plain.c, lib/plain.h, lib/securid.c, lib/securid.h,
-	lib/suggest.c, lib/supportp.c, lib/unicode.c, lib/version.c,
-	lib/x-gssapi.h, lib/x-ntlm.h, lib/xfinish.c, lib/xstart.c,
-	lib/xstep.c, m4/ChangeLog, m4/Makefile.am, m4/codeset.m4,
-	m4/gettext.m4, m4/glibc21.m4, m4/iconv.m4, m4/intdiv0.m4,
-	m4/inttypes-pri.m4, m4/inttypes.m4, m4/inttypes_h.m4,
-	m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4, m4/lib-link.m4,
-	m4/lib-prefix.m4, m4/libntlm.m4, m4/progtest.m4, m4/stdint_h.m4,
-	m4/uintmax_t.m4, m4/ulonglong.m4, po/ChangeLog, po/LINGUAS,
+	doc/gsasl.texi, doc/lgpl.texi, intl/Makefile.in, intl/VERSION,
+	intl/bindtextdom.c, intl/config.charset, intl/dcgettext.c,
+	intl/dcigettext.c, intl/dcngettext.c, intl/dgettext.c,
+	intl/dngettext.c, intl/eval-plural.h, intl/explodename.c,
+	intl/finddomain.c, intl/gettext.c, intl/gettextP.h, intl/gmo.h,
+	intl/hash-string.h, intl/intl-compat.c, intl/l10nflist.c,
+	intl/libgnuintl.h, intl/loadinfo.h, intl/loadmsgcat.c,
+	intl/localcharset.c, intl/locale.alias, intl/localealias.c,
+	intl/localename.c, intl/ngettext.c, intl/os2compat.c,
+	intl/os2compat.h, intl/osdep.c, intl/plural-exp.c,
+	intl/plural-exp.h, intl/plural.y, intl/ref-add.sin,
+	intl/ref-del.sin, intl/textdomain.c, lib/CaseFolding-3.2.0.txt,
+	lib/CompositionExclusions-3.2.0.txt, lib/LineBreak-3.2.0.txt,
+	lib/Makefile.am, lib/SpecialCasing-3.2.0.txt,
+	lib/UnicodeData-3.2.0.txt, lib/anonymous.c, lib/anonymous.h,
+	lib/base64.c, lib/callback.c, lib/common.c, lib/cram-md5.c,
+	lib/cram-md5.h, lib/digest-md5.c, lib/digest-md5.h, lib/done.c,
+	lib/error.c, lib/external.c, lib/external.h,
+	lib/gen-unicode-tables.pl, lib/gettext.h, lib/gsasl.h.in,
+	lib/gssapi.c, lib/gunibreak.h, lib/gunicomp.h, lib/gunidecomp.h,
+	lib/hexdump.c, lib/init.c, lib/internal.h, lib/listmech.c,
+	lib/login.c, lib/login.h, lib/md5pwd.c, lib/ntlm.c, lib/plain.c,
+	lib/plain.h, lib/securid.c, lib/securid.h, lib/suggest.c,
+	lib/supportp.c, lib/unicode.c, lib/version.c, lib/x-gssapi.h,
+	lib/x-ntlm.h, lib/xfinish.c, lib/xstart.c, lib/xstep.c,
+	m4/Makefile.am, m4/codeset.m4, m4/gettext.m4, m4/glibc21.m4,
+	m4/iconv.m4, m4/intdiv0.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
+	m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
+	m4/lib-link.m4, m4/lib-prefix.m4, m4/libntlm.m4, m4/progtest.m4,
+	m4/stdint_h.m4, m4/uintmax_t.m4, m4/ulonglong.m4, po/LINGUAS,
 	po/Makefile.in.in, po/Makevars, po/Makevars.template,
 	po/POTFILES.in, po/Rules-quot, po/boldquot.sed,
 	po/en@boldquot.header, po/en@quot.header, po/insert-header.sin,
 	po/libgsasl.pot, po/quot.sed, po/remove-potcdate.sin, po/sv.po,
 	src/Makefile.am, src/callbacks.c, src/callbacks.h, src/gettext.h,
 	src/gsasl.c, src/libgsasl-config.in, src/libgsasl.m4,
-	src/libcharset/Makefile.am, src/libcharset/README,
-	src/libcharset/config.charset,
-	src/libcharset/libcharset-gsasl.patch, src/libcharset/libcharset.h,
-	src/libcharset/localcharset.c, src/libcharset/localcharset.c.orig,
-	src/libcharset/make-patch.sh, src/libcharset/ref-add.sin,
-	src/libcharset/ref-del.sin, src/libcharset/update.sh,
 	tests/Makefile.am, tests/plain-client.sh, tests/unicode.c:
 
 	Initial release, version 0.0.0.  
