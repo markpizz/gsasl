@@ -33,6 +33,7 @@ htmldir = ../www-$(PACKAGE)
 tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
 
 release:
+	cd lib && make release
 	cvs upd -p -r HEAD NEWS > /dev/null
 	if cvs upd -p -r $(tag) NEWS > /dev/null; then false else true; fi
 	rm -f ChangeLog && cvs upd ChangeLog
