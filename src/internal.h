@@ -68,15 +68,14 @@
 #include "strdup.h"
 #include "progname.h"
 #include "error.h"
-#include "getpassword.h"
 
 /* Get i18n. */
-#include <gettext.h>
 #ifdef HAVE_LOCALE_H
 # include <locale.h>
 #else
 # define setlocale(Category, Locale)	/* empty */
 #endif
+#include <gettext.h>
 #define _(String) gettext (String)
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
