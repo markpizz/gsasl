@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libgsasl 0.1.0\n"
+"Project-Id-Version: libgsasl 0.2.1\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-11-23 20:36+0100\n"
-"PO-Revision-Date: 2004-04-18 00:13+0200\n"
+"POT-Creation-Date: 2004-11-23 22:46+0100\n"
+"PO-Revision-Date: 2004-11-21 23:31+0100\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -39,9 +39,8 @@ msgstr "B³±d przydzielania pamiêci w bibliotece SASL"
 msgid "Base 64 coding error in SASL library"
 msgstr "B³±d kodowania base64 w bibliotece SASL"
 
-#, fuzzy
 msgid "Low-level crypto error in SASL library"
-msgstr "B³±d gcrypt w bibliotece SASL"
+msgstr "B³±d kryptografii niskiego poziomu w bibliotece SASL"
 
 msgid ""
 "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL "
@@ -137,36 +136,45 @@ msgid "The provided library handle was invalid (application error)"
 msgstr "B³êdny dostarczony uchwyt biblioteki (b³±d aplikacji)"
 
 msgid "No callback specified by caller (application error)."
-msgstr ""
+msgstr "Wywo³uj±cy nie przekaza³ wywo³ania zwrotnego (b³±d aplikacji)."
 
 msgid "Authentication failed because the anonymous token was not provided."
 msgstr ""
+"Uwierzytelnienie nie powiod³o siê, poniewa¿ nie przekazano anonimowego "
+"tokena."
 
 msgid ""
 "Authentication failed because the authentication identity was not provided."
 msgstr ""
+"Uwierzytelnienie nie powiod³o siê, poniewa¿ nie przekazano to¿samo¶ci "
+"uwierzytelnienia."
 
 msgid ""
 "Authentication failed because the authorization identity was not provided."
 msgstr ""
+"Uwierzytelnienie nie powiod³o siê, poniewa¿ nie przekazano to¿samo¶ci "
+"autoryzacji."
 
 msgid "Authentication failed because the password was not provided."
-msgstr ""
+msgstr "Uwierzytelnienie nie powiod³o siê, poniewa¿ nie przekazano has³a."
 
 msgid "Authentication failed because the passcode was not provided."
 msgstr ""
+"Uwierzytelnienie nie powiod³o siê, poniewa¿ nie przekazano tajnego kodu."
 
 msgid "Authentication failed because the pin code was not provided."
-msgstr ""
+msgstr "Uwierzytelnienie nie powiod³o siê, poniewa¿ nie przekazano kodu PIN."
 
 msgid "Authentication failed because the service name was not provided."
 msgstr ""
+"Uwierzytelnienie nie powiod³o siê, poniewa¿ nie przekazano nazwy us³ugi."
 
 msgid "Authentication failed because the host name was not provided."
 msgstr ""
+"Uwierzytelnienie nie powiod³o siê, poniewa¿ nie przekazano nazwy hosta."
 
 msgid "Failed to perform Unicode Normalization on string."
-msgstr ""
+msgstr "Nie uda³o siê przeprowadziæ normalizacji unikodowej ³añcucha."
 
 msgid "SASL function need larger buffer (internal error)"
 msgstr "Funkcja SASL wymaga wiêkszego bufora (b³±d wewnêtrzny)"
