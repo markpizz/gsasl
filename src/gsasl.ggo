@@ -18,8 +18,8 @@
 # Boston, MA 02111-1307, USA.
 
 purpose "Authenticate user to a server using Simple Authentication and
-Security Layer.  Currently only IMAP servers are supported.  This is a
-command line interface for the GNU SASL library."
+Security Layer.  Currently IMAP and SMTP servers are supported.  This
+is a command line interface for the GNU SASL library."
 
 section "Commands"
 option "client" c "Act as client." flag off
