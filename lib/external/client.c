@@ -1,4 +1,4 @@
-/* external.c --- Implementation of EXTERNAL mechanism as defined in RFC 2222.
+/* client.c --- EXTERNAL mechanism as defined in RFC 2222, client side.
  * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
@@ -22,8 +22,6 @@
 
 #include "external.h"
 
-#ifdef USE_CLIENT
-
 int
 _gsasl_external_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
@@ -35,61 +33,11 @@ _gsasl_external_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 int
 _gsasl_external_client_step (Gsasl_session_ctx * sctx,
 			     void *mech_data,
-			     const char *input,
-			     size_t input_len,
-			     char **output, size_t * output_len)
-{
-  *output = NULL;
-  *output_len = 0;
-
-  return GSASL_OK;
-}
-
-#endif /* USE_CLIENT */
-
-/* Server */
-
-#ifdef USE_SERVER
-
-int
-_gsasl_external_server_start (Gsasl_session_ctx * sctx, void **mech_data)
-{
-  Gsasl_ctx *ctx;
-
-  ctx = gsasl_server_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  if (gsasl_server_callback_external_get (ctx) == NULL)
-    return GSASL_NEED_SERVER_EXTERNAL_CALLBACK;
-
-  return GSASL_OK;
-}
-
-int
-_gsasl_external_server_step (Gsasl_session_ctx * sctx,
-			     void *mech_data,
 			     const char *input, size_t input_len,
 			     char **output, size_t * output_len)
 {
-  Gsasl_server_callback_external cb_external;
-  Gsasl_ctx *ctx;
-  int res;
-
-  ctx = gsasl_server_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  cb_external = gsasl_server_callback_external_get (ctx);
-  if (cb_external == NULL)
-    return GSASL_NEED_SERVER_EXTERNAL_CALLBACK;
-
-  res = cb_external (sctx);
-
   *output = NULL;
   *output_len = 0;
 
-  return res;
+  return GSASL_OK;
 }
-
-#endif /* USE_SERVER */

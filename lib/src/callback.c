@@ -121,6 +121,7 @@ gsasl_callback (Gsasl_session * sctx, Gsasl_property prop)
      * gsasl_callback_global, since all obsolete callbacks were
      * session specific.  */
     Gsasl_server_callback_anonymous cb_anonymous;
+    Gsasl_server_callback_external cb_external;
     int res;
 
     switch (prop)
@@ -132,6 +133,14 @@ gsasl_callback (Gsasl_session * sctx, Gsasl_property prop)
 	if (!cb_anonymous)
 	  break;
 	res = cb_anonymous (sctx, sctx->anonymous_token);
+	return res;
+	break;
+
+      case GSASL_SERVER_EXTERNAL:
+	cb_external = gsasl_server_callback_external_get (sctx->ctx);
+	if (!cb_external)
+	  break;
+	res = cb_external (sctx);
 	return res;
 	break;
 

@@ -21,4 +21,12 @@
 AM_CPPFLAGS = -I$(srcdir)/../src -I$(builddir)/../src
 
 noinst_LTLIBRARIES = libgsasl-external.la
-libgsasl_external_la_SOURCES = external.h external.c
+libgsasl_external_la_SOURCES = external.h
+
+if CLIENT
+libgsasl_external_la_SOURCES += client.c
+endif
+
+if SERVER
+libgsasl_external_la_SOURCES += server.c
+endif
