@@ -232,10 +232,10 @@ extern "C"
   extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc);
 
   /* Utilities: base64.c, md5pwd.c, crypto.c */
-  extern int gsasl_base64_encode (char const *src, size_t srclength,
-				  char *target, size_t targsize);
-  extern int gsasl_base64_decode (char const *src,
-				  char *target, size_t targsize);
+  extern int gsasl_base64_to (const char *in, size_t inlen,
+			      char **out, size_t *outlen);
+  extern int gsasl_base64_from (const char *in, size_t inlen,
+				char **out, size_t * outlen);
   extern int gsasl_md5pwd_get_password (const char *filename,
 					const char *username,
 					char *key, size_t * keylen);
