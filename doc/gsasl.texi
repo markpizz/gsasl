@@ -1089,6 +1089,25 @@ const char *client_mechanism (Gsasl *ctx)
 @}
 @end example
 
+When running this example code, it might look like in the following
+output.
+
+@cartouche
+@example
+Enter list of mechanism that server support, separate by SPC:
+CRAM-MD5 DIGEST-MD5 GSSAPI FOO BAR
+Library suggest use of `GSSAPI'.
+Enter mechanism to use:
+CRAM-MD5
+Input base64 encoded data from server:
+Zm5vcmQ=
+Output:
+amFzIDkyY2U1NWE5MTM2ZTY4NzEyMTUyZTFjYmFmNjVkZjgx
+
+If server accepted us, we're done.
+@end example
+@end cartouche
+
 @section Using a callback
 
 Our earlier code specified the username and password before the
