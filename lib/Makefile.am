@@ -44,7 +44,7 @@ libgsasl_la_SOURCES = init.c done.c error.c version.c callback.c \
 			kerberos_v5.h kerberos_v5.c
 
 libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ \
-	@GSSAPI_LIBS@ @SHISHI_LIBS@ @LIBIDN_LIBS@ -lm @LTLIBOBJS@
+	@GSSAPI_LIBS@ @SHISHI_LIBS@ @LIBIDN_LIBS@ -lm @LTLIBOBJS@
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 localedir = $(datadir)/locale
