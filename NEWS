@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Changes in 0.0.15 (unreleased)
 
+** Polish translation added, by Jakub Bogusz.
+
 * Changes in 0.0.14 (released 2004-01-22)
 
 ** Moved all mechanism specific code into sub-directories of lib/.
