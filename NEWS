@@ -4,6 +4,9 @@ See the end for copying conditions.
 
 * Changes in 0.0.10 (unreleased)
 
+** Various build improvements.
+Pkg-config is no longer needed.  GTK-DOC is only used if present.
+
 * Changes in 0.0.9 (released 2003-11-21)
 
 ** Command line client can talk to SMTP servers with --smtp.
