@@ -4,6 +4,12 @@ See the end for copying conditions.
 
 * Changes in 0.1.1 (unreleased)
 
+** gsasl_client_suggest_mechanism and gsasl_server_suggest_mechanism now work.
+Earlier they were not implemented at all.
+
+** API and ABI modifications.
+No changes since last version.
+
 * Changes in 0.1.0 (released 2004-04-16)
 
 ** The library re-licensed to LGPL and distributed as a separate package.
