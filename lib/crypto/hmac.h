@@ -29,6 +29,7 @@
 #include "nettle-meta.h"
 
 #include "md5.h"
+#include "sha.h"
 
 /* Namespace mangling */
 #define hmac_set_key nettle_hmac_set_key
@@ -37,6 +38,12 @@
 #define hmac_md5_set_key nettle_hmac_md5_set_key
 #define hmac_md5_update nettle_hmac_md5_update
 #define hmac_md5_digest nettle_hmac_md5_digest
+#define hmac_sha1_set_key nettle_hmac_sha1_set_key
+#define hmac_sha1_update nettle_hmac_sha1_update
+#define hmac_sha1_digest nettle_hmac_sha1_digest
+#define hmac_sha256_set_key nettle_hmac_sha256_set_key
+#define hmac_sha256_update nettle_hmac_sha256_update
+#define hmac_sha256_digest nettle_hmac_sha256_digest
 
 void
 hmac_set_key(void *outer, void *inner, void *state,
@@ -83,5 +90,36 @@ hmac_md5_update(struct hmac_md5_ctx *ctx,
 void
 hmac_md5_digest(struct hmac_md5_ctx *ctx,
 		unsigned length, uint8_t *digest);
+
+
+/* hmac-sha1 */
+struct hmac_sha1_ctx HMAC_CTX(struct sha1_ctx);
+
+void
+hmac_sha1_set_key(struct hmac_sha1_ctx *ctx,
+		  unsigned key_length, const uint8_t *key);
+
+void
+hmac_sha1_update(struct hmac_sha1_ctx *ctx,
+		 unsigned length, const uint8_t *data);
+
+void
+hmac_sha1_digest(struct hmac_sha1_ctx *ctx,
+		 unsigned length, uint8_t *digest);
+
+/* hmac-sha256 */
+struct hmac_sha256_ctx HMAC_CTX(struct sha256_ctx);
+
+void
+hmac_sha256_set_key(struct hmac_sha256_ctx *ctx,
+		    unsigned key_length, const uint8_t *key);
+
+void
+hmac_sha256_update(struct hmac_sha256_ctx *ctx,
+		   unsigned length, const uint8_t *data);
+
+void
+hmac_sha256_digest(struct hmac_sha256_ctx *ctx,
+		   unsigned length, uint8_t *digest);
 
 #endif /* NETTLE_HMAC_H_INCLUDED */
