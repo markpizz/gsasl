@@ -57,7 +57,8 @@ gsasl_api_session_deps = $(top_srcdir)/lib/xstart.c \
 			$(top_srcdir)/lib/xfinish.c \
 			$(top_srcdir)/lib/xcode.c
 
-gsasl_api_utils_deps = $(top_srcdir)/lib/base64.c \
+gsasl_api_utils_deps = $(top_srcdir)/lib/stringprep.c \
+			$(top_srcdir)/lib/base64.c \
 			$(top_srcdir)/lib/hexdump.c \
 			$(top_srcdir)/lib/md5pwd.c
 
