@@ -20,7 +20,10 @@
 
 DEFAULT_INCLUDES = -I$(top_builddir)/lib
 AM_LDFLAGS = -no-install
-LDADD = ../lib/src/libgsasl.la
+LDADD = ../lib/src/libgsasl.la libutils.la
+
+noinst_LTLIBRARIES = libutils.la
+libutils_la_SOURCES = utils.h utils.c
 
 TESTS = simple
 check_PROGRAMS = $(TESTS)
