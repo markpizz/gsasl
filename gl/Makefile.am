@@ -104,3 +104,9 @@ libgl_la_SOURCES += strdup.h
 
 ## end   gnulib module strdup
 
+
+# Makefile.am ends here
+
+if !READLINE
+libgl_la_SOURCES += readline.c
+endif
