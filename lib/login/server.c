@@ -116,7 +116,7 @@ _gsasl_login_server_step (Gsasl_session * sctx,
       gsasl_property_set (sctx, GSASL_PASSWORD, state->password);
 
       res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_SIMPLE);
-      if (res == GSASL_CANNOT_VALIDATE)
+      if (res == GSASL_NO_CALLBACK)
 	{
 	  const char *key;
 
