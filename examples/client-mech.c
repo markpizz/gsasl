@@ -111,7 +111,7 @@ client (Gsasl *ctx)
   client_authenticate (ctx, session);
 
   /* Cleanup. */
-  gsasl_client_finish (session);
+  gsasl_finish (session);
 }
 
 int
