@@ -1,12 +1,14 @@
 Makefile
+Makefile.gdoc
 Makefile.in
 gsasl-api-callback.texi
-gsasl-api-error.texi
 gsasl-api-error-labels.texi
+gsasl-api-error.texi
 gsasl-api-global.texi
 gsasl-api-session.texi
 gsasl-api-utils.texi
 gsasl-api-version.texi
+gsasl.1
 gsasl.aux
 gsasl.cp
 gsasl.cps
@@ -28,7 +30,9 @@ gsasl.toc
 gsasl.tp
 gsasl.txt
 gsasl.vr
-stamp-vti
+man
 mdate-sh
+stamp-vti
+texi
 texinfo.tex
 version.texi
