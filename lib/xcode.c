@@ -1,5 +1,5 @@
 /* xcode.c	encode and decode application payload in libgsasl session
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -41,9 +41,21 @@ gsasl_encode (Gsasl_session_ctx * sctx,
 	      size_t input_len, char *output, size_t * output_len)
 {
   int res;
-  _Gsasl_code_function code = sctx ? (sctx->clientp ?
-				      sctx->mech->client.encode :
-				      sctx->mech->server.encode) : NULL;
+  _Gsasl_code_function code = NULL;
+
+  if (sctx)
+    {
+      if (sctx->clientp)
+#ifdef USE_CLIENT
+	code = sctx->mech->client.encode
+#endif
+	  ;
+      else
+#ifdef USE_SERVER
+	code = sctx->mech->server.encode
+#endif
+	  ;
+    }
 
   if (code == NULL)
     {
@@ -81,9 +93,21 @@ gsasl_decode (Gsasl_session_ctx * sctx,
 	      size_t input_len, char *output, size_t * output_len)
 {
   int res;
-  _Gsasl_code_function code = sctx ? (sctx->clientp ?
-				      sctx->mech->client.decode :
-				      sctx->mech->server.decode) : NULL;
+  _Gsasl_code_function code = NULL;
+
+  if (sctx)
+    {
+      if (sctx->clientp)
+#ifdef USE_CLIENT
+	code = sctx->mech->client.decode
+#endif
+	  ;
+      else
+#ifdef USE_SERVER
+	code = sctx->mech->server.decode
+#endif
+	  ;
+    }
 
   if (code == NULL)
     {

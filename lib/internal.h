@@ -79,8 +79,12 @@ struct _Gsasl_mechanism
 {
   char *name;
 
+#ifdef USE_CLIENT
   struct _Gsasl_mechanism_functions client;
+#endif
+#ifdef USE_SERVER
   struct _Gsasl_mechanism_functions server;
+#endif
 };
 typedef struct _Gsasl_mechanism _Gsasl_mechanism;
 

@@ -538,6 +538,15 @@ main (int argc, char *argv[])
     {
       gsasl_application_data_set (ctx, &i);
 
+#if !USE_CLIENT
+      if (sasltv[i].clientp)
+	continue;
+#endif
+#if !USE_SERVER
+      if (!sasltv[i].clientp)
+	continue;
+#endif
+
       if (verbose)
 	printf ("Entry %d %s mechanism %s:\n",
 		i, sasltv[i].clientp ? "client" : "server", sasltv[i].mech);

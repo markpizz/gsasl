@@ -47,6 +47,7 @@ gsasl_init (Gsasl_ctx ** ctx)
   i = 0;
   while (_gsasl_all_mechanisms[i].name)
     {
+#ifdef USE_CLIENT
       if (_gsasl_all_mechanisms[i].client.init &&
 	  _gsasl_all_mechanisms[i].client.init (*ctx) == GSASL_OK)
 	{
@@ -69,7 +70,9 @@ gsasl_init (Gsasl_ctx ** ctx)
 	    _gsasl_all_mechanisms[i];
 	  (*ctx)->n_client_mechs++;
 	}
+#endif
 
+#ifdef USE_SERVER
       if (_gsasl_all_mechanisms[i].server.init &&
 	  _gsasl_all_mechanisms[i].server.init (*ctx) == GSASL_OK)
 	{
@@ -92,6 +95,7 @@ gsasl_init (Gsasl_ctx ** ctx)
 	    _gsasl_all_mechanisms[i];
 	  (*ctx)->n_server_mechs++;
 	}
+#endif
 
       i++;
     }

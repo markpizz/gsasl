@@ -21,59 +21,6 @@
 
 #include "internal.h"
 
-static int
-_gsasl_session_start (Gsasl_ctx * ctx,
-		      const char *mech,
-		      Gsasl_session_ctx ** sctx, int clientp)
-{
-  size_t i;
-  int res;
-
-  *sctx = (Gsasl_session_ctx *) malloc (sizeof (**sctx));
-  if (*sctx == NULL)
-    return GSASL_MALLOC_ERROR;
-
-  memset (*sctx, 0, sizeof (**sctx));
-
-  for (i = 0; i < (clientp ? ctx->n_client_mechs : ctx->n_server_mechs); i++)
-    {
-      if (mech
-	  && ((clientp && strcmp (mech, ctx->client_mechs[i].name) == 0)
-	      || (!clientp && strcmp (mech, ctx->server_mechs[i].name) == 0)))
-	{
-	  if (clientp)
-	    (*sctx)->mech = &ctx->client_mechs[i];
-	  else
-	    (*sctx)->mech = &ctx->server_mechs[i];
-	  break;
-	}
-    }
-
-  if ((*sctx)->mech == NULL)
-    {
-      free (*sctx);
-      *sctx = NULL;
-      return GSASL_UNKNOWN_MECHANISM;
-    }
-
-  (*sctx)->ctx = ctx;
-  (*sctx)->clientp = clientp;
-  (*sctx)->mech_data = NULL;
-  if (clientp)
-    res = (*sctx)->mech->client.start (*sctx, &(*sctx)->mech_data);
-  else
-    res = (*sctx)->mech->server.start (*sctx, &(*sctx)->mech_data);
-
-  if (res != GSASL_OK)
-    {
-      free (*sctx);
-      *sctx = NULL;
-      return res;
-    }
-
-  return GSASL_OK;
-}
-
 /**
  * gsasl_client_start:
  * @ctx: libgsasl handle.
@@ -90,7 +37,48 @@ int
 gsasl_client_start (Gsasl_ctx * ctx,
 		    const char *mech, Gsasl_session_ctx ** sctx)
 {
-  return _gsasl_session_start (ctx, mech, sctx, 1);
+#ifdef USE_CLIENT
+  size_t i;
+  int res;
+
+  *sctx = (Gsasl_session_ctx *) malloc (sizeof (**sctx));
+  if (*sctx == NULL)
+    return GSASL_MALLOC_ERROR;
+
+  memset (*sctx, 0, sizeof (**sctx));
+
+  for (i = 0; i < ctx->n_client_mechs; i++)
+    {
+      if (mech && strcmp (mech, ctx->client_mechs[i].name) == 0)
+	{
+	  (*sctx)->mech = &ctx->client_mechs[i];
+	  break;
+	}
+    }
+
+  if ((*sctx)->mech == NULL)
+    {
+      free (*sctx);
+      *sctx = NULL;
+      return GSASL_UNKNOWN_MECHANISM;
+    }
+
+  (*sctx)->ctx = ctx;
+  (*sctx)->clientp = 1;
+  (*sctx)->mech_data = NULL;
+  res = (*sctx)->mech->client.start (*sctx, &(*sctx)->mech_data);
+
+  if (res != GSASL_OK)
+    {
+      free (*sctx);
+      *sctx = NULL;
+      return res;
+    }
+
+  return GSASL_OK;
+#else
+  return GSASL_UNKNOWN_MECHANISM;
+#endif
 }
 
 /**
@@ -109,5 +97,46 @@ int
 gsasl_server_start (Gsasl_ctx * ctx,
 		    const char *mech, Gsasl_session_ctx ** sctx)
 {
-  return _gsasl_session_start (ctx, mech, sctx, 0);
+#ifdef USE_SERVER
+  size_t i;
+  int res;
+
+  *sctx = (Gsasl_session_ctx *) malloc (sizeof (**sctx));
+  if (*sctx == NULL)
+    return GSASL_MALLOC_ERROR;
+
+  memset (*sctx, 0, sizeof (**sctx));
+
+  for (i = 0; i < ctx->n_server_mechs; i++)
+    {
+      if (mech && strcmp (mech, ctx->server_mechs[i].name) == 0)
+	{
+	  (*sctx)->mech = &ctx->server_mechs[i];
+	  break;
+	}
+    }
+
+  if ((*sctx)->mech == NULL)
+    {
+      free (*sctx);
+      *sctx = NULL;
+      return GSASL_UNKNOWN_MECHANISM;
+    }
+
+  (*sctx)->ctx = ctx;
+  (*sctx)->clientp = 0;
+  (*sctx)->mech_data = NULL;
+  res = (*sctx)->mech->server.start (*sctx, &(*sctx)->mech_data);
+
+  if (res != GSASL_OK)
+    {
+      free (*sctx);
+      *sctx = NULL;
+      return res;
+    }
+
+  return GSASL_OK;
+#else
+  return GSASL_UNKNOWN_MECHANISM;
+#endif
 }

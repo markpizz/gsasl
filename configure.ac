@@ -268,6 +268,26 @@ AC_MSG_CHECKING([if system's libidn should be used])
 AC_MSG_RESULT($with_system_idn)
 AC_CONFIG_SUBDIRS(libstringprep)
 
+# Allow disabling of client or server.
+AC_ARG_ENABLE(client,
+              AC_HELP_STRING([--disable-client], [Disable client code]),
+	      client=$enableval)
+AC_ARG_ENABLE(server,
+              AC_HELP_STRING([--disable-server], [Disable server code]),
+	      server=$enableval)
+if test "$client" != "no"; then
+  AC_DEFINE(USE_CLIENT, 1, [Define to 1 if you want client code.])
+  client=yes
+fi
+if test "$server" != "no"; then
+  AC_DEFINE(USE_SERVER, 1, [Define to 1 if you want server code.])
+  server=yes
+fi
+AC_MSG_CHECKING([if client code should be built])
+AC_MSG_RESULT($client)
+AC_MSG_CHECKING([if server code should be built])
+AC_MSG_RESULT($server)
+
 # Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(sys/types.h)

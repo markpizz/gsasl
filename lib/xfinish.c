@@ -1,5 +1,5 @@
 /* xfinish.c	finish libgsasl session
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -31,7 +31,9 @@
 void
 gsasl_client_finish (Gsasl_session_ctx * sctx)
 {
+#ifdef USE_CLIENT
   sctx->mech->client.finish (sctx, sctx->mech_data);
+#endif
 
   free (sctx);
 }
@@ -46,7 +48,9 @@ gsasl_client_finish (Gsasl_session_ctx * sctx)
 void
 gsasl_server_finish (Gsasl_session_ctx * sctx)
 {
+#ifdef USE_SERVER
   sctx->mech->server.finish (sctx, sctx->mech_data);
+#endif
 
   free (sctx);
 }

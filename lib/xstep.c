@@ -46,9 +46,13 @@ gsasl_client_step (Gsasl_session_ctx * sctx,
 		   const char *input,
 		   size_t input_len, char *output, size_t * output_len)
 {
+#ifdef USE_CLIENT
   return sctx->mech->client.step (sctx, sctx->mech_data,
 				  input, input_len, output, output_len);
 
+#else
+  return GSASL_UNKNOWN_MECHANISM;
+#endif
 }
 
 /**
@@ -76,16 +80,32 @@ gsasl_server_step (Gsasl_session_ctx * sctx,
 		   const char *input,
 		   size_t input_len, char *output, size_t * output_len)
 {
+#ifdef USE_SERVER
   return sctx->mech->server.step (sctx, sctx->mech_data,
 				  input, input_len, output, output_len);
+#else
+  return GSASL_UNKNOWN_MECHANISM;
+#endif
 }
 
-static int
-_gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
-			    const char *b64input,
-			    char *b64output,
-			    size_t b64output_len, int clientp)
+/**
+ * gsasl_client_step_base64:
+ * @sctx: libgsasl client handle.
+ * @b64input: input base64 encoded byte array.
+ * @b64output: output base64 encoded byte array.
+ * @b64output_len: size of output base64 encoded byte array.
+ *
+ * This is a simple wrapper around gsasl_client_step() that base64
+ * decodes the input and base64 encodes the output.
+ *
+ * Return value: See gsasl_client_step().
+ **/
+int
+gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
+			  const char *b64input,
+			  char *b64output, size_t b64output_len)
 {
+#ifdef USE_CLIENT
   size_t input_len, output_len;
   char *input, *output;
   int res;
@@ -120,10 +140,7 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
       output_len = 0;
     }
 
-  if (clientp)
-    res = gsasl_client_step (sctx, input, input_len, output, &output_len);
-  else
-    res = gsasl_server_step (sctx, input, input_len, output, &output_len);
+  res = gsasl_client_step (sctx, input, input_len, output, &output_len);
 
   if ((res == GSASL_OK || res == GSASL_NEEDS_MORE) && output
       && output_len > 0)
@@ -144,27 +161,9 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
     free (input);
 
   return res;
-}
-
-/**
- * gsasl_client_step_base64:
- * @sctx: libgsasl client handle.
- * @b64input: input base64 encoded byte array.
- * @b64output: output base64 encoded byte array.
- * @b64output_len: size of output base64 encoded byte array.
- *
- * This is a simple wrapper around gsasl_client_step() that base64
- * decodes the input and base64 encodes the output.
- *
- * Return value: See gsasl_client_step().
- **/
-int
-gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
-			  const char *b64input,
-			  char *b64output, size_t b64output_len)
-{
-  return _gsasl_session_step_base64 (sctx, b64input, b64output,
-				     b64output_len, 1);
+#else
+  return GSASL_UNKNOWN_MECHANISM;
+#endif
 }
 
 /**
@@ -184,6 +183,63 @@ gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
 			  const char *b64input,
 			  char *b64output, size_t b64output_len)
 {
-  return _gsasl_session_step_base64 (sctx, b64input, b64output,
-				     b64output_len, 0);
+#ifdef USE_SERVER
+  size_t input_len, output_len;
+  char *input, *output;
+  int res;
+
+  if (b64input && strlen (b64input) > 0)
+    {
+      input_len = strlen (b64input) + 1;
+      input = (char *) malloc (input_len);
+
+      input_len = gsasl_base64_decode (b64input, input, input_len);
+      if ((int)input_len == -1)
+	{
+	  free (input);
+	  return GSASL_BASE64_ERROR;
+	}
+    }
+  else
+    {
+      input = NULL;
+      input_len = 0;
+    }
+
+  if (b64output && b64output_len > 0)
+    {
+      *b64output = '\0';
+      output_len = b64output_len;	/* As good guess as any */
+      output = (char *) malloc (output_len);
+    }
+  else
+    {
+      output = NULL;
+      output_len = 0;
+    }
+
+  res = gsasl_server_step (sctx, input, input_len, output, &output_len);
+
+  if ((res == GSASL_OK || res == GSASL_NEEDS_MORE) && output
+      && output_len > 0)
+    {
+      output_len = gsasl_base64_encode (output, output_len,
+					b64output, b64output_len);
+      if ((int)output_len == -1)
+	{
+	  free (output);
+	  free (input);
+	  return GSASL_BASE64_ERROR;
+	}
+    }
+
+  if (output != NULL)
+    free (output);
+  if (input != NULL)
+    free (input);
+
+  return res;
+#else
+  return GSASL_UNKNOWN_MECHANISM;
+#endif
 }
