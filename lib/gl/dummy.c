@@ -17,7 +17,7 @@
    USA.  */
 
 /*
- * Some systems, reportedly OpenBSD and mac OS X, refuse to create
+ * Some systems, reportedly OpenBSD and Mac OS X, refuse to create
  * libraries without any symbols.  You might get an error like:
  *
  * > ar cru .libs/libgl.a
