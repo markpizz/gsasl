@@ -38,4 +38,4 @@ $(BUILT_SOURCES): gsasl.ggo
 	gengetopt --input gsasl.ggo --file-name gsasl_cmd
 
 indent:
-	indent $(gsasl_SOURCES)
+	indent *.c *.h
