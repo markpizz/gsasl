@@ -1196,9 +1196,6 @@ internationalization features) without doing anything.
 @node Acknowledgements
 @chapter Acknowledgements
 
-Simon Josefsson created the library autumn 2002 when he really should
-have been studying mathematics.
-
 The makefiles, manuals, etc borrowed much from Libgcrypt written by
 Werner Koch.
 
@@ -1268,6 +1265,7 @@ These parameters affect overall behaviour.
                              print it base64 encoded to stdout. The default is
                              to terminate after authentication.
       --imap                 Use a IMAP-like logon procedure (client only).
+                             Also sets the --service default to "imap".
   -m, --mechanism=STRING     Mechanism to use.
       --no-client-first      Disallow client to send data first (client only).
 @end verbatim
