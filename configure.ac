@@ -88,7 +88,7 @@ AC_MSG_CHECKING([if SECURID should be used])
 AC_MSG_RESULT($securid)
 
 # NTLM
-PKG_CHECK_MODULES(LIBNTLM, libntlm >= 0.3.1, [have_ntlm=yes])
+PKG_CHECK_MODULES(LIBNTLM, libntlm >= 0.3.1, [have_ntlm=yes], [:])
 AC_ARG_ENABLE(ntlm,
   AC_HELP_STRING([--disable-ntlm], [don't use the NTLM mechanism]),
   ntlm=$enableval)
