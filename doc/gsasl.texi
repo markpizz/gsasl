@@ -1,6 +1,6 @@
 \input texinfo                  @c -*- Texinfo -*-
 @c This file is part of the GNU SASL Manual.
-@c Copyright (C) 2002 Simon Josefsson
+@c Copyright (C) 2002, 2003 Simon Josefsson
 @c See below for copying conditions.
 
 @setfilename gsasl.info
@@ -752,6 +752,7 @@ on callbacks.
 * NTLM::                    Microsoft NTLM authentication.
 * SECURID::                 Authentication using tokens.
 * GSSAPI::                  GSSAPI (Kerberos 5) authentication.
+* KERBEROS_V5::             Experimental KERBEROS_V5 authentication.
 @end menu
 
 @node EXTERNAL
@@ -1003,6 +1004,46 @@ them in the library (@pxref{Callback Functions}).
 
 @include gsasl-callback-gssapi.texi
 
+@node KERBEROS_V5
+@section The KERBEROS_V5 mechanism
+
+The KERBEROS_V5 is an experimental mechanism, the protocol
+specification is available on the GNU SASL homepage.  It can operate
+in three modes, non-infrastructure mode, infrastructure mode and
+proxied infrastructure mode.  Currently only non-infrastructure mode
+is supported.
+
+In the non-infrastructure mode, it works as a superset of most
+features provided by PLAIN, CRAM-MD5, DIGEST-MD5 and GSSAPI while at
+the same time building on what is believed to be proven technology
+(the RFC 1510 network security system).  The non-infrastructure mode
+is chosen when the Gsasl_client_callback_authorization_id callback
+prototype is implemented by the application.  In non-infrastructure
+mode, the client must specify (via callbacks) the name of the user,
+and optionally the server name and realm.  The server must be able to
+retrieve passwords given the name of the user.
+
+In the infrastructure mode (proxied or otherwise), it allows clients
+and servers to authenticate via SASL in an RFC 1510 environment, using
+a trusted third party, a ``Key Distribution Central''.  In the normal
+mode, clients aquire tickets out of band and then invokes a one
+roundtrip AP-REQ and AP-REP exchange.  In the proxied mode, which can
+be used by clients without IP addresses or without connectivity to the
+KDC (e.g., when the KDC is IPv4 and the client is IPV6-only), the
+client uses the server to proxy ticket requests and finishes with the
+AP-REQ/AP-REP exchange.  In infrastructure mode (proxied or
+otherwise), the client nor server need to implement any callbacks
+(this will likely change later, to allow a server to authorize users,
+similar to the GSSAPI callback).
+
+@include gsasl-callback-authentication.texi
+
+@include gsasl-callback-authorization.texi
+
+@include gsasl-callback-password.texi
+
+@include gsasl-callback-retrieve.texi
+
 @c **********************************************************
 @c *****************  Global Functions  *********************
 @c **********************************************************
@@ -1010,6 +1051,7 @@ them in the library (@pxref{Callback Functions}).
 @chapter Global Functions
 
 @include gsasl-api-global.texi
+
 
 @c **********************************************************
 @c ******************  Callback Functions  ******************
@@ -1020,6 +1062,7 @@ them in the library (@pxref{Callback Functions}).
 
 @include gsasl-api-callback.texi
 
+
 @c **********************************************************
 @c *****************  Session Functions  ********************
 @c **********************************************************
@@ -1029,6 +1072,7 @@ them in the library (@pxref{Callback Functions}).
 
 @include gsasl-api-session.texi
 
+
 @c **********************************************************
 @c *******************  Utilities  **************************
 @c **********************************************************
@@ -1036,6 +1080,7 @@ them in the library (@pxref{Callback Functions}).
 @chapter Utilities
 
 @include gsasl-api-utils.texi
+
 
 @c **********************************************************
 @c *******************  Errors  ****************************
