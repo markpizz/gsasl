@@ -24,8 +24,7 @@ gsasl_texi_auto_deps = gsasl-api-version.texi gsasl-api-global.texi \
 
 # gsasl.xml gsasl-db.txt gsasl-db.html gsasl-db.ps gsasl-db.pdf
 
-generated = gsasl.txt gsasl.html gsasl.ps gsasl.pdf \
-	gsasl.info gsasl.info-1 gsasl.info-2 gsasl.info-3 gsasl.info-4 \
+generated = gsasl.txt gsasl.html gsasl.ps gsasl.pdf gsasl.info* \
 	$(gsasl_texi_auto_deps)
 
 man_MANS = gsasl.1
@@ -37,7 +36,7 @@ DISTCLEANFILES = $(man_MANS)
 EXTRA_DIST = gdoc gdoc-error gsasl-example1.c $(man_MANS) $(generated)
 
 info_TEXINFOS = gsasl.texi
-gsasl_TEXINFOS = lgpl.texi gpl.texi fdl.texi $(gsasl_texi_auto_deps) \
+gsasl_TEXINFOS = gpl.texi fdl.texi $(gsasl_texi_auto_deps) \
 	gsasl-callback-password.texi gsasl-callback-authorization.texi \
 	gsasl-callback-authentication.texi gsasl-callback-validate.texi \
 	gsasl-callback-retrieve.texi gsasl-callback-cram-md5.texi \
