@@ -53,7 +53,6 @@ _gsasl_securid_client_step (Gsasl_session_ctx * sctx,
   size_t authzidlen, authidlen, passcodelen, pinlen;
   int do_pin = 0;
   int res;
-  size_t len;
 
   switch (*step)
     {
