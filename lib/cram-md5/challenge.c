@@ -30,8 +30,8 @@
 /* Get gc_nonce. */
 #include <gc.h>
 
-/* The probabilities for each digit are skewed (0-6 more likely
-   than 7-9), but it is just used as a nonce anyway. */
+/* The probabilities for each digit are skewed (0-5 is more likely to
+   occur than 6-9), but it is just used as a nonce anyway. */
 #define DIGIT(c) (((c) & 0x0F) > 9 ?		\
 		    '0' + ((c) & 0x0F) - 10 :	\
 		    '0' + ((c) & 0x0F))
