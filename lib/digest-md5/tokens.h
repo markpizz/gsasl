@@ -88,6 +88,8 @@ struct digest_md5_challenge {
 };
 typedef struct digest_md5_challenge digest_md5_challenge;
 
+#define DIGEST_MD5_RESPONSE_LENGTH 32
+
 /*
  * digest-response  = 1#( username | realm | nonce | cnonce |
  *                        nonce-count | qop | digest-uri | response |
@@ -125,7 +127,7 @@ struct digest_md5_response {
   unsigned long nc;
   digest_md5_qop qop;
   char *digesturi;
-  char *response;
+  char response[DIGEST_MD5_RESPONSE_LENGTH + 1];
   unsigned long clientmaxbuf;
   int utf8;
   digest_md5_cipher cipher;
