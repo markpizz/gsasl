@@ -26,8 +26,8 @@
 prog="`basename \"$0\"`"
 srcdir=`pwd`
 
-scripturl="http://savannah.gnu.org/cgi-bin/viewcvs/texinfo/texinfo/util/gendocs.sh"
-templateurl="http://savannah.gnu.org/cgi-bin/viewcvs/texinfo/texinfo/util/gendocs_template"
+scripturl="http://savannah.gnu.org/cgi-bin/viewcvs/gsasl/gsasl/doc/gendocs.sh"
+templateurl="http://savannah.gnu.org/cgi-bin/viewcvs/gsasl/gsasl/doc/gendocs_template"
 
 rcs_revision='$Revision$'
 rcs_version=`set - $rcs_revision; echo $2`
@@ -80,6 +80,10 @@ control where the gendocs_template file is looked for.
 : ${MAKEINFO="makeinfo"}
 : ${TEXI2DVI="texi2dvi"}
 : ${DVIPS="dvips"}
+: ${DOCBOOK2TXT="docbook2txt"}
+: ${DOCBOOK2HTML="docbook2html"}
+: ${DOCBOOK2PDF="docbook2pdf"}
+: ${DOCBOOK2PS="docbook2ps"}
 : ${GENDOCS_TEMPLATE_DIR="."}
 unset CDPATH
 
@@ -134,7 +138,8 @@ fi
 
 echo Generating output formats for $srcfile
 # remove any old junk
-rm -rf $outdir/
+rm -f $outdir/*.{gz,ps,pdf,html,txt,xml}
+rm -rf $outdir/html_node/*.html $outdir/html_node_db/*.html
 
 echo Generating info files...
 ${MAKEINFO} -o $PACKAGE.info $srcfile
@@ -188,17 +193,48 @@ elif test -d $PACKAGE.html; then
 else 
   echo "$0: can't find split html dir for $srcfile." >&2
 fi
-(
-  cd ${split_html_dir} || exit 1
-  tar -czf ../$outdir/$PACKAGE_html_node.tar.gz -- *.html
-)
-html_node_tgz_size="`calcsize $outdir/$PACKAGE_html_node.tar.gz`"
-mv ${split_html_dir} $outdir/html_node
+(cd ${split_html_dir} && tar czf - *.html) > \
+    $outdir/${PACKAGE}_html_node.tar.gz
+html_node_tgz_size="`calcsize $outdir/${PACKAGE}_html_node.tar.gz`"
+mv ${split_html_dir}/* $outdir/html_node/
+rmdir ${split_html_dir}
 
 echo Making .tar.gz for sources...
 srcfiles=`ls *.texinfo *.texi *.txi 2>/dev/null`
 tar czfh $outdir/$PACKAGE.texi.tar.gz $srcfiles
 texi_tgz_size="`calcsize $outdir/$PACKAGE.texi.tar.gz`"
+
+echo Generating docbook XML...
+${MAKEINFO} -o - --docbook $srcfile > ${srcdir}/$PACKAGE-db.xml
+docbook_xml_size="`calcsize $PACKAGE-db.xml`"
+gzip -f -9 -c $PACKAGE-db.xml >$outdir/$PACKAGE-db.xml.gz
+docbook_xml_gz_size="`calcsize $outdir/$PACKAGE-db.xml.gz`"
+mv $PACKAGE-db.xml $outdir/
+
+echo Generating docbook HTML...
+split_html_db_dir=html_node_db
+${DOCBOOK2HTML} -o $split_html_db_dir ${outdir}/$PACKAGE-db.xml
+(cd ${split_html_db_dir} && tar czf - *.html) > \
+    $outdir/${PACKAGE}_html_node_db.tar.gz
+html_node_db_tgz_size="`calcsize $outdir/${PACKAGE}_html_node_db.tar.gz`"
+mv ${split_html_db_dir}/* $outdir/html_node_db/
+rmdir ${split_html_db_dir}
+
+echo Generating docbook ASCII...
+${DOCBOOK2TXT} ${outdir}/$PACKAGE-db.xml
+docbook_ascii_size="`calcsize $PACKAGE-db.txt`"
+mv $PACKAGE-db.txt $outdir/
+
+echo Generating docbook PS...
+${DOCBOOK2PS} ${outdir}/$PACKAGE-db.xml
+gzip -f -9 -c $PACKAGE-db.ps >$outdir/$PACKAGE-db.ps.gz
+docbook_ps_gz_size="`calcsize $outdir/$PACKAGE-db.ps.gz`"
+mv $PACKAGE-db.ps $outdir/
+
+echo Generating docbook PDF...
+${DOCBOOK2PDF} ${outdir}/$PACKAGE-db.xml
+docbook_pdf_size="`calcsize $PACKAGE-db.pdf`"
+mv $PACKAGE-db.pdf $outdir/
 
 echo Writing index file...
 curdate="`date '+%B %d, %Y'`"
@@ -216,6 +252,12 @@ sed \
    -e "s/%%ASCII_SIZE%%/$ascii_size/g" \
    -e "s/%%ASCII_GZ_SIZE%%/$ascii_gz_size/g" \
    -e "s/%%TEXI_TGZ_SIZE%%/$texi_tgz_size/g" \
+   -e "s/%%DOCBOOK_HTML_NODE_TGZ_SIZE%%/$html_node_db_tgz_size/g" \
+   -e "s/%%DOCBOOK_ASCII_SIZE%%/$docbook_ascii_size/g" \
+   -e "s/%%DOCBOOK_PS_GZ_SIZE%%/$docbook_ps_gz_size/g" \
+   -e "s/%%DOCBOOK_PDF_SIZE%%/$docbook_pdf_size/g" \
+   -e "s/%%DOCBOOK_XML_SIZE%%/$docbook_xml_size/g" \
+   -e "s/%%DOCBOOK_XML_GZ_SIZE%%/$docbook_xml_gz_size/g" \
    -e "s,%%SCRIPTURL%%,$scripturl,g" \
    -e "s/%%SCRIPTNAME%%/$prog/g" \
 $GENDOCS_TEMPLATE_DIR/gendocs_template >$outdir/index.html
