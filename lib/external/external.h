@@ -27,15 +27,11 @@
 
 #define _GSASL_EXTERNAL_NAME "EXTERNAL"
 
-extern int _gsasl_external_client_start (Gsasl_session_ctx * sctx,
-					 void **mech_data);
 extern int _gsasl_external_client_step (Gsasl_session_ctx * sctx,
 					void *mech_data,
 					const char *input, size_t input_len,
 					char **output, size_t * output_len);
 
-extern int _gsasl_external_server_start (Gsasl_session_ctx * sctx,
-					 void **mech_data);
 extern int _gsasl_external_server_step (Gsasl_session_ctx * sctx,
 					void *mech_data,
 					const char *input, size_t input_len,

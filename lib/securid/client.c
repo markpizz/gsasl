@@ -20,7 +20,18 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get specification. */
 #include "securid.h"
+
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get strdup, strlen. */
+#include <string.h>
 
 #define PASSCODE "passcode"
 #define PIN "pin"

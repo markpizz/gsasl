@@ -27,8 +27,6 @@
 
 #define _GSASL_CRAM_MD5_NAME "CRAM-MD5"
 
-extern int _gsasl_cram_md5_client_start (Gsasl_session_ctx * sctx,
-					 void **mech_data);
 extern int _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
 					void *mech_data,
 					const char *input, size_t input_len,

@@ -20,13 +20,18 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get specification. */
 #include "plain.h"
 
-int
-_gsasl_plain_server_start (Gsasl_session_ctx * sctx, void **mech_data)
-{
-  return GSASL_OK;
-}
+/* Get memcpy, memchr, strlen. */
+#include <string.h>
+
+/* Get malloc, free. */
+#include <stdlib.h>
 
 int
 _gsasl_plain_server_step (Gsasl_session_ctx * sctx,

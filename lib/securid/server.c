@@ -20,16 +20,21 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get specification. */
 #include "securid.h"
+
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get memchr, strdup, strlen. */
+#include <string.h>
 
 #define PASSCODE "passcode"
 #define PIN "pin"
-
-int
-_gsasl_securid_server_start (Gsasl_session_ctx * sctx, void **mech_data)
-{
-  return GSASL_OK;
-}
 
 int
 _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
