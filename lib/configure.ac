@@ -400,6 +400,7 @@ gl_SOURCE_BASE(gl)
 gl_M4_BASE(gl/m4)
 gl_LIB(libgl)
 gl_MODULES(dummy strdup)
+gl_LGPL
 gl_INIT
 
 # We need uint8_t etc.
