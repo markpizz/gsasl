@@ -4,6 +4,11 @@ See the end for copying conditions.
 
 * Version 0.2.4 (unreleased)
 
+** The DIGEST-MD5 mechanism is rewritten and enabled by default.
+The implementation is written so it can be used separately from GNU
+SASL in your own product, it only uses C89 and two external symbols
+for MD5 and HMAC-MD5.
+
 ** Improved robustness of callback backwards compatibility.
 
 * Version 0.2.3 (released 2004-12-15)
