@@ -40,6 +40,7 @@ AC_CONFIG_HEADERS(config.h)
 AM_GNU_GETTEXT(external)
 AM_GNU_GETTEXT_VERSION(0.14.1)
 AC_PROG_CC
+gl_EARLY
 AC_PROG_LIBTOOL
 
 # ANONYMOUS
@@ -314,6 +315,9 @@ AC_MSG_CHECKING([if server code should be built])
 AC_MSG_RESULT($server)
 AM_CONDITIONAL(CLIENT, test x$client = xyes)
 AM_CONDITIONAL(SERVER, test x$server = xyes)
+
+# For gnulib stuff in gl/.
+gl_INIT
 
 # We need uint8_t etc.
 AX_CREATE_STDINT_H(crypto/nettle-types.h, sys/types.h)
