@@ -8,7 +8,8 @@ part of it is yet in CVS. ---)
 This directory hold an implementation of DIGEST-MD5.
 
 This module is written in portable C89.  It may be used as a
-stand-alone implementation, outside the framework of GNU SASL provide.
+stand-alone implementation, outside the framework that GNU SASL
+provide.
 
 The files CLIENT.C and SERVER.C contain the glue between GNU SASL and
 the stand-alone implementation, read it to find out how to use the
