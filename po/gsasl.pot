@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2003-11-21 08:01+0100\n"
+"POT-Creation-Date: 2003-12-22 09:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -249,74 +249,74 @@ msgstr ""
 msgid "Libgsasl unknown error"
 msgstr ""
 
-#: src/gsasl.c:90
+#: src/gsasl.c:92
 msgid "Chose SASL mechanisms:\n"
 msgstr ""
 
-#: src/gsasl.c:98
+#: src/gsasl.c:100
 msgid "Input SASL mechanism supported by server:\n"
 msgstr ""
 
-#: src/gsasl.c:117
+#: src/gsasl.c:119
 msgid "Using mechanism:\n"
 msgstr ""
 
-#: src/gsasl.c:134
+#: src/gsasl.c:136
 msgid "Output from client:\n"
 msgstr ""
 
-#: src/gsasl.c:136
+#: src/gsasl.c:138
 msgid "Output from server:\n"
 msgstr ""
 
-#: src/gsasl.c:285 src/gsasl.c:330
+#: src/gsasl.c:287 src/gsasl.c:332
 #, c-format
 msgid "GSASL error (%d): %s\n"
 msgstr ""
 
-#: src/gsasl.c:336
+#: src/gsasl.c:338
 #, c-format
 msgid "This %s supports the following mechanisms:\n"
 msgstr ""
 
-#: src/gsasl.c:338 src/gsasl.c:411
+#: src/gsasl.c:340 src/gsasl.c:413
 msgid "client"
 msgstr ""
 
-#: src/gsasl.c:338 src/gsasl.c:411
+#: src/gsasl.c:340 src/gsasl.c:413
 msgid "server"
 msgstr ""
 
-#: src/gsasl.c:362
+#: src/gsasl.c:364
 msgid "Cannot find mechanism...\n"
 msgstr ""
 
-#: src/gsasl.c:380 src/gsasl.c:420 src/gsasl.c:515
+#: src/gsasl.c:382 src/gsasl.c:422 src/gsasl.c:517
 #, c-format
 msgid "Libgsasl error (%d): %s\n"
 msgstr ""
 
-#: src/gsasl.c:409
+#: src/gsasl.c:411
 #, c-format
 msgid "Enter base64 authentication data from %s (press RET if none):\n"
 msgstr ""
 
-#: src/gsasl.c:431
+#: src/gsasl.c:433
 msgid "Client authentication finished (server trusted)...\n"
 msgstr ""
 
-#: src/gsasl.c:434
+#: src/gsasl.c:436
 msgid "Server authentication finished (client trusted)...\n"
 msgstr ""
 
-#: src/gsasl.c:449
+#: src/gsasl.c:451
 msgid "Enter application data (EOF to finish):\n"
 msgstr ""
 
-#: src/gsasl.c:488
+#: src/gsasl.c:490
 msgid "Base64 encoded application data to send:\n"
 msgstr ""
 
-#: src/gsasl.c:522
+#: src/gsasl.c:524
 msgid "Session finished...\n"
 msgstr ""
