@@ -157,7 +157,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
       gsasl_property_set (sctx, GSASL_AUTHZID, state->response.authzid);
       gsasl_property_set (sctx, GSASL_REALM, state->response.realm);
 
-      /* FIXME: qop, cipher, maxbuf, more realms. */
+      /* FIXME: qop, cipher, maxbuf. */
 
       /* Compute secret.  TODO: Add callback to retrieve hashed
 	 secret. */
