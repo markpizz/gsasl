@@ -820,8 +820,8 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	      break;
 	    }
 	if (state->qop == 0 || state->nonce == NULL ||
-	    (state->qop & GSASL_QOP_AUTH_CONF != 0 &&
-	     state->cipher & GSASL_CIPHER_3DES == 0))
+	    (state->qop & GSASL_QOP_AUTH_CONF && 
+	     !(state->cipher & GSASL_CIPHER_3DES)))
 	  {
 	    res = GSASL_MECHANISM_PARSE_ERROR;
 	    goto done;
@@ -982,11 +982,8 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	}
 	/* digest-uri */
 	{
-	  char *service = NULL;
 	  size_t servicelen = 0;
-	  char *hostname = NULL;
 	  size_t hostnamelen = 0;
-	  char *servicename = NULL;
 	  size_t servicenamelen = 0;
 	  size_t len;
 
@@ -1034,7 +1031,6 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	{
 	  GCRY_MD_HD md5h;
 	  unsigned char *tmp;
-	  char *normpassword;
 	  size_t len;
 
 	  if (outlen +
@@ -1319,7 +1315,7 @@ _gsasl_digest_md5_client_encode (Gsasl_session_ctx * xctx,
 	return GSASL_GCRYPT_ERROR;
 
       tmp = htonl (state->sendseqnum);
-      gcry_md_write (md5h, &tmp, MAC_SEQNUM_LEN);
+      gcry_md_write (md5h, (unsigned char*) &tmp, MAC_SEQNUM_LEN);
       gcry_md_write (md5h, input, input_len);
 
       hash = gcry_md_read (md5h, GCRY_MD_MD5);
@@ -1400,7 +1396,7 @@ _gsasl_digest_md5_client_decode (Gsasl_session_ctx * xctx,
 
       tmp = htonl (state->readseqnum);
 
-      gcry_md_write (md5h, &tmp, SASL_INTEGRITY_PREFIX_LENGTH);
+      gcry_md_write (md5h, (unsigned char*)&tmp, SASL_INTEGRITY_PREFIX_LENGTH);
       gcry_md_write (md5h, input + MAC_DATA_LEN, len);
 
       hash = gcry_md_read (md5h, GCRY_MD_MD5);
@@ -1865,7 +1861,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 		  res = GSASL_MECHANISM_PARSE_ERROR;
 		  goto done;
 		}
-	      if (state->qop & qop == 0)
+	      if (!(state->qop & qop))
 		{
 		  res = GSASL_MECHANISM_PARSE_ERROR;
 		  goto done;
@@ -1926,7 +1922,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 		  res = GSASL_MECHANISM_PARSE_ERROR;
 		  goto done;
 		}
-	      if (state->cipher & cipher == 0)
+	      if (!(state->cipher & cipher))
 		{
 		  res = GSASL_MECHANISM_PARSE_ERROR;
 		  goto done;
@@ -1950,7 +1946,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 
 	if (username == NULL || nonce == NULL ||
 	    cnonce == NULL || response == NULL ||
-	    (state->qop & GSASL_QOP_AUTH_CONF != 0 && state->cipher == 0))
+	    (state->qop & GSASL_QOP_AUTH_CONF && state->cipher == 0))
 	  {
 	    res = GSASL_MECHANISM_PARSE_ERROR;
 	    goto done;
@@ -1966,7 +1962,6 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	if (cb_retrieve)
 	  {
 	    unsigned char *tmp;
-	    size_t len;
 	    size_t keylen;
 	    char *key;
 	    char *normkey;
@@ -2158,7 +2153,7 @@ _gsasl_digest_md5_server_encode (Gsasl_session_ctx * xctx,
 	return GSASL_GCRYPT_ERROR;
 
       tmp = htonl (state->sendseqnum);
-      gcry_md_write (md5h, &tmp, MAC_SEQNUM_LEN);
+      gcry_md_write (md5h, (unsigned char*)&tmp, MAC_SEQNUM_LEN);
       gcry_md_write (md5h, input, input_len);
 
       hash = gcry_md_read (md5h, GCRY_MD_MD5);
@@ -2239,7 +2234,7 @@ _gsasl_digest_md5_server_decode (Gsasl_session_ctx * xctx,
 
       tmp = htonl (state->readseqnum);
 
-      gcry_md_write (md5h, &tmp, SASL_INTEGRITY_PREFIX_LENGTH);
+      gcry_md_write (md5h, (unsigned char*)&tmp, SASL_INTEGRITY_PREFIX_LENGTH);
       gcry_md_write (md5h, input + MAC_DATA_LEN, len);
 
       hash = gcry_md_read (md5h, GCRY_MD_MD5);
