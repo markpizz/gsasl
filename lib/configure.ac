@@ -369,6 +369,8 @@ if test "$saslprep" != "no"; then
     AC_MSG_WARN([Libidn not found.  SASLprep disabled.])
   ])
 fi
+AC_MSG_CHECKING([if non-ASCII support via Libidn should be built])
+AC_MSG_RESULT($saslprep)
 
 # Allow disabling of client or server.
 AC_ARG_ENABLE(client,
