@@ -142,12 +142,16 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
       _gsasl_digest_md5_client_done,
       _gsasl_digest_md5_client_start,
       _gsasl_digest_md5_client_step,
-      _gsasl_digest_md5_client_finish },
+      _gsasl_digest_md5_client_finish,
+      _gsasl_digest_md5_client_encode,
+      _gsasl_digest_md5_client_decode },
     { _gsasl_digest_md5_server_init, 
       _gsasl_digest_md5_server_done,
       _gsasl_digest_md5_server_start,
       _gsasl_digest_md5_server_step,
-      _gsasl_digest_md5_server_finish }
+      _gsasl_digest_md5_server_finish,
+      _gsasl_digest_md5_server_encode,
+      _gsasl_digest_md5_server_decode },
   },
 #endif /* USE_DIGEST_MD5 */
 
