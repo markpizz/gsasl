@@ -67,10 +67,13 @@ _gsasl_ntlm_client_step (Gsasl_session * sctx,
   tSmbNtlmAuthRequest request;
   tSmbNtlmAuthChallenge challenge;
   tSmbNtlmAuthResponse response;
-  /* XXX create callback for domain? Doesn't seem to be needed by servers */
-  char *domain = NULL;
-  const char *password, *authid;
+  const char *domain = gsasl_property_get (sctx, GSASL_REALM);
+  const char *authid = gsasl_property_get (sctx, GSASL_AUTHID);
+  const char *password;
   int res;
+
+  if (!authid)
+    return GSASL_NO_AUTHID;
 
   switch (state->step)
     {
@@ -78,10 +81,6 @@ _gsasl_ntlm_client_step (Gsasl_session * sctx,
       /* Isn't this just the IMAP continuation char?  Not part of SASL mech.
          if (input_len != 1 && *input != '+')
          return GSASL_MECHANISM_PARSE_ERROR; */
-
-      authid = gsasl_property_get (sctx, GSASL_AUTHID);
-      if (!authid)
-	return GSASL_NO_AUTHID;
 
       buildSmbNtlmAuthRequest (&request, authid, domain);
 
@@ -109,10 +108,6 @@ _gsasl_ntlm_client_step (Gsasl_session * sctx,
       password = gsasl_property_get (sctx, GSASL_PASSWORD);
       if (!password)
 	return GSASL_NO_PASSWORD;
-
-      authid = gsasl_property_get (sctx, GSASL_AUTHID);
-      if (!authid)
-	return GSASL_NO_AUTHID;
 
       buildSmbNtlmAuthResponse (&challenge, &response, authid, password);
 
