@@ -59,6 +59,7 @@ section entitled ``GNU Free Documentation License''.
 * Introduction::                How to use this manual.
 * Preparation::                 What you should do before using the library.
 * Using the Library::           High level overview of how to use the library.
+* Properties::                  How to specify username, password, etc.
 * Mechanisms::                  Mechanism specific information.
 * Global Functions::            Functions that can be used at all times.
 * Callback Functions::          Set and use callbacks.
@@ -1028,6 +1029,63 @@ perform server authentication.  Thus, if you only trust what the
 server replied instead of requireing a GSASL_OK result, you may open
 up for fake servers.  Don't shortcut the loop with a positive server
 response.
+
+@c **********************************************************
+@c *******************  Properties  *************************
+@c **********************************************************
+@node Properties
+@chapter Properties
+
+Shared client and server properties:
+
+@itemize
+
+@item GSASL_AUTHID
+The authentication identity.
+
+@item GSASL_AUTHZID
+The authorization identity.
+
+@item GSASL_PASSWORD
+The password of the authentication identity.
+
+@item GSASL_ANONYMOUS_TOKEN
+The anonymous token.  This is typically the email address of the user.
+
+@item GSASL_PASSCODE
+The SecurID passcode.
+
+@item GSASL_PIN
+The SecurID personal identification number (PIN).
+
+@item GSASL_SUGGESTED_PIN
+A SecurID personal identification number (PIN) suggested by the server.
+
+@end itemize
+
+Server specific properties, used to validate client:
+
+@itemize
+
+@item GSASL_VALIDATE_EXTERNAL
+Used by EXTERNAL mechanism on the server side to validate the client.
+The GSASL_AUTHID will contain the authorization identity of the
+client.
+
+@item GSASL_VALIDATE_ANONYMOUS
+Used by ANONYMOUS mechanism on the server side to validate the client.
+The GSASL_ANONYMOUS_TOKEN will contain token that identity the client.
+
+@item GSASL_VALIDATE_SECURID
+Used by SECURID mechanism on the server side to validate client.  The
+GSASL_AUTHID, GSASL_AUTHZID, GSASL_PASSCODE, and GSASL_PIN will be
+set.  It can return GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE to
+ask the client to supply another passcode, and
+GSASL_SECURID_SERVER_NEED_NEW_PIN to require the client to supply a
+new PIN code.
+
+@end itemize
+
 
 @c **********************************************************
 @c *******************  Mechanisms  *************************
