@@ -192,15 +192,10 @@ extern "C"
   typedef int (*Gsasl_callback_function) (Gsasl * ctx, Gsasl_session * sctx,
 					  Gsasl_property prop);
 
-# include <gsasl-mech.h>	/* Gsasl_mechanism */
-
   /* Library entry and exit points: version.c, init.c, done.c */
   extern int gsasl_init (Gsasl ** ctx);
   extern void gsasl_done (Gsasl * ctx);
   extern const char *gsasl_check_version (const char *req_version);
-
-  /* Register new mechanism: register.c. */
-  extern int gsasl_register (Gsasl * ctx, const Gsasl_mechanism * mech);
 
   /* Callback handling: callback.c */
   extern void gsasl_application_data_set (Gsasl * ctx, void *appdata);
@@ -280,6 +275,9 @@ extern "C"
   extern int gsasl_md5 (const char *in, size_t inlen, char *out[16]);
   extern int gsasl_hmac_md5 (const char *key, size_t keylen,
 			     const char *in, size_t inlen, char *outhash[16]);
+
+  /* Get the mechanism API. */
+# include <gsasl-mech.h>
 
   /* For compatibility with earlier versions. */
 # include <gsasl-compat.h>
