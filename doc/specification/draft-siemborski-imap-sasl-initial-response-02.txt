@@ -1,0 +1,475 @@
+
+
+Network Working Group				       Robert Siemborski
+INTERNET-DRAFT				      Carnegie Mellon University
+Intended Category: Standards Track			  December, 2003
+
+
+	    IMAP Extension for SASL Initial Client Response
+	  <draft-siemborski-imap-sasl-initial-response-02.txt>
+
+
+Status of this Memo
+    This document is an Internet-Draft and is in full conformance with
+    all provisions of Section 10 of RFC2026.
+
+    Internet-Drafts are working documents of the Internet Task Force
+    (IETF), its areas, and its working groups.	Note that other groups
+    may also distribute working documents as Internet-Drafts.
+
+    Internet-Drafts are draft documents valid for a maximum of six
+    months and may be updated, replaced, or obsoleted by other documents
+    at any time.  It is inappropriate to use Internet Drafts as
+    reference material or to cite them other than as "work in progress."
+
+    The list of current Internet-Drafts can be accessed at
+    http://www.ietf.org/ietf/1id-abstracts.txt
+
+    The list of Internet-Draft Shadow Directories can be accessed at
+    http://www.ietf.org/shadow.html.
+
+    Distribution of this memo is unlimited.
+
+Abstract
+
+    To date, the Internet Message Access Protocol (IMAP) has used a
+    Simple Authentication and Security Layer (SASL) profile which always
+    required at least one complete round trip for an authentication, as
+    it did not support an initial client response argument.  This
+    additional round trip at the beginning of the session is
+    undesirable, especially when round trip costs are high.
+
+    This document defines an extension to IMAP which allows clients and
+    servers to avoid this round trip by allowing an initial client
+    response argument to the IMAP AUTHENTICATE command.
+
+
+
+
+
+
+
+
+
+Siemborski		    Expires May, 2004		        [Page 1]
+
+
+
+
+
+IMAP Extension for SASL Initial Client Response		  December, 2003
+
+
+Table of Contents
+
+
+1. How to Read This Document . . . . . . . . . . . . . . . . . . . .   3
+2. Introduction	 . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+3. Changes to the IMAP AUTHENTICATE Command  . . . . . . . . . . . .   3
+4. Examples  . . . . . . . . . . . . . . . . . . . . . . . . . . . .   4
+5. Formal Syntax . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+6. Security Considerations . . . . . . . . . . . . . . . . . . . . .   5
+7. Intellectual Property Rights	 . . . . . . . . . . . . . . . . . .   6
+8. Copyright . . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
+9. References  . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
+10. Author's Address . . . . . . . . . . . . . . . . . . . . . . . .   7
+11. Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . .   8
+12. Changes since -01  . . . . . . . . . . . . . . . . . . . . . . .   8
+13. Changes since -00  . . . . . . . . . . . . . . . . . . . . . . .   8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Siemborski		    Expires May, 2004		        [Page 2]
+
+
+
+
+
+IMAP Extension for SASL Initial Client Response		  December, 2003
+
+
+1.  How to Read This Document
+
+    The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD
+    NOT", "RECOMMENDED", and "MAY" in this document are to be
+    interpreted as defined in "Key words for use in RFCs to Indicate
+    Requirement Levels" [KEYWORDS]
+
+    In examples, "C:" and "S:" indicate lines sent by the client and
+    server respectively.
+
+    Formal syntax is defined using [ABNF] as modified by [IMAP4].
+
+2.  Introduction
+
+    The [SASL] initial client response extension is present in any
+    [IMAP4] server implementation which returns "SASL-IR" as one of the
+    supported capabilities in its CAPABILITY response.
+
+    Servers which support this extension will accept an optional initial
+    client response with the AUTHENTICATE command for any [SASL]
+    mechanisms which support it.
+
+3.  IMAP Changes to the IMAP AUTHENTICATE Command
+
+    This extension adds an optional second argument to the AUTHENTICATE
+    command that is defined in Section 6.2.2 of [IMAP4].  If this second
+    argument is present, it represents the contents of the "initial
+    client response" defined in section 5.1 of [SASL].
+
+    As with any other client response, this initial client response MUST
+    be encoded as defined in Section 3 of [BASE64].  It also MUST be
+    transmitted outside of a quoted string or literal.	To send a zero-
+    length initial response, the client MUST send a single pad character
+    ("=").  This indicates that the response is present, but is a zero-
+    length string.
+
+    When decoding the [BASE64] data in the initial client response,
+    decoding errors MUST be treated as [IMAP4] would handle them in any
+    normal SASL client response.  In particular, the server should check
+    for any characters not explicitly allowed by the BASE64 alphabet, as
+    well as any sequence of BASE64 characters that contains the pad
+    character ('=') anywhere other than the end of the string (e.g.
+    "=AAA" and "AAA=BBB" are not allowed).
+
+    Note: support and use of the initial client response is optional for
+    both clients and servers.  Servers which implement this extension
+    MUST support clients which omit the initial client response, and
+    clients which implement this extension MUST NOT send an initial
+
+
+
+Siemborski		    Expires May, 2004		        [Page 3]
+
+
+
+
+
+IMAP Extension for SASL Initial Client Response		  December, 2003
+
+
+    client response to servers which do not advertise the SASL-IR
+    capability.	 In such a situation, clients MUST fall back to an
+    [IMAP4] compatible mode.
+
+    If either the client or the server do not support the SASL-IR
+    capability, a mechanism which uses an initial client response is
+    negotiated using the challenge/response exchange described in
+    [IMAP4], with an initial zero-length server challenge.
+
+
+4.  Examples
+
+    The following is an example authentication using the [PLAIN] SASL
+    mechanism (under a [TLS] protection layer) and an initial client
+    response:
+
+      ... client connects to server and negotiates a TLS protection layer ...
+     C: C01 CAPABILITY
+     S: * CAPABILITY IMAP4 IMAP4rev1 SASL-IR AUTH=PLAIN
+     S: C01 OK Completed
+     C: A01 AUTHENTICATE PLAIN dGVzdAB0ZXN0AHRlc3Q=
+     S: A01 OK Success (tls protection)
+
+    Note that even when a server supports this extension, the following
+    negotiation (which does not use the initial response) is still valid
+    and MUST be supported by the server:
+
+      ... client connects to server and negotiates a TLS protection layer ...
+     C: C01 CAPABILITY
+     S: * CAPABILITY IMAP4 IMAP4rev1 SASL-IR AUTH=PLAIN
+     S: C01 OK Completed
+     C: A01 AUTHENTICATE PLAIN
+      (note that there is a space following the "+" in the following line)
+     S: +
+     C: dGVzdAB0ZXN0AHRlc3Q=
+     S: A01 OK Success (tls protection)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Siemborski		    Expires May, 2004		        [Page 4]
+
+
+
+
+
+IMAP Extension for SASL Initial Client Response		  December, 2003
+
+
+    The following is an example authentication using the EXTERNAL [SASL]
+    mechanism (under a [TLS] protection layer) and an empty initial
+    client response:
+
+      ... client connects to server and negotiates a TLS protection layer ...
+     C: C01 CAPABILITY
+     S: * CAPABILITY IMAP4 IMAP4rev1 SASL-IR AUTH=PLAIN AUTH=EXTERNAL
+     S: C01 OK Completed
+     C: A01 AUTHENTICATE EXTERNAL =
+     S: A01 OK Success (tls protection)
+
+    This is in contrast with the handling of such a situation when an
+    initial response is omitted:
+
+      ... client connects to server and negotiates a TLS protection layer ...
+     C: C01 CAPABILITY
+     S: * CAPABILITY IMAP4 IMAP4rev1 SASL-IR AUTH=PLAIN AUTH=EXTERNAL
+     S: C01 OK Completed
+     C: A01 AUTHENTICATE EXTERNAL
+      (note that there is a space following the "+" in the following line)
+     S: +
+     C:
+     S: A01 OK Success (tls protection)
+
+
+5.  Formal Syntax
+
+    The following syntax specification uses the Augmented Bakus-Naur
+    Form [ABNF] notation.  Non-terminals referenced but not defined
+    below are as defined by [IMAP4].
+
+     capability	   =/ "SASL-IR"
+
+     authenticate  = "AUTHENTICATE" SP auth-type [SP (base64 / "=")]
+		     *(CRLF base64)
+		       ;;redefine AUTHENTICATE command defined in [IMAP4]
+
+
+6.  Security Considerations
+
+    The extension defined in this document is subject to many of the
+    Security Considerations defined in [IMAP4] and [SASL].
+
+    Server implementations MUST treat the omission of an initial client
+    response from the AUTHENTICATE command as defined by [IMAP4] (as if
+    this extension did not exist).
+
+    Although [IMAP4] has no express line length limitations, some
+
+
+
+Siemborski		    Expires May, 2004		        [Page 5]
+
+
+
+
+
+IMAP Extension for SASL Initial Client Response		  December, 2003
+
+
+    implementations choose to enforce them anyway.  Such implementations
+    MUST be aware that the addition of the initial response parameter to
+    AUTHENTICATE may increase the maximum line length that IMAP parsers
+    may expect to support.  Server implementations MUST be able to
+    receive the largest possible initial client response that their
+    supported mechanisms might receive.
+
+7.  Intellectual Property Rights
+
+    The IETF takes no position regarding the validity or scope of any
+    intellectual property or other rights that might be claimed to
+    pertain to the implementation or use of the technology described in
+    this document or the extent to which any license under such rights
+    might or might not be available; neither does it represent that it
+    has made any effort to identify any such rights.  Information on the
+    IETF's procedures with respect to rights in standards-track and
+    standards-related documentation can be found in BCP-11.  Copies of
+    claims of rights made available for publication and any assurances
+    of licenses to be made available, or the result of an attempt made
+    to obtain a general license or permission for the use of such
+    proprietary rights by implementors or users of this specification
+    can be obtained from the IETF Secretariat.
+
+    The IETF invites any interested party to bring to its attention any
+    copyrights, patents or patent applications, or other proprietary
+    rights which may cover technology that may be required to practice
+    this standard.  Please address the information to the IETF Executive
+    Director.
+
+8.  Copyright
+
+    Copyright (C) The Internet Society (2003). All Rights Reserved.
+
+    This document and translations of it may be copied and furnished to
+    others, and derivative works that comment on or otherwise explain it
+    or assist in its implementation may be prepared, copied, published
+    and distributed, in whole or in part, without restriction of any
+    kind, provided that the above copyright notice and this paragraph
+    are included on all such copies and derivative works.  However, this
+    document itself may not be modified in any way, such as by removing
+    the copyright notice or references to the Internet Society or other
+    Internet organizations, except as needed for the  purpose of
+    developing Internet standards in which case the procedures for
+    copyrights defined in the Internet Standards process must be
+    followed, or as required to translate it into languages other than
+    English.
+
+    This document and the information contained herein is provided on an
+
+
+
+Siemborski		    Expires May, 2004		        [Page 6]
+
+
+
+
+
+IMAP Extension for SASL Initial Client Response		  December, 2003
+
+
+    "AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+    TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+    BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+    HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+    MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+
+9.  References
+
+     The following documents contain normative definitions or
+specifications that are necessary for correct understanding of this
+protocol:
+
+[ABNF]	    Crocker, D., "Augmented BNF for Syntax Specifications:
+	    ABNF", RFC 2234, November, 1997.
+
+[BASE64]    Josefsson, S., "The Base16, Base32, and Base64 Data
+	    Encodings", RFC 3548, July 2003.
+
+[IMAP4]	    Crispin, M., "INTERNET MESSAGE ACCESS PROTOCOL - VERSION
+	    4rev1", RFC 3501, March 2003.
+
+[KEYWORDS]  Bradner, S., "Key words for use in RFCs to Indicate
+	    Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+[SASL]	    Melnikov, A., "Simple Authentication and Security Layer
+	    (SASL)", draft-ietf-sasl-rfc2222bis-*.txt, a work in
+	    progress.
+
+The following references are for informational purposes only:
+
+[PLAIN]	    Newman, C. "Using TLS with IMAP, POP3, and ACAP", RFC 2595,
+	    June 1999.
+
+[TLS]	    Dierks, T. and C. Allen, "The TLS Protocol Version 1.0", RFC
+	    2246, January 1999.
+
+10.  Author's	 Address:
+
+    Robert Siemborski
+    Carnegie Mellon, Andrew Systems Group
+    Cyert Hall 207
+    5000 Forbes Avenue
+    Pittsburgh, PA  15213
+    +1 412 268 7456
+    rjs3+@andrew.cmu.edu
+
+
+
+
+
+Siemborski		    Expires May, 2004		        [Page 7]
+
+
+
+
+
+IMAP Extension for SASL Initial Client Response		  December, 2003
+
+
+11.  Acknowledgments:
+
+    The author would like to acknowledge the contributions of Ken
+    Murchison and Mark Crispin, along with the rest of the IMAPEXT
+    Working Group for their assistance in reviewing this document.
+
+    Alexey Melnikov and Cyrus Daboo also had some early discussions
+    about this extension
+
+12.  Changes since -01
+
+    (RFC Editor: Remove this section before publication) - Remove
+    implicit SHOULD behavior for clients.
+
+    - Indicate that the Section 3 BASE64 encoding should be used.
+
+13.  Changes since -00
+
+    (RFC Editor: Remove this section before publication) - Add missing
+    CAPABILITY OK responses in examples
+
+    - Change capability string to "SASL-IR"
+
+    - Fix a nit regarding an "=" in the initial response ABNF
+
+    - Clean up wording of BASE64 decoding requirements to be more in
+    line with [IMAP4]
+
+    - Add examples of an empty initial client response, and move
+    examples into their own section
+
+    - Update SASL reference to rfc2222bis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Siemborski		    Expires May, 2004		        [Page 8]
+
