@@ -57,7 +57,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
   p = gsasl_property_get (sctx, GSASL_AUTHID);
   if (!p)
     {
-      res = GSASL_NO_AUTHZID;
+      res = GSASL_NO_AUTHID;
       goto end;
     }
 
