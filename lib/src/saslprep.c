@@ -1,5 +1,5 @@
 /* saslprep.c --- Internationalized SASL string processing.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -23,6 +23,9 @@
 
 #if WITH_SASLPREP
 # include <stringprep.h>
+# if HAVE_PR29_H
+#  include <pr29.h>
+# endif
 #endif
 
 /**
@@ -59,6 +62,19 @@ gsasl_saslprep (const char *in, Gsasl_saslprep_flags flags,
       *out = NULL;
       return GSASL_SASLPREP_ERROR;
     }
+
+# if HAVE_PR29_8Z
+  if (pr29_8z (out) != PR29_SUCCESS)
+    {
+      free (*out);
+      *out = NULL;
+      if (stringpreprc)
+	*stringpreprc = STRINGPREP_NFKC_FAILED;
+
+      return GSASL_SASLPREP_ERROR;
+    }
+#endif
+
 #else
   size_t i, inlen = strlen (in);
 
