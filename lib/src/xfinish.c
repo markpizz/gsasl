@@ -72,5 +72,11 @@ gsasl_finish (Gsasl_session * sctx)
   if (sctx->gssapi_display_name)
     free (sctx->gssapi_display_name);
 
+  if (sctx->realm)
+    free (sctx->realm);
+
+  if (sctx->qop)
+    free (sctx->qop);
+
   free (sctx);
 }
