@@ -115,15 +115,14 @@ client_callback_authorization_id (Gsasl_session_ctx * ctx,
   int rc;
 
   if (args_info.authorization_id_arg == NULL)
-    args_info.authorization_id_arg =
-      strdup (readline ("Enter authorization ID: "));
+    {
+      if (outlen)
+	*outlen = 0;
+      return GSASL_OK;
+    }
 
-  if (args_info.authorization_id_arg == NULL)
-    return GSASL_AUTHENTICATION_ERROR;
-
-  rc =
-    utf8cpy (out, outlen, args_info.authorization_id_arg,
-	     strlen (args_info.authorization_id_arg));
+  rc = utf8cpy (out, outlen, args_info.authorization_id_arg,
+		strlen (args_info.authorization_id_arg));
   if (rc != GSASL_OK)
     return rc;
 
