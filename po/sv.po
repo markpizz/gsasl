@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU libgsasl 0.0\n"
-"POT-Creation-Date: 2002-10-17 15:53+0200\n"
+"POT-Creation-Date: 2002-11-14 10:57+0100\n"
 "PO-Revision-Date: 2002-10-05 19:32+0200\n"
 "Last-Translator: Simon Josefsson <simon@josefsson.org>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -20,20 +20,24 @@ msgid "Libgsasl success"
 msgstr "Libgsasl lyckades"
 
 #: lib/error.c:45
-msgid "SASL mechanisms needs more data (application error)"
-msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+#, fuzzy
+msgid "SASL mechanisms needs more data"
+msgstr "SASL mekanismen behöver mer data"
 
 #: lib/error.c:49
-msgid "Unknown SASL mechanism (application error)"
-msgstr "Okänd SASL mekanism (applikationsfel)"
+#, fuzzy
+msgid "Unknown SASL mechanism"
+msgstr "Okänd SASL mekanism"
 
 #: lib/error.c:53
-msgid "SASL mechanism called too many times (application error)"
-msgstr "SASL mekanism anropad för många gånger (applikationsfel)"
+#, fuzzy
+msgid "SASL mechanism called too many times"
+msgstr "SASL mekanism anropad för många gånger"
 
 #: lib/error.c:57
-msgid "SASL function need larger buffer (application error)"
-msgstr "SASL funktion behöver större buffer (applikationsfel)"
+#, fuzzy
+msgid "SASL function need larger buffer (internal error)"
+msgstr "SASL funktion behöver större buffer (internt fel)"
 
 #: lib/error.c:61
 #, fuzzy
