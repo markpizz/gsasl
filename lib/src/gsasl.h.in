@@ -33,10 +33,11 @@ extern "C"
 
 # define GSASL_VERSION "@PACKAGE_VERSION@"
 
-/* Quoting RFC 2222:
-   SASL mechanisms are named by strings, from 1 to 20 characters in
-   length, consisting of upper-case letters, digits, hyphens, and/or
-   underscores.  SASL mechanism names must be registered with the IANA. */
+  /* RFC 2222: SASL mechanisms are named by strings, from 1 to 20
+   * characters in length, consisting of upper-case letters, digits,
+   * hyphens, and/or underscores.  SASL mechanism names must be
+   * registered with the IANA.
+   */
   enum
   {
     GSASL_MIN_MECHANISM_SIZE = 1,
@@ -112,7 +113,7 @@ extern "C"
     GSASL_CANNOT_VALIDATE = 60
   } Gsasl_rc;
 
-/* Quality of Protection types, used by DIGEST-MD5 */
+  /* Quality of Protection types, used by DIGEST-MD5 */
   typedef enum
   {
     GSASL_QOP_AUTH = 1,
@@ -120,7 +121,7 @@ extern "C"
     GSASL_QOP_AUTH_CONF = 4
   } Gsasl_qop;
 
-/* Cipher types, used by DIGEST-MD5 */
+  /* Cipher types, used by DIGEST-MD5 */
   typedef enum
   {
     GSASL_CIPHER_DES = 1,
@@ -131,7 +132,7 @@ extern "C"
     GSASL_CIPHER_AES = 32
   } Gsasl_cipher;
 
-/* Library handles */
+  /* Library handles */
   typedef struct Gsasl Gsasl;
   typedef struct Gsasl_session Gsasl_session;
 
@@ -228,15 +229,15 @@ extern "C"
   };
   typedef struct Gsasl_mechanism Gsasl_mechanism;
 
-/* Library entry and exit points: version.c, init.c, done.c */
+  /* Library entry and exit points: version.c, init.c, done.c */
   extern int gsasl_init (Gsasl ** ctx);
   extern void gsasl_done (Gsasl * ctx);
   extern const char *gsasl_check_version (const char *req_version);
 
-  /* Let library know about a new mechanism. */
+  /* Register new mechanism: register.c. */
   extern int gsasl_register (Gsasl * ctx, const Gsasl_mechanism * mech);
 
-/* Callback handling: callback.c */
+  /* Callback handling: callback.c */
   extern void gsasl_application_data_set (Gsasl * ctx, void *appdata);
   extern void *gsasl_application_data_get (Gsasl * ctx);
   extern void gsasl_appinfo_set (Gsasl_session * sctx, void *appdata);
@@ -262,7 +263,7 @@ extern "C"
   extern const char *gsasl_property_fast_global (Gsasl * ctx,
 						 Gsasl_property prop);
 
-/* Mechanism handling: listmech.c, supportp.c, suggest.c */
+  /* Mechanism handling: listmech.c, supportp.c, suggest.c */
   extern int gsasl_client_mechlist (Gsasl * ctx, char **out);
   extern int gsasl_client_support_p (Gsasl * ctx, const char *name);
   extern const char *gsasl_client_suggest_mechanism (Gsasl * ctx,
@@ -273,7 +274,7 @@ extern "C"
   extern const char *gsasl_server_suggest_mechanism (Gsasl * ctx,
 						     const char *mechlist);
 
-/* Authentication functions: xstart.c, xstep.c, xfinish.c */
+  /* Authentication functions: xstart.c, xstep.c, xfinish.c */
   extern int gsasl_client_start (Gsasl * ctx, const char *mech,
 				 Gsasl_session ** sctx);
   extern int gsasl_server_start (Gsasl * ctx, const char *mech,
@@ -285,7 +286,7 @@ extern "C"
 			   const char *b64input, char **b64output);
   extern void gsasl_finish (Gsasl_session * sctx);
 
-/* Session functions: xcode.c */
+  /* Session functions: xcode.c */
   extern int gsasl_encode (Gsasl_session * sctx,
 			   const char *input, size_t input_len,
 			   char **output, size_t * output_len);
@@ -293,7 +294,7 @@ extern "C"
 			   const char *input, size_t input_len,
 			   char **output, size_t * output_len);
 
-/* Error handling: error.c */
+  /* Error handling: error.c */
   extern const char *gsasl_strerror (int err);
 
   /* Internationalized string processing: stringprep.c */
@@ -301,7 +302,7 @@ extern "C"
   extern char *gsasl_stringprep_saslprep (const char *in, int *stringprep_rc);
   extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc);
 
-/* Utilities: base64.c, md5pwd.c, crypto.c */
+  /* Utilities: base64.c, md5pwd.c, crypto.c */
   extern int gsasl_base64_encode (char const *src, size_t srclength,
 				  char *target, size_t targsize);
   extern int gsasl_base64_decode (char const *src,
