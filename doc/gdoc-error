@@ -36,7 +36,7 @@ while (<>) {
 	}
     } else {
 	next unless m,case (.*):,;
-	next if $1 eq "SHISHI_OK";
+	next if $1 =~ m,[^_]+_OK,;
 	$inerror = 1;
 	$label = $1;
 	$txt = "";
