@@ -1,3 +1,277 @@
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po: Generated.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.3.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/client.c: Reorder authid/password queries, tiny patch
+	from Sergey Poznyakoff <gray@Mirddin.farlep.net>.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po: New message.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Rename from saslprep to stringprep, for backwards
+	compatibility.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Output more info.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Typo.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/server.c: Fix.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/server.c: Don't NFKC.  Fix use-after-free.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c: Don't NFKC for now.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/server.c, cram-md5/client.c: Update SASLprep API.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/obsolete.c: Just fail if libidn isn't installed.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl-compat.h, src/gsasl.h.in: Deprecate
+	GSASL_UNICODE_NORMALIZATION_ERROR.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/error.c: Move.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/error.c, NEWS: Add.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/saslprep.c: Work (as much as possible) when libidn isn't
+	available.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix libidn.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, NEWS, configure.ac, src/Makefile.am: Revert LibIDN
+	dependency stuff.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/dummy.c, gl/m4/gnulib.m4: Update.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Dummy not needed, base64 always enabled.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in: Remove GSASL_CANNOT_VALIDATE.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* login/server.c, plain/server.c: Fall back to internal
+	authentication logic if GSASL_VALIDATE_SIMPLE leads to
+	GSASL_NO_CALLBACK.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/callback.c: Zero terminate password.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/callback.c: Add 'break' in switch-case.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/callback.c:
+	(gsasl_callback): Handle GSASL_VALIDATE_SIMPLE and GSASL_PASSWORD,
+	tiny patch from Sergey Poznyakoff <gray@Mirddin.farlep.net>.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c, login/server.c: Invert password validation logic,
+	tiny patch from Sergey Poznyakoff <gray@Mirddin.farlep.net>.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in, src/internal.h, src/property.c: Add realm
+	property.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* ntlm/ntlm.c: Set domain field to GSASL_REALM property value,
+	because some servers appear to need non-empty domain fields,
+	reported by Martin Lambers <marlam@web.de>.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/base64.c: Update.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: More idn checks.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Libidn need ICONV_CONST.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/restrict.m4: Add.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/base64.c, gl/base64.h, gl/m4/base64.m4,
+	gl/m4/gnulib.m4: Update.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/xstep.c: Don't clobber return code, reported by Martin
+	Lambers <marlam@web.de>.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* login/client.c: Cleanup.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* login/client.c: Don't even use SASLprep, SASLprep should be on
+	server side.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* login/client.c: Use SASLprep, not NFKC.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* plain/client.c: Don't NFKC, align with draft-ietf-sasl-plain-05.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, src/Makefile.am, src/gsasl-compat.h, src/gsasl.h.in,
+	src/obsolete.c, src/stringprep.c: Obsolete gsasl_stringprep_nfkc,
+	gsasl_stringprep_saslprep, and gsasl_stringprep_trace.  Use
+	gsasl_saslprep instead.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/saslprep.c: Improve API.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, NEWS, configure.ac, src/Makefile.am, src/saslprep.c,
+	src/stringprep-no.c, src/stringprep.c: Add copy of libidn, so we
+	always have SASLprep functionality.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Add saslprep.c.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/saslprep.c: New file.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in: Add gsasl_saslprep.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Disable DIGEST-MD5 by default, until it is
+	rewritten.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/base64.c: Use new API.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/base64.c: Update.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump versions.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* plain/client.c: Initialize length variables, fixes problem when
+	no AUTHZID is available.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* login/client.c: Use AUTHID, not AUTHZID, reported by Martin
+	Lambers <marlam@web.de>.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* gl/base64.c, gl/base64.h: Update.
+
 2004-11-29  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.2.2.
