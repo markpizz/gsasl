@@ -6,12 +6,12 @@ See the end for copying conditions.
 
 ** GNULib is used for compatibility functions.
 The directory gl/ is dedicated for GNULib functions, and replace the
-earlier ad-hoc usage of argp, memset, argp, etc.
+earlier ad-hoc usage of argp, memset, etc.
 
-** Math library (-lm) no longer required.
-
-** All client code can be disabled by --disable-client,
-** and all server code can be disabled by --disable-server.
+** Improvements for embedded or otherwise limited systems.
+The math library (-lm) is no longer required. All client code can be
+disabled by --disable-client, and all server code can be disabled by
+--disable-server.
 
 ** Gettext 0.12.1 and Libtool 1.5 is used.
 
