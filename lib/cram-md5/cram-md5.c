@@ -23,6 +23,7 @@
 
 #define MD5LEN 16
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
+#define DECCHAR(c) ((c & 0x0F) > 9 ? '0' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
 
 #ifdef USE_CLIENT
 
@@ -116,25 +117,27 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
 	return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
       /* XXX? password stored in callee's output buffer */
-      len = *output_len;
+      len = *output_len - 1;
       res = cb_password (sctx, output, &len);
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	return res;
-      tmp = gsasl_stringprep_nfkc (output, len);
+      output[len] = '\0';
+      tmp = gsasl_stringprep_saslprep (output, NULL);
       if (tmp == NULL)
-	return GSASL_UNICODE_NORMALIZATION_ERROR;
+	return GSASL_SASLPREP_ERROR;
       res = gsasl_hmac_md5 (tmp, strlen (tmp), input, input_len, &hash);
       free (tmp);
       if (res != GSASL_OK)
 	return GSASL_CRYPTO_ERROR;
 
-      len = *output_len;
+      len = *output_len - 1;
       res = cb_authentication_id (sctx, output, &len);
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	return res;
-      tmp = gsasl_stringprep_nfkc (output, len);
+      output[len] = '\0';
+      tmp = gsasl_stringprep_saslprep (output, NULL);
       if (tmp == NULL)
-	return GSASL_UNICODE_NORMALIZATION_ERROR;
+	return GSASL_SASLPREP_ERROR;
       if (strlen (tmp) + strlen (" ") + 2 * MD5LEN >= *output_len)
 	{
 	  free (tmp);
@@ -209,11 +212,10 @@ _gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
       gsasl_server_callback_retrieve_get (ctx) == NULL)
     return GSASL_NEED_SERVER_CRAM_MD5_CALLBACK;
 
-  /* XXX this is ad-hoc and uses "localhost" instead of FQDN */
-
 #define START_OF_XS 1
-#define NUMBER_OF_XS 16
-#define CHALLENGE_FORMAT "<XXXXXXXXXXXXXXXX.libgsasl@localhost>"
+#define NUMBER_OF_XS 20
+  /* Don't leak information in timestamp and hostname fields. */
+#define CHALLENGE_FORMAT "<XXXXXXXXXXXXXXXXXXXX.0@josefsson.org>"
 
   challenge = (char *) malloc (strlen (CHALLENGE_FORMAT) + 1);
   if (challenge == NULL)
@@ -221,13 +223,15 @@ _gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 
   strcpy (challenge, CHALLENGE_FORMAT);
 
-  gsasl_randomize (0, challenge + 1, NUMBER_OF_XS);
+  gsasl_randomize (0, &challenge[START_OF_XS], NUMBER_OF_XS / 2);
 
   for (i = 0; i < NUMBER_OF_XS / 2; i++)
     {
+      /* The probabilities for each digit are skewed (0-6 more likely
+	 than 7-9), but it is just used as a nonce anyway. */
       challenge[START_OF_XS + NUMBER_OF_XS / 2 + i] =
-	HEXCHAR (challenge[START_OF_XS + i]);
-      challenge[START_OF_XS + i] = HEXCHAR (challenge[START_OF_XS + i] >> 4);
+	DECCHAR (challenge[START_OF_XS + i]);
+      challenge[START_OF_XS + i] = DECCHAR (challenge[START_OF_XS + i] >> 4);
     }
 
   *mech_data = challenge;
@@ -311,7 +315,7 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
       res = cb_retrieve (sctx, username, NULL, NULL, NULL, &keylen);
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	goto done;
-      key = malloc (keylen);
+      key = malloc (keylen + 1);
       if (key == NULL)
 	{
 	  res = GSASL_MALLOC_ERROR;
@@ -320,10 +324,11 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
       res = cb_retrieve (sctx, username, NULL, NULL, key, &keylen);
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	goto done;
-      normkey = gsasl_stringprep_nfkc (key, keylen);
+      key[keylen] = '\0';
+      normkey = gsasl_stringprep_saslprep (key, NULL);
       if (normkey == NULL)
 	{
-	  res = GSASL_UNICODE_NORMALIZATION_ERROR;
+	  res = GSASL_SASLPREP_ERROR;
 	  goto done;
 	}
 
