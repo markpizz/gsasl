@@ -39,6 +39,7 @@ AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h)
 # Checks for library functions.
 AC_SEARCH_LIBS(socket, socket)
 AC_SEARCH_LIBS(gethostbyname, nsl)
+AC_SEARCH_LIBS(readline, readline)
 
 # For gnulib stuff in gl/.
 gl_GETOPT
