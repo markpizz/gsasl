@@ -39,7 +39,6 @@
 
 /* GNULib */
 #include "gettext.h"
-#include "minmax.h"
 
 #include <stringprep.h>
 
@@ -48,6 +47,11 @@
 #define N_(String) gettext_noop (String)
 
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
+
+/* MIN(a,b) returns the minimum of A and B.  */
+#ifndef MIN
+# define MIN(a,b) ((a) < (b) ? (a) : (b))
+#endif
 
 typedef int (*_Gsasl_code_function) (Gsasl_session_ctx * sctx,
 				     void *mech_data,
