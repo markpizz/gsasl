@@ -232,7 +232,7 @@ main (int argc, char *argv[])
       args_info.no_client_first_flag = 1;
     }
 
-  if (args_info.connect_given)
+  if (args_info.connect_given || argc > 1)
     {
       struct servent *se;
       struct hostent *he;
@@ -240,16 +240,30 @@ main (int argc, char *argv[])
       char *connect_hostname;
       char *connect_service;
 
-      if (strrchr (args_info.connect_arg, ':'))
+      if (args_info.connect_given)
 	{
-	  connect_hostname = strdup (args_info.connect_arg);
-	  *strrchr (connect_hostname, ':') = '\0';
-	  connect_service = strdup (strrchr (args_info.connect_arg, ':') + 1);
+	  if (strrchr (args_info.connect_arg, ':'))
+	    {
+	      connect_hostname = strdup (args_info.connect_arg);
+	      *strrchr (connect_hostname, ':') = '\0';
+	      connect_service =
+		strdup (strrchr (args_info.connect_arg, ':') + 1);
+	    }
+	  else
+	    {
+	      connect_hostname = strdup (args_info.connect_arg);
+	      if (args_info.smtp_flag)
+		connect_service = strdup ("25");
+	      else
+		connect_service = strdup ("143");
+	    }
 	}
-      else
+      else if (argc > 1)
 	{
-	  connect_hostname = strdup (args_info.connect_arg);
-	  if (args_info.smtp_flag)
+	  connect_hostname = argv[1];
+	  if (argc > 2)
+	    connect_service = argv[2];
+	  else if (args_info.smtp_flag)
 	    connect_service = strdup ("25");
 	  else
 	    connect_service = strdup ("143");
