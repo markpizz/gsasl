@@ -39,7 +39,6 @@ AM_CONFIG_HEADER(config.h)
 # Checks for programs.
 AM_GNU_GETTEXT(external)
 AM_GNU_GETTEXT_VERSION(0.11.5)
-AC_PROG_LIBTOOL
 AC_PROG_CC
 AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
@@ -48,6 +47,8 @@ AM_MISSING_PROG(DOCBOOK2TXT, docbook2txt, $missing_dir)
 AM_MISSING_PROG(DOCBOOK2HTML, docbook2html, $missing_dir)
 AM_MISSING_PROG(DOCBOOK2PS, docbook2ps, $missing_dir)
 AM_MISSING_PROG(DOCBOOK2PDF, docbook2pdf, $missing_dir)
+AC_GNU_SOURCE
+AC_PROG_LIBTOOL
 AM_WITH_DMALLOC
 
 # ANONYMOUS
@@ -272,24 +273,24 @@ AC_HEADER_TIME
 AC_CHECK_DECLS(errno)
 
 # Checks for library functions.
-AC_REPLACE_FUNCS(gethostname strdup strerror memmove memset)
 AC_SEARCH_LIBS(gethostbyname, xnet)
 
-# Test if the libc includes a good enough argp.
-AC_ARG_WITH(system-argp,
-  AC_HELP_STRING([--without-system-argp], [Don't use the system's argp]))
-if test "$with_system_argp" != "no" ; then
-  AC_LIB_ARGP(,with_system_argp=no)
-fi
-if test "$with_system_argp" = "no" ; then
-  ARGP_LIBS="\$(top_builddir)/argp/libargp.a"
-  ARGP_CFLAGS="-I\$(top_srcdir)/argp"
-  ARGP=argp
-fi
-AC_SUBST(ARGP)
-AC_SUBST(ARGP_LIBS)
-AC_SUBST(ARGP_CFLAGS)
-AC_CONFIG_SUBDIRS(argp)
+# For gnulib stuff in gl/.
+gl_FUNC_ALLOCA
+gl_ARGP
+gl_ERROR
+gl_FUNC_GETHOSTNAME
+gl_GETOPT
+jm_FUNC_MALLOC
+gl_FUNC_MEMMOVE
+gl_FUNC_MEMSET
+jm_FUNC_REALLOC
+gl_FUNC_STRCHRNUL
+gl_FUNC_STRDUP
+gl_FUNC_STRERROR
+gl_SYSEXITS
+jm_FUNC_GLIBC_UNLOCKED_IO
+gl_XALLOC
 
 # Check for gtk-doc.
 AC_ARG_WITH(html-dir, [  --with-html-dir=PATH path to installed docs ])
@@ -311,6 +312,7 @@ AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 
 # We are done
 AC_CONFIG_FILES(Makefile po/Makefile.in m4/Makefile \
+		gl/Makefile gl/m4/Makefile \
 		doc/Makefile doc/reference/Makefile lib/gsasl.h lib/Makefile \
 		libgsasl.pc src/Makefile tests/Makefile)
 AC_OUTPUT

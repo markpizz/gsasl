@@ -18,11 +18,10 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-EXTRA_DIST = gethostname.c strdup.c strerror.c memmove.c memset.c
-
 lib_LTLIBRARIES = libgsasl.la
 
-INCLUDES = -I../intl @LIBNTLM_CFLAGS@ @LIBGCRYPT_CFLAGS@ @GSSAPI_CFLAGS@ \
+INCLUDES = -I../intl -I$(top_srcdir)/gl \
+	@LIBNTLM_CFLAGS@ @LIBGCRYPT_CFLAGS@ @GSSAPI_CFLAGS@ \
 	@SHISHI_CFLAGS@ @LIBIDN_CFLAGS@ @GSS_CFLAGS@
 
 include_HEADERS = gsasl.h
@@ -44,7 +43,8 @@ libgsasl_la_SOURCES = init.c done.c error.c version.c callback.c \
 			kerberos_v5.h kerberos_v5.c
 
 libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ \
-	@GSSAPI_LIBS@ @GSS_LIBS@ @SHISHI_LIBS@ @LIBIDN_LIBS@ -lm @LTLIBOBJS@
+	@GSSAPI_LIBS@ @GSS_LIBS@ @SHISHI_LIBS@ @LIBIDN_LIBS@ \
+	../gl/libfoo.a -lm
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 localedir = $(datadir)/locale
