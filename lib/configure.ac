@@ -19,7 +19,7 @@ dnl Process this file with autoconf to produce a configure script.
 # Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA
 
-AC_INIT([libgsasl], [0.0.15], [bug-gsasl@gnu.org])
+AC_INIT([libgsasl], [0.1.0], [bug-gsasl@gnu.org])
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
