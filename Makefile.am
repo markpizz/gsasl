@@ -37,7 +37,7 @@ ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
 ChangeLog:
 	test ! -f .cvsusers || \
-	(cvs2cl --FSF --usermap .cvsusers \
+	(cvs2cl --fsf --FSF --usermap .cvsusers \
 	-I "ChangeLog|.cvs|autogen.sh|doc/specification|libstringprep" && \
 	cat .cvscopying >> ChangeLog)
 
