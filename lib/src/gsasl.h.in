@@ -193,7 +193,6 @@ extern "C"
   extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc);
 
 /* Callback handling: callback.c */
-  extern Gsasl *gsasl_ctx_get (Gsasl_session * sctx);
   extern void gsasl_application_data_set (Gsasl * ctx, void *appdata);
   extern void *gsasl_application_data_get (Gsasl * ctx);
   extern void gsasl_appinfo_set (Gsasl_session * sctx, void *appdata);

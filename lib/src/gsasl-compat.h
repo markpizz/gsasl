@@ -253,5 +253,6 @@ extern void gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
 					       void *application_data);
 extern void *gsasl_server_application_data_get (Gsasl_session_ctx * sctx);
 extern int gsasl_randomize (int strong, char *data, size_t datalen);
+extern Gsasl *gsasl_ctx_get (Gsasl_session * sctx);
 
 #endif /* GSASL_COMPAT_H */

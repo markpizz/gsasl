@@ -178,18 +178,6 @@ gsasl_callback_global (Gsasl * ctx, Gsasl_property prop)
 }
 
 /**
- * gsasl_ctx_get:
- * @sctx: libgsasl session handle
- *
- * Return value: Returns the libgsasl handle given a libgsasl session handle.
- **/
-Gsasl *
-gsasl_ctx_get (Gsasl_session * sctx)
-{
-  return sctx->ctx;
-}
-
-/**
  * gsasl_application_data_set:
  * @ctx: libgsasl handle.
  * @appdata: opaque pointer to application specific data.

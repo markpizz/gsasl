@@ -423,6 +423,9 @@ gsasl_server_application_data_get (Gsasl_session_ctx * sctx)
  * Store cryptographically random data of given size in the provided
  * buffer.
  *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
  * Return value: Returns %GSASL_OK iff successful.
  **/
 int
@@ -431,4 +434,19 @@ gsasl_randomize (int strong, char *data, size_t datalen)
   if (strong)
     return gsasl_random (data, datalen);
   return gsasl_nonce (data, datalen);
+}
+
+/**
+ * gsasl_ctx_get:
+ * @sctx: libgsasl session handle
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
+ * Return value: Returns the libgsasl handle given a libgsasl session handle.
+ **/
+Gsasl *
+gsasl_ctx_get (Gsasl_session * sctx)
+{
+  return sctx->ctx;
 }
