@@ -90,7 +90,7 @@ endif
 
 if NTLM
 SUBDIRS += ntlm
-libgsasl_la_SOURCES += ntlm/x-ntlm.h ntlm/ntlm.c
+libgsasl_la_LIBADD += ntlm/libgsasl-ntlm.la
 endif
 
 if GSSAPI
