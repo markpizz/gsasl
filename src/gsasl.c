@@ -484,15 +484,15 @@ main (int argc, char *argv[])
 
 		  output_len = sizeof (output);
 		  res = gsasl_encode (xctx, input, strlen (input),
-				      output, &output_len);
+				      &out, &output_len);
 		  if (res != GSASL_OK)
 		    break;
 
 		  if (!(strlen (input) == output_len &&
-			memcmp (input, output, output_len) == 0))
+			memcmp (input, out, output_len) == 0))
 		    {
 		      b64output_len = sizeof (b64output);
-		      b64output_len = gsasl_base64_encode (output, output_len,
+		      b64output_len = gsasl_base64_encode (out, output_len,
 							   b64output,
 							   b64output_len);
 		      if (b64output_len == -1)
@@ -509,9 +509,11 @@ main (int argc, char *argv[])
 
 		  if (sockfd)
 		    {
-		      if (write (sockfd, output, output_len) != output_len)
+		      if (write (sockfd, out, output_len) != output_len)
 			return 0;
 		    }
+
+		  free (out);
 		}
 
 	      if (sockfd && FD_ISSET (sockfd, &readfds))
