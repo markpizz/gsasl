@@ -34,6 +34,8 @@ EXTRA_DIST = gdoc gdoc-error gsasl-example1.c $(man_MANS) \
 	gsasl.txt gsasl.html gsasl.ps gsasl.pdf $(gsasl_texi_auto_deps)
 
 info_TEXINFOS = gsasl.texi
+ps_TEXINFOS = gsasl.texi
+pdf_TEXINFOS = gsasl.texi
 gsasl_TEXINFOS = gpl.texi fdl.texi $(gsasl_texi_auto_deps) \
 	gsasl-callback-password.texi gsasl-callback-authorization.texi \
 	gsasl-callback-authentication.texi gsasl-callback-validate.texi \
@@ -93,19 +95,9 @@ gsasl.1: $(top_srcdir)/src/gsasl.c $(top_builddir)/src/gsasl
 		--name="SASL library command line interface" \
 		--output=$@ $(top_builddir)/src/gsasl
 
-# Texinfo:
-
-gsasl.txt: gsasl.texi
-	$(MAKEINFO) --no-header $< > $@
-
 gsasl.html: gsasl.texi
 	$(MAKEINFO) --html --no-split --number-sections $<
 #	$(TEXI2HTML) -nosec_nav $<
-
-gsasl.ps: gsasl.texi
-
-gsasl.pdf: gsasl.texi
-	$(TEXI2PDF) $<
 
 # Docbook:
 
