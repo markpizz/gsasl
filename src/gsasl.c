@@ -428,9 +428,14 @@ main (int argc, char *argv[])
 	no_client_first:
 	  if (!args_info.quiet_given &&
 	      !args_info.imap_flag && !args_info.smtp_flag)
-	    fprintf (stderr, _("Enter base64 authentication data from %s "
-			       "(press RET if none):\n"),
-		     args_info.client_flag ? _("server") : _("client"));
+	    {
+	      if (args_info.client_flag)
+		fprintf (stderr, _("Enter base64 authentication data "
+				   "from server (press RET if none):\n"));
+	      else
+		fprintf (stderr, _("Enter base64 authentication data "
+				   "from client (press RET if none):\n"));
+	    }
 
 	  if (!step_recv (&in))
 	    return 1;
