@@ -46,7 +46,8 @@ IGNORE_HFILES=\
 	securid.h \
 	x-ntlm.h \
 	internal.h \
-	gettext.h
+	gettext.h \
+	kerberos_v5.h
 
 # Images to copy into HTML directory.
 HTML_IMAGES =
