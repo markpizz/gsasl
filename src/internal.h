@@ -31,16 +31,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <ctype.h>
-#endif
-
-#if HAVE_STRING_H
-# if !STDC_HEADERS && HAVE_MEMORY_H
-#  include <memory.h>
-# endif
-# include <string.h>
-#endif
-#if HAVE_STRINGS_H
-# include <strings.h>
+#include <string.h>
 #endif
 
 #ifdef HAVE_UNISTD_H
@@ -73,12 +64,12 @@
 #include <locale.h>
 #endif
 
-#include "gettext.h"
-
 #include <stringprep.h>
 #include <argp.h>
+
 #include <gsasl.h>
 
+#include "gettext.h"
 #define _(String) dgettext (PACKAGE, String)
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
