@@ -304,6 +304,9 @@ gl_FUNC_STRERROR
 gl_SYSEXITS
 jm_FUNC_GLIBC_UNLOCKED_IO
 gl_XALLOC
+gl_EXITFAIL
+gl_FUNC_VASNPRINTF
+gl_FUNC_VASPRINTF
 
 # Check for gtk-doc.
 AC_ARG_WITH(html-dir, [  --with-html-dir=PATH path to installed docs ])
