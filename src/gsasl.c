@@ -479,10 +479,11 @@ main (int argc, char *argv[])
 	    fprintf (stderr, _("Enter application data (EOF to finish):\n"));
 
 	  input[0] = '\0';
-	  fgets (input, MAX_LINE_LENGTH, stdin);
+	  if (fgets (input, MAX_LINE_LENGTH, stdin) == NULL)
+	    break;
 	  input[strlen (input) - 1] = '\0';
 
-	  res =
+	  res = 
 	    gsasl_encode (xctx, input, strlen (input), output, &output_len);
 	  if (res != GSASL_OK)
 	    break;
