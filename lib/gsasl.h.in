@@ -152,22 +152,14 @@ extern "C"
 /* Authentication functions: xstart.c, xstep.c, xfinish.c */
   extern int gsasl_client_start (Gsasl_ctx * ctx, const char *mech,
 				 Gsasl_session_ctx ** sctx);
-  extern int gsasl_client_step (Gsasl_session_ctx * sctx,
-				const char *input, size_t input_len,
-				char *output, size_t * output_len);
-  extern int gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
-				       const char *b64input,
-				       char *b64output, size_t b64output_len);
-  extern void gsasl_client_finish (Gsasl_session_ctx * sctx);
   extern int gsasl_server_start (Gsasl_ctx * ctx, const char *mech,
 				 Gsasl_session_ctx ** sctx);
-  extern int gsasl_server_step (Gsasl_session_ctx * sctx,
-				const char *input, size_t input_len,
-				char *output, size_t * output_len);
-  extern int gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
-				       const char *b64input,
-				       char *b64output, size_t b64output_len);
-  extern void gsasl_server_finish (Gsasl_session_ctx * sctx);
+  extern int gsasl_step (Gsasl_session_ctx * sctx,
+			 const char *input, size_t input_len,
+			 char **output, size_t * output_len);
+  extern int gsasl_step64 (Gsasl_session_ctx * sctx,
+			   const char *b64input, char **b64output);
+  extern void gsasl_finish (Gsasl_session_ctx * sctx);
 
 /* Session functions: xcode.c */
   extern int gsasl_encode (Gsasl_session_ctx * sctx,
@@ -416,6 +408,20 @@ extern "C"
 				    size_t * outlen);
   extern int gsasl_server_listmech (Gsasl_ctx * ctx, char *out,
 				    size_t * outlen);
+  extern int gsasl_client_step (Gsasl_session_ctx * sctx,
+				const char *input, size_t input_len,
+				char *output, size_t * output_len);
+  extern int gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
+				       const char *b64input,
+				       char *b64output, size_t b64output_len);
+  extern int gsasl_server_step (Gsasl_session_ctx * sctx,
+				const char *input, size_t input_len,
+				char *output, size_t * output_len);
+  extern int gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
+				       const char *b64input,
+				       char *b64output, size_t b64output_len);
+  extern void gsasl_client_finish (Gsasl_session_ctx * sctx);
+  extern void gsasl_server_finish (Gsasl_session_ctx * sctx);
 
 #ifdef __cplusplus
 }
