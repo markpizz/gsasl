@@ -34,71 +34,75 @@
 #define USERNAME "Ali Baba"
 /* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
 /* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
+#define AUTHZID "joe"
+#define SERVICE "imap"
+#define HOSTNAME "hostname"
+#define REALM "realm"
 
 static int
-server_cb_retrieve (Gsasl_session_ctx * xctx,
-		    const char *authentication_id,
-		    const char *authorization_id,
-		    const char *realm, char *key, size_t * keylen)
+callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 {
-  size_t needlen = strlen (PASSWORD);
+  static int flip = 0;
+  static int flip2 = 0;
+  int rc = GSASL_NO_CALLBACK;
 
-  if (key && *keylen < needlen)
-    return GSASL_TOO_SMALL_BUFFER;
+  /* Get user info from user. */
 
-  *keylen = needlen;
-  if (key)
-    memcpy (key, PASSWORD, *keylen);
+  switch (prop)
+    {
+    case GSASL_PASSWORD:
+      gsasl_property_set (sctx, prop, PASSWORD);
+      rc = GSASL_OK;
+      break;
 
-  return GSASL_OK;
-}
+    case GSASL_AUTHID:
+      gsasl_property_set (sctx, prop, USERNAME);
+      rc = GSASL_OK;
+      break;
 
-static int
-client_callback_service (Gsasl_session_ctx * ctx,
-			 char *srv,
-			 size_t * srvlen,
-			 char *host,
-			 size_t * hostlen, char *srvname, size_t * srvnamelen)
-{
-  return GSASL_OK;
-}
+    case GSASL_AUTHZID:
+      if (flip)
+	gsasl_property_set (sctx, prop, AUTHZID);
+      else
+	gsasl_property_set (sctx, prop, NULL);
+      flip = !flip;
+      rc = GSASL_OK;
+      break;
 
-static int
-client_cb_authentication_id (Gsasl_session_ctx * xctx,
-			     char *out, size_t * outlen)
-{
-  size_t needlen = strlen (USERNAME);
+    case GSASL_SERVICE:
+      gsasl_property_set (sctx, prop, SERVICE);
+      rc = GSASL_OK;
+      break;
 
-  if (out && *outlen < needlen)
-    return GSASL_TOO_SMALL_BUFFER;
+    case GSASL_REALM:
+      if (flip2)
+	gsasl_property_set (sctx, prop, REALM);
+      else
+	gsasl_property_set (sctx, prop, NULL);
+      flip2++;
+      if (flip2 == 3)
+	flip2 = 0;
+      rc = GSASL_OK;
+      break;
 
-  *outlen = needlen;
-  if (out)
-    memcpy (out, USERNAME, *outlen);
+    case GSASL_HOSTNAME:
+      gsasl_property_set (sctx, prop, HOSTNAME);
+      rc = GSASL_OK;
+      break;
 
-  return GSASL_OK;
-}
+    default:
+      fail ("Unknown callback property %d\n", prop);
+      break;
+    }
 
-static int
-client_cb_password (Gsasl_session_ctx * xctx, char *out, size_t * outlen)
-{
-  size_t needlen = strlen (PASSWORD);
-
-  if (out && *outlen < needlen)
-    return GSASL_TOO_SMALL_BUFFER;
-
-  *outlen = needlen;
-  if (out)
-    memcpy (out, PASSWORD, *outlen);
-
-  return GSASL_OK;
+  return rc;
 }
 
 void
 doit (void)
 {
-  Gsasl_ctx *ctx = NULL;
-  Gsasl_session_ctx *server = NULL, *client = NULL;
+  Gsasl *ctx = NULL;
+  Gsasl_session *server = NULL, *client = NULL;
   char *s1, *s2;
   size_t s1len, s2len;
   size_t i;
@@ -111,21 +115,7 @@ doit (void)
       return;
     }
 
-  if (!gsasl_client_support_p (ctx, "DIGEST-MD5") ||
-      !gsasl_server_support_p (ctx, "DIGEST-MD5"))
-    {
-      printf ("No support for DIGEST-MD5...\n");
-      return;
-    }
-
-  gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);
-
-  gsasl_client_callback_service_set (ctx, client_callback_service);
-
-  gsasl_client_callback_authentication_id_set (ctx,
-					       client_cb_authentication_id);
-  gsasl_client_callback_password_set (ctx, client_cb_password);
-
+  gsasl_callback_set (ctx, callback);
 
   for (i = 0; i < 5; i++)
     {
@@ -227,8 +217,8 @@ doit (void)
       if (debug)
 	printf ("\n");
 
-      gsasl_client_finish (client);
-      gsasl_server_finish (server);
+      gsasl_finish (client);
+      gsasl_finish (server);
     }
 
   gsasl_done (ctx);
