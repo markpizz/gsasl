@@ -168,12 +168,12 @@ extern int gsasl_decode (Gsasl_session_ctx *xctx,
 extern const char *gsasl_strerror (int err);
 
 /* Utilities: base64.c, hexdump.c, md5pwd.c */
-extern int gsasl_base64_encode (unsigned char const *src,
+extern int gsasl_base64_encode (char const *src,
 				size_t srclength,
 				char *target,
 				size_t targsize);
 extern int gsasl_base64_decode (char const *src,
-				unsigned char *target,
+				char *target,
 				size_t targsize);
 extern void gsasl_hexdump (FILE *fh, const char *buffer, size_t len);
 extern int gsasl_md5pwd_get_password (const char *filename, 
@@ -213,22 +213,22 @@ typedef Gsasl_qop (*Gsasl_client_callback_qop) (Gsasl_session_ctx *ctx,
 typedef int (*Gsasl_client_callback_maxbuf) (Gsasl_session_ctx *ctx,
 					     int servermaxbuf);
 typedef int (*Gsasl_server_callback_retrieve) (Gsasl_session_ctx *ctx,
-					       char *authentication_id,
-					       char *authorization_id,
-					       char *realm,
+					       const char *authentication_id,
+					       const char *authorization_id,
+					       const char *realm,
 					       char *key,
 					       size_t *keylen);
 typedef int (*Gsasl_server_callback_validate) (Gsasl_session_ctx *ctx, 
-					       char *authorization_id,
-					       char *authentication_id,
-					       char *password);
+					       const char *authorization_id,
+					       const char *authentication_id,
+					       const char *password);
 typedef int (*Gsasl_server_callback_gssapi) (Gsasl_session_ctx *ctx, 
 					     char *clientname,
 					     char *authentication_id);
 typedef int (*Gsasl_server_callback_securid) (Gsasl_session_ctx *ctx, 
-					      char *authentication_id,
-					      char *authorization_id,
-					      char *passcode,
+					      const char *authentication_id,
+					      const char *authorization_id,
+					      const char *passcode,
 					      char *pin,
 					      char *suggestpin,
 					      size_t *suggestpinlen);
@@ -237,9 +237,9 @@ typedef int (*Gsasl_server_callback_cram_md5) (Gsasl_session_ctx *ctx,
 					       char *challenge,
 					       char *response);
 typedef int (*Gsasl_server_callback_digest_md5) (Gsasl_session_ctx *ctx,
-						 unsigned char *username,
-						 unsigned char *realm,
-						 unsigned char *secrethash);
+						 char *username,
+						 char *realm,
+						 char *secrethash);
 typedef int (*Gsasl_server_callback_service) (Gsasl_session_ctx *ctx, 
 					      char *service,
 					      size_t *servicelen,
