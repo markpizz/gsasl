@@ -238,15 +238,15 @@ host.
 
 i686-pc-linux-gnu, GCC 3.2, GNU Make.
 
-@c @item IRIX 6.5
-@c @cindex IRIX
-@c
-@c mips-sgi-irix6.5, MIPS C compiler, IRIX Make.
-@c
-@c @item AIX 4.3.2
-@c @cindex AIX
-@c
-@c rs6000-ibm-aix4.3.2.0, IBM C for AIX compiler, AIX Make.
+@item IRIX 6.5
+@cindex IRIX
+
+mips-sgi-irix6.5, MIPS C compiler, IRIX Make.
+
+@item AIX 4.3.2
+@cindex AIX
+
+rs6000-ibm-aix4.3.2.0, IBM C for AIX compiler, AIX Make.
 
 @item HP-UX 11.11
 @cindex HP-UX
