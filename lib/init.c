@@ -1,4 +1,4 @@
-/* init.c	entry point for libgsasl
+/* init.c --- Entry point for libgsasl.
  * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -21,11 +21,11 @@
 
 #include "internal.h"
 
+/* Get _gsasl_crypto_init. */
+#include "crypto.h"
+
 /* See common.c. */
 extern _Gsasl_mechanism _gsasl_all_mechanisms[];
-
-/* See nettle.c, libgcrypt.c */
-extern int _gsasl_crypto_init (void);
 
 /**
  * gsasl_init:
