@@ -125,6 +125,12 @@ AC_MSG_RESULT($ntlm)
 
 # Libgcrypt
 AM_PATH_LIBGCRYPT(1.1.7, [have_gcrypt=yes], [have_gcrypt=no])
+save_LIBS=$LIBS
+LIBS="$LIBS $LIBGCRYPT_LIBS"
+# libgcrypt in CVS has a very different API that we don't support,
+# and it defines this function.
+AC_CHECK_FUNC(gcry_md_is_secure, [have_gcrypt=no])
+LIBS=$save_LIBS
 
 # CRAM-MD5
 AC_ARG_ENABLE(cram-md5,
