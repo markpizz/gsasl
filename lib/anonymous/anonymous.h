@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef _ANONYMOUS_H
-#define _ANONYMOUS_H
+#ifndef ANONYMOUS_H
+#define ANONYMOUS_H
 
 #include "internal.h"
 
@@ -42,4 +42,4 @@ extern int _gsasl_anonymous_server_step (Gsasl_session_ctx * sctx,
 					 const char *input, size_t input_len,
 					 char **output, size_t * output_len);
 
-#endif /* _ANONYMOUS_H */
+#endif /* ANONYMOUS_H */
