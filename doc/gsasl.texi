@@ -4,7 +4,8 @@
 
 @setfilename gsasl.info
 @include version.texi
-@settitle GNU SASL
+@settitle GNU Simple Authentication and Security Layer
+@finalout
 
 @c Unify some of the indices.
 @syncodeindex tp fn
@@ -39,7 +40,7 @@ Documentation License".
 @end direntry
 
 @titlepage
-@title GNU SASL
+@title GNU Simple Authentication and Security Layer
 @subtitle Simple Authentication and Security Layer for the GNU system
 @subtitle for version @value{VERSION}, @value{UPDATED}
 @author Simon Josefsson
@@ -52,8 +53,7 @@ Documentation License".
 
 @ifnottex
 @node Top
-@top GNU SASL
-
+@top GNU Simple Authentication and Security Layer
 @insertcopying
 @end ifnottex
 
