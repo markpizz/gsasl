@@ -34,7 +34,6 @@ extern void fail (const char *format, ...);
 extern void escapeprint (const char *str, size_t len);
 extern void hexprint (const char *str, size_t len);
 extern void binprint (const char *str, size_t len);
-extern void ucs4print (const uint32_t * str, size_t len);
 
 /* This must be implemented elsewhere. */
 extern void doit (void);
