@@ -1,3 +1,48 @@
+2004-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Generated.
+
+2004-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.1.2.
+
+2004-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2004-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/dummy.c: Typo.
+
+2004-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/dummy.c: Add.
+
+2004-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* src/xstep.c: Use allocating interface, if present.
+
+2004-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Add allocating "step" interface.
+
+2004-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* src/callback-s.c, src/callback-c.c: Don't crash on if handed NULL
+	input.
+
+2004-07-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Assume standard C.
+
+2004-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2004-06-26  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.1.1.
