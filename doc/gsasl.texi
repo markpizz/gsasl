@@ -135,8 +135,8 @@ under the GNU General Public License.
 @node Getting Started
 @section Getting Started
 
-This manual documents the `Libgsasl' library programming interface.
-All functions and data types provided by the library are explained.
+This manual documents the GNU SASL Library programming interface.  All
+functions and data types provided by the library are explained.
 
 The reader is assumed to possess basic familiarity with SASL and
 network programming in C or C++.
@@ -153,7 +153,7 @@ of the interface which are unclear.
 @node Features
 @section Features
 
-`Libgsasl' might have a couple of advantages over other libraries doing
+GNU SASL might have a couple of advantages over other libraries doing
 a similar job.
 
 @table @asis
@@ -246,7 +246,7 @@ that was defined or negotiated by the other side.
 @node Supported Platforms
 @section Supported Platforms
 
-Libgsasl has at some point in time been tested on the following
+GNU SASL has at some point in time been tested on the following
 platforms.
 
 @enumerate
@@ -370,8 +370,8 @@ GCC 3.4 and GNU Make @code{m68k-uclinux-elf}.
 
 @end enumerate
 
-If you use Libgsasl on, or port Libgsasl to, a new platform please
-report it to the author.
+If you port GNU SASL to a new platform, please report it to the author
+so this list can be updated.
 
 @node Commercial Support
 @section Commercial Support
@@ -384,7 +384,7 @@ support that can be purchased may include:
 @item Implement new features.
 Such as a new SASL mechanism.
 
-@item Port Libgsasl to new platforms.
+@item Port GNU SASL to new platforms.
 This could include porting to an embedded platforms that may need
 memory or size optimization.
 
@@ -454,7 +454,7 @@ table.
 If your target system require a minimal implementation, you may wish
 to disable the client or the server part of the code.  This do not
 remove symbols from the library, so if you attempt to call an
-application that uses server functions in a libgsasl built with
+application that uses server functions in a library built with
 @code{--disable-server}, the function will return an error code.
 
 @item --disable-anonymous
@@ -482,12 +482,12 @@ For the complete list, refer to the output from @code{configure
 @section Bug Reports
 @cindex Reporting Bugs
 
-If you think you have found a bug in Libgsasl, please investigate it
+If you think you have found a bug in GNU SASL, please investigate it
 and report it.
 
 @itemize @bullet
 
-@item Please make sure that the bug is really in Libgsasl, and
+@item Please make sure that the bug is really in GNU SASL, and
 preferably also check that it hasn't already been fixed in the latest
 version.
 
@@ -581,14 +581,14 @@ formatted, are extracted into Texinfo manuals and GTK-DOC web pages.
 @node Preparation
 @chapter Preparation
 
-To use `Libgsasl', you have to perform some changes to your sources and
-the build system.  The necessary changes are small and explained in the
-following sections.  At the end of this chapter, it is described how the
-library is initialized, and how the requirements of the library are
-verified.
+To use GNU SASL, you have to perform some changes to your sources and
+the build system.  The necessary changes are small and explained in
+the following sections.  At the end of this chapter, it is described
+how the library is initialized, and how the requirements of the
+library are verified.
 
 A faster way to find out how to adapt your application for use with
-`Libgsasl' may be to look at the examples at the end of this manual
+GNU SASL may be to look at the examples at the end of this manual
 (@pxref{Examples}).
 
 @menu
@@ -611,32 +611,31 @@ like this:
 #include <gsasl.h>
 @end example
 
-The name space of `Libgsasl' is @code{gsasl_*} for function names,
-@code{Gsasl*} for data types and @code{GSASL_*} for other symbols.  In
-addition the same name prefixes with one prepended underscore are
-reserved for internal use and should never be used by an application.
+The name space is @code{gsasl_*} for function names, @code{Gsasl*} for
+data types and @code{GSASL_*} for other symbols.  In addition the same
+name prefixes with one prepended underscore are reserved for internal
+use and should never be used by an application.
 
 @node Initialization
 @section Initialization
 
-`Libgsasl' must be initialized before it can be used.  The library is
+The library must be initialized before it can be used.  The library is
 initialized by calling @code{gsasl_init} (@pxref{Global Functions}).
 The resources allocated by the initialization process can be released
 if the application no longer has a need to call `Libgsasl' functions,
 this is done by calling @code{gsasl_done}.
 
-In order to take advantage of the internationalisation features in
-`Libgsasl', such as translated error messages, the application must
-set the current locale using @code{setlocale} before initializing
-`Libgsasl'.
+In order to take advantage of the internationalisation features in the
+library, such as translated error messages, the application must set
+the current locale using @code{setlocale} before initialization.
 
 In order to take advantage of the secure memory features in
-`Libgcrypt', which subsequently makes sensitive key material used in
-`Libgsasl' be allocated in secure memory, you need to initialize
-secure memory in your application, and for some platforms even make
-your application setuid root.  See the libgcrypt documentation for
-more information.  Example code to initialize secure memory in your
-code:
+Libgcrypt@footnote{Note that GNU SASL can also use Nettle for the
+Crypto backend.  Take care to verify that GNU SASL really use
+Libgcrypt, if this is what you want.}, you need to initialize secure
+memory in your application, and for some platforms even make your
+application setuid root.  See the Libgcrypt documentation for more
+information.  Example code to initialize secure memory in your code:
 
 @example
 #include <gcrypt.h>
@@ -661,18 +660,18 @@ main (int argc, char *argv[])
 @end example
 
 If you do not do this, keying material will not be allocated in secure
-memory, which for most application is not the biggest secure problem.
-Note that `Libgsasl' has not been audited to make sure it only ever
-stores passwords or keys in secure memory.
+memory (which for most application is not the biggest secure problem
+anyway).  Note that the GNU SASL Library has not been audited to make
+sure it only ever stores passwords or keys in secure memory.
 
 @node Version Check
 @section Version Check
 
-It is often desirable to check that the version of `Libgsasl' used is
-indeed one which fits all requirements.  Even with binary compatibility
-new features may have been introduced but due to problem with the
-dynamic linker an old version is actually used.  So you may want to
-check that the version is okay right after program startup.
+It is often desirable to check that the version of the library used is
+indeed one which fits all requirements.  Even with binary
+compatibility new features may have been introduced but due to problem
+with the dynamic linker an old version is actually used.  So you may
+want to check that the version is okay right after program startup.
 
 @include texi/gsasl_check_version.texi
 
@@ -699,7 +698,7 @@ directory in which the header file is located to the compilers include
 file search path (via the @option{-I} option).
 
 However, the path to the include file is determined at the time the
-source is configured.  To solve this problem, `Libgsasl' uses the
+source is configured.  To solve this problem, the library uses the
 external package @command{pkg-config} that knows the path to the
 include file and other configuration options.  The options that need
 to be added to the compiler invocation at compile time are output by
@@ -743,10 +742,10 @@ gcc -o foo foo.c `pkg-config libgsasl --cflags --libs`
 If you work on a project that uses Autoconf (@pxref{top, GNU
 Autoconf,, autoconf}) to help find installed libraries, the
 suggestions in the previous section are not the entire story.  There
-are a few methods to detect and incorporate Libgsasl into your
-Autoconf based package.  The preferred approach, is to use Libtool in
-your project, and use the normal Autoconf header file and library
-tests.
+are a few methods to detect and incorporate the GNU SASL Library into
+your Autoconf based package.  The preferred approach, is to use
+Libtool in your project, and use the normal Autoconf header file and
+library tests.
 
 @subsection Autoconf test via @samp{pkg-config}
 
@@ -877,7 +876,7 @@ main()
 @end example
 
 Notice the XXX comment that said you should specify the callbacks to
-use there.  `Libgsasl' depend on callbacks to implement user
+use there.  The GNU SASL Library depend on callbacks to implement user
 interaction (in the client) and user validation (in the server).  If
 you don't specify any callbacks, very few mechanisms will be supported
 (like EXTERNAL that don't need any additional information,
@@ -972,7 +971,7 @@ initial client output, the first call to
 initial client data.
 
 One note for client authors is in place.  The code above aborts
-processing if `Libgsasl' did not come out of the loop with a GSASL_OK
+processing if the library did not come out of the loop with a GSASL_OK
 exit code.  It is a mistake to not require this, and instead only look
 at what the server is sending you.  Even if the server said you are
 authenticated, it does not always mean that the SASL mechanism is
@@ -1005,11 +1004,11 @@ like PAM cannot handle this, so the server callback for these
 mechanisms are more complicated.
 
 Further mechanisms like GSSAPI (Kerberos 5) assume a specific
-authentication system.  In theory this means that `Libgsasl' would not
-need to interact with the application, but rather call this specific
-authentication system directly.  However, some callbacks are supported
-anyway, to modify the behaviour of how the specific authentication
-system is used.
+authentication system.  In theory this means that the SASL library
+would not need to interact with the application, but rather call this
+specific authentication system directly.  However, some callbacks are
+supported anyway, to modify the behaviour of how the specific
+authentication system is used.
 
 Special mechanisms like EXTERNAL and ANONYMOUS are entirely dependent
 on callbacks.
@@ -1392,11 +1391,11 @@ out since when a function has been deprecated.
 @chapter Error Handling
 @cindex Error Handling
 
-Most functions in `Libgsasl' are returning an error if they fail.  For
-this reason, the application should always catch the error condition and
-take appropriate measures, for example by releasing the resources and
-passing the error up to the caller, or by displaying a descriptive
-message to the user and cancelling the operation.
+Most functions in the GNU SASL Library are returning an error if they
+fail.  For this reason, the application should always catch the error
+condition and take appropriate measures, for example by releasing the
+resources and passing the error up to the caller, or by displaying a
+descriptive message to the user and cancelling the operation.
 
 Some error values do not indicate a system error or an error in the
 operation, but the result of an operation that failed properly.
@@ -1435,8 +1434,8 @@ to always be @code{0} so you may use it in boolean constructs.
 @chapter Examples
 @cindex Examples
 
-This chapter contains example code which illustrate how `Libgsasl' can
-be used when writing your own application.
+This chapter contains example code which illustrate how the GNU SASL
+Library can be used when writing your own application.
 
 @menu
 * Example 1::
@@ -1445,7 +1444,7 @@ be used when writing your own application.
 @node Example 1
 @section Example 1
 
-This is the minimal program which uses `Libgsasl' (including
+This is the minimal program which uses the library (including
 internationalization features) without doing anything.
 
 @example
