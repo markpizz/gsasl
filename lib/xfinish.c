@@ -21,6 +21,7 @@
 
 #include "internal.h"
 
+#ifdef USE_CLIENT
 /**
  * gsasl_client_finish:
  * @sctx: libgsasl client handle.
@@ -31,13 +32,13 @@
 void
 gsasl_client_finish (Gsasl_session_ctx * sctx)
 {
-#ifdef USE_CLIENT
   sctx->mech->client.finish (sctx, sctx->mech_data);
-#endif
 
   free (sctx);
 }
+#endif
 
+#ifdef USE_SERVER
 /**
  * gsasl_server_finish:
  * @sctx: libgsasl server handle.
@@ -48,9 +49,8 @@ gsasl_client_finish (Gsasl_session_ctx * sctx)
 void
 gsasl_server_finish (Gsasl_session_ctx * sctx)
 {
-#ifdef USE_SERVER
   sctx->mech->server.finish (sctx, sctx->mech_data);
-#endif
 
   free (sctx);
 }
+#endif
