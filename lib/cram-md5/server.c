@@ -20,7 +20,18 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get specification. */
 #include "cram-md5.h"
+
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get memcpy, strdup, strlen. */
+#include <string.h>
 
 /* Get cram_md5_challenge. */
 #include "challenge.h"

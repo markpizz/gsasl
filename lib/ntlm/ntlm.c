@@ -20,6 +20,17 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get memcpy. */
+#include <string.h>
+
+/* Get specification. */
 #include "x-ntlm.h"
 
 #include <ntlm.h>

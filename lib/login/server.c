@@ -20,6 +20,17 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get strdup, strlen. */
+#include <string.h>
+
+/* Get specification. */
 #include "login.h"
 
 struct _Gsasl_login_server_state

@@ -23,7 +23,7 @@
 #ifndef DIGEST_MD5_H
 #define DIGEST_MD5_H
 
-#include "internal.h"
+#include <gsasl.h>
 
 #define GSASL_DIGEST_MD5_NAME "DIGEST-MD5"
 

@@ -20,10 +20,21 @@
  *
  */
 
-#include "digest-md5.h"
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
 
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get memcpy, strlen. */
+#include <string.h>
+
+/* Get specification. */
+#include "digest-md5.h"
 #include "shared.h"
 
+/* Get digest_md5_encode, digest_md5_decode. */
 #include "session.h"
 
 struct _Gsasl_digest_md5_client_state

@@ -20,6 +20,16 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get memcpy, strdup, strlen. */
+#include <string.h>
+
 /* Get gsasl.h and other stuff. */
 #include "shared.h"
 

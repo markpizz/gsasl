@@ -23,7 +23,7 @@
 #ifndef CRAM_MD5_H
 #define CRAM_MD5_H
 
-#include "internal.h"
+#include <gsasl.h>
 
 #define GSASL_CRAM_MD5_NAME "CRAM-MD5"
 

@@ -23,7 +23,7 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 
-#include "internal.h"
+#include <gsasl.h>
 
 #define GSASL_LOGIN_NAME "LOGIN"
 

@@ -23,7 +23,7 @@
 #ifndef X_NTLM_H
 #define X_NTLM_H
 
-#include "internal.h"
+#include <gsasl.h>
 
 #define GSASL_NTLM_NAME "NTLM"
 

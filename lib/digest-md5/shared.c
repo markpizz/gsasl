@@ -20,8 +20,18 @@
  *
  */
 
-#include "digest-md5.h"
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
 
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get memcpy, strlen. */
+#include <string.h>
+
+/* Get specification. */
+#include "digest-md5.h"
 #include "shared.h"
 
 const char *digest_challenge_opts[] = {

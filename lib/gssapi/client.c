@@ -20,9 +20,35 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get memcpy, strlen. */
+#include <string.h>
+
+/* Get specification. */
 #include "x-gssapi.h"
 
-#include "shared.h"
+#ifdef USE_GSS
+# include <gss.h>
+#elif HAVE_GSSAPI_H		/* Heimdal GSSAPI */
+# include <gssapi.h>
+#else /* MIT GSSAPI */
+# ifdef HAVE_GSSAPI_GSSAPI_H
+#  include <gssapi/gssapi.h>
+# endif
+# ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
+#  include <gssapi/gssapi_generic.h>
+# endif
+#endif
+
+#ifdef HAVE_NETINET_IN_H
+# include <netinet/in.h>
+#endif
 
 struct _Gsasl_gssapi_client_state
 {

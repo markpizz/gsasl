@@ -23,7 +23,7 @@
 #ifndef X_GSSAPI_H
 #define X_GSSAPI_H
 
-#include "internal.h"
+#include <gsasl.h>
 
 #define GSASL_GSSAPI_NAME "GSSAPI"
 
