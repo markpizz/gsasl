@@ -21,6 +21,9 @@
 
 #include "securid.h"
 
+#define PASSCODE "passcode"
+#define PIN "pin"
+
 #ifdef USE_CLIENT
 
 int
@@ -64,9 +67,6 @@ _gsasl_securid_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 
   return GSASL_OK;
 }
-
-#define PASSCODE "passcode"
-#define PIN "pin"
 
 int
 _gsasl_securid_client_step (Gsasl_session_ctx * sctx,
