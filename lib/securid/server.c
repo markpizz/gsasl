@@ -89,7 +89,7 @@ _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
   else
     gsasl_property_set (sctx, GSASL_PIN, NULL);
 
-  res = gsasl_callback (sctx, GSASL_SERVER_SECURID);
+  res = gsasl_callback (NULL, sctx, GSASL_SERVER_SECURID);
   switch (res)
     {
     case GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE:

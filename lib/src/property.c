@@ -266,7 +266,7 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 
   if (!p)
     {
-      gsasl_callback (sctx, prop);
+      gsasl_callback (NULL, sctx, prop);
       p = gsasl_property_fast (sctx, prop);
     }
 
@@ -387,7 +387,7 @@ gsasl_property_get_global (Gsasl * ctx, Gsasl_property prop)
 
   if (!p)
     {
-      gsasl_callback_global (ctx, prop);
+      gsasl_callback (ctx, NULL, prop);
       p = gsasl_property_fast_global (ctx, prop);
     }
 

@@ -55,5 +55,5 @@ _gsasl_anonymous_server_step (Gsasl_session_ctx * sctx,
   gsasl_property_set (sctx, GSASL_SERVER_ANONYMOUS, token);
   free (token);
 
-  return gsasl_callback (sctx, GSASL_SERVER_ANONYMOUS);
+  return gsasl_callback (NULL, sctx, GSASL_SERVER_ANONYMOUS);
 }

@@ -63,5 +63,5 @@ _gsasl_external_server_step (Gsasl_session_ctx * sctx,
       free (p);
     }
 
-  return gsasl_callback (sctx, GSASL_SERVER_EXTERNAL);
+  return gsasl_callback (NULL, sctx, GSASL_SERVER_EXTERNAL);
 }

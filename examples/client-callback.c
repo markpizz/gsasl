@@ -135,11 +135,8 @@ main (int argc, char *argv[])
       return 1;
     }
 
-  /* Set a global callback handler for the library.  It may be
-     overriden, per session, by calling gsasl_callback_set on future
-     session handles, to indicate another callback function for that
-     session. */
-  gsasl_callback_set_global (ctx, callback);
+  /* Set the callback handler for the library. */
+  gsasl_callback_set (ctx, callback);
 
   /* Do it. */
   client (ctx);

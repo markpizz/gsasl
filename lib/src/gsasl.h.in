@@ -183,12 +183,9 @@ extern "C"
   extern void *gsasl_application_data_get (Gsasl * ctx);
   extern void gsasl_appinfo_set (Gsasl_session * sctx, void *appdata);
   extern void *gsasl_appinfo_get (Gsasl_session * sctx);
-  extern void gsasl_callback_set (Gsasl_session * sctx,
-				  Gsasl_callback_function cb);
-  extern void gsasl_callback_set_global (Gsasl * ctx,
-					 Gsasl_callback_function cb);
-  extern int gsasl_callback (Gsasl_session * sctx, Gsasl_property prop);
-  extern int gsasl_callback_global (Gsasl * ctx, Gsasl_property prop);
+  extern void gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb);
+  extern int gsasl_callback (Gsasl * ctx, Gsasl_session * sctx,
+			     Gsasl_property prop);
 
   /* Property handling: property.c */
   extern void gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,

@@ -43,7 +43,7 @@ struct Gsasl
   size_t n_server_mechs;
   Gsasl_mechanism *server_mechs;
   void *application_data;
-  /* Global callback. */
+  /* Callback. */
   Gsasl_callback_function cb;
   /* Global properties. */
   char *anonymous_token;
@@ -87,9 +87,6 @@ struct Gsasl_session
   Gsasl_mechanism *mech;
   void *application_data;
   void *mech_data;
-  /* Session specific callback.  If NULL, use global callback in
-   * ctx->cb.  */
-  Gsasl_callback_function cb;
   /* Session specific properties.  If NULL, use corresponding global
    * property. */
   char *anonymous_token;
