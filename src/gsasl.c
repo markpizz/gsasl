@@ -705,7 +705,7 @@ main (int argc, char *argv[])
 		  if (fgets (input, MAX_LINE_LENGTH, sockfh) == NULL)
 		    break;
 		  input[strlen (input) - 1] = '\0';
-		  printf ("s: %s\n", input);
+		  printf ("%s\n", input);
 		}
 
 	      FD_ZERO (&readfds);
