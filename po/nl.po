@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.0\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-04-16 21:12+0200\n"
+"POT-Creation-Date: 2004-08-06 00:14+0200\n"
 "PO-Revision-Date: 2004-05-15 15:35+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -41,58 +41,60 @@ msgstr "Uitvoer van client:\n"
 msgid "Output from server:\n"
 msgstr "Uitvoer van server:\n"
 
-#: src/gsasl.c:302 src/gsasl.c:347 src/gsasl.c:402 src/gsasl.c:447
-#: src/gsasl.c:542
-#, c-format
-msgid "Libgsasl error (%d): %s\n"
+#: src/gsasl.c:335 src/gsasl.c:377 src/gsasl.c:428 src/gsasl.c:470
+#: src/gsasl.c:562
+#, fuzzy, c-format
+msgid "Libgsasl error (%d): %s"
 msgstr "Libgsasl fout (%d): %s\n"
 
-#: src/gsasl.c:356
+#: src/gsasl.c:384
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Deze client ondersteunt de volgende methoden:\n"
 
-#: src/gsasl.c:359
+#: src/gsasl.c:387
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Deze server ondersteunt de volgende methoden:\n"
 
-#: src/gsasl.c:384
+#: src/gsasl.c:411
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Kan methode niet vinden.\n"
 
-#: src/gsasl.c:433
+#: src/gsasl.c:457
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Geef base64 authentificatiegegevens van server (druk op ENTER als geen):\n"
+msgstr ""
+"Geef base64 authentificatiegegevens van server (druk op ENTER als geen):\n"
 
-#: src/gsasl.c:436
+#: src/gsasl.c:460
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Geef base64 authentificatiegegevens van client (druk op ENTER als geen):\n"
+msgstr ""
+"Geef base64 authentificatiegegevens van client (druk op ENTER als geen):\n"
 
-#: src/gsasl.c:458
+#: src/gsasl.c:479
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Client authentificatie voltooid (server vertrouwd).\n"
 
-#: src/gsasl.c:461
+#: src/gsasl.c:482
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Server authentificatie voltooid (client vertrouwd).\n"
 
-#: src/gsasl.c:476
+#: src/gsasl.c:497
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Geef toepassingsgegevens (einde-bestand om af te sluiten):\n"
 
-#: src/gsasl.c:515
+#: src/gsasl.c:536
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Base64-gecodeerde toepassingsgegevens om te verzenden:\n"
 
-#: src/gsasl.c:549
+#: src/gsasl.c:567
 #, c-format
 msgid "Session finished...\n"
 msgstr "Sessie voltooid.\n"
