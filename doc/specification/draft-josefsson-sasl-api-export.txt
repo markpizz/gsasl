@@ -1,0 +1,75 @@
+Index: draft-newman-sasl-c-api-00.txt
+===================================================================
+RCS file: /home/public-cvs/libgsasl/doc/specification/draft-newman-sasl-c-api-00.txt,v
+retrieving revision 1.1
+diff -u -p -u -w -r1.1 draft-newman-sasl-c-api-00.txt
+--- draft-newman-sasl-c-api-00.txt	7 Nov 2002 02:42:57 -0000	1.1
++++ draft-newman-sasl-c-api-00.txt	5 Dec 2002 00:47:16 -0000
+@@ -1362,6 +1362,67 @@ Results:
+       or calloc or resized by realloc.  The contents of the memory may
+       be altered by this call.
+ 
++ 5.2.   Exporting and importing security layer state
++
++      Some application environments wishes to separate the initial and
++      short authentication step from the potentially long lived
++      application step, where the application uses sasl_encode() and
++      sasl_decode() to transfer application data.  This separation may
++      be between processes (separation across hosts is more
++      complicated, as the security layer state is often dependent on
++      the host address, but still conceivable).  The reason for such
++      separation may be to guarantee that long-term secrets (e.g.,
++      passwords) cannot be recovered by compromising the application
++      that handles existing session.
++
++      The functions defined in this section allows the application to
++      export the security layer state associated with a session as an
++      opaque character string, and later import the opaque character
++      string.  The opaque state typically contains an encryption key,
++      initialization vectors, what encryption algorithm to use, packet
++      number etc.
++
++  5.2.1. sasl_export_security_layer_state function
++
++Arguments:
++            sasl_conn_t *conn,
++            const char **state,
++            unsigned int *statelen
++
++Results:
++            SASL_OK        -- Success
++            SASL_NOTDONE   -- Security layer negotiation not finished
++
++      This function exports the security layer state required to
++      implement the sasl_encode() and sasl_decode() functions after
++      the state has been imported.  The security layer state is an
++      opaque data string.  The state and statelen are filled in with
++      the opaque state data and its length respectively. If the
++      security layer negotiation has not finished, SASL_NOTDONE is
++      returned.  After calling this function, the application should
++      treat the SASL session as concluded and call sasl_dispose().  In
++      particular, the application MUST NOT call sasl_encode() or
++      sasl_decode() [XXX those functions should simply return a error
++      code when it happens].  The state data is only valid until a
++      call to sasl_dispose(), and should be copied before calling
++      sasl_dipose() if necessary.
++
++  5.2.2. sasl_import_security_layer_state function
++
++
++Arguments:
++            const char *state,
++            unsigned int statelen
++            sasl_conn_t **conn,
++
++Results:
++            SASL_OK        -- Success
++
++      This function create a SASL session, for use with sasl_encode(),
++      sasl_decode() and sasl_dispose() only, from the given security
++      layer state.  The security layer state is an opaque data string,
++      as returned from sasl_export_security_layer_state().
++
+ 6.     Additional Properties
+ 
+       <<To be completed>>
