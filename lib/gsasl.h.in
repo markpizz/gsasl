@@ -1,5 +1,5 @@
 /* gsasl.h	header file for libgsasl                              -*- c -*-
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -65,6 +65,8 @@ enum {
   GSASL_GSSAPI_ACQUIRE_CRED_ERROR,
   GSASL_GSSAPI_DISPLAY_NAME_ERROR,
   GSASL_GSSAPI_UNSUPPORTED_PROTECTION_ERROR,
+  GSASL_KERBEROS_V5_INIT_ERROR,
+  GSASL_SHISHI_ERROR,
   GSASL_NEED_CLIENT_ANONYMOUS_CALLBACK,
   GSASL_NEED_CLIENT_PASSWORD_CALLBACK,
   GSASL_NEED_CLIENT_PASSCODE_CALLBACK,

@@ -1,5 +1,5 @@
 /* common.c	static variables
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -19,8 +19,6 @@
  *
  */
 
-#include "internal.h"
-
 #include "cram-md5.h"		/* RFC 2195 */
 #include "external.h"		/* RFC 2222 */
 #include "x-gssapi.h"		/* RFC 2222 */
@@ -31,6 +29,7 @@
 
 #include "login.h"		/* non-standard */
 #include "x-ntlm.h"		/* non-standard */
+#include "kerberos_v5.h"	/* non-standard */
 
 const char *GSASL_VALID_MECHANISM_CHARACTERS =
   "ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz0123456789-_";
@@ -42,7 +41,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_anonymous_client_done,
     _gsasl_anonymous_client_start,
     _gsasl_anonymous_client_step,
-    _gsasl_anonymous_client_finish,},
+    _gsasl_anonymous_client_finish},
    {_gsasl_anonymous_server_init,
     _gsasl_anonymous_server_done,
     _gsasl_anonymous_server_start,
@@ -57,7 +56,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_external_client_done,
     _gsasl_external_client_start,
     _gsasl_external_client_step,
-    _gsasl_external_client_finish,},
+    _gsasl_external_client_finish},
    {_gsasl_external_server_init,
     _gsasl_external_server_done,
     _gsasl_external_server_start,
@@ -66,28 +65,13 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
    },
 #endif /* USE_EXTERNAL */
 
-#ifdef USE_LOGIN
-  {_GSASL_LOGIN_NAME,
-   {_gsasl_login_client_init,
-    _gsasl_login_client_done,
-    _gsasl_login_client_start,
-    _gsasl_login_client_step,
-    _gsasl_login_client_finish,},
-   {_gsasl_login_server_init,
-    _gsasl_login_server_done,
-    _gsasl_login_server_start,
-    _gsasl_login_server_step,
-    _gsasl_login_server_finish}
-   },
-#endif /* USE_LOGIN */
-
 #ifdef USE_PLAIN
   {_GSASL_PLAIN_NAME,
    {_gsasl_plain_client_init,
     _gsasl_plain_client_done,
     _gsasl_plain_client_start,
     _gsasl_plain_client_step,
-    _gsasl_plain_client_finish,},
+    _gsasl_plain_client_finish},
    {_gsasl_plain_server_init,
     _gsasl_plain_server_done,
     _gsasl_plain_server_start,
@@ -95,6 +79,21 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_plain_server_finish}
    },
 #endif /* USE_PLAIN */
+
+#ifdef USE_LOGIN
+  {_GSASL_LOGIN_NAME,
+   {_gsasl_login_client_init,
+    _gsasl_login_client_done,
+    _gsasl_login_client_start,
+    _gsasl_login_client_step,
+    _gsasl_login_client_finish},
+   {_gsasl_login_server_init,
+    _gsasl_login_server_done,
+    _gsasl_login_server_start,
+    _gsasl_login_server_step,
+    _gsasl_login_server_finish}
+  },
+#endif /* USE_LOGIN */
 
 #ifdef USE_SECURID
   {_GSASL_SECURID_NAME,
@@ -155,6 +154,21 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
    },
 #endif /* USE_DIGEST_MD5 */
 
+#if USE_KERBEROS_V5
+  {_GSASL_KERBEROS_V5_NAME,
+   {_gsasl_kerberos_v5_client_init,
+    _gsasl_kerberos_v5_client_done,
+    _gsasl_kerberos_v5_client_start,
+    _gsasl_kerberos_v5_client_step,
+    _gsasl_kerberos_v5_client_finish},
+   {_gsasl_kerberos_v5_server_init,
+    _gsasl_kerberos_v5_server_done,
+    _gsasl_kerberos_v5_server_start,
+    _gsasl_kerberos_v5_server_step,
+    _gsasl_kerberos_v5_server_finish}
+  },
+#endif /* USE_KERBEROS_V5 */
+
 #if USE_GSSAPI
   {_GSASL_GSSAPI_NAME,
    {_gsasl_gssapi_client_init,
@@ -170,6 +184,5 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
    },
 #endif /* USE_GSSAPI */
 
-  {
-   0}
+  { 0 }
 };
