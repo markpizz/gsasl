@@ -28,7 +28,7 @@ gsasl_texi_auto_deps = gsasl-api-version.texi gsasl-api-global.texi \
 
 EXTRA_DIST = gdoc gdoc-error gsasl-example1.c \
 	gsasl.html gsasl.ps gsasl.pdf $(gsasl_texi_auto_deps) \
-	doxygen/Doxyfile.in
+	doxygen/Doxyfile.in doxygen/gdoc2doxygen
 
 info_TEXINFOS = gsasl.texi
 ps_TEXINFOS = gsasl.texi
