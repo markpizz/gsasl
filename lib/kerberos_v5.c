@@ -587,7 +587,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	  err = shishi_kdcreq_cname_get (state->sh,
 					 shishi_as_req(state->as),
 					 buf, &buflen);
-	  if (err != GSASL_OK)
+	  if (err != SHISHI_OK)
 	    return err;
 	  buf[buflen] = '\0';
 	  state->username = strdup(buf);
@@ -596,7 +596,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	  err = shishi_kdcreq_realm_get (state->sh,
 					  shishi_as_req(state->as),
 					  buf, &buflen);
-	  if (err != GSASL_OK)
+	  if (err != SHISHI_OK)
 	    return err;
 	  buf[buflen] = '\0';
 	  state->userrealm = strdup(buf);
@@ -680,7 +680,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 					strlen(state->password),
 					buf, buflen,
 					NULL, &state->userkey);
-	  if (err != GSASL_OK)
+	  if (err != SHISHI_OK)
 	    return err;
 
 	  err = shishi_tkt_build (tkt, state->sessiontktkey);
