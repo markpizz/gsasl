@@ -22,11 +22,11 @@
 #include "internal.h"
 
 static int
-_gsasl_listmech (Gsasl_ctx * ctx,
+_gsasl_listmech (Gsasl * ctx,
 		 _Gsasl_mechanism * mechs,
 		 size_t n_mechs, char **out, int clientp)
 {
-  Gsasl_session_ctx *sctx;
+  Gsasl_session *sctx;
   char *list;
   size_t i;
   int rc;
@@ -74,7 +74,7 @@ _gsasl_listmech (Gsasl_ctx * ctx,
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
-gsasl_client_mechlist (Gsasl_ctx * ctx, char **out)
+gsasl_client_mechlist (Gsasl * ctx, char **out)
 {
   return _gsasl_listmech (ctx, ctx->client_mechs, ctx->n_client_mechs,
 			  out, 1);
@@ -93,7 +93,7 @@ gsasl_client_mechlist (Gsasl_ctx * ctx, char **out)
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
-gsasl_server_mechlist (Gsasl_ctx * ctx, char **out)
+gsasl_server_mechlist (Gsasl * ctx, char **out)
 {
   return _gsasl_listmech (ctx, ctx->server_mechs, ctx->n_server_mechs,
 			  out, 0);

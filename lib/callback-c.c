@@ -31,7 +31,7 @@
  * gsasl_client_callback_authentication_id_get().
  **/
 void
-gsasl_client_callback_authentication_id_set (Gsasl_ctx * ctx,
+gsasl_client_callback_authentication_id_set (Gsasl * ctx,
 					     Gsasl_client_callback_authentication_id
 					     cb)
 {
@@ -46,7 +46,7 @@ gsasl_client_callback_authentication_id_set (Gsasl_ctx * ctx,
  * gsasl_client_callback_authentication_id_set().
  **/
 Gsasl_client_callback_authentication_id
-gsasl_client_callback_authentication_id_get (Gsasl_ctx * ctx)
+gsasl_client_callback_authentication_id_get (Gsasl * ctx)
 {
   return ctx->cbc_authentication_id;
 }
@@ -61,7 +61,7 @@ gsasl_client_callback_authentication_id_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_authorization_id_get().
  **/
 void
-gsasl_client_callback_authorization_id_set (Gsasl_ctx * ctx,
+gsasl_client_callback_authorization_id_set (Gsasl * ctx,
 					    Gsasl_client_callback_authorization_id
 					    cb)
 {
@@ -76,7 +76,7 @@ gsasl_client_callback_authorization_id_set (Gsasl_ctx * ctx,
  * gsasl_client_callback_authorization_id_set().
  **/
 Gsasl_client_callback_authorization_id
-gsasl_client_callback_authorization_id_get (Gsasl_ctx * ctx)
+gsasl_client_callback_authorization_id_get (Gsasl * ctx)
 {
   return ctx->cbc_authorization_id;
 }
@@ -91,7 +91,7 @@ gsasl_client_callback_authorization_id_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_password_get().
  **/
 void
-gsasl_client_callback_password_set (Gsasl_ctx * ctx,
+gsasl_client_callback_password_set (Gsasl * ctx,
 				    Gsasl_client_callback_password cb)
 {
   ctx->cbc_password = cb;
@@ -106,7 +106,7 @@ gsasl_client_callback_password_set (Gsasl_ctx * ctx,
  * gsasl_client_callback_password_set().
  **/
 Gsasl_client_callback_password
-gsasl_client_callback_password_get (Gsasl_ctx * ctx)
+gsasl_client_callback_password_get (Gsasl * ctx)
 {
   return ctx->cbc_password;
 }
@@ -121,7 +121,7 @@ gsasl_client_callback_password_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_passcode_get().
  **/
 void
-gsasl_client_callback_passcode_set (Gsasl_ctx * ctx,
+gsasl_client_callback_passcode_set (Gsasl * ctx,
 				    Gsasl_client_callback_passcode cb)
 {
   ctx->cbc_passcode = cb;
@@ -136,7 +136,7 @@ gsasl_client_callback_passcode_set (Gsasl_ctx * ctx,
  * gsasl_client_callback_passcode_set().
  **/
 Gsasl_client_callback_passcode
-gsasl_client_callback_passcode_get (Gsasl_ctx * ctx)
+gsasl_client_callback_passcode_get (Gsasl * ctx)
 {
   return ctx->cbc_passcode;
 }
@@ -153,7 +153,7 @@ gsasl_client_callback_passcode_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_pin_get().
  **/
 void
-gsasl_client_callback_pin_set (Gsasl_ctx * ctx, Gsasl_client_callback_pin cb)
+gsasl_client_callback_pin_set (Gsasl * ctx, Gsasl_client_callback_pin cb)
 {
   ctx->cbc_pin = cb;
 }
@@ -167,7 +167,7 @@ gsasl_client_callback_pin_set (Gsasl_ctx * ctx, Gsasl_client_callback_pin cb)
  * gsasl_client_callback_pin_set().
  **/
 Gsasl_client_callback_pin
-gsasl_client_callback_pin_get (Gsasl_ctx * ctx)
+gsasl_client_callback_pin_get (Gsasl * ctx)
 {
   return ctx->cbc_pin;
 }
@@ -185,7 +185,7 @@ gsasl_client_callback_pin_get (Gsasl_ctx * ctx)
  * retrieved using gsasl_client_callback_service_get().
  **/
 void
-gsasl_client_callback_service_set (Gsasl_ctx * ctx,
+gsasl_client_callback_service_set (Gsasl * ctx,
 				   Gsasl_client_callback_service cb)
 {
   ctx->cbc_service = cb;
@@ -199,7 +199,7 @@ gsasl_client_callback_service_set (Gsasl_ctx * ctx,
  * gsasl_client_callback_service_set().
  **/
 Gsasl_client_callback_service
-gsasl_client_callback_service_get (Gsasl_ctx * ctx)
+gsasl_client_callback_service_get (Gsasl * ctx)
 {
   return ctx->cbc_service;
 }
@@ -215,7 +215,7 @@ gsasl_client_callback_service_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_anonymous_get().
  **/
 void
-gsasl_client_callback_anonymous_set (Gsasl_ctx * ctx,
+gsasl_client_callback_anonymous_set (Gsasl * ctx,
 				     Gsasl_client_callback_anonymous cb)
 {
   ctx->cbc_anonymous = cb;
@@ -229,7 +229,7 @@ gsasl_client_callback_anonymous_set (Gsasl_ctx * ctx,
  * gsasl_client_callback_anonymous_set().
  **/
 Gsasl_client_callback_anonymous
-gsasl_client_callback_anonymous_get (Gsasl_ctx * ctx)
+gsasl_client_callback_anonymous_get (Gsasl * ctx)
 {
   return ctx->cbc_anonymous;
 }
@@ -244,7 +244,7 @@ gsasl_client_callback_anonymous_get (Gsasl_ctx * ctx)
  * can be later retrieved using gsasl_client_callback_qop_get().
  **/
 void
-gsasl_client_callback_qop_set (Gsasl_ctx * ctx, Gsasl_client_callback_qop cb)
+gsasl_client_callback_qop_set (Gsasl * ctx, Gsasl_client_callback_qop cb)
 {
   ctx->cbc_qop = cb;
 }
@@ -257,7 +257,7 @@ gsasl_client_callback_qop_set (Gsasl_ctx * ctx, Gsasl_client_callback_qop cb)
  * gsasl_client_callback_qop_set().
  **/
 Gsasl_client_callback_qop
-gsasl_client_callback_qop_get (Gsasl_ctx * ctx)
+gsasl_client_callback_qop_get (Gsasl * ctx)
 {
   return ctx->cbc_qop;
 }
@@ -275,7 +275,7 @@ gsasl_client_callback_qop_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_maxbuf_get().
  **/
 void
-gsasl_client_callback_maxbuf_set (Gsasl_ctx * ctx,
+gsasl_client_callback_maxbuf_set (Gsasl * ctx,
 				  Gsasl_client_callback_maxbuf cb)
 {
   ctx->cbc_maxbuf = cb;
@@ -289,7 +289,7 @@ gsasl_client_callback_maxbuf_set (Gsasl_ctx * ctx,
  * gsasl_client_callback_maxbuf_set().
  **/
 Gsasl_client_callback_maxbuf
-gsasl_client_callback_maxbuf_get (Gsasl_ctx * ctx)
+gsasl_client_callback_maxbuf_get (Gsasl * ctx)
 {
   return ctx->cbc_maxbuf;
 }
@@ -305,7 +305,7 @@ gsasl_client_callback_maxbuf_get (Gsasl_ctx * ctx)
  * retrieved using gsasl_client_callback_realm_get().
  **/
 void
-gsasl_client_callback_realm_set (Gsasl_ctx * ctx,
+gsasl_client_callback_realm_set (Gsasl * ctx,
 				 Gsasl_client_callback_realm cb)
 {
   ctx->cbc_realm = cb;
@@ -319,7 +319,7 @@ gsasl_client_callback_realm_set (Gsasl_ctx * ctx,
  * gsasl_client_callback_realm_set().
  **/
 Gsasl_client_callback_realm
-gsasl_client_callback_realm_get (Gsasl_ctx * ctx)
+gsasl_client_callback_realm_get (Gsasl * ctx)
 {
   return ctx->cbc_realm;
 }

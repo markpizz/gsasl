@@ -22,7 +22,7 @@
 #include "internal.h"
 
 static int
-_gsasl_code (Gsasl_session_ctx * sctx,
+_gsasl_code (Gsasl_session * sctx,
 	     _Gsasl_code_function code,
 	     const char *input, size_t input_len,
 	     char *output, size_t * output_len)
@@ -56,7 +56,7 @@ _gsasl_code (Gsasl_session_ctx * sctx,
  * an error code.
  **/
 int
-gsasl_encode (Gsasl_session_ctx * sctx,
+gsasl_encode (Gsasl_session * sctx,
 	      const char *input,
 	      size_t input_len, char *output, size_t * output_len)
 {
@@ -85,7 +85,7 @@ gsasl_encode (Gsasl_session_ctx * sctx,
  * an error code.
  **/
 int
-gsasl_decode (Gsasl_session_ctx * sctx,
+gsasl_decode (Gsasl_session * sctx,
 	      const char *input,
 	      size_t input_len, char *output, size_t * output_len)
 {

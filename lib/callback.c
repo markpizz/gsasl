@@ -27,8 +27,8 @@
  *
  * Return value: Returns the libgsasl handle given a libgsasl session handle.
  **/
-Gsasl_ctx *
-gsasl_ctx_get (Gsasl_session_ctx * sctx)
+Gsasl *
+gsasl_ctx_get (Gsasl_session * sctx)
 {
   return sctx->ctx;
 }
@@ -45,7 +45,7 @@ gsasl_ctx_get (Gsasl_session_ctx * sctx)
  * and the callback.
  **/
 void
-gsasl_application_data_set (Gsasl_ctx * ctx, void *application_data)
+gsasl_application_data_set (Gsasl * ctx, void *application_data)
 {
   ctx->application_data = application_data;
 }
@@ -62,7 +62,7 @@ gsasl_application_data_set (Gsasl_ctx * ctx, void *application_data)
  * Return value: Returns the application specific data, or NULL.
  **/
 void *
-gsasl_application_data_get (Gsasl_ctx * ctx)
+gsasl_application_data_get (Gsasl * ctx)
 {
   return ctx->application_data;
 }
@@ -79,7 +79,7 @@ gsasl_application_data_get (Gsasl_ctx * ctx)
  * main program and the callback.
  **/
 void
-gsasl_appinfo_set (Gsasl_session_ctx * sctx, void *application_data)
+gsasl_appinfo_set (Gsasl_session * sctx, void *application_data)
 {
   sctx->application_data = application_data;
 }
@@ -97,7 +97,7 @@ gsasl_appinfo_set (Gsasl_session_ctx * sctx, void *application_data)
  * Return value: Returns the application specific data, or NULL.
  **/
 void *
-gsasl_appinfo_get (Gsasl_session_ctx * sctx)
+gsasl_appinfo_get (Gsasl_session * sctx)
 {
   return sctx->application_data;
 }

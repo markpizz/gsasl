@@ -46,7 +46,7 @@
  *   code.
  **/
 int
-gsasl_step (Gsasl_session_ctx * sctx,
+gsasl_step (Gsasl_session * sctx,
 	    const char *input, size_t input_len,
 	    char **output, size_t * output_len)
 {
@@ -100,7 +100,7 @@ gsasl_step (Gsasl_session_ctx * sctx,
  *   code.
  **/
 int
-gsasl_step64 (Gsasl_session_ctx * sctx,
+gsasl_step64 (Gsasl_session * sctx,
 	      const char *b64input,
 	      char **b64output)
 {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2003-07-10 10:09+0200\n"
+"POT-Creation-Date: 2003-11-14 04:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,10 +234,13 @@ msgid "No more realms available (non-fatal)"
 msgstr ""
 
 #: lib/error.c:288
-msgid "Libgsasl unknown error"
+msgid "Client-side functionality not available in library (application error)"
 msgstr ""
 
-#: lib/hexdump.c:39
-#, c-format
-msgid "%d: hex %02X dec %d ascii %c\n"
+#: lib/error.c:293
+msgid "Server-side functionality not available in library (application error)"
+msgstr ""
+
+#: lib/error.c:298
+msgid "Libgsasl unknown error"
 msgstr ""

@@ -32,7 +32,7 @@
  * gsasl_server_callback_validate_get().
  **/
 void
-gsasl_server_callback_validate_set (Gsasl_ctx * ctx,
+gsasl_server_callback_validate_set (Gsasl * ctx,
 				    Gsasl_server_callback_validate cb)
 {
   ctx->cbs_validate = cb;
@@ -46,7 +46,7 @@ gsasl_server_callback_validate_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_validate_set().
  **/
 Gsasl_server_callback_validate
-gsasl_server_callback_validate_get (Gsasl_ctx * ctx)
+gsasl_server_callback_validate_get (Gsasl * ctx)
 {
   return ctx->cbs_validate;
 }
@@ -62,7 +62,7 @@ gsasl_server_callback_validate_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_retrieve_get().
  **/
 void
-gsasl_server_callback_retrieve_set (Gsasl_ctx * ctx,
+gsasl_server_callback_retrieve_set (Gsasl * ctx,
 				    Gsasl_server_callback_retrieve cb)
 {
   ctx->cbs_retrieve = cb;
@@ -76,7 +76,7 @@ gsasl_server_callback_retrieve_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_retrieve_set().
  **/
 Gsasl_server_callback_retrieve
-gsasl_server_callback_retrieve_get (Gsasl_ctx * ctx)
+gsasl_server_callback_retrieve_get (Gsasl * ctx)
 {
   return ctx->cbs_retrieve;
 }
@@ -92,7 +92,7 @@ gsasl_server_callback_retrieve_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_cram_md5_get().
  **/
 void
-gsasl_server_callback_cram_md5_set (Gsasl_ctx * ctx,
+gsasl_server_callback_cram_md5_set (Gsasl * ctx,
 				    Gsasl_server_callback_cram_md5 cb)
 {
   ctx->cbs_cram_md5 = cb;
@@ -106,7 +106,7 @@ gsasl_server_callback_cram_md5_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_cram_md5_set().
  **/
 Gsasl_server_callback_cram_md5
-gsasl_server_callback_cram_md5_get (Gsasl_ctx * ctx)
+gsasl_server_callback_cram_md5_get (Gsasl * ctx)
 {
   return ctx->cbs_cram_md5;
 }
@@ -122,7 +122,7 @@ gsasl_server_callback_cram_md5_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_digest_md5_get().
  **/
 void
-gsasl_server_callback_digest_md5_set (Gsasl_ctx * ctx,
+gsasl_server_callback_digest_md5_set (Gsasl * ctx,
 				      Gsasl_server_callback_digest_md5 cb)
 {
   ctx->cbs_digest_md5 = cb;
@@ -136,7 +136,7 @@ gsasl_server_callback_digest_md5_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_digest_md5_set().
  **/
 Gsasl_server_callback_digest_md5
-gsasl_server_callback_digest_md5_get (Gsasl_ctx * ctx)
+gsasl_server_callback_digest_md5_get (Gsasl * ctx)
 {
   return ctx->cbs_digest_md5;
 }
@@ -151,7 +151,7 @@ gsasl_server_callback_digest_md5_get (Gsasl_ctx * ctx)
  * retrieved using gsasl_server_callback_external_get().
  **/
 void
-gsasl_server_callback_external_set (Gsasl_ctx * ctx,
+gsasl_server_callback_external_set (Gsasl * ctx,
 				    Gsasl_server_callback_external cb)
 {
   ctx->cbs_external = cb;
@@ -165,7 +165,7 @@ gsasl_server_callback_external_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_external_set().
  **/
 Gsasl_server_callback_external
-gsasl_server_callback_external_get (Gsasl_ctx * ctx)
+gsasl_server_callback_external_get (Gsasl * ctx)
 {
   return ctx->cbs_external;
 }
@@ -180,7 +180,7 @@ gsasl_server_callback_external_get (Gsasl_ctx * ctx)
  * retrieved using gsasl_server_callback_anonymous_get().
  **/
 void
-gsasl_server_callback_anonymous_set (Gsasl_ctx * ctx,
+gsasl_server_callback_anonymous_set (Gsasl * ctx,
 				     Gsasl_server_callback_anonymous cb)
 {
   ctx->cbs_anonymous = cb;
@@ -194,7 +194,7 @@ gsasl_server_callback_anonymous_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_anonymous_set().
  **/
 Gsasl_server_callback_anonymous
-gsasl_server_callback_anonymous_get (Gsasl_ctx * ctx)
+gsasl_server_callback_anonymous_get (Gsasl * ctx)
 {
   return ctx->cbs_anonymous;
 }
@@ -210,7 +210,7 @@ gsasl_server_callback_anonymous_get (Gsasl_ctx * ctx)
  * using gsasl_server_callback_realm_get().
  **/
 void
-gsasl_server_callback_realm_set (Gsasl_ctx * ctx,
+gsasl_server_callback_realm_set (Gsasl * ctx,
 				 Gsasl_server_callback_realm cb)
 {
   ctx->cbs_realm = cb;
@@ -224,7 +224,7 @@ gsasl_server_callback_realm_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_realm_set().
  **/
 Gsasl_server_callback_realm
-gsasl_server_callback_realm_get (Gsasl_ctx * ctx)
+gsasl_server_callback_realm_get (Gsasl * ctx)
 {
   return ctx->cbs_realm;
 }
@@ -241,7 +241,7 @@ gsasl_server_callback_realm_get (Gsasl_ctx * ctx)
  * retrieved using gsasl_server_callback_qop_get().
  **/
 void
-gsasl_server_callback_qop_set (Gsasl_ctx * ctx, Gsasl_server_callback_qop cb)
+gsasl_server_callback_qop_set (Gsasl * ctx, Gsasl_server_callback_qop cb)
 {
   ctx->cbs_qop = cb;
 }
@@ -254,7 +254,7 @@ gsasl_server_callback_qop_set (Gsasl_ctx * ctx, Gsasl_server_callback_qop cb)
  * gsasl_server_callback_qop_set().
  **/
 Gsasl_server_callback_qop
-gsasl_server_callback_qop_get (Gsasl_ctx * ctx)
+gsasl_server_callback_qop_get (Gsasl * ctx)
 {
   return ctx->cbs_qop;
 }
@@ -272,7 +272,7 @@ gsasl_server_callback_qop_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_maxbuf_get().
  **/
 void
-gsasl_server_callback_maxbuf_set (Gsasl_ctx * ctx,
+gsasl_server_callback_maxbuf_set (Gsasl * ctx,
 				  Gsasl_server_callback_maxbuf cb)
 {
   ctx->cbs_maxbuf = cb;
@@ -286,7 +286,7 @@ gsasl_server_callback_maxbuf_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_maxbuf_set().
  **/
 Gsasl_server_callback_maxbuf
-gsasl_server_callback_maxbuf_get (Gsasl_ctx * ctx)
+gsasl_server_callback_maxbuf_get (Gsasl * ctx)
 {
   return ctx->cbs_maxbuf;
 }
@@ -303,7 +303,7 @@ gsasl_server_callback_maxbuf_get (Gsasl_ctx * ctx)
  * using gsasl_server_callback_cipher_get().
  **/
 void
-gsasl_server_callback_cipher_set (Gsasl_ctx * ctx,
+gsasl_server_callback_cipher_set (Gsasl * ctx,
 				  Gsasl_server_callback_cipher cb)
 {
   ctx->cbs_cipher = cb;
@@ -317,7 +317,7 @@ gsasl_server_callback_cipher_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_cipher_set().
  **/
 Gsasl_server_callback_cipher
-gsasl_server_callback_cipher_get (Gsasl_ctx * ctx)
+gsasl_server_callback_cipher_get (Gsasl * ctx)
 {
   return ctx->cbs_cipher;
 }
@@ -339,7 +339,7 @@ gsasl_server_callback_cipher_get (Gsasl_ctx * ctx)
  * using gsasl_server_callback_securid_get().
  **/
 void
-gsasl_server_callback_securid_set (Gsasl_ctx * ctx,
+gsasl_server_callback_securid_set (Gsasl * ctx,
 				   Gsasl_server_callback_securid cb)
 {
   ctx->cbs_securid = cb;
@@ -353,7 +353,7 @@ gsasl_server_callback_securid_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_securid_set().
  **/
 Gsasl_server_callback_securid
-gsasl_server_callback_securid_get (Gsasl_ctx * ctx)
+gsasl_server_callback_securid_get (Gsasl * ctx)
 {
   return ctx->cbs_securid;
 }
@@ -371,7 +371,7 @@ gsasl_server_callback_securid_get (Gsasl_ctx * ctx)
  * retrieved using gsasl_server_callback_gssapi_get().
  **/
 void
-gsasl_server_callback_gssapi_set (Gsasl_ctx * ctx,
+gsasl_server_callback_gssapi_set (Gsasl * ctx,
 				  Gsasl_server_callback_gssapi cb)
 {
   ctx->cbs_gssapi = cb;
@@ -385,7 +385,7 @@ gsasl_server_callback_gssapi_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_gssapi_set().
  **/
 Gsasl_server_callback_gssapi
-gsasl_server_callback_gssapi_get (Gsasl_ctx * ctx)
+gsasl_server_callback_gssapi_get (Gsasl * ctx)
 {
   return ctx->cbs_gssapi;
 }
@@ -402,7 +402,7 @@ gsasl_server_callback_gssapi_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_service_get().
  **/
 void
-gsasl_server_callback_service_set (Gsasl_ctx * ctx,
+gsasl_server_callback_service_set (Gsasl * ctx,
 				   Gsasl_server_callback_service cb)
 {
   ctx->cbs_service = cb;
@@ -416,7 +416,7 @@ gsasl_server_callback_service_set (Gsasl_ctx * ctx,
  * gsasl_server_callback_service_set().
  **/
 Gsasl_server_callback_service
-gsasl_server_callback_service_get (Gsasl_ctx * ctx)
+gsasl_server_callback_service_get (Gsasl * ctx)
 {
   return ctx->cbs_service;
 }

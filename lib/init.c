@@ -32,13 +32,13 @@
  * Return value: GSASL_OK iff successful, otherwise GSASL_MALLOC_ERROR.
  **/
 int
-gsasl_init (Gsasl_ctx ** ctx)
+gsasl_init (Gsasl ** ctx)
 {
   int i;
 
   bindtextdomain (PACKAGE, LOCALEDIR);
 
-  *ctx = (Gsasl_ctx *) malloc (sizeof (**ctx));
+  *ctx = (Gsasl *) malloc (sizeof (**ctx));
   if (*ctx == NULL)
     return GSASL_MALLOC_ERROR;
 

@@ -29,7 +29,7 @@
  * used with other libgsasl functions after this call.
  **/
 void
-gsasl_done (Gsasl_ctx * ctx)
+gsasl_done (Gsasl * ctx)
 {
   size_t i;
 

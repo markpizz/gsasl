@@ -29,7 +29,7 @@
  * used with other libgsasl functions after this call.
  **/
 void
-gsasl_finish (Gsasl_session_ctx * sctx)
+gsasl_finish (Gsasl_session * sctx)
 {
   if (sctx->clientp)
     sctx->mech->client.finish (sctx, sctx->mech_data);
