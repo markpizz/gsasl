@@ -257,7 +257,7 @@ if test "$with_system_idn" = "no"; then
 	echo "*** Using copy distributed with GNU SASL instead."
 	echo "*** See http://josefsson.org/libidn/ to get GNU Libidn."
 	AC_MSG_WARN([libidn not installed on system])
-	LIBIDN_CFLAGS="-I\$(top_srcdir)/libstringprep"
+	LIBIDN_CFLAGS="-I\$(top_srcdir)/libstringprep -I\$(top_builddir)/libstringprep"
 	LIBIDN_LIBS="\$(top_builddir)/libstringprep/libidn.la"
 	LIBIDN=libstringprep
 fi
