@@ -21,6 +21,10 @@
 
 #include "internal.h"
 
+/* See common.c. */
+extern _Gsasl_mechanism _gsasl_all_mechanisms[];
+
+/* See nettle.c, libgcrypt.c */
 extern int _gsasl_crypto_init (void);
 
 /**
