@@ -176,12 +176,22 @@ main (int argc, char *argv[])
   memset (buf16, 'Q', 16);
 
   rc = digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce", DIGEST_MD5_QOP_AUTH,
-			"authzid", "digesturi", ":", 0,
+			"authzid", "digesturi", 1, 0,
 			NULL, NULL, NULL, NULL);
   if (rc != 0)
     abort ();
   buf32[32] = '\0';
   if (strcmp (buf32, "6a204da26b9888ee40bb3052ff056a67") != 0)
+    abort ();
+  printf ("digest: `%s': PASS\n", buf32);
+
+  rc = digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce", DIGEST_MD5_QOP_AUTH,
+			"authzid", "digesturi", 0, 0,
+			NULL, NULL, NULL, NULL);
+  if (rc != 0)
+    abort ();
+  buf32[32] = '\0';
+  if (strcmp (buf32, "6c1f58bfa46e9c225b93745c84204efd") != 0)
     abort ();
   printf ("digest: `%s': PASS\n", buf32);
 
