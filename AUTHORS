@@ -1,7 +1,11 @@
+Libgsasl AUTHORS -- information about the authors
+See the end for copying conditions.
+
 Simon Josefsson <simon@josefsson.org>
+Designed and implemented Libgsasl.
 
 -----BEGIN PGP PUBLIC KEY BLOCK-----
-Comment: This key is used to sign libgsasl releases.
+Comment: This key is used to sign Libgsasl releases.
 
 mKsEPNUHKwEFALqJSBHn6Qk5ex138kwymxA3idCFoTi5Q6mVooEVVaYVfeDG+5uV
 T5rhTFDfDcT9SO0eIlfKOraSRnVEHyDDH2PAgJFxyneFELcmLUQ66D+m8z+ziGro
@@ -34,3 +38,18 @@ KP6U1CalYp6AV6DynqNqW4gpkIlHr+ZRM8/q8YfJblwCiYL8Bfh/jI/s2gI4lQim
 HGlBrIkG2vSgie4=
 =CC7X
 -----END PGP PUBLIC KEY BLOCK-----
+
+----------------------------------------------------------------------
+Copyright information:
+
+Copyright (C) 2002 Simon Josefsson
+
+   Permission is granted to anyone to make or distribute verbatim copies
+   of this document as received, in any medium, provided that the
+   copyright notice and this permission notice are preserved,
+   thus giving the recipient permission to redistribute in turn.
+
+   Permission is granted to distribute modified versions
+   of this document, or of portions of it,
+   under the above conditions, provided also that they
+   carry prominent notices stating who last changed them.
