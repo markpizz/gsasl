@@ -207,7 +207,6 @@ texi_tgz_size="`calcsize $outdir/$PACKAGE.texi.tar.gz`"
 
 echo Generating docbook XML...
 ${MAKEINFO} -o - --docbook $srcfile > ${srcdir}/$PACKAGE-db.xml
-perl -pi -e 's/"KERBEROS_V5"/"KERBEROSV5"/g' ${srcdir}/$PACKAGE-db.xml
 docbook_xml_size="`calcsize $PACKAGE-db.xml`"
 gzip -f -9 -c $PACKAGE-db.xml >$outdir/$PACKAGE-db.xml.gz
 docbook_xml_gz_size="`calcsize $outdir/$PACKAGE-db.xml.gz`"
