@@ -181,7 +181,7 @@ extern "C"
   /* Property handling: property.c */
   extern void gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
 				  const char *data);
-  extern void gsasl_property_lset (Gsasl_session * sctx, Gsasl_property prop,
+  extern void gsasl_property_set_raw (Gsasl_session * sctx, Gsasl_property prop,
 				   const char *data, size_t len);
   extern void gsasl_property_set_global (Gsasl * ctx, Gsasl_property prop,
 					 const char *data);

@@ -156,11 +156,11 @@ void
 gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
 		    const char *data)
 {
-  gsasl_property_lset (sctx, prop, data, data ? strlen (data) : 0);
+  gsasl_property_set_raw (sctx, prop, data, data ? strlen (data) : 0);
 }
 
 /**
- * gsasl_property_lset:
+ * gsasl_property_set_raw:
  * @sctx: session handle.
  * @prop: enumerated value of Gsasl_property type, indicating the
  *        type of data in @data.
@@ -178,7 +178,7 @@ gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
  * Since: 0.2.0
  **/
 void
-gsasl_property_lset (Gsasl_session * sctx, Gsasl_property prop,
+gsasl_property_set_raw (Gsasl_session * sctx, Gsasl_property prop,
 		     const char *data, size_t len)
 {
   char **p = map (sctx, prop);
