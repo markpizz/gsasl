@@ -37,6 +37,12 @@
 #include "ntlm/x-ntlm.h"
 #include "kerberos_v5/kerberos_v5.h"
 
+/**
+ * GSASL_VALID_MECHANISM_CHARACTERS:
+ *
+ * A zero-terminated character array, or string, with all ASCII
+ * characters that may be used within a SASL mechanism name.
+ **/
 const char *GSASL_VALID_MECHANISM_CHARACTERS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 

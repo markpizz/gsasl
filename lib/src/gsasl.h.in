@@ -31,6 +31,13 @@ extern "C"
 {
 # endif
 
+  /**
+   * GSASL_VERSION
+   *
+   * String defined via CPP denoting the header file version number.
+   * Used together with stringprep_check_version() to verify header file
+   * and run-time library consistency.
+   */
 # define GSASL_VERSION "@PACKAGE_VERSION@"
 
   /* RFC 2222: SASL mechanisms are named by strings, from 1 to 20
