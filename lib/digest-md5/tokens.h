@@ -26,6 +26,27 @@
 /* Get size_t. */
 #include <stddef.h>
 
+/* Quality of Protection types. */
+enum digest_md5_qop
+  {
+    DIGEST_MD5_QOP_AUTH = 1,
+    DIGEST_MD5_QOP_AUTH_INT = 2,
+    DIGEST_MD5_QOP_AUTH_CONF = 4
+  };
+typedef enum digest_md5_qop digest_md5_qop;
+
+/* Cipher types. */
+enum digest_md5_cipher
+  {
+    DIGEST_MD5_CIPHER_DES = 1,
+    DIGEST_MD5_CIPHER_3DES = 2,
+    DIGEST_MD5_CIPHER_RC4 = 4,
+    DIGEST_MD5_CIPHER_RC4_40 = 8,
+    DIGEST_MD5_CIPHER_RC4_56 = 16,
+    DIGEST_MD5_CIPHER_AES_CBC = 32
+  };
+typedef enum digest_md5_cipher digest_md5_cipher;
+
 /*
  * digest-challenge  =
  *       1#( realm | nonce | qop-options | stale | server_maxbuf | charset
