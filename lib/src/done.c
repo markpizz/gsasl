@@ -38,7 +38,8 @@ gsasl_done (Gsasl * ctx)
 
 #ifdef USE_CLIENT
   for (i = 0; i < ctx->n_client_mechs; i++)
-    ctx->client_mechs[i].client.done (ctx);
+    if (ctx->client_mechs[i].client.done)
+      ctx->client_mechs[i].client.done (ctx);
 
   if (ctx->client_mechs)
     free (ctx->client_mechs);
@@ -46,7 +47,8 @@ gsasl_done (Gsasl * ctx)
 
 #ifdef USE_SERVER
   for (i = 0; i < ctx->n_server_mechs; i++)
-    ctx->server_mechs[i].server.done (ctx);
+    if (ctx->server_mechs[i].server.done)
+      ctx->server_mechs[i].server.done (ctx);
 
   if (ctx->server_mechs)
     free (ctx->server_mechs);
