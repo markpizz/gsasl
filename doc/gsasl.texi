@@ -1026,15 +1026,15 @@ the respectively callbacks below and set them in the library
 
 The GSSAPI mechanism uses a framework similar to SASL for
 authenticating the user.  While GSSAPI can be implemented using many
-techniques, libgsasl currently links with MIT's GSSAPI Kerberos 5
-library and is limited to Kerberos 5 only.  The GSSAPI client
-mechanism assumes the user acquired credentials (kerberos tickets)
-before it is invoked (it will fail if this has not been done).  The
-client need (via callbacks) the name of the service and the name of
-the user.  The server needs the name of the service and a function
-that authorizes a user.  This mechanism is only enabled in the client
-and server if you implement the respectively callbacks below and set
-them in the library (@pxref{Callback Functions}).
+techniques, libgsasl currently links with GSS, Heimdal or MIT Kerberos
+and is limited to Kerberos 5 only.  The GSSAPI client mechanism
+assumes the user acquired credentials (kerberos tickets) before it is
+invoked (it will fail if this has not been done).  The client need
+(via callbacks) the name of the service and the name of the user.  The
+server needs the name of the service and a function that authorizes a
+user.  This mechanism is only enabled in the client and server if you
+implement the respectively callbacks below and set them in the library
+(@pxref{Callback Functions}).
 
 @include gsasl-callback-authentication.texi
 
