@@ -155,7 +155,7 @@ _gsasl_securid_client_step (Gsasl_session_ctx * cctx,
 	    {
 	      char *zsuggestedpin;
 
-	      zsuggestedpin = malloc (input_len - strlen (PIN));
+	      zsuggestedpin = malloc (input_len - strlen (PIN) + 1);
 	      if (zsuggestedpin == NULL)
 		return GSASL_MALLOC_ERROR;
 	      memcpy (zsuggestedpin, &input[strlen (PIN)],
