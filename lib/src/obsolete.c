@@ -620,8 +620,8 @@ gsasl_server_suggest_mechanism (Gsasl * ctx, const char *mechlist)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_client_callback_authentication_id_set (Gsasl * ctx,
@@ -640,8 +640,8 @@ gsasl_client_callback_authentication_id_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_client_callback_authentication_id
 gsasl_client_callback_authentication_id_get (Gsasl * ctx)
@@ -660,8 +660,8 @@ gsasl_client_callback_authentication_id_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_client_callback_authorization_id_set (Gsasl * ctx,
@@ -680,8 +680,8 @@ gsasl_client_callback_authorization_id_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_client_callback_authorization_id
 gsasl_client_callback_authorization_id_get (Gsasl * ctx)
@@ -700,8 +700,8 @@ gsasl_client_callback_authorization_id_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_client_callback_password_set (Gsasl * ctx,
@@ -720,8 +720,8 @@ gsasl_client_callback_password_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_client_callback_password
 gsasl_client_callback_password_get (Gsasl * ctx)
@@ -740,8 +740,8 @@ gsasl_client_callback_password_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_client_callback_passcode_set (Gsasl * ctx,
@@ -760,8 +760,8 @@ gsasl_client_callback_passcode_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_client_callback_passcode
 gsasl_client_callback_passcode_get (Gsasl * ctx)
@@ -782,8 +782,8 @@ gsasl_client_callback_passcode_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_client_callback_pin_set (Gsasl * ctx, Gsasl_client_callback_pin cb)
@@ -801,8 +801,8 @@ gsasl_client_callback_pin_set (Gsasl * ctx, Gsasl_client_callback_pin cb)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_client_callback_pin
 gsasl_client_callback_pin_get (Gsasl * ctx)
@@ -824,8 +824,8 @@ gsasl_client_callback_pin_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_client_callback_service_set (Gsasl * ctx,
@@ -843,8 +843,8 @@ gsasl_client_callback_service_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_client_callback_service
 gsasl_client_callback_service_get (Gsasl * ctx)
@@ -864,8 +864,8 @@ gsasl_client_callback_service_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_client_callback_anonymous_set (Gsasl * ctx,
@@ -883,8 +883,8 @@ gsasl_client_callback_anonymous_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_client_callback_anonymous
 gsasl_client_callback_anonymous_get (Gsasl * ctx)
@@ -903,8 +903,8 @@ gsasl_client_callback_anonymous_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_client_callback_qop_set (Gsasl * ctx, Gsasl_client_callback_qop cb)
@@ -921,8 +921,8 @@ gsasl_client_callback_qop_set (Gsasl * ctx, Gsasl_client_callback_qop cb)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_client_callback_qop
 gsasl_client_callback_qop_get (Gsasl * ctx)
@@ -944,8 +944,8 @@ gsasl_client_callback_qop_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_client_callback_maxbuf_set (Gsasl * ctx,
@@ -963,8 +963,8 @@ gsasl_client_callback_maxbuf_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_client_callback_maxbuf
 gsasl_client_callback_maxbuf_get (Gsasl * ctx)
@@ -984,8 +984,8 @@ gsasl_client_callback_maxbuf_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_client_callback_realm_set (Gsasl * ctx, Gsasl_client_callback_realm cb)
@@ -1002,8 +1002,8 @@ gsasl_client_callback_realm_set (Gsasl * ctx, Gsasl_client_callback_realm cb)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_client_callback_realm
 gsasl_client_callback_realm_get (Gsasl * ctx)
@@ -1023,8 +1023,8 @@ gsasl_client_callback_realm_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_validate_set (Gsasl * ctx,
@@ -1042,8 +1042,8 @@ gsasl_server_callback_validate_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_validate
 gsasl_server_callback_validate_get (Gsasl * ctx)
@@ -1063,8 +1063,8 @@ gsasl_server_callback_validate_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_retrieve_set (Gsasl * ctx,
@@ -1082,8 +1082,8 @@ gsasl_server_callback_retrieve_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_retrieve
 gsasl_server_callback_retrieve_get (Gsasl * ctx)
@@ -1103,8 +1103,8 @@ gsasl_server_callback_retrieve_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_cram_md5_set (Gsasl * ctx,
@@ -1122,8 +1122,8 @@ gsasl_server_callback_cram_md5_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_cram_md5
 gsasl_server_callback_cram_md5_get (Gsasl * ctx)
@@ -1143,8 +1143,8 @@ gsasl_server_callback_cram_md5_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_digest_md5_set (Gsasl * ctx,
@@ -1162,8 +1162,8 @@ gsasl_server_callback_digest_md5_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_digest_md5
 gsasl_server_callback_digest_md5_get (Gsasl * ctx)
@@ -1182,8 +1182,8 @@ gsasl_server_callback_digest_md5_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_external_set (Gsasl * ctx,
@@ -1201,8 +1201,8 @@ gsasl_server_callback_external_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_external
 gsasl_server_callback_external_get (Gsasl * ctx)
@@ -1221,8 +1221,8 @@ gsasl_server_callback_external_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_anonymous_set (Gsasl * ctx,
@@ -1240,8 +1240,8 @@ gsasl_server_callback_anonymous_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_anonymous
 gsasl_server_callback_anonymous_get (Gsasl * ctx)
@@ -1261,8 +1261,8 @@ gsasl_server_callback_anonymous_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_realm_set (Gsasl * ctx, Gsasl_server_callback_realm cb)
@@ -1279,8 +1279,8 @@ gsasl_server_callback_realm_set (Gsasl * ctx, Gsasl_server_callback_realm cb)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_realm
 gsasl_server_callback_realm_get (Gsasl * ctx)
@@ -1301,8 +1301,8 @@ gsasl_server_callback_realm_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_qop_set (Gsasl * ctx, Gsasl_server_callback_qop cb)
@@ -1319,8 +1319,8 @@ gsasl_server_callback_qop_set (Gsasl * ctx, Gsasl_server_callback_qop cb)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_qop
 gsasl_server_callback_qop_get (Gsasl * ctx)
@@ -1342,8 +1342,8 @@ gsasl_server_callback_qop_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_maxbuf_set (Gsasl * ctx,
@@ -1361,8 +1361,8 @@ gsasl_server_callback_maxbuf_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_maxbuf
 gsasl_server_callback_maxbuf_get (Gsasl * ctx)
@@ -1383,8 +1383,8 @@ gsasl_server_callback_maxbuf_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_cipher_set (Gsasl * ctx,
@@ -1402,8 +1402,8 @@ gsasl_server_callback_cipher_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_cipher
 gsasl_server_callback_cipher_get (Gsasl * ctx)
@@ -1429,8 +1429,8 @@ gsasl_server_callback_cipher_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_securid_set (Gsasl * ctx,
@@ -1448,8 +1448,8 @@ gsasl_server_callback_securid_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_securid
 gsasl_server_callback_securid_get (Gsasl * ctx)
@@ -1471,8 +1471,8 @@ gsasl_server_callback_securid_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_gssapi_set (Gsasl * ctx,
@@ -1490,8 +1490,8 @@ gsasl_server_callback_gssapi_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_gssapi
 gsasl_server_callback_gssapi_get (Gsasl * ctx)
@@ -1512,8 +1512,8 @@ gsasl_server_callback_gssapi_get (Gsasl * ctx)
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 void
 gsasl_server_callback_service_set (Gsasl * ctx,
@@ -1531,8 +1531,8 @@ gsasl_server_callback_service_set (Gsasl * ctx,
  *
  * Deprecated: This function is part of the old callback interface.
  * The new interface uses gsasl_callback_set() to set the application
- * callback, and uses gsasl_callback() or gsasl_property() to invoke
- * the callback for certain properties.
+ * callback, and uses gsasl_callback() or gsasl_property_get() to
+ * invoke the callback for certain properties.
  **/
 Gsasl_server_callback_service
 gsasl_server_callback_service_get (Gsasl * ctx)
