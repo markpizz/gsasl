@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.50)
-AC_INIT(libgsasl, 0.0.1, bug-libgsasl@josefsson.org)
+AC_INIT(libgsasl, 0.0.2, bug-libgsasl@josefsson.org)
 
 # Interfaces removed:    CURRENT++, AGE=0, REVISION=0
 # Interfaces added:      CURRENT++, AGE++, REVISION=0
@@ -16,7 +16,7 @@ AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER(config.h)
 
 # Checks for programs.
-AM_GNU_GETTEXT(use-libtool)
+AM_GNU_GETTEXT
 AC_PROG_LIBTOOL
 AC_PROG_CC
 AC_PROG_CXX
@@ -88,7 +88,7 @@ AC_MSG_CHECKING([if SECURID should be used])
 AC_MSG_RESULT($securid)
 
 # NTLM
-AM_PATH_LIBNTLM(0.3.0, [have_ntlm=yes])
+PKG_CHECK_MODULES(LIBNTLM, libntlm >= 0.3.1, [have_ntlm=yes])
 AC_ARG_ENABLE(ntlm,
   AC_HELP_STRING([--disable-ntlm], [don't use the NTLM mechanism]),
   ntlm=$enableval)
