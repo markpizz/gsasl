@@ -59,7 +59,7 @@ $(gdoc_MANS) $(gdoc_TEXINFOS):
 	make doit
 
 update-makefile:
-	MANS=""; \
+	@MANS=""; \
 	TEXINFOS=""; \
 	for i in $(top_srcdir)/lib/src/*.c; do \
 		BASE=`basename $$i`; \
@@ -75,7 +75,8 @@ update-makefile:
 		Makefile.am
 
 doit:
-	@for i in `./gdoc -listfunc $(top_srcdir)/lib/src/*.c`; do \
+	@mkdir man texi; \
+	for i in `./gdoc -listfunc $(top_srcdir)/lib/src/*.c`; do \
 		echo -n "Creating documentation for $$i... " && \
 		./gdoc -man \
 			-module $(PACKAGE) -sourceversion $(VERSION) \
