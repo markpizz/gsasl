@@ -81,8 +81,8 @@ doit (void)
 {
   Gsasl_ctx *ctx = NULL;
   Gsasl_session_ctx *server = NULL, *client = NULL;
-  char *output;
-  size_t outputlen;
+  char *s1, *s2;
+  size_t s1len, s2len;
   size_t i, j;
   int res;
 
@@ -95,25 +95,65 @@ doit (void)
 
   gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);
 
-  res = gsasl_server_start (ctx, "CRAM-MD5", &server);
-  if (res != GSASL_OK)
+  for (i = 0; i < 5; i++)
     {
-      fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
-      return;
+      res = gsasl_server_start (ctx, "CRAM-MD5", &server);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  return;
+	}
+
+      gsasl_client_callback_authentication_id_set (ctx,
+						   client_cb_authentication_id);
+      gsasl_client_callback_password_set (ctx, client_cb_password);
+
+      res = gsasl_client_start (ctx, "CRAM-MD5", &client);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  return;
+	}
+
+      res = gsasl_step (server, NULL, 0, &s1, &s1len);
+      if (res != GSASL_NEEDS_MORE)
+	{
+	  fail ("gsasl_step() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	printf ("S: %.*s\n", s1len, s1);
+
+      res = gsasl_step (client, s1, s1len, &s2, &s2len);
+      free (s1);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_step() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	printf ("C: %.*s\n", s2len, s2);
+
+      res = gsasl_step (server, s2, s2len, &s1, &s1len);
+      free (s2);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_step() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  return;
+	}
+
+      if (s1len != 0)
+	{
+	  fail ("gsasl_step() failed, additional length=%d:\n", s1len);
+	  fail ("%s\n", s1);
+	  return;
+	}
+
+      if (debug)
+	printf("\n");
     }
-
-  gsasl_client_callback_authentication_id_set (ctx,
-					       client_cb_authentication_id);
-  gsasl_client_callback_password_set (ctx, client_cb_password);
-
-  res = gsasl_client_start (ctx, "CRAM-MD5", &client);
-  if (res != GSASL_OK)
-    {
-      fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
-      return;
-    }
-
-
 
   gsasl_client_finish (client);
   gsasl_server_finish (server);
