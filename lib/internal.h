@@ -34,17 +34,20 @@
 #include <string.h>
 #endif
 
-#include <stringprep.h>
-
-#include "gettext.h"
+/* Get specifications. */
 #include "gsasl.h"
+
+/* GNULib */
+#include "gettext.h"
+#include "minmax.h"
+
+#include <stringprep.h>
 
 #define _(String) dgettext (PACKAGE, String)
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
 
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
-#define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 typedef int (*_Gsasl_code_function) (Gsasl_session_ctx * sctx,
 				     void *mech_data,
