@@ -69,7 +69,8 @@ enum
   OPTION_SERVICENAME,
   OPTION_ENABLE_CRAM_MD5_VALIDATE,
   OPTION_DISABLE_CLEARTEXT_VALIDATE,
-  OPTION_QOP
+  OPTION_QOP,
+  OPTION_APPLICATION_DATA
 };
 
 const char *argp_program_version = "gsasl (" PACKAGE_STRING ")";
@@ -95,6 +96,7 @@ int enable_cram_md5_validate;
 int disable_cleartext_validate;
 int maxbuf;
 int qop;
+int application_data;
 
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
@@ -178,6 +180,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	argp_error (state, "unknown quality of protection: `%s'", arg);
       break;
 
+    case OPTION_APPLICATION_DATA:
+      application_data = 1;
+      break;
+
     case 'c':
     case 's':
       mode = key;
@@ -231,6 +237,11 @@ static struct argp_option options[] = {
 
   {"authorization-id", 'z', "STRING", 0,
    "Identity to request service for."},
+
+  {"application-data", OPTION_APPLICATION_DATA, 0, 0,
+   "After authentication, read data from stdin and run it through the "
+   "mechanism's security layer and print it base64 encoded to stdout. "
+   "The default is to terminate after authentication."},
 
   {"password", 'p', "STRING", 0,
    "Password for authentication (insecure for non-testing purposes)."},
@@ -473,35 +484,38 @@ main (int argc, char *argv[])
 
       /* Transfer application payload */
 
-      do
-	{
-	  if (!silent)
-	    fprintf (stderr, _("Enter application data (EOF to finish):\n"));
+      if (application_data)
+	do
+	  {
+	    if (!silent)
+	      fprintf (stderr,
+		       _("Enter application data (EOF to finish):\n"));
 
-	  input[0] = '\0';
-	  if (fgets (input, MAX_LINE_LENGTH, stdin) == NULL)
-	    break;
-	  input[strlen (input) - 1] = '\0';
-
-	  res = 
-	    gsasl_encode (xctx, input, strlen (input), output, &output_len);
-	  if (res != GSASL_OK)
-	    break;
-
-	  b64output_len = sizeof (b64output);
-	  b64output_len = gsasl_base64_encode (output, output_len,
-					       b64output, b64output_len);
-	  if (b64output_len == -1)
-	    {
-	      res = GSASL_BASE64_ERROR;
+	    input[0] = '\0';
+	    if (fgets (input, MAX_LINE_LENGTH, stdin) == NULL)
 	      break;
-	    }
+	    input[strlen (input) - 1] = '\0';
 
-	  if (!silent)
-	    fprintf (stderr, _("Base64 encoded application data to send:\n"));
-	  fprintf (stdout, "%s\n", b64output);
-	}
-      while (!feof (stdin));
+	    res =
+	      gsasl_encode (xctx, input, strlen (input), output, &output_len);
+	    if (res != GSASL_OK)
+	      break;
+
+	    b64output_len = sizeof (b64output);
+	    b64output_len = gsasl_base64_encode (output, output_len,
+						 b64output, b64output_len);
+	    if (b64output_len == -1)
+	      {
+		res = GSASL_BASE64_ERROR;
+		break;
+	      }
+
+	    if (!silent)
+	      fprintf (stderr,
+		       _("Base64 encoded application data to send:\n"));
+	    fprintf (stdout, "%s\n", b64output);
+	  }
+	while (!feof (stdin));
 
       if (res != GSASL_OK)
 	{
