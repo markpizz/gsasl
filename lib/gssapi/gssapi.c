@@ -212,19 +212,20 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
       if (*output_len <= 4)
 	return GSASL_TOO_SMALL_BUFFER;
 
-      /* The client passes this token to GSS_Unwrap and interprets the
-         first octet of resulting cleartext as a bit-mask specifying
-         the security layers supported by the server and the second
-         through fourth octets as the maximum size output_message to
-         send to the server.  The client then constructs data, with
-         the first octet containing the bit-mask specifying the
-         selected security layer, the second through fourth octets
-         containing in network byte order the maximum size
-         output_message the client is able to receive, and the
-         remaining octets containing the authorization identity.  The
-         client passes the data to GSS_Wrap with conf_flag set to
-         FALSE, and responds with the generated output_message.  The
-         client can then consider the server authenticated. */
+      /* [RFC 2222 section 7.2.1]:
+         The client passes this token to GSS_Unwrap and interprets the
+	 first octet of resulting cleartext as a bit-mask specifying
+	 the security layers supported by the server and the second
+	 through fourth octets as the maximum size output_message to
+	 send to the server.  The client then constructs data, with
+	 the first octet containing the bit-mask specifying the
+	 selected security layer, the second through fourth octets
+	 containing in network byte order the maximum size
+	 output_message the client is able to receive, and the
+	 remaining octets containing the authorization identity.  The
+	 client passes the data to GSS_Wrap with conf_flag set to
+	 FALSE, and responds with the generated output_message.  The
+	 client can then consider the server authenticated. */
 
       bufdesc.length = input_len;
       bufdesc.value = /*XXX*/ (char *) input;
@@ -499,7 +500,8 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
       if (maj_stat != GSS_S_COMPLETE)
 	return GSASL_GSSAPI_UNWRAP_ERROR;
 
-      /* The client passes this token to GSS_Unwrap and interprets the
+      /* [RFC 2222 section 7.2.1]:
+	 The client passes this token to GSS_Unwrap and interprets the
          first octet of resulting cleartext as a bit-mask specifying
          the security layers supported by the server and the second
          through fourth octets as the maximum size output_message to
