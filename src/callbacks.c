@@ -22,6 +22,8 @@
 #include "internal.h"
 #include "callbacks.h"
 
+#include <getpassword.h>
+
 #ifdef HAVE_READLINE_READLINE_H
 # include <readline/readline.h>
 #else
@@ -156,14 +158,13 @@ client_callback_password (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
   int rc;
 
   if (args_info.password_arg == NULL)
-    args_info.password_arg = strdup (readline ("Enter password: "));
+    args_info.password_arg = getpassword ("Enter password: ");
 
   if (args_info.password_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc =
-    utf8cpy (out, outlen, args_info.password_arg,
-	     strlen (args_info.password_arg));
+  rc = utf8cpy (out, outlen, args_info.password_arg,
+		strlen (args_info.password_arg));
   if (rc != GSASL_OK)
     return rc;
 
