@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 2002 Simon Josefsson.
+# Copyright (C) 2002, 2004 Simon Josefsson.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ while (<>) {
 	$txt .= $1 if (m,"(.*)",);
 	$inerror = 0 if m,break;,;
 	if (!$inerror) {
-	    print "\@item $label\n";
+	    print "\@item \@code{$label}\n";
 	    print $txt, "\n\n";
 	}
     } else {
