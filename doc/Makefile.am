@@ -42,7 +42,7 @@ gsasl-api-error-labels.texi: $(top_srcdir)/lib/error.c
 AM_MAKEINFOHTMLFLAGS = --no-split --number-sections --css-include=texinfo.css
 
 dist_man_MANS = gsasl.1 $(gdoc_MANS)
-DISTCLEANFILES = $(dist_man_MANS)
+MAINTAINERCLEANFILES = $(dist_man_MANS)
 
 gsasl.1: $(top_srcdir)/src/gsasl.c $(top_srcdir)/src/gsasl.ggo \
 		$(top_srcdir)/configure.ac
