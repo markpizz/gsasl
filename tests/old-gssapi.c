@@ -32,28 +32,28 @@
 
 #define SERVICE "host"
 #define HOST "latte.josefsson.org"
+#define GSSAPI_USER "jas"
 
-#define PASSWORD "Open, Sesame"
-#define USERNAME "Ali Baba"
-/* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
-/* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
+static const char *USERNAME[] = {
+  "foo", "BABABA", "jas", "hepp", "@"
+};
+size_t i;
 
 static int
-server_cb_retrieve (Gsasl_session_ctx * xctx,
-		    const char *authentication_id,
-		    const char *authorization_id,
-		    const char *realm, char *key, size_t * keylen)
+server_cb_gssapi (Gsasl_session_ctx * ctx,
+		  const char *client_name, const char *authentication_id)
 {
-  size_t needlen = strlen (PASSWORD);
+  if (client_name)
+    printf ("GSSAPI user: %s\n", client_name);
 
-  if (key && *keylen < needlen)
-    return GSASL_TOO_SMALL_BUFFER;
+  if (authentication_id)
+    printf ("Authentication ID: %s\n", authentication_id);
 
-  *keylen = needlen;
-  if (key)
-    memcpy (key, PASSWORD, *keylen);
-
-  return GSASL_OK;
+  if (strcmp (client_name, GSSAPI_USER) == 0 &&
+      strcmp (authentication_id, USERNAME[i]) == 0)
+    return GSASL_OK;
+  else
+    return GSASL_AUTHENTICATION_ERROR;
 }
 
 static int
@@ -81,52 +81,17 @@ server_cb_service (Gsasl_session_ctx * ctx,
 }
 
 static int
-server_cb_gssapi (Gsasl_session_ctx * ctx,
-		  const char *client_name, const char *authentication_id)
-{
-  char *data;
-
-  if (client_name)
-    printf ("GSSAPI user: %s\n", client_name);
-
-  if (authentication_id)
-    printf ("Authentication ID: %s\n", authentication_id);
-
-  data = readline ("Admit user? (y/n) ");
-
-  if (*data == 'y' || *data == 'Y')
-    return GSASL_OK;
-  else
-    return GSASL_AUTHENTICATION_ERROR;
-}
-
-static int
 client_cb_authentication_id (Gsasl_session_ctx * xctx,
 			     char *out, size_t * outlen)
 {
-  size_t needlen = strlen (USERNAME);
+  size_t needlen = strlen (USERNAME[i]);
 
   if (out && *outlen < needlen)
     return GSASL_TOO_SMALL_BUFFER;
 
   *outlen = needlen;
   if (out)
-    memcpy (out, USERNAME, *outlen);
-
-  return GSASL_OK;
-}
-
-static int
-client_cb_password (Gsasl_session_ctx * xctx, char *out, size_t * outlen)
-{
-  size_t needlen = strlen (PASSWORD);
-
-  if (out && *outlen < needlen)
-    return GSASL_TOO_SMALL_BUFFER;
-
-  *outlen = needlen;
-  if (out)
-    memcpy (out, PASSWORD, *outlen);
+    memcpy (out, USERNAME[i], *outlen);
 
   return GSASL_OK;
 }
@@ -172,71 +137,76 @@ doit (void)
   Gsasl_ctx *ctx = NULL;
   Gsasl_session_ctx *server = NULL, *client = NULL;
   char *s1 = NULL, *s2 = NULL;
-  size_t i;
-  int res;
+  int rc, res1, res2;
 
-  res = gsasl_init (&ctx);
-  if (res != GSASL_OK)
+  rc = gsasl_init (&ctx);
+  if (rc != GSASL_OK)
     {
-      fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+      fail ("gsasl_init() failed (%d):\n%s\n", rc, gsasl_strerror (rc));
       return;
     }
 
-  gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);
-  gsasl_server_callback_service_set (ctx, server_cb_service);
-  gsasl_server_callback_gssapi_set (ctx, server_cb_gssapi);
-
+  gsasl_client_callback_service_set (ctx, client_cb_service);
   gsasl_client_callback_authentication_id_set (ctx,
 					       client_cb_authentication_id);
-  gsasl_client_callback_password_set (ctx, client_cb_password);
-  gsasl_client_callback_service_set (ctx, client_cb_service);
+
+  gsasl_server_callback_gssapi_set (ctx, server_cb_gssapi);
 
   for (i = 0; i < 5; i++)
     {
-      res = gsasl_server_start (ctx, "GSSAPI", &server);
-      if (res != GSASL_OK)
+      rc = gsasl_server_start (ctx, "GSSAPI", &server);
+      if (rc != GSASL_OK)
 	{
-	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  fail ("gsasl_init() failed (%d):\n%s\n", rc, gsasl_strerror (rc));
 	  return;
 	}
-      res = gsasl_client_start (ctx, "GSSAPI", &client);
-      if (res != GSASL_OK)
+      rc = gsasl_client_start (ctx, "GSSAPI", &client);
+      if (rc != GSASL_OK)
 	{
-	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  fail ("gsasl_init() failed (%d):\n%s\n", rc, gsasl_strerror (rc));
 	  return;
 	}
 
       do
 	{
-	  res = gsasl_step64 (server, s1, &s2);
+	  res1 = gsasl_step64 (server, s1, &s2);
 	  if (s1)
-	    free (s1);
-	  if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	    {
-	      fail ("gsasl_step64 (1) failed (%d):\n%s\n", res,
-		    gsasl_strerror (res));
+	      free (s1);
+	      s1 = NULL;
+	    }
+	  if (res1 != GSASL_OK && res1 != GSASL_NEEDS_MORE)
+	    {
+	      fail ("gsasl_step64 (1) failed (%d):\n%s\n", res1,
+		    gsasl_strerror (res1));
 	      return;
 	    }
 
 	  if (debug)
 	    printf ("S: %s\n", s2);
 
-	  res = gsasl_step64 (client, s2, &s1);
+	  if (res1 == GSASL_OK && strcmp (s2, "") == 0)
+	    break;
+
+	  res2 = gsasl_step64 (client, s2, &s1);
 	  free (s2);
-	  if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
+	  if (res2 != GSASL_OK && res2 != GSASL_NEEDS_MORE)
 	    {
-	      fail ("gsasl_step64 (2) failed (%d):\n%s\n", res,
-		    gsasl_strerror (res));
+	      fail ("gsasl_step64 (2) failed (%d):\n%s\n", res2,
+		    gsasl_strerror (res2));
 	      return;
 	    }
 
 	  if (debug)
 	    printf ("C: %s\n", s1);
 	}
-      while (res != GSASL_OK);
+      while (res1 != GSASL_OK || res2 != GSASL_OK);
 
-      free (s1);
-      s1 = NULL;
+      if (s1)
+	{
+	  free (s1);
+	  s1 = NULL;
+	}
 
       if (debug)
 	printf ("\n");
