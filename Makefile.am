@@ -31,17 +31,36 @@ SUBDIRS = @LIBIDN@ $(MOST_SUBDIRS)
 
 ACLOCAL_AMFLAGS = -I m4 -I argp
 
+# Maintainer targets
+
 .PHONY: ChangeLog
 ChangeLog:
 	test ! -f .cvsusers || \
-	cvs2cl --fsf --usermap .cvsusers --no-times --no-common-dir --prune \
-	-I "ChangeLog|.cvs|autogen.sh|doc/specification|libstringprep"
+	cvs2cl --FSF --usermap .cvsusers \
+		-I "ChangeLog|.cvs|autogen.sh|doc/specification|libstringprep"
 
 indent:
 	(cd lib && make indent)
 	(cd src && make indent)
 	(cd tests && make indent)
 
-sign: $(distdir).tar.gz
+htmldir = ../www-$(PACKAGE)
+tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
+
+release:
+	cvs upd -p -r HEAD NEWS > /dev/null
+	if cvs upd -p -r $(tag) NEWS > /dev/null; then false else true; fi
+	rm -f ChangeLog && cvs upd ChangeLog
+	cvs commit
+	$(MAKE) distcheck
+	cvs commit -m "" ChangeLog
+	rm -f $(distdir).tar.gz.asc
 	gpg -a --sign --detach $(distdir).tar.gz
 	gpg --verify $(distdir).tar.gz.asc
+	scp $(distdir).tar.gz* gnudist.gnu.org:~alpha/gnu/$(PACKAGE)/
+	test -d $(htmldir) && cp -v $(PACKAGE).{ps,pdf,html} $(htmldir)/
+	test -d $(htmldir)/doc/reference && \
+		cp -v doc/reference/*.html $(htmldir)/reference/
+	test -d $(htmldir) && cd $(htmldir) && cvs commit -m "Update." \
+		$(PACKAGE).{ps,pdf,html} reference/*.html
+	cvs rtag $(tag) $(PACKAGE)
