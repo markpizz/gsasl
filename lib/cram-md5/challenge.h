@@ -25,8 +25,8 @@
 
 # define CRAM_MD5_CHALLENGE_LEN 32
 
-/* Store CRAM-MD5 challenge in output buffer.  The buffer must be
-   allocated by the caller, and must have room for
+/* Store CRAM-MD5 challenge in output buffer.  The CHALLENGE buffer
+   must be allocated by the caller, and must have room for
    CRAM_MD5_CHALLENGE_LEN characters.  */
 extern void cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN]);
 
