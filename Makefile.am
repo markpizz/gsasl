@@ -31,7 +31,7 @@ update-po:
 	cvs add ??.po || true && \
 	echo en@boldquot en@quot > LINGUAS && \
 	ls ??.po | sed 's/.po//' >> LINGUAS && \
-	echo cvs commit -m "Sync with TP." po/LINGUAS po/??.po
+	cvs commit -m "Sync with TP." LINGUAS ??.po
 
 ChangeLog:
 	cvs2cl --fsf --FSF --usermap .cvsusers -I ChangeLog -I .cvs \
