@@ -1,5 +1,13 @@
 2004-06-26  Simon Josefsson <simon@josefsson.org>
 
+	* NEWS: Version 0.1.1.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump so version.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
 	* cram-md5/Makefile.am, src/Makefile.am: Fix -I's.
 
 2004-06-26  Simon Josefsson <simon@josefsson.org>

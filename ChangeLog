@@ -1,3 +1,125 @@
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Generated.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.1.1.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c: Fix.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Add.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Fix.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getopt.c, gl/getopt.h, gl/getopt1.c,
+	gl/getopt_int.h: Update.
+
+2004-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c: Fix.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c: Fix.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c: Fix.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c: Add.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Add cram-md5.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c: Add.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Use utils.*.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/utils.h, tests/utils.c: Fix.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Build utils.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/utils.h, tests/utils.c: Add.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Modify DEFAULT_INCLUDES instead of
+	AM_CPPFLAGS, because the Automake defaults will make us pick up the
+	wrong config.h.  (This uses undocumented features, how to solve
+	cleanly?)
+
+2004-04-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Use -no-install to avoid libtool wrapper
+	script.
+
+2004-04-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix warnings.
+
+2004-04-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix warnings.
+
+2004-04-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c, src/internal.h: Fix warnings.
+
+2004-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c:
+	(client_callback_qop): Default to none, for now.
+
+2004-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Update PGP key.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* doc/doxygen/Doxyfile.in: Fix paths.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.1.0.
