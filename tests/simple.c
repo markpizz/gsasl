@@ -23,13 +23,6 @@
 # include "config.h"
 #endif
 
-/* FIXME. We need the library config.h too. */
-#undef PACKAGE
-#undef PACKAGE_NAME
-#undef PACKAGE_STRING
-#undef PACKAGE_TARNAME
-#include "lib/config.h"
-
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -63,17 +56,12 @@ struct sasltv
   int securidrc;
 };
 static struct sasltv sasltv[] = {
-#ifdef USE_EXTERNAL
   {CLIENT, "EXTERNAL", {"", NULL}},
   {SERVER, "EXTERNAL", {"", NULL}},
-#endif
-#ifdef USE_ANONYMOUS
   {CLIENT, "ANONYMOUS", {"", "Zm9vQGJhci5jb20=", NULL, NULL}, NULL, NULL,
    NULL, NULL, NULL, NULL, "foo@bar.com"},
   {SERVER, "ANONYMOUS", {"Zm9vQGJhci5jb20=", NULL, NULL}, NULL, NULL, NULL,
    NULL, NULL, NULL, "foo@bar.com"},
-#endif
-#ifdef USE_NTLM
   {CLIENT, "NTLM",
    {"Kw==", "TlRMTVNTUAABAAAAB7IAAAYABgAgAAAAAAAAACYAAABhdXRoaWQ=",
     "TlRMTVNTUAAAAAAAAAAAAAAAAAAAAGFiY2RlZmdoMDEyMzQ1Njc4ODY2NDQwMTIz",
@@ -81,8 +69,6 @@ static struct sasltv sasltv[] = {
     "AAAAACIAAAAAABhYmEAdQB0AGgAaQBkAGEAdQB0AGgAaQBkABeBBp9xJad9eYo3oh1k55"
     "GNFDIui8H8Qz4CfWYVVToBhVzFFbzyzqAZN5Wl59K/Fg==",
     NULL, NULL}, "password", "authzid", "authid"},
-#endif
-#ifdef USE_PLAIN
   {CLIENT, "PLAIN",
    {"", "YXV0aHppZABhdXRoaWQAcGFzc3dvcmQ=", NULL, NULL}, "password",
    "authzid", "authid"},
@@ -96,8 +82,6 @@ static struct sasltv sasltv[] = {
   {SERVER, "PLAIN",
    {"", "", "YXV0aHppZABhdXRoaWQAcGFzc3dvcmQ=", NULL, NULL}, "password",
    "authzid", "authid"},
-#endif
-#ifdef USE_LOGIN
   {CLIENT, "LOGIN",
    {"VXNlciBOYW1l", "YXV0aGlk", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=", NULL,
     NULL}, "password", "authzid", "authid"},
@@ -110,14 +94,10 @@ static struct sasltv sasltv[] = {
   {SERVER, "LOGIN",
    {"", "VXNlciBOYW1l", "YXV0aGlk", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=",
     NULL, NULL}, "password", "authzid", "authid"},
-#endif
-#ifdef USE_CRAM_MD5
   {CLIENT, "CRAM-MD5",
    {"PGNiNmQ5YTQ5ZDA3ZjEwY2MubGliZ3Nhc2xAbG9jYWxob3N0Pg==",
     "YXV0aGlkIGZkNjRmMjYxZWYxYjBjYjg0ZmZjNGVmYzgwZDk3NjFj", NULL, NULL},
    "password", "authzid", "authid"},
-#endif
-#ifdef USE_SECURID
   {CLIENT, "SECURID",
    {"", "YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}, NULL, "authzid",
    "authid", NULL, NULL, NULL, NULL, "4711"},
@@ -159,7 +139,6 @@ static struct sasltv sasltv[] = {
     "YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}, NULL, "authzid", "authid",
    NULL, NULL, NULL, NULL, "4711", NULL, NULL,
    GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE}
-#endif
 };
 
 static int
@@ -459,18 +438,16 @@ doit (void)
     {
       gsasl_application_data_set (ctx, &i);
 
-#if !USE_CLIENT
-      if (sasltv[i].clientp)
-	continue;
-#endif
-#if !USE_SERVER
-      if (!sasltv[i].clientp)
-	continue;
-#endif
-
       if (debug)
 	printf ("Entry %d %s mechanism %s:\n",
 		i, sasltv[i].clientp ? "client" : "server", sasltv[i].mech);
+
+      if (sasltv[i].clientp)
+	res = gsasl_client_support_p (ctx, sasltv[i].mech);
+      else
+	res = gsasl_server_support_p (ctx, sasltv[i].mech);
+      if (!res)
+	continue;
 
       if (sasltv[i].clientp)
 	res = gsasl_client_start (ctx, sasltv[i].mech, &xctx);
