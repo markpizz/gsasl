@@ -1,4 +1,4 @@
-/* internal.h --- Internal header with hidden library handle structures.
+/* internal.h	internal header file for libgsasl
  * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -71,6 +71,8 @@ struct _Gsasl_mechanism
   struct _Gsasl_mechanism_functions server;
 };
 typedef struct _Gsasl_mechanism _Gsasl_mechanism;
+
+extern _Gsasl_mechanism _gsasl_all_mechanisms[];
 
 struct Gsasl
 {
