@@ -19,7 +19,9 @@
 
 HIGNORE = internal.h crypto.h \
 	anonymous.h cram-md5.h digest-md5.h external.h kerberos_v5.h	\
-	login.h plain.h securid.h x-gssapi.h x-ntlm.h
+	login.h plain.h securid.h x-gssapi.h x-ntlm.h \
+	config.h gettext.h hmac.h macros.h md5.h memxor.h nettle-internal.h \
+	nettle-meta.h nettle-types.h strdup.h
 HTML_OBJECTS = index.html c4.html gsasl-gsasl.html
 
 EXTRA_DIST = $(PACKAGE)-docs.tmpl $(HTML_OBJECTS) $(IMAGES)
