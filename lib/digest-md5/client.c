@@ -39,6 +39,7 @@
 #include "printer.h"
 #include "free.h"
 #include "session.h"
+#include "digesthmac.h"
 
 /* Get uint32_t. */
 #include <netinet/in.h>
@@ -214,10 +215,8 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 			      state->response.cipher,
 			      state->kic, state->kis,
 			      state->kcc, state->kcs);
-	if (rc != GSASL_OK)
-	  return rc;
-
-	state->response.response[DIGEST_MD5_RESPONSE_LENGTH] = '\0';
+	if (rc)
+	  return GSASL_CRYPTO_ERROR;
 
 	*output = digest_md5_print_response (&state->response);
 	if (*output)
