@@ -20,26 +20,22 @@
  *
  */
 
-#ifndef SESSION_H
-#define SESSION_H
+#ifndef DIGEST_MD5_SESSION_H
+# define DIGEST_MD5_SESSION_H
 
-#include "digest-md5.h"
+/* Get token types. */
+#include "tokens.h"
 
-int
-digest_md5_encode (Gsasl_session * sctx,
-		   const char *input, size_t input_len,
-		   char **output, size_t * output_len,
-		   Gsasl_qop qop,
-		   uint32_t sendseqnum,
-		   char key[MD5LEN]);
+extern int digest_md5_encode (const char *input, size_t input_len,
+			      char **output, size_t * output_len,
+			      digest_md5_qop qop,
+			      unsigned long sendseqnum,
+			      char key[DIGEST_MD5_LENGTH]);
 
-int
-digest_md5_decode (Gsasl_session * sctx,
-		   const char *input,
-		   size_t input_len,
-		   char **output, size_t * output_len,
-		   Gsasl_qop qop,
-		   uint32_t readseqnum,
-		   char key[MD5LEN]);
+extern int digest_md5_decode (const char *input, size_t input_len,
+			      char **output, size_t * output_len,
+			      digest_md5_qop qop,
+			      unsigned long readseqnum,
+			      char key[DIGEST_MD5_LENGTH]);
 
-#endif /* SESSION_H */
+#endif /* DIGEST_MD5_SESSION_H */

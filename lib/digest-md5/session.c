@@ -24,59 +24,69 @@
 # include "config.h"
 #endif
 
+/* Get specification. */
+#include "session.h"
+
 /* Get malloc, free. */
 #include <stdlib.h>
 
 /* Get memcpy, strdup, strlen. */
 #include <string.h>
 
-/* Get gsasl.h and other stuff. */
-#include "shared.h"
+/* Get htonl. */
+#include <netinet/in.h>
 
-/* Get specification. */
-#include "session.h"
+/* Get gc_hmac_md5. */
+#include <gc.h>
+
+#define MD5LEN 16
+#define SASL_INTEGRITY_PREFIX_LENGTH 4
+#define MAC_DATA_LEN 4
+#define MAC_HMAC_LEN 10
+#define MAC_MSG_TYPE "\x00\x01"
+#define MAC_MSG_TYPE_LEN 2
+#define MAC_SEQNUM_LEN 4
 
 int
-digest_md5_encode (Gsasl_session * sctx,
-		   const char *input, size_t input_len,
+digest_md5_encode (const char *input, size_t input_len,
 		   char **output, size_t * output_len,
-		   Gsasl_qop qop,
-		   uint32_t sendseqnum,
-		   char key[MD5LEN])
+		   digest_md5_qop qop,
+		   unsigned long sendseqnum,
+		   char key[DIGEST_MD5_LENGTH])
 {
   int res;
 
-  if (qop & GSASL_QOP_AUTH_CONF)
+  if (qop & DIGEST_MD5_QOP_AUTH_CONF)
     {
-      return GSASL_INTEGRITY_ERROR;
+      return -1;
     }
-  else if (qop & GSASL_QOP_AUTH_INT)
+  else if (qop & DIGEST_MD5_QOP_AUTH_INT)
     {
       char *seqnumin;
-      char *hash;
+      char hash[GC_MD5_LEN];
       uint32_t tmp;
       size_t len;
 
       seqnumin = malloc (MAC_SEQNUM_LEN + input_len);
       if (seqnumin == NULL)
-	return GSASL_MALLOC_ERROR;
+	return -1;
 
       tmp = htonl (sendseqnum);
       memcpy (seqnumin, (char *) &tmp, MAC_SEQNUM_LEN);
       memcpy (seqnumin + MAC_SEQNUM_LEN, input, input_len);
 
-      res = gsasl_hmac_md5 (key, MD5LEN,
-			    seqnumin, MAC_SEQNUM_LEN + input_len,
-			    (char **) &hash);
+      res = gc_hmac_md5 (key, MD5LEN,
+			 seqnumin, MAC_SEQNUM_LEN + input_len,
+			 hash);
       free (seqnumin);
-      if (res != GSASL_OK || hash == NULL)
-	return GSASL_CRYPTO_ERROR;
+      if (res)
+	return -1;
 
       *output_len = MAC_DATA_LEN + input_len + MAC_HMAC_LEN +
 	MAC_MSG_TYPE_LEN + MAC_SEQNUM_LEN;
       *output = malloc (*output_len);
       if (!*output)
-	return GSASL_MALLOC_ERROR;
+	return -1;
 
       len = MAC_DATA_LEN;
       memcpy (*output + len, input, input_len);
@@ -90,54 +100,50 @@ digest_md5_encode (Gsasl_session * sctx,
       len += MAC_SEQNUM_LEN;
       tmp = htonl (len - MAC_DATA_LEN);
       memcpy (*output, &tmp, MAC_DATA_LEN);
-
-      free (hash);
     }
   else
     {
       *output_len = input_len;
       *output = malloc (input_len);
       if (!*output)
-	return GSASL_MALLOC_ERROR;
+	return -1;
       memcpy (*output, input, input_len);
     }
 
-  return GSASL_OK;
+  return 0;
 }
 
 int
-digest_md5_decode (Gsasl_session * sctx,
-		   const char *input,
-		   size_t input_len,
+digest_md5_decode (const char *input, size_t input_len,
 		   char **output, size_t * output_len,
-		   Gsasl_qop qop,
-		   uint32_t readseqnum,
-		   char key[MD5LEN])
+		   digest_md5_qop qop,
+		   unsigned long readseqnum,
+		   char key[DIGEST_MD5_LENGTH])
 {
-  if (qop & GSASL_QOP_AUTH_CONF)
+  if (qop & DIGEST_MD5_QOP_AUTH_CONF)
     {
-      return GSASL_INTEGRITY_ERROR;
+      return -1;
     }
-  else if (qop & GSASL_QOP_AUTH_INT)
+  else if (qop & DIGEST_MD5_QOP_AUTH_INT)
     {
       char *seqnumin;
-      char *hash;
+      char hash[GC_MD5_LEN];
       uint32_t len, tmp;
       int res;
 
       if (input_len < SASL_INTEGRITY_PREFIX_LENGTH)
-	return GSASL_NEEDS_MORE;
+	return -2;
 
       len = ntohl (*(uint32_t *) input);
 
       if (input_len < SASL_INTEGRITY_PREFIX_LENGTH + len)
-	return GSASL_NEEDS_MORE;
+	return -2;
 
       len -= MAC_HMAC_LEN + MAC_MSG_TYPE_LEN + MAC_SEQNUM_LEN;
 
       seqnumin = malloc (SASL_INTEGRITY_PREFIX_LENGTH + len);
       if (seqnumin == NULL)
-	return GSASL_MALLOC_ERROR;
+	return -1;
 
       tmp = htonl (readseqnum);
 
@@ -145,16 +151,14 @@ digest_md5_decode (Gsasl_session * sctx,
       memcpy (seqnumin + SASL_INTEGRITY_PREFIX_LENGTH,
 	      input + MAC_DATA_LEN, len);
 
-      res = gsasl_hmac_md5 (key, MD5LEN, seqnumin, MAC_SEQNUM_LEN + len,
-			    (char **) &hash);
+      res = gc_hmac_md5 (key, MD5LEN, seqnumin, MAC_SEQNUM_LEN + len,
+			 hash);
       free (seqnumin);
-      if (res != GSASL_OK || hash == NULL)
-	return GSASL_CRYPTO_ERROR;
+      if (res)
+	return -1;
 
-      if (memcmp
-	  (hash,
-	   input + input_len - MAC_SEQNUM_LEN - MAC_MSG_TYPE_LEN -
-	   MAC_HMAC_LEN, MAC_HMAC_LEN) == 0
+      if (memcmp (hash, input + input_len - MAC_SEQNUM_LEN - MAC_MSG_TYPE_LEN -
+		  MAC_HMAC_LEN, MAC_HMAC_LEN) == 0
 	  && memcmp (MAC_MSG_TYPE,
 		     input + input_len - MAC_SEQNUM_LEN - MAC_MSG_TYPE_LEN,
 		     MAC_MSG_TYPE_LEN) == 0
@@ -164,23 +168,20 @@ digest_md5_decode (Gsasl_session * sctx,
 	  *output_len = len;
 	  *output = malloc (*output_len);
 	  if (!*output)
-	    return GSASL_MALLOC_ERROR;
+	    return -1;
 	  memcpy (*output, input + MAC_DATA_LEN, len);
 	}
       else
-	return GSASL_INTEGRITY_ERROR;
-
-      free (hash);
+	return -1;
     }
   else
     {
       *output_len = input_len;
       *output = malloc (input_len);
       if (!*output)
-	return GSASL_MALLOC_ERROR;
+	return -1;
       memcpy (*output, input, input_len);
     }
 
-
-  return GSASL_OK;
+  return 0;
 }

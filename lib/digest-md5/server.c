@@ -772,10 +772,10 @@ _gsasl_digest_md5_server_encode (Gsasl_session * sctx,
   _Gsasl_digest_md5_server_state *state = mech_data;
   int res;
 
-  res = digest_md5_encode (sctx, input, input_len, output, output_len,
+  res = digest_md5_encode (input, input_len, output, output_len,
 			   state->qop, state->sendseqnum, state->kis);
-  if (res != GSASL_OK)
-    return res;
+  if (res)
+    return res == -2 ? GSASL_NEEDS_MORE : GSASL_INTEGRITY_ERROR;
 
   state->sendseqnum++;
 
@@ -792,10 +792,10 @@ _gsasl_digest_md5_server_decode (Gsasl_session * sctx,
   _Gsasl_digest_md5_server_state *state = mech_data;
   int res;
 
-  res = digest_md5_decode (sctx, input, input_len, output, output_len,
+  res = digest_md5_decode (input, input_len, output, output_len,
 			   state->qop, state->readseqnum, state->kic);
-  if (res != GSASL_OK)
-    return res;
+  if (res)
+    return res == -2 ? GSASL_NEEDS_MORE : GSASL_INTEGRITY_ERROR;
 
   state->readseqnum++;
 
