@@ -30,6 +30,10 @@ AB_INIT
 AM_GNU_GETTEXT(external)
 AM_GNU_GETTEXT_VERSION(0.14.1)
 
+# Gnulib.
+AC_GNU_SOURCE
+gl_USE_SYSTEM_EXTENSIONS
+
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_LIBTOOL
@@ -48,8 +52,12 @@ AC_SEARCH_LIBS(gethostbyname, nsl)
 AC_CHECK_FUNCS(getaddrinfo)
 
 # For gnulib stuff in gl/.
+gl_ERROR
+gl_FATAL
 gl_GETOPT
+AM_STDBOOL_H
 gl_FUNC_STRDUP
+gl_FUNC_GLIBC_UNLOCKED_IO
 
 # Try to find readline.
 AC_CHECK_HEADERS(readline/readline.h)
