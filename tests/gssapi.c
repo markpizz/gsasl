@@ -44,7 +44,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 {
   int rc = GSASL_NO_CALLBACK;
 
-  fail ("Callback for property %d\n", prop);
+  printf ("Callback for property %d\n", prop);
 
   switch (prop)
     {
