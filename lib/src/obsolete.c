@@ -1542,7 +1542,9 @@ gsasl_server_callback_service_get (Gsasl * ctx)
   return ctx ? ctx->cbs_service : NULL;
 }
 
-#include <stringprep.h>
+#if WITH_SASLPREP
+# include <stringprep.h>
+#endif
 
 /**
  * gsasl_stringprep_nfkc:
@@ -1573,9 +1575,11 @@ gsasl_server_callback_service_get (Gsasl * ctx)
 char *
 gsasl_stringprep_nfkc (const char *in, ssize_t len)
 {
-  char *out;
+  char *out = NULL;
 
+#if WITH_SASLPREP
   out = stringprep_utf8_nfkc_normalize (in, len);
+#endif
 
   return out;
 }
@@ -1602,14 +1606,16 @@ gsasl_stringprep_nfkc (const char *in, ssize_t len)
 char *
 gsasl_stringprep_saslprep (const char *in, int *stringprep_rc)
 {
-  char *out;
+  char *out = NULL;
   int rc;
 
+#if WITH_SASLPREP
   rc = stringprep_profile (in, &out, "SASLprep", 0);
   if (stringprep_rc)
     *stringprep_rc = rc;
   if (rc != STRINGPREP_OK)
     out = NULL;
+#endif
 
   return out;
 }
@@ -1634,14 +1640,16 @@ gsasl_stringprep_saslprep (const char *in, int *stringprep_rc)
 char *
 gsasl_stringprep_trace (const char *in, int *stringprep_rc)
 {
-  char *out;
+  char *out = NULL;
   int rc;
 
+#if WITH_SASLPREP
   rc = stringprep_profile (in, &out, "trace", 0);
   if (stringprep_rc)
     *stringprep_rc = rc;
   if (rc != STRINGPREP_OK)
     out = NULL;
+#endif
 
   return out;
 }
