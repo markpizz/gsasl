@@ -100,24 +100,20 @@ gsasl_step64 (Gsasl_session * sctx, const char *b64input, char **b64output)
     }
 
   res = gsasl_step (sctx, input, input_len, &output, &output_len);
-  if (res == GSASL_OK || res == GSASL_NEEDS_MORE)
-    {
-      res = gsasl_base64_to (output, output_len, b64output, NULL);
-      if (res != GSASL_OK)
-	{
-	  if (input != NULL)
-	    free (input);
-	  if (output != NULL)
-	    free (output);
-	  return res;
-	}
-
-      if (output != NULL)
-	free (output);
-    }
 
   if (input != NULL)
     free (input);
+
+  if (res == GSASL_OK || res == GSASL_NEEDS_MORE)
+    {
+      res = gsasl_base64_to (output, output_len, b64output, NULL);
+
+      if (output != NULL)
+	free (output);
+
+      if (res != GSASL_OK)
+	return res;
+    }
 
   return res;
 }
