@@ -23,13 +23,11 @@ EXTRA_DIST = ANNOUNCE config.h.in config.rpath mkinstalldirs libgsasl.pc.in
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgsasl.pc
 
-SUBDIRS = m4 po gl 
-
+SUBDIRS = po 
 if NETTLE
 SUBDIRS += crypto
 endif
-
-SUBDIRS += lib src tests doc
+SUBDIRS += lib gl src tests doc
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
