@@ -39,8 +39,7 @@ gsasl_TEXINFOS = gpl.texi fdl.texi $(gdoc_TEXINFOS) \
 gsasl-api-error-labels.texi: $(top_srcdir)/lib/error.c
 	$(PERL) $(srcdir)/gdoc-error $^ > $@
 
-gsasl.html: gsasl.texi $(gsasl_TEXINFOS)
-	$(MAKEINFO) --html --no-split --number-sections gsasl.texi
+AM_MAKEINFOHTMLFLAGS = --no-split --number-sections
 
 dist_man_MANS = gsasl.1 $(gdoc_MANS)
 DISTCLEANFILES = $(dist_man_MANS)
