@@ -120,7 +120,7 @@ extern int gsasl_init (Gsasl_ctx **ctx);
 extern void gsasl_done (Gsasl_ctx *ctx);
 extern const char *gsasl_check_version (const char *req_version);
 
-/* Callback handling */
+/* Callback handling: callback.c */
 extern void gsasl_application_data_set (Gsasl_ctx *ctx,
 					void *application_data);
 extern void *gsasl_application_data_get (Gsasl_ctx *ctx);
@@ -261,7 +261,7 @@ typedef Gsasl_qop (*Gsasl_server_callback_qop) (Gsasl_session_ctx *sctx);
 typedef int (*Gsasl_server_callback_maxbuf) (Gsasl_session_ctx *sctx);
 typedef Gsasl_cipher (*Gsasl_server_callback_cipher) (Gsasl_session_ctx *sctx);
 
-/* Client callbacks */
+/* Client callbacks: callback-c.c */
 extern Gsasl_ctx *gsasl_client_ctx_get (Gsasl_session_ctx *sctx);
 
 extern void gsasl_client_application_data_set (Gsasl_session_ctx *sctx,
@@ -317,7 +317,7 @@ extern void gsasl_client_callback_realm_set (Gsasl_ctx * ctx,
 extern Gsasl_client_callback_realm
 	gsasl_client_callback_realm_get (Gsasl_ctx * ctx);
 
-/* Server callbacks */
+/* Server callbacks: callback-s.c */
 extern Gsasl_ctx *gsasl_server_ctx_get (Gsasl_session_ctx *sctx);
 
 extern void gsasl_server_application_data_set (Gsasl_session_ctx *sctx,
