@@ -120,7 +120,7 @@ AM_CONDITIONAL(NTLM, test x$ntlm = xyes)
 # Check for libgcrypt
 AC_ARG_WITH(libgcrypt,
   AS_HELP_STRING([--with-libgcrypt], [use libgcrypt for low-level crypto]),
-  libgcrypt=$withval, libgcrypt=yes)
+  libgcrypt=$withval, libgcrypt=no)
 if test "$libgcrypt" != "no" ; then
 	AM_PATH_LIBGCRYPT(1.1.42, :, [
 		libgcrypt=no
