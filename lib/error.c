@@ -189,6 +189,10 @@ gsasl_strerror (int err)
       p = _("Cannot get internal library handle (library error)");
       break;
 
+    case GSASL_INTEGRITY_ERROR:
+      p = _("Integrity error in application payload");
+      break;
+
     case GSASL_NO_MORE_REALMS:
       p = _("No more realms available (non-fatal)");
       break;
