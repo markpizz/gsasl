@@ -35,12 +35,16 @@ _gsasl_cram_md5_client_init (Gsasl_ctx * ctx)
 {
   int res;
 
-  if (gcry_check_version (GCRYPT_VERSION) == NULL)
-    return GSASL_GCRYPT_ERROR;
-
-  res = gcry_control (GCRYCTL_INIT_SECMEM, 512, 0);
-  if (res != GCRYERR_SUCCESS)
-    return GSASL_GCRYPT_ERROR;
+  if (gcry_control (GCRYCTL_ANY_INITIALIZATION_P) == 0)
+    {
+      if (gcry_check_version (GCRYPT_VERSION) == NULL)
+	return GSASL_GCRYPT_ERROR;
+      if (gcry_control (GCRYCTL_DISABLE_SECMEM, NULL, 0) != GCRYERR_SUCCESS)
+	return GSASL_GCRYPT_ERROR;
+      if (gcry_control(GCRYCTL_INITIALIZATION_FINISHED,
+		       NULL, 0) != GCRYERR_SUCCESS)
+	return GSASL_GCRYPT_ERROR;
+    }
 
   return GSASL_OK;
 }
