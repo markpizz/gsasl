@@ -292,7 +292,7 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
   return res;
 }
 
-int
+void
 _gsasl_gssapi_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   _Gsasl_gssapi_server_state *state = mech_data;
@@ -305,6 +305,4 @@ _gsasl_gssapi_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
     gss_release_cred (&min_stat, &state->cred);
 
   free (state);
-
-  return GSASL_OK;
 }

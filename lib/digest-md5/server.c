@@ -746,14 +746,12 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
   return res;
 }
 
-int
+void
 _gsasl_digest_md5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   _Gsasl_digest_md5_server_state *state = mech_data;
 
   free (state);
-
-  return GSASL_OK;
 }
 
 int

@@ -227,7 +227,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
   return res;
 }
 
-int
+void
 _gsasl_gssapi_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   _Gsasl_gssapi_client_state *state = mech_data;
@@ -240,8 +240,6 @@ _gsasl_gssapi_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 				       GSS_C_NO_BUFFER);
 
   free (state);
-
-  return GSASL_OK;
 }
 
 int

@@ -799,7 +799,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
   return res;
 }
 
-int
+void
 _gsasl_digest_md5_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   _Gsasl_digest_md5_client_state *state = mech_data;
@@ -811,8 +811,6 @@ _gsasl_digest_md5_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
   if (state->digesturi)
     free (state->digesturi);
   free (state);
-
-  return GSASL_OK;
 }
 
 int

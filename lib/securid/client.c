@@ -167,12 +167,10 @@ _gsasl_securid_client_step (Gsasl_session_ctx * sctx,
   return res;
 }
 
-int
+void
 _gsasl_securid_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   int *step = mech_data;
 
   free (step);
-
-  return GSASL_OK;
 }

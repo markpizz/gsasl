@@ -125,12 +125,10 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * sctx,
   return res;
 }
 
-int
+void
 _gsasl_ntlm_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   _Gsasl_ntlm_state *state = mech_data;
 
   free (state);
-
-  return GSASL_OK;
 }

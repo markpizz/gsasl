@@ -105,12 +105,10 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
   return res;
 }
 
-int
+void
 _gsasl_cram_md5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   char *challenge = mech_data;
 
   free (challenge);
-
-  return GSASL_OK;
 }

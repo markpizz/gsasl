@@ -96,12 +96,10 @@ _gsasl_login_client_step (Gsasl_session_ctx * sctx,
   return res;
 }
 
-int
+void
 _gsasl_login_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   struct _Gsasl_login_client_state *state = mech_data;
 
   free (state);
-
-  return GSASL_OK;
 }

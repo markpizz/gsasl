@@ -134,7 +134,7 @@ _gsasl_login_server_step (Gsasl_session_ctx * sctx,
   return res;
 }
 
-int
+void
 _gsasl_login_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   struct _Gsasl_login_server_state *state = mech_data;
@@ -144,6 +144,4 @@ _gsasl_login_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
   if (state->password)
     free (state->password);
   free (state);
-
-  return GSASL_OK;
 }
