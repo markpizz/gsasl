@@ -731,7 +731,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
       {
 	char **realm = NULL;
 	size_t nrealm = 0;
-	unsigned long maxbuf = MAXBUF_DEFAULT;
+	long maxbuf = -1;
 	char *zinput = NULL;
 
 	if (input == NULL || input_len == 0)
@@ -813,7 +813,28 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	      break;
 
 	    case CHALLENGE_MAXBUF:
-	      maxbuf = strtoul (value, NULL, 10);
+	      /* draft-ietf-sasl-rfc2831bis-02.txt:
+	       * server_maxbuf ("maximal ciphertext buffer size")
+	       * A number indicating the size of the largest buffer
+	       * the server is able to receive when using "auth-int"
+	       * or "auth-conf". The value MUST be bigger than 16 and
+	       * smaller or equal to 16777215 (i.e.  2**24-1). If this
+	       * directive is missing, the default value is
+	       * 65536. This directive may appear at most once; if
+	       * multiple instances are present, the client MUST abort
+	       * the authentication exchange.
+	       */
+	      if (maxbuf != -1)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      maxbuf = strtol (value, NULL, 10);
+	      if (!(maxbuf > 16 && maxbuf <= 16777215))
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
 	      break;
 
 	    case CHALLENGE_CHARSET:
@@ -889,10 +910,13 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	    res = GSASL_MECHANISM_PARSE_ERROR;
 	    goto done;
 	  }
+
 	if (cb_qop)
 	  state->qop = cb_qop (sctx, state->qop);
-	else
-	  state->qop = state->qop;
+
+	if (maxbuf == -1)
+	  maxbuf = MAXBUF_DEFAULT;
+
 	if (cb_authorization_id)
 	  {
 	    size_t authzidlen;
@@ -1864,7 +1888,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	unsigned char *response = NULL;
 	char *zinput = NULL;
 	Gsasl_qop qop = 0;
-	unsigned long maxbuf = MAXBUF_DEFAULT;
+	long maxbuf = -1;
 	int cipher = 0;
 	int i;
 	unsigned char secret[MD5LEN];
@@ -1977,7 +2001,29 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	      break;
 
 	    case RESPONSE_MAXBUF:
-	      maxbuf = strtoul (value, NULL, 10);
+	      /* draft-ietf-sasl-rfc2831bis-02.txt:
+	       *
+	       * client_maxbuf: A number indicating the size of the
+	       * largest ciphertext buffer the client is able to
+	       * receive when using "auth-int" or "auth-conf". If this
+	       * directive is missing, the default value is
+	       * 65536. This directive may appear at most once; if
+	       * multiple instances are present, the server MUST abort
+	       * the authentication exchange. If the value is less or
+	       * equal to 16 or bigger than 16777215 (i.e.  2**24-1),
+	       * the server MUST abort the authentication exchange.
+	       */
+	      if (maxbuf != -1)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      maxbuf = strtol (value, NULL, 10);
+	      if (maxbuf <= 16 || maxbuf > 16777215)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
 	      break;
 
 	    case RESPONSE_CHARSET:
@@ -2040,6 +2086,9 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	    res = GSASL_MECHANISM_PARSE_ERROR;
 	    goto done;
 	  }
+
+	if (maxbuf == -1)
+	  maxbuf = MAXBUF_DEFAULT;
 
 	if (outlen +
 	    strlen (RSPAUTH_PRE) +
