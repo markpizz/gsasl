@@ -1,0 +1,13 @@
+<!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
+<!ENTITY gsasl-gsasl SYSTEM "sgml/gsasl.sgml">
+]>
+<book id="index">
+  <bookinfo>
+    <title>GNU SASL API Reference Manual</title>
+  </bookinfo>
+
+  <chapter>
+    <title>GNU SASL API Reference Manual</title>
+    &gsasl-gsasl;
+  </chapter>
+</book>

@@ -18,6 +18,8 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+SUBDIRS = reference
+
 gsasl_texi_auto_deps = gsasl-api-version.texi gsasl-api-global.texi \
 	gsasl-api-session.texi gsasl-api-callback.texi gsasl-api-utils.texi \
 	gsasl-api-error.texi gsasl-api-error-labels.texi
