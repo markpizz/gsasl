@@ -19,6 +19,11 @@
  *
  */
 
+/*
+ * Note: this file is not used when --disable-stringprep is specified.
+ * Refer to stringprep-no.c for dummy declarations used in that case.
+ */
+
 #include "internal.h"
 
 #include <stringprep.h>
