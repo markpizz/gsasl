@@ -350,7 +350,7 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
 	}
       res = cb_retrieve (sctx, username, NULL, NULL, key, &keylen);
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
-	  goto done;
+	goto done;
       normkey = stringprep_utf8_nfkc_normalize (key, keylen);
       if (normkey == NULL)
 	{
@@ -385,10 +385,10 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
 
   free (username);
   if (key)
-    free(key);
+    free (key);
   *output_len = 0;
 
- done:
+done:
   return res;
 }
 

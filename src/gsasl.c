@@ -400,7 +400,8 @@ main (int argc, char *argv[])
       else if (mode == 'c')
 	{
 	  if (!silent)
-	    fprintf (stderr, _("Input SASL mechanism supported by server:\n"));
+	    fprintf (stderr,
+		     _("Input SASL mechanism supported by server:\n"));
 	  input[0] = '\0';
 	  fgets (input, MAX_LINE_LENGTH, stdin);
 

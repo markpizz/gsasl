@@ -107,14 +107,14 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
     {
     case 0:
       /* Isn't this just the IMAP continuation char?  Not part of SASL mech.
-	 if (input_len != 1 && *input != '+')
-	 return GSASL_MECHANISM_PARSE_ERROR; */
+         if (input_len != 1 && *input != '+')
+         return GSASL_MECHANISM_PARSE_ERROR; */
 
       len = *output_len;
       res = cb_authorization_id (cctx, NULL, &len);
       if (res != GSASL_OK)
 	return res;
-      state->username = malloc(len + 1);
+      state->username = malloc (len + 1);
       res = cb_authorization_id (cctx, state->username, &len);
       if (res != GSASL_OK)
 	return res;
@@ -147,7 +147,7 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
       res = cb_password (cctx, NULL, &len);
       if (res != GSASL_OK)
 	return res;
-      password = malloc(len + 1);
+      password = malloc (len + 1);
       res = cb_password (cctx, password, &len);
       if (res != GSASL_OK)
 	return res;
