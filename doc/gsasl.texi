@@ -1341,6 +1341,19 @@ similar to the GSSAPI callback).
 
 
 @c **********************************************************
+@c *******************  Utilities  **************************
+@c **********************************************************
+@node Utilities
+@chapter Utilities
+
+@include texi/stringprep.c.texi
+@include texi/base64.c.texi
+@include texi/md5pwd.c.texi
+@include texi/nettle.c.texi
+
+
+
+@c **********************************************************
 @c *******************  Old Functions  **********************
 @c **********************************************************
 @node Old Functions
@@ -1354,18 +1367,6 @@ supported during a transition period.  Refer to the NEWS file to find
 out since when a function has been deprecated.
 
 @include texi/obsolete.c.texi
-
-
-
-@c **********************************************************
-@c *******************  Utilities  **************************
-@c **********************************************************
-@node Utilities
-@chapter Utilities
-
-@include texi/stringprep.c.texi
-@include texi/base64.c.texi
-@include texi/md5pwd.c.texi
 
 
 
