@@ -33,6 +33,7 @@ SUBDIRS = @LIBSTRINGPREP@ $(MOST_SUBDIRS)
 
 ACLOCAL_AMFLAGS = -I m4 -I argp
 
+.PHONY: ChangeLog
 ChangeLog:
 	cvs2cl --fsf --usermap .cvsusers --separate-header -I \
     "ChangeLog|.cvsignore|.cvsusers|autogen.sh|doc/specification|libstringprep"
