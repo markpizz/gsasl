@@ -36,7 +36,7 @@ AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER(config.h)
 
 # Checks for programs.
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT(use-libtool)
 AM_GNU_GETTEXT_VERSION(0.11.5)
 AC_PROG_LIBTOOL
 AC_PROG_CC
@@ -247,15 +247,18 @@ AC_SEARCH_LIBS(gethostbyname, xnet)
 
 # Test if the libc includes a good enough argp.
 AC_ARG_WITH(system-argp,
-  AC_HELP_STRING([--without-system-argp], [don't use the system's argp]),,
-  [with_system_argp=yes])
-if test x$with_system_argp = xyes ; then
+  AC_HELP_STRING([--without-system-argp], [Don't use the system's argp]))
+if test "$with_system_argp" != "no" ; then
   AC_LIB_ARGP(,with_system_argp=no)
 fi
-if test x$with_system_argp = xno ; then
-  LIBARGP="\$(top_builddir)/argp/libargp.a"
+if test "$with_system_argp" = "no" ; then
+  ARGP_LIBS="\$(top_builddir)/argp/libargp.a"
+  ARGP_CFLAGS="-I\$(top_srcdir)/argp"
+  ARGP=argp
 fi
-AC_SUBST(LIBARGP)
+AC_SUBST(ARGP)
+AC_SUBST(ARGP_LIBS)
+AC_SUBST(ARGP_CFLAGS)
 AC_CONFIG_SUBDIRS(argp)
 
 AC_CONFIG_FILES(Makefile po/Makefile.in m4/Makefile intl/Makefile \

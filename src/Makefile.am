@@ -22,7 +22,7 @@ INCLUDES = -I../lib -I../intl @LIBSTRINGPREP_CFLAGS@ @ARGP_CFLAGS@
 bin_PROGRAMS = gsasl
 
 gsasl_SOURCES = gsasl.c callbacks.h callbacks.c gettext.h internal.h
-gsasl_LDADD = ../lib/libgsasl.la @LIBINTL@ @ARGP_LIBS@ @LIBSTRINGPREP_LIBS@
+gsasl_LDADD = ../lib/libgsasl.la @ARGP_LIBS@ @LIBSTRINGPREP_LIBS@
 
 indent:
 	indent $(gsasl_SOURCES)
