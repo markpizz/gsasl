@@ -59,8 +59,8 @@ release:
 	gpg -a --sign --detach $(distdir).tar.gz
 	gpg --verify $(distdir).tar.gz.asc
 	cvs rtag $(tag) $(PACKAGE)
-	test -d $(htmldir) && cp -v doc/$(PACKAGE).{ps,pdf,html} $(htmldir)/
-	test -d $(htmldir)/reference/html && \
-		cp -v reference/html/*.{html,png} $(htmldir)/reference/
-	test -d $(htmldir) && cd $(htmldir) && cvs commit -m "Update." \
-		$(PACKAGE).{ps,pdf,html} reference/*.html
+	-cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make ps pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf && cp doc/doxygen/latex/refman.ps $(htmldir)/doxygen/$(PACKAGE).ps
+	-cp -v doc/reference/*.{html,png} $(htmldir)/reference/
+	-cd doc && ./gendocs.sh -o ../$(htmldir)/manual/ $(PACKAGE) "GNU SASL"
+	-cd $(htmldir) && \
+		cvs commit -m "Update." manual/ reference/ doxygen/
