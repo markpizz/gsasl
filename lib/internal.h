@@ -37,6 +37,7 @@
 /* Get specifications. */
 # include "gsasl.h"
 
+/* Mechanism function prototypes. */
 typedef int (*_Gsasl_init_function) (Gsasl * ctx);
 typedef void (*_Gsasl_done_function) (Gsasl * ctx);
 typedef int (*_Gsasl_start_function) (Gsasl_session * sctx, void **mech_data);
@@ -50,6 +51,7 @@ typedef int (*_Gsasl_code_function) (Gsasl_session * sctx,
 				     const char *input, size_t input_len,
 				     char *output, size_t * output_len);
 
+/* Collection of mechanism functions for either client or server. */
 struct _Gsasl_mechanism_functions
 {
   _Gsasl_init_function init;
@@ -61,6 +63,7 @@ struct _Gsasl_mechanism_functions
   _Gsasl_code_function decode;
 };
 
+/* Information about a mechanism. */
 struct _Gsasl_mechanism
 {
   const char *name;
@@ -70,6 +73,7 @@ struct _Gsasl_mechanism
 };
 typedef struct _Gsasl_mechanism _Gsasl_mechanism;
 
+/* Main library handle. */
 struct Gsasl
 {
   size_t n_client_mechs;
@@ -102,6 +106,7 @@ struct Gsasl
   Gsasl_server_callback_gssapi cbs_gssapi;
 };
 
+/* Per-session library handle. */
 struct Gsasl_session
 {
   Gsasl *ctx;
