@@ -7,6 +7,7 @@ digest-md5
 gssapi
 md5file
 old-cram-md5
+old-digest-md5
 old-gssapi
 simple
 unicode
