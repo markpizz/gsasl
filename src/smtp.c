@@ -114,6 +114,11 @@ smtp_step_recv (char **data)
 
   memmove (&p[0], &p[4], strlen (p) - 3);
 
+  if (p[strlen (p) - 1] == '\n')
+    p[strlen (p) - 1] = '\0';
+  if (p[strlen (p) - 1] == '\r')
+    p[strlen (p) - 1] = '\0';
+
   return 1;
 }
 
