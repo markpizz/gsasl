@@ -39,77 +39,44 @@ _gsasl_plain_client_step (Gsasl_session * sctx,
 			  const char *input, size_t input_len,
 			  char **output, size_t * output_len)
 {
-  char *authzid = NULL, *authid = NULL, *password = NULL;
+  const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
+  const char *authid = gsasl_property_get (sctx, GSASL_AUTHID);
+  const char *password = gsasl_property_get (sctx, GSASL_PASSWORD);
   size_t authzidlen = 0, authidlen = 0, passwordlen = 0;
-  const char *p;
-  int res;
+  char *out;
 
-  p = gsasl_property_get (sctx, GSASL_AUTHZID);
-  if (p)
-    {
-      authzid = gsasl_stringprep_nfkc (p, -1);
-      if (authzid == NULL)
-	{
-	  res = GSASL_UNICODE_NORMALIZATION_ERROR;
-	  goto end;
-	}
-      authzidlen = strlen (authzid);
-    }
+  if (authzid)
+    authzidlen = strlen (authzid);
 
-  p = gsasl_property_get (sctx, GSASL_AUTHID);
-  if (!p)
-    {
-      res = GSASL_NO_AUTHID;
-      goto end;
-    }
+  if (authid)
+    authidlen = strlen (authid);
+  else
+    return GSASL_NO_AUTHID;
 
-  authid = gsasl_stringprep_nfkc (p, -1);
-  if (authid == NULL)
-    {
-      res = GSASL_UNICODE_NORMALIZATION_ERROR;
-      goto end;
-    }
-  authidlen = strlen (authid);
-
-  p = gsasl_property_get (sctx, GSASL_PASSWORD);
-  if (!p)
-    {
-      res = GSASL_NO_PASSWORD;
-      goto end;
-    }
-
-  password = gsasl_stringprep_nfkc (p, -1);
-  if (password == NULL)
-    {
-      res = GSASL_UNICODE_NORMALIZATION_ERROR;
-      goto end;
-    }
-  passwordlen = strlen (password);
+  if (password)
+    passwordlen = strlen (password);
+  else
+    return GSASL_NO_PASSWORD;
 
   *output_len = authzidlen + 1 + authidlen + 1 + passwordlen;
-  *output = malloc (*output_len);
-  if (*output == NULL)
+  *output = out = malloc (*output_len);
+  if (!out)
+    return GSASL_MALLOC_ERROR;
+
+  if (authzid)
     {
-      res = GSASL_MALLOC_ERROR;
-      goto end;
+      memcpy (out, authzid, authzidlen);
+      out += authzidlen;
     }
 
-  if (authzid)
-    memcpy (*output, authzid, authzidlen);
-  (*output)[authzidlen] = '\0';
-  memcpy (*output + authzidlen + 1, authid, authidlen);
-  (*output)[authzidlen + 1 + authidlen] = '\0';
-  memcpy (*output + authzidlen + 1 + authidlen + 1, password, passwordlen);
+  *out++ = '\0';
 
-  res = GSASL_OK;
+  memcpy (out, authid, authidlen);
+  out += authidlen;
 
-end:
-  if (authzid)
-    free (authzid);
-  if (authid)
-    free (authid);
-  if (password)
-    free (password);
+  *out++ = '\0';
 
-  return res;
+  memcpy (out, password, passwordlen);
+
+  return GSASL_OK;
 }
