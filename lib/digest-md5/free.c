@@ -69,8 +69,5 @@ digest_md5_free_response (digest_md5_response *r)
 void
 digest_md5_free_finish (digest_md5_finish *f)
 {
-  if (f->rspauth)
-    free (f->rspauth);
-
   memset (f, 0, sizeof (*f));
 }

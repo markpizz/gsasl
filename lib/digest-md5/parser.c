@@ -539,11 +539,12 @@ parse_finish (char *finish, digest_md5_finish *out)
     switch (digest_md5_getsubopt (&finish, digest_responseauth_opts, &value))
       {
       case RESPONSEAUTH_RSPAUTH:
-	if (out->rspauth)
+	if (*out->rspauth)
 	  return -1;
-	out->rspauth = strdup (value);
-	if (!out->rspauth)
+	/* A string of 32 hex digits */
+	if (strlen (value) != DIGEST_MD5_RESPONSE_LENGTH)
 	  return -1;
+	strcpy (out->rspauth, value);
 	break;
 
       default:

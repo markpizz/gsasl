@@ -142,7 +142,7 @@ typedef struct digest_md5_response digest_md5_response;
  * response-auth = "rspauth" "=" response-value
  */
 struct digest_md5_finish {
-  char *rspauth;
+  char rspauth[DIGEST_MD5_RESPONSE_LENGTH + 1];
 };
 typedef struct digest_md5_finish digest_md5_finish;
 
