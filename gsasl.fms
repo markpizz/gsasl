@@ -8,14 +8,8 @@ OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
 BSD-Port-URL: http://www.freshports.org/security/gsasl/
 CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
 Mirror-Site-URL: http://josefsson.org/gsasl/
-Version: 0.2.0
-Release-Focus: Major bugfixes
+Version: 0.2.1
+Release-Focus: Minor bugfixes
 
-Added new examples for new API.  Documentation improvements, e.g., API
-manual in DevHelp format.  Update of gnulib files.  More self tests.
-Translation fixes.  The EXTERNAL mechanism now support authorization
-identities.  Major internal overhaul of the library, to remove all
-fixed size buffers in the API, and to simplify the callback interface.
-Update of generic crypto layer.  It is now possible to add a new SASL
-mechanism during run-time.  A few memory leaks fixed.  Libtool's
--export-symbols-regex is now used to only export official APIs.
+Fix DIGEST-MD5 application data encode/decode functions. Documentation
+fixes.
