@@ -32,9 +32,13 @@ EXTRA_DIST = gdoc gdoc-error controlflow.dia controlflow2.dia \
 .dia.eps:
 	dia --export=$@ --export-to-format=eps $<
 
+.eps.pdf:
+	epstopdf $<
+
 info_TEXINFOS = gsasl.texi
 gsasl_TEXINFOS = fdl.texi $(gdoc_TEXINFOS) \
-	controlflow.eps controlflow.png controlflow2.eps controlflow2.png \
+	controlflow.eps controlflow.png controlflow.pdf \
+	controlflow2.eps controlflow2.png controlflow2.pdf \
 	gsasl-callback-password.texi gsasl-callback-authorization.texi \
 	gsasl-callback-authentication.texi gsasl-callback-validate.texi \
 	gsasl-callback-retrieve.texi gsasl-callback-cram-md5.texi \
