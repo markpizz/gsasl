@@ -87,8 +87,7 @@ struct sasltv sasltv[] = {
     "TlRMTVNTUAADAAAAGAAYAEAAAAAYABgAWAAAAAAAAAAwAAAADgAOAHAAAAAOAA4AfgAAA"
     "AAAAABMAAAAAABhYheBBp9xJad9eYo3oh1k55GNFDIui8H8Qz4CfWYVVToBhVzFFbzyzq"
     "AZN5Wl59K/FmEAdQB0AGgAegBpAGQAYQB1AHQAaAB6AGkAZAA=",
-    NULL, NULL}
-   , "password", "authzid", "authid"},
+    NULL, NULL}, "password", "authzid", "authid"},
 #endif
 #ifdef USE_PLAIN
   {CLIENT, "PLAIN",
