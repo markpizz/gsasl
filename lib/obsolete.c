@@ -151,6 +151,9 @@ _gsasl_step (Gsasl_session_ctx * sctx,
  * The contents of the output buffer is unspecified if this functions
  * returns anything other than GSASL_NEEDS_MORE.
  *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
  * Return value: Returns GSASL_OK if authenticated terminated
  * successfully, GSASL_NEEDS_MORE if more data is needed, or error
  * code.
@@ -178,6 +181,9 @@ gsasl_client_step (Gsasl_session_ctx * sctx,
  *
  * The contents of the output buffer is unspecified if this functions
  * returns anything other than GSASL_NEEDS_MORE.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
  *
  * Return value: Returns GSASL_OK if authenticated terminated
  * successfully, GSASL_NEEDS_MORE if more data is needed, or error
@@ -227,6 +233,9 @@ _gsasl_step64 (Gsasl_session_ctx * sctx,
  * This is a simple wrapper around gsasl_client_step() that base64
  * decodes the input and base64 encodes the output.
  *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
  * Return value: See gsasl_client_step().
  **/
 int
@@ -247,6 +256,9 @@ gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
  * This is a simple wrapper around gsasl_server_step() that base64
  * decodes the input and base64 encodes the output.
  *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
  * Return value: See gsasl_server_step().
  **/
 int
@@ -263,6 +275,9 @@ gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
  *
  * Destroy a libgsasl client handle.  The handle must not be used with
  * other libgsasl functions after this call.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
  **/
 void
 gsasl_client_finish (Gsasl_session_ctx * sctx)
@@ -276,6 +291,9 @@ gsasl_client_finish (Gsasl_session_ctx * sctx)
  *
  * Destroy a libgsasl server handle.  The handle must not be used with
  * other libgsasl functions after this call.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
  **/
 void
 gsasl_server_finish (Gsasl_session_ctx * sctx)
@@ -286,6 +304,9 @@ gsasl_server_finish (Gsasl_session_ctx * sctx)
 /**
  * gsasl_client_ctx_get:
  * @sctx: libgsasl client handle
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
  *
  * Return value: Returns the libgsasl handle given a libgsasl client handle.
  **/
@@ -305,6 +326,9 @@ gsasl_client_ctx_get (Gsasl_session_ctx * sctx)
  * retrieved by calling gsasl_client_application_data_get().  It is
  * normally used by the application to maintain state between the main
  * program and the callback.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
  **/
 void
 gsasl_client_application_data_set (Gsasl_session_ctx * sctx,
@@ -322,6 +346,9 @@ gsasl_client_application_data_set (Gsasl_session_ctx * sctx,
  * It is normally used by the application to maintain state between
  * the main program and the callback.
  *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
  * Return value: Returns the application specific data, or NULL.
  **/
 void *
@@ -333,6 +360,9 @@ gsasl_client_application_data_get (Gsasl_session_ctx * sctx)
 /**
  * gsasl_server_ctx_get:
  * @sctx: libgsasl server handle
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
  *
  * Return value: Returns the libgsasl handle given a libgsasl server handle.
  **/
@@ -352,6 +382,9 @@ gsasl_server_ctx_get (Gsasl_session_ctx * sctx)
  * retrieved by calling gsasl_server_application_data_get().  It is
  * normally used by the application to maintain state between the main
  * program and the callback.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
  **/
 void
 gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
@@ -368,6 +401,9 @@ gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
  * application data is set using gsasl_server_application_data_set().
  * It is normally used by the application to maintain state between
  * the main program and the callback.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
  *
  * Return value: Returns the application specific data, or NULL.
  **/
