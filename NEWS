@@ -4,6 +4,16 @@ See the end for copying conditions.
 
 * Changes in 0.0.11 (unreleased)
 
+** The client part of CRAM-MD5 now uses SASLprep instead of NFKC.
+This aligns with draft-ietf-sasl-crammd5-01.
+
+** The CRAM-MD5 challenge string now conform to the proper syntax.
+
+** The string preparation (SASLprep and trace) functions now work correctly.
+
+** API and ABI modifications.
+GSASL_SASLPREP_ERROR: ADD.
+
 * Changes in 0.0.10 (released 2003-11-22)
 
 ** The CRAM-MD5 server now reject invalid passwords.
