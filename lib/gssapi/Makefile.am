@@ -21,4 +21,12 @@
 AM_CPPFLAGS = -I$(srcdir)/../src -I../src
 
 noinst_LTLIBRARIES = libgsasl-gssapi.la
-libgsasl_gssapi_la_SOURCES = x-gssapi.h gssapi.c
+libgsasl_gssapi_la_SOURCES = x-gssapi.h shared.h
+
+if CLIENT
+libgsasl_gssapi_la_SOURCES += client.c
+endif
+
+if SERVER
+libgsasl_gssapi_la_SOURCES += server.c
+endif
