@@ -911,6 +911,7 @@ Werner Koch.
 Cryptographic functions for some SASL mechanisms uses Libgcrypt
 written by Werner Koch.  The NTLM mechanism uses Libntlm written by
 Grant Edwards and uses code from Samba written by Andrew Tridgell.
+The GSSAPI mechanism uses Kerberos written by MIT.
 
 @c **********************************************************
 @c *******************  Appendices  *************************
