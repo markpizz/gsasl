@@ -184,6 +184,10 @@ extern "C"
   extern int gsasl_md5pwd_get_password (const char *filename,
 					const char *username,
 					char *key, size_t * keylen);
+  extern int gsasl_randomize (int strong, char *data, size_t datalen);
+  extern int gsasl_md5 (const char *in, size_t inlen, char *out[16]);
+  extern int gsasl_hmac_md5 (const char *key, size_t keylen,
+			     const char *in, size_t inlen, char *outhash[16]);
 
 /* Callback prototypes */
   typedef int (*Gsasl_client_callback_anonymous) (Gsasl_session * sctx,
