@@ -300,11 +300,11 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     _gsasl_gssapi_client_start,
-    _gsasl_gssapi_client_step,
+    NULL,
     _gsasl_gssapi_client_finish,
     _gsasl_gssapi_client_encode,
     _gsasl_gssapi_client_decode,
-    NULL
+    _gsasl_gssapi_client_step
 #endif
     },
    {

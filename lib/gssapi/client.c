@@ -37,26 +37,15 @@ int
 _gsasl_gssapi_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   _Gsasl_gssapi_client_state *state;
-  Gsasl_ctx *ctx;
-
-  ctx = gsasl_client_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  if (gsasl_client_callback_authentication_id_get (ctx) == NULL)
-    return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
-
-  if (gsasl_client_callback_service_get (ctx) == NULL)
-    return GSASL_NEED_CLIENT_SERVICE_CALLBACK;
 
   state = (_Gsasl_gssapi_client_state *) malloc (sizeof (*state));
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
   state->context = GSS_C_NO_CONTEXT;
-  state->service = NULL;
+  state->service = GSS_C_NO_NAME;
   state->step = 0;
-  state->qop = GSASL_QOP_AUTH;
+  state->qop = GSASL_QOP_AUTH; /* FIXME: Should be GSASL_QOP_AUTH_CONF. */
 
   *mech_data = state;
 
@@ -66,71 +55,46 @@ _gsasl_gssapi_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 int
 _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
 			   void *mech_data,
-			   const char *input,
-			   size_t input_len,
-			   char *output, size_t * output_len)
+			   const char *input, size_t input_len,
+			   char **output, size_t * output_len)
 {
   _Gsasl_gssapi_client_state *state = mech_data;
-  Gsasl_client_callback_authentication_id cb_authentication_id;
-  Gsasl_client_callback_qop cb_qop;
-  Gsasl_client_callback_service cb_service;
+  char clientwrap[4];
   gss_qop_t serverqop;
-  Gsasl_ctx *ctx;
   gss_buffer_desc bufdesc, bufdesc2;
   gss_buffer_t buf = GSS_C_NO_BUFFER;
   OM_uint32 maj_stat, min_stat;
   int conf_state;
   int res;
-
-  ctx = gsasl_client_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
-  if (cb_authentication_id == NULL)
-    return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
-
-  cb_service = gsasl_client_callback_service_get (ctx);
-  if (cb_service == NULL)
-    return GSASL_NEED_CLIENT_SERVICE_CALLBACK;
-
-  cb_qop = gsasl_client_callback_qop_get (ctx);
+  const char *p;
 
   if (state->service == NULL)
     {
-      size_t servicelen = 0;
-      size_t hostnamelen = 0;
+      const char *service, *hostname;
 
-      res = cb_service (sctx, NULL, &servicelen,
-			NULL, &hostnamelen, NULL, NULL);
-      if (res != GSASL_OK)
-	return res;
+      service = gsasl_property_get (sctx, GSASL_CLIENT_SERVICE);
+      if (!service)
+	return GSASL_NO_SERVICE;
 
-      bufdesc.length = servicelen + strlen ("@") + hostnamelen + 1;
+      hostname = gsasl_property_get (sctx, GSASL_CLIENT_HOSTNAME);
+      if (!service)
+	return GSASL_NO_HOSTNAME;
+
+      /* FIXME: Use asprintf. */
+
+      bufdesc.length = strlen (service) + 1 + strlen (hostname) + 1;
       bufdesc.value = malloc (bufdesc.length);
       if (bufdesc.value == NULL)
 	return GSASL_MALLOC_ERROR;
 
-      res = cb_service (sctx, (char *) bufdesc.value, &servicelen,
-			(char *) bufdesc.value + 1 + servicelen, &hostnamelen,
-			NULL, NULL);
-      if (res != GSASL_OK)
-	{
-	  free (bufdesc.value);
-	  return res;
-	}
-      ((char *) bufdesc.value)[servicelen] = '@';
-      ((char *) bufdesc.value)[bufdesc.length - 1] = '\0';
+      sprintf (bufdesc.value, "%s@%s", service, hostname);
 
       maj_stat = gss_import_name (&min_stat, &bufdesc,
 				  GSS_C_NT_HOSTBASED_SERVICE,
 				  &state->service);
       free (bufdesc.value);
       if (GSS_ERROR (maj_stat))
-	{
-	  free (state);
-	  return GSASL_GSSAPI_IMPORT_NAME_ERROR;
-	}
+	return GSASL_GSSAPI_IMPORT_NAME_ERROR;
     }
 
   switch (state->step)
@@ -160,14 +124,11 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
 	return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
 
-      if (*output_len < bufdesc2.length)
-	{
-	  maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-	  return GSASL_TOO_SMALL_BUFFER;
-	}
-
       *output_len = bufdesc2.length;
-      memcpy (output, bufdesc2.value, bufdesc2.length);
+      *output = malloc (*output_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, bufdesc2.value, bufdesc2.length);
 
       if (maj_stat == GSS_S_COMPLETE)
 	state->step = 2;
@@ -182,9 +143,6 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
       break;
 
     case 2:
-      if (*output_len <= 4)
-	return GSASL_TOO_SMALL_BUFFER;
-
       /* [RFC 2222 section 7.2.1]:
          The client passes this token to GSS_Unwrap and interprets the
          first octet of resulting cleartext as a bit-mask specifying
@@ -207,35 +165,51 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_UNWRAP_ERROR;
 
-      memcpy (output, bufdesc2.value, 4);
+      if (bufdesc2.length != 4)
+	return GSASL_MECHANISM_PARSE_ERROR;
+
+      memcpy (clientwrap, bufdesc2.value, 4);
+
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
+#if 0
+      /* FIXME: Fix qop. */
       if (cb_qop)
 	state->qop = cb_qop (sctx, serverqop);
 
       if ((state->qop & serverqop) == 0)
 	/*  Server does not support what user wanted. */
 	return GSASL_GSSAPI_UNSUPPORTED_PROTECTION_ERROR;
+#endif
 
-      output[0] = state->qop;
+      /* FIXME: Fix maxbuf. */
 
-      bufdesc.length = *output_len - 4;
-      cb_authentication_id (sctx, output + 4, &bufdesc.length);
-      bufdesc.length += 4;
-      bufdesc.value = output;
+      p = gsasl_property_get (sctx, GSASL_AUTHID);
+      if (!p)
+	return GSASL_NO_AUTHID;
+
+      bufdesc.length = 4 + strlen (p);
+      bufdesc.value = malloc (*output_len);
+      if (!bufdesc.value)
+	return GSASL_MALLOC_ERROR;
+
+      ((char*)bufdesc.value)[0] = state->qop;
+      memcpy (bufdesc.value + 1, clientwrap + 1, 3);
+      memcpy (bufdesc.value + 4, p, strlen (p));
+
       maj_stat = gss_wrap (&min_stat, state->context, 0, GSS_C_QOP_DEFAULT,
 			   &bufdesc, &conf_state, &bufdesc2);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_WRAP_ERROR;
-      if (*output_len < bufdesc2.length)
-	{
-	  maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-	  return GSASL_TOO_SMALL_BUFFER;
-	}
-      memcpy (output, bufdesc2.value, bufdesc2.length);
+
       *output_len = bufdesc2.length;
+      *output = malloc (bufdesc2.length);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+
+      memcpy (*output, bufdesc2.value, bufdesc2.length);
 
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
       if (GSS_ERROR (maj_stat))
@@ -259,7 +233,8 @@ _gsasl_gssapi_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
   _Gsasl_gssapi_client_state *state = mech_data;
   OM_uint32 maj_stat, min_stat;
 
-  maj_stat = gss_release_name (&min_stat, &state->service);
+  if (state->service != GSS_C_NO_NAME)
+    maj_stat = gss_release_name (&min_stat, &state->service);
   if (state->context != GSS_C_NO_CONTEXT)
     maj_stat = gss_delete_sec_context (&min_stat, &state->context,
 				       GSS_C_NO_BUFFER);
