@@ -38,9 +38,9 @@
  * Return value: GSASL_OK iff successful, otherwise GSASL_MALLOC_ERROR.
  **/
 int
-gsasl_register (Gsasl * ctx, const _Gsasl_mechanism * mech)
+gsasl_register (Gsasl * ctx, const Gsasl_mechanism * mech)
 {
-  _Gsasl_mechanism *tmp;
+  Gsasl_mechanism *tmp;
 
 #ifdef USE_CLIENT
   if (mech->client.init == NULL || mech->client.init (ctx) == GSASL_OK)

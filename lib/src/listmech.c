@@ -23,7 +23,7 @@
 
 static int
 _gsasl_listmech (Gsasl * ctx,
-		 _Gsasl_mechanism * mechs,
+		 Gsasl_mechanism * mechs,
 		 size_t n_mechs, char **out, int clientp)
 {
   Gsasl_session *sctx;

@@ -35,53 +35,13 @@
 /* Get strlen, strcpy, ... */
 # include <string.h>
 
-/* Mechanism function prototypes. */
-typedef int (*_Gsasl_init_function) (Gsasl * ctx);
-typedef void (*_Gsasl_done_function) (Gsasl * ctx);
-typedef int (*_Gsasl_start_function) (Gsasl_session * sctx, void **mech_data);
-typedef int (*_Gsasl_step_function) (Gsasl_session * sctx,
-				     void *mech_data,
-				     const char *input, size_t input_len,
-				     char **output, size_t * output_len);
-typedef int (*_Gsasl_finish_function) (Gsasl_session * sctx, void *mech_data);
-typedef int (*_Gsasl_code_function) (Gsasl_session * sctx,
-				     void *mech_data,
-				     const char *input, size_t input_len,
-				     char **output, size_t * output_len);
-
-/* Collection of mechanism functions for either client or server. */
-struct _Gsasl_mechanism_functions
-{
-  _Gsasl_init_function init;
-  _Gsasl_done_function done;
-  _Gsasl_start_function start;
-  _Gsasl_step_function step;
-  _Gsasl_finish_function finish;
-  _Gsasl_code_function encode;
-  _Gsasl_code_function decode;
-};
-
-/* Information about a mechanism. */
-struct _Gsasl_mechanism
-{
-  const char *name;
-
-  struct _Gsasl_mechanism_functions client;
-  struct _Gsasl_mechanism_functions server;
-};
-typedef struct _Gsasl_mechanism _Gsasl_mechanism;
-
-/* Move to gsasl.h once all mechanisms have been rewritten to use
-   allocating API.  See register.c. */
-extern int gsasl_register (Gsasl * ctx, const _Gsasl_mechanism * mech);
-
 /* Main library handle. */
 struct Gsasl
 {
   size_t n_client_mechs;
-  _Gsasl_mechanism *client_mechs;
+  Gsasl_mechanism *client_mechs;
   size_t n_server_mechs;
-  _Gsasl_mechanism *server_mechs;
+  Gsasl_mechanism *server_mechs;
   void *application_data;
   /* Global callback. */
   Gsasl_callback_function cb;
@@ -124,7 +84,7 @@ struct Gsasl_session
 {
   Gsasl *ctx;
   int clientp;
-  _Gsasl_mechanism *mech;
+  Gsasl_mechanism *mech;
   void *application_data;
   void *mech_data;
   /* Session specific callback.  If NULL, use global callback in

@@ -22,7 +22,7 @@
 #include "internal.h"
 
 static int
-_gsasl_support_p (_Gsasl_mechanism * mechs, size_t n_mechs, const char *name)
+_gsasl_support_p (Gsasl_mechanism * mechs, size_t n_mechs, const char *name)
 {
   size_t i;
 

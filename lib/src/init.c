@@ -25,7 +25,7 @@
 #include <gc.h>
 
 /* See common.c. */
-extern _Gsasl_mechanism _gsasl_all_mechanisms[];
+extern Gsasl_mechanism _gsasl_all_mechanisms[];
 
 /**
  * gsasl_init:

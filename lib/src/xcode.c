@@ -23,7 +23,7 @@
 
 static int
 _gsasl_code (Gsasl_session * sctx,
-	     _Gsasl_code_function code,
+	     Gsasl_code_function code,
 	     const char *input, size_t input_len,
 	     char **output, size_t * output_len)
 {
@@ -64,7 +64,7 @@ gsasl_encode (Gsasl_session * sctx,
 	      const char *input, size_t input_len,
 	      char **output, size_t * output_len)
 {
-  _Gsasl_code_function code;
+  Gsasl_code_function code;
 
   if (sctx->clientp)
     code = sctx->mech->client.encode;
@@ -96,7 +96,7 @@ gsasl_decode (Gsasl_session * sctx,
 	      const char *input, size_t input_len,
 	      char **output, size_t * output_len)
 {
-  _Gsasl_code_function code;
+  Gsasl_code_function code;
 
   if (sctx->clientp)
     code = sctx->mech->client.decode;

@@ -50,7 +50,7 @@ gsasl_step (Gsasl_session * sctx,
 	    const char *input, size_t input_len,
 	    char **output, size_t * output_len)
 {
-  _Gsasl_step_function step;
+  Gsasl_step_function step;
 
   if (sctx == NULL)
     return GSASL_INVALID_HANDLE;

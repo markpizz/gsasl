@@ -23,7 +23,7 @@
 
 static const char *
 _gsasl_suggest_mechanism (Gsasl * ctx,
-			  _Gsasl_mechanism * mechs,
+			  Gsasl_mechanism * mechs,
 			  size_t n_mechs,
 			  const char *mechlist,
 			  int (*start_mech_func) (Gsasl * ctx,

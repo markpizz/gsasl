@@ -34,7 +34,7 @@
 const char *GSASL_VALID_MECHANISM_CHARACTERS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 
-_Gsasl_mechanism _gsasl_all_mechanisms[] = {
+Gsasl_mechanism _gsasl_all_mechanisms[] = {
 #ifdef USE_ANONYMOUS
   {_GSASL_ANONYMOUS_NAME,
    {
