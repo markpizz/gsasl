@@ -21,11 +21,88 @@
 
 #include "internal.h"
 
-static int
-_gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
-			    const char *b64input,
-			    char *b64output,
-			    size_t b64output_len, int clientp)
+/**
+ * gsasl_step:
+ * @sctx: libgsasl session handle.
+ * @input: input byte array.
+ * @input_len: size of input byte array.
+ * @output: newly allocated output byte array.
+ * @output_len: pointer to output variable with size of output byte array.
+ *
+ * Perform one step of SASL authentication.  This reads data from the
+ * other end (from @input and @input_len), processes it (potentially
+ * invoking callbacks to the application), and writes data to server
+ * (into newly allocated variable @output and @output_len that
+ * indicate the length of @output).
+ *
+ * The contents of the @output buffer is unspecified if this functions
+ * returns anything other than GSASL_OK or GSASL_NEEDS_MORE.  If this
+ * function return GSASL_OK or GSASL_NEEDS_MORE, however, the @output
+ * buffer is allocated by this function, and it is the responsibility
+ * of caller to deallocate it by calling free (@output).
+ *
+ * Return value: Returns GSASL_OK if authenticated terminated
+ *   successfully, GSASL_NEEDS_MORE if more data is needed, or error
+ *   code.
+ **/
+int
+gsasl_step (Gsasl_session_ctx * sctx,
+	    const char *input, size_t input_len,
+	    char **output, size_t * output_len)
+{
+  _Gsasl_step_function step;
+  char *tmp = NULL;
+  size_t tmplen = 200;
+  int res;
+
+  if (sctx->clientp)
+    step = sctx->mech->client.step;
+  else
+    step = sctx->mech->server.step;
+
+  do
+    {
+      tmp = realloc (tmp, tmplen);
+      if (tmp == NULL)
+	return GSASL_MALLOC_ERROR;
+
+      *output_len = tmplen;
+
+      res = step (sctx, sctx->mech_data, input, input_len, tmp, output_len);
+
+      tmplen++;
+    }
+  while (res == GSASL_TOO_SMALL_BUFFER);
+
+  *output = tmp;
+
+  return res;
+}
+
+/**
+ * gsasl_step_base64:
+ * @sctx: libgsasl client handle.
+ * @b64input: input base64 encoded byte array.
+ * @b64output: newly allocated output base64 encoded byte array.
+ *
+ * This is a simple wrapper around gsasl_step() that base64 decodes
+ * the input and base64 encodes the output.
+ *
+ * The contents of the @b64output buffer is unspecified if this
+ * functions returns anything other than GSASL_OK or GSASL_NEEDS_MORE.
+ * If this function return GSASL_OK or GSASL_NEEDS_MORE, however, the
+ * @b64output buffer is allocated by this function, and it is the
+ * responsibility of caller to deallocate it by calling free
+ * (@b64output).
+ *
+ * Return value: Returns GSASL_OK if authenticated terminated
+ *   successfully, GSASL_NEEDS_MORE if more data is needed, or error
+ *   code.
+ **/
+int
+gsasl_step64 (Gsasl_session_ctx * sctx,
+	      const char *b64input,
+	      char **b64output)
 {
   size_t input_len, output_len;
   char *input, *output;
@@ -54,36 +131,23 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
       input_len = 0;
     }
 
-  if (b64output && b64output_len > 0)
+  res = gsasl_step (sctx, input, input_len, &output, &output_len);
+
+  if (res == GSASL_OK || res == GSASL_NEEDS_MORE)
     {
-      *b64output = '\0';
-      output_len = b64output_len;	/* As good guess as any */
-      output = (char *) malloc (output_len);
-      if (output == NULL)
+      size_t allen = output_len * 4 / 3 + 4; /* XXX ? */
+      int len;
+
+      *b64output = malloc (allen);
+      if (*b64output == NULL)
 	{
 	  if (input != NULL)
 	    free (input);
+	  free (output);
 	  return GSASL_MALLOC_ERROR;
 	}
-    }
-  else
-    {
-      output = NULL;
-      output_len = 0;
-    }
 
-  if (clientp)
-    res = gsasl_client_step (sctx, input, input_len, output, &output_len);
-  else
-    res = gsasl_server_step (sctx, input, input_len, output, &output_len);
-
-  if ((res == GSASL_OK || res == GSASL_NEEDS_MORE) &&
-      output && output_len > 0)
-    {
-      int len;
-
-      len = gsasl_base64_encode (output, output_len,
-				 b64output, b64output_len);
+      len = gsasl_base64_encode (output, output_len, *b64output, allen);
       if (len == -1)
 	{
 	  if (input != NULL)
@@ -91,7 +155,6 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
 	  free (output);
 	  return GSASL_BASE64_ERROR;
 	}
-      output_len = (size_t) len;
     }
 
   if (output != NULL)
@@ -100,105 +163,4 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
     free (input);
 
   return res;
-}
-
-/**
- * gsasl_client_step:
- * @sctx: libgsasl client handle.
- * @input: input byte array.
- * @input_len: size of input byte array.
- * @output: output byte array.
- * @output_len: size of output byte array.
- *
- * Perform one step of SASL authentication in client.  This reads data
- * from server (specified with input and input_len), processes it
- * (potentially invoking callbacks to the application), and writes
- * data to server (into variables output and output_len).
- *
- * The contents of the output buffer is unspecified if this functions
- * returns anything other than GSASL_NEEDS_MORE.
- *
- * Return value: Returns GSASL_OK if authenticated terminated
- * successfully, GSASL_NEEDS_MORE if more data is needed, or error
- * code.
- **/
-int
-gsasl_client_step (Gsasl_session_ctx * sctx,
-		   const char *input,
-		   size_t input_len, char *output, size_t * output_len)
-{
-  return sctx->mech->client.step (sctx, sctx->mech_data,
-				  input, input_len, output, output_len);
-
-}
-
-/**
- * gsasl_client_step_base64:
- * @sctx: libgsasl client handle.
- * @b64input: input base64 encoded byte array.
- * @b64output: output base64 encoded byte array.
- * @b64output_len: size of output base64 encoded byte array.
- *
- * This is a simple wrapper around gsasl_client_step() that base64
- * decodes the input and base64 encodes the output.
- *
- * Return value: See gsasl_client_step().
- **/
-int
-gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
-			  const char *b64input,
-			  char *b64output, size_t b64output_len)
-{
-  return _gsasl_session_step_base64 (sctx, b64input, b64output,
-				     b64output_len, 1);
-}
-
-/**
- * gsasl_server_step:
- * @sctx: libgsasl server handle.
- * @input: input byte array.
- * @input_len: size of input byte array.
- * @output: output byte array.
- * @output_len: size of output byte array.
- *
- * Perform one step of SASL authentication in server.  This reads data
- * from client (specified with input and input_len), processes it
- * (potentially invoking callbacks to the application), and writes
- * data to client (into variables output and output_len).
- *
- * The contents of the output buffer is unspecified if this functions
- * returns anything other than GSASL_NEEDS_MORE.
- *
- * Return value: Returns GSASL_OK if authenticated terminated
- * successfully, GSASL_NEEDS_MORE if more data is needed, or error
- * code.
- **/
-int
-gsasl_server_step (Gsasl_session_ctx * sctx,
-		   const char *input,
-		   size_t input_len, char *output, size_t * output_len)
-{
-  return sctx->mech->server.step (sctx, sctx->mech_data,
-				  input, input_len, output, output_len);
-}
-
-/**
- * gsasl_server_step_base64:
- * @sctx: libgsasl server handle.
- * @b64input: input base64 encoded byte array.
- * @b64output: output base64 encoded byte array.
- * @b64output_len: size of output base64 encoded byte array.
- *
- * This is a simple wrapper around gsasl_server_step() that base64
- * decodes the input and base64 encodes the output.
- *
- * Return value: See gsasl_server_step().
- **/
-int
-gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
-			  const char *b64input,
-			  char *b64output, size_t b64output_len)
-{
-  return _gsasl_session_step_base64 (sctx, b64input, b64output,
-				     b64output_len, 0);
 }
