@@ -484,6 +484,18 @@ check that the version is okay right after program startup.
 
 @include gsasl-api-version.texi
 
+The normal way to use the function is to put something similar to the
+following early in your @code{main()}:
+
+@example
+  if (!gsasl_check_version (GSASL_VERSION))
+    @{
+      printf ("gsasl_check_version() failed:\n"
+              "Header file incompatible with shared library.\n");
+      exit(1);
+    @}
+@end example
+
 @node Building the source
 @section Building the source
 @cindex Compiling your application
