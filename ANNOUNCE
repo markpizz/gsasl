@@ -4,7 +4,7 @@ used by network servers (e.g., IMAP, SMTP) to request authentication
 from clients, and in clients to authenticate against servers.
 
 GNU SASL contains of a library, a command line utility to access the
-library from shells and a manual.  The library includes support for
+library from the shell, and a manual.  The library includes support for
 the framework (with authentication functions and application data
 privacy and integrity functions) and at least partial support for the
 CRAM-MD5, EXTERNAL, GSSAPI, ANONYMOUS, PLAIN, SECURID, DIGEST-MD5,
