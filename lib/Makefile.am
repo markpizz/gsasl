@@ -29,7 +29,7 @@ libgsasl_la_SOURCES = init.c done.c error.c version.c callback.c \
 			supportp.c suggest.c listmech.c \
 			hexdump.c base64.c md5pwd.c \
 			unicode.c gunidecomp.h gunicomp.h \
-			xstart.c xstep.c xfinish.c \
+			xstart.c xstep.c xfinish.c xcode.c \
 			common.c internal.h gettext.h \
 			external.h external.c \
 			anonymous.h anonymous.c \
