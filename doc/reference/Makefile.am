@@ -17,15 +17,13 @@
 # License along with GNU Libidn; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-HIGNORE = internal.h crypto.h \
-	anonymous.h cram-md5.h digest-md5.h external.h kerberos_v5.h	\
-	login.h plain.h securid.h x-gssapi.h x-ntlm.h
+HIGNORE = internal.h crypto.h
 HTML_OBJECTS = index.html c4.html gsasl-gsasl.html
 
 EXTRA_DIST = $(PACKAGE)-docs.tmpl $(HTML_OBJECTS) $(IMAGES)
 IMAGES = home.png left.png right.png up.png
 
-scan.stamp: $(top_srcdir)/lib/*.c $(top_srcdir)/lib/*.h
+scan.stamp: $(top_srcdir)/lib/src/*.c $(top_srcdir)/lib/src/*.h
 	gtkdoc-scan --module=$(PACKAGE) --source-dir=$(top_srcdir)/lib \
 		--ignore-headers="$(HIGNORE)" && touch scan.stamp
 

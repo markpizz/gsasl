@@ -18,7 +18,7 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-AM_CPPFLAGS = -I$(top_srcdir)/gl -I../lib -I$(top_srcdir)/lib
+AM_CPPFLAGS = -I$(top_srcdir)/gl -I../lib/src -I$(top_srcdir)/lib/src
 
 bin_PROGRAMS = gsasl
 
@@ -26,7 +26,7 @@ BUILT_SOURCES = gsasl_cmd.c gsasl_cmd.h
 gsasl_SOURCES = gsasl.c $(BUILT_SOURCES) gsasl.ggo \
 	imap.c imap.h smtp.c smtp.h \
 	callbacks.h callbacks.c internal.h
-gsasl_LDADD = ../lib/libgsasl.la ../gl/libgl.la
+gsasl_LDADD = ../lib/src/libgsasl.la ../gl/libgl.la
 
 localedir = $(datadir)/locale
 

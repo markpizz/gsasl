@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -18,8 +18,8 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-AM_CPPFLAGS = -I$(top_srcdir)/lib
-LDADD = ../lib/libgsasl.la
+AM_CPPFLAGS = -I$(top_srcdir)/lib/src
+LDADD = ../lib/src/libgsasl.la
 
 TESTS = simple
 check_PROGRAMS = $(TESTS)

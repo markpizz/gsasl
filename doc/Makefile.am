@@ -36,7 +36,7 @@ gsasl_TEXINFOS = fdl.texi $(gdoc_TEXINFOS) \
 	gsasl-callback-client-service.texi gsasl-callback-server-service.texi \
 	gsasl-api-error-labels.texi
 
-gsasl-api-error-labels.texi: $(top_srcdir)/lib/error.c
+gsasl-api-error-labels.texi: $(top_srcdir)/lib/src/error.c
 	$(PERL) $(srcdir)/gdoc-error $^ > $@
 
 AM_MAKEINFOHTMLFLAGS = --no-split --number-sections --css-include=texinfo.css
@@ -50,10 +50,10 @@ gsasl.1: $(top_srcdir)/src/gsasl.c $(top_srcdir)/src/gsasl.ggo \
 		--name="SASL library command line interface" \
 		--output=$@ $(top_builddir)/src/gsasl
 
-GDOC_SRC = $(top_srcdir)/lib/*.c
+GDOC_SRC = $(top_srcdir)/lib/src/*.c
 GDOC_TEXI_PREFIX = texi/
 GDOC_MAN_PREFIX = man/
 GDOC_MAN_EXTRA_ARGS = -module $(PACKAGE) -sourceversion $(VERSION) \
 	-bugsto $(PACKAGE_BUGREPORT) -includefuncprefix -seeinfo $(PACKAGE) \
-	-copyright "2002, 2003 Simon Josefsson" -verbatimcopying
+	-copyright "2002, 2003, 2004 Simon Josefsson" -verbatimcopying
 include $(srcdir)/Makefile.gdoci
