@@ -67,6 +67,12 @@
 
 <P>
 <UL>
+  <LI><A HREF="../doxygen/">Doxygen HTML</a>.
+  <LI><A HREF="../doxygen/refman.pdf">Doxygen PDF file</A>.
+</UL>
+
+<P>
+<UL>
   <LI><A HREF="../reference/c4.html">GTK-DOC HTML</A>.
 </UL>
 
