@@ -69,7 +69,7 @@ _gsasl_ntlm_client_step (Gsasl_session * sctx,
   tSmbNtlmAuthResponse response;
   /* XXX create callback for domain? Doesn't seem to be needed by servers */
   char *domain = NULL;
-  const char *password, *authzid;
+  const char *password, *authid;
   int res;
 
   switch (state->step)
@@ -79,11 +79,11 @@ _gsasl_ntlm_client_step (Gsasl_session * sctx,
          if (input_len != 1 && *input != '+')
          return GSASL_MECHANISM_PARSE_ERROR; */
 
-      authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
-      if (!authzid)
-	return GSASL_NO_AUTHZID;
+      authid = gsasl_property_get (sctx, GSASL_AUTHID);
+      if (!authid)
+	return GSASL_NO_AUTHID;
 
-      buildSmbNtlmAuthRequest (&request, authzid, domain);
+      buildSmbNtlmAuthRequest (&request, authid, domain);
 
       *output_len = SmbLength (&request);
       *output = malloc (*output_len);
@@ -110,11 +110,11 @@ _gsasl_ntlm_client_step (Gsasl_session * sctx,
       if (!password)
 	return GSASL_NO_PASSWORD;
 
-      authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
-      if (!authzid)
-	return GSASL_NO_AUTHZID;
+      authid = gsasl_property_get (sctx, GSASL_AUTHID);
+      if (!authid)
+	return GSASL_NO_AUTHID;
 
-      buildSmbNtlmAuthResponse (&challenge, &response, authzid, password);
+      buildSmbNtlmAuthResponse (&challenge, &response, authid, password);
 
       *output_len = SmbLength (&response);
       *output = malloc (*output_len);
