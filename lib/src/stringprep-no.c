@@ -31,17 +31,15 @@ gsasl_stringprep_nfkc (const char *in, ssize_t len)
 {
   char *out;
 
-  if (len >= 0)
+  if (len < 0)
+    len = strlen (in);
+
+  out = malloc (len + 1);
+  if (out)
     {
-      out = malloc (len + 1);
-      if (out)
-	{
-	  memcpy (out, in, len);
-	  out[len] = '\0';
-	}
+      memcpy (out, in, len);
+      out[len] = '\0';
     }
-  else
-    out = NULL;
 
   return out;
 }
