@@ -181,12 +181,21 @@ if test "$gssapi" != "no" ; then
 			save_CPPFLAGS=$CPPFLAGS
 			CPPFLAGS=$GSSAPI_CFLAGS
 			AC_CHECK_HEADERS(gssapi.h gssapi/gssapi.h gssapi/gssapi_generic.h)
+			AC_CHECK_DECL(GSS_C_NT_HOSTBASED_SERVICE,,
+				[AC_DEFINE(GSS_C_NT_HOSTBASED_SERVICE,
+					gss_nt_service_name,
+					[Work around buggy MIT library])],[
+#ifdef HAVE_GSSAPI_H
+#include <gssapi.h>
+#endif
+#ifdef HAVE_GSSAPI_GSSAPI_H
+#include <gssapi/gssapi.h>
+#endif
+#ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
+#include <gssapi/gssapi_generic.h>
+#endif
+])
 			CPPFLAGS=$save_CPPFLAGS
-			if test "$ac_cv_header_gssapi_h" = "yes"; then
-				AC_EGREP_HEADER(GSS_C_NT_HOSTBASED_SERVICE, gssapi.h, AC_DEFINE(HAVE_GSS_C_NT_HOSTBASED_SERVICE, 1, [Define to 1 if you have GSS_C_NT_HOSTBASED_SERVICE.]))
-			else
-				AC_EGREP_HEADER(GSS_C_NT_HOSTBASED_SERVICE, gssapi/gssapi.h, AC_DEFINE(HAVE_GSS_C_NT_HOSTBASED_SERVICE, 1, [Define to 1 if you have GSS_C_NT_HOSTBASED_SERVICE.]))
-			fi
 			AC_SUBST(GSSAPI_CFLAGS)
 			AC_SUBST(GSSAPI_LIBS)
 			gssapi=yes
