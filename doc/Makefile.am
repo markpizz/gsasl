@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -39,7 +39,7 @@ gsasl_TEXINFOS = gpl.texi fdl.texi $(gdoc_TEXINFOS) \
 gsasl-api-error-labels.texi: $(top_srcdir)/lib/error.c
 	$(PERL) $(srcdir)/gdoc-error $^ > $@
 
-AM_MAKEINFOHTMLFLAGS = --no-split --number-sections
+AM_MAKEINFOHTMLFLAGS = --no-split --number-sections --css-include=texinfo.css
 
 dist_man_MANS = gsasl.1 $(gdoc_MANS)
 DISTCLEANFILES = $(dist_man_MANS)
