@@ -75,8 +75,5 @@ gsasl_finish (Gsasl_session * sctx)
   if (sctx->realm)
     free (sctx->realm);
 
-  if (sctx->qop)
-    free (sctx->qop);
-
   free (sctx);
 }
