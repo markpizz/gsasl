@@ -77,9 +77,9 @@ _gsasl_kerberos_v5_client_start (Gsasl_session_ctx * sctx, void **mech_data)
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
-  memset(state, 0, sizeof(*state));
+  memset (state, 0, sizeof (*state));
 
-  err = shishi_init(&state->sh);
+  err = shishi_init (&state->sh);
   if (err)
     return GSASL_KERBEROS_V5_INIT_ERROR;
 
@@ -99,8 +99,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 				void *mech_data,
 				const char *input,
 				size_t input_len,
-				char *output,
-				size_t * output_len)
+				char *output, size_t * output_len)
 {
   struct _Gsasl_kerberos_v5_client_state *state = mech_data;
   Gsasl_ctx *ctx;
@@ -124,7 +123,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
       {
 	unsigned char serverbitmap;
 
-	memcpy(&serverbitmap, input, BITMAP_LEN);
+	memcpy (&serverbitmap, input, BITMAP_LEN);
 	if (serverbitmap & GSASL_QOP_AUTH)
 	  state->qop = GSASL_QOP_AUTH;
 	else if (serverbitmap & GSASL_QOP_AUTH_INT)
@@ -133,32 +132,31 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 	  state->qop = GSASL_QOP_AUTH_CONF;
 	else
 	  return GSASL_MECHANISM_PARSE_ERROR;
-	if (serverbitmap &
-	    (GSASL_QOP_AUTH|GSASL_QOP_AUTH_INT|GSASL_QOP_AUTH_CONF) &
-	    ~state->qop)		/* more than one QOP bit set? */
+	if (serverbitmap & (GSASL_QOP_AUTH | GSASL_QOP_AUTH_INT | GSASL_QOP_AUTH_CONF) & ~state->qop)	/* more than one QOP bit set? */
 	  return GSASL_MECHANISM_PARSE_ERROR;
 	if (serverbitmap & (1 << 3))
 	  state->mutual = 1;
       }
-      memcpy(&state->servermaxbuf, &input[BITMAP_LEN], MAXBUF_LEN);
-      state->servermaxbuf = ntohl(state->servermaxbuf);
-      state->serverrandom = malloc(RANDOM_LEN);
+      memcpy (&state->servermaxbuf, &input[BITMAP_LEN], MAXBUF_LEN);
+      state->servermaxbuf = ntohl (state->servermaxbuf);
+      state->serverrandom = malloc (RANDOM_LEN);
       if (state->serverrandom == NULL)
 	return GSASL_MALLOC_ERROR;
-      memcpy(state->serverrandom, &input[BITMAP_LEN + MAXBUF_LEN], RANDOM_LEN);
+      memcpy (state->serverrandom, &input[BITMAP_LEN + MAXBUF_LEN],
+	      RANDOM_LEN);
 
       {
 	int err;
 	int n;
 
-	err = shishi_as(state->sh, &state->as);
+	err = shishi_as (state->sh, &state->as);
 	if (err)
 	  return GSASL_SHISHI_ERROR;
 #if DEBUG
 	shishi_kdcreq_print (state->sh, stderr, shishi_as_req (state->as));
 #endif
 	n = *output_len;
-	err = shishi_a2d(state->sh, shishi_as_req (state->as), output, &n);
+	err = shishi_a2d (state->sh, shishi_as_req (state->as), output, &n);
 	if (err)
 	  return GSASL_SHISHI_ERROR;
 	*output_len = n;
@@ -181,7 +179,7 @@ _gsasl_kerberos_v5_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   struct _Gsasl_kerberos_v5_client_state *state = mech_data;
 
-  shishi_done(state->sh);
+  shishi_done (state->sh);
   free (state);
 
   return GSASL_OK;
@@ -223,13 +221,13 @@ _gsasl_kerberos_v5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
   state = malloc (sizeof (*state));
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
-  memset(state, 0, sizeof(*state));
+  memset (state, 0, sizeof (*state));
 
   state->random = (char *) malloc (RANDOM_LEN);
   if (state->random == NULL)
     return GSASL_MALLOC_ERROR;
 
-  err = shishi_init_server(&state->sh);
+  err = shishi_init_server (&state->sh);
   if (err)
     return GSASL_KERBEROS_V5_INIT_ERROR;
 
@@ -332,7 +330,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	memcpy (&output[BITMAP_LEN], &tmp, MAXBUF_LEN);
 
       if (output)
-	memcpy(&output[BITMAP_LEN + MAXBUF_LEN], state->random, RANDOM_LEN);
+	memcpy (&output[BITMAP_LEN + MAXBUF_LEN], state->random, RANDOM_LEN);
 
       state->firststep = 0;
 
@@ -357,7 +355,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	return GSASL_SHISHI_ERROR;
 
       /* EncTicketPart */
-      encticketpart = shishi_encticketpart(state->sh);
+      encticketpart = shishi_encticketpart (state->sh);
       if (!encticketpart)
 	return GSASL_SHISHI_ERROR;
 
@@ -369,16 +367,13 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
       if (err)
 	return GSASL_SHISHI_ERROR;
 
-      err = shishi_encticketpart_crealm_set (state->sh,
-					     encticketpart,
-					     "foo");
+      err = shishi_encticketpart_crealm_set (state->sh, encticketpart, "foo");
       if (err)
 	return GSASL_SHISHI_ERROR;
 
       err = shishi_encticketpart_cname_set (state->sh,
 					    encticketpart,
-					    SHISHI_NT_UNKNOWN,
-					    "jas");
+					    SHISHI_NT_UNKNOWN, "jas");
       if (err)
 	return GSASL_SHISHI_ERROR;
 
@@ -455,9 +450,9 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
     }
   else if ((asn1 = shishi_d2a_apreq (state->sh, input, input_len)))
     {
-      puts("apreq");
+      puts ("apreq");
     }
-  puts("urk");
+  puts ("urk");
 
   *output_len = 0;
   return GSASL_NEEDS_MORE;
@@ -468,9 +463,9 @@ _gsasl_kerberos_v5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   struct _Gsasl_kerberos_v5_server_state *state = mech_data;
 
-  shishi_done(state->sh);
-  free(state->random);
-  free(state);
+  shishi_done (state->sh);
+  free (state->random);
+  free (state);
 
   return GSASL_OK;
 }

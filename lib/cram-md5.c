@@ -39,8 +39,8 @@ _gsasl_cram_md5_client_init (Gsasl_ctx * ctx)
 	return GSASL_GCRYPT_ERROR;
       if (gcry_control (GCRYCTL_DISABLE_SECMEM, NULL, 0) != GCRYERR_SUCCESS)
 	return GSASL_GCRYPT_ERROR;
-      if (gcry_control(GCRYCTL_INITIALIZATION_FINISHED,
-		       NULL, 0) != GCRYERR_SUCCESS)
+      if (gcry_control (GCRYCTL_INITIALIZATION_FINISHED,
+			NULL, 0) != GCRYERR_SUCCESS)
 	return GSASL_GCRYPT_ERROR;
     }
 

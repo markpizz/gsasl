@@ -92,7 +92,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_login_server_start,
     _gsasl_login_server_step,
     _gsasl_login_server_finish}
-  },
+   },
 #endif /* USE_LOGIN */
 
 #ifdef USE_SECURID
@@ -166,7 +166,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_kerberos_v5_server_start,
     _gsasl_kerberos_v5_server_step,
     _gsasl_kerberos_v5_server_finish}
-  },
+   },
 #endif /* USE_KERBEROS_V5 */
 
 #if USE_GSSAPI
@@ -184,5 +184,5 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
    },
 #endif /* USE_GSSAPI */
 
-  { 0 }
+  {0}
 };

@@ -180,21 +180,22 @@ parse_opt (int key, char *arg, struct argp_state *state)
       break;
 
     case OPTION_CONNECT:
-      if (strrchr(arg, ':'))
+      if (strrchr (arg, ':'))
 	{
-	  connect_hostname = strdup(arg);
-	  *strrchr(connect_hostname, ':') = '\0';
-	  connect_service = strdup(strrchr(arg, ':') + 1);
+	  connect_hostname = strdup (arg);
+	  *strrchr (connect_hostname, ':') = '\0';
+	  connect_service = strdup (strrchr (arg, ':') + 1);
 	}
       else
 	{
-	  connect_hostname = strdup(arg);
-	  connect_service = strdup("143");
+	  connect_hostname = strdup (arg);
+	  connect_service = strdup ("143");
 	}
       {
 	struct servent *se;
 	struct hostent *he;
-	struct sockaddr_in *sinaddr_inp = (struct sockaddr_in *) &connect_addr;
+	struct sockaddr_in *sinaddr_inp =
+	  (struct sockaddr_in *) &connect_addr;
 
 	he = gethostbyname (connect_hostname);
 	if (!he || he->h_addr_list[0] == NULL || he->h_addrtype != AF_INET)
@@ -202,29 +203,29 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	memset (sinaddr_inp, 0, sizeof (*sinaddr_inp));
 	sinaddr_inp->sin_family = he->h_addrtype;
 	memcpy (&sinaddr_inp->sin_addr, he->h_addr_list[0], he->h_length);
-	se = getservbyname(connect_service, "tcp");
+	se = getservbyname (connect_service, "tcp");
 	if (se)
 	  sinaddr_inp->sin_port = se->s_port;
 	else
-	  sinaddr_inp->sin_port = htons(atoi(connect_service));
-	if (sinaddr_inp->sin_port == 0 || sinaddr_inp->sin_port == htons(0))
-	  argp_error(state, "unknown service: %s", connect_service);
+	  sinaddr_inp->sin_port = htons (atoi (connect_service));
+	if (sinaddr_inp->sin_port == 0 || sinaddr_inp->sin_port == htons (0))
+	  argp_error (state, "unknown service: %s", connect_service);
 
 	sockfd = socket (AF_INET, SOCK_STREAM, 0);
 	if (sockfd < 0)
 	  {
-	    perror("socket()");
-	    argp_error (state, "socket: %s", strerror(errno));
+	    perror ("socket()");
+	    argp_error (state, "socket: %s", strerror (errno));
 	  }
 
-	if (connect(sockfd, &connect_addr, sizeof(connect_addr)) < 0)
+	if (connect (sockfd, &connect_addr, sizeof (connect_addr)) < 0)
 	  {
-	    perror("connect()");
+	    perror ("connect()");
 	    close (sockfd);
-	    argp_error (state, "connect: %s", strerror(errno));
+	    argp_error (state, "connect: %s", strerror (errno));
 	  }
 	sockfh = fdopen (sockfd, "r+");
-	setvbuf(sockfh, NULL, _IONBF, 0);
+	setvbuf (sockfh, NULL, _IONBF, 0);
       }
       if (!hostname)
 	hostname = strdup (connect_hostname);
@@ -359,7 +360,8 @@ writeln (char *str)
 {
   printf ("%s\n", str);
 
-  if (sockfh && fprintf(sockfh, "%s\r\n", str) < strlen(str) + strlen("\r\n"))
+  if (sockfh
+      && fprintf (sockfh, "%s\r\n", str) < strlen (str) + strlen ("\r\n"))
     return 0;
 
   return 1;
@@ -376,7 +378,7 @@ readln (char *buf, size_t maxbuflen)
     buf[strlen (buf) - 1] = '\0';
 
   if (sockfh)
-    printf("%s\n", buf);
+    printf ("%s\n", buf);
 
   return 1;
 }
@@ -454,7 +456,7 @@ main (int argc, char *argv[])
       fprintf (stdout, "%s\n", mechs);
     }
 
-  if (imap && !readln(input, MAX_LINE_LENGTH))
+  if (imap && !readln (input, MAX_LINE_LENGTH))
     return 1;
 
   if (mode == 'c' || mode == 's')
@@ -473,14 +475,14 @@ main (int argc, char *argv[])
 	{
 	  if (!silent)
 	    fprintf (stderr, _("Chose SASL mechanisms:\n"));
-	  if (!readln(input, MAX_LINE_LENGTH))
+	  if (!readln (input, MAX_LINE_LENGTH))
 	    return 1;
 
 	  if (!silent)
 	    fprintf (stderr, _("Chosed mechanism `%s'\n"), input);
 	  mech = input;
 	}
-      else /* if (mode == 'c') */
+      else			/* if (mode == 'c') */
 	{
 	  if (mechanism)
 	    {
@@ -488,17 +490,17 @@ main (int argc, char *argv[])
 	    }
 	  else
 	    {
-	      if (imap && !writeln(". CAPABILITY"))
+	      if (imap && !writeln (". CAPABILITY"))
 		return 1;
 
 	      if (!silent && !imap)
 		fprintf (stderr,
 			 _("Input SASL mechanism supported by server:\n"));
-	      if (!readln(input, MAX_LINE_LENGTH))
+	      if (!readln (input, MAX_LINE_LENGTH))
 		return 1;
 
 	      if (imap)
-		/* XXX parse IMAP capability line */;
+		/* XXX parse IMAP capability line */ ;
 
 	      mech = gsasl_client_suggest_mechanism (ctx, input);
 	      if (mech == NULL)
@@ -510,15 +512,15 @@ main (int argc, char *argv[])
 
 	  if (imap)
 	    {
-	      sprintf(input, ". AUTHENTICATE %s", mech);
-	      if (!writeln(input))
+	      sprintf (input, ". AUTHENTICATE %s", mech);
+	      if (!writeln (input))
 		return 1;
 	    }
 	  else
 	    {
 	      if (!silent)
 		fprintf (stderr, _("Libgsasl wants to use:\n"));
-	      puts(mech);
+	      puts (mech);
 	    }
 	}
 
@@ -557,8 +559,8 @@ main (int argc, char *argv[])
 
 	  if (imap)
 	    {
-	      sprintf(input, "+ %s", output);
-	      if (!writeln(output))
+	      sprintf (input, "+ %s", output);
+	      if (!writeln (output))
 		return 1;
 	    }
 	  else
@@ -582,7 +584,7 @@ main (int argc, char *argv[])
 			       "(press RET if none):\n"),
 		     mode == 'c' ? _("server") : _("client"));
 
-	  if (!readln(input, MAX_LINE_LENGTH))
+	  if (!readln (input, MAX_LINE_LENGTH))
 	    return 1;
 
 	  if (imap)
@@ -591,11 +593,10 @@ main (int argc, char *argv[])
 		{
 		  fprintf (stderr,
 			   _("error: Server did not return expected SASL "
-			     "data (it must begin with '+ '):\n%s\n"),
-			   input);
+			     "data (it must begin with '+ '):\n%s\n"), input);
 		  return 1;
 		}
-	      strcpy(&input[0], &input[2]);
+	      strcpy (&input[0], &input[2]);
 	    }
 	}
       while (res == GSASL_NEEDS_MORE);
@@ -608,7 +609,7 @@ main (int argc, char *argv[])
 	}
 
       /* wait for possibly last round trip */
-      if (imap && !readln(input, MAX_LINE_LENGTH))
+      if (imap && !readln (input, MAX_LINE_LENGTH))
 	return 1;
 
       if (!silent)
@@ -622,7 +623,7 @@ main (int argc, char *argv[])
 	}
 
       if (imap)
-	/* XXX check server outcome (NO vs OK vs still waiting) */;
+	/* XXX check server outcome (NO vs OK vs still waiting) */ ;
 
       /* Transfer application payload */
       if (application_data)
@@ -630,28 +631,27 @@ main (int argc, char *argv[])
 	  fd_set readfds;
 	  int rc;
 
-	  FD_ZERO(&readfds);
-	  FD_SET(STDIN_FILENO, &readfds);
+	  FD_ZERO (&readfds);
+	  FD_SET (STDIN_FILENO, &readfds);
 	  if (sockfh)
-	    FD_SET(sockfd, &readfds);
+	    FD_SET (sockfd, &readfds);
 
 	  if (!silent)
-	    fprintf (stderr,
-		     _("Enter application data (EOF to finish):\n"));
+	    fprintf (stderr, _("Enter application data (EOF to finish):\n"));
 
-	  while (select(sockfd + 1, &readfds, NULL, NULL, NULL))
+	  while (select (sockfd + 1, &readfds, NULL, NULL, NULL))
 	    {
-	      if (FD_ISSET(STDIN_FILENO, &readfds))
+	      if (FD_ISSET (STDIN_FILENO, &readfds))
 		{
 		  input[0] = '\0';
-		  if (fgets (input, MAX_LINE_LENGTH-2, stdin) == NULL)
+		  if (fgets (input, MAX_LINE_LENGTH - 2, stdin) == NULL)
 		    break;
 		  if (imap)
 		    {
 		      int pos = strlen (input);
-		      input[pos-1] = '\r';
+		      input[pos - 1] = '\r';
 		      input[pos] = '\n';
-		      input[pos+1] = '\0';
+		      input[pos + 1] = '\0';
 		    }
 		  else
 		    input[strlen (input) - 1] = '\0';
@@ -662,10 +662,10 @@ main (int argc, char *argv[])
 		  if (res != GSASL_OK)
 		    break;
 
-		  if (!(strlen(input) == output_len &&
-			memcmp(input, output, output_len) == 0))
+		  if (!(strlen (input) == output_len &&
+			memcmp (input, output, output_len) == 0))
 		    {
-		      puts("d");
+		      puts ("d");
 		      b64output_len = sizeof (b64output);
 		      b64output_len = gsasl_base64_encode (output, output_len,
 							   b64output,
@@ -684,25 +684,25 @@ main (int argc, char *argv[])
 
 		  if (sockfh)
 		    {
-		      if (fwrite(output, sizeof(output[0]),
-				 output_len, sockfh) != output_len)
+		      if (fwrite (output, sizeof (output[0]),
+				  output_len, sockfh) != output_len)
 			return 0;
 		    }
 		}
 
-	      if (sockfd && FD_ISSET(sockfd, &readfds))
+	      if (sockfd && FD_ISSET (sockfd, &readfds))
 		{
 		  input[0] = '\0';
 		  if (fgets (input, MAX_LINE_LENGTH, sockfh) == NULL)
 		    break;
 		  input[strlen (input) - 1] = '\0';
-		  printf("s: %s\n", input);
+		  printf ("s: %s\n", input);
 		}
 
-	      FD_ZERO(&readfds);
-	      FD_SET(STDIN_FILENO, &readfds);
+	      FD_ZERO (&readfds);
+	      FD_SET (STDIN_FILENO, &readfds);
 	      if (sockfh)
-		FD_SET(sockfd, &readfds);
+		FD_SET (sockfd, &readfds);
 	    }
 
 	  if (res != GSASL_OK)
@@ -727,21 +727,21 @@ main (int argc, char *argv[])
 	gsasl_server_finish (xctx);
     }
 
-  if (imap && !writeln(". LOGOUT"))
+  if (imap && !writeln (". LOGOUT"))
     return 1;
 
   if (sockfh)
     {
       /* read "* BYE ..." */
-      if (!readln(input, MAX_LINE_LENGTH))
+      if (!readln (input, MAX_LINE_LENGTH))
 	return 1;
 
       /* read ". OK ..." */
-      if (!readln(input, MAX_LINE_LENGTH))
+      if (!readln (input, MAX_LINE_LENGTH))
 	return 1;
 
-      shutdown(sockfd, SHUT_RDWR);
-      fclose(sockfh);
+      shutdown (sockfd, SHUT_RDWR);
+      fclose (sockfh);
     }
 
   gsasl_done (ctx);
