@@ -29,8 +29,9 @@ Random notes follow.
   permissive, but don't have time now.
 
 * It intentionally do not implement sub-sequent authentication.  If
-  you are believe saving one round-trip make up for added code
-  complexity, hire me to implement the missing pieces.
+  you believe that saving one round-trip in some, for most users
+  uncommon situations, make up for the added code complexity, hire me
+  to implement the missing pieces.
 
 * spec comment: "cipher" when qop doesn't include auth-conf should
   cause failure.
