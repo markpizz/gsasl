@@ -60,19 +60,19 @@ include $(srcdir)/Makefile.gdoci
 
 # DocBook
 
-gsasl_html_auto_deps = html/a2229.html html/a2345.html html/c1098.html	\
+gsasl_html_auto_deps = html/a2424.html html/a2540.html html/c1098.html	\
 	html/c1186.html html/c16.html html/c1701.html html/c1834.html	\
-	html/c1935.html html/c2173.html html/c2183.html			\
-	html/c2188.html html/c2198.html html/c2201.html			\
-	html/c2207.html html/c2212.html html/c2216.html			\
-	html/c2220.html html/c2225.html html/c305.html html/c395.html	\
-	html/c425.html html/c9.html html/i2439.html html/i2565.html	\
-	html/index.html html/x1025.html html/x179.html html/x195.html	\
-	html/x2162.html html/x2414.html html/x258.html html/x26.html	\
-	html/x276.html html/x319.html html/x331.html html/x349.html	\
-	html/x376.html html/x446.html html/x48.html html/x480.html	\
-	html/x569.html html/x59.html html/x643.html html/x718.html	\
-	html/x834.html html/x869.html html/x945.html
+	html/c2029.html html/c2130.html html/c2368.html			\
+	html/c2378.html html/c2383.html html/c2393.html			\
+	html/c2396.html html/c2402.html html/c2407.html			\
+	html/c2411.html html/c2415.html html/c2420.html html/c305.html	\
+	html/c395.html html/c425.html html/c9.html html/i2634.html	\
+	html/i2766.html html/index.html html/x1025.html html/x179.html	\
+	html/x195.html html/x2357.html html/x258.html html/x26.html	\
+	html/x2609.html html/x276.html html/x319.html html/x331.html	\
+	html/x349.html html/x376.html html/x446.html html/x48.html	\
+	html/x480.html html/x569.html html/x59.html html/x643.html	\
+	html/x718.html html/x834.html html/x869.html html/x945.html
 
 gsasl-db.xml: gsasl.texi $(gsasl_TEXINFOS)
 	$(MAKEINFO) --docbook --output $@ gsasl.texi
