@@ -1,5 +1,5 @@
 GNU SASL README-alpha -- Important introductory notes for alpha releases.
-Copyright (C) 2003 Simon Josefsson
+Copyright (C) 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
 GNU SASL is unstable.  You should expect it to not work.  You should
@@ -14,8 +14,9 @@ is made.  Volunteers needed.
 It will not become stable without help.  Donate time or money.
 
 To compile from CVS, you may need fairly recent versions of perl,
-texinfo (>= CVS), GTK-DOC, libtool (>= CVS), autoconf (>= 2.58), and
-automake (>= 1.8).  Bootstrap the build environment with:
+texinfo (>= CVS), GTK-DOC, gengetopt (2.12), libtool (>= CVS),
+autoconf (>= 2.58), and automake (>= 1.8).  Bootstrap the build
+environment with:
 
   $ ./autogen.sh
 
