@@ -227,10 +227,6 @@ gsasl_strerror (int err)
 	    "host name was not provided.");
       break;
 
-    case GSASL_UNICODE_NORMALIZATION_ERROR:
-      p = _("Failed to perform Unicode Normalization on string.");
-      break;
-
     case GSASL_SASLPREP_ERROR:
       p = _("Could not prepare internationalized (non-ASCII) string.");
       break;
@@ -359,6 +355,10 @@ gsasl_strerror (int err)
     case GSASL_NEED_SERVER_RETRIEVE_CALLBACK:
       p = _("SASL mechanism needs gsasl_server_callback_retrieve() "
 	    "callback (application error)");
+      break;
+
+    case GSASL_UNICODE_NORMALIZATION_ERROR:
+      p = _("Failed to perform Unicode Normalization on string.");
       break;
 #endif
 
