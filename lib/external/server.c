@@ -34,6 +34,9 @@ _gsasl_external_server_step (Gsasl_session_ctx * sctx,
 			     const char *input, size_t input_len,
 			     char **output, size_t * output_len)
 {
+  *output_len = 0;
+  *output = NULL;
+
   if (input_len > 0)
     {
       char *p;
