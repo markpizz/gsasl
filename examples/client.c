@@ -84,6 +84,11 @@ client (Gsasl *ctx)
       return;
     }
 
+  /* Set username and password in session handle.  This info will be
+     lost when this session is deallocated below.  */
+  gsasl_property_set (session, GSASL_AUTHID, "jas");
+  gsasl_property_set (session, GSASL_PASSWORD, "secret");
+
   /* Do it. */
   client_authenticate (ctx, session);
 
@@ -103,13 +108,6 @@ main (int argc, char *argv[])
       printf ("Cannot initialize libgsasl (%d): %s", rc, gsasl_strerror (rc));
       return 1;
     }
-
-  /* Set username and password in global handle.  The same user info
-     will be used for all future sessions, but can be overriden per
-     session using the gsasl_property_set function, on the session
-     handle. */
-  gsasl_property_set_global (ctx, GSASL_AUTHID, "jas");
-  gsasl_property_set_global (ctx, GSASL_PASSWORD, "secret");
 
   /* Do it. */
   client (ctx);
