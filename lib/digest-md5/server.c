@@ -619,12 +619,13 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	      hinlen = strlen (username) + strlen (COLON);
 	      if (realm)
 		hinlen += strlen (realm);
-	      hinlen += strlen (COLON) + strlen (key);
+	      hinlen += strlen (COLON) + keylen;
 
 	      p = hin = malloc (hinlen);
 	      if (hin == NULL)
 		{
 		  res = GSASL_MALLOC_ERROR;
+		  free (key);
 		  goto done;
 		}
 
@@ -639,8 +640,8 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 		}
 	      memcpy (p, COLON, strlen (COLON));
 	      p += strlen (COLON);
-	      memcpy (p, key, strlen (key));
-	      p += strlen (key);
+	      memcpy (p, key, keylen);
+	      p += keylen;
 	      free (key);
 
 	      res = gsasl_md5 (hin, hinlen, (char **) &tmp);
