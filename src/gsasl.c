@@ -403,6 +403,7 @@ main (int argc, char *argv[])
   setlocale (LC_ALL, "");
 #endif
   bindtextdomain (PACKAGE, LOCALEDIR);
+  textdomain (PACKAGE);
 
   argp_parse (&argp, argc, argv, 0, 0, NULL);
 
