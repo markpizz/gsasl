@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef _LOGIN_H
-#define _LOGIN_H
+#ifndef LOGIN_H
+#define LOGIN_H
 
 #include "internal.h"
 
@@ -45,4 +45,4 @@ extern int _gsasl_login_server_step (Gsasl_session_ctx * sctx,
 extern int _gsasl_login_server_finish (Gsasl_session_ctx * sctx,
 				       void *mech_data);
 
-#endif /* _LOGIN_H */
+#endif /* LOGIN_H */
