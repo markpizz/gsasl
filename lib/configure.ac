@@ -356,41 +356,18 @@ AC_MSG_RESULT($kerberos_v5)
 AM_CONDITIONAL(KERBEROS_V5, test x$kerberos_v5 = xyes)
 
 # Check for idn
-AC_ARG_WITH(included-libidn,
-	AS_HELP_STRING([--with-included-libidn],
-		[unconditionally use the included libidn]),
-		minilibidn_enabled=$enableval, minilibidn_enabled=no)
-if test "$minilibidn_enabled" = "no"; then
-	sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version,,
-		[minilibidn_enabled=yes
-		AC_MSG_WARN([[Libidn not found.  Using the included copy.]])
-		AM_ICONV
-		# Check if locale stuff works
-		AC_CACHE_CHECK([if setlocale() and nl_langinfo() works],
-			ac_cv_locale_works, [
-			AC_RUN_IFELSE([AC_LANG_SOURCE([[
-#include <locale.h>
-#include <langinfo.h>
-int main ()
-{
-  char* cs;
-  setlocale(LC_CTYPE, "");
-  cs = nl_langinfo(CODESET);
-  return !cs;
-}
-]])],
-			[ac_cv_locale_works=yes],
-			[ac_cv_locale_works=no],
-			[ac_cv_locale_works=no])
-		])
-		if test "$ac_cv_locale_works" = "yes"; then
-		  AC_DEFINE(LOCALE_WORKS, 1,
-			[Define if setlocale() and nl_langinfo() works.])
-		fi])
+AC_ARG_WITH(stringprep,
+  AS_HELP_STRING([--without-stringprep],
+		[don't use libidn for string processing even if available]),
+	stringprep=$withval, stringprep=yes)
+if test "$stringprep" != "no"; then
+	sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version,
+		[stringprep=yes
+		AC_DEFINE(WITH_STRINGPREP, 1,
+			[Define to 1 if you want to use libidn.])],
+		[stringprep=no
+		AC_MSG_WARN([Libidn not found.  String process disabled.])])
 fi
-AC_MSG_CHECKING([whether to use the included libidn])
-AC_MSG_RESULT($minilibidn_enabled)
-AM_CONDITIONAL(MINILIBIDN, test "$minilibidn_enabled" = "yes")
 
 # Allow disabling of client or server.
 AC_ARG_ENABLE(client,

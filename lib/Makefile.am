@@ -25,10 +25,6 @@ pkgconfig_DATA = libgsasl.pc
 
 SUBDIRS = po gl crypto
 
-if MINILIBIDN
-SUBDIRS += libidn
-endif
-
 # Plugins:
 if EXTERNAL
 SUBDIRS += external

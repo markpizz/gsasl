@@ -22,9 +22,6 @@ lib_LTLIBRARIES = libgsasl.la
 
 AM_CPPFLAGS = -I$(srcdir)/../gl -I../gl -I$(srcdir)/.. \
 	-I$(srcdir)/../crypto -I../crypto
-if MINILIBIDN
-AM_CPPFLAGS += -I$(srcdir)/../libidn
-endif
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 
 include_HEADERS = gsasl.h gsasl-mech.h gsasl-compat.h
@@ -32,9 +29,6 @@ include_HEADERS = gsasl.h gsasl-mech.h gsasl-compat.h
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
 	-export-symbols-regex '^(gsasl|GSASL).*'
 libgsasl_la_LIBADD = @LTLIBINTL@ ../gl/libgl.la ../crypto/libgc.la
-if MINILIBIDN
-libgsasl_la_LIBADD += ../libidn/libminilibidn.la
-endif
 libgsasl_la_SOURCES = gsasl.h.in internal.h \
 	init.c done.c register.c error.c version.c \
 	callback.c property.c \
