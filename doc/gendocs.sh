@@ -196,6 +196,7 @@ fi
 (cd ${split_html_dir} && tar czf - *.html) > \
     $outdir/${PACKAGE}_html_node.tar.gz
 html_node_tgz_size="`calcsize $outdir/${PACKAGE}_html_node.tar.gz`"
+mkdir $outdir/html_node
 mv ${split_html_dir}/* $outdir/html_node/
 rmdir ${split_html_dir}
 
@@ -217,6 +218,7 @@ ${DOCBOOK2HTML} -o $split_html_db_dir ${outdir}/$PACKAGE-db.xml
 (cd ${split_html_db_dir} && tar czf - *.html) > \
     $outdir/${PACKAGE}_html_node_db.tar.gz
 html_node_db_tgz_size="`calcsize $outdir/${PACKAGE}_html_node_db.tar.gz`"
+mkdir $outdir/html_node_db
 mv ${split_html_db_dir}/* $outdir/html_node_db/
 rmdir ${split_html_db_dir}
 
