@@ -2,6 +2,7 @@ Makefile
 Makefile.in
 gsasl-api-callback.texi
 gsasl-api-error.texi
+gsasl-api-error-labels.texi
 gsasl-api-global.texi
 gsasl-api-session.texi
 gsasl-api-utils.texi
