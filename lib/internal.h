@@ -37,12 +37,6 @@
 /* Get specifications. */
 #include "gsasl.h"
 
-/* I18n of error codes. */
-#include "gettext.h"
-#define _(String) dgettext (PACKAGE, String)
-#define gettext_noop(String) String
-#define N_(String) gettext_noop (String)
-
 typedef int (*_Gsasl_init_function) (Gsasl * ctx);
 typedef void (*_Gsasl_done_function) (Gsasl * ctx);
 typedef int (*_Gsasl_start_function) (Gsasl_session * sctx,
