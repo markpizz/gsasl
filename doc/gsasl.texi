@@ -1428,7 +1428,7 @@ The password is then normalized using @acronym{SASLprep} and compared
 to the client credential.
 
 Which approach to use?  If the passwords in your user database are
-stored in a prepared form (using @acronym{SASLPrep}), the first
+stored in a prepared form (using @acronym{SASLprep}), the first
 approach will be faster.  If you do not have prepared passwords
 available, you must use the second approach, to make sure the password
 has been prepared properly.
@@ -1443,6 +1443,9 @@ identities.  Always use PLAIN instead of LOGIN in new applications.
 The callback behaviour is the same as for PLAIN, except that
 @code{GSASL_AUTHZID} is not used nor required, and that the server do
 not normalize the password using @acronym{SASLprep}.
+
+@xref{Use of SASLprep in LOGIN}, for a proposed clarification of the
+interpretation of any hypothetical LOGIN specification.
 
 @node CRAM-MD5
 @section The CRAM-MD5 mechanism
@@ -1469,9 +1472,9 @@ which users' password should be used.  The server will then normalize
 the password, and compare the client response with a known correct
 computed response, and accept the user accordingly.
 
-@xref{Server-side use of SASLPrep in CRAM-MD5}, for a clarification on
-the interpretation of the CRAM-MD5 specification that this
-implementation rely on.
+@xref{Use of SASLprep in CRAM-MD5}, for a clarification on the
+interpretation of the CRAM-MD5 specification that this implementation
+rely on.
 
 @node DIGEST-MD5
 @section The DIGEST-MD5 mechanism
@@ -1898,28 +1901,30 @@ we felt were necessary to include, if for nothing else it may serve as
 a guide for other implementors that worry about the same issues.
 
 @menu
-* Use of SASLPrep in CRAM-MD5::
+* Use of SASLprep in CRAM-MD5::
 * Use of SASLprep in LOGIN::
 @end menu
 
-@node Use of SASLPrep in CRAM-MD5
-@section Use of SASLPrep in CRAM-MD5
+@node Use of SASLprep in CRAM-MD5
+@section Use of SASLprep in CRAM-MD5
 
 The specification, as of @file{draft-ietf-sasl-crammd5-04.txt}, is
-silent on whether a SASL server implementation applying SASLPrep on a
-password received from an external, non-SASL specific database (i.e.,
-the passwords are not stored in SASLPrep form in the database), should
-set or clear the AllowUnassigned bit.  The motivation for the AU-bit
-in StringPrep/SASLPrep is for stored vs query strings.  It could be
-argued that in this situation the server can treat the external
-password either as a stored string (from a database) or as a query
-(the server uses the string as a query into the fixed HMAC-MD5 hash).
+silent on whether a SASL server implementation applying
+@acronym{SASLprep} on a password received from an external, non-SASL
+specific database (i.e., the passwords are not stored in
+@acronym{SASLprep} form in the database), should set or clear the
+AllowUnassigned bit.  The motivation for the AU-bit in
+@acronym{StringPrep}/@acronym{SASLprep} is for stored vs query
+strings.  It could be argued that in this situation the server can
+treat the external password either as a stored string (from a
+database) or as a query (the server uses the string as a query into
+the fixed HMAC-MD5 hash).
 
 The specification is also unclear on whether clients should set or
 clear the AllowUnassigned flag.
 
-In the server, GNU SASL apply SASLPrep to the password with the
-AllowUnassigned bit cleared.
+In the server, GNU SASL apply @acronym{SASLprep} to the password with
+the AllowUnassigned bit cleared.
 
 @node Use of SASLprep in LOGIN
 @section Use of SASLprep in LOGIN
