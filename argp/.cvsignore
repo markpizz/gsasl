@@ -8,4 +8,8 @@ config.h
 config.log
 config.status
 configure
+depcomp
+install-sh
+missing
+mkinstalldirs
 stamp-h1
