@@ -360,9 +360,15 @@ writeln (char *str)
 {
   printf ("%s\n", str);
 
-  if (sockfh
-      && fprintf (sockfh, "%s\r\n", str) < strlen (str) + strlen ("\r\n"))
-    return 0;
+  if (sockfh)
+    {
+      int len;
+
+      len = fprintf (sockfh, "%s\r\n", str);
+
+      if (len != (int) strlen (str) + (int)strlen ("\r\n"))
+	return 0;
+    }
 
   return 1;
 }
@@ -630,7 +636,6 @@ main (int argc, char *argv[])
       if (application_data)
 	{
 	  fd_set readfds;
-	  int rc;
 
 	  FD_ZERO (&readfds);
 	  FD_SET (STDIN_FILENO, &readfds);

@@ -1,5 +1,5 @@
 /* init.c	entry point for libgsasl
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -28,8 +28,8 @@ _gsasl_gettext (const char *str)
   return dgettext (PACKAGE, str);
 }
 
-void
-_gsasl_gettext_init ()
+static void
+_gsasl_gettext_init (void)
 {
   bindtextdomain (PACKAGE, LOCALEDIR);
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET

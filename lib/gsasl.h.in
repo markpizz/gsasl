@@ -312,6 +312,10 @@ extern void gsasl_client_callback_maxbuf_set (Gsasl_ctx *ctx,
 					      Gsasl_client_callback_maxbuf cb);
 extern Gsasl_client_callback_maxbuf
 	gsasl_client_callback_maxbuf_get (Gsasl_ctx *ctx);
+extern void gsasl_client_callback_realm_set (Gsasl_ctx * ctx,
+					     Gsasl_client_callback_realm cb);
+extern Gsasl_client_callback_realm
+	gsasl_client_callback_realm_get (Gsasl_ctx * ctx);
 
 /* Server callbacks */
 extern Gsasl_ctx *gsasl_server_ctx_get (Gsasl_session_ctx *sctx);

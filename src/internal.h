@@ -1,5 +1,5 @@
 /* internal.h	internal header file for gsasl
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -62,7 +62,7 @@
 #include <errno.h>		/* strerror */
 #endif
 #if defined HAVE_DECL_ERRNO && !HAVE_DECL_ERRNO
-extern int errno;
+/* extern int errno; */
 #endif
 
 #ifdef HAVE_LOCALE_H

@@ -1,5 +1,5 @@
 /* hexdump.c	hexdump buffer
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -32,7 +32,7 @@
 void
 gsasl_hexdump (FILE * fh, const char *buffer, size_t len)
 {
-  int i;
+  size_t i;
 
   for (i = 0; i < len; i++)
     {

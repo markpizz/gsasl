@@ -1,5 +1,5 @@
 /* listmech.c	list active client and server mechanisms
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -27,7 +27,7 @@ _gsasl_listmech (Gsasl_ctx * ctx,
 		 size_t n_mechs, char *out, size_t * outlen, int clientp)
 {
   Gsasl_session_ctx *sctx;
-  int i = 0;
+  size_t i;
 
   if (out == NULL)
     {

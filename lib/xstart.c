@@ -1,5 +1,5 @@
 /* xstart.c	start libgsasl session
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -26,7 +26,7 @@ _gsasl_session_start (Gsasl_ctx * ctx,
 		      const char *mech,
 		      Gsasl_session_ctx ** sctx, int clientp)
 {
-  int i = 0;
+  size_t i;
   int res;
 
   *sctx = (Gsasl_session_ctx *) malloc (sizeof (**sctx));

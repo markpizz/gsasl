@@ -1,5 +1,5 @@
 /* login.c	implementation of non-standard SASL mechanism LOGIN
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -19,7 +19,7 @@
  *
  */
 
-#include "internal.h"
+#include "login.h"
 
 #ifdef USE_LOGIN
 
