@@ -1,4 +1,4 @@
-/* simple.c	test the simple SASL mechanisms
+/* simple.c --- Test the simple SASL mechanisms.
  * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -19,14 +19,15 @@
  *
  */
 
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 #include <gsasl.h>
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
 
 #define MAX_LINE_LENGTH BUFSIZ
 
@@ -69,7 +70,7 @@ struct sasltv
   char *pin;
   int securidrc;
 };
-struct sasltv sasltv[] = {
+static struct sasltv sasltv[] = {
 #ifdef USE_EXTERNAL
   {CLIENT, "EXTERNAL", {"", NULL}},
   {SERVER, "EXTERNAL", {"", NULL}},
@@ -169,9 +170,8 @@ struct sasltv sasltv[] = {
    {"YXV0aHppZABhdXRoaWQANDcxMQA=", "cGFzc2NvZGU=",
     "YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}, NULL, "authzid", "authid",
    NULL, NULL, NULL, NULL, "4711", NULL, NULL,
-   GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE},
+   GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE}
 #endif
-  {-1}
 };
 
 static int
