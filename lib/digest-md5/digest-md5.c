@@ -372,7 +372,7 @@ _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
       p += strlen (authzid);
     }
 
-  rc = gsasl_md5 (tmp, tmplen, (char**)&hash);
+  rc = gsasl_md5 (tmp, tmplen, (char **) &hash);
   free (tmp);
   if (rc != GSASL_OK)
     return rc;
@@ -512,7 +512,7 @@ _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
   if (qop & GSASL_QOP_AUTH_INT || qop & GSASL_QOP_AUTH_CONF)
     memcpy (p, A2_POST, strlen (A2_POST));
 
-  rc = gsasl_md5 (tmp, tmplen, (char**)&hash);
+  rc = gsasl_md5 (tmp, tmplen, (char **) &hash);
   free (tmp);
   if (rc != GSASL_OK)
     return rc;
@@ -578,7 +578,7 @@ _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
   p += strlen (COLON);
   memcpy (p, a2hexhash, 2 * MD5LEN);
 
-  rc = gsasl_md5 (tmp, tmplen, (char**)&hash);
+  rc = gsasl_md5 (tmp, tmplen, (char **) &hash);
   free (tmp);
   if (rc != GSASL_OK)
     return rc;
@@ -1113,10 +1113,10 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	  if (res != GSASL_OK)
 	    goto done;
 
-	  secretlen = len + strlen(COLON);
+	  secretlen = len + strlen (COLON);
 	  if (nrealm > 0)
 	    secretlen += strlen (realm[0]);
-	  secretlen += strlen(COLON);
+	  secretlen += strlen (COLON);
 
 	  p = secret = malloc (secretlen);
 	  if (secret == NULL)
@@ -1131,7 +1131,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	  p += strlen (COLON);
 	  if (nrealm > 0)
 	    {
-	      memcpy  (p, realm[0], strlen (realm[0]));
+	      memcpy (p, realm[0], strlen (realm[0]));
 	      p += strlen (realm[0]);
 	    }
 	  memcpy (p, COLON, strlen (COLON));
@@ -1161,7 +1161,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	  memcpy (p, tmp, strlen (tmp));
 	  free (tmp);
 
-	  res = gsasl_md5 (secret, secretlen, (char**)&tmp);
+	  res = gsasl_md5 (secret, secretlen, (char **) &tmp);
 	  if (res != GSASL_OK)
 	    goto done;
 	  memcpy (state->secret, tmp, MD5LEN);
@@ -1391,7 +1391,8 @@ _gsasl_digest_md5_client_encode (Gsasl_session_ctx * sctx,
       memcpy (seqnumin + MAC_SEQNUM_LEN, input, input_len);
 
       res = gsasl_hmac_md5 (state->kic, MD5LEN,
-			    seqnumin, MAC_SEQNUM_LEN + input_len, (char**)&hash);
+			    seqnumin, MAC_SEQNUM_LEN + input_len,
+			    (char **) &hash);
       free (seqnumin);
       if (res != GSASL_OK || hash == NULL)
 	return GSASL_CRYPTO_ERROR;
@@ -1470,7 +1471,7 @@ _gsasl_digest_md5_client_decode (Gsasl_session_ctx * sctx,
 	      input + MAC_DATA_LEN, len);
 
       res = gsasl_hmac_md5 (state->kis, MD5LEN,
-			    seqnumin, MAC_SEQNUM_LEN + len, (char**)&hash);
+			    seqnumin, MAC_SEQNUM_LEN + len, (char **) &hash);
       free (seqnumin);
       if (res != GSASL_OK || hash == NULL)
 	return GSASL_CRYPTO_ERROR;
@@ -2108,7 +2109,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	      memcpy (p, normkey, strlen (normkey));
 	      p += strlen (normkey);
 
-	      res = gsasl_md5 (hin, hinlen, (char**)&tmp);
+	      res = gsasl_md5 (hin, hinlen, (char **) &tmp);
 	      free (hin);
 	      if (res != GSASL_OK)
 		goto done;
@@ -2249,7 +2250,8 @@ _gsasl_digest_md5_server_encode (Gsasl_session_ctx * sctx,
       memcpy (seqnumin + MAC_SEQNUM_LEN, input, input_len);
 
       res = gsasl_hmac_md5 (state->kis, MD5LEN,
-			    seqnumin, MAC_SEQNUM_LEN + input_len, (char**)&hash);
+			    seqnumin, MAC_SEQNUM_LEN + input_len,
+			    (char **) &hash);
       free (seqnumin);
       if (res != GSASL_OK || hash == NULL)
 	return GSASL_CRYPTO_ERROR;
@@ -2328,7 +2330,7 @@ _gsasl_digest_md5_server_decode (Gsasl_session_ctx * sctx,
 	      input + MAC_DATA_LEN, len);
 
       res = gsasl_hmac_md5 (state->kic, MD5LEN,
-			    seqnumin, MAC_SEQNUM_LEN + len, (char**)&hash);
+			    seqnumin, MAC_SEQNUM_LEN + len, (char **) &hash);
       free (seqnumin);
       if (res != GSASL_OK || hash == NULL)
 	return GSASL_CRYPTO_ERROR;

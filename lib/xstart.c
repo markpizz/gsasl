@@ -23,8 +23,7 @@
 
 static _Gsasl_mechanism *
 _gsasl_find_mechanism (const char *mech,
-		       size_t n_mechs,
-		       _Gsasl_mechanism *mechs)
+		       size_t n_mechs, _Gsasl_mechanism * mechs)
 {
   size_t i;
 
@@ -42,9 +41,7 @@ static int
 _gsasl_setup (Gsasl_ctx * ctx,
 	      const char *mech,
 	      Gsasl_session_ctx * sctx,
-	      size_t n_mechs,
-	      _Gsasl_mechanism *mechs,
-	      int clientp)
+	      size_t n_mechs, _Gsasl_mechanism * mechs, int clientp)
 {
   _Gsasl_mechanism *mechptr = NULL;
   int res;
@@ -81,9 +78,7 @@ static int
 _gsasl_start (Gsasl_ctx * ctx,
 	      const char *mech,
 	      Gsasl_session_ctx ** sctx,
-	      size_t n_mechs,
-	      _Gsasl_mechanism *mechs,
-	      int clientp)
+	      size_t n_mechs, _Gsasl_mechanism * mechs, int clientp)
 {
   Gsasl_session_ctx *out;
   int res;

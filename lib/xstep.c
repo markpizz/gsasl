@@ -83,7 +83,7 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
       int len;
 
       len = gsasl_base64_encode (output, output_len,
-					b64output, b64output_len);
+				 b64output, b64output_len);
       if (len == -1)
 	{
 	  if (input != NULL)

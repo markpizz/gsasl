@@ -23,7 +23,7 @@
 
 #ifdef USE_GSS
 # include <gss.h>
-#elif HAVE_GSSAPI_H /* Heimdal GSSAPI */
+#elif HAVE_GSSAPI_H		/* Heimdal GSSAPI */
 # include <gssapi.h>
 #else /* MIT GSSAPI */
 # ifdef HAVE_GSSAPI_GSSAPI_H

@@ -76,7 +76,8 @@ _gsasl_listmech (Gsasl_ctx * ctx,
 int
 gsasl_client_mechlist (Gsasl_ctx * ctx, char **out)
 {
-  return _gsasl_listmech (ctx, ctx->client_mechs, ctx->n_client_mechs, out, 1);
+  return _gsasl_listmech (ctx, ctx->client_mechs, ctx->n_client_mechs, out,
+			  1);
 }
 
 /**
@@ -94,5 +95,6 @@ gsasl_client_mechlist (Gsasl_ctx * ctx, char **out)
 int
 gsasl_server_mechlist (Gsasl_ctx * ctx, char **out)
 {
-  return _gsasl_listmech (ctx, ctx->server_mechs, ctx->n_server_mechs, out, 1);
+  return _gsasl_listmech (ctx, ctx->server_mechs, ctx->n_server_mechs, out,
+			  1);
 }
