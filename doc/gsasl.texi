@@ -852,183 +852,326 @@ AC_MSG_RESULT($gsasl)
 @node Using the Library
 @chapter Using the Library
 
-@image{controlflow,18cm,9cm}
+Your application's use of the library can be roughly modeled into the
+following steps: library initialization, optionally specifying a
+callback and/or properties, perform actual authentications, and
+finally cleaning up.  The following image illustrate this.
 
-After initialization of the library, the core part of the library is
-run within a loop until it has finished.  The library is handed input
-from the other protocol entity and results in output which is to be
-sent to the other entity, or an error code.  The library does not send
-data to the server itself, but only return it in buffers.  The main
-interface to the library uses binary data, but since many common
-protocols uses Base 64 encoded data, a wrapper around the main
-function is also provided.
+@image{controlflow,15cm,5cm}
 
-The following pseudo code illustrates how the library is used in a
-simple client.  All the functions used are explained later on in this
-manual.
+The third step may look the most complex, but for a simple client it
+will actually not involve any code.  If your application need to
+handle several concurrent clients, or if it is a server that need to
+serve many clients simultaneous, things do get a bit more complicated.
+
+For illustration, we will write a simple client.  Writing a server
+would be similar, the only difference is that instead of supplying
+username or passwords, you need to decide whether someone should be
+allowed to log in or not.  The code for what we have discussed so far
+make up our @code{main} function in our client (@pxref{Example 1}):
 
 @example
-main()
+int main (int argc, char *argv[])
 @{
-  Gsasl_ctx          *ctx;
-  Gsasl_session_ctx  *cctx;
-  char *input, output[BUFFERSIZE];
-  size_t output_len;
+  Gsasl *ctx = NULL;
   int rc;
 
-  rc = gsasl_init (&ctx);
-  if (rc != GSASL_OK)
-    die(gsasl_strerror(rc));
+  if ((rc = gsasl_init (&ctx)) != GSASL_OK)
+    @{
+      printf ("Cannot initialize libgsasl (%d): %s",
+              rc, gsasl_strerror (rc));
+      return 1;
+    @}
 
-  /* XXX Set callbacks here */
+  gsasl_property_set_global (ctx, GSASL_AUTHID, "jas");
+  gsasl_property_set_global (ctx, GSASL_PASSWORD, "secret");
 
-  /* Read supported SASL mechanism from server */
-  input = read_from_client();
+  client (ctx);
 
-  /* Select a good mechanism */
-  mech = gsasl_client_suggest_mechanism (ctx, input);
-  if (mech == NULL)
-    die("Cannot find any commonly agreed SASL mechanism...");
+  gsasl_done (ctx);
 
-  /* Start to use it */
-  res = gsasl_client_start (ctx, mech, &cctx);
-  if (res != GSASL_OK)
-    die(gsasl_strerror (rc));
+  return 0;
+@}
+@end example
 
-  input = NULL;
+Here, the call to the function @code{client} correspond to the third
+step in the image above.
+
+For a more complicated application, that have several clients running
+simultaneous, instead of simply calling @code{client}, it may have
+created new threads for each session, and call @code{client} within
+each thread.  The library is thread safe.
+
+An actual authentication session is more complicated than what we have
+seen so far.  The steps that make up it are: decide which mechanism to
+use, start the session, optionally set any additional properties,
+perform the actual authentication loop, and cleanup.  Naturally, your
+application will start to talk its own protocol (e.g., SMTP or IMAP)
+after these steps have concluded.
+
+The authentication loop is based on sending tokens (typically short
+messages encoded in base 64) back and forth between the client and
+server.  It continue until authentication succeeds or there is an
+error.  The actual data sent, the number of iterations in the loop,
+and other details are specified by each mechanism.  The goal of the
+library is to isolate your application from the details of all
+different mechanisms.  Note that the library do not send data to the
+server itself, but return it in an buffer.  You must send it to the
+server yourself, according to an application protocol profile.  For
+example, the @acronym{SASL} application protocol profile for
+@acronym{SMTP} is described in @acronym{RFC} 2554.
+
+The following image illustrate the steps we have been talking about.
+
+@image{controlflow2,14cm,10cm}
+
+We will now show the implementation of the @code{client} function used
+before.
+
+@example
+void client (Gsasl *ctx)
+@{
+  Gsasl_session *session;
+  const char *mech = "PLAIN";
+  int rc;
+
+  /* Create new authentication session. */
+  if ((rc = gsasl_client_start (ctx, mech, &session)) != GSASL_OK)
+    @{
+      printf ("Cannot initialize client (%d): %s\n",
+              rc, gsasl_strerror (rc));
+      return;
+    @}
+
+  /* Do it. */
+  client_authenticate (ctx, session);
+
+  /* Cleanup. */
+  gsasl_finish (session);
+@}
+@end example
+
+This function is responsible for deciding which mechanism to use.  In
+this case, the @samp{PLAIN} mechanism is hard coded, but you will see
+later how this can be made more flexible.  The function create a new
+session, then call another function @code{client_authenticate}, and
+end by cleaning up the session handle.  Let's continue with the
+implementation of @code{client_authenticate}.
+
+@example
+void client_authenticate (Gsasl * ctx, Gsasl_session * session)
+@{
+  char buf[BUFSIZ] = "";
+  char *p;
+  int rc;
+
+  /* This loop mimic a protocol where the server get to send data
+     first. */
+
   do
     @{
-      /* Do one SASL step and unless we're done, send the output to
-         server and read new data from server */
+      printf ("Input base64 encoded data from server:\n");
+      fgets (buf, sizeof (buf) - 1, stdin);
 
-      rc = gsasl_client_step_base64 (cctx, input, output, BUFFERSIZE);
-      if (rc != GSASL_NEEDS_MORE && rc != GSASL_OK)
-        break;
+      rc = gsasl_step64 (session, buf, &p);
 
-      write_to_server(output);
-
-      if (rc == GSASL_OK)
-        break;
-
-      input = read_from_server();
+      if (rc == GSASL_NEEDS_MORE || rc == GSASL_OK)
+        @{
+          printf ("Output:\n%s\n", p);
+          free (p);
+        @}
     @}
   while (rc == GSASL_NEEDS_MORE);
 
+  printf ("\n");
+
   if (rc != GSASL_OK)
-    die("Authentication failed... %s\n", gsasl_strerror(rc);
-
-  /* Client is now authenticated -- proceed with actual protocol... */
-
-  gsasl_client_finish (cctx);
-  gsasl_done (ctx);
-@}
-@end example
-
-Notice the XXX comment that said you should specify the callbacks to
-use there.  The GNU SASL Library depend on callbacks to implement user
-interaction (in the client) and user validation (in the server).  If
-you don't specify any callbacks, very few mechanisms will be supported
-(like EXTERNAL that don't need any additional information,
-@pxref{EXTERNAL}).  Since we are building a simple client, we define
-callbacks which are used by several SASL mechanisms to get username
-and password.  We start by defining the function for querying the
-username, following the prototype for
-@code{Gsasl_client_callback_authentication_id} for the LOGIN mechanism
-(@pxref{LOGIN}) .
-
-@example
-int
-callback_username (Gsasl_session_ctx *ctx,
-                   char *out,
-                   size_t *outlen)
-@{
-  char username[BUFFERSIZE];
-
-  if (out == NULL)
-    *outlen = BUFFERSIZE;
-  else
     @{
-      fprintf(stdout, "Enter username: ");
-      fgets(username, BUFFERSIZE, stdin);
-      *outlen = strlen(username);
+      printf ("Authentication error (%d): %s\n",
+              rc, gsasl_strerror (rc));
+      return;
     @}
 
-  return GSASL_OK;
+  /* The client is done.  Here you would typically check if the
+     server let the client in.  If not, you could try again. */
+
+  printf ("If server accepted us, we're done.\n");
 @}
 @end example
 
-As you can see, this is a simplistic function that reads a username
-from the user.  The callback for entering the password is similar and
-follows the @code{Gsasl_client_callback_password} prototype:
+This last function need to be discussed in some detail.  First, you
+should be aware that there are two versions of this function, that
+differ in a subtle way.  The version above (@pxref{Example 2}) is used
+for application profiles where the server send data first.  For some
+mechanisms, this may waste a roundtrip, because the server need input
+from the client to proceed.  Therefor, today the recommended approach
+is to permit client to send data first (@pxref{Example 1}).  Which
+version you should use depend on which application protocol you are
+implementing.
+
+Further, you should realize that it is bad programming style to use a
+fixed size buffer.  On GNU systems, you may use the @code{getline}
+functions instead.  However, in practice, there are few mechanisms
+that use very large tokens.  In typical configurations, the mechanism
+with the largest tokens (GSSAPI) can use at least 500 bytes.  A fixed
+buffer size of 8192 bytes may thus be sufficient for now.  But don't
+say I didn't warn you, when a future mechanism doesn't work in your
+application, because of a fixed size buffer.
+
+The @code{gsasl_step64} (and of course also @code{gasl_step}) return
+two non-error return codes.  @code{GSASL_OK} is used for success,
+indicating that the library consider the authentication finished.
+That may include a successful server authentication, depending on the
+mechanism.  You must not let the client continue to the application
+protocol part unless you receive @code{GSASL_OK} from these functions.
+In particular, don't be fooled into believing authentication were
+successful if the server reply ``OK'' but these function has failed
+with an error.  The server may have been hacked, and could be tricking
+you into sending confidential data, without having successfully
+authenticated the server.
+
+The non-error return code @code{GSASL_NEEDS_MORE} is used to signal to
+your application that you should send the output token to the peer,
+and wait for a new token, and do another iteration.  If the server
+conclude the authentication process, with no data, you should call
+@code{gsasl_step64} (or @code{gsasl_step}) specifying a zero-length
+token.
+
+@section Choosing a mechanism
+
+Our earlier code was hard coded to use a specific mechanism.  This is
+rarely a good idea.  Instead, it is recommended to select the best
+mechanism available from the list of mechanism supported by the
+server.  Note that without TLS or similar, the list may have been
+maliciously altered, by an attacker.  This means that you should abort
+if you cannot find any mechanism that exceeds your minimum security
+level.  There is a function @code{gsasl_client_suggest_mechanism}
+(@pxref{Global Functions}) that will try to pick the ``best''
+available mechanism from a list of mechanisms.  Our simple interactive
+example client (@pxref{Example 3}) include the following function to
+decide which mechanism to use.  Note that it doesn't blindly use what
+is returned from @code{gsasl_client_suggest_mechanism}.
 
 @example
-int
-callback_password (Gsasl_session_ctx *ctx,
-                   char *out,
-                   size_t *outlen)
+const char *client_mechanism (Gsasl *ctx)
 @{
-  char password[BUFFERSIZE];
+  static char mech[GSASL_MAX_MECHANISM_SIZE + 1] = "";
+  char mechlist[BUFSIZ] = "";
+  const char *suggestion;
 
-  if (out == NULL)
-    *outlen = BUFFERSIZE;
-  else
-    @{
-      fprintf(stdout, "Enter password: ");
-      fgets(password, BUFFERSIZE, stdin);
-      *outlen = strlen(password);
-    @}
+  printf ("Enter list of mechanism that server support, separate by SPC:\n");
+  fgets (mechlist, sizeof (mechlist) - 1, stdin);
 
-  return GSASL_OK;
+  suggestion = gsasl_client_suggest_mechanism (ctx, mechlist);
+  if (suggestion)
+    printf ("Library suggest use of `%s'.\n", suggestion);
+
+  printf ("Enter mechanism to use:\n");
+  fgets (mech, sizeof (mech) - 1, stdin);
+  mech[strlen (mech) - 1] = '\0';
+
+  return mech;
 @}
 @end example
 
-In reality, the program should probably inhibit echo of the password
-to the terminal, but that is left as an exercise for the reader.
+@section Using a callback
 
-Now having implemented the callbacks, we are ready to replace the XXX
-comment with real code that set the callbacks (@pxref{Callback
-Functions}).  The following does it.
+Our earlier code specified the username and password before the
+authentication loop, as in:
 
 @example
-  gsasl_client_callback_authentication_id_set(ctx, callback_username);
-  gsasl_client_callback_authorization_id_set(ctx, callback_username);
-  gsasl_client_callback_password_set(ctx, callback_password);
+  gsasl_property_set_global (ctx, GSASL_AUTHID, "jas");
+  gsasl_property_set_global (ctx, GSASL_PASSWORD, "secret");
 @end example
 
-Notice that we use the same callback for the authentication identity
-and the authorization identity.  In reality, this may be too
-simplistic, but will do for an example.
+This may work for simple mechanisms, that only ever need an username
+and a password.  But some mechanism require more information, like
+authorization identities, a special PIN or passcode.  Querying the
+user for all that information, without knowing exactly which of it
+will be really needed is bad design.
 
-The simple client is now complete, and will be able to support SASL
-mechanisms such as PLAIN and CRAM-MD5.
+This is a bad idea for another reason.  What if the server abort the
+authentication process?  Then your application have already queried
+the user for a username and password.  It would be better if you only
+asked the user for this information, annoying to input, when it is
+known to be needed.
 
-Implementing a server is very similar to the client, the only
-difference is that you use @code{gsasl_server_*} functions instead of
-@code{gsasl_client_*} and instead of implementing
-@code{Gsasl_client_*} callbacks implement some @code{Gsasl_server_*}
-callbacks.  See each mechanism (@pxref{Mechanisms}) for details on
-which callbacks are required and their prototype.
+A better approach to this problem is to use a callback.  Then the
+mechanism may query your application whenever it need some
+information, like the username and password.  It will only do this at
+the precise step in the authentication when the information is
+actually needed.  Further, if the user abort a password prompt, the
+mechanism is informed of this, and could recover somehow.
+
+Our final example (@pxref{Example 4}) specify a callback function,
+inside @code{main} as below.
+
+@example
+  /* Set the callback handler for the library. */
+  gsasl_callback_set (ctx, callback);
+@end example
+
+The function itself is implemented as follows.
+
+@example
+int callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
+{
+  char buf[BUFSIZ] = "";
+  int rc = GSASL_NO_CALLBACK;
+
+  /* Get user info from user. */
+
+  printf ("Callback invoked, for property %d.\n", prop);
+
+  switch (prop)
+    {
+    case GSASL_PASSCODE:
+      printf ("Enter passcode:\n");
+      fgets (buf, sizeof (buf) - 1, stdin);
+      buf[strlen (buf) - 1] = '\0';
+
+      gsasl_property_set (sctx, GSASL_PASSCODE, buf);
+      rc = GSASL_OK;
+      break;
+
+    case GSASL_AUTHID:
+      printf ("Enter username:\n");
+      fgets (buf, sizeof (buf) - 1, stdin);
+      buf[strlen (buf) - 1] = '\0';
+
+      gsasl_property_set (sctx, GSASL_AUTHID, buf);
+      rc = GSASL_OK;
+      break;
+
+    default:
+      printf ("Unknown property!  Don't worry.\n");
+      break;
+    }
+
+  return rc;
+}
+@end example
+
+Again, it is bad style to use a fixed size buffer.
+
+Which properties you should handle is up to you.  If you don't know
+how to respond to a certain property, simply return
+@code{GSASL_NO_CALLBACK}.  The basic properties to support are
+authentication identity (@code{GSASL_AUTHID}), authorization identity
+(@code{GSASL_AUTHZID}), and password (@code{GSASL_PASSWORD}).  See
+@xref{Properties} for the list of all properties, and what your
+callback should (ideally) do for them.
+
+@section Server note: client send data first
 
 A note for server authors is in place, on the optional initial client
 output (discussed in section 5.1 of RFC 2222).  In a server looking
-similar to the code above, the first call to
-@code{gsasl_server_step_base64} would have a @var{input} set to NULL.
-The mechanisms interprete this as your protocol do not support initial
-client output.  If the protocol in which you implement SASL supports
-initial client output, the first call to
-@code{gsasl_server_step_base64} should include a real buffer with the
-initial client data.
-
-One note for client authors is in place.  The code above aborts
-processing if the library did not come out of the loop with a GSASL_OK
-exit code.  It is a mistake to not require this, and instead only look
-at what the server is sending you.  Even if the server said you are
-authenticated, it does not always mean that the SASL mechanism is
-satisfied.  This is specifically true for SASL client mechanisms which
-perform server authentication.  Thus, if you only trust what the
-server replied instead of requireing a GSASL_OK result, you may open
-up for fake servers.  Don't shortcut the loop with a positive server
-response.
+similar to the code above, the first call to @code{gsasl_step64} would
+have a @var{input} set to NULL.  The mechanisms interprete this as
+your protocol do not support initial client output.  If the protocol
+in which you implement SASL supports initial client output, the first
+call to @code{gsasl_server_step_base64} should include a real buffer
+with the initial client data.
 
 @c **********************************************************
 @c *******************  Properties  *************************
