@@ -7,8 +7,8 @@ libgssapi by MIT/Heimdal; libgcrypt by Werner Koch; GSS, Libidn, and
 Shishi by Simon Josefsson.
 
 Bug reports, patches and/or suggestions were also received from or
-written by several people.  See the GNU SASL package for the
-(hopefully) complete list.
+written by several people.  See the file THANKS in the GNU SASL
+package for the (hopefully) complete list.
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
