@@ -217,7 +217,7 @@ _gsasl_gssapi_client_step (Gsasl_session * sctx,
 	return GSASL_NO_AUTHID;
 
       bufdesc.length = 4 + strlen (p);
-      bufdesc.value = malloc (*output_len);
+      bufdesc.value = malloc (bufdesc.length);
       if (!bufdesc.value)
 	return GSASL_MALLOC_ERROR;
 

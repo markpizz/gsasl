@@ -236,6 +236,7 @@ doit (void)
       while (res != GSASL_OK);
 
       free (s1);
+      s1 = NULL;
 
       if (debug)
 	printf ("\n");
