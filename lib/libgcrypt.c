@@ -1,5 +1,5 @@
 /* libgcrypt.c   crypto wrappers around libgcrypt.
- * Copyright (C) 2002, 2003  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -23,6 +23,10 @@
 
 #include "internal.h"
 
+/* Get _gsasl_crypto_init. */
+#include "crypto.h"
+
+/* Get libgcrypt API. */
 #include <gcrypt.h>
 
 /* Refer to nettle.c for documentation. */
