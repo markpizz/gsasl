@@ -51,6 +51,7 @@ AC_CHECK_FUNCS(getaddrinfo)
 # For gnulib stuff in gl/.
 gl_SOURCE_BASE(gl)
 gl_M4_BASE(gl/m4)
+gl_LIB(libgl)
 gl_MODULES(getopt progname strdup dummy exit error getpass-gnu)
 gl_INIT
 
