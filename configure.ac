@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-# Copyright (C) 2002 Simon Josefsson.
+# Copyright (C) 2002, 2003 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -229,7 +229,7 @@ The system's GNU Libidn 0.1.0 or later not used. Using copy
 distributed with GNU SASL instead.
 
 ]])
-	LIBIDN_CFLAGS="-I\$(top_srcdir)/libidn"
+	LIBIDN_CFLAGS="-I\$(top_srcdir)/libstringprep"
 	LIBIDN_LIBS="\$(top_builddir)/libstringprep/libidn.la"
 	LIBIDN=libstringprep
 fi
