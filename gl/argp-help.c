@@ -1662,9 +1662,6 @@ Try `%s --help' or `%s --usage' for more information.\n"),
   __argp_fmtstream_free (fs);
 }
 
-#ifndef weak_alias
-# define __argp_help argp_help
-#endif
 /* Output a usage message for ARGP to STREAM.  FLAGS are from the set
    ARGP_HELP_*.  NAME is what to use wherever a `program name' is needed. */
 void __argp_help (const struct argp *argp, FILE *stream,
@@ -1702,9 +1699,6 @@ __argp_short_program_name(const struct argp_state *state)
 #endif
 }
 
-#ifndef weak_alias
-# define __argp_state_help argp_state_help
-#endif
 /* Output, if appropriate, a usage message for STATE to STREAM.  FLAGS are
    from the set ARGP_HELP_*.  */
 void
@@ -1731,9 +1725,6 @@ __argp_state_help (const struct argp_state *state, FILE *stream, unsigned flags)
 weak_alias (__argp_state_help, argp_state_help)
 #endif
 
-#ifndef weak_alias
-# define __argp_error argp_error
-#endif
 /* If appropriate, print the printf string FMT and following args, preceded
    by the program name and `:', to stderr, and followed by a `Try ... --help'
    message, then exit (1).  */
@@ -1793,9 +1784,6 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 weak_alias (__argp_error, argp_error)
 #endif
 
-#ifndef weak_alias
-# define __argp_failure argp_failure
-#endif
 /* Similar to the standard gnu error-reporting function error(), but will
    respect the ARGP_NO_EXIT and ARGP_NO_ERRS flags in STATE, and will print
    to STATE->err_stream.  This is useful for argument parsing code that is

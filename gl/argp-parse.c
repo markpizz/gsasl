@@ -895,9 +895,6 @@ parser_parse_next (struct parser *parser, int *arg_ebadkey)
   return err;
 }
 
-#ifndef weak_alias
-# define __argp_parse argp_parse
-#endif
 /* Parse the options strings in ARGC & ARGV according to the argp in ARGP.
    FLAGS is one of the ARGP_ flags above.  If END_INDEX is non-NULL, the
    index in ARGV of the first unparsed option is returned in it.  If an
