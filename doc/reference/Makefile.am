@@ -46,4 +46,4 @@ all: index.html
 clean-local:
 	rm -f *.bak scan.stamp tmpl.stamp sgml.stamp *.txt *.sgml \
 		$(PACKAGE)-doc.bottom $(PACKAGE)-doc.top \
-		$(HTML_OBJECTS) $(IMAGES) 
+		$(HTML_OBJECTS) $(IMAGES) style.css
