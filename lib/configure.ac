@@ -362,9 +362,9 @@ AC_ARG_WITH(included-libidn,
 		minilibidn_enabled=$enableval, minilibidn_enabled=no)
 if test "$minilibidn_enabled" = "no"; then
 	sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version,,
-		minilibidn_enabled=yes
+		[minilibidn_enabled=yes
 		AM_ICONV
-		AC_MSG_WARN([[Libidn not found.  Using the included copy.]]))
+		AC_MSG_WARN([[Libidn not found.  Using the included copy.]])])
 fi
 AC_MSG_CHECKING([whether to use the included libidn])
 AC_MSG_RESULT($minilibidn_enabled)
