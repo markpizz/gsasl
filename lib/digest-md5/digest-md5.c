@@ -104,7 +104,10 @@
 #define MAC_MSG_TYPE "\x00\x01"
 #define MAC_MSG_TYPE_LEN 2
 #define MAC_SEQNUM_LEN 4
+#define MAXBUF_MIN 17
 #define MAXBUF_DEFAULT 65536
+#define MAXBUF_MAX 16777215
+#define MAXBUF_MAX_DECIMAL_SIZE 8
 #define RESPONSE_LENGTH 32
 #define RSPAUTH_LENGTH RESPONSE_LENGTH
 #define DERIVE_CLIENT_INTEGRITY_KEY_STRING \
@@ -830,7 +833,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 		  goto done;
 		}
 	      maxbuf = strtol (value, NULL, 10);
-	      if (!(maxbuf > 16 && maxbuf <= 16777215))
+	      if (maxbuf < MAXBUF_MIN || maxbuf > MAXBUF_MAX)
 		{
 		  res = GSASL_MECHANISM_PARSE_ERROR;
 		  goto done;
@@ -1207,17 +1210,19 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	  strcat (output, RESPONSE_POST);
 	  outlen += strlen (RESPONSE_POST);
 	}
-	if (cb_maxbuf
-	    && (maxbuf = cb_maxbuf (sctx, maxbuf)) != MAXBUF_DEFAULT)
+	if (cb_maxbuf)
+	  maxbuf = cb_maxbuf (sctx, maxbuf);
+	if (maxbuf >= MAXBUF_MIN &&
+	    maxbuf != MAXBUF_DEFAULT &&
+	    maxbuf <= MAXBUF_MAX)
 	  {
-	    char *tmp;
+	    char tmp[MAXBUF_MAX_DECIMAL_SIZE + 1];
 
-	    asprintf (&tmp, "%ul", maxbuf);
+	    sprintf (&tmp, "%ld", maxbuf);
 
 	    if (outlen + strlen (MAXBUF_PRE) + strlen (tmp) +
 		strlen (MAXBUF_POST) >= *output_len)
 	      {
-		free (tmp);
 		res = GSASL_TOO_SMALL_BUFFER;
 		goto done;
 	      }
@@ -1226,12 +1231,10 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	    outlen += strlen (MAXBUF_PRE);
 
 	    strcat (output, tmp);
-	    outlen += strlen (&output[outlen]);
+	    outlen += strlen (tmp);
 
 	    strcat (output, MAXBUF_POST);
 	    outlen += strlen (MAXBUF_POST);
-
-	    free (tmp);
 	  }
 	/* cipher */
 	if (state->qop & GSASL_QOP_AUTH_CONF)
@@ -1748,16 +1751,19 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	  }
       }
       /* maxbuf */
-      if (cb_maxbuf && (maxbuf = cb_maxbuf (sctx)) != MAXBUF_DEFAULT)
+      if (cb_maxbuf)
+	maxbuf = cb_maxbuf (sctx);
+      if (maxbuf >= MAXBUF_MIN &&
+	  maxbuf != MAXBUF_DEFAULT &&
+	  maxbuf <= MAXBUF_MAX)
 	{
-	  char *tmp;
+	  char tmp[MAXBUF_MAX_DECIMAL_SIZE + 1];
 
-	  asprintf (&tmp, "%ul", maxbuf);
+	  sprintf (&tmp, "%ld", maxbuf);
 
 	  if (outlen + strlen (MAXBUF_PRE) + strlen (tmp) +
 	      strlen (MAXBUF_POST) >= *output_len)
 	    {
-	      free (tmp);
 	      res = GSASL_TOO_SMALL_BUFFER;
 	      goto done;
 	    }
@@ -1766,12 +1772,10 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	  outlen += strlen (MAXBUF_PRE);
 
 	  strcat (output, tmp);
-	  outlen += strlen (&output[outlen]);
+	  outlen += strlen (tmp);
 
 	  strcat (output, MAXBUF_POST);
 	  outlen += strlen (MAXBUF_POST);
-
-	  free (tmp);
 	}
       /* charset */
       {
@@ -2019,7 +2023,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 		  goto done;
 		}
 	      maxbuf = strtol (value, NULL, 10);
-	      if (maxbuf <= 16 || maxbuf > 16777215)
+	      if (maxbuf < MAXBUF_MIN || maxbuf > MAXBUF_MAX)
 		{
 		  res = GSASL_MECHANISM_PARSE_ERROR;
 		  goto done;
