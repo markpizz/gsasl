@@ -20,15 +20,13 @@
 
 lib_LTLIBRARIES = libgsasl.la
 
-AM_CPPFLAGS = @LIBNTLM_CFLAGS@ @LIBGCRYPT_CFLAGS@ @CRYPTO_CFLAGS@ \
-	@LIBNTLM_CFLAGS@ @GSSAPI_CFLAGS@ @GSS_CFLAGS@ @SHISHI_CFLAGS@
+AM_CPPFLAGS = @LIBGCRYPT_CFLAGS@ @NETTLE_CFLAGS@
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 
 include_HEADERS = gsasl.h
 
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
-libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @CRYPTO_LIBS@ \
-	@LIBNTLM_LIBS@ @GSSAPI_LIBS@ @GSS_LIBS@ @SHISHI_LIBS@
+libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @NETTLE_LIBS@
 libgsasl_la_SOURCES = gsasl.h.in internal.h gettext.h \
 	init.c done.c error.c version.c common.c \
 	callback.c callback-c.c callback-s.c \
