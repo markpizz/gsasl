@@ -66,7 +66,6 @@ static const char *const digest_challenge_opts[] = {
 };
 
 /* qop-value         = "auth" | "auth-int" | "auth-conf" | qop-token */
-
 enum
   {
     /* the order must match the following struct */
@@ -75,10 +74,6 @@ enum
     QOP_AUTH_CONF
   };
 
-/* cipher-value      = "3des" | "des" | "rc4-40" | "rc4" |
- *                     "rc4-56" | "aes-cbc" | cipher-token
- *                     ;; "des" and "3des" ciphers are obsolete.
- */
 static const char *const qop_opts[] = {
   /* the order must match the previous enum */
   "auth",
@@ -87,6 +82,10 @@ static const char *const qop_opts[] = {
   NULL
 };
 
+/* cipher-value      = "3des" | "des" | "rc4-40" | "rc4" |
+ *                     "rc4-56" | "aes-cbc" | cipher-token
+ *                     ;; "des" and "3des" ciphers are obsolete.
+ */
 enum
   {
     /* the order must match the following struct */
