@@ -37,7 +37,8 @@ enum
   OPTION_QOP,
   OPTION_APPLICATION_DATA,
   OPTION_NO_CLIENT_FIRST,
-  OPTION_IMAP
+  OPTION_IMAP,
+  OPTION_CONNECT
 };
 
 const char *argp_program_version = "gsasl (" PACKAGE_STRING ")";
@@ -66,6 +67,11 @@ int qop;
 int application_data;
 int no_client_first;
 int imap;
+char *connect_hostname;
+char *connect_service;
+struct sockaddr connect_addr;
+int sockfd;
+FILE *sockfh;
 
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
@@ -136,6 +142,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
     case OPTION_IMAP:
       imap = 1;
+      /* fall through */
+
+    case OPTION_NO_CLIENT_FIRST:
+      no_client_first = 1;
       break;
 
     case OPTION_ENABLE_CRAM_MD5_VALIDATE:
@@ -144,10 +154,6 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
     case OPTION_DISABLE_CLEARTEXT_VALIDATE:
       disable_cleartext_validate = 1;
-      break;
-
-    case OPTION_NO_CLIENT_FIRST:
-      no_client_first = 1;
       break;
 
     case OPTION_QOP:
@@ -169,6 +175,55 @@ parse_opt (int key, char *arg, struct argp_state *state)
     case OPTION_CLIENT_MECHANISMS:
     case OPTION_SERVER_MECHANISMS:
       listmode = key;
+      break;
+
+    case OPTION_CONNECT:
+      if (strrchr(arg, ':'))
+	{
+	  connect_hostname = strdup(arg);
+	  *strrchr(connect_hostname, ':') = '\0';
+	  connect_service = strdup(strrchr(arg, ':') + 1);
+	}
+      else
+	{
+	  connect_hostname = strdup(arg);
+	  connect_service = strdup("143");
+	}
+      {
+	struct servent *se;
+	struct hostent *he;
+	struct sockaddr_in *sinaddr_inp = (struct sockaddr_in *) &connect_addr;
+
+	he = gethostbyname (connect_hostname);
+	if (!he || he->h_addr_list[0] == NULL || he->h_addrtype != AF_INET)
+	  argp_error (state, "unknown host: %s", connect_hostname);
+	memset (sinaddr_inp, 0, sizeof (*sinaddr_inp));
+	sinaddr_inp->sin_family = he->h_addrtype;
+	memcpy (&sinaddr_inp->sin_addr, he->h_addr_list[0], he->h_length);
+	se = getservbyname(connect_service, "tcp");
+	if (se)
+	  sinaddr_inp->sin_port = se->s_port;
+	else
+	  sinaddr_inp->sin_port = htons(atoi(connect_service));
+	if (sinaddr_inp->sin_port == 0 || sinaddr_inp->sin_port == htons(0))
+	  argp_error(state, "unknown service: %s", connect_service);
+
+	sockfd = socket (AF_INET, SOCK_STREAM, 0);
+	if (sockfd < 0)
+	  {
+	    perror("socket()");
+	    argp_error (state, "socket: %s", strerror(errno));
+	  }
+
+	if (connect(sockfd, &connect_addr, sizeof(connect_addr)) < 0)
+	  {
+	    perror("connect()");
+	    close (sockfd);
+	    argp_error (state, "connect: %s", strerror(errno));
+	  }
+	sockfh = fdopen (sockfd, "r+");
+	setvbuf(sockfh, NULL, _IONBF, 0);
+      }
       break;
 
     case ARGP_KEY_ARG:
@@ -204,7 +259,32 @@ static struct argp_option options[] = {
   {"server-mechanisms", OPTION_SERVER_MECHANISMS, 0, 0,
    "Write name of supported server mechanisms separated by space to stdout."},
 
-  {0, 0, 0, 0, "SASL options (prompted for if unspecified):", 500},
+  {0, 0, 0, 0, "Network parameters:", 100},
+
+  {"connect", OPTION_CONNECT, "HOSTNAME[:SERVICE]", 0,
+   "Connect to TCP server and negotiate on stream instead of stdin/stdout. "
+   "SERVICE is the protocol service, or an integer denoting the port, "
+   "and defaults to 143 (imap) if not specified. "
+   "Also sets the --hostname default."},
+
+  {0, 0, 0, 0, "Miscellaneous options:", 200},
+
+  {"application-data", OPTION_APPLICATION_DATA, 0, 0,
+   "After authentication, read data from stdin and run it through the "
+   "mechanism's security layer and print it base64 encoded to stdout. "
+   "The default is to terminate after authentication."},
+
+  {"imap", OPTION_IMAP, 0, 0,
+   "Use a IMAP-like logon procedure (client only)."},
+
+  {"mechanism", 'm', "STRING", 0,
+   "Mechanism to use."},
+
+  {"no-client-first", OPTION_NO_CLIENT_FIRST, 0, 0,
+   "Disallow client to send data first (client only)."},
+
+  {0, 0, 0, 0,
+   "SASL mechanism options (prompted for if unspecified and needed):", 300},
 
   {"anonymous-token", 'n', "STRING", 0,
    "Token for anonymous authentication, usually mail address "
@@ -216,22 +296,8 @@ static struct argp_option options[] = {
   {"authorization-id", 'z', "STRING", 0,
    "Identity to request service for."},
 
-  {"application-data", OPTION_APPLICATION_DATA, 0, 0,
-   "After authentication, read data from stdin and run it through the "
-   "mechanism's security layer and print it base64 encoded to stdout. "
-   "The default is to terminate after authentication."},
-
-  {"imap", OPTION_IMAP, 0, 0,
-   "Use a IMAP-like logon procedure (client only)."},
-
-  {"no-client-first", OPTION_NO_CLIENT_FIRST, 0, 0,
-   "Disallow client to send data first (client only)."},
-
   {"password", 'p', "STRING", 0,
    "Password for authentication (insecure for non-testing purposes)."},
-
-  {"mechanism", 'm', "STRING", 0,
-   "Mechanism to use."},
 
   {"realm", 'r', "STRING", 0,
    "Realm (may be given more than once iff server). Defaults to hostname."},
@@ -280,14 +346,42 @@ static struct argp argp = {
   options,
   parse_opt,
   0,
-  "GNU SASL gsasl -- Command line interface to libgsasl."
+  "GNU SASL (gsasl) -- Command line interface to libgsasl."
 };
+
+static int
+writeln (char *str)
+{
+  printf ("%s\n", str);
+
+  if (sockfh && fprintf(sockfh, "%s\r\n", str) < strlen(str) + strlen("\r\n"))
+    return 0;
+
+  return 1;
+}
+
+static int
+readln (char *buf, size_t maxbuflen)
+{
+  if (!fgets (buf, maxbuflen, sockfh ? sockfh : stdin))
+    return 0;
+
+  while (buf[0] && (buf[strlen (buf) - 1] == '\n' ||
+		    buf[strlen (buf) - 1] == '\r'))
+    buf[strlen (buf) - 1] = '\0';
+
+  if (sockfh)
+    printf("%s\n", buf);
+
+  return 1;
+}
 
 int
 main (int argc, char *argv[])
 {
   Gsasl_ctx *ctx = NULL;
   int res;
+  char input[MAX_LINE_LENGTH];
 
   setlocale (LC_ALL, "");
 
@@ -301,15 +395,16 @@ main (int argc, char *argv[])
       return 1;
     }
 
+  /* Set callbacks */
   if (maxbuf != 0)
     gsasl_client_callback_maxbuf_set (ctx, client_callback_maxbuf);
   if (qop != 0)
     gsasl_client_callback_qop_set (ctx, client_callback_qop);
   gsasl_client_callback_anonymous_set (ctx, client_callback_anonymous);
-  gsasl_client_callback_authentication_id_set (ctx,
-					       client_callback_authentication_id);
-  gsasl_client_callback_authorization_id_set (ctx,
-					      client_callback_authorization_id);
+  gsasl_client_callback_authentication_id_set
+    (ctx, client_callback_authentication_id);
+  gsasl_client_callback_authorization_id_set
+    (ctx, client_callback_authorization_id);
   gsasl_client_callback_password_set (ctx, client_callback_password);
   gsasl_client_callback_passcode_set (ctx, client_callback_passcode);
   gsasl_client_callback_service_set (ctx, client_callback_service);
@@ -354,55 +449,72 @@ main (int argc, char *argv[])
       fprintf (stdout, "%s\n", mechs);
     }
 
+  if (imap && !readln(input, MAX_LINE_LENGTH))
+    return 1;
+
   if (mode == 'c' || mode == 's')
     {
-      char input[MAX_LINE_LENGTH];
       char output[MAX_LINE_LENGTH];
       char b64output[MAX_LINE_LENGTH];
       size_t output_len;
-      size_t b64output_len;
+      ssize_t b64output_len;
       const char *mech;
       Gsasl_session_ctx *xctx = NULL;
       int res;
 
       /* Decide mechanism to use */
 
-      if (mechanism)
-	{
-	  mech = mechanism;
-	}
-      else if (mode == 'c')
-	{
-	  if (!silent)
-	    fprintf (stderr,
-		     _("Input SASL mechanism supported by server:\n"));
-	  if (imap)
-	    printf (". CAPABILITY");
-	  input[0] = '\0';
-	  fgets (input, MAX_LINE_LENGTH, stdin);
-
-	  mech = gsasl_client_suggest_mechanism (ctx, input);
-	  if (mech == NULL)
-	    {
-	      fprintf (stderr, _("Cannot find mechanism...\n"));
-	      return 1;
-	    }
-
-	  if (!silent)
-	    fprintf (stderr, _("Libgsasl wants to use:\n"));
-	  fprintf (stdout, "%s\n", mech);
-	}
-      else
+      if (mode == 's')
 	{
 	  if (!silent)
 	    fprintf (stderr, _("Chose SASL mechanisms:\n"));
-	  input[0] = '\0';
-	  fgets (input, MAX_LINE_LENGTH, stdin);
-	  input[strlen (input) - 1] = '\0';
+	  if (!readln(input, MAX_LINE_LENGTH))
+	    return 1;
 
 	  if (!silent)
 	    fprintf (stderr, _("Chosed mechanism `%s'\n"), input);
 	  mech = input;
+	}
+      else /* if (mode == 'c') */
+	{
+	  if (mechanism)
+	    {
+	      mech = mechanism;
+	    }
+	  else
+	    {
+	      if (imap && !writeln(". CAPABILITY"))
+		return 1;
+
+	      if (!silent && !imap)
+		fprintf (stderr,
+			 _("Input SASL mechanism supported by server:\n"));
+	      if (!readln(input, MAX_LINE_LENGTH))
+		return 1;
+
+	      if (imap)
+		/* XXX parse IMAP capability line */;
+
+	      mech = gsasl_client_suggest_mechanism (ctx, input);
+	      if (mech == NULL)
+		{
+		  fprintf (stderr, _("Cannot find mechanism...\n"));
+		  return 1;
+		}
+	    }
+
+	  if (imap)
+	    {
+	      sprintf(input, ". AUTHENTICATE %s", mech);
+	      if (!writeln(input))
+		return 1;
+	    }
+	  else
+	    {
+	      if (!silent)
+		fprintf (stderr, _("Libgsasl wants to use:\n"));
+	      puts(mech);
+	    }
 	}
 
       /* Authenticate using mechanism */
@@ -421,11 +533,13 @@ main (int argc, char *argv[])
       input[0] = '\0';
       output[0] = '\0';
       output_len = sizeof (output);
+
       if (mode == 'c' && no_client_first)
 	{
 	  res = GSASL_NEEDS_MORE;
 	  goto no_client_first;
 	}
+
       do
 	{
 	  if (mode == 'c')
@@ -436,22 +550,48 @@ main (int argc, char *argv[])
 	  if (res != GSASL_NEEDS_MORE && res != GSASL_OK)
 	    break;
 
-	  if (!silent)
-	    fprintf (stderr, _("Output from %s:\n"),
-		     mode == 'c' ? _("client") : _("server"));
-	  fprintf (stdout, "%s\n", output);
+	  if (imap)
+	    {
+	      sprintf(input, "+ %s", output);
+	      if (!writeln(output))
+		return 1;
+	    }
+	  else
+	    {
+	      if (!silent)
+		{
+		  if (mode == 'c')
+		    fprintf (stderr, _("Output from client:\n"));
+		  else
+		    fprintf (stderr, _("Output from server:\n"));
+		}
+	      fprintf (stdout, "%s\n", output);
+	    }
 
 	  if (res != GSASL_NEEDS_MORE)
 	    break;
 
 	no_client_first:
-	  if (!silent)
+	  if (!silent && !imap)
 	    fprintf (stderr, _("Enter base64 authentication data from %s "
 			       "(press RET if none):\n"),
 		     mode == 'c' ? _("server") : _("client"));
 
-	  input[0] = '\0';
-	  fgets (input, MAX_LINE_LENGTH, stdin);
+	  if (!readln(input, MAX_LINE_LENGTH))
+	    return 1;
+
+	  if (imap)
+	    {
+	      if (input[0] != '+' || input[1] != ' ')
+		{
+		  fprintf (stderr,
+			   _("error: Server did not return expected SASL "
+			     "data (it must begin with '+ '):\n%s\n"),
+			   input);
+		  return 1;
+		}
+	      strcpy(&input[0], &input[2]);
+	    }
 	}
       while (res == GSASL_NEEDS_MORE);
 
@@ -462,58 +602,110 @@ main (int argc, char *argv[])
 	  return 1;
 	}
 
+      /* wait for possibly last round trip */
+      if (imap && !readln(input, MAX_LINE_LENGTH))
+	return 1;
+
+      if (imap)
+	/* XXX check server outcome (NO vs OK vs still waiting) */;
+
       if (!silent)
 	{
 	  if (mode == 'c')
-	    fprintf (stderr,
-		     _
-		     ("Client authentication finished (server trusted)...\n"));
+	    fprintf (stderr, _("Client authentication "
+			       "finished (server trusted)...\n"));
 	  else
-	    fprintf (stderr,
-		     _
-		     ("Server authentication finished (client trusted)...\n"));
+	    fprintf (stderr, _("Server authentication "
+			       "finished (client trusted)...\n"));
 	}
 
       /* Transfer application payload */
-
       if (application_data)
-	do
-	  {
-	    if (!silent)
-	      fprintf (stderr,
-		       _("Enter application data (EOF to finish):\n"));
-
-	    input[0] = '\0';
-	    if (fgets (input, MAX_LINE_LENGTH, stdin) == NULL)
-	      break;
-	    input[strlen (input) - 1] = '\0';
-
-	    res =
-	      gsasl_encode (xctx, input, strlen (input), output, &output_len);
-	    if (res != GSASL_OK)
-	      break;
-
-	    b64output_len = sizeof (b64output);
-	    b64output_len = gsasl_base64_encode (output, output_len,
-						 b64output, b64output_len);
-	    if (b64output_len == -1)
-	      {
-		res = GSASL_BASE64_ERROR;
-		break;
-	      }
-
-	    if (!silent)
-	      fprintf (stderr,
-		       _("Base64 encoded application data to send:\n"));
-	    fprintf (stdout, "%s\n", b64output);
-	  }
-	while (!feof (stdin));
-
-      if (res != GSASL_OK)
 	{
-	  fprintf (stderr, _("Libgsasl error (%d): %s\n"),
-		   res, gsasl_strerror (res));
-	  return 1;
+	  fd_set readfds;
+	  int rc;
+
+	  FD_ZERO(&readfds);
+	  FD_SET(STDIN_FILENO, &readfds);
+	  if (sockfh)
+	    FD_SET(sockfd, &readfds);
+
+	  if (!silent)
+	    fprintf (stderr,
+		     _("Enter application data (EOF to finish):\n"));
+
+	  while (select(sockfd + 1, &readfds, NULL, NULL, NULL))
+	    {
+	      if (FD_ISSET(STDIN_FILENO, &readfds))
+		{
+		  input[0] = '\0';
+		  if (fgets (input, MAX_LINE_LENGTH-2, stdin) == NULL)
+		    break;
+		  if (imap)
+		    {
+		      int pos = strlen (input);
+		      input[pos-1] = '\r';
+		      input[pos] = '\n';
+		      input[pos+1] = '\0';
+		    }
+		  else
+		    input[strlen (input) - 1] = '\0';
+
+		  output_len = sizeof (output);
+		  res = gsasl_encode (xctx, input, strlen (input),
+				      output, &output_len);
+		  if (res != GSASL_OK)
+		    break;
+
+		  if (!(strlen(input) == output_len &&
+			memcmp(input, output, output_len) == 0))
+		    {
+		      puts("d");
+		      b64output_len = sizeof (b64output);
+		      b64output_len = gsasl_base64_encode (output, output_len,
+							   b64output,
+							   b64output_len);
+		      if (b64output_len == -1)
+			{
+			  res = GSASL_BASE64_ERROR;
+			  break;
+			}
+
+		      if (!silent)
+			fprintf (stderr, _("Base64 encoded application "
+					   "data to send:\n"));
+		      fprintf (stdout, "%s\n", b64output);
+		    }
+
+		  if (sockfh)
+		    {
+		      if (fwrite(output, sizeof(output[0]),
+				 output_len, sockfh) != output_len)
+			return 0;
+		    }
+		}
+
+	      if (sockfd && FD_ISSET(sockfd, &readfds))
+		{
+		  input[0] = '\0';
+		  if (fgets (input, MAX_LINE_LENGTH, sockfh) == NULL)
+		    break;
+		  input[strlen (input) - 1] = '\0';
+		  printf("s: %s\n", input);
+		}
+
+	      FD_ZERO(&readfds);
+	      FD_SET(STDIN_FILENO, &readfds);
+	      if (sockfh)
+		FD_SET(sockfd, &readfds);
+	    }
+
+	  if (res != GSASL_OK)
+	    {
+	      fprintf (stderr, _("Libgsasl error (%d): %s\n"),
+		       res, gsasl_strerror (res));
+	      return 1;
+	    }
 	}
 
       if (!silent)
@@ -528,6 +720,23 @@ main (int argc, char *argv[])
 	gsasl_client_finish (xctx);
       else
 	gsasl_server_finish (xctx);
+    }
+
+  if (imap && !writeln(". LOGOUT"))
+    return 1;
+
+  if (sockfh)
+    {
+      /* read "* BYE ..." */
+      if (!readln(input, MAX_LINE_LENGTH))
+	return 1;
+
+      /* read ". OK ..." */
+      if (!readln(input, MAX_LINE_LENGTH))
+	return 1;
+
+      shutdown(sockfd, SHUT_RDWR);
+      fclose(sockfh);
     }
 
   gsasl_done (ctx);
