@@ -603,12 +603,6 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	  res = cb_password (sctx, output + outlen, &len);
 	  if (res != GSASL_OK)
 	    goto done;
-	  tmp = gsasl_stringprep_nfkc (output + outlen, len);
-	  if (tmp == NULL)
-	    {
-	      res = GSASL_UNICODE_NORMALIZATION_ERROR;
-	      goto done;
-	    }
 
 	  secretlen += len;
 	  p = secret = realloc (secret, secretlen);
@@ -619,8 +613,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	    }
 	  p += secretlen - len;
 
-	  memcpy (p, tmp, strlen (tmp));
-	  free (tmp);
+	  memcpy (p, output + outlen, len);
 
 	  res = gsasl_md5 (secret, secretlen, (char **) &tmp);
 	  free (secret);
