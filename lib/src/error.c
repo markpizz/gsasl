@@ -159,10 +159,6 @@ gsasl_strerror (int err)
       p = _("Error authentication user");
       break;
 
-    case GSASL_CANNOT_GET_CTX:
-      p = _("Cannot get internal library handle (library error)");
-      break;
-
     case GSASL_INTEGRITY_ERROR:
       p = _("Integrity error in application payload");
       break;
@@ -236,6 +232,10 @@ gsasl_strerror (int err)
 #ifndef GSASL_NO_OBSOLETE
     case GSASL_TOO_SMALL_BUFFER:
       p = _("SASL function need larger buffer (internal error)");
+      break;
+
+    case GSASL_CANNOT_GET_CTX:
+      p = _("Cannot get internal library handle (library error)");
       break;
 
     case GSASL_NEED_CLIENT_ANONYMOUS_CALLBACK:
