@@ -134,7 +134,7 @@ base64_encode_alloc (const char *in, size_t inlen, char **out)
   return outlen - 1;
 }
 
-/* With this approach this file work independent of the charset used
+/* With this approach this file works independent of the charset used
    (think EBCDIC).  However, it does assume that the characters in the
    Base64 alphabet (A-Za-z0-9+/) are encoded in 0..255.  POSIX
    1003.1-2001 require that char and unsigned char are 8-bit
