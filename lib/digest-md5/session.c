@@ -48,8 +48,7 @@ int
 digest_md5_encode (const char *input, size_t input_len,
 		   char **output, size_t * output_len,
 		   digest_md5_qop qop,
-		   unsigned long sendseqnum,
-		   char key[DIGEST_MD5_LENGTH])
+		   unsigned long sendseqnum, char key[DIGEST_MD5_LENGTH])
 {
   int res;
 
@@ -74,8 +73,7 @@ digest_md5_encode (const char *input, size_t input_len,
       memcpy (seqnumin + MAC_SEQNUM_LEN, input, input_len);
 
       res = gc_hmac_md5 (key, MD5LEN,
-			 seqnumin, MAC_SEQNUM_LEN + input_len,
-			 hash);
+			 seqnumin, MAC_SEQNUM_LEN + input_len, hash);
       free (seqnumin);
       if (res)
 	return -1;
@@ -124,8 +122,7 @@ int
 digest_md5_decode (const char *input, size_t input_len,
 		   char **output, size_t * output_len,
 		   digest_md5_qop qop,
-		   unsigned long readseqnum,
-		   char key[DIGEST_MD5_LENGTH])
+		   unsigned long readseqnum, char key[DIGEST_MD5_LENGTH])
 {
   if (qop & DIGEST_MD5_QOP_AUTH_CONF)
     {
@@ -162,14 +159,15 @@ digest_md5_decode (const char *input, size_t input_len,
       memcpy (seqnumin + SASL_INTEGRITY_PREFIX_LENGTH,
 	      input + MAC_DATA_LEN, len);
 
-      res = gc_hmac_md5 (key, MD5LEN, seqnumin, MAC_SEQNUM_LEN + len,
-			 hash);
+      res = gc_hmac_md5 (key, MD5LEN, seqnumin, MAC_SEQNUM_LEN + len, hash);
       free (seqnumin);
       if (res)
 	return -1;
 
-      if (memcmp (hash, input + input_len - MAC_SEQNUM_LEN - MAC_MSG_TYPE_LEN -
-		  MAC_HMAC_LEN, MAC_HMAC_LEN) == 0
+      if (memcmp
+	  (hash,
+	   input + input_len - MAC_SEQNUM_LEN - MAC_MSG_TYPE_LEN -
+	   MAC_HMAC_LEN, MAC_HMAC_LEN) == 0
 	  && memcmp (MAC_MSG_TYPE,
 		     input + input_len - MAC_SEQNUM_LEN - MAC_MSG_TYPE_LEN,
 		     MAC_MSG_TYPE_LEN) == 0

@@ -41,9 +41,7 @@
  *   found, or other error code.
  **/
 int
-gsasl_simple_getpass (const char *filename,
-		      const char *username,
-		      char **key)
+gsasl_simple_getpass (const char *filename, const char *username, char **key)
 {
   size_t userlen = strlen (username);
   char *line = NULL;

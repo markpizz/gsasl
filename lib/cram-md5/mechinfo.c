@@ -30,37 +30,36 @@
 Gsasl_mechanism gsasl_cram_md5_mechanism = {
   GSASL_CRAM_MD5_NAME,
   {
-    NULL,
-    NULL,
-    NULL,
+   NULL,
+   NULL,
+   NULL,
 #ifdef USE_CLIENT
-    _gsasl_cram_md5_client_step,
+   _gsasl_cram_md5_client_step,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL,
-    NULL
-  },
+   NULL,
+   NULL,
+   NULL}
+  ,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_SERVER
-    _gsasl_cram_md5_server_start,
+   _gsasl_cram_md5_server_start,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_SERVER
-    _gsasl_cram_md5_server_step,
+   _gsasl_cram_md5_server_step,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_SERVER
-    _gsasl_cram_md5_server_finish,
+   _gsasl_cram_md5_server_finish,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL
-  }
+   NULL,
+   NULL}
 };

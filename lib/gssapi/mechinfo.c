@@ -30,53 +30,53 @@
 Gsasl_mechanism gsasl_gssapi_mechanism = {
   GSASL_GSSAPI_NAME,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_CLIENT
-    _gsasl_gssapi_client_start,
+   _gsasl_gssapi_client_start,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_gssapi_client_step,
+   _gsasl_gssapi_client_step,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_gssapi_client_finish,
+   _gsasl_gssapi_client_finish,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_gssapi_client_encode,
+   _gsasl_gssapi_client_encode,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_gssapi_client_decode
+   _gsasl_gssapi_client_decode
 #else
-    NULL
+   NULL
 #endif
-  },
+   }
+  ,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_SERVER
-    _gsasl_gssapi_server_start,
+   _gsasl_gssapi_server_start,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_SERVER
-    _gsasl_gssapi_server_step,
+   _gsasl_gssapi_server_step,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_SERVER
-    _gsasl_gssapi_server_finish,
+   _gsasl_gssapi_server_finish,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL
-  }
+   NULL,
+   NULL}
 };

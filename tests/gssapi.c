@@ -67,8 +67,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       {
 	const char *client_name =
 	  gsasl_property_fast (sctx, GSASL_GSSAPI_DISPLAY_NAME);
-	const char *authzid =
-	  gsasl_property_fast (sctx, GSASL_AUTHZID);
+	const char *authzid = gsasl_property_fast (sctx, GSASL_AUTHZID);
 
 	printf ("GSSAPI user: %s\n", client_name);
 	printf ("Authorization ID: %s\n", authzid);

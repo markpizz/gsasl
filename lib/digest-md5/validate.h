@@ -26,13 +26,13 @@
 /* Get token types. */
 #include "tokens.h"
 
-extern int digest_md5_validate_challenge (digest_md5_challenge *c);
+extern int digest_md5_validate_challenge (digest_md5_challenge * c);
 
-extern int digest_md5_validate_response (digest_md5_response *r);
+extern int digest_md5_validate_response (digest_md5_response * r);
 
-extern int digest_md5_validate_finish (digest_md5_finish *f);
+extern int digest_md5_validate_finish (digest_md5_finish * f);
 
-extern int digest_md5_validate (digest_md5_challenge *c,
-				digest_md5_response *r);
+extern int digest_md5_validate (digest_md5_challenge * c,
+				digest_md5_response * r);
 
 #endif /* DIGEST_MD5_VALIDATE_H */

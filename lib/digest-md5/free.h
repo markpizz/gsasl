@@ -26,10 +26,10 @@
 /* Get token types. */
 #include "tokens.h"
 
-extern void digest_md5_free_challenge (digest_md5_challenge *c);
+extern void digest_md5_free_challenge (digest_md5_challenge * c);
 
-extern void digest_md5_free_response (digest_md5_response *r);
+extern void digest_md5_free_response (digest_md5_response * r);
 
-extern void digest_md5_free_finish (digest_md5_finish *f);
+extern void digest_md5_free_finish (digest_md5_finish * f);
 
 #endif /* DIGEST_MD5_FREE_H */

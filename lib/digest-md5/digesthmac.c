@@ -181,7 +181,7 @@ digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
 	      DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN);
 
       rc = gc_md5 (tmp, n + DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN,
-		      hash2);
+		   hash2);
       if (rc)
 	return rc;
 
@@ -206,7 +206,7 @@ digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
 	      DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING_LEN);
 
       rc = gc_md5 (tmp, n + DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING_LEN,
-		      hash2);
+		   hash2);
       if (rc)
 	return rc;
 

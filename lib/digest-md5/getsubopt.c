@@ -44,8 +44,7 @@
    This function is NOT identical to standard getsubopt! */
 int
 digest_md5_getsubopt (char **optionp,
-		      const char *const *tokens,
-		      char **valuep)
+		      const char *const *tokens, char **valuep)
 {
   char *endp, *vstart;
   int cnt;

@@ -53,8 +53,8 @@ _gsasl_external_server_step (Gsasl_session * sctx,
       p[input_len] = '\0';
 
       /* An authorization identity is a string of zero or more Unicode
-	 [Unicode] coded characters.  The NUL <U+0000> character is not
-	 permitted in authorization identities. */
+         [Unicode] coded characters.  The NUL <U+0000> character is not
+         permitted in authorization identities. */
       if (input_len != strlen (p))
 	return GSASL_MECHANISM_PARSE_ERROR;
 

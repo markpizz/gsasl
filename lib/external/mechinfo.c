@@ -30,29 +30,28 @@
 Gsasl_mechanism gsasl_external_mechanism = {
   GSASL_EXTERNAL_NAME,
   {
-    NULL,
-    NULL,
-    NULL,
+   NULL,
+   NULL,
+   NULL,
 #ifdef USE_CLIENT
-    _gsasl_external_client_step,
+   _gsasl_external_client_step,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL,
-    NULL
-  },
+   NULL,
+   NULL,
+   NULL}
+  ,
   {
-    NULL,
-    NULL,
-    NULL,
+   NULL,
+   NULL,
+   NULL,
 #ifdef USE_SERVER
-    _gsasl_external_server_step,
+   _gsasl_external_server_step,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL,
-    NULL
-  }
+   NULL,
+   NULL,
+   NULL}
 };

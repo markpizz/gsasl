@@ -30,37 +30,35 @@
 Gsasl_mechanism gsasl_securid_mechanism = {
   GSASL_SECURID_NAME,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_CLIENT
-    _gsasl_securid_client_start,
+   _gsasl_securid_client_start,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_securid_client_step,
+   _gsasl_securid_client_step,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_securid_client_finish,
+   _gsasl_securid_client_finish,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL
-  },
+   NULL,
+   NULL},
   {
-    NULL,
-    NULL,
-    NULL,
+   NULL,
+   NULL,
+   NULL,
 #ifdef USE_SERVER
-    _gsasl_securid_server_step,
+   _gsasl_securid_server_step,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL,
-    NULL
-  }
+   NULL,
+   NULL,
+   NULL}
 };

@@ -106,7 +106,7 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
   }
 
   /* Authorization.  Let application verify credentials internally,
-     but fall back to deal with it locally...*/
+     but fall back to deal with it locally... */
   res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_SIMPLE);
   if (res == GSASL_NO_CALLBACK)
     {
@@ -122,7 +122,7 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
 	}
 
       /* FIXME: Specification is unclear on whether unassigned code
-	 points are allowed or not.  We don't allow them. */
+         points are allowed or not.  We don't allow them. */
       res = gsasl_saslprep (key, 0, &normkey, NULL);
       if (res != GSASL_OK)
 	{

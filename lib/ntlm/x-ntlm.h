@@ -29,13 +29,11 @@
 
 extern Gsasl_mechanism gsasl_ntlm_mechanism;
 
-extern int _gsasl_ntlm_client_start (Gsasl_session * sctx,
-				     void **mech_data);
+extern int _gsasl_ntlm_client_start (Gsasl_session * sctx, void **mech_data);
 extern int _gsasl_ntlm_client_step (Gsasl_session * sctx,
 				    void *mech_data,
 				    const char *input, size_t input_len,
 				    char **output, size_t * output_len);
-extern void _gsasl_ntlm_client_finish (Gsasl_session * sctx,
-				       void *mech_data);
+extern void _gsasl_ntlm_client_finish (Gsasl_session * sctx, void *mech_data);
 
 #endif /* X_NTLM_H */

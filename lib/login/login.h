@@ -29,8 +29,7 @@
 
 extern Gsasl_mechanism gsasl_login_mechanism;
 
-extern int _gsasl_login_client_start (Gsasl_session * sctx,
-				      void **mech_data);
+extern int _gsasl_login_client_start (Gsasl_session * sctx, void **mech_data);
 extern int _gsasl_login_client_step (Gsasl_session * sctx,
 				     void *mech_data,
 				     const char *input, size_t input_len,
@@ -38,8 +37,7 @@ extern int _gsasl_login_client_step (Gsasl_session * sctx,
 extern void _gsasl_login_client_finish (Gsasl_session * sctx,
 					void *mech_data);
 
-extern int _gsasl_login_server_start (Gsasl_session * sctx,
-				      void **mech_data);
+extern int _gsasl_login_server_start (Gsasl_session * sctx, void **mech_data);
 extern int _gsasl_login_server_step (Gsasl_session * sctx,
 				     void *mech_data,
 				     const char *input, size_t input_len,

@@ -31,23 +31,23 @@
 
 /* Quality of Protection types. */
 enum digest_md5_qop
-  {
-    DIGEST_MD5_QOP_AUTH = 1,
-    DIGEST_MD5_QOP_AUTH_INT = 2,
-    DIGEST_MD5_QOP_AUTH_CONF = 4
-  };
+{
+  DIGEST_MD5_QOP_AUTH = 1,
+  DIGEST_MD5_QOP_AUTH_INT = 2,
+  DIGEST_MD5_QOP_AUTH_CONF = 4
+};
 typedef enum digest_md5_qop digest_md5_qop;
 
 /* Cipher types. */
 enum digest_md5_cipher
-  {
-    DIGEST_MD5_CIPHER_DES = 1,
-    DIGEST_MD5_CIPHER_3DES = 2,
-    DIGEST_MD5_CIPHER_RC4 = 4,
-    DIGEST_MD5_CIPHER_RC4_40 = 8,
-    DIGEST_MD5_CIPHER_RC4_56 = 16,
-    DIGEST_MD5_CIPHER_AES_CBC = 32
-  };
+{
+  DIGEST_MD5_CIPHER_DES = 1,
+  DIGEST_MD5_CIPHER_3DES = 2,
+  DIGEST_MD5_CIPHER_RC4 = 4,
+  DIGEST_MD5_CIPHER_RC4_40 = 8,
+  DIGEST_MD5_CIPHER_RC4_56 = 16,
+  DIGEST_MD5_CIPHER_AES_CBC = 32
+};
 typedef enum digest_md5_cipher digest_md5_cipher;
 
 /*
@@ -79,7 +79,8 @@ typedef enum digest_md5_cipher digest_md5_cipher;
  * auth-param        = token "=" ( token | quoted-string )
  *
  */
-struct digest_md5_challenge {
+struct digest_md5_challenge
+{
   size_t nrealms;
   char **realms;
   char *nonce;
@@ -122,7 +123,8 @@ typedef struct digest_md5_challenge digest_md5_challenge;
  *     authzid-value    = qdstr-val
  *
  */
-struct digest_md5_response {
+struct digest_md5_response
+{
   char *username;
   char *realm;
   char *nonce;
@@ -141,7 +143,8 @@ typedef struct digest_md5_response digest_md5_response;
 /*
  * response-auth = "rspauth" "=" response-value
  */
-struct digest_md5_finish {
+struct digest_md5_finish
+{
   char rspauth[DIGEST_MD5_RESPONSE_LENGTH + 1];
 };
 typedef struct digest_md5_finish digest_md5_finish;

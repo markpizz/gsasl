@@ -33,13 +33,13 @@
 #include <string.h>
 
 void
-digest_md5_free_challenge (digest_md5_challenge *c)
+digest_md5_free_challenge (digest_md5_challenge * c)
 {
   size_t i;
 
   for (i = 0; i < c->nrealms; i++)
     free (c->realms[i]);
-  if  (c->realms)
+  if (c->realms)
     free (c->realms);
   if (c->nonce)
     free (c->nonce);
@@ -48,7 +48,7 @@ digest_md5_free_challenge (digest_md5_challenge *c)
 }
 
 void
-digest_md5_free_response (digest_md5_response *r)
+digest_md5_free_response (digest_md5_response * r)
 {
   if (r->username)
     free (r->username);
@@ -67,7 +67,7 @@ digest_md5_free_response (digest_md5_response *r)
 }
 
 void
-digest_md5_free_finish (digest_md5_finish *f)
+digest_md5_free_finish (digest_md5_finish * f)
 {
   memset (f, 0, sizeof (*f));
 }

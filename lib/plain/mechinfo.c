@@ -30,29 +30,28 @@
 Gsasl_mechanism gsasl_plain_mechanism = {
   GSASL_PLAIN_NAME,
   {
-    NULL,
-    NULL,
-    NULL,
+   NULL,
+   NULL,
+   NULL,
 #ifdef USE_CLIENT
-    _gsasl_plain_client_step,
+   _gsasl_plain_client_step,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL,
-    NULL
-  },
+   NULL,
+   NULL,
+   NULL}
+  ,
   {
-    NULL,
-    NULL,
-    NULL,
+   NULL,
+   NULL,
+   NULL,
 #ifdef USE_SERVER
-    _gsasl_plain_server_step,
+   _gsasl_plain_server_step,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL,
-    NULL
-  }
+   NULL,
+   NULL,
+   NULL}
 };

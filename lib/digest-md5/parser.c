@@ -40,17 +40,17 @@
 #define DEFAULT_ALGORITHM "md5-sess"
 
 enum
-  {
-    /* the order must match the following struct */
-    CHALLENGE_REALM = 0,
-    CHALLENGE_NONCE,
-    CHALLENGE_QOP,
-    CHALLENGE_STALE,
-    CHALLENGE_MAXBUF,
-    CHALLENGE_CHARSET,
-    CHALLENGE_ALGORITHM,
-    CHALLENGE_CIPHER
-  };
+{
+  /* the order must match the following struct */
+  CHALLENGE_REALM = 0,
+  CHALLENGE_NONCE,
+  CHALLENGE_QOP,
+  CHALLENGE_STALE,
+  CHALLENGE_MAXBUF,
+  CHALLENGE_CHARSET,
+  CHALLENGE_ALGORITHM,
+  CHALLENGE_CIPHER
+};
 
 static const char *const digest_challenge_opts[] = {
   /* the order must match the previous enum */
@@ -67,12 +67,12 @@ static const char *const digest_challenge_opts[] = {
 
 /* qop-value         = "auth" | "auth-int" | "auth-conf" | qop-token */
 enum
-  {
-    /* the order must match the following struct */
-    QOP_AUTH = 0,
-    QOP_AUTH_INT,
-    QOP_AUTH_CONF
-  };
+{
+  /* the order must match the following struct */
+  QOP_AUTH = 0,
+  QOP_AUTH_INT,
+  QOP_AUTH_CONF
+};
 
 static const char *const qop_opts[] = {
   /* the order must match the previous enum */
@@ -87,15 +87,15 @@ static const char *const qop_opts[] = {
  *                     ;; "des" and "3des" ciphers are obsolete.
  */
 enum
-  {
-    /* the order must match the following struct */
-    CIPHER_DES = 0,
-    CIPHER_3DES,
-    CIPHER_RC4,
-    CIPHER_RC4_40,
-    CIPHER_RC4_56,
-    CIPHER_AES_CBC
-  };
+{
+  /* the order must match the following struct */
+  CIPHER_DES = 0,
+  CIPHER_3DES,
+  CIPHER_RC4,
+  CIPHER_RC4_40,
+  CIPHER_RC4_56,
+  CIPHER_AES_CBC
+};
 
 static const char *const cipher_opts[] = {
   /* the order must match the previous enum */
@@ -109,7 +109,7 @@ static const char *const cipher_opts[] = {
 };
 
 static int
-parse_challenge (char *challenge, digest_md5_challenge *out)
+parse_challenge (char *challenge, digest_md5_challenge * out)
 {
   int done_algorithm = 0;
   int disable_qop_auth_conf = 0;
@@ -313,21 +313,21 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 }
 
 enum
-  {
-    /* the order must match the following struct */
-    RESPONSE_USERNAME = 0,
-    RESPONSE_REALM,
-    RESPONSE_NONCE,
-    RESPONSE_CNONCE,
-    RESPONSE_NC,
-    RESPONSE_QOP,
-    RESPONSE_DIGEST_URI,
-    RESPONSE_RESPONSE,
-    RESPONSE_MAXBUF,
-    RESPONSE_CHARSET,
-    RESPONSE_CIPHER,
-    RESPONSE_AUTHZID
-  };
+{
+  /* the order must match the following struct */
+  RESPONSE_USERNAME = 0,
+  RESPONSE_REALM,
+  RESPONSE_NONCE,
+  RESPONSE_CNONCE,
+  RESPONSE_NC,
+  RESPONSE_QOP,
+  RESPONSE_DIGEST_URI,
+  RESPONSE_RESPONSE,
+  RESPONSE_MAXBUF,
+  RESPONSE_CHARSET,
+  RESPONSE_CIPHER,
+  RESPONSE_AUTHZID
+};
 
 static const char *const digest_response_opts[] = {
   /* the order must match the previous enum */
@@ -347,7 +347,7 @@ static const char *const digest_response_opts[] = {
 };
 
 static int
-parse_response (char *response, digest_md5_response *out)
+parse_response (char *response, digest_md5_response * out)
 {
   char *value;
 
@@ -519,10 +519,10 @@ parse_response (char *response, digest_md5_response *out)
 }
 
 enum
-  {
-    /* the order must match the following struct */
-    RESPONSEAUTH_RSPAUTH = 0
-  };
+{
+  /* the order must match the following struct */
+  RESPONSEAUTH_RSPAUTH = 0
+};
 
 static const char *const digest_responseauth_opts[] = {
   /* the order must match the previous enum */
@@ -531,7 +531,7 @@ static const char *const digest_responseauth_opts[] = {
 };
 
 static int
-parse_finish (char *finish, digest_md5_finish *out)
+parse_finish (char *finish, digest_md5_finish * out)
 {
   char *value;
 
@@ -567,7 +567,7 @@ parse_finish (char *finish, digest_md5_finish *out)
 
 int
 digest_md5_parse_challenge (const char *challenge, size_t len,
-			    digest_md5_challenge *out)
+			    digest_md5_challenge * out)
 {
   size_t inlen = len ? len : strlen (challenge);
   char *subopts = malloc (inlen + 1);
@@ -588,7 +588,7 @@ digest_md5_parse_challenge (const char *challenge, size_t len,
 
 int
 digest_md5_parse_response (const char *response, size_t len,
-			   digest_md5_response *out)
+			   digest_md5_response * out)
 {
   size_t inlen = len ? len : strlen (response);
   char *subopts = malloc (inlen + 1);
@@ -609,7 +609,7 @@ digest_md5_parse_response (const char *response, size_t len,
 
 int
 digest_md5_parse_finish (const char *finish, size_t len,
-			 digest_md5_finish *out)
+			 digest_md5_finish * out)
 {
   size_t inlen = len ? len : strlen (finish);
   char *subopts = malloc (inlen + 1);

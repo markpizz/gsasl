@@ -154,7 +154,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 			   sctx->hostname, &buf, &buflen);
 	if (res == GSASL_OK)
 	  gsasl_property_set_raw (sctx, GSASL_PASSWORD, buf, buflen);
-	/* FIXME else if (res == GSASL_TOO_SMALL_BUFFER)...*/
+	/* FIXME else if (res == GSASL_TOO_SMALL_BUFFER)... */
 	return res;
 	break;
 

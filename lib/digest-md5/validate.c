@@ -31,7 +31,7 @@
 #include <string.h>
 
 int
-digest_md5_validate_challenge (digest_md5_challenge *c)
+digest_md5_validate_challenge (digest_md5_challenge * c)
 {
   /* This directive is required and MUST appear exactly once; if
      not present, or if multiple instances are present, the
@@ -50,7 +50,7 @@ digest_md5_validate_challenge (digest_md5_challenge *c)
 }
 
 int
-digest_md5_validate_response (digest_md5_response *r)
+digest_md5_validate_response (digest_md5_response * r)
 {
   /* This directive is required and MUST be present exactly
      once; otherwise, authentication fails. */
@@ -100,7 +100,7 @@ digest_md5_validate_response (digest_md5_response *r)
 }
 
 int
-digest_md5_validate_finish (digest_md5_finish *f)
+digest_md5_validate_finish (digest_md5_finish * f)
 {
   if (!f->rspauth)
     return -1;
@@ -109,7 +109,7 @@ digest_md5_validate_finish (digest_md5_finish *f)
 }
 
 int
-digest_md5_validate (digest_md5_challenge *c, digest_md5_response *r)
+digest_md5_validate (digest_md5_challenge * c, digest_md5_response * r)
 {
   if (!c->nonce || !r->nonce)
     return -1;

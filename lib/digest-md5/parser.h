@@ -27,16 +27,15 @@
 #include "tokens.h"
 
 extern int digest_md5_getsubopt (char **optionp,
-				 const char *const *tokens,
-				 char **valuep);
+				 const char *const *tokens, char **valuep);
 
 extern int digest_md5_parse_challenge (const char *challenge, size_t len,
-				       digest_md5_challenge *out);
+				       digest_md5_challenge * out);
 
 extern int digest_md5_parse_response (const char *response, size_t len,
-				      digest_md5_response *out);
+				      digest_md5_response * out);
 
 extern int digest_md5_parse_finish (const char *finish, size_t len,
-				    digest_md5_finish *out);
+				    digest_md5_finish * out);
 
 #endif /* DIGEST_MD5_PARSER_H */

@@ -73,7 +73,7 @@ client_authenticate (Gsasl * ctx, Gsasl_session * session)
 }
 
 static void
-client (Gsasl *ctx)
+client (Gsasl * ctx)
 {
   Gsasl_session *session;
   const char *mech = "PLAIN";

@@ -240,7 +240,7 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
 	}
 
       gsasl_property_set_raw (sctx, GSASL_AUTHZID,
-			   bufdesc2.value + 4, bufdesc2.length - 4);
+			      bufdesc2.value + 4, bufdesc2.length - 4);
 
       maj_stat = gss_display_name (&min_stat, state->client,
 				   &client_name, &mech_type);
@@ -248,7 +248,7 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
 	return GSASL_GSSAPI_DISPLAY_NAME_ERROR;
 
       gsasl_property_set_raw (sctx, GSASL_GSSAPI_DISPLAY_NAME,
-			   client_name.value, client_name.length);
+			      client_name.value, client_name.length);
 
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
       if (GSS_ERROR (maj_stat))

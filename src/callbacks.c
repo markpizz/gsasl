@@ -123,12 +123,14 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	      readutf8line ("Enter authentication ID: ");
 	}
 
-      gsasl_property_set (sctx, GSASL_AUTHID, args_info.authentication_id_arg);
+      gsasl_property_set (sctx, GSASL_AUTHID,
+			  args_info.authentication_id_arg);
       rc = GSASL_OK;
       break;
 
     case GSASL_AUTHZID:
-      gsasl_property_set (sctx, GSASL_AUTHZID, args_info.authorization_id_arg);
+      gsasl_property_set (sctx, GSASL_AUTHZID,
+			  args_info.authorization_id_arg);
       rc = GSASL_OK;
       break;
 
@@ -144,8 +146,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
     case GSASL_HOSTNAME:
       if (args_info.hostname_arg == NULL)
-	args_info.hostname_arg =
-	  readutf8line ("Enter hostname of server: ");
+	args_info.hostname_arg = readutf8line ("Enter hostname of server: ");
 
       gsasl_property_set (sctx, GSASL_HOSTNAME, args_info.hostname_arg);
 

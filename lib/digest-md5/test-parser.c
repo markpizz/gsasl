@@ -175,9 +175,9 @@ main (int argc, char *argv[])
 
   memset (buf16, 'Q', 16);
 
-  rc = digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce", DIGEST_MD5_QOP_AUTH,
-			"authzid", "digesturi", 1, 0,
-			NULL, NULL, NULL, NULL);
+  rc =
+    digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce", DIGEST_MD5_QOP_AUTH,
+		     "authzid", "digesturi", 1, 0, NULL, NULL, NULL, NULL);
   if (rc != 0)
     abort ();
   buf32[32] = '\0';
@@ -185,9 +185,9 @@ main (int argc, char *argv[])
     abort ();
   printf ("digest: `%s': PASS\n", buf32);
 
-  rc = digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce", DIGEST_MD5_QOP_AUTH,
-			"authzid", "digesturi", 0, 0,
-			NULL, NULL, NULL, NULL);
+  rc =
+    digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce", DIGEST_MD5_QOP_AUTH,
+		     "authzid", "digesturi", 0, 0, NULL, NULL, NULL, NULL);
   if (rc != 0)
     abort ();
   buf32[32] = '\0';

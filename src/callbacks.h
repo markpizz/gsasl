@@ -24,7 +24,6 @@
 
 #include <gsasl.h>		/* Gsasl_session_ctx */
 
-extern int
-callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop);
+extern int callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop);
 
 #endif /* CALLBACKS_H */

@@ -30,61 +30,62 @@
 Gsasl_mechanism gsasl_digest_md5_mechanism = {
   GSASL_DIGEST_MD5_NAME,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_CLIENT
-    _gsasl_digest_md5_client_start,
+   _gsasl_digest_md5_client_start,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_digest_md5_client_step,
+   _gsasl_digest_md5_client_step,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_digest_md5_client_finish,
+   _gsasl_digest_md5_client_finish,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_digest_md5_client_encode,
+   _gsasl_digest_md5_client_encode,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_digest_md5_client_decode
+   _gsasl_digest_md5_client_decode
 #else
-    NULL
+   NULL
 #endif
-  },
+   }
+  ,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_SERVER
-    _gsasl_digest_md5_server_start,
+   _gsasl_digest_md5_server_start,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_SERVER
-    _gsasl_digest_md5_server_step,
+   _gsasl_digest_md5_server_step,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_SERVER
-    _gsasl_digest_md5_server_finish,
+   _gsasl_digest_md5_server_finish,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_SERVER
-    _gsasl_digest_md5_server_encode,
+   _gsasl_digest_md5_server_encode,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_SERVER
-    _gsasl_digest_md5_server_decode
+   _gsasl_digest_md5_server_decode
 #else
-    NULL
+   NULL
 #endif
-  }
+   }
 };

@@ -30,33 +30,32 @@
 Gsasl_mechanism gsasl_ntlm_mechanism = {
   GSASL_NTLM_NAME,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_CLIENT
-    _gsasl_ntlm_client_start,
+   _gsasl_ntlm_client_start,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_ntlm_client_step,
+   _gsasl_ntlm_client_step,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_ntlm_client_finish,
+   _gsasl_ntlm_client_finish,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL
-  },
+   NULL,
+   NULL}
+  ,
   {
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-  }
+   NULL,
+   NULL,
+   NULL,
+   NULL,
+   NULL,
+   NULL,
+   NULL}
 };

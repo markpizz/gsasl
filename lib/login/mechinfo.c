@@ -30,45 +30,43 @@
 Gsasl_mechanism gsasl_login_mechanism = {
   GSASL_LOGIN_NAME,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_CLIENT
-    _gsasl_login_client_start,
+   _gsasl_login_client_start,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_login_client_step,
+   _gsasl_login_client_step,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_CLIENT
-    _gsasl_login_client_finish,
+   _gsasl_login_client_finish,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL
-  },
+   NULL,
+   NULL},
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_SERVER
-    _gsasl_login_server_start,
+   _gsasl_login_server_start,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_SERVER
-    _gsasl_login_server_step,
+   _gsasl_login_server_step,
 #else
-    NULL,
+   NULL,
 #endif
 #ifdef USE_SERVER
-    _gsasl_login_server_finish,
+   _gsasl_login_server_finish,
 #else
-    NULL,
+   NULL,
 #endif
-    NULL,
-    NULL
-  }
+   NULL,
+   NULL}
 };

@@ -115,9 +115,9 @@ extern "C"
 
   /* SASLprep flags, see gsasl_saslprep(). */
   typedef enum
-    {
-      GSASL_ALLOW_UNASSIGNED = 1
-    } Gsasl_saslprep_flags;
+  {
+    GSASL_ALLOW_UNASSIGNED = 1
+  } Gsasl_saslprep_flags;
 
   /* Library handles */
   typedef struct Gsasl Gsasl;
@@ -188,8 +188,9 @@ extern "C"
   /* Property handling: property.c */
   extern void gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
 				  const char *data);
-  extern void gsasl_property_set_raw (Gsasl_session * sctx, Gsasl_property prop,
-				   const char *data, size_t len);
+  extern void gsasl_property_set_raw (Gsasl_session * sctx,
+				      Gsasl_property prop, const char *data,
+				      size_t len);
   extern const char *gsasl_property_get (Gsasl_session * sctx,
 					 Gsasl_property prop);
   extern const char *gsasl_property_fast (Gsasl_session * sctx,
@@ -233,7 +234,7 @@ extern "C"
 
   /* Utilities: base64.c, md5pwd.c, crypto.c */
   extern int gsasl_base64_to (const char *in, size_t inlen,
-			      char **out, size_t *outlen);
+			      char **out, size_t * outlen);
   extern int gsasl_base64_from (const char *in, size_t inlen,
 				char **out, size_t * outlen);
   extern int gsasl_md5pwd_get_password (const char *filename,

@@ -40,7 +40,7 @@
    such as "foo=bar, , , bar=foo".  It is valid, but look ugly. */
 
 char *
-digest_md5_print_challenge (digest_md5_challenge *c)
+digest_md5_print_challenge (digest_md5_challenge * c)
 {
   char *out = NULL;
   char *realm = NULL, *maxbuf = NULL;
@@ -88,7 +88,7 @@ digest_md5_print_challenge (digest_md5_challenge *c)
 		c->ciphers ? "\"" : "") < 0)
     out = NULL;
 
- end:
+end:
   if (realm)
     free (realm);
   if (maxbuf)
@@ -99,7 +99,7 @@ digest_md5_print_challenge (digest_md5_challenge *c)
 }
 
 char *
-digest_md5_print_response (digest_md5_response *r)
+digest_md5_print_response (digest_md5_response * r)
 {
   char *out = NULL;
   const char *qop = NULL;
@@ -158,11 +158,10 @@ digest_md5_print_response (digest_md5_response *r)
 		r->utf8 ? "charset=utf-8" : "",
 		cipher,
 		r->authzid ? "authzid=\"" : "",
-		r->authzid ? r->authzid : "",
-		r->authzid ? "\"" : "") < 0)
+		r->authzid ? r->authzid : "", r->authzid ? "\"" : "") < 0)
     out = NULL;
 
- end:
+end:
   if (maxbuf)
     free (maxbuf);
 
@@ -170,7 +169,7 @@ digest_md5_print_response (digest_md5_response *r)
 }
 
 char *
-digest_md5_print_finish (digest_md5_finish *finish)
+digest_md5_print_finish (digest_md5_finish * finish)
 {
   char *out;
 

@@ -144,8 +144,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
       break;
 
     case 1:
-      if (digest_md5_parse_response (input, input_len,
-				     &state->response) < 0)
+      if (digest_md5_parse_response (input, input_len, &state->response) < 0)
 	return GSASL_MECHANISM_PARSE_ERROR;
 
       /* Make sure response is consistent with challenge. */
@@ -160,7 +159,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
       /* FIXME: qop, cipher, maxbuf. */
 
       /* Compute secret.  TODO: Add callback to retrieve hashed
-	 secret. */
+         secret. */
       {
 	const char *c;
 	char *tmp, *tmp2;
@@ -191,8 +190,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 			      state->response.cnonce, state->response.qop,
 			      state->response.authzid,
 			      state->response.digesturi, 0,
-			      state->response.cipher,
-			      NULL, NULL, NULL, NULL);
+			      state->response.cipher, NULL, NULL, NULL, NULL);
 	if (rc)
 	  return GSASL_AUTHENTICATION_ERROR;
 
@@ -257,7 +255,8 @@ _gsasl_digest_md5_server_encode (Gsasl_session * sctx,
   int res;
 
   res = digest_md5_encode (input, input_len, output, output_len,
-			   state->response.qop, state->sendseqnum, state->kis);
+			   state->response.qop, state->sendseqnum,
+			   state->kis);
   if (res)
     return res == -2 ? GSASL_NEEDS_MORE : GSASL_INTEGRITY_ERROR;
 
@@ -280,7 +279,8 @@ _gsasl_digest_md5_server_decode (Gsasl_session * sctx,
   int res;
 
   res = digest_md5_decode (input, input_len, output, output_len,
-			   state->response.qop, state->readseqnum, state->kic);
+			   state->response.qop, state->readseqnum,
+			   state->kic);
   if (res)
     return res == -2 ? GSASL_NEEDS_MORE : GSASL_INTEGRITY_ERROR;
 

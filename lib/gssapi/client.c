@@ -71,7 +71,7 @@ _gsasl_gssapi_client_start (Gsasl_session * sctx, void **mech_data)
   state->context = GSS_C_NO_CONTEXT;
   state->service = GSS_C_NO_NAME;
   state->step = 0;
-  state->qop = GSASL_QOP_AUTH; /* FIXME: Should be GSASL_QOP_AUTH_CONF. */
+  state->qop = GSASL_QOP_AUTH;	/* FIXME: Should be GSASL_QOP_AUTH_CONF. */
 
   *mech_data = state;
 
@@ -221,7 +221,7 @@ _gsasl_gssapi_client_step (Gsasl_session * sctx,
       if (!bufdesc.value)
 	return GSASL_MALLOC_ERROR;
 
-      ((char*)bufdesc.value)[0] = state->qop;
+      ((char *) bufdesc.value)[0] = state->qop;
       memcpy (bufdesc.value + 1, clientwrap + 1, 3);
       memcpy (bufdesc.value + 4, p, strlen (p));
 

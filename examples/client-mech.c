@@ -67,7 +67,7 @@ client_authenticate (Gsasl * ctx, Gsasl_session * session)
 }
 
 static const char *
-client_mechanism (Gsasl *ctx)
+client_mechanism (Gsasl * ctx)
 {
   static char mech[GSASL_MAX_MECHANISM_SIZE + 1] = "";
   char mechlist[BUFSIZ] = "";
@@ -88,7 +88,7 @@ client_mechanism (Gsasl *ctx)
 }
 
 static void
-client (Gsasl *ctx)
+client (Gsasl * ctx)
 {
   Gsasl_session *session;
   const char *mech;
