@@ -51,9 +51,7 @@ please let me know so work duplication can be avoided.
 The GNU SASL library, command-line application and test suite (lib/,
 src/, and tests/) are licensed under the GNU Public License license
 (see COPYING), and the documentation (doc/) is licensed under the GNU
-Free Documentation License (see COPYING.DOC).  The remaining
-sub-directories (gl/) are distributed here for convenience and have
-their own respective licenses, they are not part of GNU SASL proper.
+Free Documentation License (see COPYING.DOC).
 
 For updates to the project, see <http://www.gnu.org/software/gsasl/>.
 
