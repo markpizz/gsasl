@@ -124,12 +124,14 @@ sasltv[] =
     "", "YQBhAGE=", NULL, NULL}
   , "a", "a", "a"}
   ,
+#ifdef WITH_STRINGPREP
   {
     CLIENT, "PLAIN",
     {
     "", "YQBhAGE=", NULL, NULL}
   , UTF8_a, UTF8_a, UTF8_a}
   ,
+#endif
   {
     SERVER, "PLAIN",
     {
@@ -157,12 +159,14 @@ sasltv[] =
     "VXNlciBOYW1l", "YQ==", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}
   , "a", "a", "authid"}
   ,
+#ifdef WITH_STRINGPREP
   {
     CLIENT, "LOGIN",
     {
     "VXNlciBOYW1l", "YQ==", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}
   , UTF8_a, UTF8_a, "authid"}
   ,
+#endif
   {
     SERVER, "LOGIN",
     {
