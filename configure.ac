@@ -42,7 +42,6 @@ AM_GNU_GETTEXT_VERSION(0.12.1)
 AC_PROG_CC
 AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
-AC_GNU_SOURCE
 AC_PROG_LIBTOOL
 
 # ANONYMOUS
@@ -354,14 +353,8 @@ AC_CHECK_HEADERS(sys/types.h sys/poll.h sys/time.h sys/select.h sys/socket.h)
 AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h errno.h)
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
-AC_TYPE_SIZE_T
 AC_TYPE_UID_T
-AC_HEADER_TIME
 AC_CHECK_DECLS(errno)
-
-# Nettle uses alloca.
-AC_FUNC_ALLOCA
 
 # Need getopt.
 AC_CHECK_FUNCS(getopt_long,, [AC_LIBOBJ(getopt) AC_LIBOBJ(getopt1)])
