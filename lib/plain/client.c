@@ -72,7 +72,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
   p = gsasl_property_get (sctx, GSASL_PASSWORD);
   if (!p)
     {
-      res = GSASL_NO_AUTHZID;
+      res = GSASL_NO_PASSWORD;
       goto end;
     }
 

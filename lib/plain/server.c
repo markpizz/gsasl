@@ -95,7 +95,7 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
       if (normkey == NULL)
 	{
 	  free (password);
-	  return GSASL_UNICODE_NORMALIZATION_ERROR;
+	  return GSASL_SASLPREP_ERROR;
 	}
       if (strlen (password) == strlen (normkey) &&
 	  memcmp (normkey, password, strlen (normkey)) == 0)
