@@ -18,6 +18,8 @@ call gsasl_register to register your new mechanism.
 ** Now using Lesser GNULib for portability code.
 This means the code now use strdup, which improve readability.
 
+** A few memory leaks removed.
+
 ** Translation fixes.
 
 ** API and ABI modifications.
