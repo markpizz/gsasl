@@ -9,7 +9,10 @@ The implementation is written so it can be used separately from GNU
 SASL in your own product, it only uses C89 and two external symbols
 for MD5 and HMAC-MD5.  For more information, see digest-md5/README.
 
-** The PLAIN server now prepare the client string as well as the local string.
+** Improvements to the PLAIN server.
+It now prepare the incoming authid and password using SASLprep
+(unassigned code point will be rejected).  It should also reject
+invalid input better.
 
 ** Improved robustness of callback backwards compatibility.
 
