@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.0\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-04-16 21:12+0200\n"
+"POT-Creation-Date: 2004-11-29 01:57+0100\n"
 "PO-Revision-Date: 2004-04-25 03:15+0100\n"
 "Last-Translator: Roland Illig <roland.illig@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -15,83 +15,68 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/gsasl.c:106
 #, c-format
 msgid "Chose SASL mechanism:\n"
 msgstr "SASL-Mechanismus auswählen:\n"
 
-#: src/gsasl.c:114
 #, c-format
 msgid "Input SASL mechanism supported by server:\n"
 msgstr "SASL-Eingabemechanismus, der vom Server unterstützt wird:\n"
 
-#: src/gsasl.c:133
 #, c-format
 msgid "Using mechanism:\n"
 msgstr "Benutze Mechanismus:\n"
 
-#: src/gsasl.c:150
 #, c-format
 msgid "Output from client:\n"
 msgstr "Ausgabe vom Client:\n"
 
-#: src/gsasl.c:152
 #, c-format
 msgid "Output from server:\n"
 msgstr "Ausgabe vom Server:\n"
 
-#: src/gsasl.c:302 src/gsasl.c:347 src/gsasl.c:402 src/gsasl.c:447
-#: src/gsasl.c:542
-#, c-format
-msgid "Libgsasl error (%d): %s\n"
+#, fuzzy, c-format
+msgid "Libgsasl error (%d): %s"
 msgstr "Libgsasl-Fehler (%d): %s\n"
 
-#: src/gsasl.c:356
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Dieser Client unterstützt folgende Mechanismen:\n"
 
-#: src/gsasl.c:359
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Dieser Server unterstützt folgende Mechanismen:\n"
 
-#: src/gsasl.c:384
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Kann Mechanismus nicht finden...\n"
 
-#: src/gsasl.c:433
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Geben Sie Base64-Authentifizierungsdaten vom Server ein (ENTER für keine):\n"
+msgstr ""
+"Geben Sie Base64-Authentifizierungsdaten vom Server ein (ENTER für keine):\n"
 
-#: src/gsasl.c:436
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Geben Sie Base64-Authentifizierungsdaten vom Client ein (ENTER für keine):\n"
+msgstr ""
+"Geben Sie Base64-Authentifizierungsdaten vom Client ein (ENTER für keine):\n"
 
-#: src/gsasl.c:458
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Client-Authentifizierung abgeschlossen (der Server vertraut)...\n"
 
-#: src/gsasl.c:461
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Server-Authentifizierung abgeschlossen (der Client vertraut)...\n"
 
-#: src/gsasl.c:476
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Geben Sie Anwendungsdaten ein (EOF zum Beenden):\n"
 
-#: src/gsasl.c:515
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Base64-codierte Anwendungsdaten zum Verschicken:\n"
 
-#: src/gsasl.c:549
 #, c-format
 msgid "Session finished...\n"
 msgstr "Sitzung beendet...\n"
