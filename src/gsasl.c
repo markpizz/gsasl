@@ -78,7 +78,7 @@ select_mechanism (char **mechlist)
 {
   char *in;
 
-  if (args_info.imap_flag)
+  if (args_info.imap_flag || args_info.smtp_flag)
     {
       if (!readln (&in))
 	return 0;
@@ -96,8 +96,12 @@ select_mechanism (char **mechlist)
     {
       if (args_info.imap_flag && !writeln (". CAPABILITY"))
 	return 0;
+      if (args_info.smtp_flag && !writeln ("EHLO foo"))
+	return 0;
 
-      if (!args_info.quiet_given && !args_info.imap_flag)
+      if (!args_info.quiet_given &&
+	  !args_info.imap_flag &&
+	  !args_info.smtp_flag)
 	fprintf (stderr,
 		 _("Input SASL mechanism supported by server:\n"));
       if (!readln (&in))
@@ -119,6 +123,14 @@ authenticate (const char *mech)
       char input[MAX_LINE_LENGTH];
 
       sprintf (input, ". AUTHENTICATE %s", mech);
+      if (!writeln (input))
+	return 0;
+    }
+  else if (args_info.smtp_flag && args_info.client_flag)
+    {
+      char input[MAX_LINE_LENGTH];
+
+      sprintf (input, "AUTH %s", mech);
       if (!writeln (input))
 	return 0;
     }
@@ -146,7 +158,18 @@ step_send (const char *data)
       if (!writeln (input))
 	return 0;
     }
-  else
+  else if (args_info.smtp_flag)
+    {
+      char input[MAX_LINE_LENGTH];
+
+      if (args_info.client_flag)
+	sprintf (input, "%s", data);
+      else
+	sprintf (input, "334 %s", data);
+      if (!writeln (input))
+	return 0;
+    }
+    else
     {
       if (!args_info.quiet_given)
 	{
@@ -181,6 +204,20 @@ step_recv (char **data)
       memmove (&p[0], &p[2], strlen (p) - 1);
     }
 
+  if (args_info.smtp_flag)
+    {
+      char *p = *data;
+
+      if (p[0] != '3' || p[1] != '3' || p[2] != '4' || p[3] != ' ')
+	{
+	  fprintf (stderr, _("error: Server did not return expected SASL "
+			     "data (it must begin with '334 '):\n%s\n"), data);
+	  return 0;
+	}
+
+      memmove (&p[0], &p[4], strlen (p) - 3);
+    }
+
   return 1;
 }
 
@@ -189,8 +226,10 @@ auth_finish (void)
 {
   char *in;
 
-  /* wait for possibly last round trip */
   if (args_info.imap_flag && !readln (&in))
+    return 0;
+
+  if (args_info.smtp_flag && !readln (&in))
     return 0;
 
   return 1;
@@ -213,6 +252,18 @@ logout (void)
       free (in);
 
       /* read ". OK ..." */
+      if (!readln (&in))
+	return 1;
+
+      free (in);
+    }
+
+  if (args_info.smtp_flag)
+    {
+      if (!writeln ("QUIT"))
+	return 1;
+
+      /* read "221 2.0.0 foo closing ..." */
       if (!readln (&in))
 	return 1;
 
@@ -257,6 +308,12 @@ main (int argc, char *argv[])
       args_info.no_client_first_flag = 1;
     }
 
+  if (args_info.smtp_flag && !args_info.service_given)
+    {
+      args_info.service_arg = strdup ("smtp");
+      args_info.no_client_first_flag = 1;
+    }
+
   if (args_info.connect_given)
     {
       struct servent *se;
@@ -275,7 +332,10 @@ main (int argc, char *argv[])
       else
 	{
 	  connect_hostname = strdup (args_info.connect_arg);
-	  connect_service = strdup ("143");
+	  if (args_info.smtp_flag)
+	    connect_service = strdup ("25");
+	  else
+	    connect_service = strdup ("143");
 	}
 
       he = gethostbyname (connect_hostname);
@@ -443,7 +503,8 @@ main (int argc, char *argv[])
 	    break;
 
 	no_client_first:
-	  if (!args_info.quiet_given && !args_info.imap_flag)
+	  if (!args_info.quiet_given &&
+	      !args_info.imap_flag && !args_info.smtp_flag)
 	    fprintf (stderr, _("Enter base64 authentication data from %s "
 			       "(press RET if none):\n"),
 		     args_info.client_flag ? _("server") : _("client"));
@@ -493,7 +554,7 @@ main (int argc, char *argv[])
 		  input[0] = '\0';
 		  if (fgets (input, MAX_LINE_LENGTH - 2, stdin) == NULL)
 		    break;
-		  if (args_info.imap_flag)
+		  if (args_info.imap_flag || args_info.smtp_flag)
 		    {
 		      int pos = strlen (input);
 		      input[pos - 1] = '\r';
