@@ -6,7 +6,7 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
-* Changes in 0.2.1 (unreleased)
+* Changes in 0.2.1 (released 2004-11-19)
 
 ** Documentation fixes; the old callback API functions are marked as obsolete.
 
