@@ -1,0 +1,280 @@
+# Polish translation for gsasl.
+# This file is distributed under the same license as the gsasl package.
+# Jakub Bogusz <qboosh@pld-linux.org>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gsasl 0.0.14\n"
+"Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
+"POT-Creation-Date: 2004-01-22 20:06+0100\n"
+"PO-Revision-Date: 2004-02-23 00:10+0100\n"
+"Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
+"Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/error.c:48
+msgid "Libgsasl success"
+msgstr "Sukces libgsasl"
+
+#: lib/error.c:52
+msgid "SASL mechanisms needs more data"
+msgstr "Mechanizmy SASL wymagaj± wiêcej danych"
+
+#: lib/error.c:56
+msgid "Unknown SASL mechanism"
+msgstr "Nieznany mechanizm SASL"
+
+#: lib/error.c:60
+msgid "SASL mechanism called too many times"
+msgstr "Mechanizm SASL wywo³any zbyt du¿o razy"
+
+#: lib/error.c:64
+msgid "SASL function need larger buffer (internal error)"
+msgstr "Funkcja SASL wymaga wiêkszego bufora (b³±d wewnêtrzny)"
+
+#: lib/error.c:68
+msgid "Could not open file in SASL library"
+msgstr "Nie mo¿na otworzyæ pliku w bibliotece SASL"
+
+#: lib/error.c:72
+msgid "Could not close file in SASL library"
+msgstr "Nie mo¿na zamkn±æ pliku w bibliotece SASL"
+
+#: lib/error.c:76
+msgid "Memory allocation error in SASL library"
+msgstr "B³±d przydzielania pamiêci w bibliotece SASL"
+
+#: lib/error.c:80
+msgid "Base 64 coding error in SASL library"
+msgstr "B³±d kodowania base64 w bibliotece SASL"
+
+#: lib/error.c:84
+msgid "Gcrypt error in SASL library"
+msgstr "B³±d gcrypt w bibliotece SASL"
+
+#: lib/error.c:90
+msgid "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL library.  This is a serious internal error."
+msgstr "Biblioteka GSSAPI nie mog³a zwolniæ pamiêci w gss_release_buffer() w bibliotece SASL. To jest powa¿ny b³±d wewnêtrzny."
+
+#: lib/error.c:98
+msgid "GSSAPI library could not understand a peer name in gss_import_name() in SASL library.  This may be due to incorrect user supplied data."
+msgstr "Biblioteka GSSAPI nie zrozumia³a nazwy partnera w gss_import_name() w bibliotece SASL. Mo¿e byæ to spowodowane b³êdnie podanymi przez u¿ytkownika danymi."
+
+#: lib/error.c:106
+msgid "GSSAPI error in client while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgstr "B³±d GSSAPI w kliencie podczas negocjacji kontekstu bezpieczeñstwa w gss_init_sec_context() w bibliotece SASL - najprawdopodobniej spowodowany niewystarczaj±cym uwierzytelnieniem lub z³ymi wp³ywami."
+
+#: lib/error.c:114
+msgid "GSSAPI error in server while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgstr "B³±d GSSAPI w serwerze podczas negocjacji kontekstu bezpieczeñstwa w gss_init_sec_context() w bibliotece SASL - najprawdopodobniej spowodowany niewystarczaj±cym uwierzytelnieniem lub z³ymi wp³ywami."
+
+#: lib/error.c:122
+msgid "GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL library.  This is most likely due to data corruption."
+msgstr "B³±d GSSAPI podczas odszyfrowywania lub odkodowywania danych w gss_unwrap() w bibliotece SASL - najprawdopodobniej spowodowany uszkodzeniem danych."
+
+#: lib/error.c:130
+msgid "GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
+msgstr "B³±d GSSAPI podczas szyfrowania lub kodowania danych w gss_wrap() w bibliotece SASL."
+
+#: lib/error.c:137
+msgid "GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  This is most likely due to not having the proper Kerberos key available in /etc/krb5.keytab on the server."
+msgstr "B³±d GSSAPI podczas otrzymywania uwierzytelnienia w gss_acquire_cred() w bibliotece SASL - najprawdopodobniej spowodowany brakiem odpowiedniego klucza Kerberosa w /etc/krb5.keytab na serwerze."
+
+#: lib/error.c:146
+msgid "GSSAPI error creating a display name denoting the client in gss_display_name() in SASL library.  This is probably because the client suplied bad data."
+msgstr "B³±d GSSAPI podczas tworzenia nazwy oznaczaj±cej klienta w gss_display_name() w bibliotece SASL - prawdopodobnie z powodu b³êdnych danych otrzymanych od klienta."
+
+#: lib/error.c:154
+msgid "Other entity requested integrity or confidentiality protection in GSSAPI mechanism but this is currently not implemented."
+msgstr "Inna jednostka za¿±da³a zabezpieczenia spójno¶ci lub poufno¶ci w mechanizmie GSSAPI, ale nie jest on aktualnie zaimplementowany."
+
+#: lib/error.c:161
+msgid "SASL mechanism needs gsasl_client_callback_anonymous() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_client_callback_anonymous() (b³êd aplikacji)"
+
+#: lib/error.c:168
+msgid "SASL mechanism needs gsasl_client_callback_password() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_client_callback_password() (b³±d aplikacji)"
+
+#: lib/error.c:175
+msgid "SASL mechanism needs gsasl_client_callback_passcode() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_client_callback_passcode() (b³±d aplikacji)"
+
+#: lib/error.c:182
+msgid "SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_client_callback_pin() (b³±d aplikacji)"
+
+#: lib/error.c:189
+msgid "SASL mechanism needs gsasl_client_callback_authorization_id() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_client_callback_authorization_id() (b³±d aplikacji)"
+
+#: lib/error.c:196
+msgid "SASL mechanism needs gsasl_client_callback_authentication_id() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_client_callback_authentication_id() (b³±d aplikacji)"
+
+#: lib/error.c:203
+msgid "SASL mechanism needs gsasl_client_callback_service() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_client_callback_service() (b³±d aplikacji)"
+
+#: lib/error.c:210
+msgid "SASL mechanism needs gsasl_server_callback_validate() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_server_callback_validate() (b³±d aplikacji)"
+
+#: lib/error.c:217
+msgid "SASL mechanism needs gsasl_server_callback_cram_md5() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_server_callback_cram_md5() (b³±d aplikacji)"
+
+#: lib/error.c:224
+msgid "SASL mechanism needs gsasl_server_callback_digest_md5() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_server_callback_digest_md5() (b³±d aplikacji)"
+
+#: lib/error.c:231
+msgid "SASL mechanism needs gsasl_server_callback_anonymous() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_server_callback_anonymous() (b³±d aplikacji)"
+
+#: lib/error.c:238
+msgid "SASL mechanism needs gsasl_server_callback_external() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_server_callback_external() (b³±d aplikacji)"
+
+#: lib/error.c:245
+msgid "SASL mechanism needs gsasl_server_callback_realm() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_server_callback_realm() (b³±d aplikacji)"
+
+#: lib/error.c:252
+msgid "SASL mechanism needs gsasl_server_callback_securid() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_server_callback_securid() (b³±d aplikacji)"
+
+#: lib/error.c:259
+msgid "SASL mechanism needs gsasl_server_callback_service() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_server_callback_service() (b³±d aplikacji)"
+
+#: lib/error.c:266
+msgid "SASL mechanism needs gsasl_server_callback_gssapi() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_server_callback_gssapi() (b³±d aplikacji)"
+
+#: lib/error.c:271
+msgid "SASL mechanism needs gsasl_server_callback_retrieve() callback (application error)"
+msgstr "Mechanizm SASL wymaga wywo³ania zwrotnego gsasl_server_callback_retrieve() (b³±d aplikacji)"
+
+#: lib/error.c:276
+msgid "SASL mechanism could not parse input"
+msgstr "Mechanizm SASL nie by³ w stanie przeanalizowaæ wej¶cia"
+
+#: lib/error.c:280
+msgid "Error authentication user"
+msgstr "B³±d uwierzytelniania u¿ytkownika"
+
+#: lib/error.c:284
+msgid "Cannot get internal library handle (library error)"
+msgstr "Nie mo¿na uzyskaæ wewnêtrznego uchwytu biblioteki (b³±d biblioteki)"
+
+#: lib/error.c:288
+msgid "Integrity error in application payload"
+msgstr "B³±d spójno¶ci w danych aplikacji"
+
+#: lib/error.c:292
+msgid "No more realms available (non-fatal)"
+msgstr "Nie ma wiêcej dostêpnych dziedzin (niekrytyczne)"
+
+#: lib/error.c:296
+msgid "Client-side functionality not available in library (application error)"
+msgstr "Funkcjonalno¶æ strony klienta niedostêpna w bibliotece (b³±d aplikacji)"
+
+#: lib/error.c:301
+msgid "Server-side functionality not available in library (application error)"
+msgstr "Funkcjonalno¶æ strony serwera niedostêpna w bibliotece (b³±d aplikacji)"
+
+#: lib/error.c:306
+msgid "The provided library handle was invalid (application error)"
+msgstr "B³êdny dostarczony uchwyt biblioteki (b³±d aplikacji)"
+
+#: lib/error.c:310
+msgid "Libgsasl unknown error"
+msgstr "Nieznany b³±d libgsasl"
+
+#: src/gsasl.c:106
+#, c-format
+msgid "Chose SASL mechanisms:\n"
+msgstr "Wybierz mechanizmy SASL:\n"
+
+#: src/gsasl.c:114
+#, c-format
+msgid "Input SASL mechanism supported by server:\n"
+msgstr "Wej¶ciowy mechanizm SASL obs³ugiwany przez serwer:\n"
+
+#: src/gsasl.c:133
+#, c-format
+msgid "Using mechanism:\n"
+msgstr "U¿ycie mechanizmu:\n"
+
+#: src/gsasl.c:150
+#, c-format
+msgid "Output from client:\n"
+msgstr "Wyj¶cie klienta:\n"
+
+#: src/gsasl.c:152
+#, c-format
+msgid "Output from server:\n"
+msgstr "Wyj¶cie serwera:\n"
+
+#: src/gsasl.c:302 src/gsasl.c:347
+#, c-format
+msgid "GSASL error (%d): %s\n"
+msgstr "B³±d GSASL (%d): %s\n"
+
+#: src/gsasl.c:353
+#, c-format
+#. WARNING: "%s" (client/server) must be the same grammatical form
+#. as in src/gsasl.c:426
+msgid "This %s supports the following mechanisms:\n"
+msgstr "Mechanizmu obs³ugiwane przez %s:\n"
+
+#: src/gsasl.c:355 src/gsasl.c:428
+msgid "client"
+msgstr "klienta"
+
+#: src/gsasl.c:355 src/gsasl.c:428
+msgid "server"
+msgstr "serwer"
+
+#: src/gsasl.c:379
+#, c-format
+msgid "Cannot find mechanism...\n"
+msgstr "Nie znaleziono mechanizmu...\n"
+
+#: src/gsasl.c:397 src/gsasl.c:437 src/gsasl.c:532
+#, c-format
+msgid "Libgsasl error (%d): %s\n"
+msgstr "B³±d libgsasl (%d): %s\n"
+
+#: src/gsasl.c:426
+#, c-format
+msgid "Enter base64 authentication data from %s (press RET if none):\n"
+msgstr "Podaj dane base64 uwierzytelniaj±ce %s (RET je¶li ¿adne):\n"
+
+#: src/gsasl.c:448
+#, c-format
+msgid "Client authentication finished (server trusted)...\n"
+msgstr "Uwierzytelnienie klienta zakoñczone (serwer zaufa³)...\n"
+
+#: src/gsasl.c:451
+#, c-format
+msgid "Server authentication finished (client trusted)...\n"
+msgstr "Uwierzytelnienie serwera zakoñczone (klient zaufa³)...\n"
+
+#: src/gsasl.c:466
+#, c-format
+msgid "Enter application data (EOF to finish):\n"
+msgstr "Podaj dane aplikacji (EOF aby zakoñczyæ):\n"
+
+#: src/gsasl.c:505
+#, c-format
+msgid "Base64 encoded application data to send:\n"
+msgstr "Zakodowane base64 dane aplikacji do wys³ania:\n"
+
+#: src/gsasl.c:539
+#, c-format
+msgid "Session finished...\n"
+msgstr "Sesja zakoñczona...\n"
