@@ -22,6 +22,9 @@
 
 #include "cram-md5.h"
 
+/* Get cram_md5_challenge. */
+#include "challenge.h"
+
 #define MD5LEN 16
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
 #define DECCHAR(c) ((c & 0x0F) > 9 ? '0' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
@@ -213,27 +216,11 @@ _gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
       gsasl_server_callback_retrieve_get (ctx) == NULL)
     return GSASL_NEED_SERVER_CRAM_MD5_CALLBACK;
 
-#define START_OF_XS 1
-#define NUMBER_OF_XS 20
-  /* Don't leak information in timestamp and hostname fields. */
-#define CHALLENGE_FORMAT "<XXXXXXXXXXXXXXXXXXXX.0@josefsson.org>"
-
-  challenge = (char *) malloc (strlen (CHALLENGE_FORMAT) + 1);
+  challenge = malloc (CRAM_MD5_CHALLENGE_LEN);
   if (challenge == NULL)
     return GSASL_MALLOC_ERROR;
 
-  strcpy (challenge, CHALLENGE_FORMAT);
-
-  gsasl_randomize (0, &challenge[START_OF_XS], NUMBER_OF_XS / 2);
-
-  for (i = 0; i < NUMBER_OF_XS / 2; i++)
-    {
-      /* The probabilities for each digit are skewed (0-6 more likely
-	 than 7-9), but it is just used as a nonce anyway. */
-      challenge[START_OF_XS + NUMBER_OF_XS / 2 + i] =
-	DECCHAR (challenge[START_OF_XS + i]);
-      challenge[START_OF_XS + i] = DECCHAR (challenge[START_OF_XS + i] >> 4);
-    }
+  cram_md5_challenge (challenge);
 
   *mech_data = challenge;
 
