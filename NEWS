@@ -40,8 +40,12 @@ If a too recent version is installed, it will not be used.
 ** Bug fixes.
 
 ** API and ABI modifications.
-Gsasl_client_callback_maxbuf: 'int' was replaced with 'size_t'.
-Gsasl_server_callback_maxbuf: Likewise.
+Gsasl_client_callback_maxbuf: CHANGED: 'int' was replaced with 'size_t'.
+Gsasl_server_callback_maxbuf: CHANGED: 'int' was replaced with 'size_t'.
+gsasl_client_mechlist: NEW.
+gsasl_server_mechlist: NEW.
+gsasl_client_listmech: DEPRECATED: use gsasl_client_mechlist instead.
+gsasl_server_listmech: DEPRECATED: use gsasl_server_mechlist instead.
 
 * Changes in 0.0.7 (released 2003-06-02)
 

@@ -68,7 +68,7 @@ struct _Gsasl_mechanism_functions
 
 struct _Gsasl_mechanism
 {
-  char *name;
+  const char *name;
 
 #ifdef USE_CLIENT
   struct _Gsasl_mechanism_functions client;

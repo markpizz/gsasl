@@ -24,63 +24,60 @@
 static int
 _gsasl_listmech (Gsasl_ctx * ctx,
 		 _Gsasl_mechanism * mechs,
-		 size_t n_mechs, char *out, size_t * outlen, int clientp)
+		 size_t n_mechs, char **out, int clientp)
 {
   Gsasl_session_ctx *sctx;
+  char *list;
   size_t i;
+  int rc;
 
-  if (out == NULL)
-    {
-      *outlen = n_mechs * GSASL_MAX_MECHANISM_SIZE;
-      return GSASL_OK;
-    }
+  list = malloc (n_mechs * (GSASL_MAX_MECHANISM_SIZE + 1));
+  if (!list)
+    return GSASL_MALLOC_ERROR;
 
-  if (outlen == NULL || *outlen == 0)
-    return GSASL_TOO_SMALL_BUFFER;
-
-  *out = '\0';
+  *list = '\0';
   for (i = 0; i < n_mechs; i++)
     {
-      if ((clientp &&
-	   gsasl_client_start (ctx, mechs[i].name, &sctx) == GSASL_OK) ||
-	  (!clientp &&
-	   gsasl_server_start (ctx, mechs[i].name, &sctx) == GSASL_OK))
+      if (clientp)
+	rc = gsasl_client_start (ctx, mechs[i].name, &sctx);
+      else
+	rc = gsasl_server_start (ctx, mechs[i].name, &sctx);
+
+      if (rc == GSASL_OK)
 	{
 	  if (clientp)
 	    gsasl_client_finish (sctx);
 	  else
 	    gsasl_server_finish (sctx);
 
-	  if (strlen (out) + strlen (mechs[i].name) + strlen (" ") >= *outlen)
-	    return GSASL_TOO_SMALL_BUFFER;
-
-	  strcat (out, mechs[i].name);
-	  strcat (out, " ");
+	  strcat (list, mechs[i].name);
+	  if (i < n_mechs - 1)
+	    strcat (list, " ");
 	}
     }
+
+  *out = list;
 
   return GSASL_OK;
 }
 
 #ifdef USE_CLIENT
 /**
- * gsasl_client_listmech:
+ * gsasl_client_mechlist:
  * @ctx: libgsasl handle.
- * @out: output character array.
- * @outlen: input maximum size of output character array, on output
- * contains actual length of output array.
+ * @out: newly allocated output character array.
  *
- * Write SASL names, separated by space, of mechanisms supported by
- * the libgsasl client to the output array.  To find out how large the
- * output array must be, call this function with out=NULL.
+ * Return a newly allocated string containing SASL names, separated by
+ * space, of mechanisms supported by the libgsasl client.  @out is
+ * allocated by this function, and it is the responsibility of caller
+ * to deallocate it.
  *
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
-gsasl_client_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
+gsasl_client_mechlist (Gsasl_ctx * ctx, char **out)
 {
-  return _gsasl_listmech (ctx, ctx->client_mechs, ctx->n_client_mechs,
-			  out, outlen, 1);
+  return _gsasl_listmech (ctx, ctx->client_mechs, ctx->n_client_mechs, out, 1);
 }
 #endif
 
@@ -88,20 +85,18 @@ gsasl_client_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
 /**
  * gsasl_server_listmech:
  * @ctx: libgsasl handle.
- * @out: output character array.
- * @outlen: input maximum size of output character array, on output
- * contains actual length of output array.
+ * @out: newly allocated output character array.
  *
- * Write SASL names, separated by space, of mechanisms supported by
- * the libgsasl server to the output array.  To find out how large the
- * output array must be, call this function with out=NULL.
+ * Return a newly allocated string containing SASL names, separated by
+ * space, of mechanisms supported by the libgsasl server.  @out is
+ * allocated by this function, and it is the responsibility of caller
+ * to deallocate it.
  *
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
-gsasl_server_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
+gsasl_server_mechlist (Gsasl_ctx * ctx, char **out)
 {
-  return _gsasl_listmech (ctx, ctx->server_mechs, ctx->n_server_mechs,
-			  out, outlen, 0);
+  return _gsasl_listmech (ctx, ctx->server_mechs, ctx->n_server_mechs, out, 1);
 }
 #endif
