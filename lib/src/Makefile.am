@@ -32,7 +32,7 @@ libgsasl_la_SOURCES = gsasl.h.in internal.h crypto.h \
 	callback.c callback-c.c callback-s.c \
 	supportp.c suggest.c listmech.c \
 	xstart.c xstep.c xfinish.c xcode.c \
-	base64.c md5pwd.c obsolete.c
+	base64.c md5pwd.c crypto.c obsolete.c
 
 if STRINGPREP
 libgsasl_la_SOURCES += stringprep.c
