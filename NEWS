@@ -18,6 +18,8 @@ constrained memory/space resources.
 
 ** Command line tool now query for realm, hostname and service name properly.
 
+** Self test improvements.
+
 ** Update of gnulib files.
 
 * Version 0.2.3 (released 2004-12-15)
