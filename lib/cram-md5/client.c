@@ -46,6 +46,7 @@ _gsasl_cram_md5_client_step (Gsasl_session * sctx,
   const char *p;
   size_t len;
   char *tmp;
+  int rc;
 
   if (input_len == 0)
     {
@@ -58,9 +59,10 @@ _gsasl_cram_md5_client_step (Gsasl_session * sctx,
   if (!p)
     return GSASL_NO_PASSWORD;
 
-  tmp = gsasl_stringprep_saslprep (p, NULL);
-  if (tmp == NULL)
-    return GSASL_SASLPREP_ERROR;
+  /* XXX Use query strings here?  Specification is unclear. */
+  rc = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED, &tmp, NULL);
+  if (rc != GSASL_OK)
+    return rc;
 
   cram_md5_digest (input, input_len, tmp, strlen (tmp), response);
 
@@ -70,9 +72,10 @@ _gsasl_cram_md5_client_step (Gsasl_session * sctx,
   if (!p)
     return GSASL_NO_AUTHID;
 
-  tmp = gsasl_stringprep_saslprep (p, NULL);
-  if (tmp == NULL)
-    return GSASL_SASLPREP_ERROR;
+  /* XXX Use query strings here?  Specification is unclear. */
+  rc = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED, &tmp, NULL);
+  if (rc != GSASL_OK)
+    return rc;
 
   len = strlen (tmp);
 

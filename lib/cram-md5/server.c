@@ -98,9 +98,11 @@ _gsasl_cram_md5_server_step (Gsasl_session * sctx,
   if (!password)
     return GSASL_NO_PASSWORD;
 
-  normkey = gsasl_stringprep_saslprep (password, NULL);
-  if (normkey == NULL)
-    return GSASL_SASLPREP_ERROR;
+  /* FIXME: Use SASLprep here?  Treat string as storage string?
+     Specification is unclear. */
+  res = gsasl_saslprep (password, 0, &normkey, NULL);
+  if (res != GSASL_OK)
+    return res;
 
   cram_md5_digest (challenge, strlen (challenge),
 		   normkey, strlen (normkey), hash);
