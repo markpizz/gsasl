@@ -58,13 +58,27 @@ readln (char **out)
   if (sockfd)
     {
       ssize_t len;
-      len = recv (sockfd, input, MAX_LINE_LENGTH, 0);
-      if (len <= 0)
-	return 0;
-      input[len] = '\0';
+      size_t j = 0;
+
+      /* FIXME: Optimize and remove size limit. */
+
+      do
+	{
+	  j++;
+	  len = recv (sockfd, &input[j-1], 1, 0);
+	  if (len <= 0)
+	    return 0;
+	}
+      while (input[j-1] != '\n' && j < MAX_LINE_LENGTH);
+      input[j] = '\0';
     }
-  else if (!fgets (input, MAX_LINE_LENGTH, stdin))
-    return 0;
+  else
+    {
+      /* FIXME: Use readline?  Or getline. */
+
+      if (!fgets (input, MAX_LINE_LENGTH, stdin))
+	return 0;
+    }
 
   if (sockfd)
     printf ("%s", input);
