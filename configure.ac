@@ -1,12 +1,13 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.50)
-AC_INIT(libgsasl, 0.0.2, bug-libgsasl@josefsson.org)
+AC_INIT(libgsasl, 0.0.3, bug-libgsasl@josefsson.org)
 
-# Interfaces removed:    CURRENT++, AGE=0, REVISION=0
-# Interfaces added:      CURRENT++, AGE++, REVISION=0
-# No interfaces changed:                   REVISION++
-LT_CURRENT=1
-LT_AGE=0
+# Interfaces removed:       CURRENT++ AGE=0 REVISION=0
+# Interfaces added:         CURRENT++ AGE++ REVISION=0
+# Interfaces changed:       CURRENT++       REVISION=0
+# No interfaces changed:                    REVISION++
+LT_CURRENT=2
+LT_AGE=1
 LT_REVISION=0
 AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_AGE)
@@ -17,13 +18,13 @@ AM_CONFIG_HEADER(config.h)
 
 # Checks for programs.
 AM_GNU_GETTEXT
+AM_GNU_GETTEXT_VERSION(0.11.5)
 AC_PROG_LIBTOOL
 AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S
-AC_PROG_RANLIB
 AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 AM_MISSING_PROG(TEXI2PDF, texi2pdf, $missing_dir)
