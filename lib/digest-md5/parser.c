@@ -542,6 +542,8 @@ parse_finish (char *finish, digest_md5_finish *out)
 	if (out->rspauth)
 	  return -1;
 	out->rspauth = strdup (value);
+	if (!out->rspauth)
+	  return -1;
 	break;
 
       default:
@@ -557,13 +559,18 @@ parse_finish (char *finish, digest_md5_finish *out)
 }
 
 int
-digest_md5_parse_challenge (const char *challenge, digest_md5_challenge *out)
+digest_md5_parse_challenge (const char *challenge, size_t len,
+			    digest_md5_challenge *out)
 {
-  char *subopts = strdup (challenge);
+  size_t inlen = len ? len : strlen (challenge);
+  char *subopts = malloc (inlen + 1);
   int rc;
 
   if (!subopts)
     return -1;
+
+  memcpy (subopts, challenge, inlen);
+  subopts[inlen] = '\0';
 
   rc = parse_challenge (subopts, out);
 
@@ -573,13 +580,18 @@ digest_md5_parse_challenge (const char *challenge, digest_md5_challenge *out)
 }
 
 int
-digest_md5_parse_response (const char *response, digest_md5_response *out)
+digest_md5_parse_response (const char *response, size_t len,
+			   digest_md5_response *out)
 {
-  char *subopts = strdup (response);
+  size_t inlen = len ? len : strlen (response);
+  char *subopts = malloc (inlen + 1);
   int rc;
 
   if (!subopts)
     return -1;
+
+  memcpy (subopts, response, inlen);
+  subopts[inlen] = '\0';
 
   rc = parse_response (subopts, out);
 
@@ -589,13 +601,18 @@ digest_md5_parse_response (const char *response, digest_md5_response *out)
 }
 
 int
-digest_md5_parse_finish (const char *finish, digest_md5_finish *out)
+digest_md5_parse_finish (const char *finish, size_t len,
+			 digest_md5_finish *out)
 {
-  char *subopts = strdup (finish);
+  size_t inlen = len ? len : strlen (finish);
+  char *subopts = malloc (inlen + 1);
   int rc;
 
   if (!subopts)
     return -1;
+
+  memcpy (subopts, finish, inlen);
+  subopts[inlen] = '\0';
 
   rc = parse_finish (subopts, out);
 

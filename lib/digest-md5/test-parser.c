@@ -40,7 +40,7 @@ main (int argc, char *argv[])
     char *token = "nonce=4711, foo=bar, algorithm=md5-sess";
 
     printf ("challenge `%s': ", token);
-    rc = digest_md5_parse_challenge (token, &c);
+    rc = digest_md5_parse_challenge (token, 0, &c);
     if (rc != 0)
       abort ();
     printf ("nonce `%s': %s", c.nonce,
@@ -57,7 +57,7 @@ main (int argc, char *argv[])
     char *token = "qop=\"auth, auth-conf\", nonce=42, algorithm=md5-sess";
 
     printf ("challenge `%s': ", token);
-    rc = digest_md5_parse_challenge (token, &c);
+    rc = digest_md5_parse_challenge (token, 0, &c);
     if (rc == 0)
       abort ();
     printf ("PASS\n");
@@ -67,7 +67,7 @@ main (int argc, char *argv[])
     char *token = "cipher=\"des\", nonce=42, algorithm=md5-sess";
 
     printf ("challenge `%s': ", token);
-    rc = digest_md5_parse_challenge (token, &c);
+    rc = digest_md5_parse_challenge (token, 0, &c);
     if (rc == 0)
       abort ();
     printf ("PASS\n");
@@ -78,7 +78,7 @@ main (int argc, char *argv[])
       "cipher=\"des\"";
 
     printf ("challenge `%s': ", token);
-    rc = digest_md5_parse_challenge (token, &c);
+    rc = digest_md5_parse_challenge (token, 0, &c);
     if (rc != 0)
       abort ();
     printf ("qop %02x ciphers %02x: %s\n", c.qops, c.ciphers,
@@ -94,7 +94,7 @@ main (int argc, char *argv[])
     char *token = "bar=foo, foo=bar";
 
     printf ("challenge `%s': ", token);
-    rc = digest_md5_parse_challenge (token, &c);
+    rc = digest_md5_parse_challenge (token, 0, &c);
     if (rc == 0)
       abort ();
     printf ("PASS\n");
@@ -104,7 +104,7 @@ main (int argc, char *argv[])
     char *token = "realm=foo, realm=bar, nonce=42, algorithm=md5-sess";
 
     printf ("challenge `%s': ", token);
-    rc = digest_md5_parse_challenge (token, &c);
+    rc = digest_md5_parse_challenge (token, 0, &c);
     if (rc != 0)
       abort ();
     if (c.nrealms != 2)
@@ -123,7 +123,7 @@ main (int argc, char *argv[])
     char *token = "bar=foo, foo=bar";
 
     printf ("response `%s': ", token);
-    rc = digest_md5_parse_response (token, &r);
+    rc = digest_md5_parse_response (token, 0, &r);
     if (rc == 0)
       abort ();
     printf ("PASS\n");
@@ -134,7 +134,7 @@ main (int argc, char *argv[])
       "digest-uri=foo, response=01234567890123456789012345678901";
 
     printf ("response `%s': ", token);
-    rc = digest_md5_parse_response (token, &r);
+    rc = digest_md5_parse_response (token, 0, &r);
     if (rc != 0)
       abort ();
     printf ("username `%s', nonce `%s', cnonce `%s',"
@@ -153,7 +153,7 @@ main (int argc, char *argv[])
     char *token = "rspauth=\"4711\"";
 
     printf ("finish `%s': ", token);
-    rc = digest_md5_parse_finish (token, &f);
+    rc = digest_md5_parse_finish (token, 0, &f);
     if (rc != 0)
       abort ();
     printf ("`%s'? %s\n", f.rspauth,
@@ -164,7 +164,7 @@ main (int argc, char *argv[])
     char *token = "bar=foo, foo=bar";
 
     printf ("finish `%s': ", token);
-    rc = digest_md5_parse_finish (token, &f);
+    rc = digest_md5_parse_finish (token, 0, &f);
     if (rc == 0)
       abort ();
     printf ("invalid? PASS\n", token);
