@@ -130,24 +130,30 @@ _gsasl_securid_client_step (Gsasl_session_ctx * sctx,
 
     case 0:
       tmp = output;
-      len = *output_len - (tmp - output);
+      len = *output_len - (tmp - output) - 1;
       res = cb_authorization_id (sctx, output, &len);
       if (res != GSASL_OK)
 	return res;
       tmp[len] = '\0';
       tmp = tmp + len + 1;
-      len = *output_len - (tmp - output);
+      if (*output_len <= (tmp - output))
+	return GSASL_TOO_SMALL_BUFFER;
+      len = *output_len - (tmp - output) - 1;
       res = cb_authentication_id (sctx, tmp, &len);
       if (res != GSASL_OK)
 	return res;
       tmp[len] = '\0';
       tmp = tmp + len + 1;
-      len = *output_len - (tmp - output);
+      if (*output_len <= (tmp - output))
+	return GSASL_TOO_SMALL_BUFFER;
+      len = *output_len - (tmp - output) - 1;
       res = cb_passcode (sctx, tmp, &len);
       if (res != GSASL_OK)
 	return res;
       tmp[len] = '\0';
       tmp = tmp + len + 1;
+      if (*output_len <= (tmp - output))
+	return GSASL_TOO_SMALL_BUFFER;
       if (do_pin)
 	{
 	  len = *output_len - (tmp - output);
