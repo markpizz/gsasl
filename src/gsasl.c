@@ -488,8 +488,13 @@ main (int argc, char *argv[])
 		  if (res != GSASL_OK)
 		    break;
 
-		  if (!(strlen (input) == output_len &&
-			memcmp (input, out, output_len) == 0))
+		  if (sockfd)
+		    {
+		      if (write (sockfd, out, output_len) != output_len)
+			return 0;
+		    }
+		  else if (!(strlen (input) == output_len &&
+			     memcmp (input, out, output_len) == 0))
 		    {
 		      b64output_len = sizeof (b64output);
 		      b64output_len = gsasl_base64_encode (out, output_len,
@@ -505,12 +510,6 @@ main (int argc, char *argv[])
 			fprintf (stderr, _("Base64 encoded application "
 					   "data to send:\n"));
 		      fprintf (stdout, "%s\n", b64output);
-		    }
-
-		  if (sockfd)
-		    {
-		      if (write (sockfd, out, output_len) != output_len)
-			return 0;
 		    }
 
 		  free (out);
