@@ -1344,14 +1344,23 @@ on callbacks.
 @node EXTERNAL
 @section The EXTERNAL mechanism
 
-The EXTERNAL mechanism is used to authenticate a user to SASL when
-SASL is used in an environment which has already authenticated the
-user.  It is often used within TLS or IPSEC protected channels.
+The EXTERNAL mechanism is used to authenticate a user to a server
+using some out-of-band authentication environment.  EXTERNAL is often
+used within TLS or IPSEC protected channels.  Note that in the server,
+you need to make sure that TLS and IPSEC actually authenticated the
+client successfully.  It is normally not sufficient for TLS and IPSEC
+to be used, since they provided anonymous modes.
 
-This mechanism is only enabled in the server if you implement the
-callback below and set them in the library (@pxref{Callback
-Functions}).  It is always enabled in the client as there are no
-client callbacks.
+In the client, this mechanism is always enabled, and will send the
+@code{GSASL_AUTHZID} property as the authorization name to the server,
+if the property is set.  If the property is not set, the empty
+authorization name is sent.  You need not implement a callback.
+
+In the server, this mechanism will invoke the
+@code{GSASL_VALIDATE_EXTERNAL} callback to decide whether the client
+is authenticated and authorized to log in.  Your callback can retrieve
+the @code{GSASL_AUTHZID} property to inspect the requested
+authorization name from the client.
 
 @node ANONYMOUS
 @section The ANONYMOUS mechanism
@@ -1359,11 +1368,19 @@ client callbacks.
 The ANONYMOUS mechanism is used to ``authenticate'' clients to
 anonymous services; or rather just indicate that the client wishes to
 use the service anonymously.  The client sends a token, usually her
-email address.
+email address, which serve the purpose of some trace information
+suitable for log files.  The token is not permitted to be empty.
 
-This mechanism is only enabled in the client and server if you
-implement the respectively callbacks below and set them in the library
-(@pxref{Callback Functions}).
+In the client, this mechanism is always enabled, and will send the
+@code{GSASL_ANONYMOUS_TOKEN} property as the trace information to the
+server.
+
+In the server, this mechanism will invoke the
+@code{GSASL_VALIDATE_ANONYMOUS} callback to decide whether the client
+should be permitted to log in.  Your callback can retrieve the
+@code{GSASL_ANONYMOUS_TOKEN} property, for example to store it in a
+log file.  The token is normally not used to decide whether the client
+should be permitted to log in or not.
 
 @node PLAIN
 @section The PLAIN mechanism
