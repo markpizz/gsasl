@@ -32,10 +32,14 @@ following systems, but no guarantees.
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
 
-  * Authentication infrastructure implementing the callbacks for
-	 PAM, Kerberos, SQL, etc.  Separate project?
+  + Authentication infrastructure implementing the callbacks for
+    PAM, Kerberos, SQL, etc.  Separate project?  GNU Mailutils has
+    some starting points for this, but the API is inflexible.
+  + Hide explicit data array handling in a string API
   + Port applications to use libgsasl
   + More SASL mechanisms
+  + Security layer improvements, including support for privacy
+    separation (authenticate in one process, pass state to another).
   - Improve documentation
   - Port to Cyclone?
 
