@@ -126,3 +126,6 @@ extern int digest_md5_parse_response (const char *response,
 
 extern int digest_md5_parse_finish (const char *finish,
 				    digest_md5_finish *out);
+
+extern int digest_md5_validate (digest_md5_challenge *c,
+				digest_md5_response *r);
