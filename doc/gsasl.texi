@@ -1580,17 +1580,6 @@ These are some standard parameters.
 @c *******************  Appendices  *************************
 @c **********************************************************
 
-@node Copying This Manual
-@appendix Copying This Manual
-
-@menu
-* GNU Free Documentation License::  License for copying this manual.
-@end menu
-
-@include fdl.texi
-
-@include gpl.texi
-
 @node Concept Index
 @unnumbered Concept Index
 

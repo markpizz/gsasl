@@ -27,7 +27,7 @@ EXTRA_DIST = gdoc gdoc-error gsasl-example1.c \
 	doxygen/Doxyfile.in doxygen/gdoc2doxygen
 
 info_TEXINFOS = gsasl.texi
-gsasl_TEXINFOS = gpl.texi fdl.texi $(gdoc_TEXINFOS) \
+gsasl_TEXINFOS = $(gdoc_TEXINFOS) \
 	gsasl-callback-password.texi gsasl-callback-authorization.texi \
 	gsasl-callback-authentication.texi gsasl-callback-validate.texi \
 	gsasl-callback-retrieve.texi gsasl-callback-cram-md5.texi \
