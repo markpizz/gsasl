@@ -23,6 +23,12 @@
 
 #ifdef USE_GSSAPI
 
+#ifdef USE_GSS
+
+#include <gssapi.h>
+
+#else /* MIT GSSAPI */
+
 #ifdef HAVE_GSSAPI_H
 #include <gssapi.h>
 #endif
@@ -34,6 +40,8 @@
 #endif
 #ifndef HAVE_GSS_C_NT_HOSTBASED_SERVICE
 #define GSS_C_NT_HOSTBASED_SERVICE gss_nt_service_name
+#endif
+
 #endif
 
 #ifdef HAVE_NETINET_IN_H
