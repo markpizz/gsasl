@@ -136,7 +136,8 @@ gsasl_step64 (Gsasl_session * sctx, const char *b64input, char **b64output)
 	{
 	  if (input != NULL)
 	    free (input);
-	  free (output);
+	  if (output != NULL)
+	    free (output);
 	  return GSASL_MALLOC_ERROR;
 	}
 
@@ -145,13 +146,15 @@ gsasl_step64 (Gsasl_session * sctx, const char *b64input, char **b64output)
 	{
 	  if (input != NULL)
 	    free (input);
-	  free (output);
+	  if (output != NULL)
+	    free (output);
 	  return GSASL_BASE64_ERROR;
 	}
+
+      if (output != NULL)
+	free (output);
     }
 
-  if (output != NULL)
-    free (output);
   if (input != NULL)
     free (input);
 
