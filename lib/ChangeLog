@@ -1,3 +1,29 @@
+2004-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Generated.
+
+2004-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.1.3.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/digest.c: Fix.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump version.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/digest-md5.c:
+	(_gsasl_digest_md5_client_step): If no qop callback, default to no
+	QOP.
+
 2004-07-16  Simon Josefsson <simon@josefsson.org>
 
 	* po/sv.po: Generated.

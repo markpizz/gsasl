@@ -1,3 +1,155 @@
+2004-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Generated.
+
+2004-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template: Update.
+
+2004-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs.sh: Fix.
+
+2004-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.1.3.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* gl/strdup.h, gl/m4/strdup.m4: Fix.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Fix.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h, src/gsasl.c, gl/getpassword.h, gl/getpassword.c:
+	Fix.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/progname.h: Fix.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* gl/progname.o: Remove.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump version.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Simplify setlocale.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Define setlocale.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix cmd line parsing.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/fatal.c, gl/fatal.h: Remove
+	fatal.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Use error.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Use error.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: #Include errno.h.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Look for errno.h.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Use progname.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* gl/progname.c, gl/progname.h, gl/progname.lo, gl/progname.o,
+	gl/stdbool_.h: Gnulib.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/m4/error.m4, gl/m4/extensions.m4,
+	gl/m4/fatal.m4, gl/m4/onceonly_2_57.m4, gl/m4/stdbool.m4,
+	gl/m4/strerror_r.m4, gl/m4/unlocked-io.m4: Gnulib fixes.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Add progname.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/dummy.c, gl/error.c, gl/error.h, gl/exit.h,
+	gl/fatal.c, gl/fatal.h, gl/unlocked-io.h: Add fatal module.
+	Update.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Use getaddrinfo, if available.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Check for getaddrinfo.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix unnamed option handling.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c:
+	(client_callback_authentication_id): Use getpwuid.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: #include pwd.h.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Look for pwd.h.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Handle hostname/port on command line.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.ggo: Doc fix.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Use unnamed options.
+
+2004-08-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.ggo: Make --client and --imap default.
+
 2004-07-16  Simon Josefsson <simon@josefsson.org>
 
 	* po/sv.po: Generated.
