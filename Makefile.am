@@ -24,6 +24,12 @@ ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
 # Maintainer targets
 
+update-po:
+	cd po && \
+	wget --timestamping --retr-symlinks \
+		ftp://ftp.unex.es/pub/gnu-i18n/po/maint/$(PACKAGE)/??.po && \
+	cvs commit -m "Sync with TP." ??.po
+
 ChangeLog:
 	cvs2cl --fsf --FSF --usermap .cvsusers -I ChangeLog -I .cvs \
 		-I autogen.sh -I doc/specification -I lib/
