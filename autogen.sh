@@ -17,7 +17,7 @@ $AUTOHEADER &&
 cd .. &&
 rm -vf config.cache &&
 rm -rvf autom4te.cache &&
-$GETTEXTIZE --intl --force &&
+$GETTEXTIZE --copy --intl --force &&
 $ACLOCAL -I m4 -I argp
 $LIBTOOLIZE --force --automake
 $ACLOCAL -I m4 -I argp
