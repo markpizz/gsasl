@@ -25,5 +25,5 @@ LDADD = ../lib/src/libgsasl.la libutils.la
 noinst_LTLIBRARIES = libutils.la
 libutils_la_SOURCES = utils.h utils.c
 
-TESTS = simple
+TESTS = simple cram-md5
 check_PROGRAMS = $(TESTS)
