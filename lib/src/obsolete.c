@@ -434,37 +434,6 @@ gsasl_randomize (int strong, char *data, size_t datalen)
 }
 
 /**
- * gsasl_nonce:
- * @data: output array to be filled with unpredictable random data.
- * @datalen: size of output array.
- *
- * Store unpredictable data of given size in the provided buffer.
- *
- * Return value: Returns %GSASL_OK iff successful.
- **/
-int
-gsasl_nonce (char *data, size_t datalen)
-{
-  return gc_nonce (data, datalen);
-}
-
-/**
- * gsasl_random:
- * @data: output array to be filled with strong random data.
- * @datalen: size of output array.
- *
- * Store cryptographically strong random data of given size in the
- * provided buffer.
- *
- * Return value: Returns %GSASL_OK iff successful.
- **/
-int
-gsasl_random (char *data, size_t datalen)
-{
-  return gc_random (data, datalen);
-}
-
-/**
  * gsasl_md5:
  * @in: input character array of data to hash.
  * @inlen: length of input character array of data to hash.
