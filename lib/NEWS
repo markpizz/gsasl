@@ -4,6 +4,13 @@ See the end for copying conditions.
 
 * Version 0.2.4 (unreleased)
 
+** The CRAM-MD5 mechanism is now preferred over DIGEST-MD5.
+This decision was based on recent public research that suggest MD5 is
+broken, while HMAC-MD5 not immediately compromised, and the lack of
+public analysis on what consequences the MD5 break have for
+DIGEST-MD5.  Support for CRAM-SHA1 is under investigation, to enable
+users to avoid MD5 completely
+
 ** The DIGEST-MD5 mechanism is rewritten and enabled by default.
 The implementation is written so it can be used separately from GNU
 SASL in your own product, it only uses C89 and two external symbols
