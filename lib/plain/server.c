@@ -96,12 +96,15 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
 	  return GSASL_NO_PASSWORD;
 	}
 
-      normkey = gsasl_stringprep_saslprep (key, NULL);
-      if (normkey == NULL)
+      /* FIXME: Specificaiton is unclear on whether unassigned code
+	 points are allowed or not.  We don't allow them. */
+      res = gsasl_saslprep (key, 0, &normkey, NULL);
+      if (res != GSASL_OK)
 	{
 	  free (password);
-	  return GSASL_SASLPREP_ERROR;
+	  return res;
 	}
+
       if (strlen (password) == strlen (normkey) &&
 	  memcmp (normkey, password, strlen (normkey)) == 0)
 	res = GSASL_OK;
