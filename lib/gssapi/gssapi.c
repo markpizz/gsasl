@@ -39,10 +39,6 @@
 #include <netinet/in.h>
 #endif
 
-#define GSSAPI_AUTH_NONE      1
-#define GSSAPI_AUTH_INTEGRITY 2
-#define GSSAPI_AUTH_PRIVACY   4
-
 /* Client */
 
 #ifdef USE_CLIENT
@@ -52,6 +48,7 @@ struct _Gsasl_gssapi_client_state
   int step;
   gss_name_t service;
   gss_ctx_id_t context;
+  gss_qop_t qop;
 };
 typedef struct _Gsasl_gssapi_client_state _Gsasl_gssapi_client_state;
 
@@ -90,6 +87,7 @@ _gsasl_gssapi_client_start (Gsasl_session_ctx * sctx, void **mech_data)
   state->context = GSS_C_NO_CONTEXT;
   state->service = NULL;
   state->step = 0;
+  state->qop = GSASL_QOP_AUTH;
 
   *mech_data = state;
 
@@ -105,12 +103,13 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
 {
   _Gsasl_gssapi_client_state *state = mech_data;
   Gsasl_client_callback_authentication_id cb_authentication_id;
+  Gsasl_client_callback_qop cb_qop;
   Gsasl_client_callback_service cb_service;
+  gss_qop_t serverqop;
   Gsasl_ctx *ctx;
   gss_buffer_desc bufdesc, bufdesc2;
   gss_buffer_t buf = GSS_C_NO_BUFFER;
   OM_uint32 maj_stat, min_stat;
-  gss_qop_t qop_state;
   int conf_state;
   int res;
 
@@ -125,6 +124,8 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
   cb_service = gsasl_client_callback_service_get (ctx);
   if (cb_service == NULL)
     return GSASL_NEED_CLIENT_SERVICE_CALLBACK;
+
+  cb_qop = gsasl_client_callback_qop_get (ctx);
 
   if (state->service == NULL)
     {
@@ -181,7 +182,9 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
 				       GSS_C_NO_OID,
 				       GSS_C_MUTUAL_FLAG |
 				       GSS_C_REPLAY_FLAG |
-				       GSS_C_SEQUENCE_FLAG,
+				       GSS_C_SEQUENCE_FLAG |
+				       GSS_C_INTEG_FLAG |
+				       GSS_C_CONF_FLAG,
 				       0,
 				       GSS_C_NO_CHANNEL_BINDINGS,
 				       buf, NULL, &bufdesc2, NULL, NULL);
@@ -231,7 +234,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
       bufdesc.length = input_len;
       bufdesc.value = /*XXX*/ (char *) input;
       maj_stat = gss_unwrap (&min_stat, state->context, &bufdesc,
-			     &bufdesc2, &conf_state, &qop_state);
+			     &bufdesc2, &conf_state, &serverqop);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_UNWRAP_ERROR;
 
@@ -240,11 +243,15 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
-      if ((output[0] & GSSAPI_AUTH_NONE) == 0)
-	/* Integrity or privacy unsupported. */
+      if (cb_qop)
+	state->qop = cb_qop (sctx, serverqop);
+
+      if ((state->qop & serverqop) == 0)
+	/*  Server does not support what user wanted. */
 	return GSASL_GSSAPI_UNSUPPORTED_PROTECTION_ERROR;
 
-      output[0] = GSSAPI_AUTH_NONE;
+      output[0] = state->qop;
+
       bufdesc.length = *output_len - 4;
       cb_authentication_id (sctx, output + 4, &bufdesc.length);
       bufdesc.length += 4;
@@ -253,6 +260,11 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
 			   &bufdesc, &conf_state, &bufdesc2);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_WRAP_ERROR;
+      if (*output_len < bufdesc2.length)
+	{
+	  maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
+	  return GSASL_TOO_SMALL_BUFFER;
+	}
       memcpy (output, bufdesc2.value, bufdesc2.length);
       *output_len = bufdesc2.length;
 
@@ -284,6 +296,89 @@ _gsasl_gssapi_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 				       GSS_C_NO_BUFFER);
 
   free (state);
+
+  return GSASL_OK;
+}
+
+int
+_gsasl_gssapi_client_encode (Gsasl_session_ctx * sctx,
+			     void *mech_data,
+			     const char *input, size_t input_len,
+			     char *output, size_t * output_len)
+{
+  _Gsasl_gssapi_client_state *state = mech_data;
+  OM_uint32 min_stat, maj_stat;
+  int res;
+  gss_buffer_desc foo = { input_len, input };
+  gss_buffer_t input_message_buffer = &foo;
+  gss_buffer_desc output_message_buffer;
+
+  if (state && state->step == 3 &&
+      state->qop & (GSASL_QOP_AUTH_INT|GSASL_QOP_AUTH_CONF))
+    {
+      maj_stat = gss_wrap (&min_stat,
+			   state->context,
+			   state->qop & GSASL_QOP_AUTH_CONF ? 1 : 0,
+			   GSS_C_QOP_DEFAULT,
+			   input_message_buffer,
+			   NULL,
+			   &output_message_buffer);
+      if (GSS_ERROR (maj_stat))
+	return GSASL_GSSAPI_WRAP_ERROR;
+      if (*output_len < output_message_buffer.length)
+	return GSASL_TOO_SMALL_BUFFER;
+      if (output)
+	memcpy (output, output_message_buffer.value,
+		output_message_buffer.length);
+      *output_len = output_message_buffer.length;
+    }
+  else
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
+
+  return GSASL_OK;
+}
+
+int
+_gsasl_gssapi_client_decode (Gsasl_session_ctx * sctx,
+				 void *mech_data,
+				 const char *input, size_t input_len,
+				 char *output, size_t * output_len)
+{
+  _Gsasl_gssapi_client_state *state = mech_data;
+  OM_uint32 min_stat, maj_stat;
+  int res;
+  gss_buffer_desc foo = { input_len, input };
+  gss_buffer_t input_message_buffer = &foo;
+  gss_buffer_desc output_message_buffer;
+
+  if (state && state->step == 3 &&
+      state->qop & (GSASL_QOP_AUTH_INT|GSASL_QOP_AUTH_CONF))
+    {
+      maj_stat = gss_unwrap (&min_stat,
+			     state->context,
+			     input_message_buffer,
+			     &output_message_buffer, NULL, NULL);
+      if (GSS_ERROR (maj_stat))
+	return GSASL_GSSAPI_UNWRAP_ERROR;
+      if (*output_len < output_message_buffer.length)
+	return GSASL_TOO_SMALL_BUFFER;
+      if (output)
+	memcpy (output, output_message_buffer.value,
+		output_message_buffer.length);
+      *output_len = output_message_buffer.length;
+    }
+  else
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
 
   return GSASL_OK;
 }
@@ -469,7 +564,7 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
 	return GSASL_TOO_SMALL_BUFFER;
 
       memset (output, 0xFF, 4);
-      output[0] = GSSAPI_AUTH_NONE;
+      output[0] = GSASL_QOP_AUTH;
       bufdesc1.length = 4;
       bufdesc1.value = output;
       maj_stat = gss_wrap (&min_stat, state->context, 0, GSS_C_QOP_DEFAULT,
@@ -516,7 +611,7 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
          FALSE, and responds with the generated output_message.  The
          client can then consider the server authenticated. */
 
-      if ((((char *) bufdesc2.value)[0] & GSSAPI_AUTH_NONE) == 0)
+      if ((((char *) bufdesc2.value)[0] & GSASL_QOP_AUTH) == 0)
 	{
 	  /* Integrity or privacy unsupported */
 	  maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
