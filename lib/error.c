@@ -42,19 +42,19 @@ gsasl_strerror (int err)
       break;
 
     case GSASL_NEEDS_MORE:
-      p = _("SASL mechanisms needs more data (application error)");
+      p = _("SASL mechanisms needs more data");
       break;
 
     case GSASL_UNKNOWN_MECHANISM:
-      p = _("Unknown SASL mechanism (application error)");
+      p = _("Unknown SASL mechanism");
       break;
 
     case GSASL_MECHANISM_CALLED_TOO_MANY_TIMES:
-      p = _("SASL mechanism called too many times (application error)");
+      p = _("SASL mechanism called too many times");
       break;
 
     case GSASL_TOO_SMALL_BUFFER:
-      p = _("SASL function need larger buffer (application error)");
+      p = _("SASL function need larger buffer (internal error)");
       break;
 
     case GSASL_FOPEN_ERROR:
