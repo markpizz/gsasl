@@ -42,7 +42,7 @@ option "anonymous-token" n "Token for anonymous authentication, usually mail add
 option "authentication-id" a "Identity of credential owner." string no
 option "authorization-id" z "Identity to request service for." string no
 option "password" p "Password for authentication (insecure for non-testing purposes)." string no
-option "realm" r "Realm (may be given more than once iff server). Defaults to hostname." string no multiple
+option "realm" r "Realm. Defaults to hostname." string no
 option "maxbuf" x "Indicate maximum buffer size (DIGEST-MD5 only)." int typestr="NUMBER" no
 option "passcode" - "Passcode for authentication (SECURID only)." string typestr="NUMBER" no
 option "service" - "Set the requested service name (should be a registered GSSAPI host based service name)." string no
