@@ -196,7 +196,7 @@ fi
 (cd ${split_html_dir} && tar czf - *.html) > \
     $outdir/${PACKAGE}_html_node.tar.gz
 html_node_tgz_size="`calcsize $outdir/${PACKAGE}_html_node.tar.gz`"
-mkdir $outdir/html_node
+mkdir -p $outdir/html_node
 mv ${split_html_dir}/* $outdir/html_node/
 rmdir ${split_html_dir}
 
@@ -207,6 +207,7 @@ texi_tgz_size="`calcsize $outdir/$PACKAGE.texi.tar.gz`"
 
 echo Generating docbook XML...
 ${MAKEINFO} -o - --docbook $srcfile > ${srcdir}/$PACKAGE-db.xml
+perl -pi -e 's/"KERBEROS_V5"/"KERBEROSV5"/g' ${srcdir}/$PACKAGE-db.xml
 docbook_xml_size="`calcsize $PACKAGE-db.xml`"
 gzip -f -9 -c $PACKAGE-db.xml >$outdir/$PACKAGE-db.xml.gz
 docbook_xml_gz_size="`calcsize $outdir/$PACKAGE-db.xml.gz`"
@@ -218,7 +219,7 @@ ${DOCBOOK2HTML} -o $split_html_db_dir ${outdir}/$PACKAGE-db.xml
 (cd ${split_html_db_dir} && tar czf - *.html) > \
     $outdir/${PACKAGE}_html_node_db.tar.gz
 html_node_db_tgz_size="`calcsize $outdir/${PACKAGE}_html_node_db.tar.gz`"
-mkdir $outdir/html_node_db
+mkdir -p $outdir/html_node_db
 mv ${split_html_db_dir}/* $outdir/html_node_db/
 rmdir ${split_html_db_dir}
 
