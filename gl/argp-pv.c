@@ -18,8 +18,15 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
    02111-1307 USA.  */
 
+/* Get ELIDE_CODE. */
+#include "argp-namefrob.h"
+
+#ifndef ELIDE_CODE
+
 /* If set by the user program to a non-zero value, then a default option
    --version is added (unless the ARGP_NO_HELP flag is used), which will
    print this this string followed by a newline and exit (unless the
    ARGP_NO_EXIT flag is used).  Overridden by ARGP_PROGRAM_VERSION_HOOK.  */
 const char *argp_program_version;
+
+#endif /* !ELIDE_CODE */

@@ -58,6 +58,8 @@
 #include "argp.h"
 #include "argp-namefrob.h"
 
+#ifndef ELIDE_CODE
+
 /* Getopt return values.  */
 #define KEY_END (-1)		/* The end of the options.  */
 #define KEY_ARG 1		/* A non-option argument.  */
@@ -975,3 +977,5 @@ __argp_input (const struct argp *argp, const struct argp_state *state)
 #ifdef weak_alias
 weak_alias (__argp_input, _argp_input)
 #endif
+
+#endif /* !ELIDE_CODE */

@@ -145,3 +145,27 @@ extern char *__argp_short_program_name (void);
 #ifndef __set_errno
 #define __set_errno(e) (errno = (e))
 #endif
+
+/* NOTE BEFORE MODIFYING ARGP: This version number must be
+   incremented whenever callers compiled using an old argp.h can no
+   longer properly call the functions in this argp*.c.  */
+#define ARGP_INTERFACE_VERSION 1
+
+/* Get __GNU_LIBRARY__.  */
+#include <stdio.h>
+
+/* Comment out all this code if we are using the GNU C Library, and are not
+   actually compiling the library itself, and the installed library
+   supports the same library interface we do.  This code is part of the GNU
+   C Library, but also included in many other GNU distributions.  Compiling
+   and linking in this code is a waste when using the GNU C library
+   (especially if it is a shared library).  Rather than having every GNU
+   program understand `configure --with-gnu-libc' and omit the object
+   files, it is simpler to just do this in the source for each such file.  */
+
+#if !defined _LIBC && defined __GNU_LIBRARY__ && __GNU_LIBRARY__ > 1
+# include <gnu-versions.h>
+# if _GNU_ARGP_INTERFACE_VERSION == ARGP_INTERFACE_VERSION
+#  define ELIDE_CODE
+# endif
+#endif

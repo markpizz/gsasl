@@ -22,6 +22,11 @@
 #include <config.h>
 #endif
 
+/* Get ELIDE_CODE. */
+#include "argp-namefrob.h"
+
+#ifndef ELIDE_CODE
+
 #if defined _LIBC || defined HAVE_FEATURES_H
 # include <features.h>
 #endif
@@ -42,3 +47,5 @@ weak_alias (__option_is_short, _option_is_short)
 weak_alias (__option_is_end, _option_is_end)
 
 #endif
+
+#endif /* !ELIDE_CODE */

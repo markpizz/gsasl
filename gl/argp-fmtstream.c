@@ -34,6 +34,8 @@
 #include "argp-fmtstream.h"
 #include "argp-namefrob.h"
 
+#ifndef ELIDE_CODE
+
 #ifndef ARGP_FMTSTREAM_USE_LINEWRAP
 
 #ifndef isblank
@@ -439,3 +441,5 @@ weak_alias (__argp_fmtstream_printf, argp_fmtstream_printf)
 #endif
 
 #endif /* !ARGP_FMTSTREAM_USE_LINEWRAP */
+
+#endif /* !ELIDE_CODE */

@@ -22,6 +22,11 @@
 #include <config.h>
 #endif
 
+/* Get ELIDE_CODE. */
+#include "argp-namefrob.h"
+
+#ifndef ELIDE_CODE
+
 #include "argp.h"
 
 /* If set by the user program to a non-zero value, then a default option
@@ -30,3 +35,5 @@
    current parsing state, and then exits (unless the ARGP_NO_EXIT flag is
    used).  This variable takes precedent over ARGP_PROGRAM_VERSION.  */
 void (*argp_program_version_hook) (FILE *stream, struct argp_state *state);
+
+#endif /* !ELIDE_CODE */

@@ -85,6 +85,8 @@ char *strerror (int errnum);
 #include "argp-fmtstream.h"
 #include "argp-namefrob.h"
 
+#ifndef ELIDE_CODE
+
 #ifndef SIZE_MAX
 # define SIZE_MAX ((size_t) -1)
 #endif 
@@ -1903,3 +1905,5 @@ __argp_failure (const struct argp_state *state, int status, int errnum,
 #ifdef weak_alias
 weak_alias (__argp_failure, argp_failure)
 #endif
+
+#endif /* !ELIDE_CODE */

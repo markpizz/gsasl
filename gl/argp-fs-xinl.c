@@ -22,6 +22,11 @@
 #include <config.h>
 #endif
 
+/* Get ELIDE_CODE. */
+#include "argp-namefrob.h"
+
+#ifndef ELIDE_CODE
+
 #define ARGP_FS_EI
 #undef __OPTIMIZE__
 #define __OPTIMIZE__
@@ -42,3 +47,5 @@ weak_alias (__argp_fmtstream_point, argp_fmtstream_point)
 
 #endif
 #endif
+
+#endif /* !ELIDE_CODE */
