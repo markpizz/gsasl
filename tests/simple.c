@@ -301,8 +301,9 @@ client_callback_password (Gsasl_session_ctx * xctx, char *out,
 
 int
 server_callback_validate (Gsasl_session_ctx * xctx,
-			  char *authorization_id,
-			  char *authentication_id, char *password)
+			  const char *authorization_id,
+			  const char *authentication_id, 
+			  const char *password)
 {
   Gsasl_ctx *ctx = gsasl_server_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
@@ -327,9 +328,10 @@ server_callback_validate (Gsasl_session_ctx * xctx,
 
 int
 server_callback_retrieve (Gsasl_session_ctx * xctx,
-			  char *authentication_id,
-			  char *authorization_id,
-			  char *realm, char *key, size_t * keylen)
+			  const char *authentication_id,
+			  const char *authorization_id,
+			  const char *realm,
+			  char *key, size_t * keylen)
 {
   Gsasl_ctx *ctx = gsasl_server_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
@@ -419,9 +421,9 @@ client_callback_pin (Gsasl_session_ctx * xctx, char *suggestion,
 
 int
 server_callback_securid (Gsasl_session_ctx * xctx,
-			 char *authentication_id,
-			 char *authorization_id,
-			 char *passcode,
+			 const char *authentication_id,
+			 const char *authorization_id,
+			 const char *passcode,
 			 char *pin, char *suggestpin, size_t * suggestpinlen)
 {
   Gsasl_ctx *ctx = gsasl_server_ctx_get (xctx);
