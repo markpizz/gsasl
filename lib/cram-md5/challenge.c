@@ -39,8 +39,8 @@
  *...
  *   challenge  = "<" 1*DIGIT "." 1*DIGIT "@" hostname ">"
  *
- * This implementation avoid the information leakage by always using
- * 0 as the time stamp and a fixed host name.  This is
+ * This implementation avoid the information leakage by always using 0
+ * as the time stamp and a fixed host name.  This should be
  * unproblematic, as any client that try to validate the challenge
  * string somehow, would violate the same specification:
  *
