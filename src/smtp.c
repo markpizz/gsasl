@@ -94,10 +94,12 @@ smtp_step_send (const char *data)
 int
 smtp_step_recv (char **data)
 {
-  char *p = *data;
+  char *p;
 
   if (!readln (data))
     return 0;
+
+  p = *data;
 
   if (p[0] != '3' || p[1] != '3' || p[2] != '4' || p[3] != ' ')
     {

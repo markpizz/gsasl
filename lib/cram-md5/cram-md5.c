@@ -351,6 +351,8 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
     free (key);
   *output_len = 0;
 
+  res = GSASL_OK;
+
 done:
   return res;
 }

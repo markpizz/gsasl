@@ -94,10 +94,12 @@ imap_step_send (const char *data)
 int
 imap_step_recv (char **data)
 {
-  char *p = *data;
+  char *p;
 
   if (!readln (data))
     return 0;
+
+  p = *data;
 
   if (p[0] != '+' || p[1] != ' ')
     {
