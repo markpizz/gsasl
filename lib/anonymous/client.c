@@ -25,16 +25,6 @@
 int
 _gsasl_anonymous_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
-  int *step;
-
-  step = (int *) malloc (sizeof (*step));
-  if (step == NULL)
-    return GSASL_MALLOC_ERROR;
-
-  *step = 0;
-
-  *mech_data = step;
-
   return GSASL_OK;
 }
 
@@ -44,11 +34,7 @@ _gsasl_anonymous_client_step (Gsasl_session_ctx * sctx,
 			      const char *input, size_t input_len,
 			      char **output, size_t * output_len)
 {
-  int *step = mech_data;
   const char *p;
-
-  if (*step > 0)
-    return GSASL_OK;
 
   p = gsasl_property_get (sctx, GSASL_CLIENT_ANONYMOUS);
   if (!p)
@@ -58,18 +44,6 @@ _gsasl_anonymous_client_step (Gsasl_session_ctx * sctx,
   if (!*output)
     return GSASL_MALLOC_ERROR;
   *output_len = strlen (p);
-
-  (*step)++;
-
-  return GSASL_OK;
-}
-
-int
-_gsasl_anonymous_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
-{
-  int *step = mech_data;
-
-  free (step);
 
   return GSASL_OK;
 }

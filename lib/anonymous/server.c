@@ -22,24 +22,9 @@
 
 #include "anonymous.h"
 
-struct _Gsasl_anonymous_server_state
-{
-  int step;
-};
-
 int
 _gsasl_anonymous_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
-  struct _Gsasl_anonymous_server_state *state;
-
-  state = malloc (sizeof (*state));
-  if (state == NULL)
-    return GSASL_MALLOC_ERROR;
-
-  state->step = 0;
-
-  *mech_data = state;
-
   return GSASL_OK;
 }
 
@@ -49,52 +34,21 @@ _gsasl_anonymous_server_step (Gsasl_session_ctx * sctx,
 			      const char *input, size_t input_len,
 			      char **output, size_t * output_len)
 {
-  struct _Gsasl_anonymous_server_state *state = mech_data;
   char *token;
-  int res;
 
   *output = NULL;
   *output_len = 0;
 
-  switch (state->step)
-    {
-    case 0:
-      state->step++;
-      if (input_len == 0)
-	return GSASL_NEEDS_MORE;
-      /* fall through */
+  if (input_len == 0)
+    return GSASL_NEEDS_MORE;
 
-    case 1:
-      if (input_len == 0)
-	return GSASL_MECHANISM_PARSE_ERROR;
+  token = malloc (input_len + 1);
+  if (token == NULL)
+    return GSASL_MALLOC_ERROR;
+  memcpy (token, input, input_len);
+  token[input_len] = '\0';
+  gsasl_property_set (sctx, GSASL_SERVER_ANONYMOUS, token);
+  free (token);
 
-      token = malloc (input_len + 1);
-      if (token == NULL)
-	return GSASL_MALLOC_ERROR;
-      memcpy (token, input, input_len);
-      token[input_len] = '\0';
-      gsasl_property_set (sctx, GSASL_SERVER_ANONYMOUS, token);
-      free (token);
-
-      res = gsasl_callback (sctx, GSASL_SERVER_ANONYMOUS);
-
-      state->step++;
-      break;
-
-    default:
-      res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
-      break;
-    }
-
-  return res;
-}
-
-int
-_gsasl_anonymous_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
-{
-  struct _Gsasl_anonymous_server_state *state = mech_data;
-
-  free (state);
-
-  return GSASL_OK;
+  return gsasl_callback (sctx, GSASL_SERVER_ANONYMOUS);
 }

@@ -43,7 +43,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     _gsasl_anonymous_client_start,
     NULL,
-    _gsasl_anonymous_client_finish,
+    NULL,
     NULL,
     NULL,
     _gsasl_anonymous_client_step
@@ -55,7 +55,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     _gsasl_anonymous_server_start,
     NULL,
-    _gsasl_anonymous_server_finish,
+    NULL,
     NULL,
     NULL,
     _gsasl_anonymous_server_step
