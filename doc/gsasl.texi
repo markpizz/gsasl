@@ -326,6 +326,12 @@ HP-UX C compiler and HP Make. @code{ia64-hp-hpux11.22},
 
 Sun WorkShop Compiler C 6.0 and SUN Make. @code{sparc-sun-solaris2.8}.
 
+@item SUN Solaris 2.9
+@cindex Solaris
+
+Sun Forte Developer 7 C compiler and GNU
+Make. @code{sparc-sun-solaris2.9}.
+
 @item NetBSD 1.6
 @cindex NetBSD
 
