@@ -30,6 +30,8 @@ _gsasl_code (Gsasl_session_ctx * sctx,
 
   if (code == NULL)
     {
+      if (*output_len < input_len)
+	return GSASL_TOO_SMALL_BUFFER;
       *output_len = input_len;
       if (output)
 	memcpy (output, input, input_len);
