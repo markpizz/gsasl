@@ -101,7 +101,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     _gsasl_plain_client_start,
     NULL,
-    _gsasl_plain_client_finish,
+    NULL,
     NULL,
     NULL,
     _gsasl_plain_client_step
@@ -113,7 +113,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     _gsasl_plain_server_start,
     _gsasl_plain_server_step,
-    _gsasl_plain_server_finish,
+    NULL,
     NULL,
     NULL
 #endif
