@@ -35,7 +35,6 @@ enum
   OPTION_ENABLE_CRAM_MD5_VALIDATE,
   OPTION_DISABLE_CLEARTEXT_VALIDATE,
   OPTION_QOP,
-  OPTION_APPLICATION_DATA,
   OPTION_NO_CLIENT_FIRST,
   OPTION_IMAP,
   OPTION_CONNECT
@@ -120,6 +119,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
       maxbuf = strtoul (arg, NULL, 0);
       break;
 
+    case 'd':
+      application_data = 1;
+      break;
+
     case OPTION_PASSCODE:
       passcode = strdup (arg);
       break;
@@ -134,10 +137,6 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
     case OPTION_SERVICENAME:
       servicename = strdup (arg);
-      break;
-
-    case OPTION_APPLICATION_DATA:
-      application_data = 1;
       break;
 
     case OPTION_IMAP:
@@ -274,7 +273,7 @@ static struct argp_option options[] = {
 
   {0, 0, 0, 0, "Miscellaneous options:", 200},
 
-  {"application-data", OPTION_APPLICATION_DATA, 0, 0,
+  {"application-data", 'd', 0, 0,
    "After authentication, read data from stdin and run it through the "
    "mechanism's security layer and print it base64 encoded to stdout. "
    "The default is to terminate after authentication."},

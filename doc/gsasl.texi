@@ -1471,7 +1471,7 @@ perform the negotiation with a server over a TCP network connection.
 These parameters affect overall behaviour.
 
 @verbatim
-      --application-data     After authentication, read data from stdin and run
+  -d, --application-data     After authentication, read data from stdin and run
                              it through the mechanism's security layer and
                              print it base64 encoded to stdout. The default is
                              to terminate after authentication.
