@@ -4,13 +4,7 @@ Makefile.in
 abstraction.pdf
 controlflow.pdf
 controlflow2.pdf
-gsasl-api-callback.texi
 gsasl-api-error-labels.texi
-gsasl-api-error.texi
-gsasl-api-global.texi
-gsasl-api-session.texi
-gsasl-api-utils.texi
-gsasl-api-version.texi
 gsasl-db.pdf
 gsasl-db.ps
 gsasl-db.txt
