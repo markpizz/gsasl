@@ -1218,6 +1218,10 @@ mechanism require in order to work.
 @node Properties
 @chapter Properties
 
+@c FIXME: Write introductions to properties.  Discuss differences
+@c between client and server properties.  Discuss validating
+@c meta-properties.
+
 Properties with associated data:
 
 @itemize
@@ -1423,19 +1427,22 @@ In the first approach, the server side of the mechanism will invoke
 the @code{GSASL_VALIDATE_SIMPLE} callback property to decide whether
 the client should be accepted or not.  The callback may inspect the
 @code{GSASL_AUTHID}, @code{GSASL_AUTHID}, and @code{GSASL_PASSWORD}
-properties.
+properties.  These properties values will be normalized.
 
 If the first approach fails (because, e.g., your callback return
-@samp{GSASL_NO_CALLBACK}) the mechanism will continue to query the
+@samp{GSASL_NO_CALLBACK} to signal that it does not implement
+@code{GSASL_VALIDATE_SIMPLE}) the mechanism will continue to query the
 application for a password, via the @code{GSASL_PASSWORD} property.
-The password is then normalized using @acronym{SASLprep} and compared
-to the client credential.
+Your callback may use the @code{GSASL_AUTHID} and @code{GSASL_AUTHZID}
+properties to select the proper password.  The password is then
+normalized and compared to the client credential.
 
-Which approach to use?  If the passwords in your user database are
-stored in a prepared form (using @acronym{SASLprep}), the first
-approach will be faster.  If you do not have prepared passwords
-available, you must use the second approach, to make sure the password
-has been prepared properly.
+Which approach to use?  If your database store hashed passwords, you
+have no option, but must use the first approach.  If passwords in your
+user database are stored in prepared (@acronym{SASLprep}) form, the
+first approach will be faster.  If you do not have prepared passwords
+available, you can use the second approach to make sure the password
+is prepared properly before comparison.
 
 @node LOGIN
 @section The LOGIN mechanism
@@ -1449,7 +1456,7 @@ The callback behaviour is the same as for PLAIN, except that
 not normalize the password using @acronym{SASLprep}.
 
 @xref{Use of SASLprep in LOGIN}, for a proposed clarification of the
-interpretation of any hypothetical LOGIN specification.
+interpretation of a hypothetical LOGIN specification.
 
 @node CRAM-MD5
 @section The CRAM-MD5 mechanism
@@ -1459,8 +1466,8 @@ in favor of DIGEST-MD5), challenge-response mechanism that transfer
 hashed passwords instead of clear text passwords.  For insecure
 channels (e.g., when @acronym{TLS} is not used), it is safer than
 PLAIN.  The CRAM-MD5 mechanism do not support authorization
-identities; making the relationship between PLAIN and LOGIN similar to
-the relationship between DIGEST-MD5 and CRAM-MD5.
+identities; making the relationship between CRAM-MD5 and DIGEST-MD5
+similar to the relationship between LOGIN and PLAIN.
 
 The disadvantage with hashed passwords is that the server cannot use
 normal authentication infrastructures such as PAM, because the server
@@ -1472,9 +1479,10 @@ In the client, this mechanism is always enabled, and require the
 
 In the server, the mechanism will invoke the @code{GSASL_PASSWORD}
 callback, which may use the @code{GSASL_AUTHID} property to determine
-which users' password should be used.  The server will then normalize
-the password, and compare the client response with a known correct
-computed response, and accept the user accordingly.
+which users' password should be used.  The @code{GSASL_AUTHID} will be
+in normalized form.  The server will then normalize the returned
+password, and compare the client response with the computed correct
+response, and accept the user accordingly.
 
 @xref{Use of SASLprep in CRAM-MD5}, for a clarification on the
 interpretation of the CRAM-MD5 specification that this implementation
@@ -1483,26 +1491,31 @@ rely on.
 @node DIGEST-MD5
 @section The DIGEST-MD5 mechanism
 
-The DIGEST-MD5 mechanism is based on the same cryptographic primitive
-as CRAM-MD5 (namely the challenge-response HMAC-MD5 system), but
+The DIGEST-MD5 mechanism is based on repeated hashing using MD5, which
+after the MD5 break may be argued to be weaker than HMAC-MD5, but
 supports more features.  For example, authorization identities and
 data integrity and privacy protection are supported.  Like CRAM-MD5,
 only a hashed password is transfered.  Consequently, DIGEST-MD5 need
-access to (a possibly hashed) form of the correct password to verify
-the client response, which make it impossible to use, e.g.,
-@acronym{PAM} on the server side.
+access to the correct password (although it may be hashed, another
+improvement compared to CRAM-MD5) to verify the client response.
+Alas, this make it impossible to use, e.g., @acronym{PAM} on the
+server side.
 
 In the client, this mechanism is always enabled, and require the
-@code{GSASL_AUTHID} and @code{GSASL_PASSWORD} properties.  If set,
-@code{GSASL_AUTHZID} will also be used.
+@code{GSASL_AUTHID}, @code{GSASL_PASSWORD}, @code{GSASL_SERVICE}, and
+@code{GSASL_HOSTNAME} properties.  If set, @code{GSASL_AUTHZID} and
+@code{GSASL_REALM} will also be used.
 
 In the server, the mechanism will invoke the @code{GSASL_PASSWORD}
-callback, which may use the @code{GSASL_AUTHID} property to determine
-which users' password should be used.  The server will then normalize
-the password, and compare the client response with a known correct
-computed response, and accept the user accordingly.
+callback, which may use the @code{GSASL_AUTHID}, @code{GSASL_AUTHZID}
+and @code{GSASL_REALM} properties to determine which users' password
+should be used.  The server will then compare the client response with
+a computed correct response, and accept the user accordingly.
 
-XXX: explain more about quality of service, maximum buffer size, etc.
+Currently only the authentication quality of service is implemented.
+In other words, payload integrity or privacy protection are not
+supported.  Consequently, there are no properties for the maximum
+buffer size, quality of protection, and cipher fields.
 
 @node NTLM
 @section The NTLM mechanism
