@@ -16,8 +16,8 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef _PROGNAME_H
-#define _PROGNAME_H
+#ifndef PROGNAME_H
+#define PROGNAME_H
 
 /* Programs using this file should do the following in main():
      set_program_name (argv[0]);
@@ -35,21 +35,11 @@ extern const char *program_name;
 /* Set program_name, based on argv[0].  */
 extern void set_program_name (const char *argv0);
 
-#if ENABLE_RELOCATABLE
-
-/* Set program_name, based on argv[0], and original installation prefix and
-   directory, for relocatability.  */
-extern void set_program_name_and_installdir (const char *argv0,
-					     const char *orig_installprefix,
-					     const char *orig_installdir);
-#define set_program_name(ARG0) \
-  set_program_name_and_installdir (ARG0, INSTALLPREFIX, INSTALLDIR)
-
-/* Return the full pathname of the current executable, based on the earlier
-   call to set_program_name_and_installdir.  Return NULL if unknown.  */
-extern char *get_full_program_name (void);
-
-#endif
+/* Return short program name of the current executable, based on the
+   earlier call to set_program_name.  Return NULL if unknown.  The
+   short program name is computed by removing all directory names and
+   path separators. */
+extern const char *get_short_program_name (void);
 
 
 #ifdef __cplusplus
@@ -57,4 +47,4 @@ extern char *get_full_program_name (void);
 #endif
 
 
-#endif /* _PROGNAME_H */
+#endif /* PROGNAME_H */
