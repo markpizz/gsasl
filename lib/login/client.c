@@ -62,7 +62,6 @@ _gsasl_login_client_step (Gsasl_session * sctx,
 {
   struct _Gsasl_login_client_state *state = mech_data;
   const char *p;
-  char *tmp;
   int res;
 
   switch (state->step)
