@@ -68,8 +68,8 @@
 <P>
 <UL>
   <LI><A HREF="../doxygen/">Doxygen HTML</a>.
-  <LI><A HREF="../doxygen/gsasl.ps">Doxygen PostScript file</A>.
-  <LI><A HREF="../doxygen/gsasl.pdf">Doxygen PDF file</A>.
+  <LI><A HREF="../doxygen/%%PACKAGE%%.ps">Doxygen PostScript file</A>.
+  <LI><A HREF="../doxygen/%%PACKAGE%%.pdf">Doxygen PDF file</A>.
 </UL>
 
 <P>
