@@ -8,16 +8,16 @@ overview, and doc/gsasl.{info,ps,pdf} for the manual.
 
 Currently there is some support for the following mechanisms:
 
-  - CRAM-MD5 (RFC 2195, requires libgcrypt)
+  - CRAM-MD5 (RFC 2195)
   - EXTERNAL (RFC 2222)
-  - GSSAPI (RFC 2222, requires GSS, Heimdal or MIT Kerberos library)
+  - GSSAPI (RFC 2222, requires GSS, Heimdal or MIT Kerberos)
   - ANONYMOUS (RFC 2245)
   - PLAIN (RFC 2595)
   - SECURID (RFC 2808)
-  - DIGEST-MD5 (RFC 2831, requires libgcrypt)
+  - DIGEST-MD5 (RFC 2831)
   - LOGIN (non-standard)
-  - NTLM (non-standard, client only, requires libntlm)
-  - KERBEROS_V5 (experimental, requires shishi)
+  - NTLM (non-standard, client only, requires Libntlm)
+  - KERBEROS_V5 (experimental, requires Shishi)
 
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
