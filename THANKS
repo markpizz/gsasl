@@ -2,15 +2,15 @@ GNU SASL THANKS -- Acknowledgements.
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
-Libgsasl uses libntlm by Grant Edwards maintained by Simon Josefsson;
+GNU SASL uses libntlm by Grant Edwards maintained by Simon Josefsson;
 libgssapi by MIT/Heimdal; libgcrypt by Werner Koch; GSS, Libidn, and
-Shishi by Simon Josefsson.  Templates for makefiles, manuals etc was
-borrowed from Libgcrypt.
+Shishi by Simon Josefsson.
 
 Bug reports, patches and/or suggestions were also received from:
 
 Jakub Bogusz
 Lars Engebretsen
+Alexey Melnikov
 Marc Mutz
 Andorz Nilsson
 Tomas Ogren
