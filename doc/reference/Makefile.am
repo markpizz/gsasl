@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2003 Simon Josefsson.
+# Copyright (C) 2003, 2004 Simon Josefsson.
 #
 # This file is part of GNU Libidn.
 #
@@ -17,8 +17,7 @@
 # License along with GNU Libidn; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-HIGNORE = anonymous.h cram-md5.h digest-md5.h external.h gettext.h internal.h \
-	kerberos_v5.h login.h plain.h securid.h x-gssapi.h x-ntlm.h
+HIGNORE = internal.h crypto.h
 HTML_OBJECTS = index.html c4.html gsasl-gsasl.html
 
 EXTRA_DIST = $(PACKAGE)-docs.tmpl $(HTML_OBJECTS) $(IMAGES)
