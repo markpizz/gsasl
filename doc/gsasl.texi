@@ -1921,8 +1921,6 @@ supported during a transition period.  Refer to the NEWS file to find
 out since when a function has been deprecated.
 
 @include texi/obsolete.c.texi
-@include texi/callback-c.c.texi
-@include texi/callback-s.c.texi
 
 @section Obsolete callback function prototypes
 
