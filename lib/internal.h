@@ -37,11 +37,9 @@
 /* Get specifications. */
 #include "gsasl.h"
 
-/* GNULib */
-#include "gettext.h"
-
 #include <stringprep.h>
 
+#include "gettext.h"
 #define _(String) dgettext (PACKAGE, String)
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
