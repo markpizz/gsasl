@@ -9,10 +9,9 @@ dnl the same distribution terms as the rest of that program.
 AC_DEFUN([gl_FUNC_STRDUP],
 [
   AC_REPLACE_FUNCS(strdup)
+  AC_CHECK_DECLS_ONCE(strdup)
   gl_PREREQ_STRDUP
 ])
 
-# Prerequisites of lib/strdup.h and lib/strdup.c.
-AC_DEFUN([gl_PREREQ_STRDUP], [
-  AC_CHECK_DECLS(strdup)
-])
+# Prerequisites of lib/strdup.c.
+AC_DEFUN([gl_PREREQ_STRDUP], [:])
