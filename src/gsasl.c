@@ -674,7 +674,6 @@ main (int argc, char *argv[])
 		  if (!(strlen (input) == output_len &&
 			memcmp (input, output, output_len) == 0))
 		    {
-		      puts ("d");
 		      b64output_len = sizeof (b64output);
 		      b64output_len = gsasl_base64_encode (output, output_len,
 							   b64output,
