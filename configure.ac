@@ -19,7 +19,7 @@ dnl License along with Libgsasl; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
 AC_PREREQ(2.50)
-AC_INIT(libgsasl, 0.0.3, bug-libgsasl@josefsson.org)
+AC_INIT(libgsasl, 0.0.4, bug-libgsasl@josefsson.org)
 
 # Interfaces removed:       CURRENT++ AGE=0 REVISION=0
 # Interfaces added:         CURRENT++ AGE++ REVISION=0
@@ -32,7 +32,7 @@ AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_AGE)
 AC_SUBST(LT_REVISION)
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE(gnits)
 AM_CONFIG_HEADER(config.h)
 
 # Checks for programs.
