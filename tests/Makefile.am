@@ -27,6 +27,6 @@ check_PROGRAMS = $(test_programs)
 TESTS = $(test_programs) $(test_scripts)
 
 INCLUDES = -I$(top_srcdir)/lib
-LDADD = ../lib/libgsasl.la @LTLIBINTL@
+LDADD = ../lib/libgsasl.la
 
 noinst_PROGRAMS = $(test_programs)
