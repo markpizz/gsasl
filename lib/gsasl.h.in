@@ -134,12 +134,13 @@ extern "C"
   extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc);
 
 /* Callback handling: callback.c */
+  extern Gsasl_ctx *gsasl_ctx_get (Gsasl_session_ctx * sctx);
   extern void gsasl_application_data_set (Gsasl_ctx * ctx,
 					  void *application_data);
   extern void *gsasl_application_data_get (Gsasl_ctx * ctx);
-  extern void gsasl_application_session_data_set (Gsasl_session_ctx * sctx,
-						  void *application_data);
-  extern void *gsasl_application_session_data_get (Gsasl_session_ctx * sctx);
+  extern void gsasl_appinfo_set (Gsasl_session_ctx * sctx,
+				 void *application_data);
+  extern void *gsasl_appinfo_get (Gsasl_session_ctx * sctx);
 
 /* Mechanism handling: listmech.c, supportp.c, suggest.c */
   extern int gsasl_client_mechlist (Gsasl_ctx * ctx, char **out);
@@ -259,12 +260,6 @@ extern "C"
 							sctx);
 
 /* Client callbacks: callback-c.c */
-  extern Gsasl_ctx *gsasl_client_ctx_get (Gsasl_session_ctx * sctx);
-
-  extern void gsasl_client_application_data_set (Gsasl_session_ctx * sctx,
-						 void *application_data);
-  extern void *gsasl_client_application_data_get (Gsasl_session_ctx * sctx);
-
   extern void gsasl_client_callback_authorization_id_set (Gsasl_ctx * ctx,
 							  Gsasl_client_callback_authorization_id
 							  cb);
@@ -323,12 +318,6 @@ extern "C"
     gsasl_client_callback_realm_get (Gsasl_ctx * ctx);
 
 /* Server callbacks: callback-s.c */
-  extern Gsasl_ctx *gsasl_server_ctx_get (Gsasl_session_ctx * sctx);
-
-  extern void gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
-						 void *application_data);
-  extern void *gsasl_server_application_data_get (Gsasl_session_ctx * sctx);
-
   extern void gsasl_server_callback_validate_set (Gsasl_ctx * ctx,
 						  Gsasl_server_callback_validate
 						  cb);
@@ -425,6 +414,15 @@ extern "C"
 				       char *b64output, size_t b64output_len);
   extern void gsasl_client_finish (Gsasl_session_ctx * sctx);
   extern void gsasl_server_finish (Gsasl_session_ctx * sctx);
+  extern Gsasl_ctx *gsasl_client_ctx_get (Gsasl_session_ctx * sctx);
+  extern Gsasl_ctx *gsasl_server_ctx_get (Gsasl_session_ctx * sctx);
+  extern void gsasl_client_application_data_set (Gsasl_session_ctx * sctx,
+						 void *application_data);
+  extern void *gsasl_client_application_data_get (Gsasl_session_ctx * sctx);
+  extern void gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
+						 void *application_data);
+  extern void *gsasl_server_application_data_get (Gsasl_session_ctx * sctx);
+
 
 #ifdef __cplusplus
 }
