@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.0\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-09-18 19:18+0200\n"
+"POT-Creation-Date: 2004-04-16 21:12+0200\n"
 "PO-Revision-Date: 2004-04-18 12:00-0500\n"
 "Last-Translator: Laurentiu Buzdugan <lbuz@rolix.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -43,62 +43,58 @@ msgstr "Ieºirea de la client:\n"
 msgid "Output from server:\n"
 msgstr "Ieºirea de la server:\n"
 
-#: src/gsasl.c:304 src/gsasl.c:346 src/gsasl.c:397 src/gsasl.c:439
-#: src/gsasl.c:531
-#, fuzzy, c-format
-msgid "Libgsasl error (%d): %s"
+#: src/gsasl.c:302 src/gsasl.c:347 src/gsasl.c:402 src/gsasl.c:447
+#: src/gsasl.c:542
+#, c-format
+msgid "Libgsasl error (%d): %s\n"
 msgstr "Eroare libgsasl (%d): %s\n"
 
-#: src/gsasl.c:353
+#: src/gsasl.c:356
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Acest client suportã urmãtoarele mecanisme:\n"
 
-#: src/gsasl.c:356
+#: src/gsasl.c:359
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Acest server suportã urmãtoarele mecanisme:\n"
 
-#: src/gsasl.c:380
+#: src/gsasl.c:384
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Nu pot gãsi mecanismul...\n"
 
-#: src/gsasl.c:426
+#: src/gsasl.c:433
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr ""
-"Introduceþi datele de autentificare base64 de la server (apãsaþi  RET dacã "
-"nu existã):\n"
+msgstr "Introduceþi datele de autentificare base64 de la server (apãsaþi  RET dacã nu existã):\n"
 
-#: src/gsasl.c:429
+#: src/gsasl.c:436
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Introduceþi datele de autentificare base64 de la client (apãsaþi  RET dacã "
-"nu existã):\n"
+msgstr "Introduceþi datele de autentificare base64 de la client (apãsaþi  RET dacã nu existã):\n"
 
-#: src/gsasl.c:448
+#: src/gsasl.c:458
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Autentificarea clientului a fost terminatã (server de încredere)...\n"
 
-#: src/gsasl.c:451
+#: src/gsasl.c:461
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Autentificarea clientului a fost terminatã (client de încredere)...\n"
 
-#: src/gsasl.c:466
+#: src/gsasl.c:476
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Introduceþi datele aplicaþiei (EOF pentru a termina):\n"
 
-#: src/gsasl.c:505
+#: src/gsasl.c:515
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Datele aplicaþiei encodate Base64 de trimis:\n"
 
-#: src/gsasl.c:536
+#: src/gsasl.c:549
 #, c-format
 msgid "Session finished...\n"
 msgstr "Sesiune terminatã...\n"
