@@ -1,4 +1,5 @@
 GNU SASL ANNOUNCE -- overview to attract interest
+Copyright (C) 2002, 2003 Simon Josefsson
 See the end for copying conditions.
 
 GNU SASL is an implementation of the Simple Authentication and
@@ -11,7 +12,7 @@ GNU SASL contains a library (`libgsasl'), a command line utility
 library includes support for the SASL framework (with authentication
 functions and application data privacy and integrity functions) and at
 least partial support for the CRAM-MD5, EXTERNAL, GSSAPI, ANONYMOUS,
-PLAIN, SECURID, DIGEST-MD5, LOGIN, NTLM mechanisms.
+PLAIN, SECURID, DIGEST-MD5, LOGIN, NTLM and KERBEROS_V5 mechanisms.
 
 The library is portable because it does not do network communication
 by itself, but rather leaves it up to the calling application.  The
@@ -37,8 +38,6 @@ Further information including paid contract development:
 Simon Josefsson <simon@josefsson.org>
 
 ----------------------------------------------------------------------
-Copyright (C) 2002 Simon Josefsson
-
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
 notice and this notice are preserved.
