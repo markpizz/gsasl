@@ -42,10 +42,13 @@
 # include <netdb.h>
 #endif
 #ifdef HAVE_SYS_SOCKET_H
-# include <sys/socket.h>		/* for AF_INET */
+# include <sys/socket.h>	/* for AF_INET */
 #endif
 #ifdef HAVE_SYS_TIME_H
 # include <sys/time.h>		/* select() */
+#endif
+#ifdef HAVE_PWD_H
+# include <pwd.h>		/* getpwnam */
 #endif
 
 #ifdef HAVE_NETINET_IN_H
