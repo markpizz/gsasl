@@ -1,0 +1,1028 @@
+<!-- ##### SECTION Title ##### -->
+gsasl
+
+<!-- ##### SECTION Short_Description ##### -->
+GNU Simple Authentication and Security Layer Library.
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+GNU SASL is an implementation of the Simple Authentication and
+Security Layer framework and a few common SASL mechanisms.  SASL is
+used by network servers (e.g., IMAP, SMTP) to request authentication
+from clients, and in clients to authenticate against servers.
+
+GNU SASL contains a library (`libgsasl'), a command line utility
+(`gsasl') to access the library from the shell, and a manual.
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO GSASL_VERSION ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### VARIABLE GSASL_VALID_MECHANISM_CHARACTERS ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ENUM Gsasl_qop ##### -->
+<para>
+
+</para>
+
+@GSASL_QOP_AUTH: 
+@GSASL_QOP_AUTH_INT: 
+@GSASL_QOP_AUTH_CONF: 
+
+<!-- ##### ENUM Gsasl_cipher ##### -->
+<para>
+
+</para>
+
+@GSASL_CIPHER_DES: 
+@GSASL_CIPHER_3DES: 
+@GSASL_CIPHER_RC4: 
+@GSASL_CIPHER_RC4_40: 
+@GSASL_CIPHER_RC4_56: 
+@GSASL_CIPHER_AES: 
+
+<!-- ##### FUNCTION gsasl_init ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_done ##### -->
+<para>
+
+</para>
+
+@ctx: 
+
+
+<!-- ##### FUNCTION gsasl_check_version ##### -->
+<para>
+
+</para>
+
+@req_version: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_application_data_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@application_data: 
+
+
+<!-- ##### FUNCTION gsasl_application_data_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+
+
+<!-- ##### FUNCTION gsasl_client_listmech ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@out: 
+@outlen: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_support_p ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_suggest_mechanism ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@mechlist: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_listmech ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@out: 
+@outlen: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_support_p ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_suggest_mechanism ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@mechlist: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_start ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@mech: 
+@sctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_step ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@input: 
+@input_len: 
+@output: 
+@output_len: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_step_base64 ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@b64input: 
+@b64output: 
+@b64output_len: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_finish ##### -->
+<para>
+
+</para>
+
+@sctx: 
+
+
+<!-- ##### FUNCTION gsasl_server_start ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@mech: 
+@sctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_step ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@input: 
+@input_len: 
+@output: 
+@output_len: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_step_base64 ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@b64input: 
+@b64output: 
+@b64output_len: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_finish ##### -->
+<para>
+
+</para>
+
+@sctx: 
+
+
+<!-- ##### FUNCTION gsasl_encode ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@input: 
+@input_len: 
+@output: 
+@output_len: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_decode ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@input: 
+@input_len: 
+@output: 
+@output_len: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_strerror ##### -->
+<para>
+
+</para>
+
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_base64_encode ##### -->
+<para>
+
+</para>
+
+@src: 
+@srclength: 
+@target: 
+@targsize: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_base64_decode ##### -->
+<para>
+
+</para>
+
+@src: 
+@target: 
+@targsize: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_hexdump ##### -->
+<para>
+
+</para>
+
+@fh: 
+@buffer: 
+@len: 
+
+
+<!-- ##### FUNCTION gsasl_md5pwd_get_password ##### -->
+<para>
+
+</para>
+
+@filename: 
+@username: 
+@key: 
+@keylen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_client_callback_anonymous ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@out: 
+@outlen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_client_callback_authentication_id ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@out: 
+@outlen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_client_callback_authorization_id ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@out: 
+@outlen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_client_callback_password ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@out: 
+@outlen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_client_callback_passcode ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@out: 
+@outlen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_client_callback_pin ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@suggestion: 
+@out: 
+@outlen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_client_callback_service ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@service: 
+@servicelen: 
+@hostname: 
+@hostnamelen: 
+@servicename: 
+@servicenamelen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_client_callback_qop ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@serverqops: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_client_callback_maxbuf ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@servermaxbuf: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_retrieve ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@authentication_id: 
+@authorization_id: 
+@realm: 
+@key: 
+@keylen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_validate ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@authorization_id: 
+@authentication_id: 
+@password: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_gssapi ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@clientname: 
+@authentication_id: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_securid ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@authentication_id: 
+@authorization_id: 
+@passcode: 
+@pin: 
+@suggestpin: 
+@suggestpinlen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_cram_md5 ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@username: 
+@challenge: 
+@response: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_digest_md5 ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@username: 
+@realm: 
+@secrethash: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_service ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@service: 
+@servicelen: 
+@hostname: 
+@hostnamelen: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_external ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_anonymous ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@token: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_realm ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@out: 
+@outlen: 
+@nth: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_qop ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_maxbuf ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_cipher ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_ctx_get ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_application_data_set ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@application_data: 
+
+
+<!-- ##### FUNCTION gsasl_client_application_data_get ##### -->
+<para>
+
+</para>
+
+@sctx: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_authorization_id_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_authorization_id_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_authentication_id_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_authentication_id_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_anonymous_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_anonymous_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_password_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_password_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_passcode_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_passcode_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_pin_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_pin_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_service_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_service_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_qop_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_qop_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_maxbuf_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_client_callback_maxbuf_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_ctx_get ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_application_data_set ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@application_data: 
+
+
+<!-- ##### FUNCTION gsasl_server_application_data_get ##### -->
+<para>
+
+</para>
+
+@sctx: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_validate_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_validate_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_retrieve_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_retrieve_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_cram_md5_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_cram_md5_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_digest_md5_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_digest_md5_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_external_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_external_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_anonymous_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_anonymous_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_realm_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_realm_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_qop_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_qop_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_maxbuf_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_maxbuf_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_cipher_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_cipher_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_securid_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_securid_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_gssapi_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_gssapi_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_service_set ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@cb: 
+
+
+<!-- ##### FUNCTION gsasl_server_callback_service_get ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@Returns: 
+
+
