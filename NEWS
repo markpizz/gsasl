@@ -25,8 +25,7 @@ MD5 and HMAC-MD5 is needed, making a dependence on libgcrypt overkill.
 ** Source code for each SASL mechanism moved to its own sub-directory in lib/.
 
 ** The command line interface now uses getopt instead of argp.
-The reason is portability, this also means we no longer require
-gnulib.
+The reason is portability, this also means we no longer use gnulib.
 
 ** API and ABI modifications.
 gsasl_randomize: ADD.
