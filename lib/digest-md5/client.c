@@ -41,9 +41,6 @@
 #include "session.h"
 #include "digesthmac.h"
 
-/* Get uint32_t. */
-#include <netinet/in.h>
-
 #define CNONCE_ENTROPY_BYTES 16
 
 struct _Gsasl_digest_md5_client_state
@@ -53,7 +50,7 @@ struct _Gsasl_digest_md5_client_state
   digest_md5_response response;
   digest_md5_finish finish;
   char secret[DIGEST_MD5_LENGTH];
-  uint32_t readseqnum, sendseqnum;
+  unsigned long readseqnum, sendseqnum;
   char kic[DIGEST_MD5_LENGTH];
   char kcc[DIGEST_MD5_LENGTH];
   char kis[DIGEST_MD5_LENGTH];
@@ -285,7 +282,10 @@ _gsasl_digest_md5_client_encode (Gsasl_session * sctx,
   if (res)
     return res == -2 ? GSASL_NEEDS_MORE : GSASL_INTEGRITY_ERROR;
 
-  state->sendseqnum++;
+  if (state->sendseqnum == 4294967295)
+    state->sendseqnum = 0;
+  else
+    state->sendseqnum++;
 
   return GSASL_OK;
 }
@@ -306,7 +306,10 @@ _gsasl_digest_md5_client_decode (Gsasl_session * sctx,
   if (res)
     return res == -2 ? GSASL_NEEDS_MORE : GSASL_INTEGRITY_ERROR;
 
-  state->readseqnum++;
+  if (state->readseqnum == 4294967295)
+    state->readseqnum = 0;
+  else
+    state->readseqnum++;
 
   return GSASL_OK;
 }

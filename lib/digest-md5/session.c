@@ -33,8 +33,13 @@
 /* Get memcpy, strdup, strlen. */
 #include <string.h>
 
-/* Get htonl. */
-#include <netinet/in.h>
+/* Get htonl.  FIXME: use inline macro instead. */
+#ifdef HAVE_SYS_TYPES_H
+# include <sys/types.h>
+#endif
+#ifdef HAVE_NETINET_IN_H
+# include <netinet/in.h>
+#endif
 
 /* Get gc_hmac_md5. */
 #include <gc.h>
