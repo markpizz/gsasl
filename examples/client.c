@@ -52,6 +52,8 @@ client_authenticate (Gsasl * ctx, Gsasl_session * session)
 	  /* If the client need more data from server, get it here. */
 	  printf ("Input base64 encoded data from server:\n");
 	  fgets (buf, sizeof (buf) - 1, stdin);
+	  if (buf[strlen (buf) - 1] == '\n')
+	    buf[strlen (buf) - 1] = '\0';
 	}
     }
   while (rc == GSASL_NEEDS_MORE);
