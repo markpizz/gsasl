@@ -7,6 +7,7 @@ gsasl-doc.bottom
 gsasl-doc.top
 gsasl-gsasl.html
 gsasl-gsasl-compat.html
+gsasl-gsasl-mech.html
 gsasl-sections.txt
 gsasl-undocumented.txt
 gsasl-unused.sgml
