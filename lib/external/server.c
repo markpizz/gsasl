@@ -39,7 +39,7 @@ _gsasl_external_server_step (Gsasl_session * sctx,
   *output_len = 0;
   *output = NULL;
 
-  if (input == NULL)
+  if (!input)
     return GSASL_NEEDS_MORE;
 
   /* Quoting rfc2222bis-09:
