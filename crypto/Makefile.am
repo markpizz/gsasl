@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -23,7 +23,7 @@ EXTRA_DIST = README
 noinst_LTLIBRARIES = libnettle.la
 
 libnettle_la_LIBADD = $(ALLOCA)
-libnettle_la_SOURCES = macros.h nettle-meta.h \
+libnettle_la_SOURCES = macros.h nettle-meta.h nettle-internal.h \
 	memxor.c memxor.h \
 	md5.h md5.c md5-meta.c \
 	hmac.c hmac.h hmac-md5.c
