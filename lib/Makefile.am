@@ -30,7 +30,8 @@ libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @CRYPTO_LIBS@ \
 	@LIBNTLM_LIBS@ @GSSAPI_LIBS@ @GSS_LIBS@ @SHISHI_LIBS@
 libgsasl_la_SOURCES = gsasl.h.in internal.h gettext.h \
-	init.c done.c error.c version.c callback.c common.c \
+	init.c done.c error.c version.c common.c \
+	callback.c callback-c.c callback-s.c \
 	supportp.c suggest.c listmech.c \
 	xstart.c xstep.c xfinish.c xcode.c \
 	base64.c md5pwd.c obsolete.c
@@ -46,14 +47,6 @@ if STRINGPREP
 libgsasl_la_SOURCES += stringprep.c
 else
 libgsasl_la_SOURCES += stringprep-no.c
-endif
-
-if CLIENT
-libgsasl_la_SOURCES += callback-c.c
-endif
-
-if SERVER
-libgsasl_la_SOURCES += callback-s.c
 endif
 
 # Plugins:
