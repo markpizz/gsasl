@@ -12,8 +12,9 @@ AC_DEFUN([gl_GETADDRINFO],
   gl_PREREQ_GETADDRINFO
 ])
 
-# Prerequisites of lib/getaddrinfo.h.
+# Prerequisites of lib/getaddrinfo.h and lib/getaddrinfo.c.
 AC_DEFUN([gl_PREREQ_GETADDRINFO], [
   AC_REQUIRE([gl_C_RESTRICT])
-  :
+  AC_REQUIRE([gl_SOCKET_FAMILIES])
+  AC_REQUIRE([AC_C_INLINE])
 ])

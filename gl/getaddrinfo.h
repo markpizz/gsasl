@@ -16,7 +16,7 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef	GETADDRINFO_H
+#ifndef GETADDRINFO_H
 # define GETADDRINFO_H
 
 /* Get getaddrinfo declarations, if available. */
@@ -63,6 +63,14 @@ struct addrinfo
 # define EAI_MEMORY	  -10	/* Memory allocation failure.  */
 # define EAI_SYSTEM	  -11	/* System error returned in `errno'.  */
 # define EAI_OVERFLOW	  -12	/* Argument buffer overflow.  */
+# ifdef __USE_GNU
+#  define EAI_INPROGRESS  -100	/* Processing request in progress.  */
+#  define EAI_CANCELED	  -101	/* Request canceled.  */
+#  define EAI_NOTCANCELED -102	/* Request not canceled.  */
+#  define EAI_ALLDONE	  -103	/* All requests done.  */
+#  define EAI_INTR	  -104	/* Interrupted by a signal.  */
+#  define EAI_IDN_ENCODE  -105	/* IDN encoding failed.  */
+# endif
 
 /* Translate name of a service location and/or a service name to set of
    socket addresses.  */

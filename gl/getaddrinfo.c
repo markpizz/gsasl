@@ -20,12 +20,39 @@
 # include <config.h>
 #endif
 
-#include <stdio.h>
-#include <gettext.h>
+/* Get calloc. */
+#include <stdlib.h>
+
+/* Get memcpy. */
+#include <string.h>
+
+/* Get struct hostent. */
+#include <netdb.h>
+
+#include <stdbool.h>
+
+#include "gettext.h"
 #define _(String) gettext (String)
 #define N_(String) String
 
 #include "getaddrinfo.h"
+
+static inline bool
+validate_family (int family)
+{
+  /* FIXME: Support more families. */
+#if HAVE_IPV4
+     if (family == PF_INET)
+       return true;
+#endif
+#if HAVE_IPV6
+     if (family == PF_INET6)
+       return true;
+#endif
+     if (family == PF_UNSPEC)
+       return true;
+     return false;
+}
 
 /* Translate name of a service location and/or a service name to set of
    socket addresses. */
@@ -36,20 +63,15 @@ getaddrinfo (const char *restrict nodename,
 	     struct addrinfo **restrict res)
 {
   struct addrinfo *tmp;
-  struct sockaddr sock;
-  struct sockaddr *sockp = &sock;
   struct servent *se;
   struct hostent *he;
+  size_t sinlen;
 
   if (hints && hints->ai_flags)
     /* FIXME: Support more flags. */
     return EAI_BADFLAGS;
 
-  if (hints &&
-      hints->ai_family != PF_UNSPEC &&
-      hints->ai_family != PF_INET &&
-      hints->ai_family != PF_INET6)
-    /* FIXME: Support more families. */
+  if (hints && !validate_family (hints->ai_family))
     return EAI_FAMILY;
 
   if (hints && hints->ai_socktype)
@@ -57,10 +79,9 @@ getaddrinfo (const char *restrict nodename,
     return EAI_SOCKTYPE;
 
   if (hints &&
-      hints->ai_protocol != SOCK_STREAM &&
-      hints->ai_protocol != SOCK_DGRAM)
-      /* FIXME: Support other protocols. */
-    return EAI_SERVICE; /* FIXME: Better return code? */
+      hints->ai_protocol != SOCK_STREAM && hints->ai_protocol != SOCK_DGRAM)
+    /* FIXME: Support other protocols. */
+    return EAI_SERVICE;		/* FIXME: Better return code? */
 
   if (!nodename)
     /* FIXME: Support server bind mode. */
@@ -68,68 +89,89 @@ getaddrinfo (const char *restrict nodename,
 
   if (servname)
     {
+      const char *proto =
+	(hints && hints->ai_protocol == SOCK_DGRAM) ? "udp" : "tcp";
+
       /* FIXME: Use getservbyname_r if available. */
-      se = getservbyname (servname,
-			  hints->ai_protocol == SOCK_DGRAM ? "udp" : "tcp");
+      se = getservbyname (servname, proto);
+
       if (!se)
 	return EAI_SERVICE;
     }
 
   /* FIXME: Use gethostbyname_r if available. */
-  he = gethostbyname (connect_hostname);
+  he = gethostbyname (nodename);
   if (!he || he->h_addr_list[0] == NULL)
     return EAI_NONAME;
 
-  tmp = calloc (1, sizeof (*tmp));
+  switch (he->h_addrtype)
+    {
+#if HAVE_IPV6
+    case PF_INET6:
+      sinlen = sizeof (struct sockaddr_in6);
+      break;
+#endif
+
+#if HAVE_IPV4
+    case PF_INET:
+      sinlen = sizeof (struct sockaddr_in);
+      break;
+#endif
+
+    default:
+      return EAI_NODATA;
+    }
+
+  tmp = calloc (1, sizeof (*tmp) + sinlen);
   if (!tmp)
     return EAI_MEMORY;
 
-  tmp->ai_addr->sa_family = he->he_addrtype;
-
-  switch (tmp->ai_addr->sa_family)
+  switch (he->h_addrtype)
     {
+#if HAVE_IPV6
     case PF_INET6:
       {
-	struct sockaddr_in6 *sinp;
+	struct sockaddr_in6 *sinp = (void *) tmp + sizeof (*tmp);
 
-	sinp = calloc (1, sizeof (*sinp));
-	if (!sinp)
-	  {
-	    free (tmp);
-	    return EAI_MEMORY;
-	  }
+	if (se)
+	  sinp->sin6_port = se->s_port;
 
-	sinp->sin_port = se->s_port;
-	memcpy (&sinp->sin_addr, he->h_addr_list[0], he->h_length);
+	if (he->h_length != sizeof (sinp->sin6_addr))
+	  return EAI_SYSTEM; /* FIXME: Better return code?  Set errno? */
 
-	tmp->ai_addr = sinp;
-	tmp->ai_addrlen = sizeof (sin);
+	memcpy (&sinp->sin6_addr, he->h_addr_list[0], he->h_length);
+
+	tmp->ai_addr = (struct sockaddr *) sinp;
+	tmp->ai_addrlen = sinlen;
       }
       break;
+#endif
 
+#if HAVE_IPV4
     case PF_INET:
       {
-	struct sockaddr_in *sinp;
+	struct sockaddr_in *sinp = (void *) tmp + sizeof (*tmp);
 
-	sinp = calloc (1, sizeof (*sinp));
-	if (!sinp)
-	  {
-	    free (tmp);
-	    return EAI_MEMORY;
-	  }
+	if (se)
+	  sinp->sin_port = se->s_port;
 
-	sinp->sin_port = se->s_port;
+	if (he->h_length != sizeof (sinp->sin_addr))
+	  return EAI_SYSTEM; /* FIXME: Better return code?  Set errno? */
+
 	memcpy (&sinp->sin_addr, he->h_addr_list[0], he->h_length);
 
-	tmp->ai_addr = sinp;
-	tmp->ai_addrlen = sizeof (sin);
+	tmp->ai_addr = (struct sockaddr *) sinp;
+	tmp->ai_addrlen = sinlen;
       }
       break;
+#endif
 
     default:
       free (tmp);
       return EAI_NODATA;
     }
+
+  tmp->ai_addr->sa_family = he->h_addrtype;
 
   /* FIXME: If more than one address, create linked list of addrinfo's. */
 
@@ -150,36 +192,4 @@ freeaddrinfo (struct addrinfo *ai)
       ai = ai->ai_next;
       free (cur);
     }
-}
-
-static struct
-  {
-    int code;
-    const char *msg;
-  }
-values[] =
-  {
-    { EAI_ADDRFAMILY, N_("Address family for hostname not supported") },
-    { EAI_AGAIN, N_("Temporary failure in name resolution") },
-    { EAI_BADFLAGS, N_("Bad value for ai_flags") },
-    { EAI_FAIL, N_("Non-recoverable failure in name resolution") },
-    { EAI_FAMILY, N_("ai_family not supported") },
-    { EAI_MEMORY, N_("Memory allocation failure") },
-    { EAI_NODATA, N_("No address associated with hostname") },
-    { EAI_NONAME, N_("Name or service not known") },
-    { EAI_SERVICE, N_("Servname not supported for ai_socktype") },
-    { EAI_SOCKTYPE, N_("ai_socktype not supported") },
-    { EAI_SYSTEM, N_("System error") },
-  };
-
-/* Convert error return from getaddrinfo() to a string.  */
-const char *
-gai_strerror (int code)
-{
-  size_t i;
-  for (i = 0; i < sizeof (values) / sizeof (values[0]); ++i)
-    if (values[i].code == code)
-      return _(values[i].msg);
-
-  return _("Unknown error");
 }
