@@ -19,7 +19,6 @@ dnl Process this file with autoconf to produce a configure script.
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-AC_PREREQ(2.59)
 AC_INIT([gsasl], [0.0.11], [bug-gsasl@gnu.org])
 
 # Library code modified:                              REVISION++
@@ -33,7 +32,8 @@ AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
-AM_INIT_AUTOMAKE(gnits)
+AC_PREREQ(2.59)
+AM_INIT_AUTOMAKE([1.8 gnits])
 AC_CONFIG_HEADERS(config.h)
 
 # Checks for programs.
@@ -341,12 +341,6 @@ AC_SEARCH_LIBS(gethostbyname, nsl)
 
 # Check for gtk-doc.
 GTK_DOC_CHECK(1.1)
-
-# DocBook
-AM_MISSING_PROG(DOCBOOK2TXT, docbook2txt, $missing_dir)
-AM_MISSING_PROG(DOCBOOK2HTML, docbook2html, $missing_dir)
-AM_MISSING_PROG(DOCBOOK2PS, docbook2ps, $missing_dir)
-AM_MISSING_PROG(DOCBOOK2PDF, docbook2pdf, $missing_dir)
 
 # We are done
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
