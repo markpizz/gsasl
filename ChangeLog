@@ -1,116 +1,299 @@
-2002-10-12 07:34  jas <simon@josefsson.org>
+2002-10-19 20:25  Simon Josefsson <simon@josefsson.org>
 
-	* po/: libgsasl.pot, sv.po: [no log message] 
+	* src/gsasl.c:
 
-2002-10-12 07:23  jas <simon@josefsson.org>
+	Update for new API that allows GSASL_OK to return data during
+	authentication.  
 
-	* lib/.cvsignore, .cvsusers: [no log message] 
+2002-10-19 20:24  Simon Josefsson <simon@josefsson.org>
 
-2002-10-12 07:23  jas <simon@josefsson.org>
+	* tests/: .cvsignore, Makefile.am, plain-client.sh, simple.c,
+	unicode.c:
 
-	* lib/xcode.c: Implementation of gsasl_encode() and gsasl_decode()
-	APIs.  
+	Removed plain-client.sh (unreliable with non-ASCII in shell script).  
+	Added C program to check simple SASL mechanisms against test
+	vectors.  Added indent makefile target to re-indent files.  
 
-2002-10-12 06:45  jas <simon@josefsson.org>
+2002-10-19 20:23  Simon Josefsson <simon@josefsson.org>
 
-	* configure.ac: Version 0.0.1 released.  
+	* lib/: anonymous.c, cram-md5.c, digest-md5.c, external.c, login.c,
+	ntlm.c, plain.c, securid.c, xstep.c:
 
-2002-10-12 06:44  jas <simon@josefsson.org>
+	Change API to allow data to be returned with GSASL_OK.  Fix callback
+	return code in ANONYMOUS client.  Make mechanisms reject too many
+	empty invocations.  Made LOGIN use authorization ID instead of
+	authentication ID.  NTLM doesn't require initial challenge to be '+'
+	(probably IMAP leftover).  SECURID implements non-initial steps
+	correctly.  
 
-	* NEWS, README: [no log message] 
+2002-10-19 11:43  Simon Josefsson <simon@josefsson.org>
 
-2002-10-12 06:43  jas <simon@josefsson.org>
+	* .cvsignore, argp/.cvsignore, src/.cvsignore, .cvsignore:
 
-	* doc/Makefile.am: Add xcode.c to the session API documentation.  
+	[no log message] 
 
-2002-10-12 06:42  jas <simon@josefsson.org>
+2002-10-19 11:43  Simon Josefsson <simon@josefsson.org>
 
-	* doc/gsasl.texi: Fix title.  
+	* libgsasl.pc.in:
 
-2002-10-12 06:15  jas <simon@josefsson.org>
+	Pkg-config description file for libgsasl.  
 
-	* src/gsasl.c: Improve QOP.  Allow user to send/receive application
-	payload after authentication.  
+2002-10-19 11:41  Simon Josefsson <simon@josefsson.org>
 
-2002-10-12 06:14  jas <simon@josefsson.org>
+	* NEWS:
 
-	* src/callbacks.c: Improve QOP callback.  
+	Pkg-config stuff.  
 
-2002-10-12 06:14  jas <simon@josefsson.org>
+2002-10-19 11:41  Simon Josefsson <simon@josefsson.org>
 
-	* lib/error.c: Add GSASL_INTEGRITY_ERROR.  
+	* src/: libgsasl-config.in, libgsasl.m4:
 
-2002-10-12 06:14  jas <simon@josefsson.org>
+	Removed, replaced by pkg-config.  
 
-	* lib/gsasl.h.in: Add GSASL_INTEGRITY_ERROR.  Add gsasl_encode()
-	and gsasl_decode().  
+2002-10-19 11:41  Simon Josefsson <simon@josefsson.org>
 
-2002-10-12 06:13  jas <simon@josefsson.org>
+	* Makefile.am, configure.ac, src/Makefile.am:
 
-	* lib/xstart.c: Set clientp variable.  
+	Use pkg-config instead of libgsasl.m4 + libgsasl-config.in Use
+	pkg-config to find libntlm.  
 
-2002-10-12 06:13  jas <simon@josefsson.org>
+2002-10-19 11:22  Simon Josefsson <simon@josefsson.org>
 
-	* lib/xstep.c: Only free if data was allocated by us.  
+	* lib/Makefile.am, src/Makefile.am, tests/Makefile.am:
 
-2002-10-12 06:12  jas <simon@josefsson.org>
+	Replace LTLIBINTL with LIBINTL.  
 
-	* lib/internal.h: Add encode/decode functions.  Add clientp
-	variable.  
+2002-10-19 11:22  Simon Josefsson <simon@josefsson.org>
 
-2002-10-12 06:12  jas <simon@josefsson.org>
+	* m4/libntlm.m4:
 
-	* lib/digest-md5.c: Support integrity mode.  
+	Remove libntlm.m4 (replaced by pkg-config).  
 
-2002-10-12 06:10  jas <simon@josefsson.org>
+2002-10-19 11:21  Simon Josefsson <simon@josefsson.org>
 
-	* lib/digest-md5.h: Add encode and decode functions.  
+	* m4/Makefile.am:
 
-2002-10-12 06:09  jas <simon@josefsson.org>
+	Remove libntlm.m4 
 
-	* lib/common.c: Add encode and decode functions for DIGEST-MD5.  
+2002-10-19 11:21  Simon Josefsson <simon@josefsson.org>
 
-2002-10-12 06:09  jas <simon@josefsson.org>
+	* configure.ac:
 
-	* lib/Makefile.am: Add xcode.c.  
+	Remove use-libtool for gettext, it breaks distcheck.  Use pkg-config
+	to find libntlm.  Bump version.  
 
-2002-10-12 06:07  jas <simon@josefsson.org>
+2002-10-19 09:57  Simon Josefsson <simon@josefsson.org>
 
-	* lib/hexdump.c: Data is unsigned.  
+	* argp/: aclocal.m4, configure:
 
-2002-10-12 06:05  jas <simon@josefsson.org>
+	These should not be in CVS.  
 
-	* autogen.sh: [no log message] 
+2002-10-17 16:19  Simon Josefsson <simon@josefsson.org>
 
-2002-10-11 20:01  jas <simon@josefsson.org>
+	* Makefile.am, lib/Makefile.am, src/Makefile.am, tests/Makefile.am:
+
+	Make distcheck happy.  Shouldn't LTLIBINTL be included in lib/
+	though? Maybe a libtool bug.  
+
+2002-10-17 11:06  Simon Josefsson <simon@josefsson.org>
+
+	* autogen.sh:
+
+	gettextize --copy to shut up cvsco.  
+
+2002-10-17 11:02  Simon Josefsson <simon@josefsson.org>
+
+	* ABOUT-NLS, config.rpath, mkinstalldirs:
+
+	Add files to shut up gettextize.  
+
+2002-10-13 04:26  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+
+	Add ChangeLog target.  
+
+2002-10-13 04:26  Simon Josefsson <simon@josefsson.org>
+
+	* .cvsusers:
+
+	Add full name for better ChangeLog's.  
+
+2002-10-13 03:41  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/anonymous.c, lib/anonymous.h, lib/base64.c,
+	lib/callback.c, lib/common.c, lib/cram-md5.c, lib/cram-md5.h,
+	lib/digest-md5.c, lib/digest-md5.h, lib/done.c, lib/error.c,
+	lib/external.c, lib/external.h, lib/gssapi.c, lib/gunicomp.h,
+	lib/gunidecomp.h, lib/hexdump.c, lib/init.c, lib/internal.h,
+	lib/listmech.c, lib/login.c, lib/login.h, lib/md5pwd.c, lib/ntlm.c,
+	lib/plain.c, lib/plain.h, lib/securid.c, lib/securid.h,
+	lib/suggest.c, lib/supportp.c, lib/unicode.c, lib/version.c,
+	lib/x-gssapi.h, lib/x-ntlm.h, lib/xcode.c, lib/xfinish.c,
+	lib/xstart.c, lib/xstep.c, src/Makefile.am, src/callbacks.c,
+	src/callbacks.h, src/gsasl.c:
+
+	Add indent Makefile targets.  Indent all files.  
+
+2002-10-12 07:34  Simon Josefsson <simon@josefsson.org>
+
+	* po/libgsasl.pot, po/sv.po, ChangeLog:
+
+	[no log message] 
+
+2002-10-12 07:23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/.cvsignore, .cvsusers:
+
+	[no log message] 
+
+2002-10-12 07:23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xcode.c:
+
+	Implementation of gsasl_encode() and gsasl_decode() APIs.  
+
+2002-10-12 06:45  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac:
+
+	Version 0.0.1 released.  
+
+2002-10-12 06:44  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, README:
+
+	[no log message] 
+
+2002-10-12 06:43  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am:
+
+	Add xcode.c to the session API documentation.  
+
+2002-10-12 06:42  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi:
+
+	Fix title.  
+
+2002-10-12 06:15  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c:
+
+	Improve QOP.  Allow user to send/receive application payload after
+	authentication.  
+
+2002-10-12 06:14  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c:
+
+	Improve QOP callback.  
+
+2002-10-12 06:14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/error.c:
+
+	Add GSASL_INTEGRITY_ERROR.  
+
+2002-10-12 06:14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in:
+
+	Add GSASL_INTEGRITY_ERROR.  Add gsasl_encode() and gsasl_decode().  
+
+2002-10-12 06:13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstart.c:
+
+	Set clientp variable.  
+
+2002-10-12 06:13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstep.c:
+
+	Only free if data was allocated by us.  
+
+2002-10-12 06:12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/internal.h:
+
+	Add encode/decode functions.  Add clientp variable.  
+
+2002-10-12 06:12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5.c:
+
+	Support integrity mode.  
+
+2002-10-12 06:10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5.h:
+
+	Add encode and decode functions.  
+
+2002-10-12 06:09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/common.c:
+
+	Add encode and decode functions for DIGEST-MD5.  
+
+2002-10-12 06:09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am:
+
+	Add xcode.c.  
+
+2002-10-12 06:07  Simon Josefsson <simon@josefsson.org>
+
+	* lib/hexdump.c:
+
+	Data is unsigned.  
+
+2002-10-12 06:05  Simon Josefsson <simon@josefsson.org>
+
+	* autogen.sh:
+
+	[no log message] 
+
+2002-10-11 20:01  Simon Josefsson <simon@josefsson.org>
 
 	* doc/specification/: draft-burdis-cat-srp-sasl-04.txt,
 	draft-burdis-cat-srp-sasl-05.txt, draft-leach-cifs-v1-spec-02.txt,
 	draft-leach-digest-sasl-01.txt, draft-leach-digest-sasl-02.txt,
 	draft-leach-digest-sasl-03.txt, draft-leach-digest-sasl-05.txt,
 	draft-myers-saslrev-01.txt, draft-nerenberg-sasl-crammd5-00.txt,
-	draft-newman-sasl-anon-00.txt, rfc2095.txt: More specs.  
+	draft-newman-sasl-anon-00.txt, rfc2095.txt:
 
-2002-10-07 03:07  jas <simon@josefsson.org>
+	More specs.  
 
-	* m4/libgcrypt.m4: forgot to add it 
+2002-10-07 03:07  Simon Josefsson <simon@josefsson.org>
 
-2002-10-07 03:07  jas <simon@josefsson.org>
+	* m4/libgcrypt.m4:
+
+	forgot to add it 
+
+2002-10-07 03:07  Simon Josefsson <simon@josefsson.org>
 
 	* .cvsignore, argp/.cvsignore, doc/.cvsignore, intl/.cvsignore,
 	lib/.cvsignore, m4/.cvsignore, po/.cvsignore, src/.cvsignore,
-	tests/.cvsignore, src/libcharset/.cvsignore, ChangeLog: [no log
-	message] 
+	tests/.cvsignore, src/libcharset/.cvsignore, ChangeLog:
 
-2002-10-07 03:06  jas <simon@josefsson.org>
+	[no log message] 
 
-	* doc/gsasl.texi: ack mit kerberos team for gssapi 
+2002-10-07 03:06  Simon Josefsson <simon@josefsson.org>
 
-2002-10-07 03:06  jas <simon@josefsson.org>
+	* doc/gsasl.texi:
 
-	* README: gssapi works in server mode 
+	ack mit kerberos team for gssapi 
 
-2002-10-07 02:11  jas <simon@josefsson.org>
+2002-10-07 03:06  Simon Josefsson <simon@josefsson.org>
+
+	* README:
+
+	gssapi works in server mode 
+
+2002-10-07 02:11  Simon Josefsson <simon@josefsson.org>
 
 	* AUTHORS, COPYING, COPYING.DOC, COPYING.LIB, ChangeLog,
 	Makefile.am, NEWS, README, THANKS, autogen.sh, configure.ac,
@@ -181,17 +364,17 @@
 	lib/external.h, lib/gen-unicode-tables.pl, lib/gettext.h,
 	lib/gsasl.h.in, lib/gssapi.c, lib/gunibreak.h, lib/gunicomp.h,
 	lib/gunidecomp.h, lib/hexdump.c, lib/init.c, lib/internal.h,
-	lib/listmech.c, lib/login.c, lib/login.h, 
-	lib/md5pwd.c, lib/ntlm.c, lib/plain.c, lib/plain.h, lib/securid.c,
-	lib/securid.h, lib/suggest.c, lib/supportp.c, lib/unicode.c,
-	lib/version.c, lib/x-gssapi.h, lib/x-ntlm.h, lib/xfinish.c,
-	lib/xstart.c, lib/xstep.c, m4/ChangeLog, m4/Makefile.am,
-	m4/codeset.m4, m4/gettext.m4, m4/glibc21.m4, m4/iconv.m4,
-	m4/intdiv0.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
-	m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
-	m4/lib-link.m4, m4/lib-prefix.m4, m4/libntlm.m4, m4/progtest.m4,
-	m4/stdint_h.m4, m4/uintmax_t.m4, m4/ulonglong.m4, po/ChangeLog,
-	po/LINGUAS, po/Makefile.in.in, po/Makevars, po/Makevars.template,
+	lib/listmech.c, lib/login.c, lib/login.h, lib/md5pwd.c, lib/ntlm.c,
+	lib/plain.c, lib/plain.h, lib/securid.c, lib/securid.h,
+	lib/suggest.c, lib/supportp.c, lib/unicode.c, lib/version.c,
+	lib/x-gssapi.h, lib/x-ntlm.h, lib/xfinish.c, lib/xstart.c,
+	lib/xstep.c, m4/ChangeLog, m4/Makefile.am, m4/codeset.m4,
+	m4/gettext.m4, m4/glibc21.m4, m4/iconv.m4, m4/intdiv0.m4,
+	m4/inttypes-pri.m4, m4/inttypes.m4, m4/inttypes_h.m4,
+	m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4, m4/lib-link.m4,
+	m4/lib-prefix.m4, m4/libntlm.m4, m4/progtest.m4, m4/stdint_h.m4,
+	m4/uintmax_t.m4, m4/ulonglong.m4, po/ChangeLog, po/LINGUAS,
+	po/Makefile.in.in, po/Makevars, po/Makevars.template,
 	po/POTFILES.in, po/Rules-quot, po/boldquot.sed,
 	po/en@boldquot.header, po/en@quot.header, po/insert-header.sin,
 	po/libgsasl.pot, po/quot.sed, po/remove-potcdate.sin, po/sv.po,
@@ -203,6 +386,7 @@
 	src/libcharset/localcharset.c, src/libcharset/localcharset.c.orig,
 	src/libcharset/make-patch.sh, src/libcharset/ref-add.sin,
 	src/libcharset/ref-del.sin, src/libcharset/update.sh,
-	tests/Makefile.am, tests/plain-client.sh, tests/unicode.c: Initial
-	release, version 0.0.0.  
+	tests/Makefile.am, tests/plain-client.sh, tests/unicode.c:
+
+	Initial release, version 0.0.0.  
 
