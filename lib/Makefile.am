@@ -18,6 +18,14 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libgsasl.pc
+
+SUBDIRS =
+if NETTLE
+SUBDIRS += crypto
+endif
+
 lib_LTLIBRARIES = libgsasl.la
 
 AM_CPPFLAGS = -I$(top_srcdir)/gl @LIBGCRYPT_CFLAGS@ @NETTLE_CFLAGS@
@@ -48,9 +56,6 @@ libgsasl_la_SOURCES += stringprep-no.c
 endif
 
 # Plugins:
-
-SUBDIRS =
-
 if EXTERNAL
 SUBDIRS += external
 libgsasl_la_LIBADD += external/libgsasl-external.la
