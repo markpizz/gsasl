@@ -111,6 +111,13 @@ doit (void)
       return;
     }
 
+  if (!gsasl_client_support_p (ctx, "DIGEST-MD5") ||
+      !gsasl_server_support_p (ctx, "DIGEST-MD5"))
+    {
+      printf ("No support for DIGEST-MD5...\n");
+      return;
+    }
+
   gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);
 
   gsasl_client_callback_service_set (ctx, client_callback_service);
