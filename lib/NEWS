@@ -1,4 +1,4 @@
-GNU SASL LIBRARY NEWS -- History of user-visible changes.       -*- outline -*-
+GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
@@ -421,3 +421,8 @@ payload data.
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
 notice and this notice are preserved.
+
+;;; Local Variables: ***
+;;; mode:outline ***
+;;; mode:flyspell ***
+;;; End: ***
