@@ -88,8 +88,8 @@
 
 # match expressions used to find embedded type information
 $type_constant = "\\\%(\\w+)";
-#$type_func = "(\\w+\\(\\))";
-$type_func = "(\\(w||\\\\)+\\(\\))";
+$type_func = "(\\w+\\(\\))";
+#$type_func = "(\\(w||\\\\)+\\(\\))";
 $type_param = "\\\@(\\w+)";
 $type_struct = "\\\&(\\w+)";
 $type_env = "(\\\$\\w+)";
@@ -105,10 +105,11 @@ $type_env = "(\\\$\\w+)";
 		     $type_param, "<tt><b>\$1</b></tt>" );
 $blankline_html = "<p>";
 
-%highlights_texinfo = ( $type_constant, "\@var{\$1}",
-			$type_func, "\@code{\$1}",
-			$type_struct, "\@code{\$1}",
-			$type_param, "\@code{\$1}" );
+$at = '@';
+%highlights_texinfo = ( $type_constant, "CMDvar{\$1}",
+			$type_func, "CMDcode{\$1}",
+			$type_struct, "CMDcode{\$1}",
+			$type_param, "CMDcode\{\$1\}" );
 $blankline_texinfo = "";
 
 %highlights_tex = ( $type_constant, "{\\\\it \$1}",
@@ -244,6 +245,7 @@ sub output_highlight {
     my $line;
 
     eval $dohighlight;
+    $contents =~ s:CMD:@:gs if ($output_mode eq "texinfo");
     foreach $line (split "\n", $contents) {
 	if ($line eq ""){
 	    print $lineprefix, $blankline;
