@@ -85,9 +85,7 @@
    Also, when `ordering' is RETURN_IN_ORDER,
    each non-option ARGV-element is returned here.  */
 
-#ifndef HAVE_OPTARG
 char *optarg;
-#endif
 
 /* Index in ARGV of the next element to be scanned.
    This is used for communication to and from the caller
@@ -102,25 +100,18 @@ char *optarg;
    how much of ARGV has been scanned so far.  */
 
 /* 1003.2 says this must be 1 before any call.  */
-
-#ifndef HAVE_OPTIND
 int optind = 1;
-#endif
 
 /* Callers store zero here to inhibit the error message
    for unrecognized options.  */
 
-#ifndef HAVE_OPTERR
 int opterr = 1;
-#endif
 
 /* Set to an option character which was unrecognized.
    This must be initialized on some systems to avoid linking in the
    system's own getopt implementation.  */
 
-#ifndef HAVE_OPTOPT
 int optopt = '?';
-#endif
 
 /* Keep a global copy of all internal members of getopt_data.  */
 
