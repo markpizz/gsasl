@@ -21,55 +21,60 @@
 
 #include "internal.h"
 
-static int
-_gsasl_session_start (Gsasl_ctx * ctx,
-		      const char *mech,
-		      Gsasl_session_ctx ** sctx, int clientp)
+static _Gsasl_mechanism *
+_gsasl_find_mechanism (const char *mech,
+		       size_t n_mechs,
+		       _Gsasl_mechanism *mechs)
 {
   size_t i;
+
+  if (mech == NULL)
+    return NULL;
+
+  for (i = 0; i < n_mechs; i++)
+    if (strcmp (mech, mechs[i].name) == 0)
+      return &mechs[i];
+
+  return NULL;
+}
+
+static int
+_gsasl_start (Gsasl_ctx * ctx,
+	      const char *mech,
+	      Gsasl_session_ctx ** sctx,
+	      size_t n_mechs,
+	      _Gsasl_mechanism *mechs,
+	      int clientp)
+{
+  _Gsasl_mechanism *mechptr = NULL;
+  Gsasl_session_ctx *out;
   int res;
 
-  *sctx = (Gsasl_session_ctx *) malloc (sizeof (**sctx));
-  if (*sctx == NULL)
+  mechptr = _gsasl_find_mechanism (mech, n_mechs, mechs);
+  if (mechptr == NULL)
+    return GSASL_UNKNOWN_MECHANISM;
+
+  out = (Gsasl_session_ctx *) malloc (sizeof (*out));
+  if (out == NULL)
     return GSASL_MALLOC_ERROR;
 
-  memset (*sctx, 0, sizeof (**sctx));
+  memset (out, 0, sizeof (*out));
 
-  for (i = 0; i < (clientp ? ctx->n_client_mechs : ctx->n_server_mechs); i++)
-    {
-      if (mech
-	  && ((clientp && strcmp (mech, ctx->client_mechs[i].name) == 0)
-	      || (!clientp && strcmp (mech, ctx->server_mechs[i].name) == 0)))
-	{
-	  if (clientp)
-	    (*sctx)->mech = &ctx->client_mechs[i];
-	  else
-	    (*sctx)->mech = &ctx->server_mechs[i];
-	  break;
-	}
-    }
-
-  if ((*sctx)->mech == NULL)
-    {
-      free (*sctx);
-      *sctx = NULL;
-      return GSASL_UNKNOWN_MECHANISM;
-    }
-
-  (*sctx)->ctx = ctx;
-  (*sctx)->clientp = clientp;
-  (*sctx)->mech_data = NULL;
+  out->ctx = ctx;
+  out->mech = mechptr;
+  out->clientp = clientp;
   if (clientp)
-    res = (*sctx)->mech->client.start (*sctx, &(*sctx)->mech_data);
+    res = out->mech->client.start (out, &out->mech_data);
   else
-    res = (*sctx)->mech->server.start (*sctx, &(*sctx)->mech_data);
+    res = out->mech->server.start (out, &out->mech_data);
 
   if (res != GSASL_OK)
     {
-      free (*sctx);
-      *sctx = NULL;
+      free (out);
       return res;
     }
+
+  *sctx = out;
 
   return GSASL_OK;
 }
@@ -90,7 +95,8 @@ int
 gsasl_client_start (Gsasl_ctx * ctx,
 		    const char *mech, Gsasl_session_ctx ** sctx)
 {
-  return _gsasl_session_start (ctx, mech, sctx, 1);
+  return _gsasl_start (ctx, mech, sctx,
+		       ctx->n_client_mechs, ctx->client_mechs, 1);
 }
 
 /**
@@ -109,5 +115,6 @@ int
 gsasl_server_start (Gsasl_ctx * ctx,
 		    const char *mech, Gsasl_session_ctx ** sctx)
 {
-  return _gsasl_session_start (ctx, mech, sctx, 0);
+  return _gsasl_start (ctx, mech, sctx,
+		       ctx->n_server_mechs, ctx->server_mechs, 0);
 }
