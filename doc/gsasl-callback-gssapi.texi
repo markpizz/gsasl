@@ -1,0 +1,39 @@
+@deftypefn Prototype int (*Gsasl_server_callback_gssapi) (Gsasl_session_ctx * @var{ctx}, char * @var{clientname}, char * @var{authentication_id})
+
+@var{ctx}:  libgsasl handle.
+
+@var{clientname}:  input array with GSSAPI client name.
+
+@var{authentication_id}:  input array with authentication identity.
+
+Type of callback function the application implements.  It should
+return GSASL_OK if and only if the GSSAPI user is authorized to log on
+as the given authentication_id.  GSASL_AUTHENTICATION_ERROR is a good
+failure if authentication failed, but any available return code may be
+used.  This callback is usually implemented in the application as a
+call to krb5_kuserok(), such as:
+
+@example
+int
+callback_gssapi (Gsasl_session_ctx *ctx, 
+		 char *clientname,
+		 char *authentication_id)
+@{
+  int rc = GSASL_AUTHENTICATION_ERROR;
+
+  krb5_principal p;
+  krb5_context kcontext;
+  
+  krb5_init_context (&kcontext);
+  
+  if (krb5_parse_name (kcontext, clientname, &p) != 0)
+    return -1;
+  if (krb5_kuserok (kcontext, p, authentication_id))
+    rc = GSASL_OK;
+  krb5_free_principal (kcontext, p);
+
+  return rc;
+@}
+@end example
+
+@end deftypefn

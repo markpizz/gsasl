@@ -1,0 +1,1742 @@
+/* digest-md5.c	implementation of SASL mechanism DIGEST-MD5 from RFC 2831
+ * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 1996, 1997, 1999 Free Software Foundation, Inc. (getsubopt)
+ *
+ * This file is part of libgsasl.
+ *
+ * Libgsasl is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * Libgsasl is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with libgsasl; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
+#include "internal.h"
+
+#ifdef USE_DIGEST_MD5
+
+#include <gcrypt.h>
+#ifdef HAVE_MATH_H
+#include <math.h>
+#endif
+#ifdef HAVE_LIMITS_H
+#include <limits.h>
+#endif
+#if HAVE_INTTYPES_H
+# include <inttypes.h>
+#else
+# if HAVE_STDINT_H
+#  include <stdint.h>
+# endif
+#endif
+
+#define NONCE_ENTROPY_BITS  64
+#define CNONCE_ENTROPY_BITS  64
+
+#define DELIM ", "
+#define REALM_PRE "realm=\""
+#define REALM_POST "\"" DELIM
+#define NONCE_PRE "nonce=\""
+#define NONCE_POST "\"" DELIM
+#define QOP_LIST_PRE "qop=\""
+#define QOP_LIST_POST "\"" DELIM
+#define QOP_DELIM DELIM
+#define QOP_AUTH "auth"
+#define QOP_AUTH_INT "auth-int"
+#define QOP_AUTH_CONF "auth-conf"
+#define MAXBUF_PRE "maxbuf="
+#define MAXBUF_POST DELIM
+#define DEFAULT_CHARSET "utf-8"
+#define CHARSET "charset=" DEFAULT_CHARSET DELIM
+#define DEFAULT_ALGORITHM "md5-sess"
+#define ALGORITHM "algorithm=" DEFAULT_ALGORITHM DELIM
+#define CIPHER_PRE "cipher=\""
+#define CIPHER_DELIM DELIM
+#define CIPHER_DES "des"
+#define CIPHER_3DES "3des"
+#define CIPHER_RC4_40 "rc4-40"
+#define CIPHER_RC4 "rc4"
+#define CIPHER_RC4_56 "rc4-56"
+#define CIPHER_AES "aes"
+#define CIPHER_POST "\"" DELIM
+
+#define USERNAME_PRE "username=\""
+#define USERNAME_POST "\"" DELIM
+#define CNONCE_PRE "cnonce=\""
+#define CNONCE_POST "\"" DELIM
+#define NONCE_COUNT_PRE "nc="
+#define NONCE_COUNT_POST DELIM
+#define QOP_PRE "qop="
+#define QOP_POST DELIM
+#define RESPONSE_PRE "response="
+#define RESPONSE_POST "" DELIM
+#define AUTHZID_PRE "authzid=\""
+#define AUTHZID_POST "\"" DELIM
+#define DIGEST_URI_PRE "digest-uri=\""
+#define DIGEST_URI_POST "\"" DELIM
+
+#define RSPAUTH_PRE "rspauth="
+#define RSPAUTH_POST ""
+
+#define A2_PRE "AUTHENTICATE:"
+#define A2_POST ":00000000000000000000000000000000"
+#define COLON ":"
+#define NCLEN 8
+#define MD5LEN 16
+#define MAXBUF_DEFAULT 65536
+#define RESPONSE_LENGTH 32
+#define RSPAUTH_LENGTH RESPONSE_LENGTH
+
+#define PRINT_OUTPUT 0
+
+enum
+  {
+    /* the order must match the following struct */
+    CHALLENGE_REALM = 0,
+    CHALLENGE_NONCE,
+    CHALLENGE_QOP,
+    CHALLENGE_STALE,
+    CHALLENGE_MAXBUF,
+    CHALLENGE_CHARSET,
+    CHALLENGE_ALGORITHM,
+    CHALLENGE_CIPHER
+  };
+
+const char *digest_challenge_opts[] =
+  {
+    /* the order must match the previous enum */
+    "realm",
+    "nonce",
+    "qop",
+    "stale",
+    "maxbuf",
+    "charset",
+    "algorithm",
+    "cipher",
+    NULL
+  };
+
+enum
+  {
+    /* the order must match the following struct */
+    RESPONSE_USERNAME = 0,
+    RESPONSE_REALM,
+    RESPONSE_NONCE,
+    RESPONSE_CNONCE,
+    RESPONSE_NC,
+    RESPONSE_QOP,
+    RESPONSE_DIGEST_URI,
+    RESPONSE_RESPONSE,
+    RESPONSE_MAXBUF,
+    RESPONSE_CHARSET,
+    RESPONSE_CIPHER,
+    RESPONSE_AUTHZID
+  };
+
+const char *digest_response_opts[] =
+  {
+    /* the order must match the previous enum */
+    "username",
+    "realm",
+    "nonce",
+    "cnonce",
+    "nc",
+    "qop",
+    "digest-uri",
+    "response",
+    "maxbuf",
+    "charset",
+    "cipher",
+    "authzid",
+    NULL
+  };
+
+enum
+  {
+    /* the order must match the following struct */
+    RESPONSEAUTH_RSPAUTH = 0
+  };
+
+const char *digest_responseauth_opts[] =
+  {
+    /* the order must match the previous enum */
+    "rspauth",
+    NULL
+  };
+
+enum
+  {
+    /* the order must match the following struct */
+    QOP_AUTH_OPTION = 0,
+    QOP_AUTH_INT_OPTION,
+    QOP_AUTH_CONF_OPTION
+  };
+
+const char *qop_opts[] =
+  {
+    /* the order must match the previous enum */
+    QOP_AUTH,
+    QOP_AUTH_INT,
+    QOP_AUTH_CONF,
+    NULL
+  };
+
+enum
+  {
+    /* the order must match the following struct */
+    CIPHER_DES_OPTION = 0,
+    CIPHER_3DES_OPTION,
+    CIPHER_RC4_OPTION,
+    CIPHER_RC4_40_OPTION,
+    CIPHER_RC4_56_OPTION,
+    CIPHER_AES_OPTION
+  };
+
+const char *cipher_opts[] =
+  {
+    /* the order must match the previous enum */
+    CIPHER_DES,
+    CIPHER_3DES,
+    CIPHER_RC4,
+    CIPHER_RC4_40,
+    CIPHER_RC4_56,
+    CIPHER_AES,
+    NULL
+  };
+
+/* Parse comma separate list into words.
+   Copyright (C) 1996, 1997, 1999 Free Software Foundation, Inc.
+   From the GNU C Library, under GNU LGPL version 2.1.
+   Contributed by Ulrich Drepper <drepper@cygnus.com>, 1996.
+   Modified for Libgsasl by Simon Josefsson <simon@josefsson.org>
+   Copyright (C) 2002  Simon Josefsson
+
+   Parse comma separated suboption from *OPTIONP and match against
+   strings in TOKENS.  If found return index and set *VALUEP to
+   optional value introduced by an equal sign.  If the suboption is
+   not part of TOKENS return in *VALUEP beginning of unknown
+   suboption.  On exit *OPTIONP is set to the beginning of the next
+   token or at the terminating NUL character.  */
+static int
+_gsasl_getsubopt (optionp, tokens, valuep)
+     char **optionp;
+     char *const *tokens;
+     char **valuep;
+{
+  char *endp, *vstart;
+  int cnt;
+  int inside_quote = 0;
+
+  if (**optionp == '\0')
+    return -1;
+
+  /* Find end of next token.  */
+  endp = *optionp;
+  while (*endp != '\0' && (inside_quote || (!inside_quote && *endp != ',')))
+    {
+      if (*endp == '"')
+	inside_quote = !inside_quote;
+      endp++;
+    }
+
+  /* Find start of value.  */
+  vstart = memchr (*optionp, '=', endp - *optionp);
+  if (vstart == NULL)
+    vstart = endp;
+
+  /* Try to match the characters between *OPTIONP and VSTART against
+     one of the TOKENS.  */
+  for (cnt = 0; tokens[cnt] != NULL; ++cnt)
+    if (memcmp (*optionp, tokens[cnt], vstart - *optionp) == 0
+	&& tokens[cnt][vstart - *optionp] == '\0')
+      {
+	/* We found the current option in TOKENS.  */
+	*valuep = vstart != endp ? vstart + 1 : NULL;
+
+	while (*valuep && (**valuep == ' ' || 
+			   **valuep == '\t' ||
+			   **valuep == '\r' ||
+			   **valuep == '\n' ||
+			   **valuep == '"'))
+	  (*valuep)++;
+
+	if (*endp != '\0')
+	  *endp++ = '\0';
+	*optionp = endp;
+	endp -= 2;
+	while (*endp == ' ' || 
+	       *endp == '\t' || 
+	       *endp == '\r' || 
+	       *endp == '\n' || 
+	       *endp == '"')
+	  *endp-- = '\0';
+	while (**optionp == ' ' || 
+	       **optionp == '\t' || 
+	       **optionp == '\r' || 
+	       **optionp == '\n')
+	  (*optionp)++;
+
+	return cnt;
+      }
+
+  /* The current suboption does not match any option.  */
+  *valuep = *optionp;
+
+  if (*endp != '\0')
+    *endp++ = '\0';
+  *optionp = endp;
+  while (**optionp == ' ' || 
+	 **optionp == '\t' ||
+	 **optionp == '\r' ||
+	 **optionp == '\n')
+    (*optionp)++;
+
+  return -1;
+}
+
+static int
+_gsasl_digest (char *output, /* must have 2*MD5LEN available bytes */
+	       unsigned char secret[MD5LEN], 
+	       unsigned char *nonce,
+	       uint32_t nc, 
+	       char *cnonce, 
+	       int qop,
+	       char *authzid,
+	       char *digesturi,
+	       char *a2string) /* "AUTHENTICATE:" or ":" */
+{
+  char nchex[NCLEN+1];
+  char a1hexhash[2*MD5LEN];
+  char a2hexhash[2*MD5LEN];
+  GCRY_MD_HD md5h;
+  unsigned char *hash;
+  int i;
+
+  /* A1 */
+
+  md5h = gcry_md_open (GCRY_MD_MD5, 0);
+  if (md5h == NULL)
+    return GSASL_GCRYPT_ERROR;
+
+  gcry_md_write (md5h, secret, MD5LEN);
+  gcry_md_write (md5h, COLON, strlen(COLON));
+  gcry_md_write (md5h, nonce, strlen(nonce));
+  gcry_md_write (md5h, COLON, strlen(COLON));
+  gcry_md_write (md5h, cnonce, strlen(cnonce));
+  if (authzid && strlen(authzid) > 0)
+    {
+      gcry_md_write (md5h, COLON, strlen(COLON));
+      gcry_md_write (md5h, authzid, strlen(authzid));
+    }
+
+  hash = gcry_md_read (md5h, GCRY_MD_MD5);
+  if (hash == NULL)
+    return GSASL_GCRYPT_ERROR;
+
+  for (i = 0; i < MD5LEN; i++)
+    {
+      a1hexhash[2*i + 1] = HEXCHAR(hash[i]);
+      a1hexhash[2*i + 0] = HEXCHAR(hash[i] >> 4);
+    }
+  gcry_md_close(md5h);
+
+  /* A2 */
+
+  md5h = gcry_md_open (GCRY_MD_MD5, 0);
+  if (md5h == NULL)
+    return GSASL_GCRYPT_ERROR;
+    
+  gcry_md_write (md5h, a2string, strlen(a2string));
+  gcry_md_write (md5h, digesturi, strlen(digesturi));
+  if (qop & GSASL_QOP_AUTH_INT || qop & GSASL_QOP_AUTH_CONF)
+    {
+      gcry_md_write (md5h, A2_POST, strlen(A2_POST));
+    }
+
+  hash = gcry_md_read (md5h, GCRY_MD_MD5);
+  if (hash == NULL)
+      return GSASL_GCRYPT_ERROR;
+
+  for (i = 0; i < MD5LEN; i++)
+    {
+      a2hexhash[2*i + 1] = HEXCHAR(hash[i]);
+      a2hexhash[2*i + 0] = HEXCHAR(hash[i] >> 4);
+    }
+  gcry_md_close(md5h);
+
+  /* response_value */
+
+  md5h = gcry_md_open (GCRY_MD_MD5, 0);
+  if (md5h == NULL)
+    return GSASL_GCRYPT_ERROR;
+    
+  gcry_md_write (md5h, a1hexhash, 2*MD5LEN);
+  gcry_md_write (md5h, COLON, strlen(COLON));
+  gcry_md_write (md5h, nonce, strlen(nonce));
+  gcry_md_write (md5h, COLON, strlen(COLON));
+  sprintf(nchex, "%0*x", NCLEN, nc);
+  gcry_md_write (md5h, nchex, strlen(nchex));
+  gcry_md_write (md5h, COLON, strlen(COLON));
+  gcry_md_write (md5h, cnonce, strlen(cnonce));
+  gcry_md_write (md5h, COLON, strlen(COLON));
+  if (qop & GSASL_QOP_AUTH)
+    gcry_md_write (md5h, QOP_AUTH, strlen(QOP_AUTH));
+  else if (qop & GSASL_QOP_AUTH_INT)
+    gcry_md_write (md5h, QOP_AUTH_INT, strlen(QOP_AUTH_INT));
+  else if (qop & GSASL_QOP_AUTH_CONF)
+    gcry_md_write (md5h, QOP_AUTH_CONF, strlen(QOP_AUTH_CONF));
+  gcry_md_write (md5h, COLON, strlen(COLON));
+  gcry_md_write (md5h, a2hexhash, 2*MD5LEN);
+  
+  hash = gcry_md_read (md5h, GCRY_MD_MD5);
+  if (hash == NULL)
+      return GSASL_GCRYPT_ERROR;
+
+  for (i = 0; i < MD5LEN; i++)
+    {
+      output[2*i + 1] = HEXCHAR(hash[i]);
+      output[2*i + 0] = HEXCHAR(hash[i] >> 4);
+    }
+  gcry_md_close(md5h);
+
+  return GSASL_OK;
+}
+
+/* Client */
+
+struct _Gsasl_digest_md5_client_state {
+  int step;
+  unsigned char secret[MD5LEN];
+  unsigned char *nonce;
+  uint32_t nc;
+  unsigned char cnonce[2*CNONCE_ENTROPY_BITS/8+1];
+  Gsasl_qop qop;
+  unsigned char *authzid;
+  unsigned char *digesturi;
+  unsigned char response[RESPONSE_LENGTH+1];
+};
+typedef struct _Gsasl_digest_md5_client_state _Gsasl_digest_md5_client_state;
+
+int
+_gsasl_digest_md5_client_init (Gsasl_ctx *ctx)
+{
+  int res;
+
+  if (gcry_check_version(GCRYPT_VERSION) == NULL)
+    return GSASL_GCRYPT_ERROR;
+
+  res = gcry_control (GCRYCTL_INIT_SECMEM, 512, 0);
+  if (res != GCRYERR_SUCCESS)
+    return GSASL_GCRYPT_ERROR;
+
+  return GSASL_OK;
+}
+
+void
+_gsasl_digest_md5_client_done (Gsasl_ctx *ctx)
+{
+  return;
+}
+
+int
+_gsasl_digest_md5_client_start (Gsasl_session_ctx *cctx, 
+				void **mech_data)
+{
+  _Gsasl_digest_md5_client_state *state;
+  Gsasl_ctx *ctx;
+
+  ctx = gsasl_client_ctx_get (cctx);
+  if (ctx == NULL)
+    return GSASL_CANNOT_GET_CTX;
+
+  if (gsasl_client_callback_authentication_id_get (ctx) == NULL)
+    return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
+
+  if (gsasl_client_callback_password_get (ctx) == NULL)
+    return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
+
+  state = (_Gsasl_digest_md5_client_state*) malloc(sizeof(*state));
+  if (state == NULL)
+    return GSASL_MALLOC_ERROR;
+
+  state->step = 0;
+  state->nonce = NULL;
+  state->nc = 1;
+  state->qop = GSASL_QOP_AUTH;
+  state->authzid = NULL;
+  state->digesturi = NULL;
+
+  *mech_data = state;
+  
+  return GSASL_OK;
+}
+
+int
+_gsasl_digest_md5_client_step  (Gsasl_session_ctx *cctx, 
+				void *mech_data, 
+				const char *input,
+				size_t input_len,
+				char *output,
+				size_t *output_len)
+{
+  _Gsasl_digest_md5_client_state *state = mech_data;
+  Gsasl_client_callback_authorization_id cb_authorization_id; 
+  Gsasl_client_callback_authentication_id cb_authentication_id; 
+  Gsasl_client_callback_password cb_password;
+  Gsasl_client_callback_service cb_service;
+  Gsasl_client_callback_qop cb_qop;
+  Gsasl_client_callback_maxbuf cb_maxbuf;
+  char *subopts;
+  char *value;
+  Gsasl_ctx *ctx;
+  int outlen;
+  int res, i;
+
+  ctx = gsasl_client_ctx_get (cctx);
+  if (ctx == NULL)
+    return GSASL_CANNOT_GET_CTX;
+
+  cb_qop = gsasl_client_callback_qop_get (ctx);
+  cb_authorization_id = gsasl_client_callback_authorization_id_get (ctx);
+  cb_maxbuf = gsasl_client_callback_maxbuf_get (ctx);
+
+  cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
+  if (cb_authentication_id == NULL)
+    return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
+
+  cb_password = gsasl_client_callback_password_get (ctx);
+  if (cb_password == NULL)
+    return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
+
+  cb_service = gsasl_client_callback_service_get (ctx);
+  if (cb_service == NULL)
+    return GSASL_NEED_CLIENT_SERVICE_CALLBACK;
+
+  if (*output_len < 1)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  strcpy(output, "");
+  outlen = 0;
+
+#if PRINT_OUTPUT
+  if (input && input_len > 0)
+    puts(input);
+#endif
+
+  switch (state->step)
+    {
+    case 0:
+      {
+	char **realm = NULL;
+	size_t nrealm = 0;
+	int maxbuf = MAXBUF_DEFAULT;
+	int cipher = 0;
+
+	if (input_len == 0)
+	  {
+	    *output_len = 0;
+	    return GSASL_NEEDS_MORE;
+	  }
+
+	gcry_randomize (state->cnonce, CNONCE_ENTROPY_BITS/8,GCRY_WEAK_RANDOM);
+	for (i = 0; i < CNONCE_ENTROPY_BITS/8; i++)
+	  {
+	    state->cnonce[CNONCE_ENTROPY_BITS/8 + i] = 
+	      HEXCHAR(state->cnonce[i]);
+	    state->cnonce[i] = HEXCHAR(state->cnonce[i] >> 4);
+	  }
+	state->cnonce[2*CNONCE_ENTROPY_BITS/8] = '\0';
+
+	subopts = input;
+	while (*subopts != '\0')
+	  switch (_gsasl_getsubopt (&subopts, digest_challenge_opts, &value))
+	    {
+	    case CHALLENGE_REALM:
+	      if (nrealm == 0)
+		realm = (char**) malloc(sizeof(*realm));
+	      else
+		realm = realloc(realm, (nrealm + 1) * sizeof(*realm));
+	      if (realm == NULL)
+		{
+		  res = GSASL_MALLOC_ERROR;
+		  goto done;
+		}
+	      realm[nrealm] = strdup(value);
+	      nrealm++;
+	      break;
+
+	    case CHALLENGE_NONCE:
+	      if (state->nonce != NULL)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      state->nonce = strdup(value);
+	      break;
+
+	    case CHALLENGE_QOP:
+	      {
+		char *subsubopts;
+		char *val;
+
+		state->qop = 0;
+		subsubopts = value;
+		while (*subsubopts != '\0')
+		  switch (_gsasl_getsubopt (&subsubopts, qop_opts, &val))
+		    {
+		    case QOP_AUTH_OPTION:
+		      state->qop |= GSASL_QOP_AUTH;
+		      break;
+
+		    case QOP_AUTH_INT_OPTION:
+		      state->qop |= GSASL_QOP_AUTH_INT;
+		      break;
+
+		    case QOP_AUTH_CONF_OPTION:
+		      state->qop |= GSASL_QOP_AUTH_CONF;
+		      break;
+
+		    default:
+		      /* Ignore unknown qop */
+		      break;
+		    }
+	      }
+	      break;
+
+	    case CHALLENGE_STALE:
+	      printf("XXX stale: %s\n", value);
+	      break;
+
+	    case CHALLENGE_MAXBUF:
+	      maxbuf = strtol(value, NULL, 10);
+	      break;
+
+	    case CHALLENGE_CHARSET:
+	      if (strcmp(DEFAULT_CHARSET, value) != 0)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      break;
+
+	    case CHALLENGE_ALGORITHM:
+	      if (strcmp(DEFAULT_ALGORITHM, value) != 0)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      break;
+
+	    case CHALLENGE_CIPHER:
+	      {
+		char *subsubopts;
+		char *val;
+
+		subsubopts = value;
+		while (*subsubopts != '\0')
+		  switch (_gsasl_getsubopt (&subsubopts, cipher_opts, &val))
+		    {
+		    case CIPHER_DES_OPTION:
+		      cipher |= GSASL_CIPHER_DES;
+		      break;
+
+		    case CIPHER_3DES_OPTION:
+		      cipher |= GSASL_CIPHER_3DES;
+		      break;
+
+		    case CIPHER_RC4_OPTION:
+		      cipher |= GSASL_CIPHER_RC4;
+		      break;
+
+		    case CIPHER_RC4_40_OPTION:
+		      cipher |= GSASL_CIPHER_RC4_40;
+		      break;
+
+		    case CIPHER_RC4_56_OPTION:
+		      cipher |= GSASL_CIPHER_RC4_56;
+		      break;
+
+		    case CIPHER_AES_OPTION:
+		      cipher |= GSASL_CIPHER_AES;
+		      break;
+
+		    default:
+		      /* Ignoring unknown cipher. */
+		      break;
+		    }
+	      }
+	      break;
+
+	    default:
+	      /* Ignoring unknown parameter. */
+	      break;
+	    }
+	if (state->qop == 0 || cipher == 0 || state->nonce == NULL)
+	  {
+	    res = GSASL_MECHANISM_PARSE_ERROR;
+	    goto done;
+	  }
+	if (cb_qop)
+	  state->qop = cb_qop (cctx, state->qop);
+	else
+	  state->qop = GSASL_QOP_AUTH;
+	if (cb_authorization_id)
+	  {
+	    size_t authzidlen;
+
+	    res = cb_authorization_id (cctx, NULL, &authzidlen);
+	    if (res != GSASL_OK)
+	      goto done;
+	    state->authzid = (char*) malloc(authzidlen+1);
+	    if (state->authzid == NULL)
+	      {
+		res = GSASL_MALLOC_ERROR;
+		goto done;
+	      }
+	    res = cb_authorization_id (cctx, state->authzid, &authzidlen);
+	    if (res != GSASL_OK)
+	      goto done;
+	    state->authzid[authzidlen] = '\0';
+	  }
+	/* username */
+	{
+	  int usernamelen;
+
+	  res = cb_authentication_id (cctx, NULL, &usernamelen);
+	  if (res != GSASL_OK)
+	    goto done;
+
+	  if (outlen + 
+	      strlen(USERNAME_PRE) + 
+	      usernamelen +
+	      strlen(USERNAME_POST) >= *output_len)
+	    {
+	      res = GSASL_TOO_SMALL_BUFFER;
+	      goto done;
+	    }
+
+	  strcat(output, USERNAME_PRE);
+	  outlen += strlen(USERNAME_PRE);
+
+	  res = cb_authentication_id (cctx, &output[outlen], &usernamelen);
+	  if (res != GSASL_OK)
+	    goto done;
+	  outlen += usernamelen;
+
+	  strcat(output, USERNAME_POST);
+	  outlen += strlen(USERNAME_POST);
+	}
+	/* realm */
+	if (nrealm > 0)
+	  {
+	    if (outlen + 
+		strlen(REALM_PRE) + 
+		strlen(realm[0]) + 
+		strlen(REALM_POST) >= *output_len)
+	      {
+		res = GSASL_TOO_SMALL_BUFFER;
+		goto done;
+	      }
+
+	    strcat(output, REALM_PRE);
+	    outlen += strlen(REALM_PRE);
+
+	    strcat(output, realm[0]);
+	    outlen += strlen(realm[0]);
+	
+	    strcat(output, REALM_POST);
+	    outlen += strlen(REALM_POST);
+	  }
+	/* nonce */
+	{
+	  if (outlen + 
+	      strlen(NONCE_PRE) + 
+	      strlen(state->nonce) + 
+	      strlen(NONCE_POST) >= *output_len)
+	    {
+	      res = GSASL_TOO_SMALL_BUFFER;
+	      goto done;
+	    }
+
+	  strcat(output, NONCE_PRE);
+	  outlen += strlen(NONCE_PRE);
+
+	  strcat(output, state->nonce);
+	  outlen += strlen(state->nonce);
+	
+	  strcat(output, NONCE_POST);
+	  outlen += strlen(NONCE_POST);
+	}
+	/* cnonce */
+	{
+	  if (outlen + 
+	      strlen(CNONCE_PRE) + 
+	      strlen(state->cnonce) + 
+	      strlen(CNONCE_POST) >= *output_len)
+	    {
+	      res = GSASL_TOO_SMALL_BUFFER;
+	      goto done;
+	    }
+
+	  strcat(output, CNONCE_PRE);
+	  outlen += strlen(CNONCE_PRE);
+
+	  strcat(output, state->cnonce);
+	  outlen += strlen(state->cnonce);
+	
+	  strcat(output, CNONCE_POST);
+	  outlen += strlen(CNONCE_POST);
+	}
+	/* nonce-count */
+	{
+	  if (outlen + 
+	      strlen(NONCE_COUNT_PRE) + 
+	      NCLEN + 
+	      strlen(NONCE_COUNT_POST) >= *output_len)
+	    {
+	      res = GSASL_TOO_SMALL_BUFFER;
+	      goto done;
+	    }
+
+	  strcat(output, NONCE_COUNT_PRE);
+	  outlen += strlen(NONCE_COUNT_PRE);
+
+	  sprintf(output+outlen, "%0*x", NCLEN, state->nc);
+	  outlen += NCLEN;
+	
+	  strcat(output, NONCE_COUNT_POST);
+	  outlen += strlen(NONCE_COUNT_POST);
+	}
+	/* qop */
+	{
+	  char *qopstr;
+	  
+	  if (state->qop & GSASL_QOP_AUTH)
+	    qopstr = QOP_AUTH;
+	  else if (state->qop & GSASL_QOP_AUTH_INT)
+	    qopstr = QOP_AUTH_INT;
+	  else if (state->qop & GSASL_QOP_AUTH_CONF)
+	    qopstr = QOP_AUTH_CONF;
+
+	  if (outlen + 
+	      strlen(QOP_PRE) + 
+	      strlen(qopstr) + 
+	      strlen(QOP_POST) >= *output_len)
+	    {
+	      res = GSASL_TOO_SMALL_BUFFER;
+	      goto done;
+	    }
+
+	  strcat(output, QOP_PRE);
+	  outlen += strlen(QOP_PRE);
+
+	  strcat(output, qopstr);
+	  outlen += strlen(qopstr);
+
+	  strcat(output, QOP_POST);
+	  outlen += strlen(QOP_POST);
+	}
+	/* digest-uri */
+	{
+	  char *service = NULL;
+	  size_t servicelen = 0;
+	  char *hostname = NULL;
+	  size_t hostnamelen = 0;
+	  char *servicename = NULL;
+	  size_t servicenamelen = 0;
+	  size_t len;
+
+	  res = cb_service (cctx, NULL, &servicelen, 
+			    NULL, &hostnamelen, 
+			    NULL, &servicenamelen); 
+	  if (res != GSASL_OK)
+	    goto done;
+	  len = servicelen + strlen("/") + hostnamelen + 
+	    (servicenamelen > 0 ? strlen("/") + servicenamelen : 0) + 1;
+	  state->digesturi = malloc(len);
+	  if (state->digesturi == NULL)
+	    {
+	      res = GSASL_MALLOC_ERROR;
+	      goto done;
+	    }
+	  res = cb_service (cctx, state->digesturi, &servicelen, 
+			    state->digesturi + 1 + servicelen, &hostnamelen, 
+			    (servicenamelen > 0 ?
+			     state->digesturi + 1 + servicelen + 1 + 
+			     hostnamelen : NULL), &servicenamelen);
+	  if (res != GSASL_OK)
+	      goto done;
+	  state->digesturi[servicelen] = '/';
+	  state->digesturi[servicelen + 1 + hostnamelen] = '/';
+	  state->digesturi[len-1] = '\0';
+
+	  if (outlen + 
+	      strlen(DIGEST_URI_PRE) + 
+	      len + 
+	      strlen(DIGEST_URI_POST) >= *output_len)
+	    {
+	      res = GSASL_TOO_SMALL_BUFFER;
+	      goto done;
+	    }
+
+	  strcat(output, DIGEST_URI_PRE);
+	  outlen += strlen(DIGEST_URI_PRE);
+
+	  strcat(output, state->digesturi);
+	  outlen += strlen(state->digesturi);
+
+	  strcat(output, DIGEST_URI_POST);
+	  outlen += strlen(DIGEST_URI_POST);
+	}
+	/* response */
+	{
+	  GCRY_MD_HD md5h;
+	  unsigned char *tmp;
+	  char *normpassword;
+	  size_t len;
+
+	  if (outlen + 
+	      strlen(RESPONSE_PRE) + 
+	      RESPONSE_LENGTH +
+	      strlen(RESPONSE_POST) >= *output_len)
+	    {
+	      res = GSASL_TOO_SMALL_BUFFER;
+	      goto done;
+	    }
+
+	  strcat(output, RESPONSE_PRE);
+	  outlen += strlen(RESPONSE_PRE);
+
+	  md5h = gcry_md_open (GCRY_MD_MD5, 0);
+	  if (md5h == NULL)
+	    {
+	      res = GSASL_GCRYPT_ERROR;
+	      goto done;
+	    }
+	  len = *output_len - outlen;
+	  res = cb_authentication_id (cctx, output+outlen, &len); 
+	  if (res != GSASL_OK)
+	    goto done;
+
+	  gcry_md_write (md5h, output+outlen, len);
+	  gcry_md_write (md5h, COLON, strlen(COLON));
+	  if (nrealm > 0)
+	    gcry_md_write (md5h, realm[0], strlen(realm[0]));
+	  gcry_md_write (md5h, COLON, strlen(COLON));
+  
+	  len = *output_len - outlen;
+	  /* XXX? password stored in callee's output buffer */
+	  res = cb_password (cctx, output+outlen, &len); 
+	  if (res != GSASL_OK)
+	    goto done;
+	  tmp = gsasl_utf8_nfkc_normalize (output+outlen, len);
+	  if (tmp == NULL)
+	    {
+	      res = GSASL_UNICODE_NORMALIZATION_ERROR;	
+	      goto done;
+	    }
+	  gcry_md_write (md5h, tmp, strlen(tmp));
+	  free(tmp);
+	  if (res != GCRYERR_SUCCESS)
+	    return GSASL_GCRYPT_ERROR;
+
+	  tmp = gcry_md_read (md5h, GCRY_MD_MD5);
+	  if (tmp == NULL) 
+	    {
+	      res = GSASL_GCRYPT_ERROR;
+	      goto done;
+	    }
+	  memcpy(state->secret, tmp, MD5LEN);
+	  gcry_md_close(md5h);
+
+	  res = _gsasl_digest (state->response, state->secret, 
+			       state->nonce, state->nc, state->cnonce, 
+			       state->qop, state->authzid, 
+			       state->digesturi, A2_PRE);
+	  if (res != GSASL_OK)
+	      goto done;
+	  state->response[RESPONSE_LENGTH] = '\0';
+	  memcpy(output+outlen, state->response, RESPONSE_LENGTH+1);
+	  outlen += RESPONSE_LENGTH;
+
+	  strcat(output, RESPONSE_POST);
+	  outlen += strlen(RESPONSE_POST);
+	}
+	if (cb_maxbuf && (maxbuf = cb_maxbuf(cctx, maxbuf)) != MAXBUF_DEFAULT)
+	  {
+	    if (outlen + 
+		strlen(MAXBUF_PRE) + 
+		/* XXX don't require -lm, how? */
+		1+floor(log10(INT_MAX)) +
+		strlen(MAXBUF_POST) >= *output_len)
+	      return GSASL_TOO_SMALL_BUFFER;
+	    
+	    strcat(output, MAXBUF_PRE);
+	    outlen += strlen(MAXBUF_PRE);
+	    
+	    sprintf(&output[outlen], "%d", maxbuf);
+	    outlen += strlen(&output[outlen]);
+	    
+	    strcat(output, MAXBUF_POST);
+	    outlen += strlen(MAXBUF_POST);
+	  }
+	/* authzid */
+	if (state->authzid && strlen(state->authzid) > 0)
+	  {
+	    if (outlen + 
+		strlen(AUTHZID_PRE) + 
+		strlen(state->authzid) +
+		strlen(AUTHZID_POST) >= *output_len)
+	      {
+		res = GSASL_TOO_SMALL_BUFFER;
+		goto done;
+	      }
+	    
+	    strcat(output, AUTHZID_PRE);
+	    outlen += strlen(AUTHZID_PRE);
+	    
+	    strcat(output, state->authzid);
+	    outlen += strlen(state->authzid);
+	    
+	    strcat(output, AUTHZID_POST);
+	    outlen += strlen(AUTHZID_POST);
+	  }
+
+	res = GSASL_NEEDS_MORE;
+      done:
+	if (realm)
+	  free (realm);
+      }
+      *output_len = outlen;
+      state->step++;
+      break;
+      
+    case 1:
+      if (input_len == 0)
+	{
+	  *output_len = 0;
+	  res = GSASL_MECHANISM_PARSE_ERROR;
+	  break;
+	}
+
+      res = GSASL_AUTHENTICATION_ERROR;
+      subopts = input;
+      while (*subopts != '\0')
+	switch (_gsasl_getsubopt (&subopts, digest_responseauth_opts, &value))
+	  {
+	  case RESPONSEAUTH_RSPAUTH:
+	    res = _gsasl_digest (output+outlen, state->secret,
+				 state->nonce, state->nc, 
+				 state->cnonce, state->qop, 
+				 state->authzid, state->digesturi, COLON);
+	    if (res != GSASL_OK)
+	      break;
+
+	    if (memcmp(value, output + outlen, RESPONSE_LENGTH) == 0)
+	      res = GSASL_OK;
+	    else
+	      res = GSASL_AUTHENTICATION_ERROR;
+	    break;
+
+	  default:
+	    /* Unknown suboption. */
+	    break;
+	  }
+      *output_len = 0;
+      state->step++;
+      break;
+
+    default:
+      res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
+      break;
+    }
+
+#if PRINT_OUTPUT
+  if (output && *output_len > 0)
+    puts(output);
+#endif
+
+  return res;
+}
+
+int
+_gsasl_digest_md5_client_finish (Gsasl_session_ctx *cctx,
+				 void *mech_data)
+{
+  _Gsasl_digest_md5_client_state *state = mech_data;
+
+  if (state->authzid)
+    free (state->authzid);
+  if (state->nonce)
+    free (state->nonce);
+  if (state->digesturi)
+    free (state->digesturi);
+  free(state);
+
+  return GSASL_OK;
+}
+
+/* Server */
+
+struct _Gsasl_digest_md5_server_state {
+  int step;
+  char nonce[NONCE_ENTROPY_BITS/8];
+};
+typedef struct _Gsasl_digest_md5_server_state _Gsasl_digest_md5_server_state;
+
+int
+_gsasl_digest_md5_server_init (Gsasl_ctx *ctx)
+{
+  if (gcry_check_version(GCRYPT_VERSION) == NULL)
+    return GSASL_GCRYPT_ERROR;
+
+  return GSASL_OK;
+}
+
+void
+_gsasl_digest_md5_server_done (Gsasl_ctx *ctx)
+{
+  return;
+}
+
+int
+_gsasl_digest_md5_server_start (Gsasl_session_ctx *sctx, 
+				void **mech_data)
+{
+  _Gsasl_digest_md5_server_state *state;
+  Gsasl_server_callback_retrieve cb_retrieve;
+  Gsasl_server_callback_digest_md5 cb_digest_md5;
+  Gsasl_ctx *ctx;
+
+  ctx = gsasl_server_ctx_get (sctx);
+  if (ctx == NULL)
+    return GSASL_CANNOT_GET_CTX;
+
+  cb_retrieve = gsasl_server_callback_retrieve_get (ctx);
+  cb_digest_md5 = gsasl_server_callback_digest_md5_get (ctx);
+
+  if (gsasl_server_callback_digest_md5_get (ctx) == NULL &&
+      gsasl_server_callback_retrieve_get (ctx) == NULL)
+    return GSASL_NEED_SERVER_DIGEST_MD5_CALLBACK;
+
+  state = (_Gsasl_digest_md5_server_state*) malloc(sizeof(*state));
+  if (state == NULL)
+    return GSASL_MALLOC_ERROR;
+
+  state->step = 0;
+  gcry_randomize (state->nonce, NONCE_ENTROPY_BITS/8, GCRY_WEAK_RANDOM);
+
+  *mech_data = state;
+
+  return GSASL_OK;
+}
+
+int
+_gsasl_digest_md5_server_step (Gsasl_session_ctx *sctx, 
+			       void *mech_data, 
+			       const char *input,
+			       size_t input_len,
+			       char *output,
+			       size_t *output_len)
+{
+  _Gsasl_digest_md5_server_state *state = mech_data;
+  Gsasl_server_callback_realm cb_realm;
+  Gsasl_server_callback_qop cb_qop;
+  Gsasl_server_callback_maxbuf cb_maxbuf;
+  Gsasl_server_callback_cipher cb_cipher;
+  Gsasl_server_callback_retrieve cb_retrieve;
+  Gsasl_server_callback_digest_md5 cb_digest_md5;
+  Gsasl_ctx *ctx;
+  int res;
+  int outlen;
+  int maxbuf;
+
+  ctx = gsasl_server_ctx_get (sctx);
+  if (ctx == NULL)
+    return GSASL_CANNOT_GET_CTX;
+
+  cb_realm = gsasl_server_callback_realm_get (ctx);
+  cb_qop = gsasl_server_callback_qop_get (ctx);
+  cb_maxbuf = gsasl_server_callback_maxbuf_get (ctx);
+  cb_cipher = gsasl_server_callback_cipher_get (ctx);
+  cb_retrieve = gsasl_server_callback_retrieve_get (ctx);
+  cb_digest_md5 = gsasl_server_callback_digest_md5_get (ctx);
+
+  if (gsasl_server_callback_digest_md5_get (ctx) == NULL &&
+      gsasl_server_callback_retrieve_get (ctx) == NULL)
+    return GSASL_NEED_SERVER_DIGEST_MD5_CALLBACK;
+
+  if (*output_len < 1)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  strcpy(output, "");
+  outlen = 0;
+
+#if PRINT_OUTPUT
+  if (input && input_len > 0)
+    puts(input);
+#endif
+
+  switch (state->step)
+    {
+    case 0:
+      if (cb_realm)
+	{
+	  int i;
+	  size_t realmlen;
+
+	  realmlen = *output_len;
+	  for (i = 0; cb_realm(sctx, NULL, &realmlen, i) == GSASL_OK; i++)
+	    {
+	      if (outlen + strlen(REALM_PRE) + 
+		  realmlen + strlen(REALM_POST) >= *output_len)
+		return GSASL_TOO_SMALL_BUFFER;
+
+	      strcat(output, REALM_PRE);
+	      outlen += strlen(REALM_PRE);
+
+	      cb_realm(sctx, &output[outlen], &realmlen, i);
+	      outlen += realmlen;
+	      output[outlen] = '\0';
+
+	      strcat(output, REALM_POST);
+	      outlen += strlen(REALM_POST);
+
+	      realmlen = *output_len - outlen;
+	    }
+	}
+      /* nonce */
+      {
+	int i;
+
+	if (outlen + strlen(NONCE_PRE) + 
+	    2 * NONCE_ENTROPY_BITS/8 + strlen(NONCE_POST) >= *output_len)
+	  return GSASL_TOO_SMALL_BUFFER;
+
+	strcat(output, NONCE_PRE);
+	outlen += strlen(NONCE_PRE);
+
+	for (i = 0; i < NONCE_ENTROPY_BITS/8; i++)
+	  {
+	    output[outlen + 2*i + 1] = HEXCHAR(state->nonce[i]);
+	    output[outlen + 2*i + 0] = HEXCHAR(state->nonce[i] >> 4);
+	  }
+	output[outlen + 2 * NONCE_ENTROPY_BITS/8] = '\0';
+	outlen += 2 * NONCE_ENTROPY_BITS/8;
+	
+	strcat(output, NONCE_POST);
+	outlen += strlen(NONCE_POST);
+      }
+      /* qop */
+      { 
+	Gsasl_qop qop;
+
+	if (outlen + 
+	    strlen(QOP_LIST_PRE) + 
+	    strlen(QOP_AUTH) + 
+	    strlen(QOP_AUTH_INT) +
+	    strlen(QOP_AUTH_CONF) +
+	    strlen(QOP_LIST_POST) >= *output_len)
+	return GSASL_TOO_SMALL_BUFFER;
+
+	if (cb_qop)
+	  qop = cb_qop(sctx);
+	else
+	  qop = GSASL_QOP_AUTH | GSASL_QOP_AUTH_INT | GSASL_QOP_AUTH_CONF;
+
+	strcat(output, QOP_LIST_PRE);
+	outlen += strlen(QOP_LIST_PRE);
+
+	if (qop & GSASL_QOP_AUTH)
+	  {
+	    strcat(output, QOP_AUTH);
+	    outlen += strlen(QOP_AUTH);
+
+	    strcat(output, QOP_DELIM);
+	    outlen += strlen(QOP_DELIM);
+	  }
+	  
+	if (qop & GSASL_QOP_AUTH_INT)
+	  {
+	    strcat(output, QOP_AUTH_INT);
+	    outlen += strlen(QOP_AUTH_INT);
+
+	    strcat(output, QOP_DELIM);
+	    outlen += strlen(QOP_DELIM);
+	  }
+	
+	if (qop & GSASL_QOP_AUTH_CONF)
+	  {
+	    strcat(output, QOP_AUTH_CONF);
+	    outlen += strlen(QOP_AUTH_CONF);
+	  }
+
+	strcat(output, QOP_LIST_POST);
+	outlen += strlen(QOP_LIST_POST);
+      }
+      /* maxbuf */
+      if (cb_maxbuf && (maxbuf = cb_maxbuf(sctx)) != MAXBUF_DEFAULT)
+	{
+	  if (outlen + 
+	      strlen(MAXBUF_PRE) + 
+	      /* XXX don't require -lm, how? */
+	      1+floor(log10(INT_MAX)) +
+	      strlen(MAXBUF_POST) >= *output_len)
+	    return GSASL_TOO_SMALL_BUFFER;
+	  
+	  strcat(output, MAXBUF_PRE);
+	  outlen += strlen(MAXBUF_PRE);
+	  
+	  sprintf(&output[outlen], "%d", maxbuf);
+	  outlen += strlen(&output[outlen]);
+	  
+	  strcat(output, MAXBUF_POST);
+	  outlen += strlen(MAXBUF_POST);
+	}
+      /* charset */
+      { 
+	if (outlen + strlen(CHARSET) >= *output_len)
+	  return GSASL_TOO_SMALL_BUFFER;
+	
+	strcat(output, CHARSET);
+	outlen += strlen(CHARSET);
+      }
+      /* algorithm */
+      { 
+	if (outlen + strlen(ALGORITHM) >= *output_len)
+	  return GSASL_TOO_SMALL_BUFFER;
+
+	strcat(output, ALGORITHM);
+	outlen += strlen(ALGORITHM);
+      }
+      /* cipher */
+      { 
+	Gsasl_cipher cipher;
+
+	if (outlen + 
+	    strlen(CIPHER_PRE) + 
+	    strlen(CIPHER_DES) +
+	    strlen(CIPHER_DELIM) +
+	    strlen(CIPHER_3DES) +
+	    strlen(CIPHER_DELIM) +
+	    strlen(CIPHER_RC4) +
+	    strlen(CIPHER_DELIM) +
+	    strlen(CIPHER_RC4_40) +
+	    strlen(CIPHER_DELIM) +
+	    strlen(CIPHER_RC4_56) +
+	    strlen(CIPHER_DELIM) +
+	    strlen(CIPHER_AES) + 
+	    strlen(CIPHER_DELIM) +
+	    strlen(CIPHER_POST) >= *output_len)
+	return GSASL_TOO_SMALL_BUFFER;
+
+	if (cb_cipher)
+	  cipher = cb_cipher(sctx);
+	else
+	  cipher = GSASL_CIPHER_DES | GSASL_CIPHER_3DES | GSASL_CIPHER_RC4 |
+	    GSASL_CIPHER_RC4_40 | GSASL_CIPHER_RC4_56 | GSASL_CIPHER_AES;
+
+	strcat(output, CIPHER_PRE);
+	outlen += strlen(CIPHER_PRE);
+
+	if (cipher & GSASL_CIPHER_DES)
+	  {
+	    strcat(output, CIPHER_DES);
+	    outlen += strlen(CIPHER_DES);
+
+	    strcat(output, CIPHER_DELIM);
+	    outlen += strlen(CIPHER_DELIM);
+	  }
+	  
+	if (cipher & GSASL_CIPHER_3DES)
+	  {
+	    strcat(output, CIPHER_3DES);
+	    outlen += strlen(CIPHER_3DES);
+
+	    strcat(output, CIPHER_DELIM);
+	    outlen += strlen(CIPHER_DELIM);
+	  }
+	  
+	if (cipher & GSASL_CIPHER_RC4)
+	  {
+	    strcat(output, CIPHER_RC4);
+	    outlen += strlen(CIPHER_RC4);
+
+	    strcat(output, CIPHER_DELIM);
+	    outlen += strlen(CIPHER_DELIM);
+	  }
+	  
+	if (cipher & GSASL_CIPHER_RC4_40)
+	  {
+	    strcat(output, CIPHER_RC4_40);
+	    outlen += strlen(CIPHER_RC4_40);
+
+	    strcat(output, CIPHER_DELIM);
+	    outlen += strlen(CIPHER_DELIM);
+	  }
+	  
+	if (cipher & GSASL_CIPHER_RC4_56)
+	  {
+	    strcat(output, CIPHER_RC4_56);
+	    outlen += strlen(CIPHER_RC4_56);
+
+	    strcat(output, CIPHER_DELIM);
+	    outlen += strlen(CIPHER_DELIM);
+	  }
+	  
+	if (cipher & GSASL_CIPHER_AES)
+	  {
+	    strcat(output, CIPHER_AES);
+	    outlen += strlen(CIPHER_AES);
+
+	    strcat(output, CIPHER_DELIM);
+	    outlen += strlen(CIPHER_DELIM);
+	  }
+	  
+	strcat(output, CIPHER_POST);
+	outlen += strlen(CIPHER_POST);
+      }
+      *output_len = outlen;
+      state->step++;
+      res = GSASL_NEEDS_MORE;
+      break;
+
+    case 1:
+      {
+	unsigned char *nonce = NULL;
+	char *cnonce = NULL;
+	uint32_t nc = 0;
+	char *authzid = NULL;
+	char *digesturi = NULL;
+	const char *subopts, *value;
+	unsigned char *realm = NULL;
+	unsigned char *username = NULL;
+	unsigned char *response = NULL;
+	int maxbuf = MAXBUF_DEFAULT;
+	int qop = GSASL_QOP_AUTH;
+	int cipher = 0;
+	int i;
+	GCRY_MD_HD md5h = NULL;
+	unsigned char secret[MD5LEN];
+
+	if (input_len == 0)
+	  {
+	    *output_len = 0;
+	    return GSASL_MECHANISM_PARSE_ERROR;
+	  }
+
+	subopts = input;
+	while (*subopts != '\0')
+	  switch (_gsasl_getsubopt (&subopts, digest_response_opts, &value))
+	    {
+	    case RESPONSE_USERNAME:
+	      if (username != NULL)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      username = strdup(value);
+	      break;
+
+	    case RESPONSE_REALM:
+	      if (realm != NULL)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      realm = strdup(value);
+	      break;
+
+	    case RESPONSE_NONCE:
+	      if (nonce != NULL)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      nonce = strdup(value);
+	      res = GSASL_OK;
+	      for (i = 0; i < MIN(strlen(value), NONCE_ENTROPY_BITS/8); i++)
+		if ((nonce[2*i + 1] != HEXCHAR(state->nonce[i])) ||
+		    (nonce[2*i + 0] != HEXCHAR(state->nonce[i] >> 4)))
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+	      if (res != GSASL_OK)
+		goto done;
+	      break;
+
+	    case RESPONSE_CNONCE:
+	      if (cnonce != NULL)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      cnonce = strdup(value);
+	      break;
+
+	    case RESPONSE_NC:
+	      if (nc != 0)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      nc = strtoul(value, NULL, 16);
+	      break;
+
+	    case RESPONSE_QOP:
+	      if (strcmp(value, QOP_AUTH) == 0)
+		qop = GSASL_QOP_AUTH;
+	      else if (strcmp(value, QOP_AUTH_INT) == 0)
+		qop = GSASL_QOP_AUTH_INT;
+	      else if (strcmp(value, QOP_AUTH_CONF) == 0)
+		qop = GSASL_QOP_AUTH_CONF;
+	      else
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      break;
+
+	    case RESPONSE_DIGEST_URI:
+	      if (digesturi != NULL)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      digesturi = strdup(value);
+	      break;
+
+	    case RESPONSE_RESPONSE:
+	      if (response != NULL)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      response = strdup(value);
+	      break;
+
+	    case RESPONSE_MAXBUF:
+	      maxbuf = strtol(value, NULL, 10);
+	      break;
+
+	    case RESPONSE_CHARSET:
+	      if (strcmp(DEFAULT_CHARSET, value) != 0)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      break;
+
+	    case RESPONSE_CIPHER:
+	      if (cipher != 0)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      if (strcmp(value, CIPHER_DES) == 0)
+		cipher = GSASL_CIPHER_DES;
+	      else if (strcmp(value, CIPHER_3DES) == 0)
+		cipher = GSASL_CIPHER_3DES;
+	      else if (strcmp(value, CIPHER_RC4) == 0)
+		cipher = GSASL_CIPHER_RC4;
+	      else if (strcmp(value, CIPHER_RC4_40) == 0)
+		cipher = GSASL_CIPHER_RC4_40;
+	      else if (strcmp(value, CIPHER_RC4_56) == 0)
+		cipher = GSASL_CIPHER_RC4_56;
+	      else if (strcmp(value, CIPHER_AES) == 0)
+		cipher = GSASL_CIPHER_AES;
+	      else
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      break;
+
+	    case RESPONSE_AUTHZID:
+	      if (authzid != NULL)
+		{
+		  res = GSASL_MECHANISM_PARSE_ERROR;
+		  goto done;
+		}
+	      authzid = strdup(value);
+	      break;
+
+	    default:
+	      /* Ignoring unknown parameter. */
+	      break;
+	    }
+
+	if (username == NULL || nonce == NULL || 
+	    cnonce == NULL || response == NULL ||
+	    (qop == GSASL_QOP_AUTH_CONF && cipher == 0))
+	  {
+	    res = GSASL_MECHANISM_PARSE_ERROR;
+	    goto done;
+	  }
+
+	if (outlen + 
+	    strlen(RSPAUTH_PRE) + 
+	    RESPONSE_LENGTH +
+	    strlen(RSPAUTH_POST) >= *output_len)
+	  {
+	    res = GSASL_TOO_SMALL_BUFFER;
+	    goto done;
+	  }
+	if (cb_retrieve)
+	  {
+	    unsigned char *tmp;
+	    size_t len;
+	    size_t keylen;
+	    char *key;
+	    char *normkey;
+
+	    res = cb_retrieve(sctx, username, authzid, realm, NULL, &keylen);
+	    if (res != GSASL_OK)
+	      goto done;
+	    key = malloc(keylen);
+	    if (key == NULL)
+	      {
+		res = GSASL_MALLOC_ERROR;
+		goto done;
+	      }
+	    res = cb_retrieve(sctx, username, authzid, realm, key, &keylen);
+	    if (res != GSASL_OK)
+	      {
+		free(key);
+		goto done;
+	      }
+	    normkey = gsasl_utf8_nfkc_normalize (key, keylen);
+	    free(key);
+	    if (normkey == NULL)
+	      {
+		res = GSASL_UNICODE_NORMALIZATION_ERROR;
+		goto done;
+	      }
+
+	    md5h = gcry_md_open (GCRY_MD_MD5, 0);
+	    if (md5h == NULL)
+	      {
+		res = GSASL_GCRYPT_ERROR;
+		goto done;
+	      }
+	    gcry_md_write (md5h, username, strlen(username));
+	    gcry_md_write (md5h, COLON, strlen(COLON));
+	    if (realm)
+	      gcry_md_write (md5h, realm, strlen(realm));
+	    gcry_md_write (md5h, COLON, strlen(COLON));
+	    gcry_md_write (md5h, normkey, strlen(normkey));
+	    
+	    tmp = gcry_md_read (md5h, GCRY_MD_MD5);
+	    if (tmp == NULL)
+	      {
+		res = GSASL_GCRYPT_ERROR;
+		goto done;
+	      }
+	    memcpy(secret, tmp, MD5LEN);
+	  }
+	else /* if (cb_digest_md5) */
+	  {
+	    /* XXX? secret hash stored in callee's output buffer */
+	    res = cb_digest_md5 (sctx, username, realm, output+outlen); 
+	    if (res != GSASL_OK)
+	      goto done;
+
+	    memcpy(secret, output+outlen, MD5LEN);
+	  }
+
+	/* verify response */
+	res = _gsasl_digest (output+outlen, secret, 
+			     nonce, nc, cnonce, qop, authzid, 
+			     digesturi, A2_PRE);
+	if (res != GSASL_OK)
+	  goto done;
+
+	if (memcmp(response, output + outlen, RESPONSE_LENGTH) != 0)
+	  {
+	    res = GSASL_AUTHENTICATION_ERROR;
+	    goto done;
+	  }
+
+	output[outlen] = '\0';
+
+	/* XXX check more things here.  digest-uri? valid qop, cipher,
+	   nc etc.  nonce, which is the most important, is checked
+	   above. */
+
+	/* generate rspauth */
+	
+	strcat(output, RSPAUTH_PRE);
+	outlen += strlen(RSPAUTH_PRE);
+
+	res = _gsasl_digest (output+outlen, secret,
+			     nonce, nc, cnonce, qop, authzid,
+			     digesturi, COLON);
+	if (res != GSASL_OK)
+	  goto done;
+	outlen += RSPAUTH_LENGTH;
+	
+	strcat(output, RSPAUTH_POST);
+	outlen += strlen(RSPAUTH_POST);
+
+	if (md5h)
+	  gcry_md_close(md5h);
+	
+	res = GSASL_NEEDS_MORE;
+      done:
+	if (username)
+	  free(username);
+	if (authzid)
+	  free(authzid);
+	if (response)
+	  free(response);
+	if (digesturi)
+	  free(digesturi);
+	if (nonce)
+	  free(nonce);
+	if (cnonce)
+	  free(cnonce);
+	if (realm)
+	  free(realm);
+      }
+      *output_len = outlen;
+      state->step++;
+      break;
+
+    case 2:
+      *output_len = 0;
+      state->step++;
+      res = GSASL_OK;
+      break;
+      
+    default:
+      res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
+      break;
+    }
+
+#if PRINT_OUTPUT
+  if (output && *output_len > 0)
+    puts(output);
+#endif
+
+  return res;
+}
+
+int
+_gsasl_digest_md5_server_finish (Gsasl_session_ctx *sctx, 
+				 void *mech_data)
+{
+  _Gsasl_digest_md5_server_state *state = mech_data;
+
+  free(state);
+
+  return GSASL_OK;
+}
+
+#endif /* USE_DIGEST_MD5 */

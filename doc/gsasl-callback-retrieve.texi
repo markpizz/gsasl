@@ -1,0 +1,25 @@
+@deftypefn Prototype int (*Gsasl_server_callback_retrieve) (Gsasl_session_ctx * @var{ctx}, char * @var{authentication_id}, char * @var{authorization_id}, char * @var{realm}, char * @var{key}, size_t * @var{keylen})
+
+@var{ctx}:  libgsasl handle.
+
+@var{authentication_id}:  input array with authentication identity.
+
+@var{authorization_id}:  input array with authorization identity, or NULL.
+
+@var{realm}:  input array with realm of user, or NULL.
+
+@var{key}:  output array with key for authentication identity.
+
+@var{keylen}: on input the maximum size of the key output array, on
+output contains the actual size of the key output array.
+
+Type of callback function the application implements.  It should
+retrieve the password for the indicated user and return GSASL_OK, or
+an error code such as GSASL_AUTHENTICATION_ERROR.  The key must be
+encoded in UTF-8, but need not be normalized in any way.
+
+If KEY is NULL, the function should only populate the KEYLEN output
+length field with the length, and return GSASL_OK.  This usage may be
+used by the caller to allocate the proper buffer size.
+
+@end deftypefn

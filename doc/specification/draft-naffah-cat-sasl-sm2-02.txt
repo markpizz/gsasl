@@ -1,0 +1,1459 @@
+
+
+Network                                                        R. Naffah
+Internet-Draft                                                 D. Taylor
+Expires: May 2, 2002                                      Forge Research
+                                                           November 2001
+
+
+           SM2 -- A Session Management Capable SASL Mechanism
+                      draft-naffah-cat-sasl-sm2-02
+
+Status of this Memo
+
+   This document is an Internet-Draft and is in full conformance with
+   all provisions of Section 10 of RFC2026.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF), its areas, and its working groups.  Note that
+   other groups may also distribute working documents as Internet-
+   Drafts.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   The list of current Internet-Drafts can be accessed at http://
+   www.ietf.org/ietf/1id-abstracts.txt.
+
+   The list of Internet-Draft Shadow Directories can be accessed at
+   http://www.ietf.org/shadow.html.
+
+   This Internet-Draft will expire on May 2, 2002.
+
+Copyright Notice
+
+   Copyright (C) The Internet Society (2001).  All Rights Reserved.
+
+Abstract
+
+   This document describes a family of SASL mechanisms capable of re-
+   using cryptographic parameters (SASL Security Context) negotiated in
+   a prior exchange.
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                  [Page 1]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+Table of Contents
+
+   1.    Mechanism Names  . . . . . . . . . . . . . . . . . . . . . .  4
+   2.    Introduction . . . . . . . . . . . . . . . . . . . . . . . .  5
+   3.    Conventions Used in this Document  . . . . . . . . . . . . .  6
+   4.    Data Element Formats . . . . . . . . . . . . . . . . . . . .  7
+   4.1   Scalar numbers . . . . . . . . . . . . . . . . . . . . . . .  7
+   4.2   Octet sequences  . . . . . . . . . . . . . . . . . . . . . .  7
+   4.3   Extended octet sequences . . . . . . . . . . . . . . . . . .  7
+   4.4   Text . . . . . . . . . . . . . . . . . . . . . . . . . . . .  7
+   4.5   Buffers  . . . . . . . . . . . . . . . . . . . . . . . . . .  8
+   4.6   Data element size limits . . . . . . . . . . . . . . . . . .  8
+   4.7   Special octets . . . . . . . . . . . . . . . . . . . . . . .  8
+   4.8   Unsigned Integers (UINT) . . . . . . . . . . . . . . . . . .  9
+   5.    Protocol Description . . . . . . . . . . . . . . . . . . . . 10
+   5.1   Establishment of a new session . . . . . . . . . . . . . . . 10
+   5.2   Re-use of an existing session  . . . . . . . . . . . . . . . 11
+   6.    Example  . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+   6.1   Example of establishing a new SM2 session  . . . . . . . . . 13
+   6.2   Example of an SM2 session re-use . . . . . . . . . . . . . . 15
+   7.    Discussion . . . . . . . . . . . . . . . . . . . . . . . . . 16
+   7.1   Extending the Java SASL API  . . . . . . . . . . . . . . . . 16
+   7.2   Beyond Java  . . . . . . . . . . . . . . . . . . . . . . . . 16
+   7.3   Cache management . . . . . . . . . . . . . . . . . . . . . . 16
+   7.4   DIGEST-MD5 as an underlying mechanism for SM2  . . . . . . . 17
+   8.    Security Considerations  . . . . . . . . . . . . . . . . . . 18
+   8.1   Caching cryptographic parameters . . . . . . . . . . . . . . 18
+   8.2   Flexibility to use new authentication mechanisms . . . . . . 18
+   8.3   When to invalidate a session . . . . . . . . . . . . . . . . 18
+   8.4   Updating the SASL Security Context from the Evidence . . . . 18
+   9.    Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . 20
+         References . . . . . . . . . . . . . . . . . . . . . . . . . 21
+         Authors' Addresses . . . . . . . . . . . . . . . . . . . . . 22
+   A.    Proposed extension to the Java SASL API  . . . . . . . . . . 23
+   A.1   public interface SaslClientExt . . . . . . . . . . . . . . . 23
+   A.1.1 getSaslSecurityContext . . . . . . . . . . . . . . . . . . . 23
+   A.1.2 setSaslSecurityContext . . . . . . . . . . . . . . . . . . . 23
+   A.1.3 evaluateEvidence . . . . . . . . . . . . . . . . . . . . . . 24
+   A.2   public interface SaslServerExt . . . . . . . . . . . . . . . 24
+   A.2.1 getSaslSecurityContext . . . . . . . . . . . . . . . . . . . 24
+   A.2.2 setSaslSecurityContext . . . . . . . . . . . . . . . . . . . 25
+   A.2.3 evaluateEvidence . . . . . . . . . . . . . . . . . . . . . . 25
+   B.    Changes since last draft . . . . . . . . . . . . . . . . . . 26
+         Full Copyright Statement . . . . . . . . . . . . . . . . . . 27
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                  [Page 2]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+1. Mechanism Names
+
+   The family of SASL [RFC-2222] mechanisms associated with the protocol
+   described in this document are named "SM2-<SASL mechanism name>"
+   where <SASL mechanism name> is the canonical name of a SASL Mechanism
+   other than SM2.  For example, "SM2-SRP" shall denote the SASL
+   mechanism using the protocol described in this document with "SRP" as
+   its underlying SASL mechanism.
+
+   Note that a server advertising one or more SM2 mechanisms, does not
+   preclude it from also advertising its support for the underlying
+   mechanisms used in conjunction with SM2.  This ensures
+   interoperability with clients that only support the underlying
+   mechanisms but do not yet support that mechanism under SM2.  In other
+   words, an SM2 mechanism constructed over an existing mechanism, say
+   "SM2-SRP", is not a replacement for "SRP".  As such a server wanting,
+   or able, to provide both mechanisms SHOULD advertise them both.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                  [Page 3]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+2. Introduction
+
+   SM2 is a caching mechanism.  It relies on another SASL mechanism,
+   referred to as the underlying mechanism, to perform authentication,
+   and provide security services.  The underlying mechanism MUST NOT be
+   SM2.
+
+   Some SASL mechanisms, such as those based on the SRP protocol [SASL-
+   SRP] and the Digest authentication [RFC-2831], provide authentication
+   and the negotiation of a shared session key.  The operations involved
+   in the establishement of connections relying on such mechanisms is
+   time-consuming, especially when involving computations of
+   cryptographic primitives and/or shared cryptographic keys.  It is
+   desireable to allow both the client and the server, to be able to re-
+   use those cryptographic elements, once negotiated in an initial
+   exchange, without compromising the security of the communication.
+
+   If two entities are using SM2 with the same underlying mechanism,
+   they can bypass the authentication phase, on their second and
+   subsequent connections, by re-using the security layer parameters
+   negotiated during their initial exchange.
+
+   A SASL mechanism is described in terms of its (a) authentication
+   layer, and optionally its (b) security layer [RFC-2222].  It is worth
+   noting straight away, that SM2 implies, but does not mandate, that
+   the underlying SASL mechanism provides meaningful security services.
+   In other words, the authors do not see any justification for a
+   session-management based protocol constructed over an underlying
+   mechanism that does not provide a non-trivial security layer.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                  [Page 4]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+3. Conventions Used in this Document
+
+   1.  A hex digit is an element of the set:
+
+          {0, 1, 2, 3, 4, 5, 6, 7, 8 , 9, A, B, C, D, E, F}
+
+       A hex digit is the representation of a 4-bit string.  Examples:
+
+          7 = 0111
+
+          A = 1010
+
+   2.  An octet is an 8-bit string.  In this document an octet may be
+       written as a pair of hex digits.  Examples:
+
+          7A = 01111010
+
+          02 = 00000010
+
+       Depending on the context, one octet may be represented as
+       described above preceded by "0x", for example 0x15 shall
+       represent the 8-bit sequence 00010101.
+
+   3.  All data is encoded and sent in network byte order (big-endian).
+
+   4.  The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+       NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
+       "OPTIONAL" in this document are to be interpreted as described in
+       [RFC-2119].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                  [Page 5]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+4. Data Element Formats
+
+   This section describes the encoding of the data elements used by the
+   SASL mechanisms described in this document.
+
+4.1 Scalar numbers
+
+   Scalar numbers are unsigned quantities.  Using b[i] to refer to the
+   i-th octet being processed, the value of a two-octet scalar is:
+
+      ((b[0] << 8) + b[1]),
+
+   where << is the bit left-shift operator.  The value of a four-octet
+   scalar is:
+
+      ((b[0] << 24) + (b[1] << 16) + (b[2] << 8) + b[3]).
+
+
+4.2 Octet sequences
+
+   These mechanisms generate, use and exchange sequences of octets.
+   When such entities travel on the wire, they shall be preceded by a
+   one-octet scalar quantity representing the count of following octets.
+
+   We shall use the syntax os(s) to denote the encoded form of the octet
+   sequence.
+
+4.3 Extended octet sequences
+
+   Extended sequences of octets are exchanged when using the security
+   layer.  When these sequences travel on the wire, they shall be
+   preceded by a four-octet scalar quantity representing the count of
+   following octets.
+
+   We shall use the syntax eos(s) to denote the encoded form of the
+   extended octet sequence.
+
+4.4 Text
+
+   The only character set for text is the UTF-8 encoding [RFC-2279] of
+   Unicode characters [ISO-10646].  All text MUST be in Unicode
+   Normalization Form KC [UNICODE-KC] without NUL characters.
+
+   We shall use the syntax utf8(L) to denote the string L in UTF-8
+   encoding, preceded by a two-octet scalar quantity representing the
+   count of following octets.
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                  [Page 6]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+4.5 Buffers
+
+   In these SASL mechanisms data is exchanged between the client and
+   server using buffers.  A buffer acts as an envelope for the sequence
+   of data elements sent by one end-point of the exchange, and expected
+   by the other.
+
+   A buffer MAY NOT contain other buffers.  It may only contain zero,
+   one or more data elements.
+
+   A buffer shall be encoded as two fields: a four-octet scalar quantity
+   representing the count of following octets, and the concatenation of
+   the octets of the data element(s) contained in the buffer.
+
+   We shall use the syntax {A|B|C} to denote a buffer containing A, B
+   and C in that order.  For example:
+
+      { 0x00 | utf8(umn) | eos(umir) }
+
+   is a buffer containing, in the designated order, a 1-octet scalar
+   quantity, and the encoded forms of a Text (umn) and an Extended Octet
+   Sequence (umir).
+
+4.6 Data element size limits
+
+   The following table details the size limit, in number of octets, for
+   each of the SASL data element encodings described earlier.
+
+      Data element type          Header       Size limit in octets
+                                (octets)       (excluding header)
+      ------------------------------------------------------------
+      Octet Sequence               1                  255
+      Text                         2                 65,535
+      Extended Octet Sequence      4             2,147,483,383
+      Buffer                       4             2,147,483,643
+
+   An implementation MUST signal an exception if any size constraint is
+   violated.
+
+4.7 Special octets
+
+   In this mechanism certain octet values have special significance.
+   These Octets, and the name that they will be referred to, are listed
+   below:
+
+   <NUL> The ASCII code point 0x00.  It signals the start of an
+      "establishment of a new session" exchange.
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                  [Page 7]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+   <SOH> The ASCII code point 0x01.  It signals the start of a "re-use
+      session" exchange.
+
+   <ACK> The ASCII code point 0x06.  It signals the server's acceptance
+      of a client's request to re-use an existing session; and finally
+
+   <NAK> The ASCII code point 0x15.  It signals the server's rejection
+      of a client's request to re-use an existing session.
+
+   When such entities travel on the wire, they shall be encoded as 1-
+   octet Scalar numbers.
+
+4.8 Unsigned Integers (UINT)
+
+   This mechanism uses unsigned integer values ranging from zero to
+   4,294,967,296.
+
+   When such entities travel on the wire, they shall be encoded as 4-
+   octet Scalar numbers.  We shall use the syntax uint(n) to denote the
+   encoding of an Unsinged Integer n.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                  [Page 8]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+5. Protocol Description
+
+   The next sections describe the messages exchanged between the SM2
+   client and server, and their interaction with their peers in the
+   underlying mechanism.
+
+5.1 Establishment of a new session
+
+   The establishment of a new SM2 session delegates to the underlying
+   mechanism the authentication function.  Any parameters required by
+   the underlying mechanism, MUST be passed into the SM2 mechanism when
+   it is itself initialised.
+
+   In an SM2 exchange, the client always initiates the exchange.
+
+   The first SASL buffer sent by an SM2 client contains the Special
+   Octet <NUL> indicating the initiation of the exchange, followed by
+   the initial response, which might be 0-octet long, of the client's
+   underlying mechanism.
+
+   From this point on, the SM2 mechanism passes the challenges and
+   responses to the underlying mechanism, and passes back the responses
+   and challenges from the underlying mechanism to the peers.
+
+   When the underlying mechanism exchange has concluded, the SM2 server
+   sends (a) a session identifier and (b) a Time-To-Live (TTL)
+   indication to the SM2 client.  The session identifier will be used by
+   the SM2 client if/when it will later re-use this session, while the
+   TTL indicates to the SM2 client, how long, in seconds, the SM2 server
+   will attempt to keep valid this session's parameters for later re-use
+   by the SM2 client.  A TTL indicator value of zero means that the
+   session is valid forever.
+
+   The following diagram shows the data exchanged in this process:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                  [Page 9]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+              Figure 1:  Establishment of a new session.
+
+              Underlying                       Underlying
+     SM2      Mechanism                        Mechanism       SM2
+    Client      Client                           Server       Server
+      |           |                                |            |
+
+       -- { <NUL> | eos(umir) } ------------------------------->
+
+                   <------------------ challenge --
+                   -- response ------------------->
+                                 ...
+
+       <--------------------------- { utf8(sid) | uint(ttl) } --
+
+   where:
+
+      umir  the underlying mechanism initial response, if it has one,
+
+      sid   the session identifier as set by the server.
+
+      ttl   the session Time-To-Live indication in seconds.
+
+
+5.2 Re-use of an existing session
+
+   If two entities have already been through the authentication phase,
+   and have both cached the security layer parameters, a shorter
+   exchange may take place to re-use those parameters.
+
+   In the exchange below, the Evidence fields (Ec for the client, and Es
+   for the server) are octet strings, possibly 0-octet long, that
+   represent mechanism-specific data.  An Evidence may be injected into
+   the underlying mechanism peer's security layer context, to allow
+   computation of a different shared secret for each re-use of the
+   session.
+
+   How a new shared secret is computed from a previously known value and
+   an Evidence is an underlying mechanism specific issue.
+
+   The mechanism data exchange for successfully re-using a session is
+   shown below:
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 10]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+          Figure 2:  Successful re-use of an existing session.
+
+              Underlying                       Underlying
+     SM2      Mechanism                        Mechanism       SM2
+    Client      Client                           Server       Server
+      |           |                                |            |
+
+       -- { <SOH> | utf8(sid) | os(Ec) } ---------------------->
+
+       <---------------------------------- { <ACK> | os(Es) } --
+
+   where:
+
+      Ec   the client evidence,
+
+      Es   the server evidence.
+
+   If the server accepts the request for re-using a session, it responds
+   with the Special Octet <ACK> and its version of the Evidence (Es).
+
+   On the other hand, if the server rejects the request for re-using a
+   session (including the case where an unknown session identifier has
+   been submitted), it responds with the Special Octet <NAK> only.  In
+   this case, the SM2 client MUST attempt to establish a new session
+   with the peer, and if this fails it MUST report an authentication
+   failure.
+
+   This retry facility MUST only be attempted once if re-using a session
+   fails.
+
+   The data exchange when failing to re-use a session is shown below:
+
+            Figure 3: Failure re-using an existing session.
+
+
+              Underlying                       Underlying
+     SM2      Mechanism                        Mechanism       SM2
+    Client      Client                           Server       Server
+      |           |                                |            |
+
+       -- { <SOH> | utf8(sid) | os(Ec) } ---------------------->
+
+       <------------------------------------------- { <NAK> } --
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 11]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+6. Example
+
+   The following sections show two examples: one for an establishment of
+   a new SM2 session, and the second one is for a successful re-use of
+   the session already established.  The underlying mechanism used with
+   SM2 in both examples is an implementation of the SRP mechanism.
+   Lines starting with "C" denote messages sent from the client side,
+   while those stating with "S" are from the server side.
+
+6.1 Example of establishing a new SM2 session
+
+   C1: 0000000F00000000 0A00000006000474 657374
+
+   S1: 000001C00100AC6B DB41324A9A9BF166 DE5E1389582FAF72 B6651987EE07FC31
+       92943DB56050A373 29CBB4A099ED8193 E0757767A13DD523 12AB4B03310DCD7F
+       48A9DA04FD50E808 3969EDB767B0CF60 95179A163AB3661A 05FBD5FAAAE82918
+       A9962F0B93B855F9 7993EC975EEAA80D 740ADBF4FF747359 D041D5C33EA71D28
+       1E446B14773BCA97 B43A23FB801676BD 207A436C6481F1D2 B9078717461A5B9D
+       32E688F877485445 23B524B0D57D5EA7 7A2775D2ECFA032C FBDBF52FB3786160
+       279004E57AE6AF87 4E7303CE53299CCC 041C7BC308D82A56 98F3A8D0C38271AE
+       35F8E9DBFBB694B5 C803D89F7AE435DE 236D525F54759B65 E372FCD68EF20FA7
+       111F9E4AFF730001 020A251CA1230431 ABA188CE00AE6D61 6E6461746F72793D
+       7265706C61792064 6574656374696F6E 2C7265706C617920 646574656374696F
+       6E2C696E74656772 6974793D686D6163 2D736861312C696E 746567726974793D
+       686D61632D6D6435 2C636F6E66696465 6E7469616C697479 3D6165732C636F6E
+       666964656E746961 6C6974793D636173 74352C636F6E6669 64656E7469616C69
+       74793D626C6F7766 6973682C6D617862 756666657273697A 653D323134373438
+       33363433
+
+   C2: 0000015F0100407D 3913C5AAABB611C5 42328A208021C934 53D2FA3F1E3F253B
+       3F46A800A8D973EF 893941AFF6E31590 D8FF8B2A3B702979 B961E0EE1F0E6FC4
+       9B0B133587B27982 C2B66EBBEB9B5F1B 8D33E62FC81393F4 88D2463CAFE0AC74
+       4985117CDA14685A F90F0A0A42751F5D B1C2C24F6D54422D D135864E2F5A346F
+       6C94836F788FDE45 01D5F30228CBB066 832D1A9E010D94B7 F8D2DC8220F7B950
+       87EA7835AD7CFB52 3D6FE2BAF68DE885 57F29BBACFB1C47F 0025A589AC0603FD
+       33BE3FA53B8AE1E9 D77D241EA1458016 B9F57FD7BBA87F9F 80DE53012564A719
+       7ABC0E028C4055BD 825DFEB253A31F48 C7393A9E872140BF 8CE479DD0D975492
+       6E5F0C5DB0860004 7465737400557265 706C617920646574 656374696F6E2C69
+       6E74656772697479 3D686D61632D6D64 352C636F6E666964 656E7469616C6974
+       793D626C6F776669 73682C6D61786275 6666657273697A65 3D32313437343833
+       363433
+
+   S2: 000001020100A2AC B28D526F4601C90E DDF740243881C345 7B781D1D325DC95F
+       0CC8B728062D93AE 10693F97A89DB370 3612F89E130251A7 84C87AF5F016A76B
+       BAECC1EFC0DA24F2 5C2FAC77CC5A33C4 5562AAF74DB99237 12BF29F5D9B6D15D
+       94CE4680B04653C2 663B66F237E3567C 7DED5D4728536E96 3AC8DEC185D508AA
+       9F6C993CABE7A037 25BC9B002B72EED7 954F7018194810F2 FFB04F6E239BA11D
+       AC3179431CBB310D D1A87F5A9BB56C0F 80E90237A17E9982 A8EFD122228F684F
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 12]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+       310170A3800F8FC4 DCD94889CE8B6AD7 6CDF0D69DF33A288 98B34AB5EA9575BA
+       4070CF3FE7D339A6 BC0B2D395395EACD A5B041B68104B683 B40B9B167B646095
+       4DE567D04338
+
+   C3: 00000015140020A0 94A727918CC8DC26 92A87C9435D53C7F 70
+
+   S3: 000000180012534D 322D5349442D3030 3030303030303031 00000000
+
+   The following is a detailed description of each step:
+
+   C1: An SM2 Client initiates an establishment of a new session
+      exchange.  The SASL buffer contains the <NUL> Octet, followed by
+      the SRP client's initial response encoded as an Extended Octet
+      Sequence.  The SRP client's initial response in this example is
+      the Text 'test' representing U --the username.
+
+   S1: The SM2 server engages in an "establishment of a new session"
+      exchange.  It decodes the SRP client's initial response and passes
+      it to its underlying SRP server object.  The SRP server evaluates
+      the initial response and sends back a SASL buffer containing:
+
+      1.  The MPI encoding of the public shared modulus N which in this
+          example is 256-octet long.
+
+      2.  The MPI encoding of the field generator g which in this
+          example is 1-octet long (value 0x02),
+
+      3.  The Octet Sequence encoding of the user's salt which in this
+          example is 10-octet long, and finally
+
+      4.  The 174-octet long Text containing the SRP server's available
+          options.  In this example, this list consists of the string
+          (white spaces added for clarity): mandatory = replay
+          detection, replay detection, integrity = hmac-sha1, integrity
+          = hmac-md5, confidentiality = aes, confidentiality = cast5,
+          confidentiality = blowfish, maxbuffersize = 2147483643.
+
+   C2: The SRP client responds to the SRP server challenge by returning
+      a SASL buffer containing:
+
+      1.  The 256-octet long MPI A representing the SRP client's
+          ephemeral public key,
+
+      2.  The 4-octet long Text 'test' representing the authorization ID
+          for this exchange, and finally
+
+      3.  The 85-octet long Text containing the client's chosen options
+          list, which in this example is (white spaces added for
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 13]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+          clarity): replay detection, integrity = hmac-md5,
+          confidentiality = blowfish, maxbuffersize = 2147483643".
+
+   S2: The SRP server, issues a new challenge containing the 256-octet
+      long MPI B representing the SRP server's ephemeral publick key.
+
+   C3: The SRP client evaluates the server's challenge and responds with
+      the 20-octet Octet Sequence representing its Evidence: M1.
+
+   S3: The SM2 server terminates the exchange by sending to the SM2
+      client the session ID generated for this session, followed by the
+      TTL indicator.  In this example the session ID is the Text "SM2-
+      SID-0000000001," while the TTL indicator is zero.
+
+
+6.2 Example of an SM2 session re-use
+
+   C1: 0000001A01001253 4D322D5349442D30 3030303030303030 310465261450
+
+   S1: 0000000606046526 1450
+
+   The following is a detailed description of each step:
+
+   C1: An SM2 Client initiates a session re-use exchange.  The SASL
+      buffer contains:
+
+      1.  The <SOH> Special Octet,
+
+      2.  The session ID encoded as a Text.  The value of this ID in the
+          example is "SM2-SID-0000000001," and finally
+
+      3.  The Evidence of the underlying SRP client in use with the
+          session in question.  In this example this evidence is 4-octet
+          long.
+
+   S1: The SM2 server accepts the request to re-use the identified
+      session and sends back the <ACK> Special Octet followed by its
+      version of the Evidence (which in this example is 4-octet long).
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 14]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+7. Discussion
+
+7.1 Extending the Java SASL API
+
+   The recently approved Java SASL API [JSR-28] contains a new property,
+   javax.security.sasl.Sasl.REUSE, to serve as a hint when instantiating
+   client and servers, for re-using previously authenticated session
+   information.
+
+   Appendix A contains a proposed set of interfaces that can be used by
+   Java Security API Providers to offer modular implementations of SM2-
+   capable SASL mechanisms.
+
+   The two new interfaces in question, SaslClientExt and SaslServerExt
+   extend SaslClient and SaslServer (from the javax.security.sasl
+   package) respectively, and include appropriate methods to handle the
+   SM2 protocole.
+
+7.2 Beyond Java
+
+   The authors intend this mechanism to be useful for implementations of
+   SASL in languages other than Java.  However, such implementations
+   MUST have the following capabilities to allow this mechanism to work:
+
+   1.  A mechanism can create another mechanism.
+
+   2.  The SASL Security Context, containing the crpytographic
+       parameters of a mechanism may be extracted in a form that can be
+       stored in a cache.
+
+   3.  A mechanism (or a security layer) can be [re-]initialised from a
+       SASL Security Context containing cryptographic parameters stored
+       in a cache.
+
+
+7.3 Cache management
+
+   After a new session is successfully established, the SM2 server sends
+   a session identifier to the client (see Figure 2).  It is the
+   responsibility of the client to ensure that it will be able to re-use
+   this value in the future.  In other words, the SM2 client should have
+   access to a mapping function that looks up a session identifier to
+   re-use, from data included in a request to instantiate a new
+   underlying mechanism client.  If such a session is found, then the
+   SM2 client would only need to 'recreate' the underlying client with
+   the SASL Security Context of that session.
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 15]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+7.4 DIGEST-MD5 as an underlying mechanism for SM2
+
+   The proposed SASL mechanism DIGEST-MD5 describes a mechanism for re-
+   use of some data negotiated in a previous exchange (section 2.2
+   "Subsequent Authentication" in [RFC-2831]).  More specifically:
+
+      "If the client has previously authenticated to the server, and
+      remembers the values of username, realm, nonce, nonce-count,
+      cnonce, and qop that it used in that authentication, and the SASL
+      profile for a protocol permits an initial client response, then it
+      MAY perform "subsequent authentication", as defined in this
+      section."
+
+   Such a mechanism can be used as an underlying mechanism for SM2.  The
+   following notes clarify the previous statement:
+
+   1.  An "Initial Authentication" (section 2.1 of [RFC-2831]) is the
+       exchange used in an SM2 establishment of a new session.
+
+   2.  The SASL Security Context parameters for a DIGEST-MD5
+       implementation SHOULD include: username, realm, nonce, nonce-
+       count, cnonce, and qop (described in section 2.1.2 of [RFC-2831].
+
+   3.  The client's Evidence Ec in an SM2 session re-use exchange, is a
+       full DIGEST-MD5 "digest-response" as described in section 2.2.1
+       of [RFC-2831].
+
+   4.  If the DIGEST-MD5 client's mechanism "digest-response" is valid,
+       and the the DIGEST-MD5 server chose to deem that authentication
+       has succeeded, the SM2 server can successfully conclude a session
+       re-use exchnage.
+
+   5.  If the DIGEST-MD5 client's mechanism "digest-response" is
+       invalid, or if it is valid but the DIGEST-MD5 server decides to
+       refresh the authentication parameters by sending a new "digest-
+       challenge", then an SM2 failed session re-use message should be
+       sent back to the SM2 client.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 16]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+8. Security Considerations
+
+8.1 Caching cryptographic parameters
+
+   SM2 relies on the ability to extract and cache the cryptographic
+   parameters from an underlying mechanism --the SASL Security Context--
+   , and to initialise an instance of the underlying mechanism client
+   and/or server with that cached context.  One might argue against this
+   practice for security reasons.  Yet, most cryptographic software
+   modules have their parameters somewhere in the program memory, so SM2
+   is as safe as those modules.
+
+   In addition, if a salt is used (the Evidence or part of it), the
+   actual values used for each exchange will be different.  This is a
+   similar concept to caching TLS [RFC-2246] sessions and hence SM2,
+   coupled with a strong underlying mechanism, should be no less secure.
+
+8.2 Flexibility to use new authentication mechanisms
+
+   By using a second authentication mechanism to do the actual
+   authentication function, SM2 can always be configured to use the
+   latest, proven, authentication techniques for which a SASL mechanism
+   has been specified and implemented.
+
+8.3 When to invalidate a session
+
+   The server MUST discard the existing session information when an
+   attempt to re-use the session fails.  The server MUST cache the SASL
+   Security Context for a session only when a new one is established and
+   after the authentication function is successfully completed.
+
+   Bound by the above rule, an SM2 server is thus susceptible to a
+   denial-of-service like attack.  Indeed, an attacker may repeatedly
+   attempt to re-use sessions, thus causing the server to invalidate
+   those sessions soon after they were established.
+
+   But this would be no different to the attacker carrying out her
+   attack on the underlying mechanism server if/when SM2 is not used.
+   The result of such an attack would be that the full underlying
+   authentication procedure would take place.
+
+8.4 Updating the SASL Security Context from the Evidence
+
+   The SM2 mechanism will use the security layer provided by its
+   underlying mechanism.
+
+   The cryptographic parameters of this security layer, contained in a
+   SASL Security Context, are cached when the authentication phase is
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 17]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+   complete.  These parameters may be varied on a per-connection basis
+   by means of the optional Evidence parameter passed in during the
+   session re-use exchange (see Figure 3).
+
+   What if that Evidence is not enough to update the cryptographic
+   parameters to an acceptable security level; e.g.  a weak key is
+   obtained? Two alternatives are possible:
+
+   1.  An implementation may contain a recovery mechanism that would
+       allow it to continue the algorithm until a valid and acceptable
+       value is obtained, or
+
+   2.  An implementation may cause an error condition that would be
+       intercepted by the SM2 peer.  If it was the client, then a new
+       session would be negotiated, otherwise if it is the server, then
+       a failed re-use of a session reply would be returned (see Figure
+       4).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 18]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+9. Acknowledgments
+
+   The following people provided valuable feedback in the preparation of
+   this document
+
+   Keith Burdis <keith@rucus.ru.ac.za>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 19]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+References
+
+   [ISO-10646]   "International Standard --Information technology--
+                 Universal Multiple-Octet Coded Character Set (UCS) --
+                 Part 1 Architecture and Basic Multilingual Plane. UTF-8
+                 is described in Annex R, adopted but not yet published.
+                 UTF-16 is described in Annex Q, adopted but not yet
+                 published.", ISO/IEC 10646-1, 1993.
+
+   [JSR-28]      Weltman, R., "Java SASL Specification (Proposed Final
+                 Draft 2)", March 2002, <http://jcp.org/aboutJava/
+                 communityprocess/first/jsr028/index.html>.
+
+   [RFC-2119]    Bradner, S., "Key words for use in RFCs to Indicate
+                 Requirement Levels", BCP 0014, RFC 2119, March 1997,
+                 <http://www.ietf.org/rfc/rfc2119.txt>.
+
+   [RFC-2222]    Myers, J., "Simple Authentication and Security Layer
+                 (SASL)", RFC 2222, October 1997, <http://www.ietf.org/
+                 rfc/rfc2222.txt>.
+
+   [RFC-2246]    Dierks, T. and C. Allen, "The TLS Protocol Version
+                 1.0", RFC 2246, January 1999, <http://www.ietf.org/rfc/
+                 rfc2246.txt>.
+
+   [RFC-2279]    Yergeau, F., "UTF-8, a transformation format of Unicode
+                 and ISO 10646", RFC 2279, January 1998, <http://
+                 www.ietf.org/rfc/rfc2279.txt>.
+
+   [RFC-2629]    Rose, M., "Writing I-Ds and RFCs using XML", RFC 2629,
+                 June 1999, <http://www.ietf.org/rfc/rfc2629.txt>.
+
+   [RFC-2831]    Leach, P. and C. Newman, "Using Digest Authentication
+                 as a SASL Mechanism", RFC 2831, May 2000, <http://
+                 www.ietf.org/rfc/rfc2831.txt>.
+
+   [SASL-SRP]    Burdis, K. and R. Naffah, "Secure Remote Password SASL
+                 Mechanism", November 2001, <http://www.ietf.org/
+                 internet-drafts/draft-burdis-cat-srp-sasl-05.txt>.
+
+   [UNICODE-KC]  Durst, D., "Unicode Standard Annex #15: Unicode
+                 Normalization Forms.", March 2001, <http://
+                 www.unicode.org/unicode/reports/tr15>.
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 20]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+Authors' Addresses
+
+   Raif S. Naffah
+   Forge Research Pty. Limited
+   Suite 116, Bay 9
+   Locomotive Workshop,
+   Australian Technology Park
+   Cornwallis Street
+   Eveleigh, NSW  1430
+   AU
+
+   EMail: raif@forge.com.au
+
+
+   David Taylor
+   Forge Research Pty. Limited
+   Suite 116, Bay 9
+   Locomotive Workshop,
+   Australian Technology Park
+   Cornwallis Street
+   Eveleigh, NSW  1430
+   AU
+
+   EMail: dtaylor@forge.com.au
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 21]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+Appendix A. Proposed extension to the Java SASL API
+
+   In the next sections, the type AlgorithmParamterSpec is imported from
+   the java.security.spec package.
+
+A.1 public interface SaslClientExt
+
+   An interface that extends the SaslClient interface.
+
+   An object implementing this interface can negotiate authentication
+   using one of the IANA-registered mechanisms, and be used as a client-
+   side underlying mechanism for the SM2 mechanism.
+
+A.1.1 getSaslSecurityContext
+
+         AlgorithmParameterSpec
+         getSaslSecurityContext()
+         throws SaslException;
+
+   Retrieves an object that encapsulates the SASL Security Context
+   parameters for future re-use.  This method can be called only after
+   the authentication exchange has completed (i.e., when isComplete()
+   returns true); otherwise, a SaslException is thrown.
+
+A.1.2 setSaslSecurityContext
+
+         void
+         setSaslSecurityContext(AlgorithmParameterSpec ctx)
+         throws SaslException;
+
+   Replaces the current SASL Security Context parameters of an object
+   with those encapsulated in the designated argument.
+
+   Parameter is:
+
+   ctx
+      The designated instance of the object encapsulating the new values
+      of SASL Security Context parameters to use after successful
+      completion of this method.
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 22]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+A.1.3 evaluateEvidence
+
+         byte[]
+         evaluateEvidence(byte[] peerEvidence)
+         throws SaslException;
+
+   Computes new values for all or some of the SASL Security Context
+   parameters and returns an Evidence that will be sent to the peer.
+
+   The rationale for this method is to (a) allow the peers to 're-cycle'
+   their cryptographic paramemeters so each re-use of the exchange would
+   be based on different values every time; and (b) allow the peers to
+   check, in the absence of a full authentication exchange, that the
+   peer really knows more than just the session ID.
+
+   This method throws a SaslException if during the process of updating
+   the SASL Security Context parameters, or while generating the
+   Evidence, it encounters an exception.
+
+   Parameter is:
+
+   peerEvidence
+      The peer's Evidence as received in a session re-use exchange.
+
+
+A.2 public interface SaslServerExt
+
+   An interface that extends the SaslServer interface.
+
+   An object implementing this interface can negotiate authentication
+   using one of the IANA-registered mechanisms, and be used as a server-
+   side underlying mechanism for the SM2 mechanism.
+
+A.2.1 getSaslSecurityContext
+
+         AlgorithmParameterSpec
+         getSaslSecurityContext()
+         throws SaslException;
+
+   Retrieves an object that encapsulates the SASL Security Context
+   parameters for future re-use.  This method can be called only after
+   the authentication exchange has completed (i.e., when isComplete()
+   returns true); otherwise, a SaslException is thrown.
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 23]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+
+
+A.2.2 setSaslSecurityContext
+
+         void
+         setSaslSecurityContext(AlgorithmParameterSpec ctx)
+         throws SaslException;
+
+   Replaces the current SASL Security Context parameters of an object
+   with those encapsulated in the designated argument.
+
+   Parameter is:
+
+   ctx
+      The designated instance of the object encapsulating the new values
+      of SASL Security Context parameters to use after successful
+      completion of this method.
+
+
+A.2.3 evaluateEvidence
+
+         byte[]
+         evaluateEvidence(byte[] peerEvidence)
+         throws SaslException;
+
+   Computes new values for all or some of the SASL Security Context
+   parameters and returns an Evidence that will be sent to the peer.
+
+   The rationale for this method is to (a) allow the peers to 're-cycle'
+   their cryptographic paramemeters so each re-use of the exchange would
+   be based on different values every time; and (b) allow the peers to
+   check, in the absence of a full authentication exchange, that the
+   peer really knows more than just the session ID.
+
+   This method throws a SaslException if during the process of updating
+   the SASL Security Context parameters, or while generating the
+   Evidence, it encounters an exception.
+
+   Parameter is:
+
+   peerEvidence
+      The peer's Evidence as received in a session re-use exchange.
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 24]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+Appendix B. Changes since last draft
+
+   Added the restriction that all text should be in Unicode
+   Normalization form KC with NULs prohibited.
+
+   Re-worded the section on the Java SASL API.
+
+   Updated the References.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 25]
+
+Internet-Draft           The SM2 SASL Mechanism            November 2001
+
+
+Full Copyright Statement
+
+   Copyright (C) The Internet Society (2001).  All Rights Reserved.
+
+   This document and translations of it may be copied and furnished to
+   others, and derivative works that comment on or otherwise explain it
+   or assist in its implementation may be prepared, copied, published
+   and distributed, in whole or in part, without restriction of any
+   kind, provided that the above copyright notice and this paragraph are
+   included on all such copies and derivative works.  However, this
+   document itself may not be modified in any way, such as by removing
+   the copyright notice or references to the Internet Society or other
+   Internet organizations, except as needed for the purpose of
+   developing Internet standards in which case the procedures for
+   copyrights defined in the Internet Standards process must be
+   followed, or as required to translate it into languages other than
+   English.
+
+   The limited permissions granted above are perpetual and will not be
+   revoked by the Internet Society or its successors or assigns.
+
+   This document and the information contained herein is provided on an
+   "AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+   TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+   HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+   MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+Acknowledgement
+
+   Funding for the RFC Editor function is currently provided by the
+   Internet Society.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Naffah & Taylor            Expires May 2, 2002                 [Page 26]
+
+

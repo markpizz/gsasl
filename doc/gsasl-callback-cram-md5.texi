@@ -1,0 +1,17 @@
+@deftypefn Prototype int (*Gsasl_server_callback_cram_md5) (Gsasl_session_ctx * @var{ctx}, char * @var{username}, char * @var{challenge}, char * @var{response})
+
+@var{ctx}:  libgsasl handle.
+
+@var{username}:  input array with username.
+
+@var{challenge}:  input array with CRAM-MD5 challenge.
+
+@var{response}:  input array with CRAM-MD5 response.
+
+Type of callback function the application implements.  It should
+return GSASL_OK if and only if the validation of the provided
+credential was succesful.  GSASL_AUTHENTICATION_ERROR is a good
+failure if authentication failed, but any available return code may be
+used.
+
+@end deftypefn

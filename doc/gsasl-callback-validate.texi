@@ -1,0 +1,17 @@
+@deftypefn Prototype int (*Gsasl_server_callback_validate) (Gsasl_session_ctx * @var{ctx}, char * @var{authorization_id}, char * @var{authentication_id}, char * @var{password})
+
+@var{ctx}:  libgsasl handle.
+
+@var{authorization_id}:  input array with authorization identity.
+
+@var{authentication_id}:  input array with authentication identity.
+
+@var{password}:  input array with password.
+
+Type of callback function the application implements.  It should
+return GSASL_OK if and only if the validation of the provided
+credential was succesful.  GSASL_AUTHENTICATION_ERROR is a good
+failure if authentication failed, but any available return code may be
+used.
+
+@end deftypefn

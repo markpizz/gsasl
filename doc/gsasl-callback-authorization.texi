@@ -1,0 +1,20 @@
+@deftypefn Prototype int (*Gsasl_client_callback_authorization_id) (Gsasl_session_ctx * @var{ctx}, char * @var{out}, size_t * @var{outlen})
+
+@var{ctx}:  libgsasl handle.
+
+@var{out}:  output array with authorization identity.
+
+@var{outlen}:  on input the maximum size of the output array, on output
+contains the actual size of the output array.
+
+Type of callback function the application implements.  It should
+populate the output array with authorization identity of user and set
+the output array length, and return @code{GSASL_OK}, or fail with an
+error code. The authorization identity must be encoded in UTF-8, but
+need not be normalized in any way.
+
+If OUT is NULL, the function should only populate the output length
+field with the length, and return GSASL_OK.  This usage may be used by
+the caller to allocate the proper buffer size.
+
+@end deftypefn

@@ -1,0 +1,27 @@
+@deftypefn Prototype int (*Gsasl_server_callback_service) (Gsasl_session_ctx * @var{ctx}, char * @var{service}, size_t * @var{servicelen}, char * @var{hostname}, size_t * @var{hostnamelen})
+
+@var{ctx}:  libgsasl handle.
+
+@var{service}:  output array with name of service.
+
+@var{servicelen}: on input the maximum size of the service output array,
+on output contains the actual size of the service output array.
+
+@var{hostname}:  output array with hostname of server.
+
+@var{hostnamelen}: on input the maximum size of the hostname output
+array, on output contains the actual size of the hostname output
+array.
+
+Type of callback function the application implements.  It should
+retrieve the service (which should be a registered GSSAPI host based
+service name, such as ``imap'') the server provides and hostname of
+server (usually canoncial DNS hostname).  It should return GSASL_OK,
+or an error such as GSASL_AUTHENTICATION_ERROR if it fails.
+
+If SERVICE or HOSTNAME is NULL, the function should only populate
+SERVICELEN or HOSTNAMELEN with the output length of the respective
+field, and return GSASL_OK.  This usage may be used by the caller to
+allocate the proper buffer size.
+
+@end deftypefn

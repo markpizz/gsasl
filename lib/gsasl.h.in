@@ -1,0 +1,380 @@
+/* gsasl.h	header file for libgsasl -*- c -*-
+ * Copyright (C) 2002  Simon Josefsson
+ *
+ * This file is part of libgsasl.
+ *
+ * Libgsasl is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * Libgsasl is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with libgsasl; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
+#ifndef _GSASL_H
+#define _GSASL_H
+
+#include <stdio.h>
+
+#ifdef __cplusplus
+extern "C" {
+#if 0 /* keep Emacsens's auto-indent happy */
+}
+#endif
+#endif
+
+#define GSASL_VERSION "@PACKAGE_VERSION@"
+
+/* Quoting RFC 2222:
+   SASL mechanisms are named by strings, from 1 to 20 characters in
+   length, consisting of upper-case letters, digits, hyphens, and/or
+   underscores.  SASL mechanism names must be registered with the IANA. */
+enum { 
+  GSASL_MIN_MECHANISM_SIZE = 1,
+  GSASL_MAX_MECHANISM_SIZE = 20
+};
+extern const char *GSASL_VALID_MECHANISM_CHARACTERS;
+
+/* Error codes */
+enum {
+  GSASL_OK = 0,
+  GSASL_NEEDS_MORE,
+  GSASL_UNKNOWN_MECHANISM,
+  GSASL_MECHANISM_CALLED_TOO_MANY_TIMES,
+  GSASL_TOO_SMALL_BUFFER,
+  GSASL_FOPEN_ERROR,
+  GSASL_FCLOSE_ERROR,
+  GSASL_MALLOC_ERROR,
+  GSASL_BASE64_ERROR,
+  GSASL_GCRYPT_ERROR,
+  GSASL_GSSAPI_RELEASE_BUFFER_ERROR,
+  GSASL_GSSAPI_IMPORT_NAME_ERROR,
+  GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR,
+  GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR,
+  GSASL_GSSAPI_UNWRAP_ERROR,
+  GSASL_GSSAPI_WRAP_ERROR,
+  GSASL_GSSAPI_ACQUIRE_CRED_ERROR,
+  GSASL_GSSAPI_DISPLAY_NAME_ERROR,
+  GSASL_GSSAPI_UNSUPPORTED_PROTECTION_ERROR,
+  GSASL_NEED_CLIENT_ANONYMOUS_CALLBACK,
+  GSASL_NEED_CLIENT_PASSWORD_CALLBACK,
+  GSASL_NEED_CLIENT_PASSCODE_CALLBACK,
+  GSASL_NEED_CLIENT_PIN_CALLBACK,
+  GSASL_NEED_CLIENT_AUTHORIZATION_ID_CALLBACK,
+  GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK,
+  GSASL_NEED_CLIENT_SERVICE_CALLBACK,
+  GSASL_NEED_SERVER_VALIDATE_CALLBACK,
+  GSASL_NEED_SERVER_CRAM_MD5_CALLBACK,
+  GSASL_NEED_SERVER_DIGEST_MD5_CALLBACK,
+  GSASL_NEED_SERVER_EXTERNAL_CALLBACK,
+  GSASL_NEED_SERVER_ANONYMOUS_CALLBACK,
+  GSASL_NEED_SERVER_REALM_CALLBACK,
+  GSASL_NEED_SERVER_SECURID_CALLBACK,
+  GSASL_NEED_SERVER_SERVICE_CALLBACK,
+  GSASL_NEED_SERVER_GSSAPI_CALLBACK,
+  GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE,
+  GSASL_SECURID_SERVER_NEED_NEW_PIN,
+  GSASL_UNICODE_NORMALIZATION_ERROR,
+  GSASL_MECHANISM_PARSE_ERROR,
+  GSASL_AUTHENTICATION_ERROR,
+  GSASL_CANNOT_GET_CTX,
+  GSASL_NO_MORE_REALMS
+};
+
+/* Quality of Protection types, used by DIGEST-MD5 */
+enum Gsasl_qop {
+  GSASL_QOP_AUTH = 1,
+  GSASL_QOP_AUTH_INT = 2,
+  GSASL_QOP_AUTH_CONF = 4
+};
+typedef enum Gsasl_qop Gsasl_qop;
+
+/* Cipher types, used by DIGEST-MD5 */
+enum Gsasl_cipher {
+  GSASL_CIPHER_DES = 1,
+  GSASL_CIPHER_3DES = 2,
+  GSASL_CIPHER_RC4 = 4,
+  GSASL_CIPHER_RC4_40 = 8,
+  GSASL_CIPHER_RC4_56 = 16,
+  GSASL_CIPHER_AES = 32
+};
+typedef enum Gsasl_cipher Gsasl_cipher;
+
+/* Library handles */
+typedef struct Gsasl_ctx Gsasl_ctx;
+typedef struct Gsasl_session_ctx Gsasl_session_ctx;
+
+/* Library entry and exit points: version.c, init.c, done.c */
+extern int gsasl_init (Gsasl_ctx **ctx);
+extern void gsasl_done (Gsasl_ctx *ctx);
+extern const char *gsasl_check_version (const char *req_version);
+
+/* Callback handling */
+extern void gsasl_application_data_set (Gsasl_ctx *ctx, 
+					void *application_data);
+extern void *gsasl_application_data_get (Gsasl_ctx *ctx);
+
+/* Mechanism handling: listmech.c, supportp.c, suggest.c */
+extern int gsasl_client_listmech (Gsasl_ctx *ctx, char *out, size_t *outlen);
+extern int gsasl_client_support_p (Gsasl_ctx *ctx, const char *name);
+extern const char *gsasl_client_suggest_mechanism (Gsasl_ctx *ctx, 
+						   const char *mechlist);
+
+extern int gsasl_server_listmech (Gsasl_ctx *ctx, char *out, size_t *outlen);
+extern int gsasl_server_support_p (Gsasl_ctx *ctx, const char *name);
+extern const char *gsasl_server_suggest_mechanism (Gsasl_ctx *ctx, 
+						   const char *mechlist);
+
+/* Authentication functions: xstart.c, xstep.c, xfinish.c */
+extern int gsasl_client_start (Gsasl_ctx *ctx, const char *mech, 
+			       Gsasl_session_ctx **cctx);
+extern int gsasl_client_step (Gsasl_session_ctx *xctx, 
+			      const char *input, size_t input_len,
+			      char *output, size_t *output_len);
+extern int gsasl_client_step_base64 (Gsasl_session_ctx *xctx,
+				     const char *b64input,
+				     char *b64output,
+				     size_t b64output_len);
+extern void gsasl_client_finish (Gsasl_session_ctx *xctx);
+extern int gsasl_server_start (Gsasl_ctx *ctx, const char *mech, 
+			       Gsasl_session_ctx **sctx);
+extern int gsasl_server_step (Gsasl_session_ctx *xctx, 
+			      const char *input, size_t input_len,
+			      char *output, size_t *output_len);
+extern int gsasl_server_step_base64 (Gsasl_session_ctx *xctx,
+				     const char *b64input,
+				     char *b64output,
+				     size_t b64output_len);
+extern void gsasl_server_finish (Gsasl_session_ctx *xctx);
+
+/* Error handling: error.c */
+extern const char *gsasl_strerror (int err);
+
+/* Utilities: base64.c, hexdump.c, md5pwd.c */
+extern int gsasl_base64_encode (unsigned char const *src,
+				size_t srclength,
+				char *target,
+				size_t targsize);
+extern int gsasl_base64_decode (char const *src,
+				unsigned char *target,
+				size_t targsize);
+extern void gsasl_hexdump (FILE *fh, const char *buffer, size_t len);
+extern int gsasl_md5pwd_get_password (const char *filename, 
+				      const char *username,
+				      char *key,
+				      size_t *keylen);
+extern char *gsasl_utf8_nfkc_normalize (const char *str,
+					int len);
+
+/* Callback prototypes */
+typedef int (*Gsasl_client_callback_anonymous) (Gsasl_session_ctx *ctx, 
+						char *out,
+						size_t *outlen);
+typedef int (*Gsasl_client_callback_authentication_id) (Gsasl_session_ctx *ctx,
+							char *out,
+							size_t *outlen);
+typedef int (*Gsasl_client_callback_authorization_id) (Gsasl_session_ctx *ctx,
+						       char *out,
+						       size_t *outlen);
+typedef int (*Gsasl_client_callback_password) (Gsasl_session_ctx *ctx, 
+					       char *out,
+					       size_t *outlen);
+typedef int (*Gsasl_client_callback_passcode) (Gsasl_session_ctx *ctx, 
+					       char *out,
+					       size_t *outlen);
+typedef int (*Gsasl_client_callback_pin) (Gsasl_session_ctx *ctx, 
+					  char *suggestion,
+					  char *out,
+					  size_t *outlen);
+typedef int (*Gsasl_client_callback_service) (Gsasl_session_ctx *ctx, 
+					      char *service,
+					      size_t *servicelen,
+					      char *hostname,
+					      size_t *hostnamelen,
+					      char *servicename,
+					      size_t *servicenamelen);
+typedef Gsasl_qop (*Gsasl_client_callback_qop) (Gsasl_session_ctx *ctx,
+						Gsasl_qop serverqops);
+typedef int (*Gsasl_client_callback_maxbuf) (Gsasl_session_ctx *ctx,
+					     int servermaxbuf);
+typedef int (*Gsasl_server_callback_retrieve) (Gsasl_session_ctx *ctx,
+					       char *authentication_id,
+					       char *authorization_id,
+					       char *realm,
+					       char *key,
+					       size_t *keylen);
+typedef int (*Gsasl_server_callback_validate) (Gsasl_session_ctx *ctx, 
+					       char *authorization_id,
+					       char *authentication_id,
+					       char *password);
+typedef int (*Gsasl_server_callback_gssapi) (Gsasl_session_ctx *ctx, 
+					     char *clientname,
+					     char *authentication_id);
+typedef int (*Gsasl_server_callback_securid) (Gsasl_session_ctx *ctx, 
+					      char *authentication_id,
+					      char *authorization_id,
+					      char *passcode,
+					      char *pin,
+					      char *suggestpin,
+					      size_t *suggestpinlen);
+typedef int (*Gsasl_server_callback_cram_md5) (Gsasl_session_ctx *ctx,
+					       char *username,
+					       char *challenge,
+					       char *response);
+typedef int (*Gsasl_server_callback_digest_md5) (Gsasl_session_ctx *ctx,
+						 unsigned char *username,
+						 unsigned char *realm,
+						 unsigned char *secrethash);
+typedef int (*Gsasl_server_callback_service) (Gsasl_session_ctx *ctx, 
+					      char *service,
+					      size_t *servicelen,
+					      char *hostname,
+					      size_t *hostnamelen);
+typedef int (*Gsasl_server_callback_external) (Gsasl_session_ctx *ctx);
+typedef int (*Gsasl_server_callback_anonymous) (Gsasl_session_ctx *ctx,
+						const char *token);
+typedef int (*Gsasl_server_callback_realm) (Gsasl_session_ctx *ctx, 
+					    char *out,
+					    size_t *outlen,
+					    size_t nth);
+typedef Gsasl_qop (*Gsasl_server_callback_qop) (Gsasl_session_ctx *ctx);
+typedef int (*Gsasl_server_callback_maxbuf) (Gsasl_session_ctx *ctx);
+typedef Gsasl_cipher (*Gsasl_server_callback_cipher) (Gsasl_session_ctx *ctx);
+
+/* Client callbacks */
+extern Gsasl_ctx *gsasl_client_ctx_get (Gsasl_session_ctx *cctx);
+
+extern void gsasl_client_application_data_set (Gsasl_session_ctx *xctx, 
+					       void *application_data);
+extern void *gsasl_client_application_data_get (Gsasl_session_ctx *ctx);
+
+extern void gsasl_client_callback_authorization_id_set (Gsasl_ctx *ctx, 
+				Gsasl_client_callback_authorization_id cb);
+extern Gsasl_client_callback_authorization_id
+	gsasl_client_callback_authorization_id_get (Gsasl_ctx *ctx);
+
+extern void gsasl_client_callback_authentication_id_set (Gsasl_ctx *ctx, 
+				Gsasl_client_callback_authentication_id cb);
+extern Gsasl_client_callback_authentication_id
+	gsasl_client_callback_authentication_id_get (Gsasl_ctx *ctx);
+
+extern void gsasl_client_callback_anonymous_set (Gsasl_ctx *ctx, 
+				Gsasl_client_callback_anonymous cb);
+extern Gsasl_client_callback_anonymous
+	gsasl_client_callback_anonymous_get (Gsasl_ctx *ctx);
+
+extern void gsasl_client_callback_password_set (Gsasl_ctx *ctx, 
+				Gsasl_client_callback_password cb);
+extern Gsasl_client_callback_password
+	gsasl_client_callback_password_get (Gsasl_ctx *ctx);
+
+extern void gsasl_client_callback_passcode_set (Gsasl_ctx *ctx, 
+				Gsasl_client_callback_passcode cb);
+extern Gsasl_client_callback_passcode
+	gsasl_client_callback_passcode_get (Gsasl_ctx *ctx);
+
+extern void gsasl_client_callback_pin_set (Gsasl_ctx *ctx, 
+					   Gsasl_client_callback_pin cb);
+extern Gsasl_client_callback_pin
+	gsasl_client_callback_pin_get (Gsasl_ctx *ctx);
+
+extern void gsasl_client_callback_service_set (Gsasl_ctx *ctx, 
+					   Gsasl_client_callback_service cb);
+extern Gsasl_client_callback_service
+	gsasl_client_callback_service_get (Gsasl_ctx *ctx);
+
+extern void gsasl_client_callback_qop_set (Gsasl_ctx *ctx, 
+					   Gsasl_client_callback_qop cb);
+extern Gsasl_client_callback_qop
+	gsasl_client_callback_qop_get (Gsasl_ctx *ctx);
+
+extern void gsasl_client_callback_maxbuf_set (Gsasl_ctx *ctx, 
+					      Gsasl_client_callback_maxbuf cb);
+extern Gsasl_client_callback_maxbuf 
+	gsasl_client_callback_maxbuf_get (Gsasl_ctx *ctx);
+
+/* Server callbacks */
+extern Gsasl_ctx *gsasl_server_ctx_get (Gsasl_session_ctx *sctx);
+
+extern void gsasl_server_application_data_set (Gsasl_session_ctx *xctx, 
+					       void *application_data);
+extern void *gsasl_server_application_data_get (Gsasl_session_ctx *ctx);
+
+extern void gsasl_server_callback_validate_set (Gsasl_ctx *ctx,
+				     Gsasl_server_callback_validate cb);
+extern Gsasl_server_callback_validate
+	gsasl_server_callback_validate_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_retrieve_set (Gsasl_ctx *ctx,
+				     Gsasl_server_callback_retrieve cb);
+extern Gsasl_server_callback_retrieve
+	gsasl_server_callback_retrieve_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_cram_md5_set (Gsasl_ctx *ctx, 
+					Gsasl_server_callback_cram_md5 cb);
+extern Gsasl_server_callback_cram_md5 
+	gsasl_server_callback_cram_md5_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_digest_md5_set (Gsasl_ctx *ctx, 
+					Gsasl_server_callback_digest_md5 cb);
+extern Gsasl_server_callback_digest_md5 
+	gsasl_server_callback_digest_md5_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_external_set (Gsasl_ctx *ctx, 
+					   Gsasl_server_callback_external cb);
+extern Gsasl_server_callback_external
+	gsasl_server_callback_external_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_anonymous_set (Gsasl_ctx *ctx, 
+					  Gsasl_server_callback_anonymous cb);
+extern Gsasl_server_callback_anonymous
+	gsasl_server_callback_anonymous_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_realm_set (Gsasl_ctx *ctx, 
+					     Gsasl_server_callback_realm cb);
+extern Gsasl_server_callback_realm
+	gsasl_server_callback_realm_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_qop_set (Gsasl_ctx *ctx, 
+					   Gsasl_server_callback_qop cb);
+extern Gsasl_server_callback_qop
+	gsasl_server_callback_qop_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_maxbuf_set (Gsasl_ctx *ctx, 
+					      Gsasl_server_callback_maxbuf cb);
+extern Gsasl_server_callback_maxbuf
+	gsasl_server_callback_maxbuf_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_cipher_set (Gsasl_ctx *ctx, 
+					      Gsasl_server_callback_cipher cb);
+extern Gsasl_server_callback_cipher
+	gsasl_server_callback_cipher_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_securid_set (Gsasl_ctx *ctx, 
+					     Gsasl_server_callback_securid cb);
+extern Gsasl_server_callback_securid
+	gsasl_server_callback_securid_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_gssapi_set (Gsasl_ctx *ctx, 
+					      Gsasl_server_callback_gssapi cb);
+extern Gsasl_server_callback_gssapi
+	gsasl_server_callback_gssapi_get (Gsasl_ctx *ctx);
+
+extern void gsasl_server_callback_service_set (Gsasl_ctx *ctx, 
+					     Gsasl_server_callback_service cb);
+extern Gsasl_server_callback_service
+	gsasl_server_callback_service_get (Gsasl_ctx *ctx);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _GSASL_H */

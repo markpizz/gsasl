@@ -1,0 +1,450 @@
+
+
+
+
+
+
+Network Working Group                                          C. Newman
+Internet Draft: Telnet SASL Option                              Innosoft
+Document: draft-newman-telnet-sasl-01.txt                  November 1998
+
+
+                           Telnet SASL Option
+
+
+Status of this memo
+
+     This document is an Internet-Draft.  Internet-Drafts are working
+     documents of the Internet Engineering Task Force (IETF), its areas,
+     and its working groups.  Note that other groups may also distribute
+     working documents as Internet-Drafts.
+
+     Internet-Drafts are draft documents valid for a maximum of six
+     months and may be updated, replaced, or obsoleted by other
+     documents at any time.  It is inappropriate to use Internet-Drafts
+     as reference material or to cite them other than as "work in
+     progress."
+
+     To view the entire list of current Internet-Drafts, please check
+     the "1id-abstracts.txt" listing contained in the Internet-Drafts
+     Shadow Directories on ftp.is.co.za (Africa), ftp.nordu.net
+     (Europe), munnari.oz.au (Pacific Rim), ftp.ietf.org (US East
+     Coast), or ftp.isi.edu (US West Coast).
+
+Abstract
+
+     It is common today for Internet client software to implement
+     multiple Internet protocols.  SASL [SASL] provides an
+     authentication framework which permits multi-protocol clients and
+     servers to reuse security-sensitive authentication code.  This memo
+     defines a SASL profile for the Telnet [TELNET] protocol.
+
+     This proposal will be discussed on the telnet-ietf mailing list.
+     To subscribe, send the word "subscribe" to
+     <telnet-ietf-request@bsdi.com>.
+
+1. Conventions Used in this Document
+
+     The key words "REQUIRED", "MUST", "MUST NOT", "SHOULD", "SHOULD
+     NOT", and "MAY" in this document are to be interpreted as described
+     in "Key words for use in RFCs to Indicate Requirement Levels"
+     [KEYWORDS].
+
+     In examples, "C:" and "S:" indicate data sent by the client (end
+     which does a TCP active option) and server (end which does a TCP
+
+
+
+Newman                                                          [Page 1]
+
+Internet Draft             Telnet SASL Option              November 1998
+
+
+     passive open) respectively.
+
+2. Background for this Proposal
+
+     Telnet has its own single-protocol authentication framework defined
+     in "Telnet Authentication Option" [TELNET-AUTH] which predates SASL
+     [SASL].  This old Telnet authentication option and the associated
+     encryption option [TELNET-ENC] do not provide integrity protection
+     facilities, machine parsible error codes (e.g. to alert the client
+     of an expired passphrase), or a way to integrate GSSAPI [GSSAPI]
+     into Telnet.
+
+     Adding SASL and using it for new authentication mechanisms will
+     improve reuse of security-sensitive code in multi-protocol clients
+     in addition to addressing the other issues.  While it would be
+     possible to layer SASL support on top of the existing
+     authentication option, it could result in an extra round-trip and
+     would have potentially confusing interactions with the modifiers
+     field in the Telnet authentication option.
+
+3. Kerberos Compatibility
+
+     Both SASL and the old Telnet authentication option offer Kerberos
+     V4 mechanisms.  It is usually not desirable to deploy two
+     incompatible mechanisms for the same function, however, the
+     KERBEROS_V4 SASL mechanism is more resistant to reply attacks and
+     provides integrity services.  Currently deployed Kerberos V4 Telnet
+     implementations have no integrity protection and the encryption
+     service is subject to an active down negotiation attack.
+
+     Implementations which offer support for the KERBEROS_V4 SASL
+     mechanism SHOULD also implement the old Telnet authentication
+     option Kerberos v4 mechanism.  This will provide better
+     interoperability with deployed implementations.  When both options
+     are available, the KERBEROS_V4 SASL mechanism SHOULD be used in
+     preference to the old Telnet authentication mechanism, unless
+     encryption without integrity protection is desired.
+
+     Both the SASL GSSAPI mechanism and the old Telnet authentication
+     option offer Kerberos V5 mechanisms.  The only difference is that
+     the SASL GSSAPI Kerberos 5 mechanism includes integrity protection
+     not available via the old authentication and encryption options.  A
+     server supporting Kerberos V5 SHOULD implement the old Kerberos V5
+     authentication option for backwards compatibility.
+
+4. SASL Telnet Option
+
+     The GSSAPI/SASL service name for this profile of SASL is "rcmd".
+
+
+
+Newman                                                          [Page 2]
+
+Internet Draft             Telnet SASL Option              November 1998
+
+
+     The SASL Telnet option is Telnet option number XXX.  It has the
+     following subnegotiation options:
+
+          LIST       0
+          START      1
+          STEP       2
+          CANCEL     3
+          DONE       4
+
+     The DONE subnegotiation option has the following codes:
+
+          SUCCESS    0
+          CANCELLED  1
+          BADAUTH    2
+          BADPROT    3
+          NOTAUTHZ   4
+          EXPIRED    5
+          ENCRYPT    6
+          TOOWEAK    7
+          TRANS      8
+          DISABLED   9
+
+     The SASL Telnet option is negotiated only one way.  The server asks
+     the client to use SASL with "DO SASL" and the client announces
+     support with a "WILL SASL" message.  Once the option is
+     successfully negotiated, the server sends the LIST subnegotiation
+     containing an ASCII string with a space separated list of available
+     SASL mechanisms:
+
+     S: IAC DO SASL
+     C: IAC WILL SASL
+     S: IAC SB SASL LIST "KERBEROS_V4 GSSAPI CRAM-MD5 OTP" IAC SB
+
+     The client sends the START subnegotiation to begin a SASL exchange
+     with the server.  The START subnegotiation contains the desired
+     mechanism name optionally followed by an ASCII NUL character and an
+     initial client response.  The client is not required to wait for
+     the LIST message from the server prior to sending a START message.
+
+     C: IAC SB SASL START "CRAM-MD5" IAC SE
+
+     This is followed by a series of STEP messages containing SASL
+     messages for the client and server respectively:
+
+     S: IAC SB SASL STEP
+         "<1896.697170952@postoffice.reston.mci.net>" IAC SE
+     C: IAC SB SASL STEP "tim b913a602c7eda7a495b4e6e7334d3890" IAC SE
+
+
+
+
+Newman                                                          [Page 3]
+
+Internet Draft             Telnet SASL Option              November 1998
+
+
+     Note that it is important to perform IAC doubling if the octet
+     value 255 occurs in any SASL data.  This applies to data in the
+     START, STEP and DONE suboptions.
+
+     When a client receives a STEP message from the server, it MAY
+     cancel the authentication with the CANCEL message.  The server will
+     respond with a DONE CANCELLED message.  If the client wishes to
+     begin a new authentication, it MAY send a START message without
+     waiting for the server DONE CANCELLED message.
+
+     C: IAC SB SASL CANCEL IAC SE
+     S: IAC SB SASL DONE CANCELLED IAC SE
+
+     The server indicates successful completion of the exchange by
+     sending the DONE subnegotiation with SUCCESS status, which MAY
+     contain final server authentication data (usually for mutual
+     authentication purposes).
+
+     S: IAC SB SASL DONE SUCCESS IAC SE
+
+     If a SASL security layer is negotiated, it begins on the server end
+     immediately after the DONE SUCCESS subnegotiation, and begins on
+     the client end immediately after the last client START or STEP
+     subnegotiation once the SUCCESS subnegotiation is received.
+
+     For those cases where a security layer including integrity
+     protection is negotiated, the server SHOULD send another LIST
+     suboption message matching the one initially sent.  If the client
+     supports any stronger authentication mechanism, it SHOULD verify
+     that the new LIST suboption matches the one sent prior to
+     authentication.
+
+     The server indicates failure by sending the DONE message with a
+     code other than SUCCESS, followed by a human readable string in the
+     character set currently active on the Telnet channel.  If no
+     character set has been negotiated through prior agreement or the
+     Telnet CHARSET option [TELNET-CHARSET], then UTF-8 [UTF-8] is
+     assumed.
+
+     S: IAC SB SASL DONE BADAUTH "Authentication Failed" IAC SE
+
+     The following error codes are defined by this specification.  When
+     in doubt of the appropriate error code, the BADAUTH error code
+     should be used.  Additional error codes MAY be defined by future
+     standards track or IESG approved experimental RFCs.
+
+     CANCELLED
+          The authentication was cancelled by the client.
+
+
+
+Newman                                                          [Page 4]
+
+Internet Draft             Telnet SASL Option              November 1998
+
+
+     BADAUTH
+          This indicates that the user does not exist or the
+          authentication failed for a reason other than those listed
+          below.
+
+     BADPROT
+          This indicates the client attempted to use a mechanism not
+          supported by the server, or the protocol for the SASL
+          mechanism was not followed.
+
+     NOTAUTHZ
+          This indicates the client successfully authenticated, but is
+          not authorized to login to the service with the requested SASL
+          authorization identity.
+
+     EXPIRED
+          This indicates that the client passphrase, public key
+          certificate or other credential has expired and can be updated
+          with an appropriate passphrase/credential change protocol.
+
+     ENCRYPT
+          This indicates that the requested client mechanism is not
+          permitted without an encryption layer, such as that provided
+          by TLS.  The client may activate such encryption, or try a
+          stronger mechanism.
+
+     TOOWEAK
+          This indicates that security policy does not permit the
+          requested user to use the requested mechanism.  For example,
+          an administrative user might be required to use a stronger
+          mechanism.
+
+     TRANS
+          This indicates the user has a valid verifier in a server
+          authentication database but the requested mechanism can not be
+          used with that verifier.  This also indicates that if the
+          client changes the passphrase or does a one-time
+          authentication with a clear-text passphrase mechanism
+          (preferably encrypted), then the appropriate authentication
+          database for the requested mechanism will be initialized.
+
+     DISABLED
+          This indicates that the user's account has been disabled.  The
+          user must contact a system administrator to get their account
+          re-enabled.
+
+
+
+
+
+
+Newman                                                          [Page 5]
+
+Internet Draft             Telnet SASL Option              November 1998
+
+
+5. Formal Syntax
+
+     The following formal syntax uses ABNF [ABNF]:
+
+       IAC          = %d255    ; standard Telnet symbols
+       DO           = %d253
+       WILL         = %d251
+       SB           = %d250
+       SE           = %d240
+       SASL         = %dXXX    ; Telnet SASL option
+       LIST         = %d0      ; Telnet SASL sub-options
+       START        = %d1
+       STEP         = %d2
+       CANCEL       = %d3
+       DONE         = %d4
+
+       ; Miscellaneous single-character symbols
+       DIGIT        = %d30-39  ; US-ASCII digit character
+       UPALPHA      = %d65-90  ; Uppercase alphabetic characters
+       MECH-CHAR    = %d65-90 / DIGIT / "-" / "_"
+       SAFE-DATA    = %d0-254  ; octets which don't need quoting
+       TEXT         = %d1-254  ; human readable text
+       SP           = %d32     ; US-ASCII space
+       NUL          = %d0      ; US-ASCII NUL
+
+       ; Miscellaneous multi-character symbols
+       quoted-255   = %d255 %d255
+       sasl-mech    = 1*20mech-char
+       subopt-data  = SAFE-DATA / quoted-255
+       text         = *subopt-data  ; human readable text
+       sasl-data    = *subopt-data
+       success      = %d0 sasl-data
+       error        = %d1-254 text
+
+       ; Telnet SASL messages
+       sasl-do      = IAC DO SASL
+       sasl-will    = IAC WILL SASL
+       sasl-list    = IAC SB SASL LIST *(sasl-mech SP) sasl-mech IAC SE
+       sasl-start   = IAC SB SASL START sasl-mech [NUL sasl-data] IAC SE
+       sasl-step    = IAC SB SASL STEP sasl-data IAC SE
+       sasl-cancel  = IAC SB SASL CANCEL IAC SE
+       sasl-done    = IAC SB SASL DONE (success / error) IAC SE
+
+6. Security Considerations
+
+     This inherits the security considerations of SASL [SASL] and any
+     underlying mechanism used.
+
+
+
+
+Newman                                                          [Page 6]
+
+Internet Draft             Telnet SASL Option              November 1998
+
+
+     The SASL LIST subnegotiation is not integrity protected and is thus
+     susceptible to tampering by an active attacker.  There are two ways
+     to mitigate this attack: (1) have the client explicitly configured
+     to use a specific mechanism and never fall back to a weaker one.
+     (2) have the client configurable to require integrity protection,
+     and verify that the LIST suboption value is the same both before
+     and after the integrity protection is applied.
+
+     With some SASL mechanisms, the ENCRYPT or TOOWEAK error codes will
+     be generated after sensitive information has been exposed.  For
+     this reason, clients SHOULD be configurable to disable weaker
+     mechanisms which might reveal sensitive information and SHOULD do
+     so for user, mechanism and server combinations which result in
+     these error codes.
+
+     The TRANS error code could be spuriously generated by an active
+     attacker.  For this reason, the client SHOULD NOT use a weaker
+     mechanism in response to a TRANS error code without explicit user
+     permission.  The TRANS error code can also be used to probe for
+     untransitioned users at a site.  For this reason, sites must
+     consider the tradeoffs between a user-friendly transition to a
+     stronger mechanism and the risks entailed by permitting such
+     transitions.
+
+     Telnet server and client implementations MUST check for buffer
+     overrun on Telnet subnegotiations and deal with more data than will
+     fit in an internal buffer gracefully.
+
+7. References
+
+     [ABNF] Crocker, Overell, "Augmented BNF for Syntax Specifications:
+     ABNF", RFC 2234, Internet Mail Consortium, Demon Internet Ltd,
+     November 1997.
+
+     [CRAM-MD5] Klensin, Catoe, Krumviede, "IMAP/POP AUTHorize Extension
+     for Simple Challenge/Response", RFC 2195, MCI, September 1997.
+
+     [GSSAPI] Linn, "Generic Security Service Application Program
+     Interface, Version 2", RFC 2078, OpenVision Technologies, January
+     1997.
+
+     [KEYWORDS] Bradner, S., "Key words for use in RFCs to Indicate
+     Requirement Levels", RFC 2119, Harvard University, March 1997.
+
+     [OTP-SASL] Newman, C., "The One-Time-Password SASL mechanism", RFC
+     2444, Innosoft, October 1998.
+
+
+
+
+
+Newman                                                          [Page 7]
+
+Internet Draft             Telnet SASL Option              November 1998
+
+
+     [SASL] Myers, "Simple Authentication and Security Layer (SASL)",
+     RFC 2222, Netscape Communications, October 1997.
+
+     [TELNET] Postel, J., Reynolds, J., "TELNET PROTOCOL SPECIFICATION",
+     RFC 854, ISI, May 1983.
+
+     [TELNET-AUTH] Borman, "Telnet Authentication Option", RFC 1416,
+     Cray Research, Inc., February 1993.
+
+     [TELNET-CHARSET] Gellens, R., "TELNET CHARSET Option", RFC 2066,
+     Unisys, January 1997.
+
+     [TELNET-ENC] Ts'o, T., "Telnet Data Encryption Option", work in
+     progress.
+
+     [TELNET-KRB] Borman, "Telnet Authentication: Kerberos Version 4",
+     RFC 1411, Cray Research, Inc., January 1993.
+
+     [UTF-8] Yergeau, F. "UTF-8, a transformation format of ISO 10646",
+     RFC 2279, Alis Technologies, January 1998.
+
+8. Author's Address
+
+     Chris Newman
+     Innosoft International, Inc.
+     1050 Lakes Drive
+     West Covina, CA 91790 USA
+
+     Email: chris.newman@innosoft.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Newman                                                          [Page 8]

@@ -1,0 +1,266 @@
+# Swedish translations for libgsasl package
+# Svenska översättningar för paket libgsasl.
+# Copyright (C) 2002 Simon Josefsson.
+# Simon Josefsson <simon@josefsson.org>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GNU libgsasl 0.0\n"
+"POT-Creation-Date: 2002-10-05 05:58+0200\n"
+"PO-Revision-Date: 2002-10-05 19:32+0200\n"
+"Last-Translator: Simon Josefsson <simon@josefsson.org>\n"
+"Language-Team: Swedish <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/error.c:41
+msgid "Libgsasl success"
+msgstr "Libgsasl lyckades"
+
+#: lib/error.c:45
+msgid "SASL mechanisms needs more data (application error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:49
+msgid "Unknown SASL mechanism (application error)"
+msgstr "Okänd SASL mekanism (applikationsfel)"
+
+#: lib/error.c:53
+msgid "SASL mechanism called too many times (application error)"
+msgstr "SASL mekanism anropad för många gånger (applikationsfel)"
+
+#: lib/error.c:57
+msgid "SASL function need larger buffer (application error)"
+msgstr "SASL funktion behöver större buffer (applikationsfel)"
+
+#: lib/error.c:61
+#, fuzzy
+msgid "Could not open file in SASL library"
+msgstr "Minnesallokeringsfel i SASL-biblioteket"
+
+#: lib/error.c:65
+#, fuzzy
+msgid "Could not close file in SASL library"
+msgstr "Minnesallokeringsfel i SASL-biblioteket"
+
+#: lib/error.c:69
+msgid "Memory allocation error in SASL library"
+msgstr "Minnesallokeringsfel i SASL-biblioteket"
+
+#: lib/error.c:73
+msgid "Base 64 coding error in SASL library"
+msgstr "Bas 64 kodningsfel i SASL-biblioteket"
+
+#: lib/error.c:77
+msgid "Gcrypt error in SASL library"
+msgstr "Fel från gcrypt i SASL-biblioteket"
+
+#: lib/error.c:81
+msgid ""
+"GSSAPI library could not deallocate memory in gss_release_buffer() in SASL "
+"library.  This is a serious internal error."
+msgstr ""
+
+#: lib/error.c:85
+msgid ""
+"GSSAPI library could not understand a peer name in gss_import_name() in SASL "
+"library.  This may be due to incorrect user supplied data."
+msgstr ""
+
+#: lib/error.c:89
+msgid ""
+"GSSAPI error in client while negotiating security context in "
+"gss_init_sec_context() in SASL library.  This is most likely due "
+"insufficient credentials or malicious interactions."
+msgstr ""
+
+#: lib/error.c:93
+msgid ""
+"GSSAPI error in server while negotiating security context in "
+"gss_init_sec_context() in SASL library.  This is most likely due "
+"insufficient credentials or malicious interactions."
+msgstr ""
+
+#: lib/error.c:97
+msgid ""
+"GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL "
+"library.  This is most likely due to data corruption."
+msgstr ""
+
+#: lib/error.c:101
+msgid ""
+"GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
+msgstr ""
+
+#: lib/error.c:105
+msgid ""
+"GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  "
+"This is most likely due to not having the proper Kerberos key available in /"
+"etc/krb5.keytab on the server."
+msgstr ""
+
+#: lib/error.c:109
+msgid ""
+"GSSAPI error creating a display name denoting the client in gss_display_name"
+"() in SASL library.  This is probably because the client suplied bad data."
+msgstr ""
+
+#: lib/error.c:113
+msgid ""
+"Other entity requested integrity or confidentiality protection in GSSAPI "
+"mechanism but this is currently not implemented."
+msgstr ""
+
+#: lib/error.c:117
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_client_callback_anonymous() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:121
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_client_callback_password() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:125
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_client_callback_passcode() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:129
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:133
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_client_callback_authorization_id() callback "
+"(application error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:137
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_client_callback_authentication_id() callback "
+"(application error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:141
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_client_callback_service() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:145
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_server_callback_validate() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:149
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_server_callback_cram_md5() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:153
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_server_callback_digest_md5() callback "
+"(application error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:157
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_server_callback_anonymous() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:161
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_server_callback_external() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:165
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_server_callback_realm() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:169
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_server_callback_securid() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:173
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_server_callback_service() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:177
+#, fuzzy
+msgid ""
+"SASL mechanism needs gsasl_server_callback_gssapi() callback (application "
+"error)"
+msgstr "SASL mekanismen behöver mer data (applikationsfel)"
+
+#: lib/error.c:181
+msgid "SASL mechanism could not parse input"
+msgstr "SASL mekanism kunde inte tolka indata"
+
+#: lib/error.c:185
+msgid "Error authentication user"
+msgstr "Fel vid autentisering av användare"
+
+#: lib/error.c:189
+msgid "Cannot get internal library handle (library error)"
+msgstr "Kan inte hämta internt bibliotekskontext (biblioteksfel)"
+
+#: lib/error.c:193
+msgid "No more realms available (non-fatal)"
+msgstr ""
+
+#: lib/error.c:197
+msgid "Libgsasl unknown error"
+msgstr "Okänt fel i libgsasl"
+
+#: lib/hexdump.c:39
+#, c-format
+msgid "%d: hex %02X dec %d ascii %c\n"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Password for authentication."
+#~ msgstr "Fel vid autentisering av användare"
+
+#, fuzzy
+#~ msgid "Libgsasl wants to use:\n"
+#~ msgstr "Libgsasl lyckades"
+
+#, fuzzy
+#~ msgid "Libgsasl error (%d): %s\n"
+#~ msgstr "Okänt fel i libgsasl"
+
+#, fuzzy
+#~ msgid "GSSAPI error in SASL library"
+#~ msgstr "Fel från gcrypt i SASL-biblioteket"

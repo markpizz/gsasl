@@ -1,0 +1,35 @@
+@deftypefn Prototype int (*Gsasl_server_callback_validate) (Gsasl_session_ctx * @var{ctx}, char * @var{authentication_id}, char * @var{authorization_id}, char * @var{passcode}, char * @var{pin}, char * @var{suggestpin}, size_t * @var{suggestpinlen})
+
+@var{ctx}:  libgsasl handle.
+
+@var{authorization_id}:  input array with authorization identity.
+
+@var{authentication_id}:  input array with authentication identity.
+
+@var{passcode}:  input array with passcode.
+
+@var{pin}:  input array with new pin (this may be NULL).
+
+@var{suggestpin}:  output array with new suggested PIN.
+
+@var{suggestpinlen}: on input the maximum size of the output array, on
+output contains the actual size of the output array.
+
+Type of callback function the application implements.  It should
+return GSASL_OK if and only if the validation of the provided
+credential was succesful.  GSASL_AUTHENTICATION_ERROR is a good
+failure if authentication failed, but any available return code may be
+used.
+
+Two SECURID specific error codes also exists.  The function can return
+GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE to request that the
+client generate a new passcode.  It can also return
+GSASL_SECURID_SERVER_NEED_NEW_PIN to request that the client generate
+a new PIN.  If the server wishes to suggest a new PIN it can populate
+the SUGGESTPIN field.
+
+If SUGGESTPIN is NULL, the function should only populate the output
+length field with the length, and return GSASL_OK.  This usage may be
+used by the caller to allocate the proper buffer size.
+
+@end deftypefn

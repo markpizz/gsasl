@@ -1,0 +1,18 @@
+@deftypefn Prototype int (*Gsasl_client_callback_passcode) (Gsasl_session_ctx * @var{ctx}, char * @var{out}, size_t * @var{outlen})
+
+@var{ctx}:  libgsasl handle.
+
+@var{out}:  output array with passcode.
+
+@var{outlen}:  on input the maximum size of the output array, on output
+contains the actual size of the output array.
+
+Type of callback function the application implements.  It should
+populate the output array with passcode of user and set the output
+array length, and return @code{GSASL_OK}, or fail with an error code.
+
+If OUT is NULL, the function should only populate the output length
+field with the length, and return GSASL_OK.  This usage may be used by
+the caller to allocate the proper buffer size.
+
+@end deftypefn

@@ -1,0 +1,944 @@
+\input texinfo                  @c -*- Texinfo -*-
+@c Copyright (C) 2002 Simon Josefsson
+@c 
+@c This file is part of the libgsasl
+@c Permission is granted to copy, distribute and/or modify this document
+@c under the terms of the GNU Free Documentation License, Version 1.1
+@c or any later version published by the Free Software Foundation;
+@c with the Invariant Sections being with no Invariant Sections, with the
+@c no Front-Cover Texts, and with the no Back-Cover Texts.
+@c A copy of the license is included in the section entitled ``GNU
+@c Free Documentation License'' in the file 'fdl.texi'.
+@c
+@setfilename gsasl.info
+@include version.texi
+@settitle The Libgsasl Reference Manual
+
+@c Unify some of the indices.
+@syncodeindex tp fn
+@syncodeindex pg fn
+
+@copying
+This is @cite{The Libgsasl Reference Manual}, last updated
+@value{UPDATED}, for Version @value{VERSION} of the @acronym{Libgsasl}
+library.
+     
+Copyright @copyright{} 2002 Simon Josefsson.
+     
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover texts being ``A GNU Manual,''
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled ``GNU Free Documentation
+License.''
+     
+(a) The FSF's Back-Cover Text is: ``You have freedom to copy and
+modify this GNU Manual, like GNU software.  Copies published by the
+Free Software Foundation raise funds for GNU development.''
+@end quotation
+@end copying
+
+@dircategory GNU Libraries
+@direntry
+* libgsasl: (gsasl).    Simple Authentication and Security Layer Library.
+@end direntry
+
+@titlepage
+@title The Libgsasl Reference Manual
+@subtitle for version @value{VERSION}, @value{UPDATED}
+@author Simon Josefsson (@email{bug-libgsasl@@josefsson.org})
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+     
+@contents
+
+@ifnottex
+@node Top
+@top Libgsasl
+@insertcopying
+@end ifnottex
+
+@menu
+* Introduction::                How to use this manual.
+* Preparation::                 What you should do before using the library.
+* Using the Library::           High level overview of how to use the library.
+* Mechanisms::                  Mechanism specific information.
+* Global Functions::            Functions to use in global context.
+* Callback Functions::          Functions to set and get callbacks.
+* Session Functions::           Functions to perform the actual authentication.
+* Utilities::                   Functions for various odd things.
+* Error Handling::              Error codes and such.
+* Examples::                    Example code.
+* Acknowledgements::            Whom to blame.
+
+Appendices
+
+* Copying This Manual::         How you can copy and share this manual.
+* Library Copying::             How you can copy and share the library.
+* Copying::                     How you can copy and share the tools.
+
+Indices
+
+* Concept Index::               Index of concepts and programs.
+* Function and Data Index::     Index of functions, variables and data types.
+@end menu
+
+@c **********************************************************
+@c *******************  Introduction  ***********************
+@c **********************************************************
+@node Introduction
+@chapter Introduction
+
+`Libgsasl' is a library that provides a Simple Authentication and
+Security Layer (SASL) interface for applications.  Included are also a
+set of well known SASL mechanisms.
+
+@menu
+* Getting Started::             
+* Features::                    
+* SASL Overview::                    
+@end menu
+
+@node Getting Started
+@section Getting Started
+
+This manual documents the `Libgsasl' library programming interface.
+All functions and data types provided by the library are explained.
+
+The reader is assumed to possess basic familiarity with SASL.
+
+This manual can be used in several ways.  If read from the beginning
+to the end, it gives a good introduction into the library and how it
+can be used in an application.  Forward references are included where
+necessary.  Later on, the manual can be used as a reference manual to
+get just the information needed about any particular interface of the
+library.  Experienced programmers might want to start looking at the
+examples at the end of the manual, and then only read up those parts
+of the interface which are unclear.
+
+@node Features
+@section Features
+
+`Libgsasl' might have a couple of advantages over other libraries doing
+a similar job.
+
+@table @asis
+@item It's Free Software
+Anybody can use, modify, and redistribute it under the terms of the GNU
+Lesser General Public License (@pxref{Library Copying}).
+
+@item It's thread-safe
+No global variables are used and multiple library handles and session
+handles may be used in parallell.
+
+@item It's internationalized
+It handles non-ASCII username and passwords and user visible strings
+used in the library (error messages) can be translated into the users'
+language.
+
+@item It's portable
+It should work on all Unix like operating systems, including Windows.
+
+@end table
+
+Note that the library do not implement any policy to decide whether a
+certain user is ``authenticated'' or not.  Rather, it uses callbacks
+back into the application to answer these questions.
+
+@node SASL Overview
+@section SASL Overview 
+
+This section describes SASL from a protocol point of view@footnote{The
+text is a lightly adapted version of the introduction section from RFC
+2222 by John G. Myers, copyright 1997 by The Internet Society.}.
+
+The Simple Authentication and Security Layer (SASL) is a method for
+adding authentication support to connection-based protocols.  A
+protocol includes a command for identifying and authenticating a user
+to a server and for optionally negotiating a security layer for
+subsequent protocol interactions.
+
+The command has a required argument identifying a SASL mechanism.
+SASL mechanisms are named by strings, from 1 to 20 characters in
+length, consisting of upper-case letters, digits, hyphens, and/or
+underscores.
+
+If a server supports the requested mechanism, it initiates an
+authentication protocol exchange.  This consists of a series of
+server challenges and client responses that are specific to the
+requested mechanism.  The challenges and responses are defined by the
+mechanisms as binary tokens of arbitrary length.  The protocol's
+profile then specifies how these binary tokens are then encoded for
+transfer over the connection.
+
+After receiving the authentication command or any client response, a
+server may issue a challenge, indicate failure, or indicate
+completion.  The protocol's profile specifies how the server
+indicates which of the above it is doing.
+
+After receiving a challenge, a client may issue a response or abort
+the exchange.  The protocol's profile specifies how the client
+indicates which of the above it is doing.
+
+During the authentication protocol exchange, the mechanism performs
+authentication, transmits an authorization identity (frequently known
+as a userid) from the client to server, and negotiates the use of a
+mechanism-specific security layer.  If the use of a security layer is
+agreed upon, then the mechanism must also define or negotiate the
+maximum cipher-text buffer size that each side is able to receive.
+
+The transmitted authorization identity may be different than the
+identity in the client's authentication credentials.  This permits
+agents such as proxy servers to authenticate using their own
+credentials, yet request the access privileges of the identity for
+which they are proxying.  With any mechanism, transmitting an
+authorization identity of the empty string directs the server to
+derive an authorization identity from the client's authentication
+credentials.
+
+If use of a security layer is negotiated, it is applied to all
+subsequent data sent over the connection.  The security layer takes
+effect immediately following the last response of the authentication
+exchange for data sent by the client and the completion indication
+for data sent by the server.  Once the security layer is in effect,
+the protocol stream is processed by the security layer into buffers
+of cipher-text.  Each buffer is transferred over the connection as a
+stream of octets prepended with a four octet field in network byte
+order that represents the length of the following buffer.  The length
+of the cipher-text buffer must be no larger than the maximum size
+that was defined or negotiated by the other side.
+
+@c **********************************************************
+@c *******************  Preparation  ************************
+@c **********************************************************
+@node Preparation
+@chapter Preparation
+
+To use `Libgsasl', you have to perform some changes to your sources and
+the build system.  The necessary changes are small and explained in the
+following sections.  At the end of this chapter, it is described how the
+library is initialized, and how the requirements of the library are
+verified.
+
+A faster way to find out how to adapt your application for use with
+`Libgsasl' may be to look at the examples at the end of this manual
+(@pxref{Examples}).
+
+@menu
+* Header::                      
+* Initialization::               
+* Version Check::               
+* Building the source::         
+@end menu
+
+@node Header
+@section Header
+
+All interfaces (data types and functions) of the library are defined
+in the header file `gsasl.h'.  You must include this in all programs
+using the library, either directly or through some other header file,
+like this:
+
+@example
+#include <gsasl.h>
+@end example
+
+The name space of `Libgsasl' is @code{gsasl_*} for function names,
+@code{Gsasl*} for data types and @code{GSASL_*} for other symbols.  In
+addition the same name prefixes with one prepended underscore are
+reserved for internal use and should never be used by an application.
+
+@node Initialization
+@section Initialization
+
+`Libgsasl' must be initialized before it can be used.  The library is
+initialized by calling @code{gsasl_init()} (@pxref{Global Functions}).
+The resources allocated by the initialization process can be released
+if the application no longer has a need to call `Libgsasl' functions,
+this is done by calling @code{gsasl_done()}.
+
+In order to take advantage of the internationalisation features in
+`Libgsasl', such as translated error messages, the application must
+set the current locale using @code{setlocale()} before initializing
+`Libgsasl'.
+
+@node Version Check
+@section Version Check
+
+It is often desirable to check that the version of `Libgsasl' used is
+indeed one which fits all requirements.  Even with binary compatibility
+new features may have been introduced but due to problem with the
+dynamic linker an old version is actually used.  So you may want to
+check that the version is okay right after program startup.
+
+@include gsasl-api-version.texi
+
+@node Building the source
+@section Building the source
+@cindex Compiling your application
+
+If you want to compile a source file including the `gsasl.h' header
+file, you must make sure that the compiler can find it in the
+directory hierarchy.  This is accomplished by adding the path to the
+directory in which the header file is located to the compilers include
+file search path (via the @option{-I} option).
+
+However, the path to the include file is determined at the time the
+source is configured.  To solve this problem, `Libgsasl' ships with a small
+helper program @command{libgsasl-config} that knows the path to the
+include file and other configuration options.  The options that need
+to be added to the compiler invocation at compile time are output by
+the @option{--cflags} option to @command{libgsasl-config}.  The following
+example shows how it can be used at the command line:
+
+@example
+gcc -c foo.c `libgsasl-config --cflags`
+@end example
+
+Adding the output of @samp{libgsasl-config --cflags} to the compilers
+command line will ensure that the compiler can find the `Libgsasl' header
+file.
+
+A similar problem occurs when linking the program with the library.
+Again, the compiler has to find the library files.  For this to work,
+the path to the library files has to be added to the library search path
+(via the @option{-L} option).  For this, the option @option{--libs} to
+@command{libgsasl-config} can be used.  For convenience, this option
+also outputs all other options that are required to link the program
+with the `Libgsasl' libararies (in particular, the @samp{-lgsasl}
+option).  The example shows how to link @file{foo.o} with the `Libgsasl'
+library to a program @command{foo}.
+
+@example
+gcc -o foo foo.o `libgsasl-config --libs`
+@end example
+
+Of course you can also combine both examples to a single command by
+specifying both options to @command{libgsasl-config}:
+
+@example
+gcc -o foo foo.c `libgsasl-config --cflags --libs`
+@end example
+
+
+@c **********************************************************
+@c *****************  Using the Library  ********************
+@c **********************************************************
+@node Using the Library
+@chapter Using the Library
+
+After initialization of the library, the core part of the library is
+run within a loop until it has finished.  The library is handed input
+from the other protocol entity and results in output which is to be
+sent to the other entity, or an error code.  The library does not send
+data to the server itself, but only return it in buffers.  The main
+interface to the library uses binary data, but since many common
+protocols uses Base 64 encoded data, a wrapper around the main
+function is also provided.
+
+The following pseudo code illustrates how the library is used in a
+simple client.  All the functions used are explained later on in this
+manual.
+
+@example
+main()
+@{
+  Gsasl_ctx          *ctx;
+  Gsasl_session_ctx  *cctx;
+  char *input, output[BUFFERSIZE];
+  size_t output_len;
+  int rc;
+
+  rc = gsasl_init (&ctx);
+  if (rc != GSASL_OK)
+    die(gsasl_strerror(rc));
+
+  /* XXX Set callbacks here */
+
+  /* Read supported SASL mechanism from server */
+  input = read_from_client();
+
+  /* Select a good mechanism */
+  mech = gsasl_client_suggest_mechanism (ctx, input);
+  if (mech == NULL)
+    die("Cannot find any commonly agreed SASL mechanism...");
+
+  /* Start to use it */
+  res = gsasl_client_start (ctx, mech, &cctx);
+  if (res != GSASL_OK)
+    die(gsasl_strerror (rc));
+
+  input = NULL;
+  do
+    @{
+      /* Do one SASL step and unless we're done, send the output to
+         server and read new data from server */
+
+      rc = gsasl_client_step_base64 (cctx, input, output, BUFFERSIZE);
+      if (rc != GSASL_NEEDS_MORE)
+        break;
+
+      write_to_client(output);
+
+      input = read_from_client();
+    @}
+  while (rc == GSASL_NEEDS_MORE);
+
+  if (rc != GSASL_OK)
+    die("Authentication failed... %s\n", gsasl_strerror(rc);
+
+  /* Client is now authenticated -- proceed with actual protocol... */
+
+  gsasl_client_finish (cctx);
+  gsasl_done (ctx);
+@}
+@end example
+
+Notice the XXX comment that said you should specify the callbacks to
+use there.  `Libgsasl' depend on callbacks to implement user
+interaction (in the client) and user validation (in the server).  If
+you don't specify any callbacks, very few mechanisms will be supported
+(like EXTERNAL that don't need any additional information,
+@pxref{EXTERNAL}).  Since we are building a simple client, we define
+callbacks which are used by several SASL mechanisms to get username
+and password.  We start by defining the function for querying the
+username, following the prototype for
+@code{Gsasl_client_callback_authentication_id} for the LOGIN mechanism
+(@pxref{LOGIN}) .
+
+@example
+int
+callback_username (Gsasl_session_ctx *ctx, 
+                   char *out,
+                   size_t *outlen)
+@{
+  char username[BUFFERSIZE];
+
+  if (out == NULL)
+    *outlen = BUFFERSIZE;
+  else
+    @{
+      fprintf(stdout, "Enter username: ");
+      fgets(username, BUFFERSIZE, stdin);
+      *outlen = strlen(BUFFERSIZE);
+    @}
+
+  return GSASL_OK;
+@}
+@end example
+
+As you can see, this is a simplistic function that reads a username
+from the user.  The callback for entering the password is similar and
+follows the @code{Gsasl_client_callback_password} prototype:
+
+@example
+int
+callback_password (Gsasl_session_ctx *ctx, 
+                   char *out,
+                   size_t *outlen)
+@{
+  char password[BUFFERSIZE];
+
+  if (out == NULL)
+    *outlen = BUFFERSIZE;
+  else
+    @{
+      fprintf(stdout, "Enter password: ");
+      fgets(password, BUFFERSIZE, stdin);
+      *outlen = strlen(BUFFERSIZE);
+    @}
+
+  return GSASL_OK;
+@}
+@end example
+
+In reality, the program should probably inhibit echo of the password
+to the terminal, but that is left as an exercise for the reader.
+
+Now having implemented the callbacks, we are ready to replace the XXX
+comment with real code that set the callbacks (@pxref{Callback
+Functions}).  The following does it.
+
+@example
+  gsasl_client_callback_authentication_id_set(ctx, callback_username);
+  gsasl_client_callback_authorization_id_set(ctx, callback_username);
+  gsasl_client_callback_password_set(ctx, callback_password);
+@end example
+
+Notice that we use the same callback for the authentication identity
+and the authorization identity.  In reality, this may be too
+simplistic, but will do for an example.
+
+The simple client is now complete, and will be able to support SASL
+mechanisms such as PLAIN and CRAM-MD5.
+
+Implementing a server is very similar to the client, the only
+difference is that you use gsasl_server_*() functions instead of
+gsasl_client_*() and instead of implementing Gsasl_client_* callbacks
+implement some Gsasl_server_* callbacks.  See each mechanism
+(@pxref{Mechanisms}) for details on which callbacks are required and
+their prototype.
+
+A note for server authors is in place, on the optional initial client
+output (discussed in section 5.1 of RFC 2222).  In a server looking
+similar to the code above, the first call to
+@code{gsasl_server_step_base64} would have a @var{input} set to NULL.
+The mechanisms interprete this as your protocol do not support initial
+client output.  If the protocol in which you implement SASL supports
+initial client output, the first call to
+@code{gsasl_server_step_base64} should include a real buffer with the
+initial client data.
+
+One note for client authors is in place.  The code above aborts
+processing if `Libgsasl' did not come out of the loop with a GSASL_OK
+exit code.  It is a mistake to not require this, and instead only look
+at what the server is sending you.  Even if the server said you are
+authenticated, it does not always mean that the SASL mechanism is
+satisfied.  This is specifically true for SASL client mechanisms which
+perform server authentication.  Thus, if you only trust what the
+server replied instead of requireing a GSASL_OK result, you may open
+up for fake servers.  Don't shortcut the loop with a positive server
+response.
+
+@c **********************************************************
+@c *******************  Mechanisms  *************************
+@c **********************************************************
+@node Mechanisms
+@chapter Mechanisms
+
+Different SASL mechanisms have different requirements on the
+application using it.  Some simpler mechanisms, such as LOGIN and
+PLAIN, are straight forward to hook into existing authentication
+systems (such as @file{/etc/passwd} via PAM).  The client callback for
+these mechanisms is easy to implement, the user is simply queried for
+the username and password.  The server callbacks pass on the username
+and password into the policy deciding authentication system
+(e.g. PAM).
+
+Other mechanism like CRAM-MD5, DIGEST-MD5, and SRP uses hashed
+passwords.  The client callback are the same as for PLAIN and LOGIN.
+However, the server do not receive the plaintext password via the
+network but rather a hash of it.  Existing policy deciding systems
+like PAM cannot handle this, so the server callback for these
+mechanisms are more complicated.
+
+Further mechanisms like GSSAPI (Kerberos 5) assume a specific
+authentication system.  In theory this means that `Libgsasl' would not
+need to interact with the application, but rather call this specific
+authentication system directly.  However, some callbacks are supported
+anyway, to modify the behaviour of how the specific authentication
+system is used.
+
+Special mechanisms like EXTERNAL and ANONYMOUS are entirely dependent
+on callbacks.
+
+@menu
+* EXTERNAL::                Authentication via out of band information.
+* ANONYMOUS::               Mechanism for anonymous access to resources.
+* PLAIN::                   Clear text username and password.
+* LOGIN::                   Non-standard clear text username and password.
+* CRAM-MD5::                Challenge-Response Authentication Mechanism.
+* DIGEST-MD5::              Digest Authentication.
+* NTLM::                    Microsoft NTLM authentication.
+* SECURID::                 Authentication using tokens.
+* GSSAPI::                  GSSAPI (Kerberos 5) authentication.
+@end menu
+
+@node EXTERNAL
+@section The EXTERNAL mechanism
+
+The EXTERNAL mechanism is used to authenticate a user to SASL when
+SASL is used in an environment which has already authenticated the
+user.  It is often used within TLS or IPSEC protected channels.
+
+This mechanism is only enabled in the server if you implement the
+callback below and set them in the library (@pxref{Callback
+Functions}).  It is always enabled in the client as there are no
+client callbacks.
+
+@deftypefn Prototype int (*Gsasl_server_callback_external) (Gsasl_session_ctx * @var{ctx})
+
+@var{ctx}:  libgsasl handle.
+
+Type of callback function the application implements.  It should
+return @code{GSASL_OK} if user is authenticated by out of band means,
+otherwise @code{GSASL_AUTHENTICATION_ERROR}.
+
+@end deftypefn
+
+@node ANONYMOUS
+@section The ANONYMOUS mechanism
+
+The ANONYMOUS mechanism is used to ``authenticate'' clients to
+anonymous services; or rather just indicate that the client wishes to
+use the service anonymously.  The client sends a token, usually her
+email address.
+
+This mechanism is only enabled in the client and server if you
+implement the respectively callbacks below and set them in the library
+(@pxref{Callback Functions}).
+
+@deftypefn Prototype int (*Gsasl_client_callback_anonymous) (Gsasl_session_ctx * @var{ctx}, char * @var{out}, size_t * @var{outlen})
+
+@var{ctx}:  libgsasl handle.
+
+@var{out}:  output array with client token.
+
+@var{outlen}:  on input the maximum size of the output array, on output
+contains the actual size of the output array.
+
+Type of callback function the application implements.  It should
+populate the output array with some input from the user and set the
+output array length, and return @code{GSASL_OK}, or fail with an error
+code.
+
+If OUT is NULL, the function should only populate the output length
+field with the length, and return GSASL_OK.  This usage may be used by
+the caller to allocate the proper buffer size.
+
+@end deftypefn
+
+@deftypefn Prototype int (*Gsasl_server_callback_anonymous) (Gsasl_session_ctx * @var{ctx}, const char * @var{token})
+
+@var{ctx}:  libgsasl handle.
+
+@var{ctx}:  output array with client token.
+
+@var{ctx}:  on input the maximum size of the output array, on output
+contains the actual size of the output array.  If OUT is 
+
+Type of callback function the application implements.  It should
+return @code{GSASL_OK} if user should be permitted anonymous access,
+otherwise @code{GSASL_AUTHENTICATION_ERROR}.
+
+@end deftypefn
+
+@node PLAIN
+@section The PLAIN mechanism
+
+The PLAIN mechanism uses username (authentication identity and
+authorization identity) and password to authenticate users.  Two ways
+of validating the user is provided, either by having the SASL
+mechanism retrieve the raw password from the application and perform
+the validation internally, or by calling the application with
+authentication identity, authorization identity and password and let
+it decide.  If both the validating and the retrieving callbacks are
+specified by the application, the validating one will be used.
+
+This mechanism is only enabled in the client and server if you
+implement the respectively callbacks below and set them in the library
+(@pxref{Callback Functions}).
+
+@include gsasl-callback-authorization.texi
+
+@include gsasl-callback-authentication.texi
+
+@include gsasl-callback-password.texi
+
+@include gsasl-callback-validate.texi
+
+@include gsasl-callback-retrieve.texi
+
+
+@node LOGIN
+@section The LOGIN mechanism
+
+The LOGIN mechanism uses username (authorization identity only) and
+password to authenticate users.  Two ways of validating the user is
+provided, either by having the SASL mechanism retrieve the raw
+password from the application and perform the validation internally,
+or by calling the application with authorization identity and password
+and let it decide.  If both the validating and the retrieving
+callbacks are specified by the application, the validating one will be
+used. 
+
+This mechanism is only enabled in the client and server if you
+implement the respectively callbacks below and set them in the library
+(@pxref{Callback Functions}).
+
+@include gsasl-callback-authorization.texi
+
+@include gsasl-callback-password.texi
+
+@include gsasl-callback-validate.texi
+
+@include gsasl-callback-retrieve.texi
+
+@node CRAM-MD5
+@section The CRAM-MD5 mechanism
+
+The CRAM-MD5 mechanism uses username (authorization identity only) and
+password to authenticate users.  Only a hashed password is transfered,
+which means that you cannot use normal policy deciding authentication
+systems such as PAM which do not support extraction of passwords.  Two
+ways of validating the user is provided, either by having the SASL
+mechanism retrieve the raw password from the application and perform
+the validation internally, or by calling the application with the
+CRAM-MD5 challenge and response and let it decide.  If both the
+validating and the retrieving callbacks are specified by the
+application, the validating one will be used.
+
+While not documented in the original CRAM-MD5 specification, this
+implementation normalizes the username and the authorization identity
+using the Unicode 3.2 NFKC form according to the proposed update of
+CRAM-MD5.
+
+This mechanism is only enabled in the client and server if you
+implement the respectively callbacks below and set them in the library
+(@pxref{Callback Functions}).
+
+@include gsasl-callback-authorization.texi
+
+@include gsasl-callback-password.texi
+
+@include gsasl-callback-retrieve.texi
+
+@include gsasl-callback-cram-md5.texi
+
+@node DIGEST-MD5
+@section The DIGEST-MD5 mechanism
+
+The DIGEST-MD5 mechanism is based on the same cryptographic operation
+as CRAM-MD5 but supports more features, such as an authorization
+identity (proxy authentication) and cryptographic protection of data.
+Like CRAM-MD5, only a hashed password is transfered, which means that
+you cannot use e.g. PAM as a backend since it does not support
+extraction of passwords.  Two ways of validating the user is provided,
+either by having the SASL mechanism retrieve the raw password from the
+application and perform the validation internally, or by having the
+SASL mechanism retrieve a hashed version of the secret.  The advantage
+of using the latter method is that you do not need to store plain text
+user passwords on the server, but rather a one-way hash of the
+username, realm and password.  Still, this one-way hash of the secret
+should be handled the same way as a clear text password.  The
+advantage is that if someone steals the one-way hash she cannot
+immediately read users' password.  If both the callbacks are specified
+by the application, the one which retrieve the secret hash will be
+used.
+
+While not documented in the original DIGEST-MD5 specification, this
+implementation normalizes the username and the authentication identity
+using the Unicode 3.2 NFKC form according to the proposed update of
+DIGEST-MD5.
+
+This mechanism is only enabled in the client and server if you
+implement the respectively callbacks below and set them in the library
+(@pxref{Callback Functions}).
+
+@include gsasl-callback-authentication.texi
+
+@include gsasl-callback-authorization.texi
+
+@include gsasl-callback-password.texi
+
+@include gsasl-callback-client-service.texi
+
+@include gsasl-callback-retrieve.texi
+
+@include gsasl-callback-digest-md5.texi
+
+@node NTLM
+@section The NTLM mechanism
+
+The NTLM mechanism uses username (authorization identity only) and
+password to authenticate users.  Only the client side is implemented.
+This mechanism is only enabled in the client if you implement the
+callbacks below and set them in the library (@pxref{Callback
+Functions}).
+
+Note: Libntlm uses assert() in some places, it may thus crash your
+client if it is given bad input.
+
+@include gsasl-callback-authorization.texi
+
+@include gsasl-callback-password.texi
+
+@node SECURID
+@section The SECURID mechanism
+
+The SECURID mechanism uses authentication and authorization identity
+and a passcode from a hardware token to authenticate users.  This
+mechanism is only enabled in the client and server if you implement
+the respectively callbacks below and set them in the library
+(@pxref{Callback Functions}).
+
+@include gsasl-callback-authentication.texi
+
+@include gsasl-callback-authorization.texi
+
+@include gsasl-callback-passcode.texi
+
+@include gsasl-callback-securid.texi
+
+@node GSSAPI
+@section The GSSAPI mechanism
+
+The GSSAPI mechanism uses a framework similar to SASL for
+authenticating the user.  While GSSAPI can be implemented using many
+techniques, libgsasl currently links with MIT's GSSAPI Kerberos 5
+library and is limited to Kerberos 5 only.  The GSSAPI client
+mechanism assumes the user acquired credentials (kerberos tickets)
+before it is invoked (it will fail if this has not been done).  The
+client need (via callbacks) the name of the service and the name of
+the user.  The server needs the name of the service and a function
+that authorizes a user.  This mechanism is only enabled in the client
+and server if you implement the respectively callbacks below and set
+them in the library (@pxref{Callback Functions}).
+
+@include gsasl-callback-authentication.texi
+
+@include gsasl-callback-client-service.texi
+
+@include gsasl-callback-server-service.texi
+
+@include gsasl-callback-gssapi.texi
+
+@c **********************************************************
+@c *****************  Global Functions  *********************
+@c **********************************************************
+@node Global Functions
+@chapter Global Functions
+
+@include gsasl-api-global.texi
+
+@c **********************************************************
+@c ******************  Callback Functions  ******************
+@c **********************************************************
+@node Callback Functions
+@chapter Callback Functions
+@cindex Callbacks
+
+@include gsasl-api-callback.texi
+
+@c **********************************************************
+@c *****************  Session Functions  ********************
+@c **********************************************************
+@node Session Functions
+@chapter Session Functions
+@cindex SASL sessions
+
+@include gsasl-api-session.texi
+
+@c **********************************************************
+@c *******************  Utilities  **************************
+@c **********************************************************
+@node Utilities
+@chapter Utilities
+
+@include gsasl-api-utils.texi
+
+@c **********************************************************
+@c *******************  Errors  ****************************
+@c **********************************************************
+@node Error Handling
+@chapter Error Handling
+@cindex Error Handling
+
+Most functions in `Libgsasl' are returning an error if they fail.  For
+this reason, the application should always catch the error condition and
+take appropriate measures, for example by releasing the resources and
+passing the error up to the caller, or by displaying a descriptive
+message to the user and cancelling the operation.
+
+Some error values do not indicate a system error or an error in the
+operation, but the result of an operation that failed properly.
+
+@menu
+* Error values::                A list of all error values used.
+* Error strings::               How to get a descriptive string from a value.
+@end menu
+
+@node Error values
+@section Error values
+
+Errors are returned as an @code{int}.  Except for the OK case an
+application should always use the constants instead of their numeric
+value.  Applications are encouraged to use the constants even for OK
+as it improves readability.  Possible values are:
+
+@table @code
+@item GSASL_OK
+This value indicates success.  The value of this error is guaranteed
+to always be @code{0}.
+
+@end table
+
+@node Error strings
+@section Error strings
+
+@include gsasl-api-error.texi
+
+@c **********************************************************
+@c ***********************  Examples  ***********************
+@c **********************************************************
+@node Examples
+@chapter Examples
+@cindex Examples
+
+This chapter contains example code which illustrate how `Libgsasl' can
+be used when writing your own application.
+
+@menu
+* Example 1::
+@end menu
+
+@node Example 1
+@section Example 1
+
+This is the minimal program which uses `Libgsasl' (including
+internationalization features) without doing anything.
+
+@example
+@include gsasl-example1.c
+@end example
+
+@c **********************************************************
+@c *******************  Acknowledgements  *******************
+@c **********************************************************
+@node Acknowledgements
+@chapter Acknowledgements
+
+Simon Josefsson created the library autumn 2002 when he really should
+have been studying mathematics.
+
+The makefiles, manuals, etc borrowed much from Libgcrypt written by
+Werner Koch.
+
+Cryptographic functions for some SASL mechanisms uses Libgcrypt
+written by Werner Koch.  The NTLM mechanism uses Libntlm written by
+Grant Edwards and uses code from Samba written by Andrew Tridgell.
+
+@c **********************************************************
+@c *******************  Appendices  *************************
+@c **********************************************************
+
+@node Copying This Manual
+@appendix Copying This Manual
+
+@menu
+* GNU Free Documentation License::  License for copying this manual.
+@end menu
+
+@include fdl.texi
+
+@include lgpl.texi
+
+@include gpl.texi
+
+@node Concept Index
+@unnumbered Concept Index
+
+@printindex cp
+
+@node Function and Data Index
+@unnumbered Function and Data Index
+
+@printindex fn
+
+@summarycontents
+@contents
+@bye

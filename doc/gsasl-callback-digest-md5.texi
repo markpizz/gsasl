@@ -1,0 +1,18 @@
+@deftypefn Prototype int (*Gsasl_server_callback_digest_md5) (Gsasl_session_ctx * @var{ctx}, char * @var{username}, char * @var{realm}, char * @var{secrethash})
+
+@var{ctx}:  libgsasl handle.
+
+@var{username}:  input array with authentication identity of user.
+
+@var{realm}:  input array with realm of user.
+
+@var{secrethash}: output array that should contain hash of username,
+realm and password as described for the DIGEST-MD5 mechanism.
+
+Type of callback function the application implements.  It should
+retrieve the secret hash for the given user in given realm and return
+GSASL_OK, or an error such as GSASL_AUTHENTICATION_ERROR if it fails.
+The secrethash buffer is guaranteed to have size for the fixed length
+MD5 hash.
+
+@end deftypefn

@@ -1,0 +1,74 @@
+dnl Process this file with autoconf to produce a configure script.
+
+dnl This configure.in is only for building a standalone argp library.
+
+AC_INIT([argp], [standalone-1.1])
+AC_CONFIG_SRCDIR([argp-ba.c])
+AM_INIT_AUTOMAKE
+AM_CONFIG_HEADER([config.h])
+
+# GNU libc defaults to supplying the ISO C library functions only. The
+# _GNU_SOURCE define enables these extensions, in particular we want
+# errno.h to declare program_invocation_name. Enable it on all
+# systems; no problems have been reported with it so far.
+
+CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE"
+	
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
+AM_PROG_CC_STDC
+
+if test "x$am_cv_prog_cc_stdc" = xno ; then
+  AC_ERROR([the C compiler doesn't handle ANSI-C])
+fi
+
+dnl Checks for libraries.
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(limits.h malloc.h unistd.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_SIZE_T
+
+dnl Checks for library functions.
+AC_FUNC_ALLOCA
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS(strerror)
+
+AC_REPLACE_FUNCS(mempcpy strndup strchrnul)
+AC_CHECK_FUNCS(flockfile putc_unlocked)
+AC_CHECK_FUNCS(fputs_unlocked fwrite_unlocked)
+
+dnl Used only by argp-test.c, so don't use AC_REPLACE_FUNCS.
+AC_CHECK_FUNCS(strdup asprintf)
+
+AH_TEMPLATE([HAVE_PROGRAM_INVOCATION_NAME],
+	    [Define if the variable exists (usually provided by the linker).])
+AH_TEMPLATE([HAVE_PROGRAM_INVOCATION_SHORT_NAME],
+	    [Define if the variable exists (usually provided by the linker).])
+
+ARGP_CHECK_VAR(program_invocation_name, [#include <errno.h>])
+ARGP_CHECK_VAR(program_invocation_short_name, [#include <errno.h>])
+
+# Set these flags *last*, or else the test programs won't compile
+if test x$GCC = xyes ; then
+  # Using -ggdb3 makes (some versions of) Redhat's gcc-2.96 dump core
+  if "$CC" --version | grep '^2\.96$' 1>/dev/null 2>&1; then
+    true
+  else
+    CFLAGS="$CFLAGS -ggdb3"
+  fi
+  CFLAGS="$CFLAGS -Wall -W \
+ -Wmissing-prototypes -Wmissing-declarations -Wstrict-prototypes \
+ -Waggregate-return \
+ -Wpointer-arith -Wbad-function-cast -Wnested-externs"
+fi
+
+CPPFLAGS="$CPPFLAGS -I$srcdir"
+
+AC_OUTPUT(Makefile)

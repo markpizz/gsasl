@@ -1,0 +1,39 @@
+@deftypefn Prototype int (*Gsasl_client_callback_service) (Gsasl_session_ctx * @var{ctx}, char * @var{service}, size_t * @var{servicelen}, char * @var{hostname}, size_t * @var{hostnamelen}, char * @var{servicename}, size_t * @var{servicenamelen})
+
+@var{ctx}:  libgsasl handle.
+
+@var{service}:  output array with name of service.
+
+@var{servicelen}: on input the maximum size of the service output array,
+on output contains the actual size of the service output array.
+
+@var{hostname}:  output array with hostname of server.
+
+@var{hostnamelen}: on input the maximum size of the hostname output
+array, on output contains the actual size of the hostname output
+array.
+
+@var{servicename}: output array with generic name of server in case of
+replication (DIGEST-MD5 only).
+
+@var{servicenamelen}: on input the maximum size of the servicename
+output array, on output contains the actual size of the servicename
+output array.
+
+Type of callback function the application implements.  It should
+retrieve the service (which should be a registered GSSAPI host based
+service name, such as ``imap'') on the server, hostname of server
+(usually canoncial DNS hostname) and optionally generic service name
+of server in case of replication (e.g. ``mail.example.org'' when the
+hostname is ``mx42.example.org'', see the RFC 2831 for more
+information).  It should return GSASL_OK, or an error such as
+GSASL_AUTHENTICATION_ERROR if it fails.
+
+If SERVICE, HOSTNAME or SERVICENAME is NULL, the function should only
+populate SERVICELEN, HOSTNAMELEN or SERVICENAMELEN with the output
+length of the respective field, and return GSASL_OK.  This usage may
+be used by the caller to allocate the proper buffer size.
+Furthermore, SERVICENAMELEN may also be NULL, indicating that the
+mechanism is not interested in this field.
+
+@end deftypefn
