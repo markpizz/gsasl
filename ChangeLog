@@ -1,3 +1,656 @@
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/zh_CN.po: Generated.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.0.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/md5file.c: Fix distcheck.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix NTLM.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am, doc/reference/gsasl-docs.sgml: Add
+	image.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Improve typography.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add image.  Fixes.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, doc/abstraction.dia, doc/abstraction.eps,
+	doc/abstraction.png: Add image.
+
+2004-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Typo.
+
+2004-11-05  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-11-03  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getpass.c, gl/m4/getpass.m4: Update.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Dist cram-md5.pwd.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Enable flyspell too.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Fix PGP key.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/doxygen/Doxyfile.in: Fix PDF output.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: No more doxygen refman.ps.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/doxygen/Doxyfile.in: Update.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Typo.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Be specific.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Move around.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix properties.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc-error: Markup fix.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/tmpl/gsasl-unused.sgml: Add (dummy file, to shut up
+	gtk-doc.make).
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/controlflow.eps, doc/controlflow.png, doc/controlflow2.eps,
+	doc/controlflow2.png: Add, dia --export is buggy.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/controlflow.dia, doc/controlflow2.dia: Update.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix, for removed gsasl_property.*global.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* examples/client.c: Remove gsasl_property.*global.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Rename gsasl_property_lset to
+	gsasl_property_set_raw.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-10-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Add index.
+
+2004-10-28  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Support -include.  Replace struct marker from & to #,
+	to align with modern GTK-DOC.  Improve man and texinfo output.
+
+2004-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Add images.
+
+2004-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Add.
+
+2004-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am, doc/reference/gsasl-docs.sgml,
+	doc/reference/gsasl.types, doc/reference/gtk-doc.make: Revamp.
+
+2004-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+	(DISTCHECK_CONFIGURE_FLAGS): Add --enable-gtk-doc.
+
+2004-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+	(update-po): Fix.
+
+2004-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* po/en@boldquot.po, po/en@quot.po: Remove.
+
+2004-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS: Sync with TP.
+
+2004-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS, po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po,
+	po/pl.po, po/ro.po, po/sq.po, po/sr.po, po/sv.po,
+	po/en@boldquot.po, po/en@quot.po, po/zh_CN.po: Sync with TP.
+
+2004-10-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getopt.m4: Update.
+
+2004-10-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Update.
+
+2004-10-16  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generated.
+
+2004-10-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib.m4: Update.
+
+2004-10-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/error.c, gl/getndelim2.c, gl/getpass.c,
+	gl/unlocked-io.h, gl/m4/gnulib.m4, gl/m4/unlocked-io.m4: Update.
+
+2004-10-15  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gssapi.c: Fix.
+
+2004-10-15  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gssapi.c: Add.
+
+2004-10-15  Simon Josefsson <simon@josefsson.org>
+
+	* tests/old-gssapi.c: Typo.
+
+2004-10-15  Simon Josefsson <simon@josefsson.org>
+
+	* tests/old-gssapi.c: Make it work.
+
+2004-10-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/old-gssapi.c: Fix crash.
+
+2004-10-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/old-gssapi.c: Fix.
+
+2004-10-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Remove old-gssapi for now.
+
+2004-10-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/digest-md5.c, tests/gssapi.key,
+	tests/gssapi.tkt, tests/md5file.c, tests/old-gssapi.c: Add.
+
+2004-10-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Remove duplicated stuff.
+
+2004-10-13  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c: Fix warnings.
+
+2004-10-13  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/cram-md5.c, tests/old-cram-md5.c,
+	tests/utils.c: Add new cram-md5 test.
+
+2004-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Typo.
+
+2004-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Add.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* examples/client-callback.c, examples/client-mech.c,
+	examples/client-serverfirst.c, examples/client.c: Fix warnings.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generated.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/controlflow.dia, doc/controlflow2.dia: Update.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/controlflow.dia, doc/controlflow2.dia: Update.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* examples/client-mech.c: Typ.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: (Using the Library): Rewrite.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* examples/client-serverfirst.c, examples/client-callback.c: Fix.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* examples/client.c: Fix.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, doc/controlflow.dia, doc/controlflow2.dia: Add.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix.
+
+2004-10-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/controlflow.dia: Update.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* examples/client-callback.c, examples/client-mech.c,
+	examples/client-serverfirst.c, examples/client.c: Fix.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, doc/controlflow.dia, doc/gsasl.texi: Add.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generate.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generate.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Simplify callback hook.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generate.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* examples/client-callback.c: Simplify callbacks, now there is only
+	one application callback (the global).
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Update, for libntlm 0.3.6.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, doc/gsasl-example1.c: Remove.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac, doc/gsasl.texi, examples/Makefile.am,
+	examples/README, examples/client-callback.c,
+	examples/client-mech.c, examples/client-serverfirst.c,
+	examples/client.c: Add examples.
+
+2004-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generate.
+
+2004-09-29  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/md5file.c, tests/utils.c, NEWS: Add.
+
+2004-09-29  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.pwd: Add.
+
+2004-09-29  Simon Josefsson <simon@josefsson.org>
+
+	* tests/utils.c, tests/utils.h: Add.
+
+2004-09-29  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/dummy.c, gl/progname.h, gl/m4/gnulib.m4:
+	Update.
+
+2004-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Use Lesser GNULib.
+
+2004-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sr.po, po/sv.po: Generated.
+
+2004-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump versions.
+
+2004-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Add.
+
+2004-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.tmpl: Add gsasl-mech.
+
+2004-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, doc/Makefile.am: Add.
+
+2004-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/digest-md5.c: Fix.
+
+2004-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/digest-md5.c: Add.
+
+2004-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Remove debugging print of b64 encoded session data.
+
+2004-09-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix gsasl_encode use.
+
+2004-09-23  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c: Fix buggy callbacks.
+
+2004-09-23  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix NTLM test cases.
+
+2004-09-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-09-21  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix crash in EXTERNAL client.
+
+2004-09-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getaddrinfo.c, gl/getaddrinfo.h, gl/progname.c, gl/progname.h:
+	Update.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Fix.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Fix.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Fix.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sr.po, po/sv.po: Sync with TP.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.tmpl: Fix.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Move.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Move.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/smtp.c, tests/cram-md5.c: Indent.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c: Fix warnings.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/ro.po,
+	po/sr.po, po/sv.po: Generated.
+
+2004-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2004-09-16  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Fix.
+
+2004-09-16  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Use threadsafety.
+
+2004-09-16  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Add.
+
+2004-09-14  Simon Josefsson <simon@josefsson.org>
+
+	* po/pl.po: Sync with TP.
+
+2004-09-14  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am:
+	(clean-local): Add style.css.
+
+2004-09-05  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/getaddrinfo.c, gl/getaddrinfo.h,
+	gl/m4/getaddrinfo.m4, gl/m4/gnulib.m4, gl/m4/restrict.m4,
+	src/gsasl.c, src/internal.h: Assume getaddrinfo.  Add getaddrinfo
+	gnulib module, for system that lack it.
+
+2004-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl-example1.c, doc/gsasl.texi: Fix example.
+
+2004-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix.
+
+2004-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.gdoci: Remove.
+
+2004-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Rewrite gdoc stuff.
+
+2004-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix update-po.
+
+2004-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sr.po, po/sv.po: Sync with TP.
+
+2004-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix update-po.
+
+2004-08-26  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sr.po, po/sv.po: Sync with TP.
+
+2004-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* m4/autobuild.m4: Update.
+
+2004-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Typo.
+
+2004-08-18  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sr.po, po/sv.po: Sync with TP.
+
+2004-08-18  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump version.
+
+2004-08-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-08-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib.m4: Update.
+
+2004-08-16  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/m4/gnulib.m4: Update.
+
+2004-08-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib.m4: Update.
+
+2004-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getpass.c, gl/getpass.h: Update.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Fix.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Add.
+
 2004-08-08  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
@@ -1594,7 +2247,8 @@
 
 2003-11-02  Simon Josefsson <simon@josefsson.org>
 
-	* doc/reference/gsasl-docs.sgml: Remove.
+	* doc/reference/gsasl-docs.sgml, doc/reference/tmpl/gsasl.sgml:
+	Remove.
 
 2003-11-02  Simon Josefsson <simon@josefsson.org>
 
@@ -1793,6 +2447,10 @@
 	* gl/Makefile.am, gl/unlocked-io.h, gl/m4/Makefile.am,
 	gl/m4/restrict.m4: Update.
 
+2003-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/tmpl/gsasl.sgml: Update.
+
 2003-10-09  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Fix.
@@ -1884,6 +2542,10 @@
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
 
+	* doc/reference/tmpl/gsasl.sgml: Generated.
+
+2003-10-06  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS: Add.
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
@@ -1894,6 +2556,10 @@
 
 	* src/callbacks.c, src/callbacks.h, src/gsasl.c: Maxbuf is unsigned
 	long, suggested by Alexey Melnikov <Alexey.Melnikov@isode.com>.
+
+2003-10-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/tmpl/gsasl.sgml: Generated.
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
 
@@ -1914,7 +2580,7 @@
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
 
-	* doc/gsasl.texi: Add.
+	* doc/gsasl.texi, doc/reference/tmpl/gsasl.sgml: Add.
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
 
@@ -2455,6 +3121,10 @@
 
 2003-02-14  Simon Josefsson <simon@josefsson.org>
 
+	* doc/reference/tmpl/gsasl.sgml: Add.
+
+2003-02-14  Simon Josefsson <simon@josefsson.org>
+
 	* src/gsasl.c, src/internal.h: Fix socket address.
 
 2003-02-14  Simon Josefsson <simon@josefsson.org>
@@ -2485,6 +3155,10 @@
 2003-02-08  Simon Josefsson <simon@josefsson.org>
 
 	* doc/gsasl.texi: Add.
+
+2003-02-03  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/tmpl/gsasl.sgml: Generated.
 
 2003-02-03  Simon Josefsson <simon@josefsson.org>
 
@@ -2600,7 +3274,11 @@
 
 2003-01-20  Simon Josefsson <simon@josefsson.org>
 
-	* README-alpha: Fix.
+	* doc/reference/tmpl/gsasl.sgml, README-alpha: Fix.
+
+2003-01-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/tmpl/gsasl.sgml: Add.
 
 2003-01-20  Simon Josefsson <simon@josefsson.org>
 
