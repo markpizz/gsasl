@@ -40,6 +40,8 @@ gsasl_strerror (int err)
 {
   const char *p;
 
+  bindtextdomain (PACKAGE, LOCALEDIR);
+
   switch (err)
     {
     case GSASL_OK:
