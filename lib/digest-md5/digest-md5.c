@@ -1,5 +1,5 @@
 /* digest-md5.c	implementation of SASL mechanism DIGEST-MD5 from RFC 2831
- * Copyright (C) 2002, 2003  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  * Copyright (C) 1996, 1997, 1999 Free Software Foundation, Inc. (getsubopt)
  *
  * This file is part of GNU SASL.
@@ -22,16 +22,7 @@
 
 #include "digest-md5.h"
 
-#ifdef HAVE_LIMITS_H
-#include <limits.h>
-#endif
-#if HAVE_INTTYPES_H
-# include <inttypes.h>
-#else
-# if HAVE_STDINT_H
-#  include <stdint.h>
-# endif
-#endif
+#include <nettle-types.h>
 #ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h>
 #endif
@@ -940,7 +931,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	  }
 	/* username */
 	{
-	  int usernamelen;
+	  size_t usernamelen;
 
 	  res = cb_authentication_id (sctx, NULL, &usernamelen);
 	  if (res != GSASL_OK)
