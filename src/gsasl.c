@@ -1,5 +1,5 @@
 /* gsasl.c --- Command line interface to libgsasl.
- * Copyright (C) 2002, 2003  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -244,7 +244,8 @@ main (int argc, char *argv[])
       he = gethostbyname (connect_hostname);
       if (!he || he->h_addr_list[0] == NULL || he->h_addrtype != AF_INET)
 	{
-	  fprintf (stderr, "%s: unknown host: %s", argv[0], connect_hostname);
+	  fprintf (stderr, "%s: unknown host: %s\n", argv[0],
+		   connect_hostname);
 	  return 1;
 	}
       memset (&connect_addr, 0, sizeof (connect_addr));
@@ -257,7 +258,7 @@ main (int argc, char *argv[])
 	sinaddr_inp->sin_port = htons (atoi (connect_service));
       if (sinaddr_inp->sin_port == 0 || sinaddr_inp->sin_port == htons (0))
 	{
-	  fprintf (stderr, "%s: unknown service: %s", argv[0],
+	  fprintf (stderr, "%s: unknown service: %s\n", argv[0],
 		   connect_service);
 	  return 1;
 	}
@@ -266,7 +267,7 @@ main (int argc, char *argv[])
       if (sockfd < 0)
 	{
 	  perror ("socket()");
-	  fprintf (stderr, "%s: socket: %s", argv[0], strerror (errno));
+	  fprintf (stderr, "%s: socket: %s\n", argv[0], strerror (errno));
 	  return 1;
 	}
 
@@ -274,7 +275,7 @@ main (int argc, char *argv[])
 	{
 	  perror ("connect()");
 	  close (sockfd);
-	  fprintf (stderr, "%s: connect: %s", argv[0], strerror (errno));
+	  fprintf (stderr, "%s: connect: %s\n", argv[0], strerror (errno));
 	  return 1;
 	}
       if (!args_info.hostname_arg)
