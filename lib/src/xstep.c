@@ -53,9 +53,6 @@ gsasl_step (Gsasl_session * sctx,
 {
   Gsasl_step_function step;
 
-  if (sctx == NULL)
-    return GSASL_INVALID_HANDLE;
-
   if (sctx->clientp)
     step = sctx->mech->client.step;
   else
