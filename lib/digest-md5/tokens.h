@@ -80,11 +80,11 @@ struct digest_md5_challenge {
   size_t nrealms;
   char **realms;
   char *nonce;
-  char *qop;
+  int qops;
   int stale;
   unsigned long servermaxbuf;
   int utf8;
-  char *ciphers;
+  int ciphers;
 };
 typedef struct digest_md5_challenge digest_md5_challenge;
 
@@ -123,12 +123,12 @@ struct digest_md5_response {
   char *nonce;
   char *cnonce;
   unsigned long nc;
-  char *qop;
+  digest_md5_qop qop;
   char *digesturi;
   char *response;
   unsigned long clientmaxbuf;
   int utf8;
-  char *cipher;
+  digest_md5_cipher cipher;
   char *authzid;
 };
 typedef struct digest_md5_response digest_md5_response;
