@@ -118,9 +118,8 @@ fits in under 60kb on an Intel x86 platform, without any modifications
 to the code.  (This figure was accurate as of version 0.0.13.)
 
 Most of the library is licensed under the GNU Lesser General Public
-License, and the command-line interface and self-tests, as well as the
-NTLM and KERBEROS_V5 mechanisms, are licensed under the GNU General
-Public License
+License, but the command-line interface and self-tests are licensed
+under the GNU General Public License.
 
 @menu
 * Getting Started::
