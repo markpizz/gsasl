@@ -605,14 +605,14 @@ reserved for internal use and should never be used by an application.
 @section Initialization
 
 `Libgsasl' must be initialized before it can be used.  The library is
-initialized by calling @code{gsasl_init()} (@pxref{Global Functions}).
+initialized by calling @code{gsasl_init} (@pxref{Global Functions}).
 The resources allocated by the initialization process can be released
 if the application no longer has a need to call `Libgsasl' functions,
-this is done by calling @code{gsasl_done()}.
+this is done by calling @code{gsasl_done}.
 
 In order to take advantage of the internationalisation features in
 `Libgsasl', such as translated error messages, the application must
-set the current locale using @code{setlocale()} before initializing
+set the current locale using @code{setlocale} before initializing
 `Libgsasl'.
 
 In order to take advantage of the secure memory features in
@@ -662,12 +662,12 @@ check that the version is okay right after program startup.
 @include texi/gsasl_check_version.texi
 
 The normal way to use the function is to put something similar to the
-following early in your @code{main()}:
+following early in your @code{main}:
 
 @example
   if (!gsasl_check_version (GSASL_VERSION))
     @{
-      printf ("gsasl_check_version() failed:\n"
+      printf ("gsasl_check_version failed:\n"
               "Header file incompatible with shared library.\n");
       exit(1);
     @}
@@ -940,11 +940,11 @@ The simple client is now complete, and will be able to support SASL
 mechanisms such as PLAIN and CRAM-MD5.
 
 Implementing a server is very similar to the client, the only
-difference is that you use gsasl_server_*() functions instead of
-gsasl_client_*() and instead of implementing Gsasl_client_* callbacks
-implement some Gsasl_server_* callbacks.  See each mechanism
-(@pxref{Mechanisms}) for details on which callbacks are required and
-their prototype.
+difference is that you use @code{gsasl_server_*} functions instead of
+@code{gsasl_client_*} and instead of implementing
+@code{Gsasl_client_*} callbacks implement some @code{Gsasl_server_*}
+callbacks.  See each mechanism (@pxref{Mechanisms}) for details on
+which callbacks are required and their prototype.
 
 A note for server authors is in place, on the optional initial client
 output (discussed in section 5.1 of RFC 2222).  In a server looking
@@ -1214,8 +1214,8 @@ This mechanism is only enabled in the client if you implement the
 callbacks below and set them in the library (@pxref{Callback
 Functions}).
 
-Note: Libntlm uses assert() in some places, it may thus crash your
-client if it is given bad input.
+Note: Libntlm uses @code{assert} in some places, it may thus crash
+your client if it is given bad input.
 
 @include gsasl-callback-authorization.texi
 
