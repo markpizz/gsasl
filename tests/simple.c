@@ -172,13 +172,13 @@ client_callback_authorization_id (Gsasl_session_ctx * xctx,
 {
   Gsasl_ctx *ctx = gsasl_client_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
-  size_t needlen = strlen (sasltv[i].authzid);
+  size_t needlen = sasltv[i].authzid ? strlen (sasltv[i].authzid) : 0;
 
   if (*outlen < needlen)
     return GSASL_TOO_SMALL_BUFFER;
 
   *outlen = needlen;
-  if (out)
+  if (out && sasltv[i].authzid)
     memcpy (out, sasltv[i].authzid, needlen);
 
   return GSASL_OK;
