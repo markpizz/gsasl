@@ -155,8 +155,8 @@ extern "C"
    * @prop: enumerated value of Gsasl_property type.
    *
    * Prototype of function that the application should implement.  Use
-   * gsasl_callback_set() or gsasl_callback_set_global() to inform the
-   * library about your callback function.
+   * gsasl_callback_set() to inform the library about your callback
+   * function.
    *
    * It is called by the SASL library when it need some information from
    * the application.  Depending on the value of @prop, it should either
