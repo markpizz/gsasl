@@ -43,6 +43,7 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
   char *authentication_id = NULL;
   char *passwordptr = NULL;
   char *password = NULL;
+  char *passprep;
   int res;
 
   *output_len = 0;
@@ -77,9 +78,16 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
   memcpy (password, passwordptr, input_len - (passwordptr - input));
   password[input_len - (passwordptr - input)] = '\0';
 
+  /* FIXME: Specificaiton is unclear on whether unassigned code
+     points are allowed or not.  We don't allow them. */
+  res = gsasl_saslprep (password, 0, &passprep, NULL);
+  free (password);
+  if (res != GSASL_OK)
+    return res;
+
   gsasl_property_set (sctx, GSASL_AUTHID, authentication_id);
   gsasl_property_set (sctx, GSASL_AUTHZID, authorization_id);
-  gsasl_property_set (sctx, GSASL_PASSWORD, password);
+  gsasl_property_set (sctx, GSASL_PASSWORD, passprep);
 
   res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_SIMPLE);
   if (res == GSASL_NO_CALLBACK)
@@ -92,27 +100,27 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
       key = gsasl_property_get (sctx, GSASL_PASSWORD);
       if (!key)
 	{
-	  free (password);
+	  free (passprep);
 	  return GSASL_NO_PASSWORD;
 	}
 
-      /* FIXME: Specificaiton is unclear on whether unassigned code
+      /* FIXME: Specification is unclear on whether unassigned code
 	 points are allowed or not.  We don't allow them. */
       res = gsasl_saslprep (key, 0, &normkey, NULL);
       if (res != GSASL_OK)
 	{
-	  free (password);
+	  free (passprep);
 	  return res;
 	}
 
-      if (strlen (password) == strlen (normkey) &&
-	  memcmp (normkey, password, strlen (normkey)) == 0)
+      if (strlen (passprep) == strlen (normkey) &&
+	  memcmp (normkey, passprep, strlen (normkey)) == 0)
 	res = GSASL_OK;
       else
 	res = GSASL_AUTHENTICATION_ERROR;
       free (normkey);
     }
-  free (password);
+  free (passprep);
 
   return res;
 }
