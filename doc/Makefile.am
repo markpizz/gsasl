@@ -22,10 +22,9 @@ SUBDIRS = reference
 
 EXTRA_DIST = gdoc gdoc-error gsasl-example1.c \
 	gsasl.html gsasl.ps gsasl.pdf \
+	gsasl-db.xml gsasl-db.txt gsasl-db.ps gsasl-db.pdf \
 	$(gsasl_html_auto_deps) \
 	doxygen/Doxyfile.in doxygen/gdoc2doxygen
-
-#	gsasl-db.xml gsasl-db.txt gsasl-db.ps gsasl-db.pdf
 
 info_TEXINFOS = gsasl.texi
 ps_TEXINFOS = gsasl.texi
@@ -64,21 +63,19 @@ include $(srcdir)/Makefile.gdoci
 
 # DocBook
 
-gsasl_html_auto_deps = html/a1563.html html/a1686.html			\
-	html/c1176.html html/c1201.html html/c1211.html			\
-	html/c1214.html html/c1219.html html/c1224.html			\
-	html/c1229.html html/c1308.html html/c16.html html/c261.html	\
-	html/c364.html html/c541.html html/c803.html html/c9.html	\
-	html/c917.html html/i1313.html html/i1444.html html/index.html	\
-	html/x1052.html html/x1099.html html/x1186.html			\
-	html/x1191.html html/x1196.html html/x1272.html			\
-	html/x1671.html html/x1789.html html/x179.html html/x195.html	\
-	html/x214.html html/x232.html html/x29.html html/x297.html	\
-	html/x300.html html/x319.html html/x345.html html/x376.html	\
-	html/x45.html html/x456.html html/x490.html html/x553.html	\
-	html/x558.html html/x611.html html/x625.html html/x740.html	\
-	html/x815.html html/x835.html html/x842.html html/x929.html	\
-	html/x976.html html/x988.html html/x995.html
+gsasl_html_auto_deps = html/a2289.html html/a2405.html html/c1098.html	\
+	html/c1186.html html/c16.html html/c1730.html html/c1904.html	\
+	html/c2005.html html/c2233.html html/c2243.html			\
+	html/c2248.html html/c2258.html html/c2261.html			\
+	html/c2267.html html/c2272.html html/c2276.html			\
+	html/c2280.html html/c2285.html html/c305.html html/c395.html	\
+	html/c425.html html/c9.html html/i2499.html html/i2625.html	\
+	html/index.html html/x1025.html html/x179.html html/x195.html	\
+	html/x2222.html html/x2474.html html/x258.html html/x26.html	\
+	html/x276.html html/x319.html html/x331.html html/x349.html	\
+	html/x376.html html/x446.html html/x48.html html/x480.html	\
+	html/x569.html html/x59.html html/x643.html html/x718.html	\
+	html/x834.html html/x869.html html/x945.html
 
 gsasl-db.xml: gsasl.texi $(gsasl_TEXINFOS)
 	$(MAKEINFO) --docbook --output $@ gsasl.texi
