@@ -1,0 +1,280 @@
+GNU SASL LIBRARY NEWS -- History of user-visible changes.        -*- outline -*-
+Copyright (C) 2002, 2003, 2004 Simon Josefsson
+See the end for copying conditions.
+
+* Changes in 0.0.15 (unreleased)
+
+** The library re-licensed to LGPL and distributed as a separate package.
+This means a fork of this NEWS file, all the entries below relate to
+the combined work of earlier versions.  New entries above only
+document user visible aspects of the library ("libgsasl"); for
+information about the command line interface and other things
+("gsasl") see the NEWS file in the gsasl distribution.  To make
+matters more confusing, the "gsasl" distribution includes a copy of
+the "libgsasl" distribution.
+
+** Polish translation added, by Jakub Bogusz.
+
+* Changes in 0.0.14 (released 2004-01-22)
+
+** Moved all mechanism specific code into sub-directories of lib/.
+Each backend is built into its own library (e.g., libgsasl-plain.so),
+to facilitate future possible use of dlopen to dynamically load
+backends.
+
+** Moved compatibility files (getopt*) to gl/, and added more (strdup*).
+
+* Changes in 0.0.13 (released 2004-01-17)
+
+** Nettle (the crypto functionality, crypto/) has been updated.
+This fixes two portability issues, the new code should work on
+platforms that doesn't have inttypes.h and alloca.
+
+* Changes in 0.0.12 (released 2004-01-15)
+
+** Protocol line parser in 'gsasl' tool more reliable.
+Earlier it assumed two lines were sent in one packet in one place, and
+sent as two packets in another place.
+
+** Various bugfixes.
+
+* Changes in 0.0.11 (released 2004-01-06)
+
+** The client part of CRAM-MD5 now uses SASLprep instead of NFKC.
+This aligns with draft-ietf-sasl-crammd5-01.
+
+** The CRAM-MD5 challenge string now conform to the proper syntax.
+
+** The string preparation (SASLprep and trace) functions now work correctly.
+
+** DocBook manuals no longer included.
+The reason is that recent DocBook tools from the distribution I use
+(Debian) fails with an error.  DocBook manuals may be included in the
+future, if I can get the tools to work.
+
+** API and ABI modifications.
+GSASL_SASLPREP_ERROR: ADD.
+
+* Changes in 0.0.10 (released 2003-11-22)
+
+** The CRAM-MD5 server now reject invalid passwords.
+The logic flaw was introduced in 0.0.9, after blindly making code
+changes to shut up valgrind just before the release.
+
+** Various build improvements.
+Pkg-config is no longer needed.  GTK-DOC is only used if present.
+
+* Changes in 0.0.9 (released 2003-11-21)
+
+** Command line client can talk to SMTP servers with --smtp.
+
+** DocBook manuals in XML, PDF, PostScript, ASCII and HTML formats included.
+
+** Token parser in DIGEST-MD5 fixed, improve interoperability of DIGEST-MD5.
+
+** Libgcrypt >= 1.1.42 is used if available (for CRAM-MD5 and DIGEST-MD5).
+The previous libgcrypt API is no longer supported.
+
+** CRAM-MD5 and DIGEST-MD5 no longer require libgcrypt (but can still use it).
+If libgcrypt 1.1.42 or later is not found, it uses a minimalistic
+cryptographic library based on Nettle, from crypto/.  Currently only
+MD5 and HMAC-MD5 is needed, making a dependence on libgcrypt overkill.
+
+** Listing supported server mechanisms with gsasl_server_mechlist work.
+
+** Autoconf 2.59, Automake 1.8 beta, Libtool CVS used.
+
+** Source code for each SASL mechanism moved to its own sub-directory in lib/.
+
+** The command line interface now uses getopt instead of argp.
+The reason is portability, this also means we no longer use gnulib.
+
+** API and ABI modifications.
+gsasl_randomize: ADD.
+gsasl_md5: ADD.
+gsasl_hmac_md5: ADD.
+
+gsasl_hexdump: REMOVED.  Never intended to be exported.
+
+gsasl_step: ADD.
+gsasl_step64: ADD.
+gsasl_client_step: DEPRECATED: use gsasl_step instead.
+gsasl_server_step: DEPRECATED: use gsasl_step instead.
+gsasl_client_step_base64: DEPRECATED: use gsasl_step64 instead.
+gsasl_server_step_base64: DEPRECATED: use gsasl_step64 instead.
+
+gsasl_finish: ADD.
+gsasl_client_finish: DEPRECATED: use gsasl_finish instead.
+gsasl_server_finish: DEPRECATED: use gsasl_finish instead.
+
+gsasl_ctx_get: ADD.
+gsasl_client_ctx_get: DEPRECATED: use gsasl_ctx_get instead.
+gsasl_server_ctx_get: DEPRECATED: use gsasl_ctx_get instead.
+
+gsasl_appinfo_get: ADD.
+gsasl_appinfo_set: ADD.
+gsasl_client_application_data_get: DEPRECATED: use gsasl_appinfo_get instead.
+gsasl_client_application_data_set: DEPRECATED: use gsasl_appinfo_set instead.
+gsasl_server_application_data_get: DEPRECATED: use gsasl_appinfo_get instead.
+gsasl_server_application_data_set: DEPRECATED: use gsasl_appinfo_set instead.
+
+Gsasl: ADD.
+Gsasl_ctx: DEPRECATED: use Gsasl instead.
+Gsasl_session: ADD.
+Gsasl_session_ctx: DEPRECATED: use Gsasl_session instead.
+
+GSASL_CRYPTO_ERROR: ADD, replaces deprecated GSASL_LIBGCRYPT_ERROR.
+GSASL_LIBGCRYPT_ERROR: DEPRECATED: use GSASL_CRYPTO_ERROR instead.
+
+GSASL_KERBEROS_V5_INTERNAL_ERROR: ADD, replaces deprecated GSASL_SHISHI_ERROR.
+GSASL_SHISHI_ERROR: DEPRECATED: use GSASL_KERBEROS_V5_INTERNAL_ERROR instead.
+
+GSASL_INVALID_HANDLE: ADD.
+
+* Changes in 0.0.8 (released 2003-10-11)
+
+** Improved GSSAPI implementation detection.
+Auto detection should work, unless you have both MIT and Heimdal, or
+wish to override the default that prefer GSS over Heimdal over MIT.
+In that case, use --enable-gssapi=mit or --enable-gssapi=heimdal.
+
+** GNU SASL contain APIs for internationalized string processing via SASLprep.
+You no longer have to use Libidn directly.
+
+** Man pages for all public functions are included.
+
+** GNULib is used for compatibility functions.
+The directory gl/ is dedicated for GNULib functions, and replace the
+earlier ad-hoc usage of argp, memset, etc.
+
+** GNU SASL will be C89 compatible.
+The library itself (lib/*) only use C89.  The remaining parts (src/
+and tests/) can use C89 and any functionality from GNULib.  This
+decision may be revised in the future, if it turns out there are
+problems with this.
+
+** Improvements for embedded or otherwise limited systems.
+The math library (-lm) is no longer required.  All client code can be
+disabled by --disable-client, and all server code can be disabled by
+--disable-server.  The internationalized string processing library can
+be disabled by --without-stringprep.
+
+** Gettext 0.12.1 and Libtool 1.5 is used.
+
+** Libgcrypt from CVS (1.1.42) is not supported.
+Recent libgcrypt is API incompatible with earlier released versions.
+If a too recent version is installed, it will not be used.
+
+** Fix command line tool '--connect --imap' on Solaris.
+
+** Bug fixes.
+
+** API and ABI modifications.
+Gsasl_client_callback_maxbuf: CHANGED: 'int' was replaced with 'size_t'.
+Gsasl_server_callback_maxbuf: CHANGED: 'int' was replaced with 'size_t'.
+gsasl_client_mechlist: NEW.
+gsasl_server_mechlist: NEW.
+gsasl_client_listmech: DEPRECATED: use gsasl_client_mechlist instead.
+gsasl_server_listmech: DEPRECATED: use gsasl_server_mechlist instead.
+gsasl_stringprep_nfkc: NEW.
+gsasl_stringprep_saslprep: NEW.
+gsasl_stringprep_trace: NEW.
+
+* Changes in 0.0.7 (released 2003-06-02)
+
+** Two new GSS libraries supported for the GSS-API mechanism.
+See http://josefsson.org/gss/ for GSS, which uses Shishi for Kerberos 5.
+See http://www.pdc.kth.se/heimdal/ for Heimdal (Kerberos 5).
+
+** Bug fixes.
+
+* Changes in 0.0.6 (released 2003-03-17)
+
+** Gettext not included.
+Due to some conflicts between libtool and gettext, if you want i18n on
+platforms that does not already have a useful gettext implementation,
+you must install GNU gettext before building this package.  If you
+don't care about i18n, this package should work fine (except for i18n,
+of course).
+
+** Rudimentary support for KERBEROS_V5.
+Only enable if you want to write code.  This adds two new API errors;
+GSASL_KERBEROS_V5_INIT_ERROR, GSASL_SHISHI_ERROR.
+
+** Added API function: gsasl_client_callback_realm_set.
+Specifies which realm the client belongs to.
+
+** Bugfixes.
+User visible aspects includes not building the API Reference Manual
+with GTK-DOC by default, if you want it use configure parameter
+--enable-gtk-doc.
+
+* Changes in 0.0.5 (released 2003-01-27)
+
+** Command line application "gsasl" now supports --imap and --connect.
+The --imap parameter makes it use a IMAP-like negotiation on
+stdin/stdout.  The --connect parameter makes it connect to a host over
+TCP, and talk to it instead of stdin/stdout.  This allows it to be
+used as a simple test tool to connect to IMAP servers.  Currently
+integrity and confidentiality is not working properly, so if you use
+DIGEST-MD5 you currently have to specify --quality-of-protection=auth.
+
+** Texinfo documentation added for command line tool.
+
+** Libgcrypt initialization no longer causes a warning to be printed.
+
+** Added API reference manual in HTML format, generated using GTK-DOC.
+See doc/reference/, in particular doc/reference/html/index.html.
+
+** GNU Libidn replaces Libstringprep.
+Although it is still stored in the libstringprep/ directory for CVS
+reasons.
+
+** Bug fixes for DIGEST-MD5 and GSSAPI.
+
+* Changes in 0.0.4 (released 2002-12-13)
+
+** License changed to GPL.
+
+** Official GNU project.
+
+* Changes in 0.0.3 (released 2002-12-05)
+
+** New gsasl arguments --application-data and --no-client-first.
+
+** Bug fixes (client sends first, memory leaks, compiler warnings, more).
+
+* Changes in 0.0.2 (released 2002-11-07)
+
+** Includes a copy of libstringprep 0.0.2 for Unicode NFKC
+normalization and locale charset to UTF-8 string conversion, and
+preparation for the future if a SASL Stringprep profile is created.
+If libstringprep is already installed, it is used by default.  You can
+force the use of the internal version with
+--without-system-libstringprep.
+
+** Uses pkg-config instead of libgsasl.m4 + libgsasl-config.in, and
+for finding libntlm (requires libntlm 0.3.1 or later).
+
+** Self tests for several mechanisms.
+
+** The API now allows mechanisms to return data even when returning
+GSASL_OK (earlier only on GSASL_NEEDS_MORE).
+
+** Bug fixes.
+
+* Changes in 0.0.1 (released 2002-10-12)
+
+** APIs for integrity and confidentiality protection of application
+payload data.
+
+** DIGEST-MD5 support for integrity protection.
+
+* Changes in 0.0.0 (released 2002-10-07)
+
+** Initial release.
+
+----------------------------------------------------------------------
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.

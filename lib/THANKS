@@ -1,0 +1,20 @@
+GNU SASL LIBRARY THANKS -- Acknowledgements.
+Copyright (C) 2002, 2003, 2004 Simon Josefsson
+See the end for copying conditions.
+
+Bug reports, patches and/or suggestions were also received from:
+
+Jakub Bogusz
+Lars Engebretsen
+Alexey Melnikov
+Marc Mutz
+Andorz Nilsson
+Tomas Ogren
+Wojciech Polak
+Sergey Poznyakoff
+Peter Prohaska
+
+----------------------------------------------------------------------
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
