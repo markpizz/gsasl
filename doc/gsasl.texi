@@ -261,81 +261,109 @@ platforms.
 
 @enumerate
 
-@item Debian GNU/Linux 3.0r0 (Woody)
+@item Debian GNU/Linux 3.0 (Woody)
 @cindex Debian
 
-GCC 2.95.4 and GNU Make. This is the main development
-platform. alphaev67-unknown-linux-gnu, alphaev6-unknown-linux-gnu,
-hppa64-unknown-linux-gnu, i686-pc-linux-gnu, ia64-unknown-linux-gnu.
+GCC 2.95.4 and GNU Make. This is the main development platform.
+@code{alphaev67-unknown-linux-gnu}, @code{alphaev6-unknown-linux-gnu},
+@code{arm-unknown-linux-gnu}, @code{hppa-unknown-linux-gnu},
+@code{hppa64-unknown-linux-gnu}, @code{i686-pc-linux-gnu},
+@code{ia64-unknown-linux-gnu}, @code{m68k-unknown-linux-gnu},
+@code{mips-unknown-linux-gnu}, @code{mipsel-unknown-linux-gnu},
+@code{powerpc-unknown-linux-gnu}, @code{s390-ibm-linux-gnu},
+@code{sparc-unknown-linux-gnu}.
+
+@item Debian GNU/Linux 2.1
+@cindex Debian
+
+GCC 2.95.1 and GNU Make. @code{armv4l-unknown-linux-gnu}.
 
 @item Tru64 UNIX
 @cindex Tru64
 
-Tru64 UNIX C compiler and Tru64 Make. alphaev68-dec-osf5.1.
+Tru64 UNIX C compiler and Tru64 Make. @code{alphaev67-dec-osf5.1},
+@code{alphaev68-dec-osf5.1}.
 
 @item SuSE Linux 7.1
 @cindex SuSE
 
-GCC 2.96 and GNU Make. alphaev67-unknown-linux-gnu.
+GCC 2.96 and GNU Make. @code{alphaev6-unknown-linux-gnu},
+@code{alphaev67-unknown-linux-gnu}.
 
 @item SuSE Linux 7.2a
 @cindex SuSE Linux
 
-GCC 3.0 and GNU Make. ia64-unknown-linux-gnu.
+GCC 3.0 and GNU Make. @code{ia64-unknown-linux-gnu}.
 
 @item RedHat Linux 7.2
 @cindex RedHat
 
-GCC 2.96 and GNU Make. i686-pc-linux-gnu.
+GCC 2.96 and GNU Make. @code{alphaev6-unknown-linux-gnu},
+@code{alphaev67-unknown-linux-gnu}, @code{ia64-unknown-linux-gnu}.
 
 @item RedHat Linux 8.0
 @cindex RedHat
 
-GCC 3.2 and GNU Make. i686-pc-linux-gnu.
+GCC 3.2 and GNU Make. @code{i686-pc-linux-gnu}.
+
+@item RedHat Advanced Server 2.1
+@cindex RedHat Advanced Server
+
+GCC 2.96 and GNU Make. @code{i686-pc-linux-gnu}.
+
+@item Slackware Linux 8.0.01
+@cindex RedHat
+
+GCC 2.95.3 and GNU Make. @code{i686-pc-linux-gnu}.
+
+@item Mandrake Linux 9.0
+@cindex Mandrake
+
+GCC 3.2 and GNU Make. @code{i686-pc-linux-gnu}.
 
 @item IRIX 6.5
 @cindex IRIX
 
-mips-sgi-irix6.5, MIPS C compiler, IRIX Make.
+MIPS C compiler, IRIX Make. @code{mips-sgi-irix6.5}.
 
 @item AIX 4.3.2
 @cindex AIX
 
-rs6000-ibm-aix4.3.2.0, IBM C for AIX compiler, AIX Make.
+IBM C for AIX compiler, AIX Make.  @code{rs6000-ibm-aix4.3.2.0}.
 
 @item Microsoft Windows 2000 (Cygwin)
 @cindex Windows
 
-GCC 3.2, GNU make. i686-pc-cygwin
+GCC 3.2, GNU make. @code{i686-pc-cygwin}.
 
-@item HP-UX 11.11
+@item HP-UX 11
 @cindex HP-UX
 
-HP-UX C compiler and HP Make. hppa2.0w-hp-hpux11.11.
+HP-UX C compiler and HP Make. @code{ia64-hp-hpux11.22},
+@code{hppa2.0w-hp-hpux11.11}.
 
 @item SUN Solaris 2.8
 @cindex Solaris
 
-Sun WorkShop Compiler C 6.0 and SUN Make. sparc-sun-solaris2.8.
+Sun WorkShop Compiler C 6.0 and SUN Make. @code{sparc-sun-solaris2.8}.
 
 @item NetBSD 1.6
 @cindex NetBSD
 
-GCC 2.95.3 and GNU Make. alpha-unknown-netbsd1.6,
-i386-unknown-netbsdelf1.6.
+GCC 2.95.3 and GNU Make. @code{alpha-unknown-netbsd1.6},
+@code{i386-unknown-netbsdelf1.6}.
 
-@item OpenBSD 3.1
+@item OpenBSD 3.1 and 3.2
 @cindex OpenBSD
 
-GCC 2.95.3 and GNU Make.
-@c alpha-unknown-openbsd3.1,
-i386-unknown-openbsd3.1.
+GCC 2.95.3 and GNU Make. @code{alpha-unknown-openbsd3.1},
+@code{i386-unknown-openbsd3.1}.
 
 @item FreeBSD 4.7
 @cindex FreeBSD
 
-GCC 2.95.4 and GNU Make. alpha-unknown-freebsd4.7,
-i386-unknown-freebsd4.7.
+GCC 2.95.4 and GNU Make. @code{alpha-unknown-freebsd4.7},
+@code{i386-unknown-freebsd4.7}.
 
 @end enumerate
 
