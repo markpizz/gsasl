@@ -132,11 +132,11 @@ struct digest_md5_response
   unsigned long nc;
   digest_md5_qop qop;
   char *digesturi;
-  char response[DIGEST_MD5_RESPONSE_LENGTH + 1];
   unsigned long clientmaxbuf;
   int utf8;
   digest_md5_cipher cipher;
   char *authzid;
+  char response[DIGEST_MD5_RESPONSE_LENGTH + 1];
 };
 typedef struct digest_md5_response digest_md5_response;
 

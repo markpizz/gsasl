@@ -47,15 +47,15 @@
 struct _Gsasl_digest_md5_server_state
 {
   int step;
-  digest_md5_challenge challenge;
-  digest_md5_response response;
-  digest_md5_finish finish;
-  char secret[DIGEST_MD5_LENGTH];
   unsigned long readseqnum, sendseqnum;
+  char secret[DIGEST_MD5_LENGTH];
   char kic[DIGEST_MD5_LENGTH];
   char kcc[DIGEST_MD5_LENGTH];
   char kis[DIGEST_MD5_LENGTH];
   char kcs[DIGEST_MD5_LENGTH];
+  digest_md5_challenge challenge;
+  digest_md5_response response;
+  digest_md5_finish finish;
 };
 typedef struct _Gsasl_digest_md5_server_state _Gsasl_digest_md5_server_state;
 

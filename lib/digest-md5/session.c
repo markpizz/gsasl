@@ -132,7 +132,7 @@ digest_md5_decode (const char *input, size_t input_len,
     {
       char *seqnumin;
       char hash[GC_MD5_LEN];
-      unsigned long len, tmp;
+      unsigned long len;
       char tmpbuf[SASL_INTEGRITY_PREFIX_LENGTH];
       int res;
 
