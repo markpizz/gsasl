@@ -55,7 +55,8 @@ enum
   GSASL_NEED_SERVER_GSSAPI_CALLBACK = 26,
   GSASL_NEED_SERVER_RETRIEVE_CALLBACK = 27,
   GSASL_UNICODE_NORMALIZATION_ERROR = 28,
-  GSASL_NO_MORE_REALMS = 34
+  GSASL_NO_MORE_REALMS = 34,
+  GSASL_INVALID_HANDLE = 50
 } __attribute__ ((deprecated));
 
 typedef Gsasl Gsasl_ctx __attribute__ ((deprecated));

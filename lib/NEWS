@@ -20,6 +20,7 @@ gsasl_simple_getpass: ADD.  No buffer length restriction.
 GSASL_FOPEN_ERROR: DEPRECATED.  Not used any more.
 GSASL_FCLOSE_ERROR: DEPRECATED.  Not used any more.
 GSASL_NO_MORE_REALMS: DEPRECATED.  Not used any more.
+GSASL_INVALID_HANDLE: DEPRECATED.  Not used any more.
 
 * Version 0.2.3 (released 2004-12-15)
 

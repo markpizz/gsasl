@@ -167,10 +167,6 @@ gsasl_strerror (int err)
 	    "(application error)");
       break;
 
-    case GSASL_INVALID_HANDLE:
-      p = _("The provided library handle was invalid (application error)");
-      break;
-
     case GSASL_NO_CALLBACK:
       p = _("No callback specified by caller (application error).");
       break;
@@ -359,6 +355,10 @@ gsasl_strerror (int err)
 
     case GSASL_NO_MORE_REALMS:
       p = _("No more realms available (non-fatal)");
+      break;
+
+    case GSASL_INVALID_HANDLE:
+      p = _("The provided library handle was invalid (application error)");
       break;
 #endif
 
