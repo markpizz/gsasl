@@ -238,9 +238,9 @@ _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
 			    char *output, size_t * output_len)
 {
   Gsasl_server_callback_securid cb_securid;
-  char *authorization_id = NULL;
-  char *authentication_id = NULL;
-  char *passcode = NULL;
+  const char *authorization_id = NULL;
+  const char *authentication_id = NULL;
+  const char *passcode = NULL;
   char *pin = NULL;
   Gsasl_ctx *ctx;
   int res;

@@ -225,7 +225,7 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
   struct _Gsasl_plain_server_state *state = mech_data;
   Gsasl_server_callback_validate cb_validate;
   Gsasl_server_callback_retrieve cb_retrieve;
-  char *authorization_id = NULL;
+  const char *authorization_id = NULL;
   char *authentication_id = NULL;
   char *passwordptr = NULL;
   char *password = NULL;

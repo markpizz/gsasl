@@ -166,7 +166,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * cctx,
     {
     case 1:
       bufdesc.length = input_len;
-      bufdesc.value = input;
+      bufdesc.value = /*XXX*/(char*)input;
       buf = &bufdesc;
       /* fall through */
 
@@ -227,7 +227,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * cctx,
          client can then consider the server authenticated. */
 
       bufdesc.length = input_len;
-      bufdesc.value = input;
+      bufdesc.value = /*XXX*/(char*)input;
       maj_stat = gss_unwrap (&min_stat, state->context, &bufdesc,
 			     &bufdesc2, &conf_state, &qop_state);
       if (maj_stat != GSS_S_COMPLETE)
@@ -424,7 +424,7 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
       /* fall through */
 
     case 1:
-      bufdesc1.value = input;
+      bufdesc1.value = /*XXX*/(char*)input;
       bufdesc1.length = input_len;
       maj_stat = gss_accept_sec_context (&min_stat,
 					 &state->context,
@@ -488,7 +488,7 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
       break;
 
     case 3:
-      bufdesc1.value = input;
+      bufdesc1.value = /*XXX*/(char*)input;
       bufdesc1.length = input_len;
       maj_stat = gss_unwrap (&min_stat, state->context, &bufdesc1,
 			     &bufdesc2, NULL, NULL);
