@@ -8,5 +8,6 @@ config.log
 config.status
 configure
 libgsasl-0.0.0.tar.gz
+libgsasl.pc
 libtool
 stamp-h1
