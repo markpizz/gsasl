@@ -39,6 +39,9 @@ _gsasl_external_server_step (Gsasl_session * sctx,
   *output_len = 0;
   *output = NULL;
 
+  if (input == NULL)
+    return GSASL_NEEDS_MORE;
+
   /* Quoting rfc2222bis-09:
    * extern-resp       = *( UTF8-char-no-nul )
    * UTF8-char-no-nul  = UTF8-1-no-nul / UTF8-2 / UTF8-3 / UTF8-4
