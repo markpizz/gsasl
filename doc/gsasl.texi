@@ -1115,7 +1115,7 @@ The function itself is implemented as follows.
 
 @example
 int callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
-{
+@{
   char buf[BUFSIZ] = "";
   int rc = GSASL_NO_CALLBACK;
 
@@ -1124,7 +1124,7 @@ int callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
   printf ("Callback invoked, for property %d.\n", prop);
 
   switch (prop)
-    {
+    @{
     case GSASL_PASSCODE:
       printf ("Enter passcode:\n");
       fgets (buf, sizeof (buf) - 1, stdin);
@@ -1146,10 +1146,10 @@ int callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     default:
       printf ("Unknown property!  Don't worry.\n");
       break;
-    }
+    @}
 
   return rc;
-}
+@}
 @end example
 
 Again, it is bad style to use a fixed size buffer.
@@ -1159,7 +1159,7 @@ how to respond to a certain property, simply return
 @code{GSASL_NO_CALLBACK}.  The basic properties to support are
 authentication identity (@code{GSASL_AUTHID}), authorization identity
 (@code{GSASL_AUTHZID}), and password (@code{GSASL_PASSWORD}).  See
-@xref{Properties} for the list of all properties, and what your
+@xref{Properties}, for the list of all properties, and what your
 callback should (ideally) do for them.
 
 @section Server note: client send data first
