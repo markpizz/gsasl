@@ -286,7 +286,7 @@ _gsasl_gssapi_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 
   maj_stat = gss_release_name (&min_stat, &state->service);
   if (state->context != GSS_C_NO_CONTEXT)
-    maj_stat = gss_delete_sec_context (&min_stat, state->context,
+    maj_stat = gss_delete_sec_context (&min_stat, &state->context,
 				       GSS_C_NO_BUFFER);
 
   free (state);
