@@ -1,4 +1,4 @@
-/* stringprep-no.c	dummy internationalized SASL string processing
+/* stringprep-no.c	dummy i18n SASL string processing for internal use
  * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
