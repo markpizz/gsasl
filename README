@@ -25,7 +25,10 @@ please let me know so work duplication can be avoided.
     packed two SASL tokens in one network packet, only the first will be
     seen.  To fix this the best way, and the same time also improve
     string handling (security), the entire SASL step API probably
-    should change.
+    should change.  Later: It occured to me that the en/de-code functions
+    can simply buffer the left over data until the next invocation.
+    Still, it would be nice to change the API to one that encapsulates
+    string operations inte a separate package (my safestring.*).
   + Authentication infrastructure implementing the callbacks for
     PAM, Kerberos, SQL, etc.  Separate project?  GNU Mailutils has
     some starting points for this, but the API is inflexible.
