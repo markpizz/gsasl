@@ -62,10 +62,55 @@ static const char *const digest_challenge_opts[] = {
   NULL
 };
 
+/* qop-value         = "auth" | "auth-int" | "auth-conf" | qop-token */
+
+enum
+  {
+    /* the order must match the following struct */
+    QOP_AUTH = 0,
+    QOP_AUTH_INT,
+    QOP_AUTH_CONF
+  };
+
+/* cipher-value      = "3des" | "des" | "rc4-40" | "rc4" |
+ *                     "rc4-56" | "aes-cbc" | cipher-token
+ *                     ;; "des" and "3des" ciphers are obsolete.
+ */
+static const char *const qop_opts[] = {
+  /* the order must match the previous enum */
+  "auth",
+  "auth-int",
+  "auth-conf",
+  NULL
+};
+
+enum
+  {
+    /* the order must match the following struct */
+    CIPHER_DES = 0,
+    CIPHER_3DES,
+    CIPHER_RC4,
+    CIPHER_RC4_40,
+    CIPHER_RC4_56,
+    CIPHER_AES_CBC
+  };
+
+static const char *const cipher_opts[] = {
+  /* the order must match the previous enum */
+  "des",
+  "3des",
+  "rc4",
+  "rc4-40",
+  "rc4-56",
+  "aes-cbc",
+  NULL
+};
+
 static int
 parse_challenge (char *challenge, digest_md5_challenge *out)
 {
-  int done_algorithm;
+  int done_algorithm = 0;
+  int disable_qop_auth_conf = 0;
   char *value;
 
   memset (out, 0, sizeof (*out));
@@ -103,14 +148,40 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 	break;
 
       case CHALLENGE_QOP:
-	/* The client MUST ignore unrecognized options; if the client
-	   recognizes no option, it MUST abort the authentication
-	   exchange. */
-	if (out->qop)
+	if (out->qops)
 	  return -1;
-	/* FIXME: sub-parse. */
-	out->qop = strdup (value);
-	if (!out->qop)
+	{
+	  char *subsubopts;
+	  char *val;
+
+	  subsubopts = value;
+	  while (*subsubopts != '\0')
+	    switch (digest_md5_getsubopt (&subsubopts, qop_opts, &val))
+	      {
+	      case QOP_AUTH:
+		out->qops |= DIGEST_MD5_QOP_AUTH;
+		break;
+
+	      case QOP_AUTH_INT:
+		out->qops |= DIGEST_MD5_QOP_AUTH_INT;
+		break;
+
+	      case QOP_AUTH_CONF:
+		out->qops |= DIGEST_MD5_QOP_AUTH_CONF;
+		break;
+
+	      default:
+		/* The client MUST ignore unrecognized options */
+		break;
+	      }
+	}
+	/* if the client recognizes no cipher, it MUST behave as if
+	   "auth-conf" qop option wasn't provided by the server. */
+	if (disable_qop_auth_conf)
+	  out->qops &= ~DIGEST_MD5_QOP_AUTH_CONF;
+	/* if the client recognizes no option, it MUST abort the
+	   authentication exchange. */
+	if (!out->qops)
 	  return -1;
 	break;
 
@@ -160,13 +231,51 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 	done_algorithm = 1;
 	break;
 
+
       case CHALLENGE_CIPHER:
 	if (out->ciphers)
 	  return -1;
-	/* FIXME: sub-parse. */
-	out->ciphers = strdup (value);
+	{
+	  char *subsubopts;
+	  char *val;
+
+	  subsubopts = value;
+	  while (*subsubopts != '\0')
+	    switch (digest_md5_getsubopt (&subsubopts, cipher_opts, &val))
+	      {
+	      case CIPHER_DES:
+		out->ciphers |= DIGEST_MD5_CIPHER_DES;
+		break;
+
+	      case CIPHER_3DES:
+		out->ciphers |= DIGEST_MD5_CIPHER_3DES;
+		break;
+
+	      case CIPHER_RC4:
+		out->ciphers |= DIGEST_MD5_CIPHER_RC4;
+		break;
+
+	      case CIPHER_RC4_40:
+		out->ciphers |= DIGEST_MD5_CIPHER_RC4_40;
+		break;
+
+	      case CIPHER_RC4_56:
+		out->ciphers |= DIGEST_MD5_CIPHER_RC4_56;
+		break;
+
+	      case CIPHER_AES_CBC:
+		out->ciphers |= DIGEST_MD5_CIPHER_AES_CBC;
+		break;
+
+	      default:
+		/* The client MUST ignore unrecognized ciphers */
+		break;
+	      }
+	}
+	/* if the client recognizes no cipher, it MUST behave as if
+	   "auth-conf" qop option wasn't provided by the server. */
 	if (!out->ciphers)
-	  return -1;
+	  disable_qop_auth_conf = 1;
 	break;
 
       default:
@@ -186,6 +295,13 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
      not present, or if multiple instances are present, the
      client SHOULD abort the authentication exchange. */
   if (!done_algorithm)
+    return -1;
+
+  /* This directive must be present exactly once if "auth-conf" is
+     offered in the "qop-options" directive */
+  if (out->ciphers && !(out->qops & DIGEST_MD5_QOP_AUTH_CONF))
+    return -1;
+  if (!out->ciphers && (out->qops & DIGEST_MD5_QOP_AUTH_CONF))
     return -1;
 
   return 0;
