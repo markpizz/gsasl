@@ -94,7 +94,7 @@ readln1 (char **out)
 }
 
 static int
-greeting (void)
+select_mechanism (char **mechlist)
 {
   char *in;
 
@@ -103,14 +103,6 @@ greeting (void)
       if (!readln1 (&in))
 	return 0;
     }
-
-  return 1;
-}
-
-static int
-select_mechanism (char **mechlist)
-{
-  char *in;
 
   if (args_info.server_flag)
     {
@@ -131,8 +123,7 @@ select_mechanism (char **mechlist)
       if (!readln1 (&in))
 	return 0;
 
-      if (args_info.imap_flag)
-	/* XXX parse IMAP capability line */ ;
+      /* XXX parse IMAP capability line */
 
       *mechlist = in;
     }
@@ -157,6 +148,70 @@ authenticate (const char *mech)
 	fprintf (stderr, _("Using mechanism:\n"));
       puts (mech);
     }
+
+  return 1;
+}
+
+static int
+step_send (const char *data)
+{
+  if (args_info.imap_flag)
+    {
+      char input[MAX_LINE_LENGTH];
+
+      if (args_info.client_flag)
+	sprintf (input, "%s", data);
+      else
+	sprintf (input, "+ %s", data);
+      if (!writeln (input))
+	return 0;
+    }
+  else
+    {
+      if (!args_info.quiet_given)
+	{
+	  if (args_info.client_flag)
+	    fprintf (stderr, _("Output from client:\n"));
+	  else
+	    fprintf (stderr, _("Output from server:\n"));
+	}
+      fprintf (stdout, "%s\n", data);
+    }
+
+  return 1;
+}
+
+static int
+step_recv (char **data)
+{
+  if (!readln1 (data))
+    return 0;
+
+  if (args_info.imap_flag)
+    {
+      char *p = *data;
+
+      if (p[0] != '+' || p[1] != ' ')
+	{
+	  fprintf (stderr, _("error: Server did not return expected SASL "
+			     "data (it must begin with '+ '):\n%s\n"), data);
+	  return 0;
+	}
+
+      memmove (&p[0], &p[2], strlen (p) - 1);
+    }
+
+  return 1;
+}
+
+static int
+auth_finish (void)
+{
+  char *in;
+
+  /* wait for possibly last round trip */
+  if (args_info.imap_flag && !readln1 (&in))
+    return 0;
 
   return 1;
 }
@@ -194,8 +249,6 @@ main (int argc, char *argv[])
   int res;
   char input[MAX_LINE_LENGTH];
   char *in;
-  char *connect_hostname;
-  char *connect_service;
   struct sockaddr connect_addr;
 
 #ifdef HAVE_LOCALE_H
@@ -230,6 +283,8 @@ main (int argc, char *argv[])
       struct hostent *he;
       struct sockaddr_in *sinaddr_inp =
 	(struct sockaddr_in *) &connect_addr;
+      char *connect_hostname;
+      char *connect_service;
 
       if (strrchr (args_info.connect_arg, ':'))
 	{
@@ -349,15 +404,13 @@ main (int argc, char *argv[])
   if (args_info.client_flag || args_info.server_flag)
     {
       char output[MAX_LINE_LENGTH];
+      char *out;
       char b64output[MAX_LINE_LENGTH];
       size_t output_len;
       ssize_t b64output_len;
       const char *mech;
       Gsasl_session_ctx *xctx = NULL;
       int res;
-
-      if (!greeting ())
-	return 1;
 
       if (!select_mechanism (&in))
 	return 1;
@@ -388,9 +441,8 @@ main (int argc, char *argv[])
 	  return 1;
 	}
 
-      input[0] = '\0';
-      output[0] = '\0';
-      output_len = sizeof (output);
+      in = NULL;
+      out = NULL;
 
       if (args_info.client_flag && args_info.no_client_first_flag)
 	{
@@ -400,34 +452,12 @@ main (int argc, char *argv[])
 
       do
 	{
-	  if (args_info.client_flag)
-	    res = gsasl_client_step_base64 (xctx, input, output, output_len);
-	  else
-	    res = gsasl_server_step_base64 (xctx, input, output, output_len);
-
+	  res = gsasl_step64 (xctx, in, &out);
 	  if (res != GSASL_NEEDS_MORE && res != GSASL_OK)
 	    break;
 
-	  if (args_info.imap_flag)
-	    {
-	      if (args_info.client_flag)
-		sprintf (input, "%s", output);
-	      else
-		sprintf (input, "+ %s", output);
-	      if (!writeln (input))
-		return 1;
-	    }
-	  else
-	    {
-	      if (!args_info.quiet_given)
-		{
-		  if (args_info.client_flag)
-		    fprintf (stderr, _("Output from client:\n"));
-		  else
-		    fprintf (stderr, _("Output from server:\n"));
-		}
-	      fprintf (stdout, "%s\n", output);
-	    }
+	  if (!step_send (out))
+	    return 1;
 
 	  if (res != GSASL_NEEDS_MORE)
 	    break;
@@ -438,20 +468,8 @@ main (int argc, char *argv[])
 			       "(press RET if none):\n"),
 		     args_info.client_flag ? _("server") : _("client"));
 
-	  if (!readln (input, MAX_LINE_LENGTH))
+	  if (!step_recv (&in))
 	    return 1;
-
-	  if (args_info.imap_flag)
-	    {
-	      if (input[0] != '+' || input[1] != ' ')
-		{
-		  fprintf (stderr,
-			   _("error: Server did not return expected SASL "
-			     "data (it must begin with '+ '):\n%s\n"), input);
-		  return 1;
-		}
-	      memmove (&input[0], &input[2], strlen (input) - 1);
-	    }
 	}
       while (res == GSASL_NEEDS_MORE);
 
@@ -462,8 +480,7 @@ main (int argc, char *argv[])
 	  return 1;
 	}
 
-      /* wait for possibly last round trip */
-      if (args_info.imap_flag && !readln (input, MAX_LINE_LENGTH))
+      if (!auth_finish ())
 	return 1;
 
       if (!args_info.quiet_given)
@@ -475,9 +492,6 @@ main (int argc, char *argv[])
 	    fprintf (stderr, _("Server authentication "
 			       "finished (client trusted)...\n"));
 	}
-
-      if (args_info.imap_flag)
-	/* XXX check server outcome (NO vs OK vs still waiting) */ ;
 
       /* Transfer application payload */
       if (args_info.application_data_flag)
@@ -542,8 +556,11 @@ main (int argc, char *argv[])
 		}
 
 	      if (sockfd && FD_ISSET (sockfd, &readfds))
-		if (!readln (input, MAX_LINE_LENGTH))
-		  break;
+		{
+		  if (!readln1 (&in))
+		    break;
+		  free (in);
+		}
 
 	      FD_ZERO (&readfds);
 	      FD_SET (STDIN_FILENO, &readfds);
@@ -562,11 +579,11 @@ main (int argc, char *argv[])
       if (!args_info.quiet_given)
 	fprintf (stderr, _("Session finished...\n"));
 
+      if (!logout ())
+	return 1;
+
       gsasl_finish (xctx);
     }
-
-  if (!logout ())
-    return 1;
 
   if (sockfd)
     {
