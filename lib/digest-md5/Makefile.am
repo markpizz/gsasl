@@ -21,6 +21,8 @@
 AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl \
 	-I../crypto
 
+EXTRA_DIST = README
+
 noinst_LTLIBRARIES = libgsasl-digest_md5.la
 libgsasl_digest_md5_la_SOURCES = digest-md5.h mechinfo.c \
 	session.h session.c \
