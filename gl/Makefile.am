@@ -21,4 +21,7 @@
 noinst_LTLIBRARIES = libgl.la
 
 libgl_la_SOURCES = getopt.h getopt_int.h getopt.c getopt1.c gettext.h strdup.h
+if !READLINE
+libgl_la_SOURCES += readline.c
+endif
 libgl_la_LIBADD = @LTLIBOBJS@
