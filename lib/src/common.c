@@ -209,7 +209,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     _gsasl_cram_md5_client_start,
     _gsasl_cram_md5_client_step,
-    _gsasl_cram_md5_client_finish,
+    NULL,
     NULL,
     NULL
 #endif

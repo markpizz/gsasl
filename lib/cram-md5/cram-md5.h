@@ -34,8 +34,6 @@ extern int _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
 					const char *input,
 					size_t input_len,
 					char *output, size_t * output_len);
-extern int _gsasl_cram_md5_client_finish (Gsasl_session_ctx * sctx,
-					  void *mech_data);
 
 extern int _gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx,
 					 void **mech_data);
