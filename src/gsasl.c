@@ -197,7 +197,7 @@ step_recv (char **data)
       if (p[0] != '+' || p[1] != ' ')
 	{
 	  fprintf (stderr, _("error: Server did not return expected SASL "
-			     "data (it must begin with '+ '):\n%s\n"), data);
+			     "data (it must begin with '+ '):\n%s\n"), p);
 	  return 0;
 	}
 
@@ -211,7 +211,7 @@ step_recv (char **data)
       if (p[0] != '3' || p[1] != '3' || p[2] != '4' || p[3] != ' ')
 	{
 	  fprintf (stderr, _("error: Server did not return expected SASL "
-			     "data (it must begin with '334 '):\n%s\n"), data);
+			     "data (it must begin with '334 '):\n%s\n"), p);
 	  return 0;
 	}
 
