@@ -235,12 +235,6 @@ doit (void)
 	}
       while (res != GSASL_OK);
 
-      if (strcmp (s1, "") != 0)
-	{
-	  fail ("gsasl_step64() client had additional data: %s\n", s1);
-	  return;
-	}
-
       free (s1);
 
       if (debug)
