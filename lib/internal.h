@@ -123,6 +123,8 @@ struct Gsasl_session_ctx
 };
 
 #ifndef WITH_STRINGPREP
+extern char *_gsasl_no_stringprep_nfkc (const char *in, ssize_t len);
+extern char *_gsasl_no_stringprep (const char *in, int *stringprep_rc);
 #define gsasl_stringprep_nfkc _gsasl_no_stringprep_nfkc
 #define gsasl_stringprep_saslprep _gsasl_no_stringprep
 #define gsasl_stringprep_trace _gsasl_no_stringprep
