@@ -1,4 +1,5 @@
 GNU SASL README-alpha -- Important introductory notes for alpha releases.
+Copyright (C) 2003 Simon Josefsson
 See the end for copying conditions.
 
 GNU SASL is unstable.  You should expect it to not work.  You should
@@ -12,9 +13,14 @@ is made.  Volunteers needed.
 
 It will not become stable without help.  Donate time or money.
 
-----------------------------------------------------------------------
-Copyright (C) 2003 Simon Josefsson
+To compile from CVS, you need perl, texinfo, GTK-DOC, autoconf 2.5+,
+and automake 1.7+.  Bootstrap the build environment with:
 
+  $ ./autogen.sh
+
+Then run ./configure etc as usual.
+
+----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
 notice and this notice are preserved.
