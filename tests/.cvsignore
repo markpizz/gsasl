@@ -9,6 +9,7 @@ md5file
 old-cram-md5
 old-digest-md5
 old-gssapi
+old-md5file
 simple
 unicode
 *.la
