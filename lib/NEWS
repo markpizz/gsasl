@@ -4,6 +4,16 @@ See the end for copying conditions.
 
 * Changes in 0.2.0 (unreleased)
 
+** Important information for 0.0.x or 0.1.x users.
+The only externally visible (i.e., in the API/ABI-sense) effect of the
+internal changes made in this version is that GSASL_ENCODE and
+GSASL_DECODE have been renamed to, respectively, GSASL_ENCODE_INLINE
+and GSASL_DECODE_INLINE, and that the original functions have been
+modified to allocate the output buffer.  The GSASL_??CODE_INLINE
+functions were added to simplify upgrading existing applications.  We
+regret breaking backwards compatibility, but we felt it was necessary
+to fix this.
+
 ** The EXTERNAL mechanism now support authorization identities.
 
 ** Major internal overhaul.
@@ -11,17 +21,9 @@ This was done to get rid of all fixed size buffers, and to clean up
 the callback interface.  Now, all functions that return data of
 non-fixed size will allocate the output, and the caller is responsible
 for deallocating the data.  Further, the callback interface has been
-simplified, from having one callback function per data item, there is
+simplified, from having one callback function per data item.  There is
 now only one callback function, that receive an enumerated integer
 type indicating the requested operation.
-
-The only externally visible (i.e., in the API/ABI-sense) effect of
-this is that gsasl_encode and gsasl_decode have been renamed to,
-respectively, gsasl_encode_inline and gsasl_decode_inline, and that
-the original functions have been modified to allocate the output
-buffer.  The gsasl_??code_inline functions were added to simplify
-upgrading existing applications.  We regret breaking backwards
-compatibility, but we felt it was necessary to fix this.
 
 ** Update of generic crypto layer.
 
@@ -30,8 +32,8 @@ Implement the Gsasl_*_function interfaces, populate a Gsasl_mechanism
 struct with name of SASL mechanism and the function pointers, and call
 gsasl_register to register your new mechanism.  The library will now
 offer and use your mechanism.  The internal mechanisms use the same
-interface.  This is the first step toward a completely dl_open()
-dynamic approach.
+interface.  This is the first step toward a dynamic dl_open()
+approach.
 
 ** A few memory leaks fixed.
 
@@ -44,10 +46,9 @@ make sure you are not using undocumented symbols in Libgsasl.
 
 ** API and ABI modifications.
 The only non-backwards compatible change is for gsasl_encode and
-gsasl_decode.  The library is both source and binary backwards
-compatible otherwise.  As gsasl_encode and gsasl_decode has not been
-very stable so far, hopefully they are not yet widely used, which
-warranted this otherwise major change.  The details follow.
+gsasl_decode, see above.  The library is both source and binary
+backwards compatible otherwise, although some functions have been
+deprecated in favor of new functions.
 
 gsasl_encode, gsasl_decode: MODIFIED.  Now allocate the output parameter.
 gsasl_encode_inline, gsasl_decode_inline: ADD, DEPRECATED.
