@@ -21,6 +21,59 @@
 
 #include "internal.h"
 
+static const char *
+_gsasl_suggest_mechanism (Gsasl * ctx,
+			  _Gsasl_mechanism * mechs,
+			  size_t n_mechs,
+			  const char *mechlist,
+			  int (*start_mech_func) (Gsasl * ctx,
+						  const char *mech,
+						  Gsasl_session ** sctx))
+{
+  size_t mechlist_len, target_mech, i;
+
+  mechlist_len = mechlist ? strlen (mechlist) : 0;
+  target_mech = n_mechs; /* ~ no target */
+
+  for (i = 0;i < mechlist_len;)
+    {
+      size_t len;
+      
+      len = strspn (mechlist + i, GSASL_VALID_MECHANISM_CHARACTERS);
+      if (!len)
+	++i;
+      else 
+	{
+	  size_t j;
+	  
+	  /* assumption: the mechs array is sorted by preference 
+	   * from low security to high security */
+	  for (j = (target_mech < n_mechs ? target_mech + 1 : 0);
+	       j < n_mechs;
+	       ++j)
+	    {
+	      if (0 == strncmp (mechs[j].name, mechlist + i, len))
+		{
+		  Gsasl_session *sctx;
+		  
+		  if (GSASL_OK == start_mech_func (ctx, 
+						   mechs[j].name, 
+						   &sctx)) 
+		    {
+		      gsasl_finish (sctx);
+		      target_mech = j;
+		    }
+		 
+		  break;
+		}
+	    }
+	  i += len + 1;
+	}
+    }
+
+  return target_mech < n_mechs ? mechs[target_mech].name : NULL;
+}
+
 /**
  * gsasl_client_suggest_mechanism:
  * @ctx: libgsasl handle.
@@ -33,8 +86,11 @@
 const char *
 gsasl_client_suggest_mechanism (Gsasl * ctx, const char *mechlist)
 {
-  /* XXX parse mechlist */
-  return ctx->client_mechs[0].name;
+  return _gsasl_suggest_mechanism (ctx, 
+				   ctx->client_mechs, 
+				   ctx->n_client_mechs,
+				   mechlist, 
+				   gsasl_client_start); 
 }
 
 /**
@@ -49,6 +105,9 @@ gsasl_client_suggest_mechanism (Gsasl * ctx, const char *mechlist)
 const char *
 gsasl_server_suggest_mechanism (Gsasl * ctx, const char *mechlist)
 {
-  /* XXX parse mechlist */
-  return ctx->server_mechs[0].name;
+  return _gsasl_suggest_mechanism (ctx, 
+				   ctx->server_mechs, 
+				   ctx->n_server_mechs,
+				   mechlist, 
+				   gsasl_server_start);
 }
