@@ -20,6 +20,8 @@
  *
  */
 
+#include <string.h>
+
 /* Get prototype. */
 #include "digest.h"
 

@@ -20,6 +20,6 @@
 #ifndef GETPASSWORD_H
 # define GETPASSWORD_H
 
-extern char *getpassword (char *prompt);
+extern char *getpassword (const char *prompt);
 
 #endif /* GETPASSWORD_H */

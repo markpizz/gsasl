@@ -19,9 +19,6 @@
  *
  */
 
-#include <progname.h>
-#include <error.h>
-
 #include "internal.h"
 #include "callbacks.h"
 #include "imap.h"

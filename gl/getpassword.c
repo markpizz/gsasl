@@ -47,7 +47,7 @@ tty_set_echo (int echo)
 }
 
 char *
-getpassword (char *prompt)
+getpassword (const char *prompt)
 {
   char buf[BUFSIZ];
   char *p;
