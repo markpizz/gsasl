@@ -42,8 +42,6 @@ gsasl_init (Gsasl ** ctx)
 {
   int i;
 
-  bindtextdomain (PACKAGE, LOCALEDIR);
-
   if (_gsasl_crypto_init () != GSASL_OK)
     return GSASL_CRYPTO_ERROR;
 
