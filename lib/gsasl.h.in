@@ -24,6 +24,7 @@
 
 #include <stdio.h>  /* FILE */
 #include <stddef.h> /* size_t */
+#include <unistd.h> /* ssize_t */
 
 #ifdef __cplusplus
 extern "C" {
@@ -119,6 +120,11 @@ typedef struct Gsasl_session_ctx Gsasl_session_ctx;
 extern int gsasl_init (Gsasl_ctx **ctx);
 extern void gsasl_done (Gsasl_ctx *ctx);
 extern const char *gsasl_check_version (const char *req_version);
+
+/* Internationalized string processing: stringprep.c */
+extern char *gsasl_stringprep_nfkc (const char *in, ssize_t len);
+extern char *gsasl_stringprep_saslprep (const char *in, int *stringprep_rc);
+extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc);
 
 /* Callback handling: callback.c */
 extern void gsasl_application_data_set (Gsasl_ctx *ctx,

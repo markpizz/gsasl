@@ -137,7 +137,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
       res = cb_password (sctx, output, &len);
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	return res;
-      tmp = stringprep_utf8_nfkc_normalize (output, len);
+      tmp = gsasl_stringprep_nfkc (output, len);
       if (tmp == NULL)
 	return GSASL_UNICODE_NORMALIZATION_ERROR;
       res = gcry_md_setkey (md5h, tmp, strlen (tmp));
@@ -155,7 +155,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
       res = cb_authentication_id (sctx, output, &len);
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	return res;
-      tmp = stringprep_utf8_nfkc_normalize (output, len);
+      tmp = gsasl_stringprep_nfkc (output, len);
       if (tmp == NULL)
 	return GSASL_UNICODE_NORMALIZATION_ERROR;
       if (strlen (tmp) + strlen (" ") + 2 * hash_len >= *output_len)
@@ -357,7 +357,7 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
       res = cb_retrieve (sctx, username, NULL, NULL, key, &keylen);
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	goto done;
-      normkey = stringprep_utf8_nfkc_normalize (key, keylen);
+      normkey = gsasl_stringprep_nfkc (key, keylen);
       if (normkey == NULL)
 	{
 	  res = GSASL_UNICODE_NORMALIZATION_ERROR;

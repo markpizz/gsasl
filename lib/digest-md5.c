@@ -1067,7 +1067,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	  res = cb_password (sctx, output + outlen, &len);
 	  if (res != GSASL_OK)
 	    goto done;
-	  tmp = stringprep_utf8_nfkc_normalize (output + outlen, len);
+	  tmp = gsasl_stringprep_nfkc (output + outlen, len);
 	  if (tmp == NULL)
 	    {
 	      res = GSASL_UNICODE_NORMALIZATION_ERROR;
@@ -2000,7 +2000,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 		free (key);
 		goto done;
 	      }
-	    normkey = stringprep_utf8_nfkc_normalize (key, keylen);
+	    normkey = gsasl_stringprep_nfkc (key, keylen);
 	    free (key);
 	    if (normkey == NULL)
 	      {
