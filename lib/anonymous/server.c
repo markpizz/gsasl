@@ -36,9 +36,12 @@ _gsasl_anonymous_server_step (Gsasl_session * sctx,
   *output = NULL;
   *output_len = 0;
 
-  /* token       = 1*255TCHAR */
-  if (input_len == 0)
-    return GSASL_NEEDS_MORE;
+  /* token       = 1*255TCHAR
+     The <token> production is restricted to 255 UTF-8 encoded Unicode
+     characters.   As the encoding of a characters uses a sequence of 1
+     to 4 octets, a token may be long as 1020 octets. */
+  if (input && (input_len == 0 || input_len > 1020))
+    return GSASL_MECHANISM_PARSE_ERROR;
 
   /* FIXME: Validate that input is UTF-8. */
 
