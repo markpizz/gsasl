@@ -248,7 +248,7 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
   char *username = NULL;
   char *key = NULL;
   Gsasl_ctx *ctx;
-  int res;
+  int res = GSASL_OK;
 
   if (input_len == 0)
     {
@@ -338,9 +338,10 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
 
       res = GSASL_OK;
       for (i = 0; i < MD5LEN; i++)
-	if ((input[input_len - MD5LEN * 2 + 2 * i + 1] != HEXCHAR (hash[i]))
-	    || (input[input_len - MD5LEN * 2 + 2 * i + 0] !=
-		HEXCHAR (hash[i] >> 4)))
+	if ((input[input_len - MD5LEN * 2 + 2 * i + 1] !=
+	     HEXCHAR (hash[i])) ||
+	    (input[input_len - MD5LEN * 2 + 2 * i + 0] !=
+	     HEXCHAR (hash[i] >> 4)))
 	  res = GSASL_AUTHENTICATION_ERROR;
 
       free (hash);
@@ -350,8 +351,6 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
   if (key)
     free (key);
   *output_len = 0;
-
-  res = GSASL_OK;
 
 done:
   return res;
