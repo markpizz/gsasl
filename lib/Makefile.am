@@ -76,11 +76,11 @@ libgsasl_la_SOURCES += digest-md5/digest-md5.h digest-md5/digest-md5.c
 endif
 
 if NTLM
-libgsasl_la_SOURCES += ntlm/ntlm.h ntlm/ntlm.c
+libgsasl_la_SOURCES += ntlm/x-ntlm.h ntlm/ntlm.c
 endif
 
 if GSSAPI
-libgsasl_la_SOURCES += gssapi/gssapi.h gssapi/gssapi.c
+libgsasl_la_SOURCES += gssapi/x-gssapi.h gssapi/gssapi.c
 endif			
 
 if SECURID
