@@ -188,7 +188,8 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 
 	subopts = zinput;
 	while (*subopts != '\0')
-	  switch (_gsasl_getsubopt (&subopts, digest_challenge_opts, &value))
+	  switch (digest_md5_getsubopt (&subopts, digest_challenge_opts,
+					&value))
 	    {
 	    case CHALLENGE_REALM:
 	      if (nrealm == 0)
@@ -221,7 +222,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 		state->qop = 0;
 		subsubopts = value;
 		while (*subsubopts != '\0')
-		  switch (_gsasl_getsubopt (&subsubopts, qop_opts, &val))
+		  switch (digest_md5_getsubopt (&subsubopts, qop_opts, &val))
 		    {
 		    case QOP_AUTH_OPTION:
 		      state->qop |= GSASL_QOP_AUTH;
@@ -300,7 +301,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 
 		subsubopts = value;
 		while (*subsubopts != '\0')
-		  switch (_gsasl_getsubopt (&subsubopts, cipher_opts, &val))
+		  switch (digest_md5_getsubopt (&subsubopts, cipher_opts, &val))
 		    {
 		    case CIPHER_DES_OPTION:
 		      state->cipher |= GSASL_CIPHER_DES;
@@ -754,8 +755,8 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	res = GSASL_AUTHENTICATION_ERROR;
 	subopts = zinput;
 	while (*subopts != '\0')
-	  switch (_gsasl_getsubopt (&subopts,
-				    digest_responseauth_opts, &value))
+	  switch (digest_md5_getsubopt (&subopts,
+					digest_responseauth_opts, &value))
 	    {
 	    case RESPONSEAUTH_RSPAUTH:
 	      res = _gsasl_digest (output + outlen, state->secret,

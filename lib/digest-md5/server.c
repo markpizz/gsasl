@@ -399,7 +399,8 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 
 	subopts = zinput;
 	while (*subopts != '\0')
-	  switch (_gsasl_getsubopt (&subopts, digest_response_opts, &value))
+	  switch (digest_md5_getsubopt (&subopts, digest_response_opts,
+					&value))
 	    {
 	    case RESPONSE_USERNAME:
 	      if (username != NULL)
