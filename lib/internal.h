@@ -31,16 +31,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <ctype.h>
-#endif
-
-#if HAVE_STRING_H
-# if !STDC_HEADERS && HAVE_MEMORY_H
-#  include <memory.h>
-# endif
-# include <string.h>
-#endif
-#if HAVE_STRINGS_H
-# include <strings.h>
+#include <string.h>
 #endif
 
 #include <stringprep.h>
