@@ -2,7 +2,7 @@ GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
 Copyright (C) 2002, 2003 Simon Josefsson
 See the end for copying conditions.
 
-* Changes in 0.0.6 (unreleased)
+* Changes in 0.0.6 (released 2003-03-17)
 
 ** Gettext not included.
 Due to some conflicts between libtool and gettext, if you want i18n on
