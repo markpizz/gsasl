@@ -13,6 +13,8 @@ The previous libgcrypt API is no longer supported.
 If libgcrypt 1.1.42 or later is not found, it uses a minimalistic
 cryptographic library based on Nettle, from crypto/.
 
+** Listing supported server mechanisms with gsasl_server_mechlist work.
+
 ** API and ABI modifications.
 GSASL_CRYPTO_ERROR: ADD, alias for GSASL_LIBGCRYPT_ERROR.
 GSASL_LIBGCRYPT_ERROR: DEPRECATED.  Will be removed in the future.
