@@ -27,6 +27,84 @@
 /* Get prototypes. */
 #include "validate.h"
 
+/* Get strcmp, strlen. */
+#include <string.h>
+
+int
+digest_md5_validate_challenge (digest_md5_challenge *c)
+{
+  /* This directive is required and MUST appear exactly once; if
+     not present, or if multiple instances are present, the
+     client should abort the authentication exchange. */
+  if (!c->nonce)
+    return -1;
+
+  /* This directive must be present exactly once if "auth-conf" is
+     offered in the "qop-options" directive */
+  if (c->ciphers && !(c->qops & DIGEST_MD5_QOP_AUTH_CONF))
+    return -1;
+  if (!c->ciphers && (c->qops & DIGEST_MD5_QOP_AUTH_CONF))
+    return -1;
+
+  return 0;
+}
+
+int
+digest_md5_validate_response (digest_md5_response *r)
+{
+  /* This directive is required and MUST be present exactly
+     once; otherwise, authentication fails. */
+  if (!r->username)
+    return -1;
+
+  /* This directive is required and MUST be present exactly
+     once; otherwise, authentication fails. */
+  if (!r->nonce)
+    return -1;
+
+  /* This directive is required and MUST be present exactly once;
+     otherwise, authentication fails. */
+  if (!r->cnonce)
+    return -1;
+
+  /* This directive is required and MUST be present exactly once;
+     otherwise, authentication fails. */
+  if (!r->nc)
+    return -1;
+
+  /* This directive is required and MUST be present exactly
+     once; if multiple instances are present, the client MUST
+     abort the authentication exchange. */
+  if (!r->digesturi)
+    return -1;
+
+  /* This directive is required and MUST be present exactly
+     once; otherwise, authentication fails. */
+  if (!*r->response)
+    return -1;
+
+  if (strlen (r->response) != DIGEST_MD5_RESPONSE_LENGTH)
+    return -1;
+
+  /* This directive MUST appear exactly once if "auth-conf" is
+     negotiated; if required and not present, authentication fails. */
+  if (r->qop == DIGEST_MD5_QOP_AUTH_CONF && !r->cipher)
+    return -1;
+  if (r->qop != DIGEST_MD5_QOP_AUTH_CONF && r->cipher)
+    return -1;
+
+  return 0;
+}
+
+int
+digest_md5_validate_finish (digest_md5_finish *f)
+{
+  if (!f->rspauth)
+    return -1;
+
+  return 0;
+}
+
 int
 digest_md5_validate (digest_md5_challenge *c, digest_md5_response *r)
 {

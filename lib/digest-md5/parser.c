@@ -275,7 +275,17 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 	/* if the client recognizes no cipher, it MUST behave as if
 	   "auth-conf" qop option wasn't provided by the server. */
 	if (!out->ciphers)
-	  disable_qop_auth_conf = 1;
+	  {
+	    disable_qop_auth_conf = 1;
+	    if (out->qops)
+	      {
+		/* if the client recognizes no option, it MUST abort the
+		   authentication exchange. */
+		out->qops &= ~DIGEST_MD5_QOP_AUTH_CONF;
+		if (!out->qops)
+		  return -1;
+	      }
+	  }
 	break;
 
       default:
@@ -283,25 +293,14 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 	break;
       }
 
-  /* Validate that we have the mandatory fields. */
-
-  /* This directive is required and MUST appear exactly once; if
-     not present, or if multiple instances are present, the
-     client should abort the authentication exchange. */
-  if (!out->nonce)
-    return -1;
-
   /* This directive is required and MUST appear exactly once; if
      not present, or if multiple instances are present, the
      client SHOULD abort the authentication exchange. */
   if (!done_algorithm)
     return -1;
 
-  /* This directive must be present exactly once if "auth-conf" is
-     offered in the "qop-options" directive */
-  if (out->ciphers && !(out->qops & DIGEST_MD5_QOP_AUTH_CONF))
-    return -1;
-  if (!out->ciphers && (out->qops & DIGEST_MD5_QOP_AUTH_CONF))
+  /* Validate that we have the mandatory fields. */
+  if (digest_md5_validate_challenge (out) != 0)
     return -1;
 
   return 0;
@@ -439,12 +438,12 @@ parse_response (char *response, digest_md5_response *out)
       case RESPONSE_RESPONSE:
 	/* This directive is required and MUST be present exactly
 	   once; otherwise, authentication fails. */
-	if (out->response)
+	if (*out->response)
 	  return -1;
-	/* FIXME: sub-parse. */
-	out->response = strdup (value);
-	if (!out->response)
+	/* A string of 32 hex digits */
+	if (strlen (value) != DIGEST_MD5_RESPONSE_LENGTH)
 	  return -1;
+	strcpy (out->response, value);
 	break;
 
       case RESPONSE_MAXBUF:
@@ -507,43 +506,7 @@ parse_response (char *response, digest_md5_response *out)
       }
 
   /* Validate that we have the mandatory fields. */
-
-  /* This directive is required and MUST be present exactly
-     once; otherwise, authentication fails. */
-  if (!out->username)
-    return -1;
-
-  /* This directive is required and MUST be present exactly
-     once; otherwise, authentication fails. */
-  if (!out->nonce)
-    return -1;
-
-  /* This directive is required and MUST be present exactly once;
-     otherwise, authentication fails. */
-  if (!out->cnonce)
-    return -1;
-
-  /* This directive is required and MUST be present exactly once;
-     otherwise, authentication fails. */
-  if (!out->nc)
-    return -1;
-
-  /* This directive is required and MUST be present exactly
-     once; if multiple instances are present, the client MUST
-     abort the authentication exchange. */
-  if (!out->digesturi)
-    return -1;
-
-  /* This directive is required and MUST be present exactly
-     once; otherwise, authentication fails. */
-  if (!out->response)
-    return -1;
-
-  /* This directive MUST appear exactly once if "auth-conf" is
-     negotiated; if required and not present, authentication fails. */
-  if (out->qop == DIGEST_MD5_QOP_AUTH_CONF && !out->cipher)
-    return -1;
-  if (out->qop != DIGEST_MD5_QOP_AUTH_CONF && out->cipher)
+  if (digest_md5_validate_response (out) != 0)
     return -1;
 
   return 0;
@@ -586,7 +549,8 @@ parse_finish (char *finish, digest_md5_finish *out)
 	break;
       }
 
-  if (!out->rspauth)
+  /* Validate that we have the mandatory fields. */
+  if (digest_md5_validate_finish (out) != 0)
     return -1;
 
   return 0;
