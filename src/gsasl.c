@@ -70,7 +70,8 @@ enum
   OPTION_ENABLE_CRAM_MD5_VALIDATE,
   OPTION_DISABLE_CLEARTEXT_VALIDATE,
   OPTION_QOP,
-  OPTION_APPLICATION_DATA
+  OPTION_APPLICATION_DATA,
+  OPTION_NO_CLIENT_FIRST
 };
 
 const char *argp_program_version = "gsasl (" PACKAGE_STRING ")";
@@ -97,6 +98,7 @@ int disable_cleartext_validate;
 int maxbuf;
 int qop;
 int application_data;
+int no_client_first;
 
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
@@ -169,6 +171,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
       disable_cleartext_validate = 1;
       break;
 
+    case OPTION_NO_CLIENT_FIRST:
+      no_client_first = 1;
+      break;
+
     case OPTION_QOP:
       if (strcmp (arg, "auth") == 0)
 	qop = GSASL_QOP_AUTH;
@@ -230,7 +236,8 @@ static struct argp_option options[] = {
   {0, 0, 0, 0, "SASL options (prompted for if unspecified):", 500},
 
   {"anonymous-token", 'n', "STRING", 0,
-   "Token for anonymous authentication (usually mail address)."},
+   "Token for anonymous authentication, usually mail address "
+   "(ANONYMOUS only)."},
 
   {"authentication-id", 'a', "STRING", 0,
    "Identity of credential owner."},
@@ -242,6 +249,9 @@ static struct argp_option options[] = {
    "After authentication, read data from stdin and run it through the "
    "mechanism's security layer and print it base64 encoded to stdout. "
    "The default is to terminate after authentication."},
+
+  {"no-client-first", OPTION_NO_CLIENT_FIRST, 0, 0,
+   "Disallow client to send data first (client only)."},
 
   {"password", 'p', "STRING", 0,
    "Password for authentication (insecure for non-testing purposes)."},
@@ -390,8 +400,7 @@ main (int argc, char *argv[])
       else if (mode == 'c')
 	{
 	  if (!silent)
-	    fprintf (stderr,
-		     _("Input SASL mechanism supported by server:\n"));
+	    fprintf (stderr, _("Input SASL mechanism supported by server:\n"));
 	  input[0] = '\0';
 	  fgets (input, MAX_LINE_LENGTH, stdin);
 
@@ -435,6 +444,11 @@ main (int argc, char *argv[])
       input[0] = '\0';
       output[0] = '\0';
       output_len = sizeof (output);
+      if (mode == 'c' && no_client_first)
+	{
+	  res = GSASL_NEEDS_MORE;
+	  goto no_client_first;
+	}
       do
 	{
 	  if (mode == 'c')
@@ -453,6 +467,7 @@ main (int argc, char *argv[])
 	  if (res != GSASL_NEEDS_MORE)
 	    break;
 
+	no_client_first:
 	  if (!silent)
 	    fprintf (stderr, _("Enter base64 authentication data from %s "
 			       "(press RET if none):\n"),
