@@ -38,3 +38,7 @@ indent:
 	(cd lib && make indent)
 	(cd src && make indent)
 	(cd tests && make indent)
+
+sign: $(distdir).tar.gz
+	gpg -a --sign --detach $(distdir).tar.gz
+	gpg --verify $(distdir).tar.gz.asc
