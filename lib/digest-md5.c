@@ -287,9 +287,13 @@ _gsasl_getsubopt (optionp, tokens, valuep)
 	  (*valuep)++;
 
 	if (*endp != '\0')
-	  *endp++ = '\0';
-	*optionp = endp;
-	endp -= 2;
+	  {
+	    *endp = '\0';
+	    *optionp = endp + 1;
+	  }
+	else
+	  *optionp = endp;
+	endp--;
 	while (*endp == ' ' ||
 	       *endp == '\t' ||
 	       *endp == '\r' || *endp == '\n' || *endp == '"')
