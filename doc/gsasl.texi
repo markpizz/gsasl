@@ -1391,120 +1391,164 @@ should be permitted to log in or not.
 @node PLAIN
 @section The PLAIN mechanism
 
-The PLAIN mechanism uses username (authentication identity and
-authorization identity) and password to authenticate users.  Two ways
-of validating the user is provided, either by having the SASL
-mechanism retrieve the raw password from the application and perform
-the validation internally, or by calling the application with
-authentication identity, authorization identity and password and let
-it decide.  If both the validating and the retrieving callbacks are
-specified by the application, the validating one will be used.
+The PLAIN mechanism uses username and password to authenticate users.
+Two user names are relevant.  The first, the authentication identity,
+indicate the credential holder, i.e., whom the provided password
+belongs to.  The second, the authorization identity, is typically
+empty, to indicate that the user requests to log on to the server as
+herself.  However, if the authorization identity is not empty, the
+server should decide whether the authenticated user may log on as the
+authorization identity.  Normally, only ``super-user'' accounts such
+as @samp{admin} or similar should be allowed this.
 
-This mechanism is only enabled in the client and server if you
-implement the respectively callbacks below and set them in the library
-(@pxref{Callback Functions}).
+In the client, this mechanism is always enabled, and require the
+@code{GSASL_AUTHID} and @code{GSASL_PASSWORD} properties.  If set,
+@code{GSASL_AUTHZID} will also be used.
+
+In the server, the mechanism is always enabled.  Two approaches to
+authenticate and authorize the client is provided.
+
+In the first approach, the server side of the mechanism will invoke
+the @code{GSASL_VALIDATE_SIMPLE} callback property to decide whether
+the client should be accepted or not.  The callback may inspect the
+@code{GSASL_AUTHID}, @code{GSASL_AUTHID}, and @code{GSASL_PASSWORD}
+properties.
+
+If the first approach fails (because, e.g., your callback return
+@samp{GSASL_NO_CALLBACK}) the mechanism will continue to query the
+application for a password, via the @code{GSASL_PASSWORD} property.
+The password is then normalized using @acronym{SASLprep} and compared
+to the client credential.
+
+Which approach to use?  If the passwords in your user database are
+stored in a prepared form (using @acronym{SASLPrep}), the first
+approach will be faster.  If you do not have prepared passwords
+available, you must use the second approach, to make sure the password
+has been prepared properly.
 
 @node LOGIN
 @section The LOGIN mechanism
 
-The LOGIN mechanism uses username (authorization identity only) and
-password to authenticate users.  Two ways of validating the user is
-provided, either by having the SASL mechanism retrieve the raw
-password from the application and perform the validation internally,
-or by calling the application with authorization identity and password
-and let it decide.  If both the validating and the retrieving
-callbacks are specified by the application, the validating one will be
-used.
+The LOGIN mechanism is a non-standard mechanism, and is similar to the
+PLAIN mechanism except that LOGIN lack the support for authorization
+identities.  Always use PLAIN instead of LOGIN in new applications.
 
-This mechanism is only enabled in the client and server if you
-implement the respectively callbacks below and set them in the library
-(@pxref{Callback Functions}).
+The callback behaviour is the same as for PLAIN, except that
+@code{GSASL_AUTHZID} is not used nor required, and that the server do
+not normalize the password using @acronym{SASLprep}.
 
 @node CRAM-MD5
 @section The CRAM-MD5 mechanism
 
-The CRAM-MD5 mechanism uses username (authorization identity only) and
-password to authenticate users.  Only a hashed password is transfered,
-which means that you cannot use normal policy deciding authentication
-systems such as PAM which do not support extraction of passwords.  Two
-ways of validating the user is provided, either by having the SASL
-mechanism retrieve the raw password from the application and perform
-the validation internally, or by calling the application with the
-CRAM-MD5 challenge and response and let it decide.  If both the
-validating and the retrieving callbacks are specified by the
-application, the validating one will be used.
+The CRAM-MD5 is a widely used, but officially deprecated (apparently
+in favor of DIGEST-MD5), challenge-response mechanism that transfer
+hashed passwords instead of clear text passwords.  For insecure
+channels (e.g., when @acronym{TLS} is not used), it is safer than
+PLAIN.  The CRAM-MD5 mechanism do not support authorization
+identities; making the relationship between PLAIN and LOGIN similar to
+the relationship between DIGEST-MD5 and CRAM-MD5.
 
-While not documented in the original CRAM-MD5 specification, this
-implementation normalizes the username and the authorization identity
-using the Unicode 3.2 NFKC form according to the proposed update of
-CRAM-MD5.
+The disadvantage with hashed passwords is that the server cannot use
+normal authentication infrastructures such as PAM, because the server
+must have access to the correct password in order to validate an
+authentication attempt.
 
-This mechanism is only enabled in the client and server if you
-implement the respectively callbacks below and set them in the library
-(@pxref{Callback Functions}).
+In the client, this mechanism is always enabled, and require the
+@code{GSASL_AUTHID} and @code{GSASL_PASSWORD} properties.
+
+In the server, the mechanism will invoke the @code{GSASL_PASSWORD}
+callback, which may use the @code{GSASL_AUTHID} property to determine
+which users' password should be used.  The server will then normalize
+the password, and compare the client response with a known correct
+computed response, and accept the user accordingly.
+
+@xref{Server-side use of SASLPrep in CRAM-MD5}, for a clarification on
+the interpretation of the CRAM-MD5 specification that this
+implementation rely on.
 
 @node DIGEST-MD5
 @section The DIGEST-MD5 mechanism
 
-The DIGEST-MD5 mechanism is based on the same cryptographic operation
-as CRAM-MD5 but supports more features, such as an authorization
-identity (proxy authentication) and cryptographic protection of data.
-Like CRAM-MD5, only a hashed password is transfered, which means that
-you cannot use e.g. PAM as a backend since it does not support
-extraction of passwords.  Two ways of validating the user is provided,
-either by having the SASL mechanism retrieve the raw password from the
-application and perform the validation internally, or by having the
-SASL mechanism retrieve a hashed version of the secret.  The advantage
-of using the latter method is that you do not need to store plain text
-user passwords on the server, but rather a one-way hash of the
-username, realm and password.  Still, this one-way hash of the secret
-should be handled the same way as a clear text password.  The
-advantage is that if someone steals the one-way hash she cannot
-immediately read users' password.  If both the callbacks are specified
-by the application, the one which retrieve the secret hash will be
-used.
+The DIGEST-MD5 mechanism is based on the same cryptographic primitive
+as CRAM-MD5 (namely the challenge-response HMAC-MD5 system), but
+supports more features.  For example, authorization identities and
+data integrity and privacy protection are supported.  Like CRAM-MD5,
+only a hashed password is transfered.  Consequently, DIGEST-MD5 need
+access to (a possibly hashed) form of the correct password to verify
+the client response, which make it impossible to use, e.g.,
+@acronym{PAM} on the server side.
 
-While not documented in the original DIGEST-MD5 specification, this
-implementation normalizes the username and the authentication identity
-using the Unicode 3.2 NFKC form according to the proposed update of
-DIGEST-MD5.
+In the client, this mechanism is always enabled, and require the
+@code{GSASL_AUTHID} and @code{GSASL_PASSWORD} properties.  If set,
+@code{GSASL_AUTHZID} will also be used.
 
-This mechanism is only enabled in the client and server if you
-implement the respectively callbacks below and set them in the library
-(@pxref{Callback Functions}).
+In the server, the mechanism will invoke the @code{GSASL_PASSWORD}
+callback, which may use the @code{GSASL_AUTHID} property to determine
+which users' password should be used.  The server will then normalize
+the password, and compare the client response with a known correct
+computed response, and accept the user accordingly.
+
+XXX: explain more about quality of service, maximum buffer size, etc.
 
 @node NTLM
 @section The NTLM mechanism
 
-The NTLM mechanism uses username (authorization identity only) and
-password to authenticate users.  Only the client side is implemented.
-This mechanism is only enabled in the client if you implement the
-callbacks below and set them in the library (@pxref{Callback
-Functions}).
+The NTLM is a non-standard mechanism.  Do not use it in new
+applications, and do not expect it to be secure.  Currently only the
+client side is supported.
+
+In the client, this mechanism is always enabled, and require the
+@code{GSASL_AUTHID} and @code{GSASL_PASSWORD} properties.
 
 @node SECURID
 @section The SECURID mechanism
 
 The SECURID mechanism uses authentication and authorization identity
-and a passcode from a hardware token to authenticate users.  This
-mechanism is only enabled in the client and server if you implement
-the respectively callbacks below and set them in the library
-(@pxref{Callback Functions}).
+together with a passcode from a hardware token to authenticate users.
+
+In the client, this mechanism is always enabled, and require the
+@code{GSASL_AUTHID} and @code{GSASL_PASSCODE} properties.  If set,
+@code{GSASL_AUTHZID} will also be used.  If the server requests it,
+the @code{GSASL_PIN} property is also required, and its callback may
+inspect the @code{GSASL_SUGGESTED_PIN} property to discover a
+server-provided PIN to use.
+
+In the server, this mechanism will invoke the
+@code{GSASL_VALIDATE_SECURID} callback.  The callback may inspect the
+@code{GSASL_AUTHID}, @code{GSASL_AUTHZID}, and @code{GSASL_PASSCODE}
+properties.  The callback can return
+@code{GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE} to ask for
+another additional passcode from the client.  The callback can return
+@code{GSASL_SECURID_SERVER_NEED_NEW_PIN} to ask for a new PIN code
+from the client, in which case it may also set the
+@code{GSASL_SUGGESTED_PIN} property to indicate a recommended new PIN.
+If the callbacks has invoked again, after having returned
+@code{GSASL_SECURID_SERVER_NEED_NEW_PIN}, it may also inspect the
+@code{GSASL_PIN} property, in addition to the other properties, to
+find out the client selected PIN code.
 
 @node GSSAPI
 @section The GSSAPI mechanism
 
-The GSSAPI mechanism uses a framework similar to SASL for
-authenticating the user.  While GSSAPI can be implemented using many
-techniques, libgsasl currently links with GSS, Heimdal or MIT Kerberos
-and is limited to Kerberos 5 only.  The GSSAPI client mechanism
-assumes the user acquired credentials (kerberos tickets) before it is
-invoked (it will fail if this has not been done).  The client need
-(via callbacks) the name of the service and the name of the user.  The
-server needs the name of the service and a function that authorizes a
-user.  This mechanism is only enabled in the client and server if you
-implement the respectively callbacks below and set them in the library
-(@pxref{Callback Functions}).
+GSS-API is a framework, similar to SASL, for authentication.  The
+GSSAPI mechanism only support the Kerberos 5 GSS-API mechanism,
+though.  (A new SASL mechanism to support non-Kerberos 5 GSS-API
+mechanisms may be supported in the future.)
+
+In the client, the mechanism is enabled only if the user has acquired
+credentials (i.e., a ticket granting ticket), and require the
+@code{GSASL_AUTHID}, @code{GSASL_SERVICE}, and @code{GSASL_HOSTNAME}
+properties.
+
+In the server, the mechanism require the @code{GSASL_SERVICE}, and
+@code{GSASL_HOSTNAME} properties, and will invoke the
+@code{GSASL_VALIDATE_GSSAPI} callback in order to validate the user.
+The callback may inspect the @code{GSASL_AUTHZID} and
+@code{GSASL_GSSAPI_DISPLAY_NAME} properties to decide whether to
+authorize the user.  Note that authentication is performed by the
+GSS-API library.
+
+XXX: explain more about quality of service, maximum buffer size, etc.
 
 @node KERBEROS_V5
 @section The KERBEROS_V5 mechanism
@@ -1518,9 +1562,7 @@ is supported.
 In the non-infrastructure mode, it works as a superset of most
 features provided by PLAIN, CRAM-MD5, DIGEST-MD5 and GSSAPI while at
 the same time building on what is believed to be proven technology
-(the RFC 1510 network security system).  The non-infrastructure mode
-is chosen when the Gsasl_client_callback_authorization_id callback
-prototype is implemented by the application.  In non-infrastructure
+(the RFC 1510 network security system).  In the non-infrastructure
 mode, the client must specify (via callbacks) the name of the user,
 and optionally the server name and realm.  The server must be able to
 retrieve passwords given the name of the user.
@@ -1537,6 +1579,8 @@ AP-REQ/AP-REP exchange.  In infrastructure mode (proxied or
 otherwise), the client nor server need to implement any callbacks
 (this will likely change later, to allow a server to authorize users,
 similar to the GSSAPI callback).
+
+XXX: update when implementation has matured
 
 @c **********************************************************
 @c *****************  Global Functions  *********************
@@ -1839,6 +1883,15 @@ These are some standard parameters.
 @node Protocol Clarifications
 @appendix Protocol Clarifications
 
+This appendix contain clarification to various SASL specification that
+we felt were necessary to include, if for nothing else it may serve as
+a guide for other implementors that worry about the same issues.
+
+@menu
+* Server-side use of SASLPrep in CRAM-MD5::
+@end menu
+
+@node Server-side use of SASLPrep in CRAM-MD5
 @section Server-side use of SASLPrep in CRAM-MD5
 
 The specification, as of draft-ietf-sasl-crammd5-02, is silent on
