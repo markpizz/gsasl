@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Changes in 0.1.5 (unreleased)
 
+** The EXTERNAL mechanism now support authorization identities.
+
 ** Update of generic crypto layer.
 
 ** Translation fixes.
