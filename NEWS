@@ -3,6 +3,10 @@ See the end for copying conditions.
 
 Please send libgsasl bug reports to bug-libgsasl@josefsson.org.
 
+* Changes in 0.0.4
+
+** License changed to GPL.
+
 ** Libgsasl is an official GNU project.
 
 * Changes in 0.0.3 (released 2002-12-05)

@@ -76,9 +76,8 @@ Free Software Foundation raise funds for GNU development.''
 
 Appendices
 
+* Copying::                     How you can copy and share GNU SASL.
 * Copying This Manual::         How you can copy and share this manual.
-* Library Copying::             How you can copy and share the library.
-* Copying::                     How you can copy and share the tools.
 
 Indices
 
@@ -145,8 +144,8 @@ a similar job.
 
 @table @asis
 @item It's Free Software
-Anybody can use, modify, and redistribute it under the terms of the GNU
-Lesser General Public License (@pxref{Library Copying}).
+Anybody can use, modify, and redistribute it under the terms of the
+GNU General Public License (@pxref{Copying}).
 
 @item It's thread-safe
 No global variables are used and multiple library handles and session
@@ -1041,8 +1040,6 @@ The GSSAPI mechanism uses Kerberos written by MIT.
 @end menu
 
 @include fdl.texi
-
-@include lgpl.texi
 
 @include gpl.texi
 

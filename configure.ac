@@ -1,22 +1,23 @@
 dnl Process this file with autoconf to produce a configure script.
 
-dnl Copyright (C) 2002 Simon Josefsson.
-dnl
-dnl This file is part of GNU SASL.
-dnl
-dnl GNU SASL is free software; you can redistribute it and/or modify
-dnl it under the terms of the GNU Lesser General Public License as
-dnl published by the Free Software Foundation; either version 2.1 of
-dnl the License, or (at your option) any later version.
-dnl
-dnl GNU SASL is distributed in the hope that it will be useful,
-dnl but WITHOUT ANY WARRANTY; without even the implied warranty of
-dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-dnl GNU Lesser General Public License for more details.
-dnl
-dnl You should have received a copy of the GNU Lesser General Public
-dnl License along with GNU SASL; if not, write to the Free Software
-dnl Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
+# Copyright (C) 2002 Simon Josefsson.
+#
+# This file is part of GNU SASL.
+#
+# GNU SASL is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# GNU SASL is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with GNU SASL; see the file COPYING.  If not, write to
+# the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+# Boston, MA 02111-1307, USA.
 
 AC_PREREQ(2.50)
 AC_INIT(libgsasl, 0.0.4, bug-libgsasl@josefsson.org)

@@ -17,6 +17,8 @@ authorization infrastructure used, as it utilizes callbacks into the
 application to decide whether a user is authorized or not.  GNU SASL
 has been ported to many Unix flavors.
 
+GNU SASL is licensed under the GNU Public License.
+
 The project page of the library is available at:
 http://www.josefsson.org/libgsasl/
 
