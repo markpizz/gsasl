@@ -891,7 +891,7 @@ callback_username (Gsasl_session_ctx *ctx,
     @{
       fprintf(stdout, "Enter username: ");
       fgets(username, BUFFERSIZE, stdin);
-      *outlen = strlen(BUFFERSIZE);
+      *outlen = strlen(username);
     @}
 
   return GSASL_OK;
@@ -916,7 +916,7 @@ callback_password (Gsasl_session_ctx *ctx,
     @{
       fprintf(stdout, "Enter password: ");
       fgets(password, BUFFERSIZE, stdin);
-      *outlen = strlen(BUFFERSIZE);
+      *outlen = strlen(password);
     @}
 
   return GSASL_OK;
