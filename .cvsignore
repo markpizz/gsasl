@@ -17,7 +17,7 @@ conftest.c
 depcomp
 install-sh
 intl
-gsasl-*
+libgsasl-*
 libgsasl.pc
 libtool
 ltmain.sh
