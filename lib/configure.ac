@@ -326,7 +326,7 @@ AX_CREATE_STDINT_H(crypto/nettle-types.h, sys/types.h)
 
 # We are done
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
-		gl/Makefile crypto/Makefile src/gsasl.h \
+		gl/Makefile crypto/Makefile src/gsasl.h src/Makefile \
 		anonymous/Makefile cram-md5/Makefile \
 		digest-md5/Makefile external/Makefile \
 		gssapi/Makefile kerberos_v5/Makefile \
