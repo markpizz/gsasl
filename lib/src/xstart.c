@@ -22,7 +22,7 @@
 #include "internal.h"
 
 static Gsasl_mechanism *
-_gsasl_find_mechanism (const char *mech,
+find_mechanism (const char *mech,
 		       size_t n_mechs, Gsasl_mechanism * mechs)
 {
   size_t i;
@@ -38,7 +38,7 @@ _gsasl_find_mechanism (const char *mech,
 }
 
 static int
-_gsasl_setup (Gsasl * ctx,
+setup (Gsasl * ctx,
 	      const char *mech,
 	      Gsasl_session * sctx,
 	      size_t n_mechs, Gsasl_mechanism * mechs, int clientp)
@@ -46,7 +46,7 @@ _gsasl_setup (Gsasl * ctx,
   Gsasl_mechanism *mechptr = NULL;
   int res;
 
-  mechptr = _gsasl_find_mechanism (mech, n_mechs, mechs);
+  mechptr = find_mechanism (mech, n_mechs, mechs);
   if (mechptr == NULL)
     return GSASL_UNKNOWN_MECHANISM;
 
@@ -75,7 +75,7 @@ _gsasl_setup (Gsasl * ctx,
 }
 
 static int
-_gsasl_start (Gsasl * ctx,
+start (Gsasl * ctx,
 	      const char *mech,
 	      Gsasl_session ** sctx,
 	      size_t n_mechs, Gsasl_mechanism * mechs, int clientp)
@@ -83,13 +83,11 @@ _gsasl_start (Gsasl * ctx,
   Gsasl_session *out;
   int res;
 
-  out = (Gsasl_session *) malloc (sizeof (*out));
+  out = calloc (1, sizeof (*out));
   if (out == NULL)
     return GSASL_MALLOC_ERROR;
 
-  memset (out, 0, sizeof (*out));
-
-  res = _gsasl_setup (ctx, mech, out, n_mechs, mechs, clientp);
+  res = setup (ctx, mech, out, n_mechs, mechs, clientp);
   if (res != GSASL_OK)
     {
       free (out);
@@ -116,8 +114,7 @@ _gsasl_start (Gsasl * ctx,
 int
 gsasl_client_start (Gsasl * ctx, const char *mech, Gsasl_session ** sctx)
 {
-  return _gsasl_start (ctx, mech, sctx,
-		       ctx->n_client_mechs, ctx->client_mechs, 1);
+  return start (ctx, mech, sctx, ctx->n_client_mechs, ctx->client_mechs, 1);
 }
 
 /**
@@ -135,6 +132,5 @@ gsasl_client_start (Gsasl * ctx, const char *mech, Gsasl_session ** sctx)
 int
 gsasl_server_start (Gsasl * ctx, const char *mech, Gsasl_session ** sctx)
 {
-  return _gsasl_start (ctx, mech, sctx,
-		       ctx->n_server_mechs, ctx->server_mechs, 0);
+  return start (ctx, mech, sctx, ctx->n_server_mechs, ctx->server_mechs, 0);
 }
