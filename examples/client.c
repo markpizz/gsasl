@@ -74,10 +74,11 @@ void
 client (Gsasl *ctx)
 {
   Gsasl_session *session;
+  const char *mech = "PLAIN";
   int rc;
 
   /* Create new authentication session. */
-  if ((rc = gsasl_client_start (ctx, "PLAIN", &session)) != GSASL_OK)
+  if ((rc = gsasl_client_start (ctx, mech, &session)) != GSASL_OK)
     {
       printf ("Cannot initialize client (%d): %s\n", rc, gsasl_strerror (rc));
       return;
