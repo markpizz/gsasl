@@ -47,7 +47,7 @@ gsasl_base64_to (const char *in, size_t inlen, char **out, size_t * outlen)
   if (outlen)
     *outlen = len;
 
-  if (len == SIZE_MAX || *out == NULL)
+  if (*out == NULL)
     return GSASL_MALLOC_ERROR;
 
   return GSASL_OK;
@@ -77,7 +77,7 @@ gsasl_base64_from (const char *in, size_t inlen, char **out, size_t * outlen)
   if (!ok)
     return GSASL_BASE64_ERROR;
 
-  if (*outlen == SIZE_MAX || *out == NULL)
+  if (*out == NULL)
     return GSASL_MALLOC_ERROR;
 
   return GSASL_OK;
