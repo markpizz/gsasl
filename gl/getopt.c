@@ -32,25 +32,6 @@
 
 #include <stdio.h>
 
-/* Comment out all this code if we are using the GNU C Library, and are not
-   actually compiling the library itself.  This code is part of the GNU C
-   Library, but also included in many other GNU distributions.  Compiling
-   and linking in this code is a waste when using the GNU C library
-   (especially if it is a shared library).  Rather than having every GNU
-   program understand `configure --with-gnu-libc' and omit the object files,
-   it is simpler to just do this in the source for each such file.  */
-
-#define GETOPT_INTERFACE_VERSION 2
-#if !defined _LIBC && defined __GLIBC__ && __GLIBC__ >= 2
-# include <gnu-versions.h>
-# if _GNU_GETOPT_INTERFACE_VERSION == GETOPT_INTERFACE_VERSION
-#  define ELIDE_CODE
-# endif
-#endif
-
-#ifndef ELIDE_CODE
-
-
 /* This needs to come after some library #include
    to get __GNU_LIBRARY__ defined.  */
 #ifdef	__GNU_LIBRARY__
@@ -104,7 +85,9 @@
    Also, when `ordering' is RETURN_IN_ORDER,
    each non-option ARGV-element is returned here.  */
 
+#ifndef HAVE_OPTARG
 char *optarg;
+#endif
 
 /* Index in ARGV of the next element to be scanned.
    This is used for communication to and from the caller
@@ -119,18 +102,25 @@ char *optarg;
    how much of ARGV has been scanned so far.  */
 
 /* 1003.2 says this must be 1 before any call.  */
+
+#ifndef HAVE_OPTIND
 int optind = 1;
+#endif
 
 /* Callers store zero here to inhibit the error message
    for unrecognized options.  */
 
+#ifndef HAVE_OPTERR
 int opterr = 1;
+#endif
 
 /* Set to an option character which was unrecognized.
    This must be initialized on some systems to avoid linking in the
    system's own getopt implementation.  */
 
+#ifndef HAVE_OPTOPT
 int optopt = '?';
+#endif
 
 /* Keep a global copy of all internal members of getopt_data.  */
 
@@ -1181,7 +1171,6 @@ getopt (int argc, char *const *argv, const char *optstring)
 			   0);
 }
 
-#endif	/* Not ELIDE_CODE.  */
 
 #ifdef TEST
 
