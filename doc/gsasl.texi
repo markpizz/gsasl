@@ -111,6 +111,12 @@ authorization infrastructure used, as it utilizes callbacks into the
 application to decide whether a user is authorized or not.  GNU SASL
 has been ported to many Unix flavors.
 
+GNU SASL is developed for the GNU/Linux system, but runs on over 20
+platforms including most major Unix platforms and Windows, and many
+kind of devices including iPAQ handhelds and S/390 mainframes.
+
+GNU SASL is licensed under the GNU General Public License.
+
 @menu
 * Getting Started::
 * Features::
