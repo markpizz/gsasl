@@ -78,7 +78,7 @@ struct Gsasl_session
   int clientp;
   Gsasl_mechanism *mech;
   void *mech_data;
-  /* Session specific properties. */
+  /* Properties. */
   char *anonymous_token;
   char *authid;
   char *authzid;
