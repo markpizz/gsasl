@@ -114,9 +114,8 @@ _gsasl_gssapi_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 int
 _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
 			   void *mech_data,
-			   const char *input,
-			   size_t input_len,
-			   char *output, size_t * output_len)
+			   const char *input, size_t input_len,
+			   char **output2, size_t * output2_len)
 {
   _Gsasl_gssapi_server_state *state = mech_data;
   Gsasl_server_callback_gssapi cb_gssapi;
@@ -127,6 +126,13 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
   Gsasl_ctx *ctx;
   char *username;
   int res;
+  /* FIXME: Remove fixed size buffer. */
+  char output[BUFSIZ];
+  size_t outputlen = BUFSIZ - 1;
+  size_t *output_len = &outputlen;
+
+  *output2 = NULL;
+  *output2_len = 0;
 
   ctx = gsasl_server_ctx_get (sctx);
   if (ctx == NULL)
@@ -272,6 +278,15 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
     default:
       res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
       break;
+    }
+
+  if (res == GSASL_OK || res == GSASL_NEEDS_MORE)
+    {
+      *output2_len = *output_len;
+      *output2 = malloc (*output2_len);
+      if (!*output2)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output2, output, *output2_len);
     }
 
   return res;
