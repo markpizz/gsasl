@@ -37,4 +37,8 @@ while test "$1"; do
 done
 cmd="${cmd})[^_0-9a-z]*\("
 
-! egrep $cmd $FILES
+if egrep $cmd $FILES; then
+    exit 1
+fi
+
+exit 0
