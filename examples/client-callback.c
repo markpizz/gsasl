@@ -26,7 +26,7 @@
 
 #include <gsasl.h>
 
-void
+static void
 client_authenticate (Gsasl * ctx, Gsasl_session * session)
 {
   char buf[BUFSIZ] = "";
@@ -64,7 +64,7 @@ client_authenticate (Gsasl * ctx, Gsasl_session * session)
   printf ("If server accepted us, we're done.\n");
 }
 
-void
+static void
 client (Gsasl *ctx)
 {
   Gsasl_session *session;
@@ -85,7 +85,7 @@ client (Gsasl *ctx)
   gsasl_finish (session);
 }
 
-int
+static int
 callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 {
   char buf[BUFSIZ] = "";

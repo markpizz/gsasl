@@ -39,7 +39,7 @@
    suboption.  On exit *OPTIONP is set to the beginning of the next
    token or at the terminating NUL character.  */
 int
-_gsasl_getsubopt (char **optionp, char *const *tokens, char **valuep)
+_gsasl_getsubopt (char **optionp, const char *const *tokens, char **valuep)
 {
   char *endp, *vstart;
   int cnt;

@@ -55,8 +55,6 @@ _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
 	}
       authzidlen = strlen (authzid);
     }
-  else
-    authzidlen = 0;
 
   p = gsasl_property_get (sctx, GSASL_AUTHID);
   if (!p)
@@ -96,7 +94,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
       goto end;
     }
 
-  if (authzid > 0)
+  if (authzid)
     memcpy (*output, authzid, authzidlen);
   (*output)[authzidlen] = '\0';
   memcpy (*output + authzidlen + 1, authid, authidlen);

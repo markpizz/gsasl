@@ -26,7 +26,7 @@
 
 #include <gsasl.h>
 
-void
+static void
 client_authenticate (Gsasl * ctx, Gsasl_session * session)
 {
   char buf[BUFSIZ] = "";
@@ -64,7 +64,7 @@ client_authenticate (Gsasl * ctx, Gsasl_session * session)
   printf ("If server accepted us, we're done.\n");
 }
 
-const char *
+static const char *
 client_mechanism (Gsasl *ctx)
 {
   static char mech[GSASL_MAX_MECHANISM_SIZE + 1] = "";
@@ -85,7 +85,7 @@ client_mechanism (Gsasl *ctx)
   return mech;
 }
 
-void
+static void
 client (Gsasl *ctx)
 {
   Gsasl_session *session;
