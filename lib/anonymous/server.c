@@ -1,4 +1,4 @@
-/* anonymous.c --- ANONYMOUS mechanism as defined in RFC 2245, server side.
+/* server.c --- ANONYMOUS mechanism as defined in RFC 2245, server side.
  * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
