@@ -2,6 +2,14 @@ GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
+** Command line behaviour for gsasl tool improved.
+The --client and --imap parameters are now the default.  The --connect
+host and port can now be specified directly.  If --authentication-id
+is not specified, the username of the user invoking gsasl is used
+(i.e., getpwuid(getuid)->pw_name).  Alltogether, this allows simple
+usage, as in `gsasl mail.example.com' to connect, via IMAP, to
+mail.example.com.
+
 * Changes in 0.1.2 (released 2004-07-16)
 
 ** The SMTP mode in `gsasl' should now work.
