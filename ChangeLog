@@ -1,3 +1,235 @@
+2003-01-27 05:31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am:
+
+	Don't try to build gsasl.txt.  
+
+2003-01-27 05:15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac:
+
+	Release 0.0.5.  
+
+2003-01-27 05:00  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi:
+
+	Add Invoking gsasl.  
+
+2003-01-27 04:35  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c:
+
+	Incomplete but working --imap and --connect support.  
+
+2003-01-27 04:34  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h:
+
+	Include more (for select and friends).  
+
+2003-01-27 04:34  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac:
+
+	Remove gnet.  Don't check for libntlm, libgcrypt if disabled.  Check
+	errno.  
+
+2003-01-27 03:47  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gssapi.c:
+
+	Fix return value of last step in client.  
+
+2003-01-27 03:28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5.c:
+
+	Fix encode/decode.  
+
+2003-01-26 01:46  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac:
+
+	Look for libgnet.  
+
+2003-01-25 17:40  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi:
+
+	Add libgcrypt secure memory.  
+
+2003-01-25 17:26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/: cram-md5.c, digest-md5.c:
+
+	Fix libgcrypt initialization.  
+
+2003-01-23 15:08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5.c:
+
+	(_gsasl_digest_md5_server_encode): Don't check output buffer size
+	when output buffer is NULL.  Reported by Sergey Poznyakoff 
+	<gray@Mirddin.farlep.net>.  
+
+2003-01-21 00:15  Simon Josefsson <simon@josefsson.org>
+
+	* po/: libgsasl.pot, sv.po:
+
+	Update.  
+
+2003-01-20 23:42  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS:
+
+	Fix.  
+
+2003-01-20 23:32  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi:
+
+	Fix acks.  
+
+2003-01-20 23:30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am:
+
+	Use automake's ps and pdf targets.  Remove gsasl.txt target.  
+
+2003-01-20 23:18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/tmpl/gsasl.sgml, README-alpha:
+
+	Fix.  
+
+2003-01-20 23:12  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/tmpl/gsasl.sgml:
+
+	Add.  
+
+2003-01-20 23:09  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml:
+
+	Add.  
+
+2003-01-15 18:15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS:
+
+	Add.  
+
+2003-01-15 18:14  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am:
+
+	Add uninstall target.  Make distcheck fail gracefully.  
+
+2003-01-15 18:14  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac:
+
+	Typos.  
+
+2003-01-15 18:14  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+
+	Distcheck doesn't work with GTK-DOC.  
+
+2003-01-15 16:19  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+
+	Fix distcheck for ChangeLog.  
+
+2003-01-15 16:18  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac, lib/Makefile.am, src/Makefile.am:
+
+	Use libidn instead of libstringprep.  
+
+2003-01-15 16:17  Simon Josefsson <simon@josefsson.org>
+
+	* README:
+
+	Fix URL.  
+
+2003-01-15 16:17  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi:
+
+	Fix typos.  
+
+2003-01-15 16:17  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc:
+
+	Fix -texinfo.  
+
+2003-01-15 14:51  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS:
+
+	Fix.  
+
+2003-01-15 14:40  Simon Josefsson <simon@josefsson.org>
+
+	* lib/: version.c, error.c:
+
+	Doc fix.  
+
+2002-12-15 19:31  Simon Josefsson <simon@josefsson.org>
+
+	* ANNOUNCE:
+
+	Fix.  
+
+2002-12-14 19:39  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, lib/anonymous.c, lib/anonymous.h, lib/callback.c,
+	lib/cram-md5.c, lib/cram-md5.h, lib/digest-md5.c, lib/digest-md5.h,
+	lib/external.c, lib/external.h, lib/gsasl.h.in, lib/gssapi.c,
+	lib/internal.h, lib/listmech.c, lib/login.c, lib/login.h,
+	lib/ntlm.c, lib/plain.c, lib/plain.h, lib/securid.c, lib/securid.h,
+	lib/version.c, lib/x-gssapi.h, lib/x-ntlm.h, lib/xcode.c,
+	lib/xfinish.c, lib/xstart.c, lib/xstep.c:
+
+	GTK-DOC fixes.  
+
+2002-12-14 19:21  Simon Josefsson <simon@josefsson.org>
+
+	* doc/: Makefile.am, reference/Makefile.am,
+	reference/gsasl-docs.sgml, reference/gsasl.types:
+
+	Add GTK-DOC generated manual.  
+
+2002-12-14 07:48  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+
+	Make sure ChangeLog is regenerated.  
+
+2002-12-13 13:52  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c:
+
+	Fix.  
+
+2002-12-13 13:46  Simon Josefsson <simon@josefsson.org>
+
+	* ANNOUNCE, Makefile.am, README:
+
+	GNU fixes.  
+
+2002-12-13 13:38  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, doc/gsasl.texi:
+
+	More GNU changes.  
+
 2002-12-13 10:38  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS, configure.ac:
