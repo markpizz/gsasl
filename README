@@ -19,6 +19,9 @@ Currently there is some support for the following mechanisms:
   - NTLM (non-standard, client only, requires Libntlm)
   - KERBEROS_V5 (experimental, requires Shishi)
 
+The library should be portable to all C89 platforms.  The command-line
+application currently requires POSIX for network communication.
+
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
 
