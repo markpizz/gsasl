@@ -1,5 +1,21 @@
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
+	* README: Fix.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/strdup.m4: Add.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* m4/check_headerlib.m4: Cosmetic fixes.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in: Fix license.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
 	* src/Makefile.am, anonymous/Makefile.am, cram-md5/Makefile.am,
 	digest-md5/Makefile.am, external/Makefile.am, gssapi/Makefile.am,
 	kerberos_v5/Makefile.am, login/Makefile.am, ntlm/Makefile.am,
@@ -240,17 +256,9 @@
 
 	* libgsasl.pc.in: Move libgsasl.pc.in from top-level to lib/.
 
-2004-01-23  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/strdup.m4: Update.
-
 2004-01-18  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Fix NTLM.
-
-2004-01-18  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/strdup.m4: Fix.
 
 2004-01-18  Simon Josefsson <simon@josefsson.org>
 
@@ -271,15 +279,7 @@
 
 2004-01-18  Simon Josefsson <simon@josefsson.org>
 
-	* gl/m4/strdup.m4: Add.
-
-2004-01-18  Simon Josefsson <simon@josefsson.org>
-
 	* Makefile.am, gettext.h: Use -Igl instead of gettext.h.
-
-2004-01-18  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/getopt.m4: Add.
 
 2004-01-18  Simon Josefsson <simon@josefsson.org>
 
@@ -395,20 +395,7 @@
 
 2003-11-20  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile.am, gl/m4/alloca.m4, gl/m4/argp.m4, gl/m4/codeset.m4,
-	gl/m4/error.m4, gl/m4/exitfail.m4, gl/m4/extensions.m4,
-	gl/m4/getopt.m4, gl/m4/gettext.m4, gl/m4/glibc21.m4,
-	gl/m4/iconv.m4, gl/m4/intdiv0.m4, gl/m4/inttypes-pri.m4,
-	gl/m4/inttypes.m4, gl/m4/inttypes_h.m4, gl/m4/isc-posix.m4,
-	gl/m4/lcmessage.m4, gl/m4/lib-ld.m4, gl/m4/lib-link.m4,
-	gl/m4/lib-prefix.m4, gl/m4/malloc.m4, gl/m4/mempcpy.m4,
-	gl/m4/nls.m4, gl/m4/onceonly_2_57.m4, gl/m4/po.m4,
-	gl/m4/progtest.m4, gl/m4/realloc.m4, gl/m4/restrict.m4,
-	gl/m4/stdbool.m4, gl/m4/stdint_h.m4, gl/m4/strcase.m4,
-	gl/m4/strchrnul.m4, gl/m4/strerror_r.m4, gl/m4/strndup.m4,
-	gl/m4/strnlen.m4, gl/m4/sysexits.m4, gl/m4/uintmax_t.m4,
-	gl/m4/ulonglong.m4, gl/m4/unlocked-io.m4, gl/m4/xalloc.m4: Use
-	getopt instead of argp.  Remove gnulib (gl/).
+	* Makefile.am: Use getopt instead of argp.  Remove gnulib (gl/).
 
 2003-11-20  Simon Josefsson <simon@josefsson.org>
 
@@ -846,16 +833,7 @@
 
 2003-11-09  Simon Josefsson <simon@josefsson.org>
 
-	* gl/m4/argp.m4, gl/m4/getline.m4, gl/m4/getndelim2.m4,
-	gl/m4/ssize_t.m4, gl/m4/stdbool.m4, gl/m4/xalloc.m4: Update.
-
-2003-11-09  Simon Josefsson <simon@josefsson.org>
-
 	* Makefile.am: Use *_CPPFLAGS instead of obsolete INCLUDES.
-
-2003-11-09  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/Makefile.am: Remove (not needed by modern automake).
 
 2003-11-09  Simon Josefsson <simon@josefsson.org>
 
@@ -908,19 +886,6 @@
 	* digest-md5.c: Fix tokenizing of strings when they end with ",
 	based on report from Marc Mutz <mutz@kde.org>.
 
-2003-10-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/argp.m4: Fix for Solaris Forte 7 CC, based on report from
-	Lars Engebretsen <enge@nada.kth.se>.
-
-2003-10-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/strcase.m4, gl/m4/Makefile.am: Add.
-
-2003-10-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/Makefile.am, gl/m4/restrict.m4: Update.
-
 2003-10-09  Simon Josefsson <simon@josefsson.org>
 
 	* stringprep-no.c: Doc fix.
@@ -951,11 +916,6 @@
 2003-10-09  Simon Josefsson <simon@josefsson.org>
 
 	* gsasl.h.in: Make maxbuf size_t.
-
-2003-10-09  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/Makefile.am, gl/m4/getline.m4, gl/m4/getndelim2.m4,
-	gl/m4/ssize_t.m4: Add getline.  Update argp from gnulib.
 
 2003-10-07  Simon Josefsson <simon@josefsson.org>
 
@@ -1044,33 +1004,15 @@
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* gl/m4/Makefile.am, gl/m4/gethostname.m4, gl/m4/memmove.m4,
-	gl/m4/memset.m4, gl/m4/strdup.m4: We assume C89.
-
-2003-10-01  Simon Josefsson <simon@josefsson.org>
-
 	* internal.h: Use minmax.h.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* gettext.h, gl/m4/Makefile.am, gl/m4/intmax_t.m4,
-	gl/m4/longdouble.m4, gl/m4/longlong.m4, gl/m4/signed.m4,
-	gl/m4/vasnprintf.m4, gl/m4/vasprintf.m4, gl/m4/wchar_t.m4,
-	gl/m4/wint_t.m4: GNULib sync.
+	* gettext.h: GNULib sync.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Remove -I../intl.  Fix LIBADD for libfoo.la.
-
-2003-10-01  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/Makefile.am, gl/m4/alloca.m4, gl/m4/argp.m4,
-	gl/m4/error.m4, gl/m4/exitfail.m4, gl/m4/extensions.m4,
-	gl/m4/getopt.m4, gl/m4/lib-ld.m4, gl/m4/lib-link.m4,
-	gl/m4/lib-prefix.m4, gl/m4/mempcpy.m4, gl/m4/strchrnul.m4,
-	gl/m4/strdup.m4, gl/m4/strerror.m4, gl/m4/strndup.m4,
-	gl/m4/strnlen.m4, gl/m4/unlocked-io.m4, gl/m4/vasnprintf.m4,
-	gl/m4/xalloc.m4: GNULib sync.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
@@ -1103,22 +1045,6 @@
 
 	* Makefile.am: Remove -lm.
 
-2003-08-04  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/Makefile.am, gl/m4/exitfail.m4, gl/m4/intmax_t.m4,
-	gl/m4/longdouble.m4, gl/m4/longlong.m4, gl/m4/signed.m4,
-	gl/m4/vasnprintf.m4, gl/m4/vasprintf.m4, gl/m4/wchar_t.m4,
-	gl/m4/wint_t.m4: Add.
-
-2003-07-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/Makefile.am: Add.
-
-2003-07-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/argp.m4, gl/m4/mempcpy.m4, gl/m4/strndup.m4,
-	gl/m4/strnlen.m4: Portability fixes.
-
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Fix libtool warning when linking gnulib.
@@ -1126,21 +1052,6 @@
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Replace argp and REPLACE_OBJ with gnulib.
-
-2003-07-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/m4/Makefile.am, gl/m4/alloca.m4, gl/m4/argp.m4,
-	gl/m4/codeset.m4, gl/m4/error.m4, gl/m4/gethostname.m4,
-	gl/m4/getopt.m4, gl/m4/gettext.m4, gl/m4/glibc21.m4,
-	gl/m4/iconv.m4, gl/m4/intdiv0.m4, gl/m4/inttypes-pri.m4,
-	gl/m4/inttypes.m4, gl/m4/inttypes_h.m4, gl/m4/isc-posix.m4,
-	gl/m4/lcmessage.m4, gl/m4/lib-ld.m4, gl/m4/lib-link.m4,
-	gl/m4/lib-prefix.m4, gl/m4/malloc.m4, gl/m4/memmove.m4,
-	gl/m4/memset.m4, gl/m4/nls.m4, gl/m4/onceonly_2_57.m4, gl/m4/po.m4,
-	gl/m4/progtest.m4, gl/m4/realloc.m4, gl/m4/stdint_h.m4,
-	gl/m4/strchrnul.m4, gl/m4/strdup.m4, gl/m4/strerror.m4,
-	gl/m4/strerror_r.m4, gl/m4/sysexits.m4, gl/m4/uintmax_t.m4,
-	gl/m4/ulonglong.m4, gl/m4/unlocked-io.m4, gl/m4/xalloc.m4: Add.
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 

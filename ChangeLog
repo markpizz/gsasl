@@ -1,5 +1,13 @@
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
+	* gl/m4/getopt.m4: Re-add (accidentally removed).
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getopt.m4: Remove.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
 	* tests/Makefile.am: Remove indent target.
 
 2004-04-16  Simon Josefsson <simon@josefsson.org>
