@@ -68,197 +68,111 @@ struct sasltv
   char *suggestpin;
   char *pin;
   int securidrc;
-}
-sasltv[] =
-{
+};
+struct sasltv sasltv[] = {
 #ifdef USE_EXTERNAL
-  {
-    CLIENT, "EXTERNAL",
-    {
-    "", NULL}
-  }
-  ,
-  {
-    SERVER, "EXTERNAL",
-    {
-    "", NULL}
-  }
-  ,
+  {CLIENT, "EXTERNAL", {"", NULL}},
+  {SERVER, "EXTERNAL", {"", NULL}},
 #endif
 #ifdef USE_ANONYMOUS
-  {
-    CLIENT, "ANONYMOUS",
-    {
-    "", "Zm9vQGJhci5jb20=", NULL, NULL}
-  , NULL, NULL, NULL, NULL, NULL, NULL, "foo@bar.com"}
-  ,
-  {
-    SERVER, "ANONYMOUS",
-    {
-    "Zm9vQGJhci5jb20=", NULL, NULL}
-  , NULL, NULL, NULL, NULL, NULL, NULL, "foo@bar.com"}
-  ,
+  {CLIENT, "ANONYMOUS", {"", "Zm9vQGJhci5jb20=", NULL, NULL}, NULL, NULL,
+   NULL, NULL, NULL, NULL, "foo@bar.com"},
+  {SERVER, "ANONYMOUS", {"Zm9vQGJhci5jb20=", NULL, NULL}, NULL, NULL, NULL,
+   NULL, NULL, NULL, "foo@bar.com"},
 #endif
 #ifdef USE_NTLM
-  {
-    CLIENT, "NTLM",
-    {
-    "Kw==",
-	"TlRMTVNTUAABAAAAB7IAAAcABwAgAAAAAAAAAAcAAABhdXRoemlk",
-	"TlRMTVNTUAAAAAAAAAAAAAAAAAAAAGFiY2RlZmdoMDEyMzQ1Njc4ODY2NDQwMTIz",
-	"TlRMTVNTUAADAAAAGAAYAEAAAAAYABgAWAAAAAAAAAAwAAAADgAOAHAAAAAOAA4AfgAAAAAAAABMAAAAAABhYheBBp9xJad9eYo3oh1k55GNFDIui8H8Qz4CfWYVVToBhVzFFbzyzqAZN5Wl59K/FmEAdQB0AGgAegBpAGQAYQB1AHQAaAB6AGkAZAA=",
-	NULL, NULL}
-  , "password", "authzid", "authid"}
-  ,
+  {CLIENT, "NTLM",
+   {"Kw==", "TlRMTVNTUAABAAAAB7IAAAcABwAgAAAAAAAAAAcAAABhdXRoemlk",
+    "TlRMTVNTUAAAAAAAAAAAAAAAAAAAAGFiY2RlZmdoMDEyMzQ1Njc4ODY2NDQwMTIz",
+    "TlRMTVNTUAADAAAAGAAYAEAAAAAYABgAWAAAAAAAAAAwAAAADgAOAHAAAAAOAA4AfgAAA"
+    "AAAAABMAAAAAABhYheBBp9xJad9eYo3oh1k55GNFDIui8H8Qz4CfWYVVToBhVzFFbzyzq"
+    "AZN5Wl59K/FmEAdQB0AGgAegBpAGQAYQB1AHQAaAB6AGkAZAA=",
+    NULL, NULL}
+   , "password", "authzid", "authid"},
 #endif
 #ifdef USE_PLAIN
-  {
-    CLIENT, "PLAIN",
-    {
-    "", "YXV0aHppZABhdXRoaWQAcGFzc3dvcmQ=", NULL, NULL}
-  , "password", "authzid", "authid"}
-  ,
-  {
-    CLIENT, "PLAIN",
-    {
-    "", "YQBhAGE=", NULL, NULL}
-  , "a", "a", "a"}
-  ,
+  {CLIENT, "PLAIN",
+   {"", "YXV0aHppZABhdXRoaWQAcGFzc3dvcmQ=", NULL, NULL}, "password",
+   "authzid", "authid"},
+  {CLIENT, "PLAIN",
+   {"", "YQBhAGE=", NULL, NULL}, "a", "a", "a"},
 #ifdef WITH_STRINGPREP
-  {
-    CLIENT, "PLAIN",
-    {
-    "", "YQBhAGE=", NULL, NULL}
-  , UTF8_a, UTF8_a, UTF8_a}
-  ,
+  {CLIENT, "PLAIN",
+   {"", "YQBhAGE=", NULL, NULL}, UTF8_a, UTF8_a, UTF8_a},
 #endif
-  {
-    SERVER, "PLAIN",
-    {
-    "YXV0aHppZABhdXRoaWQAcGFzc3dvcmQ=", NULL, NULL}
-  , "password", "authzid", "authid"}
-  ,
-  {
-    SERVER, "PLAIN",
-    {
-    "", "", "YXV0aHppZABhdXRoaWQAcGFzc3dvcmQ=", NULL, NULL}
-  , "password", "authzid", "authid"}
-  ,
+  {SERVER, "PLAIN",
+   {"YXV0aHppZABhdXRoaWQAcGFzc3dvcmQ=", NULL, NULL}, "password", "authzid",
+   "authid"},
+  {SERVER, "PLAIN",
+   {"", "", "YXV0aHppZABhdXRoaWQAcGFzc3dvcmQ=", NULL, NULL}, "password",
+   "authzid", "authid"},
 #endif
 #ifdef USE_LOGIN
-  {
-    CLIENT, "LOGIN",
-    {
-    "VXNlciBOYW1l", "YXV0aHppZA==", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=", NULL,
-	NULL}
-  , "password", "authzid", "authid"}
-  ,
-  {
-    CLIENT, "LOGIN",
-    {
-    "VXNlciBOYW1l", "YQ==", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}
-  , "a", "a", "authid"}
-  ,
+  {CLIENT, "LOGIN",
+   {"VXNlciBOYW1l", "YXV0aHppZA==", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=", NULL,
+    NULL}, "password", "authzid", "authid"},
+  {CLIENT, "LOGIN",
+   {"VXNlciBOYW1l", "YQ==", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}, "a", "a",
+   "authid"},
 #ifdef WITH_STRINGPREP
-  {
-    CLIENT, "LOGIN",
-    {
-    "VXNlciBOYW1l", "YQ==", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}
-  , UTF8_a, UTF8_a, "authid"}
-  ,
+  {CLIENT, "LOGIN",
+   {"VXNlciBOYW1l", "YQ==", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}, UTF8_a,
+   UTF8_a, "authid"},
 #endif
-  {
-    SERVER, "LOGIN",
-    {
-    "", "VXNlciBOYW1l", "YXV0aHppZA==", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=",
-	NULL, NULL}
-  , "password", "authzid", "authid"}
-  ,
+  {SERVER, "LOGIN",
+   {"", "VXNlciBOYW1l", "YXV0aHppZA==", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=",
+    NULL, NULL}, "password", "authzid", "authid"},
 #endif
 #ifdef USE_CRAM_MD5
-  {
-    CLIENT, "CRAM-MD5",
-    {
-    "PGNiNmQ5YTQ5ZDA3ZjEwY2MubGliZ3Nhc2xAbG9jYWxob3N0Pg==",
-	"YXV0aGlkIGZkNjRmMjYxZWYxYjBjYjg0ZmZjNGVmYzgwZDk3NjFj", NULL, NULL}
-  , "password", "authzid", "authid"}
-  ,
+  {CLIENT, "CRAM-MD5",
+   {"PGNiNmQ5YTQ5ZDA3ZjEwY2MubGliZ3Nhc2xAbG9jYWxob3N0Pg==",
+    "YXV0aGlkIGZkNjRmMjYxZWYxYjBjYjg0ZmZjNGVmYzgwZDk3NjFj", NULL, NULL},
+   "password", "authzid", "authid"},
 #endif
 #ifdef USE_SECURID
-  {
-    CLIENT, "SECURID",
-    {
-    "", "YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}
-  , NULL, "authzid", "authid", NULL, NULL, NULL, NULL, "4711"}
-  ,
-  {
-    CLIENT, "SECURID",
-    {
-    "", "YXV0aHppZABhdXRoaWQANDcxMQA=",
-	"cGFzc2NvZGU=", "YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}
-  , NULL, "authzid", "authid", NULL, NULL, NULL, NULL, "4711"}
-  ,
-  {
-    CLIENT, "SECURID",
-    {
-    "", "YXV0aHppZABhdXRoaWQANDcxMQA=",
-	"cGlu", "YXV0aHppZABhdXRoaWQANDcxMQA0MgA=", NULL, NULL}
-  , NULL, "authzid", "authid", NULL, NULL, NULL, NULL, "4711", NULL, "42"}
-  ,
-  {
-    CLIENT, "SECURID",
-    {
-    "", "YXV0aHppZABhdXRoaWQANDcxMQA=",
-	"cGluMjM=", "YXV0aHppZABhdXRoaWQANDcxMQA0MgA=", NULL, NULL}
-  , NULL, "authzid", "authid", NULL, NULL, NULL, NULL, "4711", "23", "42"}
-  ,
-  {
-    CLIENT, "SECURID",
-    {
-    "", "YXV0aHppZABhdXRoaWQANDcxMQA=",
-	"cGluMjM=", "YXV0aHppZABhdXRoaWQANDcxMQA0MgA=",
-	"cGFzc2NvZGU=", "YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}
-  , NULL, "authzid", "authid", NULL, NULL, NULL, NULL, "4711", "23", "42"}
-  ,
-  {
-    SERVER, "SECURID",
-    {
-    "YXV0aHppZABhdXRoaWQANDcxMQA=", "", NULL, NULL}
-  , NULL, "authzid", "authid", NULL, NULL, NULL, NULL, "4711"}
-  ,
-  {
-    SERVER, "SECURID",
-    {
-    "YXV0aHppZABhdXRoaWQANDcxMQA=", "", NULL, NULL}
-  , NULL, "authzid", "authid", NULL, NULL, NULL, NULL, "4711"}
-  ,
-  {
-    SERVER, "SECURID",
-    {
-    "YXV0aHppZABhdXRoaWQANDcxMQA=", "cGlu",
-	"YXV0aHppZABhdXRoaWQANDcxMQA0MgA=", "", NULL, NULL}
-  , NULL, "authzid", "authid", NULL, NULL, NULL, NULL, "4711", NULL, "42",
-      GSASL_SECURID_SERVER_NEED_NEW_PIN}
-  ,
-  {
-    SERVER, "SECURID",
-    {
-    "YXV0aHppZABhdXRoaWQANDcxMQA=", "cGluMTc=",
-	"YXV0aHppZABhdXRoaWQANDcxMQAyMwA=", "", NULL, NULL}
-  , NULL, "authzid", "authid", NULL, NULL, NULL, NULL, "4711", "17", "23",
-      GSASL_SECURID_SERVER_NEED_NEW_PIN}
-  ,
-  {
-    SERVER, "SECURID",
-    {
-    "YXV0aHppZABhdXRoaWQANDcxMQA=", "cGFzc2NvZGU=",
-	"YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}
-  , NULL, "authzid", "authid", NULL, NULL, NULL, NULL, "4711", NULL, NULL,
-      GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE}
-  ,
+  {CLIENT, "SECURID",
+   {"", "YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}, NULL, "authzid",
+   "authid", NULL, NULL, NULL, NULL, "4711"},
+  {CLIENT, "SECURID",
+   {"", "YXV0aHppZABhdXRoaWQANDcxMQA=", "cGFzc2NvZGU=",
+    "YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}, NULL, "authzid", "authid",
+   NULL, NULL, NULL, NULL, "4711"},
+  {CLIENT, "SECURID",
+   {"", "YXV0aHppZABhdXRoaWQANDcxMQA=", "cGlu",
+    "YXV0aHppZABhdXRoaWQANDcxMQA0MgA=", NULL, NULL}, NULL, "authzid",
+   "authid", NULL, NULL, NULL, NULL, "4711", NULL, "42"},
+  {CLIENT, "SECURID",
+   {"", "YXV0aHppZABhdXRoaWQANDcxMQA=", "cGluMjM=",
+    "YXV0aHppZABhdXRoaWQANDcxMQA0MgA=", NULL, NULL}, NULL, "authzid",
+   "authid", NULL, NULL, NULL, NULL, "4711", "23", "42"},
+  {CLIENT, "SECURID",
+   {"", "YXV0aHppZABhdXRoaWQANDcxMQA=", "cGluMjM=",
+    "YXV0aHppZABhdXRoaWQANDcxMQA0MgA=", "cGFzc2NvZGU=",
+    "YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}, NULL, "authzid", "authid",
+   NULL, NULL, NULL, NULL, "4711", "23", "42"},
+  {SERVER, "SECURID",
+   {"YXV0aHppZABhdXRoaWQANDcxMQA=", "", NULL, NULL}, NULL, "authzid",
+   "authid", NULL, NULL, NULL, NULL, "4711"},
+  {SERVER, "SECURID",
+   {"YXV0aHppZABhdXRoaWQANDcxMQA=", "", NULL, NULL}, NULL, "authzid",
+   "authid", NULL, NULL, NULL, NULL, "4711"},
+  {SERVER, "SECURID",
+   {"YXV0aHppZABhdXRoaWQANDcxMQA=", "cGlu",
+    "YXV0aHppZABhdXRoaWQANDcxMQA0MgA=", "", NULL, NULL}, NULL, "authzid",
+   "authid", NULL, NULL, NULL, NULL, "4711", NULL, "42",
+   GSASL_SECURID_SERVER_NEED_NEW_PIN},
+  {SERVER, "SECURID",
+   {"YXV0aHppZABhdXRoaWQANDcxMQA=", "cGluMTc=",
+    "YXV0aHppZABhdXRoaWQANDcxMQAyMwA=", "", NULL, NULL}, NULL, "authzid",
+   "authid", NULL, NULL, NULL, NULL, "4711", "17", "23",
+   GSASL_SECURID_SERVER_NEED_NEW_PIN},
+  {SERVER, "SECURID",
+   {"YXV0aHppZABhdXRoaWQANDcxMQA=", "cGFzc2NvZGU=",
+    "YXV0aHppZABhdXRoaWQANDcxMQA=", NULL, NULL}, NULL, "authzid", "authid",
+   NULL, NULL, NULL, NULL, "4711", NULL, NULL,
+   GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE},
 #endif
-  {
-  -1}
+  {-1}
 };
 
 static int
