@@ -1,5 +1,5 @@
 /* callbacks.h	function prototypes for gsasl callbacks
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -58,6 +58,10 @@ extern Gsasl_qop
 client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops);
 
 extern int client_callback_maxbuf (Gsasl_session_ctx * ctx, int servermaxbuf);
+
+extern int
+client_callback_realm (Gsasl_session_ctx * ctx,
+		       char *out, size_t * outlen);
 
 /* Server callbacks */
 

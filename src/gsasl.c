@@ -1,5 +1,5 @@
 /* gsasl.c	command line interface to libgsasl
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -415,6 +415,7 @@ main (int argc, char *argv[])
   gsasl_client_callback_password_set (ctx, client_callback_password);
   gsasl_client_callback_passcode_set (ctx, client_callback_passcode);
   gsasl_client_callback_service_set (ctx, client_callback_service);
+  gsasl_client_callback_realm_set (ctx, client_callback_realm);
 
   gsasl_server_callback_realm_set (ctx, server_callback_realm);
   gsasl_server_callback_qop_set (ctx, server_callback_qop);

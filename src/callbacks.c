@@ -1,5 +1,5 @@
 /* callbacks.c	implementation of gsasl callbacks
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -261,6 +261,30 @@ int
 client_callback_maxbuf (Gsasl_session_ctx * ctx, int servermaxbuf)
 {
   return maxbuf;
+}
+
+int
+client_callback_realm (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
+{
+  int rc;
+
+  if (nrealms == 0)
+    {
+      realms = malloc (sizeof (*realms));
+      memset(realms, 0, sizeof(*realms));
+    }
+
+  if (realms[0] == NULL)
+    realms[0] = strdup (readline ("Enter client realm: "));
+
+  if (realms[0] == NULL)
+    return GSASL_AUTHENTICATION_ERROR;
+
+  rc = utf8cpy (out, outlen, realms[0], strlen (realms[0]));
+  if (rc != GSASL_OK)
+    return rc;
+
+  return GSASL_OK;
 }
 
 /* Server callbacks */

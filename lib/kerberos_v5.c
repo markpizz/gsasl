@@ -28,7 +28,7 @@
 #include <netinet/in.h>
 #endif
 
-#define DEBUG 0
+#define DEBUG 1
 
 #define BITMAP_LEN 1
 #define MAXBUF_LEN 4
@@ -106,6 +106,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 {
   struct _Gsasl_kerberos_v5_client_state *state = mech_data;
   Gsasl_client_callback_authentication_id cb_authentication_id;
+  Gsasl_client_callback_realm cb_realm;
   Gsasl_client_callback_password cb_password;
   Gsasl_ctx *ctx;
   int res;
@@ -115,10 +116,14 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
+  cb_realm = gsasl_client_callback_realm_get (ctx);
+
+  /* Optional? */
   cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
   if (cb_authentication_id == NULL)
     return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
 
+  /* Only optionally needed in infrastructure mode */
   cb_password = gsasl_client_callback_password_get (ctx);
   if (cb_password == NULL)
     return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
@@ -162,24 +167,58 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
       memcpy (state->serverrandom, &input[BITMAP_LEN + MAXBUF_LEN],
 	      RANDOM_LEN);
 
-      /* Decide policy here: non-infrastructure, infrastructure or proxy
-       * A callback to decide should be added, but a good default could
-       * be:
+      /* Decide policy here: non-infrastructure, infrastructure or proxy.
+       *
+       * A callback to decide should be added, but without the default
+       * should be:
        *
        * IF shishi_ticketset_get_for_server() THEN
        *    INFRASTRUCTURE MODE
        * ELSE IF shishi_realm_for_server(server) THEN
-       *    PROXY INFRASTRUCTURE
+       *    PROXY INFRASTRUCTURE (then fallback to NIM?)
        * ELSE
        *    NON-INFRASTRUCTURE MODE
        */
-      state->step = STEP_NONINFRA_SEND_APREQ; /* only non-infra for now.. */
+      state->step = STEP_NONINFRA_SEND_APREQ; /* only NIM for now.. */
       /* fall through */
 
     case STEP_NONINFRA_SEND_ASREQ:
       res = shishi_as (state->sh, &state->as);
       if (res)
 	return GSASL_SHISHI_ERROR;
+
+      res = shishi_kdcreq_clear_padata (state->sh, shishi_as_req(state->as));
+      if (res)
+	return GSASL_SHISHI_ERROR;
+
+      if (cb_authentication_id)
+	{
+	  len = *output_len - 1;
+	  res = cb_authentication_id (sctx, output, &len);
+	  if (res != GSASL_OK)
+	    return res;
+	  output[len] = '\0';
+
+	  res = shishi_kdcreq_set_cname (state->sh, shishi_as_req(state->as),
+					 SHISHI_NT_UNKNOWN, output);
+	  if (res != GSASL_OK)
+	    return res;
+	}
+
+      if (cb_realm)
+	{
+	  len = *output_len - 1;
+	  res = cb_realm (sctx, output, &len);
+	  if (res != GSASL_OK)
+	    return res;
+	  output[len] = '\0';
+
+	  res = shishi_kdcreq_set_realm (state->sh, shishi_as_req(state->as),
+					 output);
+	  if (res != GSASL_OK)
+	    return res;
+	}
+
 
       /* XXX set username and realm */
 
@@ -279,7 +318,6 @@ struct _Gsasl_kerberos_v5_server_state
   Shishi_key *sessionkey; /* shared between client and server */
   Shishi_key *sessionticketkey; /* known only by server */
   Shishi_ap *ap;
-  FILE *fh;
 };
 
 int
@@ -332,11 +370,6 @@ _gsasl_kerberos_v5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 
   state->firststep = 1;
   state->qop = GSASL_QOP_AUTH;
-
-#if DEBUG
-  if (!(stderr = fopen("/tmp/s", "w")))
-    return GSASL_UNKNOWN_MECHANISM;
-#endif
 
   *mech_data = state;
 
@@ -661,6 +694,8 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 				     shishi_ap_authenticator (state->ap));
 #endif
 
+	  /* XXX verify authentication application data */
+
 	  err = shishi_ap_rep_build (state->ap);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
@@ -669,7 +704,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
-	  return GSASL_NEEDS_MORE; /* XXX OK */
+	  return GSASL_OK;
 	}
     }
   else

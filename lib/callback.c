@@ -1,5 +1,5 @@
 /* callback.c	callback handling
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -428,6 +428,36 @@ Gsasl_client_callback_maxbuf
 gsasl_client_callback_maxbuf_get (Gsasl_ctx * ctx)
 {
   return ctx->cbc_maxbuf;
+}
+
+/**
+ * gsasl_client_callback_realm_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to know which
+ * realm it belongs to.  The realm is used by the server to determine
+ * which username and password to use.  The function can be later
+ * retrieved using gsasl_client_callback_realm_get().
+ **/
+void
+gsasl_client_callback_realm_set (Gsasl_ctx * ctx,
+				 Gsasl_client_callback_realm cb)
+{
+  ctx->cbc_realm = cb;
+}
+
+/**
+ * gsasl_client_callback_realm_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_realm_set().
+ **/
+Gsasl_client_callback_realm
+gsasl_client_callback_realm_get (Gsasl_ctx * ctx)
+{
+  return ctx->cbc_realm;
 }
 
 

@@ -1,5 +1,5 @@
 /* internal.h	internal header file for libgsasl
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -105,6 +105,7 @@ struct Gsasl_ctx
   Gsasl_client_callback_qop cbc_qop;
   Gsasl_client_callback_maxbuf cbc_maxbuf;
   Gsasl_client_callback_service cbc_service;
+  Gsasl_client_callback_realm cbc_realm;
   Gsasl_server_callback_validate cbs_validate;
   Gsasl_server_callback_securid cbs_securid;
   Gsasl_server_callback_retrieve cbs_retrieve;
