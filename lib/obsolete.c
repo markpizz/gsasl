@@ -1,5 +1,5 @@
 /* obsolete.c	obsolete functions kept around for backwards compatibility.
- * Copyright (C) 2002, 2003  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -57,7 +57,7 @@ gsasl_client_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
 
       if (out)
 	strcpy (out, tmp);
-      *outlen = tmplen;
+      *outlen = tmplen + 1;
       free (tmp);
     }
 
@@ -100,7 +100,7 @@ gsasl_server_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
 
       if (out)
 	strcpy (out, tmp);
-      *outlen = tmplen;
+      *outlen = tmplen + 1;
       free (tmp);
     }
 
@@ -123,6 +123,7 @@ _gsasl_step (Gsasl_session_ctx * sctx,
       if (tmplen >= *output_len)
 	{
 	  free (tmp);
+	  /* XXX We lose the step token here, don't we? */
 	  return GSASL_TOO_SMALL_BUFFER;
 	}
 
@@ -211,6 +212,7 @@ _gsasl_step64 (Gsasl_session_ctx * sctx,
       if (b64output_len <= strlen (tmp))
 	{
 	  free (tmp);
+	  /* XXX We lose the step token here, don't we? */
 	  return GSASL_TOO_SMALL_BUFFER;
 	}
 
