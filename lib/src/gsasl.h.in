@@ -205,7 +205,6 @@ extern "C"
 
   extern int gsasl_server_mechlist (Gsasl * ctx, char **out);
   extern int gsasl_server_support_p (Gsasl * ctx, const char *name);
-						     const char *mechlist);
 
   /* Authentication functions: xstart.c, xstep.c, xfinish.c */
   extern int gsasl_client_start (Gsasl * ctx, const char *mech,
