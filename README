@@ -10,7 +10,7 @@ Currently there is some support for the following mechanisms:
 
   - CRAM-MD5 (RFC 2195, requires libgcrypt)
   - EXTERNAL (RFC 2222)
-  - GSSAPI (RFC 2222, requires MIT Kerberos 5 GSSAPI library)
+  - GSSAPI (RFC 2222, requires GSS or MIT Kerberos 5 GSSAPI library)
   - ANONYMOUS (RFC 2245)
   - PLAIN (RFC 2595)
   - SECURID (RFC 2808)
@@ -41,10 +41,8 @@ please let me know so work duplication can be avoided.
   + More SASL mechanisms
   + Security layer improvements, including support for privacy
     separation (authenticate in one process, pass state to another).
-  + Securid server fails self tests on alpha-unknown-openbsd3.1,
-    I don't understand why.  Memory corruption?
   - Improve documentation
-  - Port to Cyclone?
+  - Port to Cyclone? CCured?
 
 The GNU SASL library, command-line application and test suite (lib/,
 src/, and tests/) are licensed under the GNU Public License license
