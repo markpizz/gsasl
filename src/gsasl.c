@@ -236,13 +236,8 @@ main (int argc, char *argv[])
       struct sockaddr connect_addr;
       struct sockaddr *saddr = &connect_addr;
       size_t saddrlen = sizeof (*saddr);
-#if HAVE_GETADDRINFO
       struct addrinfo hints;
       struct addrinfo *ai;
-#else
-      struct servent *se;
-      struct hostent *he;
-#endif
 
       if (args_info.connect_given)
 	{
@@ -273,7 +268,6 @@ main (int argc, char *argv[])
 	    connect_service = strdup ("143");
 	}
 
-#if HAVE_GETADDRINFO
       memset (&hints, 0, sizeof (hints));
       hints.ai_socktype = SOCK_STREAM;
       res = getaddrinfo (connect_hostname, connect_service, &hints, &ai);
@@ -282,29 +276,6 @@ main (int argc, char *argv[])
 	       gai_strerror (res));
       saddr = ai->ai_addr;
       saddrlen = ai->ai_addrlen;
-#else
-      memset (&connect_addr, 0, sizeof (connect_addr));
-      he = gethostbyname (connect_hostname);
-      if (!he || he->h_addr_list[0] == NULL)
-	error (EXIT_FAILURE, 0, "%s: %s", connect_hostname,
-	       hstrerror (h_errno));
-      saddr->sa_family = he->h_addrtype;
-      if (he->h_addrtype == AF_INET)
-	{
-	  struct sockaddr_in *saddrin = (struct sockaddr_in *) &connect_addr;
-	  memcpy (&saddrin->sin_addr, he->h_addr_list[0], he->h_length);
-	  se = getservbyname (connect_service, "tcp");
-	  if (se)
-	    saddrin->sin_port = se->s_port;
-	  else if (atoi (connect_service) == 0)
-	    error (EXIT_FAILURE, 0, "unknown service: %s", connect_service);
-	  else
-	    saddrin->sin_port = htons (atoi (connect_service));
-	}
-      else
-	error (EXIT_FAILURE, 0, "unsupported address type: %d",
-	       he->h_addrtype);
-#endif
 
       sockfd = socket (saddr->sa_family, SOCK_STREAM, 0);
       if (sockfd < 0)
@@ -317,9 +288,7 @@ main (int argc, char *argv[])
 	  error (EXIT_FAILURE, save_errno, "connect");
 	}
 
-#if HAVE_GETADDRINFO
       freeaddrinfo (ai);
-#endif
 
       if (!args_info.hostname_arg)
 	args_info.hostname_arg = strdup (connect_hostname);

@@ -69,6 +69,7 @@
 #include "progname.h"
 #include "error.h"
 #include "getpass.h"
+#include "getaddrinfo.h"
 
 /* Get i18n. */
 #include <gettext.h>
