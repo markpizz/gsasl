@@ -1,5 +1,5 @@
 /* sasl-ntlm.h	header file for non-standard SASL mechanism NTLM
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -21,6 +21,8 @@
 
 #ifndef _SASL_NTLM_H
 #define _SASL_NTLM_H
+
+#include "internal.h"
 
 #ifdef USE_NTLM
 

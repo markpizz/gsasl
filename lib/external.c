@@ -1,5 +1,5 @@
 /* external.c	implementation of SASL mechanism EXTERNAL as defined in RFC2222
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -19,7 +19,7 @@
  *
  */
 
-#include "internal.h"
+#include "external.h"
 
 #ifdef USE_EXTERNAL
 

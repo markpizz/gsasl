@@ -1,5 +1,5 @@
 /* securid.h	header file for SASL mechanism SECURID as defined in RFC 2808
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -21,6 +21,10 @@
 
 #ifndef _SECURID_H
 #define _SECURID_H
+
+#include "internal.h"
+
+#ifdef USE_SECURID
 
 #define _GSASL_SECURID_NAME "SECURID"
 
@@ -47,5 +51,7 @@ extern int _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
 				       char *output, size_t * output_len);
 extern int _gsasl_securid_server_finish (Gsasl_session_ctx * sctx,
 					 void *mech_data);
+
+#endif /* USE_SECURID */
 
 #endif /* _SECURID_H */

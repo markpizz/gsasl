@@ -1,5 +1,5 @@
 /* plain.c	implementation of SASL mechanism PLAIN as defined in RFC 2595
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -19,7 +19,7 @@
  *
  */
 
-#include "internal.h"
+#include "plain.h"
 
 #ifdef USE_PLAIN
 

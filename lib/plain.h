@@ -1,5 +1,5 @@
 /* plain.h	header file for SASL mechanism PLAIN as defined in RFC 2595
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -21,6 +21,10 @@
 
 #ifndef _PLAIN_H
 #define _PLAIN_H
+
+#include "internal.h"
+
+#ifdef USE_PLAIN
 
 #define _GSASL_PLAIN_NAME "PLAIN"
 
@@ -47,5 +51,7 @@ extern int _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 				     char *output, size_t * output_len);
 extern int _gsasl_plain_server_finish (Gsasl_session_ctx * sctx,
 				       void *mech_data);
+
+#endif /* USE_PLAIN */
 
 #endif /* _PLAIN_H */

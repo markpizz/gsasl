@@ -1,5 +1,5 @@
 /* gssapi.c	implementation of SASL mechanism GSSAPI from RFC 2222
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -19,7 +19,7 @@
  *
  */
 
-#include "internal.h"
+#include "x-gssapi.h"
 
 #ifdef USE_GSSAPI
 

@@ -1,5 +1,5 @@
 /* digest-md5.c	implementation of SASL mechanism DIGEST-MD5 from RFC 2831
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  * Copyright (C) 1996, 1997, 1999 Free Software Foundation, Inc. (getsubopt)
  *
  * This file is part of GNU SASL.
@@ -20,7 +20,7 @@
  *
  */
 
-#include "internal.h"
+#include "digest-md5.h"
 
 #ifdef USE_DIGEST_MD5
 

@@ -1,5 +1,5 @@
 /* cram-md5.c	implementation of SASL mechanism CRAM-MD5 from RFC 2195
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -19,7 +19,7 @@
  *
  */
 
-#include "internal.h"
+#include "cram-md5.h"
 
 #ifdef USE_CRAM_MD5
 
@@ -33,8 +33,6 @@ struct _Gsasl_cram_md5_client_state
 int
 _gsasl_cram_md5_client_init (Gsasl_ctx * ctx)
 {
-  int res;
-
   if (gcry_control (GCRYCTL_ANY_INITIALIZATION_P) == 0)
     {
       if (gcry_check_version (GCRYPT_VERSION) == NULL)

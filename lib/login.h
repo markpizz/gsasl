@@ -1,5 +1,5 @@
 /* login.h	header file for non-standard SASL mechanism LOGIN
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -21,6 +21,8 @@
 
 #ifndef _LOGIN_H
 #define _LOGIN_H
+
+#ifdef USE_LOGIN
 
 #define _GSASL_LOGIN_NAME "LOGIN"
 
@@ -47,5 +49,7 @@ extern int _gsasl_login_server_step (Gsasl_session_ctx * sctx,
 				     char *output, size_t * output_len);
 extern int _gsasl_login_server_finish (Gsasl_session_ctx * sctx,
 				       void *mech_data);
+
+#endif /* USE_LOGIN */
 
 #endif /* _LOGIN_H */

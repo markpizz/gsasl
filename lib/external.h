@@ -1,5 +1,5 @@
 /* external.h	header file for SASL mechanism EXTERNAL as defined in RFC 2222
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -21,6 +21,10 @@
 
 #ifndef _EXTERNAL_H
 #define _EXTERNAL_H
+
+#include "internal.h"
+
+#ifdef USE_EXTERNAL
 
 #define _GSASL_EXTERNAL_NAME "EXTERNAL"
 
@@ -47,5 +51,7 @@ extern int _gsasl_external_server_step (Gsasl_session_ctx * sctx,
 					char *output, size_t * output_len);
 extern int _gsasl_external_server_finish (Gsasl_session_ctx * sctx,
 					  void *mech_data);
+
+#endif /* USE_EXTERNAL */
 
 #endif /* _EXTERNAL_H */
