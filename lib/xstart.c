@@ -39,6 +39,35 @@ _gsasl_find_mechanism (const char *mech,
 }
 
 static int
+_gsasl_setup (Gsasl_ctx * ctx,
+	      const char *mech,
+	      Gsasl_session_ctx * sctx,
+	      size_t n_mechs,
+	      _Gsasl_mechanism *mechs,
+	      int clientp)
+{
+  _Gsasl_mechanism *mechptr = NULL;
+  int res;
+
+  mechptr = _gsasl_find_mechanism (mech, n_mechs, mechs);
+  if (mechptr == NULL)
+    return GSASL_UNKNOWN_MECHANISM;
+
+  sctx->ctx = ctx;
+  sctx->mech = mechptr;
+  sctx->clientp = clientp;
+
+  if (clientp)
+    res = sctx->mech->client.start (sctx, &sctx->mech_data);
+  else
+    res = sctx->mech->server.start (sctx, &sctx->mech_data);
+  if (res != GSASL_OK)
+    return res;
+
+  return GSASL_OK;
+}
+
+static int
 _gsasl_start (Gsasl_ctx * ctx,
 	      const char *mech,
 	      Gsasl_session_ctx ** sctx,
@@ -46,13 +75,8 @@ _gsasl_start (Gsasl_ctx * ctx,
 	      _Gsasl_mechanism *mechs,
 	      int clientp)
 {
-  _Gsasl_mechanism *mechptr = NULL;
   Gsasl_session_ctx *out;
   int res;
-
-  mechptr = _gsasl_find_mechanism (mech, n_mechs, mechs);
-  if (mechptr == NULL)
-    return GSASL_UNKNOWN_MECHANISM;
 
   out = (Gsasl_session_ctx *) malloc (sizeof (*out));
   if (out == NULL)
@@ -60,14 +84,7 @@ _gsasl_start (Gsasl_ctx * ctx,
 
   memset (out, 0, sizeof (*out));
 
-  out->ctx = ctx;
-  out->mech = mechptr;
-  out->clientp = clientp;
-  if (clientp)
-    res = out->mech->client.start (out, &out->mech_data);
-  else
-    res = out->mech->server.start (out, &out->mech_data);
-
+  res = _gsasl_setup (ctx, mech, out, n_mechs, mechs, clientp);
   if (res != GSASL_OK)
     {
       free (out);
