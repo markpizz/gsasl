@@ -8,3 +8,8 @@ OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
 BSD-Port-URL: http://www.freshports.org/security/gsasl/
 CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
 Mirror-Site-URL: http://josefsson.org/gsasl/
+Version: 0.1.4
+Release-Focus: Minor feature enhancements
+
+Fix various compile time warnings.  Revamp of gnulib compatibility
+files.  More translations.
