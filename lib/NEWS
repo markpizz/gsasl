@@ -7,6 +7,10 @@ See the end for copying conditions.
 ** gsasl_client_suggest_mechanism and gsasl_server_suggest_mechanism now work.
 Earlier they were not implemented at all.
 
+** Internal crypto framework re-hashed.
+Now the selection between Nettle/Libgcrypt happens inside crypto/, and
+gc.h is the generic header that is used by the rest of the package.
+
 ** API and ABI modifications.
 gsasl_random: ADD.
 gsasl_nonce: ADD.
