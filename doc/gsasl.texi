@@ -474,14 +474,14 @@ application that uses server functions in a library built with
 @itemx --disable-securid
 @itemx --disable-ntlm
 @itemx --disable-cram-md5
-@itemx --disable-digest-md5
+@itemx --enable-digest-md5
 @itemx --disable-gssapi
 @itemx --disable-kerberos_v5
-Disable individual mechanisms (@pxref{Mechanisms}).
+Disable or enable individual mechanisms (@pxref{Mechanisms}).
 
-@item --with-included-libidn
-Unconditionally use the internal stripped down copy of Libidn, instead
-of using the system's libidn.
+@item --without-saslprep
+Disable preparation of internationalized strings.  If you specify
+this, essentially you will only support ASCII strings a'la RFC 2222.
 
 @end table
 
