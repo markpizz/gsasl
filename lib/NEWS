@@ -10,6 +10,11 @@ See the end for copying conditions.
 
 ** Translation fixes.
 
+** Now possible to write and register a new SASL mechanism externally.
+Implement the Gsasl_*_function interfaces, populate a Gsasl_mechanism
+struct with name of SASL mechanism and the function pointers, and
+call gsasl_register to register your new mechanism.
+
 ** API and ABI modifications.
 gsasl_encode, gsasl_decode: MODIFIED.  Now allocate the output parameter.
 gsasl_encode_inline, gsasl_decode_inline: ADD, DEPRECATED.
