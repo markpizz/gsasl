@@ -154,6 +154,29 @@ void
 gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
 		    const char *data)
 {
+  gsasl_property_lset (sctx, prop, data, data ? strlen (data) : 0);
+}
+
+/**
+ * gsasl_property_lset:
+ * @sctx: session handle.
+ * @prop: enumerated value of Gsasl_property type, indicating the
+ *        type of data in @data.
+ * @data: character string to store.
+ * @len: length of character string to store.
+ *
+ * Make a copy of @len sized @data and store a zero terminated version
+ * of it in the session handle for the indicated property @prop.  You
+ * can immediately deallocate @data after calling this function,
+ * without affecting the data stored in the session handle.
+ *
+ * Except for the length indicator, this function is identical to
+ * gsasl_property_set.
+ **/
+void
+gsasl_property_lset (Gsasl_session * sctx, Gsasl_property prop,
+		     const char *data, size_t len)
+{
   char **p = map (sctx, prop);
 
   if (p)
@@ -161,7 +184,11 @@ gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
       if (*p)
 	free (*p);
       if (data)
-	*p = strdup (data);
+	{
+	  *p = malloc (len + 1);
+	  memcpy (*p, data, len);
+	  (*p)[len] = '\0';
+	}
       else
 	*p = NULL;
     }

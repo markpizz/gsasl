@@ -139,10 +139,12 @@ extern "C"
     GSASL_VALIDATE_SECURID,
     GSASL_VALIDATE_ANONYMOUS,
     GSASL_VALIDATE_EXTERNAL,
+    GSASL_VALIDATE_GSSAPI,
     GSASL_SERVER_REALM,
     GSASL_SERVER_QOP,
     GSASL_SERVER_MAXBUF,
-    GSASL_SERVER_CIPHER
+    GSASL_SERVER_CIPHER,
+    GSASL_GSSAPI_DISPLAY_NAME
   } Gsasl_property;
 
   /**
@@ -185,6 +187,8 @@ extern "C"
   /* Property handling: property.c */
   extern void gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
 				  const char *data);
+  extern void gsasl_property_lset (Gsasl_session * sctx, Gsasl_property prop,
+				   const char *data, size_t len);
   extern void gsasl_property_set_global (Gsasl * ctx, Gsasl_property prop,
 					 const char *data);
   extern const char *gsasl_property_get (Gsasl_session * sctx,
