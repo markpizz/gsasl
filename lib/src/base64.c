@@ -23,9 +23,6 @@
 
 #include "base64.h"
 
-/* Get SIZE_MAX.  */
-#include "xsize.h"
-
 /**
  * gsasl_base64_to:
  * @in: input byte array
@@ -72,6 +69,13 @@ gsasl_base64_to (const char *in, size_t inlen, char **out, size_t * outlen)
 int
 gsasl_base64_from (const char *in, size_t inlen, char **out, size_t * outlen)
 {
-  return base64_decode_alloc (in, inlen, out, outlen)
-    ? GSASL_OK : GSASL_MALLOC_ERROR;
+  int ok = base64_decode_alloc (in, inlen, out, outlen);
+
+  if (!ok)
+    return GSASL_BASE64_ERROR;
+
+  if (*out == NULL || *outlen == SIZE_MAX)
+    return GSASL_MALLOC_ERROR;
+
+  return GSASL_OK;
 }
