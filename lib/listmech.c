@@ -81,7 +81,7 @@ gsasl_client_mechlist (Gsasl * ctx, char **out)
 }
 
 /**
- * gsasl_server_listmech:
+ * gsasl_server_mechlist:
  * @ctx: libgsasl handle.
  * @out: newly allocated output character array.
  *
