@@ -1,0 +1,394 @@
+
+
+
+
+
+
+Network Working Group                                          C. Newman
+Internet Draft                                                  Innosoft
+Document: draft-ietf-nntpext-auth-01.txt                   November 1998
+                                                   Expires in six months
+
+
+                          NNTP Authentication
+
+
+Status of this memo
+
+     This document is an Internet-Draft.  Internet-Drafts are working
+     documents of the Internet Engineering Task Force (IETF), its areas,
+     and its working groups.  Note that other groups may also distribute
+     working documents as Internet-Drafts.
+
+     Internet-Drafts are draft documents valid for a maximum of six
+     months and may be updated, replaced, or obsoleted by other
+     documents at any time.  It is inappropriate to use Internet-Drafts
+     as reference material or to cite them other than as "work in
+     progress."
+
+     To view the entire list of current Internet-Drafts, please check
+     the "1id-abstracts.txt" listing contained in the Internet-Drafts
+     Shadow Directories on ftp.is.co.za (Africa), ftp.nordu.net
+     (Northern Europe), ftp.nis.garr.it (Southern Europe), munnari.oz.au
+     (Pacific Rim), ftp.ietf.org (US East Coast), or ftp.isi.edu (US
+     West Coast).
+
+Abstract
+
+     Although NNTP [NNTP] has traditionally provided public access to
+     newsgroups, it is often useful to use authentication to control
+     resource consumption as well as to create restricted-access
+     newsgroups.  The NNTP AUTHINFO command described here provides a
+     way to do this.
+
+1. How to Read This Document
+
+     The key words "MUST", "MUST NOT", "SHOULD", "SHOULD NOT",
+     "RECOMMENDED" and "MAY" in this document are to be interpreted as
+     defined in RFC 1123.
+
+     This document assumes you are familiar with NNTP [NNTP] and SASL
+     [SASL].
+
+     In the examples, commands from the client are indicated with [C],
+     and responses from the server are indicated with [S].
+
+
+
+Newman                                                          [Page 1]
+
+Internet Draft            NNTP Authentication              November 1998
+
+
+2. AUTHINFO and SASL Capabilities
+
+     A server supporting the AUTHINFO command as defined in this
+     specification will advertise the "AUTHINFO" capability in response
+     to the "LIST EXTENSIONS" command.  The AUTHINFO capability has one
+     OPTIONAL argument "USER" which indicates that AUTHINFO USER and
+     AUTHINFO PASS are supported.
+
+     A server supporting AUTHINFO SASL will advertise the "SASL"
+     capability in response to the "LIST EXTENSIONS" command.  The SASL
+     capability is followed by a space-separated list of SASL mechanism
+     names.
+
+     Example:
+          [C] LIST EXTENSIONS
+          [S] 202-Extensions supported:
+          [S]  OVER
+          [S]  PAT
+          [S]  LISTGROUP
+          [S]  AUTHINFO USER
+          [S]  SASL CRAM-MD5 GSSAPI
+          [S] .
+
+     It is not required to issue LIST EXTENSIONS prior to attempting use
+     of AUTHINFO or any SASL mechanism.
+
+3. Authentication Response Codes
+
+     An NNTP server MAY respond to any client command other than QUIT or
+     AUTHINFO with a 450 failure response.  This indicates the client
+     MUST authenticate in order to use that command or access that
+     resource.
+
+     If a client has previously authenticated, but is not authorized to
+     access a given resource, the server MAY respond with a 452 failure
+     response.
+
+4. AUTHINFO
+
+     AUTHINFO is used to authenticate a user.  In all cases, clients
+     MUST provide this information when requested by the server.
+     Servers are not required to accept authentication information that
+     is volunteered by the client.  Clients MUST accommodate servers
+     that reject any authentication information volunteered by the
+     client.
+
+
+
+
+
+
+Newman                                                          [Page 2]
+
+Internet Draft            NNTP Authentication              November 1998
+
+
+4.1. AUTHINFO USER/PASS
+
+     AUTHINFO USER username
+
+     AUTHINFO PASS password
+
+     These commands permit the client to use a clear-text password to
+     authenticate.  A compliant implementation MUST NOT implement this
+     mechanism without also implementing support for a strong encryption
+     layer or a stronger authentication mechanism.  Use of this
+     mechanism is deprecated as it exposes the user's password to all
+     parties on the network between the client and the server.  Any
+     implementation of this mechanism SHOULD include a configuration
+     option which disables it.
+
+     The client begins by issuing the AUTHINFO USER username command.
+     If the server is willing to accept this form of authentication and
+     a password is required, the server responds with a 350 response.
+     The client continues by sending the AUTHINFO PASS password command.
+     If the username/password combination is valid or no password is
+     required, the server responds with a 250 response and the client
+     MAY then retry the command which resulted in a 450 response.
+
+     If the server returns 501, this means that the command was
+     syntactically incorrect, or that this form of AUTHINFO is not
+     supported.
+
+     If the requested authenticator capability is not found or there is
+     some other unspecified server program error, the server MUST return
+     the 503 response code.
+
+     Only US-ASCII printable characters SHOULD be used in the username
+     and password to permit maximal interoperability.  If non-US-ASCII
+     characters are used in a username, they MUST use UTF-8.  Passwords
+     MAY contain arbitrary binary data excluding NUL, CR and LF
+     characters.  However, if a password is supplied to the client as a
+     sequence of characters (e.g., a password dialog box), those
+     characters MUST be encoded as UTF-8.
+
+     Example:
+          [C] AUTHINFO USER fred
+          [S] 350 Enter Passphrase
+          [C] AUTHINFO PASS flintstone
+          [S] 250 Authorization accepted
+
+4.1.2. Responses
+
+     250 Authorization accepted
+
+
+
+Newman                                                          [Page 3]
+
+Internet Draft            NNTP Authentication              November 1998
+
+
+     350 Continue with authorization sequence
+     450 Authorization required for this command
+     452 Authorization rejected
+     501 Command not supported or Command Syntax Error
+     503 Program error, function not performed
+
+     Clients MUST support other response codes by processing them based
+     on the first digit.
+
+4.2. AUTHINFO SASL
+
+     AUTHINFO SASL mechanism [initial-response]
+
+     The AUTHINFO SASL command permits NNTP clients to authenticate
+     using SASL [SASL] mechanisms such as CRAM-MD5 [CRAM-MD5],
+     KERBEROS_V4, GSSAPI or EXTERNAL.  This profile of SASL uses the
+     service name "news" for Kerberos and GSSAPI mechanisms.
+
+     If AUTHINFO is implemented, then AUTHINFO SASL and the DIGEST-MD5
+     [DIGEST-MD5] mechanism MUST be implemented.  This is necessary to
+     ensure that any two compliant clients and servers can be configured
+     to authenticate without using unencrypted clear-text passwords.
+     [NOTE:  CRAM-MD5 is an expedient alternative choice as it's already
+     standards track.]
+
+     The optional initial-response argument is a base64-encoded string
+     of the initial client response for SASL mechanisms with no initial
+     server challenge.
+
+     The server MAY continue the authentication exchange with a 351
+     response containing a base64-encoded server-challenge.  The client
+     replies with a line containing a base64-encoded client-response
+     followed by CRLF, or with a "*" followed by CRLF to cancel the
+     exchange.  The server responds to "*" with a 501 response.
+
+     The server indicates successful completion with either a 250
+     success response, or a 251 success response which contains a
+     base64-encoded token with final server challenge data.  The server
+     indicates failure with a 452, 501, 503 error.
+
+     If a security layer is negotiated, the server begins with the octet
+     immediately after the CRLF at the end of a 250 or 251 success
+     response, and the client begins with the octet immediately after
+     the CRLF of the last client-response in the SASL exchange.  In
+     addition, after a security layer is negotiated, the client SHOULD
+     re-issue the LIST EXTENSIONS command to reduce the impact of active
+     attacks prior to authentication.
+
+
+
+
+Newman                                                          [Page 4]
+
+Internet Draft            NNTP Authentication              November 1998
+
+
+     In the following example, the username is "tim" and the password is
+     "tanstaaftanstaaf".
+
+     Example:
+          [C] AUTHINFO SASL CRAM-MD5
+          [S] 351 PDE4OTYuNjk3MTcwOTUyQHBvc3RvZmZpY2UucmVzdG9uLm1jaS5uZXQ+
+          [C] dGltIGI5MTNhNjAyYzdlZGE3YTQ5NWI0ZTZlNzMzNGQzODkw
+          [S] 250 Authorization accepted
+
+4.2.1 Responses
+
+     250 Authorization accepted
+     251 final-server-challenge-data (client authorization accepted)
+     351 server-challenge-data
+     452 Authorization rejected
+     501 Command not supported or Command Syntax Error
+     503 Program error, function not performed
+
+     Clients MUST support other response codes by processing them based
+     on the first digit.
+
+4.3. AUTHINFO SIMPLE
+
+     The AUTHINFO SIMPLE command provided equiavlent functionality to
+     AUTHINFO USER and AUTHINFO PASS.  It is now deprecated.  Some
+     information about current use is documented in "Common NNTP
+     Extensions" [NNTP-EXT-INFO].
+
+4.4. AUTHINFO GENERIC
+
+     The AUTHINFO GENERIC command provided a service which is roughly
+     comparable to the authentication framework which SASL provides,
+     except that it requires authentication mechanisms to be designed
+     specifically for NNTP.  It is now deprecated.  Some information
+     about current use is documented in "Common NNTP Extensions" [NNTP-
+     EXT-INFO].
+
+4.5. Transition Issues
+
+     The implementations of AUTHINFO USER/PASS commonly in use prior to
+     the release of this memo have a different response code set. The
+     code 281 was used in place of 250, 381 and 480 were used in place
+     of 450 and 482 and 502 were used in place of 452. Clients compliant
+     with this spec MAY also want to be able to accommodate the older
+     codes to lessen the impact of the transition to this specification.
+
+
+
+
+
+
+Newman                                                          [Page 5]
+
+Internet Draft            NNTP Authentication              November 1998
+
+
+4.6. Formal Syntax
+
+     This amends the formal syntax for NNTP [NNTP] to add these
+     additional commands.  The syntax is defined using ABNF [ABNF],
+     including the core rules from section 6 of ABNF.
+
+     authinfo-capability   = "AUTHINFO" [SP "USER"] CRLF
+     sasl-capability       = "SASL" 1*(SP sasl-mech) CRLF
+     command              /= authinfo-user-command /
+                             authinfo-pass-command /
+                             authinfo-sasl-command
+     authinfo-user-command = "AUTHINFO" 1*WSP "USER" 1*WSP username
+                             *WSP CRLF
+     authinfo-pass-command = "AUTHINFO" 1*WSP "PASS" 1*WSP password
+                             *WSP CRLF
+     authinfo-sasl-command = "AUTHINFO" 1*WSP "SASL" 1*WSP sasl-mech
+                             [1*WSP base64 *WSP] *(CRLF base64) CRLF
+                    ; client waits for server response after each CRLF
+     resp-sasl-data        = ("351" / "251") SP base64
+
+     sasl-mech             = 1*20mech-char
+     mech-char             = %x41-5A / DIGIT / "-" / "_"
+                    ; mech names restricted to uppercase letters,
+                    ; digits, "-" and "_"
+     username              = 1*UTF8-SAFE
+     password              = 1*PASS-DATA
+     PASS-DATA             = %x01-09 / %x0B-0C / %x0E-FF
+     UTF8-SAFE             = %x01-09 / %x0B-0C / %x0E-7F / UTF8-2 /
+                             UTF8-3 / UTF8-4 / UTF8-5 / UTF8-6
+     UTF8-1                = %x80-BF
+     UTF8-2                = %xC0-DF UTF8-1
+     UTF8-3                = %xE0-EF 2UTF8-1
+     UTF8-4                = %xF0-F7 3UTF8-1
+     UTF8-5                = %xF8-FB 4UTF8-1
+     UTF8-6                = %xFC-FD 5UTF8-1
+     base64                = *(4base64-char) [base64-terminal]
+     base64-char           = ALPHA / DIGIT / "+" / "/"
+                    ; case sensitive
+     base64-terminal       = (2base64-char "==") / (3base64-char "=")
+
+5. Security Considerations
+
+     The AUTHINFO USER and AUTHINFO PASS commands are subject to passive
+     attacks and replay attacks and are therefore not safe for most
+     real-world use.
+
+     The AUTHINFO SASL command inherits the security considerations of
+     the underlying mechanism and the security considerations of SASL.
+
+
+
+Newman                                                          [Page 6]
+
+Internet Draft            NNTP Authentication              November 1998
+
+
+     When multiple authentication mechanisms are permitted by both
+     client and server, then an active attacker can cause a down-
+     negotiation to the weakest mechanism.  For this reason, both
+     clients and servers SHOULD be configurable to forbid use of weaker
+     mechanisms.
+
+     A SASL integrity protection layer can not protect protocol
+     exchanges conducted prior to authentication.  For this reason, the
+     LIST EXTENSIONS command SHOULD be re-issued after successful
+     negotiation of integrity protection, and other protocol state
+     SHOULD be re-negotiated as well.  When integrity protection is
+     negotiated, the client MAY compare the list of available SASL
+     mechanisms before and after authentication to detect active down-
+     negotiation attacks.
+
+6. Acknowledgements
+
+     A significant amount of this text was originally from the NNTP
+     revision spec written by Stan Barber.
+
+7. References
+
+     [CRAM-MD5] Klensin, Catoe, Krumviede, "IMAP/POP AUTHorize Extension
+     for Simple Challenge/Response", RFC 2195, MCI, September 1997.
+
+     [DIGEST-MD5] Leach, P., Newman, C., "Using Digest Authentication as a
+     SASL Mechanism", Work in Progress.
+
+     [NNTP] Barber, S., "Network News Transport Protocol", Work in
+     Progress.
+
+     [NNTP-EXT-INFO] Barber, S., "Common NNTP Extensions", Work in Progress.
+
+     [SASL] Myers, "Simple Authentication and Security Layer (SASL)", RFC
+     2222, Netscape Communications, October 1997.
+
+     [UTF-8] Yergeau, F. "UTF-8, a transformation format of ISO 10646",
+     RFC 2279, Alis Technologies, January 1998.
+
+8. Authors' Addresses
+
+     Chris Newman
+     Innosoft International, Inc.
+     1050 Lakes Drive
+     West Covina, CA 91790 USA
+
+     Email: chris.newman@innosoft.com
+
+
+
+
+Newman                                                          [Page 7]
