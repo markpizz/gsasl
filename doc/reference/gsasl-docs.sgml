@@ -37,8 +37,28 @@ platforms including most major Unix platforms and Windows, and many
 kind of devices including iPAQ handhelds and S/390 mainframes.
     </para>
     <para>
-GNU SASL is licensed under the GNU General Public License.
+The GNU SASL library is licensed under the GNU Lesser General Public
+License (LGPL).  The command-line application and test suite (src/,
+and tests/) are licensed under the GNU General Public License license
+(see COPYING), and the documentation (doc/) is licensed under the GNU
+Free Documentation License (see COPYING.DOC).
     </para>
+    <para>The operation of an application using the library can best
+      be understood in terms of a flow chart diagram, as shown in
+      <xref linkend="controlflow"/>.  The details on how the actual
+      negotiation are carried out are illustrated in <xref
+      linkend="controlflow2"/>.
+    </para>
+
+    <figure id="controlflow">
+      <title>High-level control flow of SASL application</title>
+      <graphic fileref="controlflow.png" format="PNG"></graphic>
+    </figure>
+
+    <figure id="controlflow2">
+      <title>Low-level control flow of SASL application</title>
+      <graphic fileref="controlflow2.png" format="PNG"></graphic>
+    </figure>
 
     <xi:include href="xml/gsasl.xml"/>
     <xi:include href="xml/gsasl-mech.xml"/>
