@@ -33,16 +33,26 @@ gsasl_server_callback_retrieve_get(), respectively.
 
 ** A crash in the new base64 code was fixed.
 
+** Use of SASLprep in CRAM-MD5 changed.
+The client now prepare authid/password as if they were query strings.
+The server prepare the password as a storage string.
+
 ** The shared library version was incremented to reflect that the base64 APIs
 were added, this was forgotten in the last release.
+
+** Disabling Libidn/SASLprep should now result in a RFC 2222 compliant library.
+However, it will reject non-ASCII strings, since the handling of those
+strings was not specified in RFC 2222.
 
 ** API and ABI modifications.
 gsasl_stringprep_nfkc, gsasl_stringprep_saslprep,
 gsasl_stringprep_trace: DEPRECATED.  Use gsasl_saslprep() instead.
 gsasl_saslprep: ADD.
+Gsasl_saslprep_flags: ADD.  New enum type to go with gsasl_saslprep.
 GSASL_REALM: ADD, new property.
 GSASL_UNICODE_NORMALIZATION_ERROR: DEPRECATED.  Use
                                    GSASL_SASLPREP_ERROR instead.
+GSASL_CANNOT_VALIDATE: REMOVED.  Never used for any reasonable purpose.
 
 * Version 0.2.2 (released 2004-11-29)
 
