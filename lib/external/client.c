@@ -1,5 +1,5 @@
 /* client.c --- EXTERNAL mechanism as defined in RFC 2222, client side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -39,18 +39,13 @@ _gsasl_external_client_step (Gsasl_session * sctx,
   const char *p;
 
   p = gsasl_property_get (sctx, GSASL_AUTHZID);
-  if (p)
-    {
-      *output = strdup (p);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-      *output_len = strlen (p);
-    }
-  else
-    {
-      *output = NULL;
-      *output_len = 0;
-    }
+  if (!p)
+    p = "";
+
+  *output = strdup (p);
+  if (!*output)
+    return GSASL_MALLOC_ERROR;
+  *output_len = strlen (p);
 
   return GSASL_OK;
 }
