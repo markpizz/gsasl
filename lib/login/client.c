@@ -57,7 +57,7 @@ _gsasl_login_client_step (Gsasl_session_ctx * sctx,
   switch (state->step)
     {
     case 0:
-      p = gsasl_property_get (sctx, GSASL_CLIENT_AUTHZID);
+      p = gsasl_property_get (sctx, GSASL_AUTHZID);
       if (!p)
 	return GSASL_NO_AUTHZID;
 
@@ -73,7 +73,7 @@ _gsasl_login_client_step (Gsasl_session_ctx * sctx,
       break;
 
     case 1:
-      p = gsasl_property_get (sctx, GSASL_CLIENT_PASSWORD);
+      p = gsasl_property_get (sctx, GSASL_PASSWORD);
       if (!p)
 	return GSASL_NO_PASSWORD;
 

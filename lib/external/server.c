@@ -50,7 +50,7 @@ _gsasl_external_server_step (Gsasl_session_ctx * sctx,
       if (input_len != strlen (p))
 	return GSASL_MECHANISM_PARSE_ERROR;
 
-      gsasl_property_set (sctx, GSASL_CLIENT_AUTHZID, p);
+      gsasl_property_set (sctx, GSASL_AUTHZID, p);
 
       free (p);
     }

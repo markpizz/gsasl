@@ -71,7 +71,7 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * sctx,
          if (input_len != 1 && *input != '+')
          return GSASL_MECHANISM_PARSE_ERROR; */
 
-      authzid = gsasl_property_get (sctx, GSASL_CLIENT_AUTHZID);
+      authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
       if (!authzid)
 	return GSASL_NO_AUTHZID;
 
@@ -98,11 +98,11 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * sctx,
 
       memcpy (&challenge, input, input_len);
 
-      password = gsasl_property_get (sctx, GSASL_CLIENT_PASSWORD);
+      password = gsasl_property_get (sctx, GSASL_PASSWORD);
       if (!password)
 	return GSASL_NO_PASSWORD;
 
-      authzid = gsasl_property_get (sctx, GSASL_CLIENT_AUTHZID);
+      authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
       if (!authzid)
 	return GSASL_NO_AUTHZID;
 

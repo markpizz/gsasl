@@ -33,15 +33,15 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->anonymous_token;
       break;
 
-    case GSASL_CLIENT_AUTHID:
+    case GSASL_AUTHID:
       p = &sctx->authid;
       break;
 
-    case GSASL_CLIENT_AUTHZID:
+    case GSASL_AUTHZID:
       p = &sctx->authzid;
       break;
 
-    case GSASL_CLIENT_PASSWORD:
+    case GSASL_PASSWORD:
       p = &sctx->password;
       break;
 
@@ -64,15 +64,15 @@ map_global (Gsasl * ctx, Gsasl_property prop)
       p = &ctx->anonymous_token;
       break;
 
-    case GSASL_CLIENT_AUTHID:
+    case GSASL_AUTHID:
       p = &ctx->authid;
       break;
 
-    case GSASL_CLIENT_AUTHZID:
+    case GSASL_AUTHZID:
       p = &ctx->authzid;
       break;
 
-    case GSASL_CLIENT_PASSWORD:
+    case GSASL_PASSWORD:
       p = &ctx->password;
       break;
 
@@ -260,7 +260,7 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 	  gsasl_property_set (sctx, prop, buf);
 	  break;
 
-	case GSASL_CLIENT_AUTHID:
+	case GSASL_AUTHID:
 	  cb_authentication_id =
 	    gsasl_client_callback_authentication_id_get (sctx->ctx);
 	  if (!cb_authentication_id)
@@ -272,7 +272,7 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 	  gsasl_property_set (sctx, prop, buf);
 	  break;
 
-	case GSASL_CLIENT_AUTHZID:
+	case GSASL_AUTHZID:
 	  cb_authorization_id =
 	    gsasl_client_callback_authorization_id_get (sctx->ctx);
 	  if (!cb_authorization_id)
@@ -284,7 +284,7 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 	  gsasl_property_set (sctx, prop, buf);
 	  break;
 
-	case GSASL_CLIENT_PASSWORD:
+	case GSASL_PASSWORD:
 	  cb_password = gsasl_client_callback_password_get (sctx->ctx);
 	  if (!cb_password)
 	    break;

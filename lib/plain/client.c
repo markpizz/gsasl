@@ -39,7 +39,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
   const char *p;
   int res;
 
-  p = gsasl_property_get (sctx, GSASL_CLIENT_AUTHZID);
+  p = gsasl_property_get (sctx, GSASL_AUTHZID);
   if (!p)
     {
       res = GSASL_NO_AUTHZID;
@@ -54,7 +54,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
     }
   authzidlen = strlen (authzid);
 
-  p = gsasl_property_get (sctx, GSASL_CLIENT_AUTHID);
+  p = gsasl_property_get (sctx, GSASL_AUTHID);
   if (!p)
     {
       res = GSASL_NO_AUTHZID;
@@ -69,7 +69,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
     }
   authidlen = strlen (authid);
 
-  p = gsasl_property_get (sctx, GSASL_CLIENT_PASSWORD);
+  p = gsasl_property_get (sctx, GSASL_PASSWORD);
   if (!p)
     {
       res = GSASL_NO_AUTHZID;

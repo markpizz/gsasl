@@ -36,7 +36,7 @@ _gsasl_external_client_step (Gsasl_session_ctx * sctx,
 {
   const char *p;
 
-  p = gsasl_property_get (sctx, GSASL_CLIENT_AUTHZID);
+  p = gsasl_property_get (sctx, GSASL_AUTHZID);
   if (p)
     {
       *output = strdup (p);
