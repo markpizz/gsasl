@@ -31,8 +31,6 @@ extern "C"
 {
 # endif
 
-# include <gsasl-mech.h>	/* Gsasl_mechanism */
-
 # define GSASL_VERSION "@PACKAGE_VERSION@"
 
   /* RFC 2222: SASL mechanisms are named by strings, from 1 to 20
@@ -193,6 +191,8 @@ extern "C"
    **/
   typedef int (*Gsasl_callback_function) (Gsasl * ctx, Gsasl_session * sctx,
 					  Gsasl_property prop);
+
+# include <gsasl-mech.h>	/* Gsasl_mechanism */
 
   /* Library entry and exit points: version.c, init.c, done.c */
   extern int gsasl_init (Gsasl ** ctx);

@@ -24,6 +24,8 @@
 
 #include "shared.h"
 
+#include "session.h"
+
 struct _Gsasl_digest_md5_client_state
 {
   int step;
