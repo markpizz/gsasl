@@ -23,7 +23,7 @@ INCLUDES = -I../lib -I../intl -I$(top_srcdir)/gl @LIBIDN_CFLAGS@
 bin_PROGRAMS = gsasl
 
 gsasl_SOURCES = gsasl.c callbacks.h callbacks.c gettext.h internal.h
-gsasl_LDADD = ../lib/libgsasl.la @LIBIDN_LIBS@
+gsasl_LDADD = ../lib/libgsasl.la @LIBIDN_LIBS@ -L../gl -lfoo
 
 localedir = $(datadir)/locale
 
