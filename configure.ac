@@ -260,9 +260,10 @@ elif test "$gssapi" != "no" ; then
 			save_CPPFLAGS=$CPPFLAGS
 			CPPFLAGS=$GSSAPI_CFLAGS
 			AC_CHECK_HEADERS(gssapi.h gssapi/gssapi.h gssapi/gssapi_generic.h)
-			if test -n "$ac_cv_header_gssapi_h" -a \
-				-n "$ac_cv_header_gssapi_gssapi_h"; then
-				AC_MSG_ERROR([Both MIT and Heimdal headers found, please specify either --enable-gssapi=mit or --enable-gssapi=heimdal.])
+			if test "$ac_cv_header_gssapi_h" = "yes" && \
+			   test	"$ac_cv_header_gssapi_gssapi_h" = "yes"; then
+				AC_MSG_WARN([Both Heimdal and MIT GSSAPI header files found.  Will use Heimdal.])
+				AC_MSG_WARN([Use --enable-gssapi=mit to override.])
 			fi
 			if test -n "$ac_cv_header_gssapi_h"; then
 				AC_MSG_NOTICE([Heimdal found])
