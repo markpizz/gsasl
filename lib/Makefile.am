@@ -17,9 +17,12 @@
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
+EXTRA_DIST = gethostname.c strdup.c strerror.c memmove.c memset.c
+
 lib_LTLIBRARIES = libgsasl.la
 
-INCLUDES = -I../intl @LIBNTLM_CFLAGS@ @LIBGCRYPT_CFLAGS@ @GSSAPI_CFLAGS@ @LIBSTRINGPREP_CFLAGS@
+INCLUDES = -I../intl @LIBNTLM_CFLAGS@ @LIBGCRYPT_CFLAGS@ @GSSAPI_CFLAGS@ \
+	@LIBSTRINGPREP_CFLAGS@
 
 include_HEADERS = gsasl.h
 
@@ -38,7 +41,8 @@ libgsasl_la_SOURCES = init.c done.c error.c version.c callback.c \
 			x-gssapi.h gssapi.c \
 			securid.h securid.c
 
-libgsasl_la_LIBADD = @LIBINTL@ @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ @GSSAPI_LIBS@ @LIBSTRINGPREP_LIBS@ -lm
+libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ \
+	@GSSAPI_LIBS@ @LIBSTRINGPREP_LIBS@ -lm @LTLIBOBJS@
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 localedir = $(datadir)/locale
