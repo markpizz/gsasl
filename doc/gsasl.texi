@@ -447,19 +447,24 @@ code:
 
 @example
 #include <gcrypt.h>
-
 ...
 
-/* Check version of libgcrypt. */
-if (!gcry_check_version (GCRYPT_VERSION))
-  die ("version mismatch\n");
+int
+main (int argc, char *argv[])
+@{
+...
 
-/* Allocate a pool of 16k secure memory.  This also drops priviliges
-   on some systems. */
-gcry_control (GCRYCTL_INIT_SECMEM, 16384, 0);
+  /* Check version of libgcrypt. */
+  if (!gcry_check_version (GCRYPT_VERSION))
+    die ("version mismatch\n");
 
-/* Tell Libgcrypt that initialization has completed. */
-gcry_control (GCRYCTL_INITIALIZATION_FINISHED, 0);
+  /* Allocate a pool of 16k secure memory.  This also drops priviliges
+     on some systems. */
+  gcry_control (GCRYCTL_INIT_SECMEM, 16384, 0);
+
+  /* Tell Libgcrypt that initialization has completed. */
+  gcry_control (GCRYCTL_INITIALIZATION_FINISHED, 0);
+  ...
 @end example
 
 If you do not do this, keying material will not be allocated in secure
