@@ -79,18 +79,15 @@ ChangeLog:
 		-I autogen.sh
 	cat ../.cvscopying >> ChangeLog
 
-htmldir = ../../www-$(PACKAGE)
-tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
+htmldir = ../../www-gsasl
 
 release:
 	cvs upd -p -r HEAD NEWS > /dev/null
-	if cvs upd -p -r $(tag) NEWS > /dev/null; then false else true; fi
 	rm -f ChangeLog && cvs upd ChangeLog
 	cvs commit
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
 	cvs commit -m "" ChangeLog
-	cvs rtag $(tag) $(PACKAGE)
 	gpg -b $(distdir).tar.gz
 	gpg --verify $(distdir).tar.gz.sig
 	echo "directory: gsasl" > $(distdir).tar.gz.directive
