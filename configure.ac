@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-# Copyright (C) 2002, 2003 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -19,14 +19,14 @@ dnl Process this file with autoconf to produce a configure script.
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-AC_INIT([gsasl], [0.0.11], [bug-gsasl@gnu.org])
+AC_INIT([gsasl], [0.0.12], [bug-gsasl@gnu.org])
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 LT_CURRENT=5
-LT_REVISION=2
+LT_REVISION=3
 LT_AGE=4
 AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
