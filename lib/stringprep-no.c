@@ -42,20 +42,7 @@ _gsasl_no_stringprep_nfkc (const char *in, ssize_t len)
 }
 
 char *
-_gsasl_no_stringprep_saslprep (const char *in, int *stringprep_rc)
-{
-  char *out;
-  int rc;
-
-  out = malloc (strlen (in) + 1);
-  if (out)
-    strcpy (out, in);
-
-  return out;
-}
-
-char *
-_gsasl_no_stringprep_trace (const char *in, int *stringprep_rc)
+_gsasl_no_stringprep (const char *in, int *stringprep_rc)
 {
   char *out;
   int rc;

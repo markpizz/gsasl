@@ -37,17 +37,14 @@
 /* Get specifications. */
 #include "gsasl.h"
 
+/* I18n of error codes. */
 #include "gettext.h"
 #define _(String) dgettext (PACKAGE, String)
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
 
+/* Used by *-md5.c. */
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
-
-/* MIN(a,b) returns the minimum of A and B.  */
-#ifndef MIN
-# define MIN(a,b) ((a) < (b) ? (a) : (b))
-#endif
 
 typedef int (*_Gsasl_code_function) (Gsasl_session_ctx * sctx,
 				     void *mech_data,
@@ -127,8 +124,8 @@ struct Gsasl_session_ctx
 
 #ifndef WITH_STRINGPREP
 #define gsasl_stringprep_nfkc _gsasl_no_stringprep_nfkc
-#define gsasl_stringprep_saslprep _gsasl_no_stringprep_saslprep
-#define gsasl_stringprep_trace _gsasl_no_stringprep_trace
+#define gsasl_stringprep_saslprep _gsasl_no_stringprep
+#define gsasl_stringprep_trace _gsasl_no_stringprep
 #endif
 
 #endif /* _INTERNAL_H */

@@ -113,6 +113,10 @@
 #define DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING "Digest H(A1) to client-to-server sealing key magic constant"
 #define DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING "Digest H(A1) to server-to-client sealing key magic constant"
 
+/* MIN(a,b) returns the minimum of A and B.  */
+#ifndef MIN
+# define MIN(a,b) ((a) < (b) ? (a) : (b))
+#endif
 
 #define CLIENT_PRINT_OUTPUT 0
 #define SERVER_PRINT_OUTPUT 0
