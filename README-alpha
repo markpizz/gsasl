@@ -15,7 +15,7 @@ It will not become stable without help.  Donate time or money.
 
 To compile from CVS, you may need fairly recent versions of perl,
 texinfo (>= CVS), GTK-DOC, libtool (>= CVS), autoconf (>= 2.58), and
-automake (>= 1.7b).  Bootstrap the build environment with:
+automake (>= 1.8).  Bootstrap the build environment with:
 
   $ ./autogen.sh
 
