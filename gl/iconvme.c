@@ -34,6 +34,8 @@
 #if HAVE_ICONV
 /* Get iconv etc. */
 # include <iconv.h>
+/* Get MB_LEN_MAX. */
+# include <limits.h>
 #endif
 
 /* Convert a zero-terminated string from one code set to another.  The
