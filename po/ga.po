@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 0.1.4\n"
+"Project-Id-Version: gsasl 0.2.2\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-12-15 19:33+0100\n"
-"PO-Revision-Date: 2004-09-10 21:31-0500\n"
+"POT-Creation-Date: 2004-11-29 01:57+0100\n"
+"PO-Revision-Date: 2004-12-21 21:31-0500\n"
 "Last-Translator: Kevin Patrick Scannell <scannell@SLU.EDU>\n"
 "Language-Team: Irish <ga@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,11 @@ msgstr "Roghnaigh sásra SASL:\n"
 
 #, c-format
 msgid "Input SASL mechanism supported by server:\n"
-msgstr "Sásra SASL tacaithe ag an dháileoir:\n"
+msgstr "Sásra SASL tacaithe ag an fhreastalaí:\n"
 
 #, c-format
 msgid "Using mechanism:\n"
-msgstr "Ag úsáid an shásra:\n"
+msgstr "Ag úsáid an tsásra:\n"
 
 #, c-format
 msgid "Output from client:\n"
@@ -33,7 +33,7 @@ msgstr "Aschur ón chliant:\n"
 
 #, c-format
 msgid "Output from server:\n"
-msgstr "Aschur ón dháileoir:\n"
+msgstr "Aschur ón fhreastalaí:\n"
 
 #, c-format
 msgid "Libgsasl error (%d): %s"
@@ -45,7 +45,7 @@ msgstr "Tacaíonn an cliant seo na sásraí a leanas:\n"
 
 #, c-format
 msgid "This server supports the following mechanisms:\n"
-msgstr "Tacaíonn an dáileoir seo na sásraí a leanas:\n"
+msgstr "Tacaíonn an freastalaí seo na sásraí a leanas:\n"
 
 #, c-format
 msgid "Cannot find mechanism...\n"
@@ -53,25 +53,21 @@ msgstr "Ní bhfuarthas an sásra...\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr ""
-"Iontráil sonraí fíordheimhnithe base64 ón dháileoir (RET mura bhfuil aon "
-"ann):\n"
+msgstr "Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon ann):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon "
-"ann):\n"
+msgstr "Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon ann):\n"
 
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
-msgstr "Fíordheimhniú den chliant déanta (dáileoir iontaofa)...\n"
+msgstr "Fíordheimhniú den chliant déanta (freastalaí iontaofa)...\n"
 
 # # @name STRONGAUTH_REQUIRED_HINT
 # # @loc none
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
-msgstr "Fíordheimhniú den dháileoir déanta (cliant iontaofa)...\n"
+msgstr "Fíordheimhniú den fhreastalaí déanta (cliant iontaofa)...\n"
 
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
