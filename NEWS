@@ -15,6 +15,7 @@ cryptographic library based on Nettle, from crypto/.
 
 ** API and ABI modifications.
 GSASL_CRYPTO_ERROR: ADD, alias for GSASL_LIBGCRYPT_ERROR.
+GSASL_LIBGCRYPT_ERROR: DEPRECATED.  Will be removed in the future.
 gsasl_randomize: ADD.
 gsasl_md5: ADD.
 gsasl_hmac_md5: ADD.
