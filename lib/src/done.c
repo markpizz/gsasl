@@ -56,6 +56,8 @@ gsasl_done (Gsasl * ctx)
 
   if (ctx->anonymous_token)
     free (ctx->anonymous_token);
+  if (ctx->authid)
+    free (ctx->authid);
   if (ctx->authzid)
     free (ctx->authzid);
   if (ctx->password)
