@@ -175,16 +175,19 @@ _gsasl_anonymous_server_step (Gsasl_session_ctx * sctx,
 	return GSASL_NEEDS_MORE;
       /* fall through */
 
-    case 1:
+    case 1: 
+      if (input_len == 0)
+	return GSASL_MECHANISM_PARSE_ERROR;
+
       token = malloc (input_len + 1);
       if (token == NULL)
 	return GSASL_MALLOC_ERROR;
-      
+
       memcpy (token, input, input_len);
       token[input_len] = '\0';
-      
+
       res = cb_anonymous (sctx, token);
-      
+
       free (token);
 
       state->step++;
@@ -203,7 +206,7 @@ _gsasl_anonymous_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   struct _Gsasl_anonymous_server_state *state = mech_data;
 
-  free(state);
+  free (state);
 
   return GSASL_OK;
 }
