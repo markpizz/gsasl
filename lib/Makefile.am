@@ -78,3 +78,25 @@ ChangeLog:
 	cvs2cl --fsf --FSF --usermap ../.cvsusers -I ChangeLog -I .cvs \
 		-I autogen.sh
 	cat ../.cvscopying >> ChangeLog
+
+htmldir = ../../www-$(PACKAGE)
+tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
+
+release:
+	cvs upd -p -r HEAD NEWS > /dev/null
+	if cvs upd -p -r $(tag) NEWS > /dev/null; then false else true; fi
+	rm -f ChangeLog && cvs upd ChangeLog
+	cvs commit
+	rm -f ChangeLog
+	$(MAKE) ChangeLog distcheck
+	cvs commit -m "" ChangeLog
+	cvs rtag $(tag) $(PACKAGE)
+	gpg -b $(distdir).tar.gz
+	gpg --verify $(distdir).tar.gz.sig
+	echo "directory: gsasl" > $(distdir).tar.gz.directive
+	gpg --clearsign $(distdir).tar.gz.directive
+	ncftpput ftp-upload.gnu.org /incoming/alpha \
+		$(distdir).tar.gz{,.sig,.directive.asc}
+	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/
+	cd $(htmldir) && cvs add -kb releases/$(distdir).tar.gz{,.sig} && \
+		cvs commit -m "Update." releases/
