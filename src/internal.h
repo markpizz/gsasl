@@ -60,6 +60,8 @@
 
 #ifdef HAVE_LOCALE_H
 # include <locale.h>
+#else
+# define setlocale(Category, Locale)	/* empty */
 #endif
 
 #ifdef WITH_STRINGPREP
