@@ -363,8 +363,30 @@ AC_ARG_WITH(included-libidn,
 if test "$minilibidn_enabled" = "no"; then
 	sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version,,
 		[minilibidn_enabled=yes
+		AC_MSG_WARN([[Libidn not found.  Using the included copy.]])
 		AM_ICONV
-		AC_MSG_WARN([[Libidn not found.  Using the included copy.]])])
+		# Check if locale stuff works
+		AC_CACHE_CHECK([if setlocale() and nl_langinfo() works],
+			ac_cv_locale_works, [
+			AC_RUN_IFELSE([AC_LANG_SOURCE([[
+#include <locale.h>
+#include <langinfo.h>
+int main ()
+{
+  char* cs;
+  setlocale(LC_CTYPE, "");
+  cs = nl_langinfo(CODESET);
+  return !cs;
+}
+]])],
+			[ac_cv_locale_works=yes],
+			[ac_cv_locale_works=no],
+			[ac_cv_locale_works=no])
+		])
+		if test "$ac_cv_locale_works" = "yes"; then
+		  AC_DEFINE(LOCALE_WORKS, 1,
+			[Define if setlocale() and nl_langinfo() works.])
+		fi])
 fi
 AC_MSG_CHECKING([whether to use the included libidn])
 AC_MSG_RESULT($minilibidn_enabled)
