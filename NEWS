@@ -16,6 +16,10 @@ SASL.  That include the manual, the command line tool, and self tests.
 It is unclear if this feature was ever that useful.  If there are no
 objections, it will be removed completely in future versions.
 
+** Documentation fixes.
+
+** Fix self test bugs.
+
 * Version 0.2.2 (released 2004-11-29)
 
 ** Update of gnulib files.
