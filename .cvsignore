@@ -7,7 +7,7 @@ config.h.in
 config.log
 config.status
 configure
-libgsasl-0.0.0.tar.gz
+libgsasl-*.tar.gz
 libgsasl.pc
 libtool
-stamp-h1
+stamp-h*
