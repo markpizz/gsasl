@@ -20,6 +20,9 @@
 
 EXTRA_DIST = README
 
+BUILT_SOURCES = nettle-types.h
+DISTCLEANFILES = nettle-types.h
+
 noinst_LTLIBRARIES = libnettle.la
 
 libnettle_la_LIBADD = $(ALLOCA)
