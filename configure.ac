@@ -1,4 +1,23 @@
 dnl Process this file with autoconf to produce a configure script.
+
+dnl Copyright (C) 2002 Simon Josefsson.
+dnl
+dnl This file is part of Libgsasl.
+dnl
+dnl Libgsasl is free software; you can redistribute it and/or modify
+dnl it under the terms of the GNU Lesser General Public License as
+dnl published by the Free Software Foundation; either version 2.1 of
+dnl the License, or (at your option) any later version.
+dnl
+dnl Libgsasl is distributed in the hope that it will be useful,
+dnl but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl GNU Lesser General Public License for more details.
+dnl
+dnl You should have received a copy of the GNU Lesser General Public
+dnl License along with Libgsasl; if not, write to the Free Software
+dnl Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
+
 AC_PREREQ(2.50)
 AC_INIT(libgsasl, 0.0.3, bug-libgsasl@josefsson.org)
 
@@ -21,10 +40,6 @@ AM_GNU_GETTEXT
 AM_GNU_GETTEXT_VERSION(0.11.5)
 AC_PROG_LIBTOOL
 AC_PROG_CC
-AC_PROG_CXX
-AC_PROG_CPP
-AC_PROG_INSTALL
-AC_PROG_LN_S
 AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 AM_MISSING_PROG(TEXI2PDF, texi2pdf, $missing_dir)
@@ -193,41 +208,41 @@ if test "$with_system_stringprep" != "no" ; then
 		with_system_stringprep=yes,
 		with_system_stringprep=no)
 fi
-LIBSTRINGPREP=""
 if test "$with_system_stringprep" = "no"; then
-	LIBSTRINGPREP=libstringprep
+	AC_MSG_WARN([[
+
+The system's libstringprep 0.0.1 or later not used. Using copy
+distributed with shishi instead.
+
+See <http://josefsson.org/libstringprep/>.
+
+Don't worry.
+]])
 	LIBSTRINGPREP_CFLAGS="-I\$(top_srcdir)/libstringprep"
 	LIBSTRINGPREP_LIBS="\$(top_builddir)/libstringprep/libstringprep.la"
+	LIBSTRINGPREP=libstringprep
 fi
 AC_SUBST(LIBSTRINGPREP)
+AC_SUBST(LIBSTRINGPREP_CFLAGS)
+AC_SUBST(LIBSTRINGPREP_LIBS)
 AC_MSG_CHECKING([if system's libstringprep should be used])
 AC_MSG_RESULT($with_system_stringprep)
 AC_CONFIG_SUBDIRS(libstringprep)
 
 # Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS([stdlib.h string.h strings.h sys/socket.h unistd.h])
+AC_CHECK_HEADERS(sys/socket.h unistd.h strings.h netdb.h math.h limits.h)
+AC_CHECK_HEADERS(sys/poll.h sys/time.h sys/types.h sys/select.h sys/socket.h)
+AC_CHECK_HEADERS(netinet/in.h)
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
-AC_C_INLINE
-AC_C_BIGENDIAN
-AC_PROG_GCC_TRADITIONAL
 AC_TYPE_SIZE_T
 AC_TYPE_UID_T
 AC_HEADER_TIME
-AC_HEADER_STDC
-AC_CHECK_HEADERS(getopt.h unistd.h strings.h netdb.h math.h)
-AC_CHECK_HEADERS(sys/poll.h sys/time.h sys/types.h sys/select.h sys/socket.h)
-AC_CHECK_HEADERS(argp.h netinet/in.h)
 
 # Checks for library functions.
-AC_CHECK_FUNCS(gethostname \
-		memmove memset \
-		bcopy bzero \
-		select \
-		strchr strdup \
-		strerror getsubopt)
+AC_REPLACE_FUNCS(gethostname strdup strerror memmove memset)
 AC_SEARCH_LIBS(gethostbyname, xnet)
 
 # Test if the libc includes a good enough argp.
@@ -237,7 +252,6 @@ AC_ARG_WITH(system-argp,
 if test x$with_system_argp = xyes ; then
   AC_LIB_ARGP(,with_system_argp=no)
 fi
-LIBARGP=""
 if test x$with_system_argp = xno ; then
   LIBARGP="\$(top_builddir)/argp/libargp.a"
 fi
