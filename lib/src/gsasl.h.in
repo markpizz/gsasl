@@ -105,7 +105,8 @@ extern "C"
       GSASL_NO_AUTHID = 53,
       GSASL_NO_AUTHZID = 54,
       GSASL_NO_PASSWORD = 55,
-      GSASL_CANNOT_VALIDATE = 56
+      GSASL_NO_SERVICE = 56,
+      GSASL_CANNOT_VALIDATE = 57
     } Gsasl_rc;
 
 /* Quality of Protection types, used by DIGEST-MD5 */
