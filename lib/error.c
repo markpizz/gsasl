@@ -294,6 +294,10 @@ gsasl_strerror (int err)
 	    "(application error)");
       break;
 
+    case GSASL_INVALID_HANDLE:
+      p = _("The provided library handle was invalid (application error)");
+      break;
+
     default:
       p = _("Libgsasl unknown error");
       break;
