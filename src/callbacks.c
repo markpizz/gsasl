@@ -136,15 +136,25 @@ client_callback_authentication_id (Gsasl_session_ctx * ctx,
   int rc;
 
   if (args_info.authentication_id_arg == NULL)
-    args_info.authentication_id_arg =
-      strdup (readline ("Enter authentication ID: "));
+    {
+      uid_t uid;
+      struct passwd *pw;
+
+      uid = getuid ();
+      pw = getpwuid (uid);
+
+      if (pw)
+	args_info.authentication_id_arg = strdup (pw->pw_name);
+      else
+	args_info.authentication_id_arg =
+	  strdup (readline ("Enter authentication ID: "));
+    }
 
   if (args_info.authentication_id_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc =
-    utf8cpy (out, outlen, args_info.authentication_id_arg,
-	     strlen (args_info.authentication_id_arg));
+  rc = utf8cpy (out, outlen, args_info.authentication_id_arg,
+		strlen (args_info.authentication_id_arg));
   if (rc != GSASL_OK)
     return rc;
 
