@@ -10,8 +10,8 @@ provide.  It needs two external symbols, gc_md5 and gc_hmac_md5, which
 should be easy to re-implement, if you are not using libgc.
 
 The files CLIENT.C and SERVER.C contain the glue between GNU SASL and
-the stand-alone implementation.  Currently it is the best example on
-how to use the module.
+the stand-alone implementation.  Currently it is the best (only)
+example on how to use the module.
 
 For updates to the project, see <http://www.gnu.org/software/gsasl/>.
 
@@ -20,22 +20,16 @@ Random notes follow.
 * I initialled wanted to use abnf2perl from
   <http://www.cs.columbia.edu/sip/syntax/abnfperl/> to build a
   Flex/Yacc grammar for DIGEST-MD5, instead of parser.c.  However, the
-  perl script did not seem to handle several some required construct,
-  and did not generally seem finished.  Secondly, the Yacc generated
-  code was difficult to read, and hence difficult to review.  I still
-  wish to explore this way, because the current parser is too
-  permissive, but don't have time now.
+  perl script did not seem to handle several required construct, and
+  did not generally seem finished.  Secondly, the Yacc generated code
+  was difficult to read, and hence difficult to review.  I still wish
+  to explore this way, because the current parser is too permissive,
+  but don't have time now.
 
 * It intentionally do not implement sub-sequent authentication.  If
   you believe that saving one round-trip in some, for most users
   uncommon situations, make up for the added code complexity, hire me
   to implement the missing pieces.
-
-* spec comment: "cipher" when qop doesn't include auth-conf should
-  cause failure.
-
-* spec comment: unrecognized "cipher" in response should cause
-  failure.
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
