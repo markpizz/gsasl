@@ -33,7 +33,7 @@ gsasl_done (Gsasl * ctx)
 {
   size_t i;
 
-  if (!VALID_HANDLE (ctx))
+  if (ctx == NULL)
     return;
 
 #ifdef USE_CLIENT
