@@ -27,7 +27,6 @@ _gsasl_listmech (Gsasl_ctx * ctx,
 		 size_t n_mechs, char *out, size_t * outlen, int clientp)
 {
   Gsasl_session_ctx *xctx;
-  void *mech_data;
   int i = 0;
 
   if (out == NULL)
