@@ -48,7 +48,7 @@ gsasl_client_callback_authentication_id_set (Gsasl * ctx,
 Gsasl_client_callback_authentication_id
 gsasl_client_callback_authentication_id_get (Gsasl * ctx)
 {
-  return ctx->cbc_authentication_id;
+  return ctx ? ctx->cbc_authentication_id : NULL;
 }
 
 /**
@@ -78,7 +78,7 @@ gsasl_client_callback_authorization_id_set (Gsasl * ctx,
 Gsasl_client_callback_authorization_id
 gsasl_client_callback_authorization_id_get (Gsasl * ctx)
 {
-  return ctx->cbc_authorization_id;
+  return ctx ? ctx->cbc_authorization_id : NULL;
 }
 
 /**
@@ -108,7 +108,7 @@ gsasl_client_callback_password_set (Gsasl * ctx,
 Gsasl_client_callback_password
 gsasl_client_callback_password_get (Gsasl * ctx)
 {
-  return ctx->cbc_password;
+  return ctx ? ctx->cbc_password : NULL;
 }
 
 /**
@@ -138,7 +138,7 @@ gsasl_client_callback_passcode_set (Gsasl * ctx,
 Gsasl_client_callback_passcode
 gsasl_client_callback_passcode_get (Gsasl * ctx)
 {
-  return ctx->cbc_passcode;
+  return ctx ? ctx->cbc_passcode : NULL;
 }
 
 /**
@@ -169,7 +169,7 @@ gsasl_client_callback_pin_set (Gsasl * ctx, Gsasl_client_callback_pin cb)
 Gsasl_client_callback_pin
 gsasl_client_callback_pin_get (Gsasl * ctx)
 {
-  return ctx->cbc_pin;
+  return ctx ? ctx->cbc_pin : NULL;
 }
 
 /**
@@ -201,7 +201,7 @@ gsasl_client_callback_service_set (Gsasl * ctx,
 Gsasl_client_callback_service
 gsasl_client_callback_service_get (Gsasl * ctx)
 {
-  return ctx->cbc_service;
+  return ctx ? ctx->cbc_service : NULL;
 }
 
 /**
@@ -231,7 +231,7 @@ gsasl_client_callback_anonymous_set (Gsasl * ctx,
 Gsasl_client_callback_anonymous
 gsasl_client_callback_anonymous_get (Gsasl * ctx)
 {
-  return ctx->cbc_anonymous;
+  return ctx ? ctx->cbc_anonymous : NULL;
 }
 
 /**
@@ -259,7 +259,7 @@ gsasl_client_callback_qop_set (Gsasl * ctx, Gsasl_client_callback_qop cb)
 Gsasl_client_callback_qop
 gsasl_client_callback_qop_get (Gsasl * ctx)
 {
-  return ctx->cbc_qop;
+  return ctx ? ctx->cbc_qop : NULL;
 }
 
 /**
@@ -291,7 +291,7 @@ gsasl_client_callback_maxbuf_set (Gsasl * ctx,
 Gsasl_client_callback_maxbuf
 gsasl_client_callback_maxbuf_get (Gsasl * ctx)
 {
-  return ctx->cbc_maxbuf;
+  return ctx ? ctx->cbc_maxbuf : NULL;
 }
 
 /**
@@ -320,5 +320,5 @@ gsasl_client_callback_realm_set (Gsasl * ctx, Gsasl_client_callback_realm cb)
 Gsasl_client_callback_realm
 gsasl_client_callback_realm_get (Gsasl * ctx)
 {
-  return ctx->cbc_realm;
+  return ctx ? ctx->cbc_realm : NULL;
 }
