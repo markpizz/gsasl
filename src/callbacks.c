@@ -1,5 +1,5 @@
 /* callbacks.c --- Implementation of gsasl callbacks.
- * Copyright (C) 2002, 2003  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -255,7 +255,7 @@ client_callback_passcode (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
 Gsasl_qop
 client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops)
 {
-  int qop = 0;
+  int qop = GSASL_QOP_AUTH;
 
   if (args_info.quality_of_protection_given)
     {
