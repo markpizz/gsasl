@@ -25,6 +25,3 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src \
 noinst_LTLIBRARIES = libgsasl-digest_md5.la
 libgsasl_digest_md5_la_SOURCES = digest-md5.h digest-md5.c
 libgsasl_digest_md5_la_LIBADD = $(top_builddir)/gl/libgl.la
-
-indent:
-	indent $(libgsasl_digest_md5_la_SOURCES)

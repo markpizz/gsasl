@@ -87,6 +87,3 @@ endif
 if KERBEROS_V5
 libgsasl_la_LIBADD += ../kerberos_v5/libgsasl-kerberos_v5.la
 endif
-
-indent:
-	indent $(am__libgsasl_la_SOURCES_DIST)

@@ -22,6 +22,3 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src
 
 noinst_LTLIBRARIES = libgsasl-securid.la
 libgsasl_securid_la_SOURCES = securid.h securid.c
-
-indent:
-	indent $(libgsasl_securid_la_SOURCES)

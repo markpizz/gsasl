@@ -22,6 +22,3 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src
 
 noinst_LTLIBRARIES = libgsasl-gssapi.la
 libgsasl_gssapi_la_SOURCES = x-gssapi.h gssapi.c
-
-indent:
-	indent $(libgsasl_gssapi_la_SOURCES)

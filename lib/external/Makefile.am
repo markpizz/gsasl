@@ -22,6 +22,3 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I$(builddir)/../src
 
 noinst_LTLIBRARIES = libgsasl-external.la
 libgsasl_external_la_SOURCES = external.h external.c
-
-indent:
-	indent $(libgsasl_external_la_SOURCES)

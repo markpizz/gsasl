@@ -22,6 +22,3 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src
 
 noinst_LTLIBRARIES = libgsasl-cram_md5.la
 libgsasl_cram_md5_la_SOURCES = cram-md5.h cram-md5.c
-
-indent:
-	indent $(libgsasl_cram_md5_la_SOURCES)

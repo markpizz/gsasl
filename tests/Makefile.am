@@ -23,8 +23,3 @@ LDADD = ../lib/src/libgsasl.la
 
 TESTS = simple
 check_PROGRAMS = $(TESTS)
-
-# Maintainer targets
-
-indent:
-	indent $(SOURCES)

@@ -22,6 +22,3 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I$(builddir)/../src
 
 noinst_LTLIBRARIES = libgsasl-anonymous.la
 libgsasl_anonymous_la_SOURCES = anonymous.h anonymous.c
-
-indent:
-	indent $(libgsasl_anonymous_la_SOURCES)

@@ -22,6 +22,3 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src
 
 noinst_LTLIBRARIES = libgsasl-ntlm.la
 libgsasl_ntlm_la_SOURCES = x-ntlm.h ntlm.c
-
-indent:
-	indent $(libgsasl_ntlm_la_SOURCES)
