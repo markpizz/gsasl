@@ -2,6 +2,9 @@ GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
+** Command line tool support IPv6 (and other protocol families).
+Requires that your system has `getaddrinfo'.
+
 ** Command line behaviour for gsasl tool improved.
 The --client and --imap parameters are now the default.  The --connect
 host and port can now be specified directly.  If --authentication-id
