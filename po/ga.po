@@ -1,0 +1,99 @@
+# Irish translations for gsasl.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gsasl package.
+# Kevin Patrick Scannell <scannell@SLU.EDU>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gsasl 0.1.0\n"
+"Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
+"POT-Creation-Date: 2004-04-16 21:12+0200\n"
+"PO-Revision-Date: 2004-04-16 21:31-0500\n"
+"Last-Translator: Kevin Patrick Scannell <scannell@SLU.EDU>\n"
+"Language-Team: Irish <ga@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/gsasl.c:106
+#, c-format
+msgid "Chose SASL mechanism:\n"
+msgstr "Roghnaigh sásra SASL:\n"
+
+#: src/gsasl.c:114
+#, c-format
+msgid "Input SASL mechanism supported by server:\n"
+msgstr "Sásra SASL tacaithe ag an dháileoir:\n"
+
+#: src/gsasl.c:133
+#, c-format
+msgid "Using mechanism:\n"
+msgstr "Ag úsáid an shásra:\n"
+
+#: src/gsasl.c:150
+#, c-format
+msgid "Output from client:\n"
+msgstr "Aschur ó cliant:\n"
+
+#: src/gsasl.c:152
+#, c-format
+msgid "Output from server:\n"
+msgstr "Aschur ó dáileoir:\n"
+
+#: src/gsasl.c:302 src/gsasl.c:347 src/gsasl.c:402 src/gsasl.c:447
+#: src/gsasl.c:542
+#, c-format
+msgid "Libgsasl error (%d): %s\n"
+msgstr "Earráid Libgsasl (%d): %s\n"
+
+#: src/gsasl.c:356
+#, c-format
+msgid "This client supports the following mechanisms:\n"
+msgstr "Tacaíonn an cliant seo na sásraí a leanas:\n"
+
+#: src/gsasl.c:359
+#, c-format
+msgid "This server supports the following mechanisms:\n"
+msgstr "Tacaíonn an dáileoir seo na sásraí a leanas:\n"
+
+#: src/gsasl.c:384
+#, c-format
+msgid "Cannot find mechanism...\n"
+msgstr "Ní bhfuarthas an sásra...\n"
+
+#: src/gsasl.c:433
+#, c-format
+msgid "Enter base64 authentication data from server (press RET if none):\n"
+msgstr "Iontráil sonraí fíordheimhnithe base64 ó dáileoir (RET mura bhfuil aon ann):\n"
+
+#: src/gsasl.c:436
+#, c-format
+msgid "Enter base64 authentication data from client (press RET if none):\n"
+msgstr "Iontráil sonraí fíordheimhnithe base64 ó cliant (RET mura bhfuil aon ann):\n"
+
+#: src/gsasl.c:458
+#, c-format
+msgid "Client authentication finished (server trusted)...\n"
+msgstr "Fíordheimhniú den chliant déanta (dáileoir iontaofa)...\n"
+
+# # @name STRONGAUTH_REQUIRED_HINT
+# # @loc none
+#: src/gsasl.c:461
+#, c-format
+msgid "Server authentication finished (client trusted)...\n"
+msgstr "Fíordheimhniú den dháileoir déanta (cliant iontaofa)...\n"
+
+#: src/gsasl.c:476
+#, c-format
+msgid "Enter application data (EOF to finish):\n"
+msgstr "Iontráil sonraí feidhmchláir (EOF nuair atá tú déanta):\n"
+
+#: src/gsasl.c:515
+#, c-format
+msgid "Base64 encoded application data to send:\n"
+msgstr "Sonraí le seoladh, ionchódaithe le bunuimhir 64:\n"
+
+#: src/gsasl.c:549
+#, c-format
+msgid "Session finished...\n"
+msgstr "Seisiún déanta...\n"

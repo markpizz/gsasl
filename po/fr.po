@@ -1,0 +1,98 @@
+# Messages français pour GNU gsas.
+# Copyright © 2003 Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# Michel Robitaille <robitail@IRO.UMontreal.CA>, Traducteur depuis/since 1996.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GNU gsasl 0.1.0\n"
+"Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
+"POT-Creation-Date: 2004-04-16 21:12+0200\n"
+"PO-Revision-Date: 2004-04-16 22:00-0500\n"
+"Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
+"Language-Team: French <traduc@traduc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/gsasl.c:106
+#, c-format
+msgid "Chose SASL mechanism:\n"
+msgstr "Choisir le mécanisme SASL:\n"
+
+#: src/gsasl.c:114
+#, c-format
+msgid "Input SASL mechanism supported by server:\n"
+msgstr "Mécanisme SASL d'entrée supporté par le serveur:\n"
+
+#: src/gsasl.c:133
+#, c-format
+msgid "Using mechanism:\n"
+msgstr "Mécanisme utilisé:\n"
+
+#: src/gsasl.c:150
+#, c-format
+msgid "Output from client:\n"
+msgstr "Sortie à partir du client:\n"
+
+#: src/gsasl.c:152
+#, c-format
+msgid "Output from server:\n"
+msgstr "Sortie à partir du serveur:\n"
+
+#: src/gsasl.c:302 src/gsasl.c:347 src/gsasl.c:402 src/gsasl.c:447
+#: src/gsasl.c:542
+#, c-format
+msgid "Libgsasl error (%d): %s\n"
+msgstr "ERREUR libgsasl (%d): %s\n"
+
+#: src/gsasl.c:356
+#, c-format
+msgid "This client supports the following mechanisms:\n"
+msgstr "Le client supporter les mécanismes suivants:\n"
+
+#: src/gsasl.c:359
+#, c-format
+msgid "This server supports the following mechanisms:\n"
+msgstr "Le serveur supporte les mécanismes suivants:\n"
+
+#: src/gsasl.c:384
+#, c-format
+msgid "Cannot find mechanism...\n"
+msgstr "Ne peut repérer le mécanisme...\n"
+
+#: src/gsasl.c:433
+#, c-format
+msgid "Enter base64 authentication data from server (press RET if none):\n"
+msgstr "Fournir les données d'authentification en base 64 à partir du serveur (appuyer sur la touche RETOUR si aucun):\n"
+
+#: src/gsasl.c:436
+#, c-format
+msgid "Enter base64 authentication data from client (press RET if none):\n"
+msgstr "Fournir les données d'authentification en base 64 à partir du client (appuyer sur la touche RETOUR si aucun):\n"
+
+#: src/gsasl.c:458
+#, c-format
+msgid "Client authentication finished (server trusted)...\n"
+msgstr "Authentification par le client terminée (serveur fiable)...\n"
+
+#: src/gsasl.c:461
+#, c-format
+msgid "Server authentication finished (client trusted)...\n"
+msgstr "Authentification par le serveur terminée (client fiable)...\n"
+
+#: src/gsasl.c:476
+#, c-format
+msgid "Enter application data (EOF to finish):\n"
+msgstr "Fournir les données de l'application (EOF pour terminer):\n"
+
+#: src/gsasl.c:515
+#, c-format
+msgid "Base64 encoded application data to send:\n"
+msgstr "Les données de l'application encodées en base 64 à transmettre:\n"
+
+#: src/gsasl.c:549
+#, c-format
+msgid "Session finished...\n"
+msgstr "Sesstion terminée...\n"
