@@ -45,14 +45,11 @@ gsasl_init (Gsasl ** ctx)
   if (gc_init () != GC_OK)
     return GSASL_CRYPTO_ERROR;
 
-  *ctx = (Gsasl *) malloc (sizeof (**ctx));
+  *ctx = (Gsasl *) calloc (1, sizeof (**ctx));
   if (*ctx == NULL)
     return GSASL_MALLOC_ERROR;
 
-  memset (*ctx, 0, sizeof (**ctx));
-
-  i = 0;
-  while (_gsasl_all_mechanisms[i].name)
+  for (i = 0; _gsasl_all_mechanisms[i].name; i++)
     {
 #ifdef USE_CLIENT
       if (_gsasl_all_mechanisms[i].client.init == NULL ||
@@ -103,8 +100,6 @@ gsasl_init (Gsasl ** ctx)
 	  (*ctx)->n_server_mechs++;
 	}
 #endif
-
-      i++;
     }
 
   return GSASL_OK;
