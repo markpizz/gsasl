@@ -18,7 +18,7 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-AM_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_builddir)/lib
+AM_CPPFLAGS = -I$(srcdir)/../src -I$(builddir)/../src
 
 noinst_LTLIBRARIES = libgsasl-external.la
 libgsasl_external_la_SOURCES = external.h external.c

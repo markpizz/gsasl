@@ -18,10 +18,9 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-# -Igl is for strdup.
-# -Icrypto is for nettle-types.h, all other crypto API goes via GSASL.
-AM_CPPFLAGS = -I$(top_srcdir)/gl -I$(top_builddir)/crypto \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib
+# -Igl is for strdup, -Icrypto is for nettle-types.h.
+AM_CPPFLAGS = -I$(srcdir)/../src -I../src \
+	-I$(srcdir)/../gl -I../crypto
 
 noinst_LTLIBRARIES = libgsasl-digest_md5.la
 libgsasl_digest_md5_la_SOURCES = digest-md5.h digest-md5.c
