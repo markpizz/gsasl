@@ -79,10 +79,10 @@ randomize (int strong, char *data, size_t datalen)
 
 /**
  * gsasl_nonce:
- * @data: output array to be filled with weak random data.
+ * @data: output array to be filled with unpredictable random data.
  * @datalen: size of output array.
  *
- * Store weak random data of given size in the provided buffer.
+ * Store unpredictable data of given size in the provided buffer.
  *
  * Return value: Returns %GSASL_OK iff successful.
  **/
