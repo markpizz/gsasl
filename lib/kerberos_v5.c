@@ -583,10 +583,6 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
-	  err = shishi_ticket_flags_set (ticket, SHISHI_TICKETFLAGS_INITIAL);
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-
 	  buflen = sizeof (buf) - 1;
 	  err = shishi_kdcreq_cname_get (state->sh,
 					 shishi_as_req(state->as),
