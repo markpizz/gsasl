@@ -287,6 +287,9 @@ AC_CHECK_DECLS(errno)
 AC_SEARCH_LIBS(gethostbyname, xnet)
 
 # For gnulib stuff in gl/.
+gl_FUNC_STRNLEN
+gl_FUNC_STRNDUP
+gl_FUNC_MEMPCPY
 gl_FUNC_ALLOCA
 gl_ARGP
 gl_ERROR
