@@ -18,7 +18,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
 HIGNORE = internal.h
-HTML_OBJECTS = index.html c4.html gsasl-gsasl.html
+HTML_OBJECTS = index.html c4.html \
+	gsasl-gsasl.html gsasl-gsasl-compat.html gsasl-gsasl-mech.html
 
 EXTRA_DIST = $(PACKAGE)-docs.tmpl $(HTML_OBJECTS) $(IMAGES)
 IMAGES = home.png left.png right.png up.png
