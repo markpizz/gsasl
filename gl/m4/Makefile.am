@@ -37,3 +37,6 @@ EXTRA_DIST += uintmax_t.m4
 EXTRA_DIST += ulonglong.m4
 EXTRA_DIST += unlocked-io.m4
 EXTRA_DIST += xalloc.m4
+EXTRA_DIST += mempcpy.m4
+EXTRA_DIST += strndup.m4
+EXTRA_DIST += strnlen.m4
