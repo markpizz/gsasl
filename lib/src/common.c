@@ -71,10 +71,11 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     _gsasl_external_client_start,
-    _gsasl_external_client_step,
+    NULL,
     _gsasl_external_client_finish,
     NULL,
-    NULL
+    NULL,
+    _gsasl_external_client_step
 #endif
     },
    {
@@ -82,10 +83,11 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     _gsasl_external_server_start,
-    _gsasl_external_server_step,
+    NULL,
     _gsasl_external_server_finish,
     NULL,
-    NULL
+    NULL,
+    _gsasl_external_server_step
 #endif
     }
    },

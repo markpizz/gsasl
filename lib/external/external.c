@@ -37,8 +37,9 @@ _gsasl_external_client_step (Gsasl_session_ctx * sctx,
 			     void *mech_data,
 			     const char *input,
 			     size_t input_len,
-			     char *output, size_t * output_len)
+			     char **output, size_t * output_len)
 {
+  *output = NULL;
   *output_len = 0;
 
   return GSASL_OK;
@@ -74,9 +75,8 @@ _gsasl_external_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 int
 _gsasl_external_server_step (Gsasl_session_ctx * sctx,
 			     void *mech_data,
-			     const char *input,
-			     size_t input_len,
-			     char *output, size_t * output_len)
+			     const char *input, size_t input_len,
+			     char **output, size_t * output_len)
 {
   Gsasl_server_callback_external cb_external;
   Gsasl_ctx *ctx;
@@ -92,6 +92,7 @@ _gsasl_external_server_step (Gsasl_session_ctx * sctx,
 
   res = cb_external (sctx);
 
+  *output = NULL;
   *output_len = 0;
 
   return res;
