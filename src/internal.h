@@ -23,43 +23,41 @@
 #define _INTERNAL_H
 
 #if HAVE_CONFIG_H
-#include "config.h"
+# include "config.h"
 #endif
 
-#ifdef STDC_HEADERS
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <ctype.h>
 #include <string.h>
-#endif
 
 #ifdef HAVE_UNISTD_H
-#include <unistd.h>
+# include <unistd.h>
 #endif
 #ifdef HAVE_SYS_TYPES_H
-#include <sys/types.h>		/* select() */
+# include <sys/types.h>		/* select() */
 #endif
 #ifdef HAVE_NETDB_H
-#include <netdb.h>
+# include <netdb.h>
 #endif
 #ifdef HAVE_SYS_SOCKET_H
-#include <sys/socket.h>		/* for AF_INET */
+# include <sys/socket.h>		/* for AF_INET */
 #endif
 #ifdef HAVE_SYS_TIME_H
-#include <sys/time.h>		/* select() */
+# include <sys/time.h>		/* select() */
 #endif
 
 #ifdef HAVE_NETINET_IN_H
-#include <netinet/in.h>
+# include <netinet/in.h>
 #endif
 
 #ifdef HAVE_LOCALE_H
-#include <locale.h>
+# include <locale.h>
 #endif
 
 #ifdef WITH_STRINGPREP
-#include <stringprep.h>
+# include <stringprep.h>
 #endif
 
 #include <gsasl.h>

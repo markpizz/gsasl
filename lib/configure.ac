@@ -315,11 +315,9 @@ AC_MSG_RESULT($server)
 AM_CONDITIONAL(CLIENT, test x$client = xyes)
 AM_CONDITIONAL(SERVER, test x$server = xyes)
 
-# Checks for header files.
-AC_HEADER_STDC
+# We need uint8_t etc.
 AX_CREATE_STDINT_H(crypto/nettle-types.h, sys/types.h)
 
-# We are done
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
 		gl/Makefile crypto/Makefile src/gsasl.h src/Makefile \
 		anonymous/Makefile cram-md5/Makefile \
