@@ -1,5 +1,5 @@
 /* error.c	error handling functionality
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -257,6 +257,11 @@ gsasl_strerror (int err)
 	_
 	("SASL mechanism needs gsasl_server_callback_gssapi() callback "
 	 "(application error)");
+      break;
+
+    case GSASL_NEED_SERVER_RETRIEVE_CALLBACK:
+      p = _("SASL mechanism needs gsasl_server_callback_retrieve() "
+	    "callback (application error)");
       break;
 
     case GSASL_MECHANISM_PARSE_ERROR:
