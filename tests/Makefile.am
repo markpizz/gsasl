@@ -25,5 +25,7 @@ LDADD = ../lib/src/libgsasl.la libutils.la
 noinst_LTLIBRARIES = libutils.la
 libutils_la_SOURCES = utils.h utils.c
 
-TESTS = simple cram-md5
-check_PROGRAMS = $(TESTS)
+TESTS_ENVIRONMENT = THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c
+
+TESTS = simple cram-md5 threadsafety
+check_PROGRAMS = simple cram-md5
