@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Changes in 0.2.1 (unreleased)
 
+** Documentation fixes; the old callback API functions are marked as obsolete.
+
 * Changes in 0.2.0 (released 2004-11-07)
 
 ** Added new directory examples/ with complete examples for new API.
