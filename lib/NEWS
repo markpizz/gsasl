@@ -2,9 +2,9 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
-* Changes in 0.2.2 (unreleased)
+* Version 0.2.2 (unreleased)
 
-* Changes in 0.2.1 (released 2004-11-19)
+* Version 0.2.1 (released 2004-11-19)
 
 ** Fix DIGEST-MD5 application data encode/decode functions.
 
@@ -13,7 +13,7 @@ See the end for copying conditions.
 ** API and ABI modifications.
 No changes since last version.
 
-* Changes in 0.2.0 (released 2004-11-07)
+* Version 0.2.0 (released 2004-11-07)
 
 ** Important information for 0.0.x or 0.1.x users.
 The only externally visible (i.e., in the API/ABI-sense) effect of the
@@ -116,7 +116,7 @@ gsasl_register: ADD.
 gsasl_ctx_get: DEPRECATED.  Not useful, application callback now get both
   library and session context.
 
-* Changes in 0.1.4 (released 2004-08-08)
+* Version 0.1.4 (released 2004-08-08)
 
 ** Fix various compile time warnings.
 
@@ -129,12 +129,12 @@ Jakub Bogusz), and Romanian (by Laurentiu Buzdugan).
 ** API and ABI modifications.
 No changes since last version.
 
-* Changes in 0.1.3 (released 2004-08-04)
+* Version 0.1.3 (released 2004-08-04)
 
 ** API and ABI modifications.
 No changes since last version.
 
-* Changes in 0.1.2 (released 2004-07-16)
+* Version 0.1.2 (released 2004-07-16)
 
 ** Cross compile builds should work.
 It should work for any sane cross compile target, but the only tested
@@ -143,7 +143,7 @@ platform is uClibc/uClinux on Motorola Coldfire.
 ** API and ABI modifications.
 No changes since last version.
 
-* Changes in 0.1.1 (released 2004-06-26)
+* Version 0.1.1 (released 2004-06-26)
 
 ** gsasl_client_suggest_mechanism and gsasl_server_suggest_mechanism now work.
 Earlier they were not implemented at all.
@@ -159,7 +159,7 @@ gsasl_random: ADD.
 gsasl_nonce: ADD.
 gsasl_randomize: DEPRECATED.  Use either gsasl_random or gsasl_nonce.
 
-* Changes in 0.1.0 (released 2004-04-16)
+* Version 0.1.0 (released 2004-04-16)
 
 ** The library re-licensed to LGPL and distributed as a separate package.
 This means a fork of this NEWS file, all the entries below relate to
@@ -173,7 +173,7 @@ the "libgsasl" distribution.
 ** API and ABI modifications.
 No changes since last version.
 
-* Changes in 0.0.14 (released 2004-01-22)
+* Version 0.0.14 (released 2004-01-22)
 
 ** Moved all mechanism specific code into sub-directories of lib/.
 Each backend is built into its own library (e.g., libgsasl-plain.so),
@@ -182,13 +182,13 @@ backends.
 
 ** Moved compatibility files (getopt*) to gl/, and added more (strdup*).
 
-* Changes in 0.0.13 (released 2004-01-17)
+* Version 0.0.13 (released 2004-01-17)
 
 ** Nettle (the crypto functionality, crypto/) has been updated.
 This fixes two portability issues, the new code should work on
 platforms that doesn't have inttypes.h and alloca.
 
-* Changes in 0.0.12 (released 2004-01-15)
+* Version 0.0.12 (released 2004-01-15)
 
 ** Protocol line parser in 'gsasl' tool more reliable.
 Earlier it assumed two lines were sent in one packet in one place, and
@@ -196,7 +196,7 @@ sent as two packets in another place.
 
 ** Various bugfixes.
 
-* Changes in 0.0.11 (released 2004-01-06)
+* Version 0.0.11 (released 2004-01-06)
 
 ** The client part of CRAM-MD5 now uses SASLprep instead of NFKC.
 This aligns with draft-ietf-sasl-crammd5-01.
@@ -213,7 +213,7 @@ future, if I can get the tools to work.
 ** API and ABI modifications.
 GSASL_SASLPREP_ERROR: ADD.
 
-* Changes in 0.0.10 (released 2003-11-22)
+* Version 0.0.10 (released 2003-11-22)
 
 ** The CRAM-MD5 server now reject invalid passwords.
 The logic flaw was introduced in 0.0.9, after blindly making code
@@ -222,7 +222,7 @@ changes to shut up valgrind just before the release.
 ** Various build improvements.
 Pkg-config is no longer needed.  GTK-DOC is only used if present.
 
-* Changes in 0.0.9 (released 2003-11-21)
+* Version 0.0.9 (released 2003-11-21)
 
 ** Command line client can talk to SMTP servers with --smtp.
 
@@ -289,7 +289,7 @@ GSASL_SHISHI_ERROR: DEPRECATED: use GSASL_KERBEROS_V5_INTERNAL_ERROR instead.
 
 GSASL_INVALID_HANDLE: ADD.
 
-* Changes in 0.0.8 (released 2003-10-11)
+* Version 0.0.8 (released 2003-10-11)
 
 ** Improved GSSAPI implementation detection.
 Auto detection should work, unless you have both MIT and Heimdal, or
@@ -338,7 +338,7 @@ gsasl_stringprep_nfkc: NEW.
 gsasl_stringprep_saslprep: NEW.
 gsasl_stringprep_trace: NEW.
 
-* Changes in 0.0.7 (released 2003-06-02)
+* Version 0.0.7 (released 2003-06-02)
 
 ** Two new GSS libraries supported for the GSS-API mechanism.
 See http://josefsson.org/gss/ for GSS, which uses Shishi for Kerberos 5.
@@ -346,7 +346,7 @@ See http://www.pdc.kth.se/heimdal/ for Heimdal (Kerberos 5).
 
 ** Bug fixes.
 
-* Changes in 0.0.6 (released 2003-03-17)
+* Version 0.0.6 (released 2003-03-17)
 
 ** Gettext not included.
 Due to some conflicts between libtool and gettext, if you want i18n on
@@ -367,7 +367,7 @@ User visible aspects includes not building the API Reference Manual
 with GTK-DOC by default, if you want it use configure parameter
 --enable-gtk-doc.
 
-* Changes in 0.0.5 (released 2003-01-27)
+* Version 0.0.5 (released 2003-01-27)
 
 ** Command line application "gsasl" now supports --imap and --connect.
 The --imap parameter makes it use a IMAP-like negotiation on
@@ -390,19 +390,19 @@ reasons.
 
 ** Bug fixes for DIGEST-MD5 and GSSAPI.
 
-* Changes in 0.0.4 (released 2002-12-13)
+* Version 0.0.4 (released 2002-12-13)
 
 ** License changed to GPL.
 
 ** Official GNU project.
 
-* Changes in 0.0.3 (released 2002-12-05)
+* Version 0.0.3 (released 2002-12-05)
 
 ** New gsasl arguments --application-data and --no-client-first.
 
 ** Bug fixes (client sends first, memory leaks, compiler warnings, more).
 
-* Changes in 0.0.2 (released 2002-11-07)
+* Version 0.0.2 (released 2002-11-07)
 
 ** Includes a copy of libstringprep 0.0.2 for Unicode NFKC
 normalization and locale charset to UTF-8 string conversion, and
@@ -421,14 +421,14 @@ GSASL_OK (earlier only on GSASL_NEEDS_MORE).
 
 ** Bug fixes.
 
-* Changes in 0.0.1 (released 2002-10-12)
+* Version 0.0.1 (released 2002-10-12)
 
 ** APIs for integrity and confidentiality protection of application
 payload data.
 
 ** DIGEST-MD5 support for integrity protection.
 
-* Changes in 0.0.0 (released 2002-10-07)
+* Version 0.0.0 (released 2002-10-07)
 
 ** Initial release.
 
