@@ -95,7 +95,9 @@ gsasl-api-error-labels.texi: $(gsasl_api_error_label_deps)
 gsasl.1: $(top_srcdir)/src/gsasl.c $(top_builddir)/src/gsasl
 	$(HELP2MAN) \
 		--name="SASL library command line interface" \
-		$(top_builddir)/src/gsasl | sed 's/lt-gsasl/gsasl/g' > $@
+		--help-option="--program-name gsasl --help" \
+		--output=gsasl.1 \
+		$(top_builddir)/src/gsasl
 
 gsasl.html: gsasl.texi
 	$(MAKEINFO) --html --no-split --number-sections $<
