@@ -24,7 +24,7 @@ GNU SASL is developed for the GNU/Linux system, but runs on over 20
 platforms including most major Unix platforms and Windows, and many
 kind of devices including iPAQ handhelds and S/390 mainframes.
 
-GNU SASL is licensed under the GNU Public License.
+GNU SASL is licensed under the GNU General Public License.
 
 The project web page:
 http://www.gnu.org/software/gsasl/
