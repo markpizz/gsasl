@@ -31,7 +31,7 @@ man_MANS = gsasl.1
 DISTCLEANFILES = $(man_MANS)
 
 EXTRA_DIST = gdoc gdoc-error gsasl-example1.c $(man_MANS) \
-	gsasl.txt gsasl.html gsasl.ps gsasl.pdf $(gsasl_texi_auto_deps)
+	gsasl.html gsasl.ps gsasl.pdf $(gsasl_texi_auto_deps)
 
 info_TEXINFOS = gsasl.texi
 ps_TEXINFOS = gsasl.texi
