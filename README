@@ -41,6 +41,8 @@ please let me know so work duplication can be avoided.
   + More SASL mechanisms
   + Security layer improvements, including support for privacy
     separation (authenticate in one process, pass state to another).
+  + Cleanup code, possibly by using some string abstraction library.
+    (lib/digest-md5.c most problematic)
   - Improve documentation
   - Port to Cyclone? CCured?
 
