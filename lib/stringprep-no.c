@@ -26,7 +26,7 @@ _gsasl_no_stringprep_nfkc (const char *in, ssize_t len)
 {
   char *out;
 
-  if (len > 0)
+  if (len >= 0)
     {
       out = malloc (len + 1);
       if (out)
