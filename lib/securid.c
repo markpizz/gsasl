@@ -82,7 +82,6 @@ _gsasl_securid_client_step (Gsasl_session_ctx * cctx,
   Gsasl_client_callback_pin cb_pin;
   Gsasl_ctx *ctx;
   int do_pin = 0;
-  char *pin;
   char *tmp;
   int res;
   size_t len;
@@ -239,10 +238,10 @@ _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
 			    char *output, size_t * output_len)
 {
   Gsasl_server_callback_securid cb_securid;
-  const char *authorization_id = NULL;
-  const char *authentication_id = NULL;
-  const char *passcode = NULL;
-  const char *pin = NULL;
+  char *authorization_id = NULL;
+  char *authentication_id = NULL;
+  char *passcode = NULL;
+  char *pin = NULL;
   Gsasl_ctx *ctx;
   int res;
   size_t len;
@@ -286,7 +285,7 @@ _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
     return GSASL_NEED_SERVER_SECURID_CALLBACK;
 
   len = *output_len;
-  res = cb_securid (sctx, authorization_id, authentication_id,
+  res = cb_securid (sctx, authentication_id, authorization_id, 
 		    passcode, pin, output, &len);
   switch (res)
     {
