@@ -24,7 +24,7 @@
 #include <shishi.h>
 
 #ifdef HAVE_NETINET_IN_H
-#include <netinet/in.h> /* ntohl */
+#include <netinet/in.h>		/* ntohl */
 #endif
 
 #define DEBUG 0
@@ -160,7 +160,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
       if (input_len != SERVER_HELLO_LEN)
 	return GSASL_MECHANISM_PARSE_ERROR;
 
-      memcpy(state->serverhello, input, input_len);
+      memcpy (state->serverhello, input, input_len);
 
       {
 	unsigned char serverbitmap;
@@ -183,7 +183,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 	state->clientqop = cb_qop (sctx, state->serverqops);
 
       if (!(state->serverqops & state->clientqop &
-	    (GSASL_QOP_AUTH|GSASL_QOP_AUTH_INT|GSASL_QOP_AUTH_CONF)))
+	    (GSASL_QOP_AUTH | GSASL_QOP_AUTH_INT | GSASL_QOP_AUTH_CONF)))
 	return GSASL_AUTHENTICATION_ERROR;
 
       /* XXX for now we require server authentication */
@@ -202,7 +202,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
        * ELSE
        *    NON-INFRASTRUCTURE MODE
        */
-      state->step = STEP_NONINFRA_SEND_APREQ; /* only NIM for now.. */
+      state->step = STEP_NONINFRA_SEND_APREQ;	/* only NIM for now.. */
       /* fall through */
 
     case STEP_NONINFRA_SEND_ASREQ:
@@ -210,7 +210,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
       if (res)
 	return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
-      if (cb_authentication_id) /* Shishi defaults to one otherwise */
+      if (cb_authentication_id)	/* Shishi defaults to one otherwise */
 	{
 	  len = *output_len - 1;
 	  res = cb_authentication_id (sctx, output, &len);
@@ -218,7 +218,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 	    return res;
 	  output[len] = '\0';
 
-	  res = shishi_kdcreq_set_cname (state->sh, shishi_as_req(state->as),
+	  res = shishi_kdcreq_set_cname (state->sh, shishi_as_req (state->as),
 					 SHISHI_NT_UNKNOWN, output);
 	  if (res != GSASL_OK)
 	    return res;
@@ -235,7 +235,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 	len = 0;
 
       output[len] = '\0';
-      res = shishi_kdcreq_set_realm (state->sh, shishi_as_req(state->as),
+      res = shishi_kdcreq_set_realm (state->sh, shishi_as_req (state->as),
 				     output);
       if (res != GSASL_OK)
 	return res;
@@ -256,26 +256,25 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 	    return GSASL_TOO_SMALL_BUFFER;
 
 	  sname[0] = &output[0];
-	  sname[1] = &output[servicelen+2];
+	  sname[1] = &output[servicelen + 2];
 	  sname[2] = NULL;
 
 	  res = cb_service (sctx, sname[0], &servicelen,
-			    sname[1], &hostnamelen,
-			    NULL, NULL);
+			    sname[1], &hostnamelen, NULL, NULL);
 	  if (res != GSASL_OK)
 	    return res;
 
 	  sname[0][servicelen] = '\0';
 	  sname[1][hostnamelen] = '\0';
 
-	  res = shishi_kdcreq_set_sname (state->sh, shishi_as_req(state->as),
+	  res = shishi_kdcreq_set_sname (state->sh, shishi_as_req (state->as),
 					 SHISHI_NT_UNKNOWN, sname);
 	  if (res != GSASL_OK)
 	    return res;
 	}
 
       /* XXX query application for encryption types and set the etype
-	 field?  Already configured by shishi though... */
+         field?  Already configured by shishi though... */
 
       res = shishi_a2d (state->sh, shishi_as_req (state->as),
 			output, output_len);
@@ -317,14 +316,15 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 	state->clientmaxbuf = MAXBUF_DEFAULT;
 
       /* XXX for now we require server authentication */
-      output[0] = state->clientqop|MUTUAL;
+      output[0] = state->clientqop | MUTUAL;
       {
 	uint32_t tmp;
 
 	tmp = ntohl (state->clientmaxbuf);
-	memcpy(&output[BITMAP_LEN], &tmp, MAXBUF_LEN);
+	memcpy (&output[BITMAP_LEN], &tmp, MAXBUF_LEN);
       }
-      memcpy(&output[CLIENT_HELLO_LEN], state->serverhello, SERVER_HELLO_LEN);
+      memcpy (&output[CLIENT_HELLO_LEN], state->serverhello,
+	      SERVER_HELLO_LEN);
 
       if (cb_authorization_id)
 	{
@@ -338,15 +338,14 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
       len += CLIENT_HELLO_LEN + SERVER_HELLO_LEN;
       res = shishi_ap_tktoptionsdata (state->sh,
 				      &state->ap,
-				      shishi_as_tkt(state->as),
+				      shishi_as_tkt (state->as),
 				      SHISHI_APOPTIONS_MUTUAL_REQUIRED,
 				      output, len);
       if (res != SHISHI_OK)
 	return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
       res = shishi_authenticator_add_authorizationdata
-	(state->sh, shishi_ap_authenticator(state->ap),
-	 -1, output, len);
+	(state->sh, shishi_ap_authenticator (state->ap), -1, output, len);
       if (res != SHISHI_OK)
 	return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
@@ -400,7 +399,8 @@ _gsasl_kerberos_v5_client_encode (Gsasl_session_ctx * sctx,
     {
       /* XXX */
     }
-  else if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_INT)
+  else if (state && state->sessionkey
+	   && state->clientqop & GSASL_QOP_AUTH_INT)
     {
       res = shishi_safe (state->sh, &state->safe);
       if (res != SHISHI_OK)
@@ -440,15 +440,16 @@ _gsasl_kerberos_v5_client_decode (Gsasl_session_ctx * sctx,
 {
   struct _Gsasl_kerberos_v5_client_state *state = mech_data;
 
-  puts("cdecode");
+  puts ("cdecode");
 
   if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_CONF)
     {
       /* XXX */
     }
-  else if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_INT)
+  else if (state && state->sessionkey
+	   && state->clientqop & GSASL_QOP_AUTH_INT)
     {
-      puts("decode");
+      puts ("decode");
     }
   else
     {
@@ -495,9 +496,9 @@ struct _Gsasl_kerberos_v5_server_state
   char *serverservice;
   char *serverhostname;
   char *password;
-  Shishi_key *userkey; /* user's key derived with string2key */
-  Shishi_key *sessionkey; /* shared between client and server */
-  Shishi_key *sessiontktkey; /* known only by server */
+  Shishi_key *userkey;		/* user's key derived with string2key */
+  Shishi_key *sessionkey;	/* shared between client and server */
+  Shishi_key *sessiontktkey;	/* known only by server */
   Shishi_ap *ap;
   Shishi_as *as;
   Shishi_safe *safe;
@@ -647,7 +648,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	      state->random, RANDOM_LEN);
 
       if (output)
-	memcpy(output, state->serverhello, SERVER_HELLO_LEN);
+	memcpy (output, state->serverhello, SERVER_HELLO_LEN);
       *output_len = BITMAP_LEN + MAXBUF_LEN + RANDOM_LEN;
 
       state->firststep = 0;
@@ -662,7 +663,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
       if (*output_len < 2048)
 	return GSASL_TOO_SMALL_BUFFER;
 
-      if (shishi_as_req_der_set(state->as, input, input_len) == SHISHI_OK)
+      if (shishi_as_req_der_set (state->as, input, input_len) == SHISHI_OK)
 	{
 	  Shishi_tkt *tkt;
 	  int etype, i;
@@ -672,13 +673,15 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	    return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
 	  i = 1;
-	  do {
-	    err = shishi_kdcreq_etype (state->sh,
-				       shishi_as_req(state->as),
-				       &etype, i);
-	    if (err == SHISHI_OK && shishi_cipher_supported_p (etype))
-	      break;
-	  } while (err == SHISHI_OK);
+	  do
+	    {
+	      err = shishi_kdcreq_etype (state->sh,
+					 shishi_as_req (state->as),
+					 &etype, i);
+	      if (err == SHISHI_OK && shishi_cipher_supported_p (etype))
+		break;
+	    }
+	  while (err == SHISHI_OK);
 	  if (err != SHISHI_OK)
 	    return err;
 
@@ -693,21 +696,21 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 
 	  buflen = sizeof (buf) - 1;
 	  err = shishi_kdcreq_cname_get (state->sh,
-					 shishi_as_req(state->as),
+					 shishi_as_req (state->as),
 					 buf, &buflen);
 	  if (err != SHISHI_OK)
 	    return err;
 	  buf[buflen] = '\0';
-	  state->username = strdup(buf);
+	  state->username = strdup (buf);
 
 	  buflen = sizeof (buf) - 1;
 	  err = shishi_kdcreq_realm_get (state->sh,
-					  shishi_as_req(state->as),
-					  buf, &buflen);
+					 shishi_as_req (state->as),
+					 buf, &buflen);
 	  if (err != SHISHI_OK)
 	    return err;
 	  buf[buflen] = '\0';
-	  state->userrealm = strdup(buf);
+	  state->userrealm = strdup (buf);
 
 	  buflen = sizeof (buf) - 1;
 	  err = cb_retrieve (sctx, state->username, NULL, state->userrealm,
@@ -735,49 +738,48 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	  else
 	    buflen = 0;
 	  buf[buflen] = '\0';
-	  state->serverrealm = strdup(buf);
+	  state->serverrealm = strdup (buf);
 
 	  buflen = sizeof (buf) - 1;
 	  err = cb_service (sctx, buf, &buflen, NULL, NULL);
 	  if (err != GSASL_OK)
 	    return err;
 	  buf[buflen] = '\0';
-	  state->serverservice = strdup(buf);
+	  state->serverservice = strdup (buf);
 
 	  buflen = sizeof (buf) - 1;
 	  err = cb_service (sctx, NULL, NULL, buf, &buflen);
 	  if (err != GSASL_OK)
 	    return err;
 	  buf[buflen] = '\0';
-	  state->serverhostname = strdup(buf);
+	  state->serverhostname = strdup (buf);
 
 	  /* XXX do some checking on realm and server name?  Right now
 	     we simply doesn't care about what client requested and
 	     return a ticket for this server.  This is bad. */
 
 	  err = shishi_tkt_clientrealm_set (tkt, state->userrealm,
-					       state->username);
+					    state->username);
 	  if (err)
 	    return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
 	  {
 	    char *p;
-	    p = malloc(strlen(state->serverservice) + strlen("/") +
-		       strlen(state->serverhostname) + 1);
+	    p = malloc (strlen (state->serverservice) + strlen ("/") +
+			strlen (state->serverhostname) + 1);
 	    if (p == NULL)
 	      return GSASL_MALLOC_ERROR;
-	    sprintf(p, "%s/%s", state->serverservice, state->serverhostname);
-	    err = shishi_tkt_serverrealm_set (tkt,
-						 state->serverrealm, p);
-	    free(p);
+	    sprintf (p, "%s/%s", state->serverservice, state->serverhostname);
+	    err = shishi_tkt_serverrealm_set (tkt, state->serverrealm, p);
+	    free (p);
 	    if (err)
 	      return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 	  }
 
 	  buflen = sizeof (buf);
 	  err = shishi_as_derive_salt (state->sh,
-				       shishi_as_req(state->as),
-				       shishi_as_rep(state->as),
+				       shishi_as_req (state->as),
+				       shishi_as_rep (state->as),
 				       buf, &buflen);
 	  if (err != SHISHI_OK)
 	    return err;
@@ -785,9 +787,8 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	  err = shishi_key_from_string (state->sh,
 					etype,
 					state->password,
-					strlen(state->password),
-					buf, buflen,
-					NULL, &state->userkey);
+					strlen (state->password),
+					buf, buflen, NULL, &state->userkey);
 	  if (err != SHISHI_OK)
 	    return err;
 
@@ -800,13 +801,13 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	    return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
 #if DEBUG
-	  shishi_kdcreq_print (state->sh, stderr, shishi_as_req(state->as));
+	  shishi_kdcreq_print (state->sh, stderr, shishi_as_req (state->as));
 	  shishi_encticketpart_print (state->sh, stderr,
 				      shishi_tkt_encticketpart (tkt));
 	  shishi_ticket_print (state->sh, stderr, shishi_tkt_ticket (tkt));
 	  shishi_enckdcreppart_print (state->sh, stderr,
 				      shishi_tkt_enckdcreppart (state->as));
-	  shishi_kdcrep_print (state->sh, stderr, shishi_as_rep(state->as));
+	  shishi_kdcrep_print (state->sh, stderr, shishi_as_rep (state->as));
 #endif
 
 	  err = shishi_as_rep_der (state->as, output, output_len);
@@ -830,21 +831,21 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	    return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
 #if DEBUG
-	  shishi_apreq_print(state->sh, stderr, shishi_ap_req (state->ap));
+	  shishi_apreq_print (state->sh, stderr, shishi_ap_req (state->ap));
 	  shishi_ticket_print (state->sh, stderr,
-			       shishi_tkt_ticket(shishi_ap_tkt (state->ap)));
-	  shishi_authenticator_print(state->sh, stderr,
-				     shishi_ap_authenticator (state->ap));
+			       shishi_tkt_ticket (shishi_ap_tkt (state->ap)));
+	  shishi_authenticator_print (state->sh, stderr,
+				      shishi_ap_authenticator (state->ap));
 #endif
 
-	  buflen = sizeof(buf);
+	  buflen = sizeof (buf);
 	  err = shishi_authenticator_authorizationdata
-	    (state->sh, shishi_ap_authenticator(state->ap),
+	    (state->sh, shishi_ap_authenticator (state->ap),
 	     &adtype, buf, &buflen, 1);
 	  if (err)
 	    return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
-	  if (adtype != 0xFF /* -1 in one-complements form */ ||
+	  if (adtype != 0xFF /* -1 in one-complements form */  ||
 	      buflen < CLIENT_HELLO_LEN + SERVER_HELLO_LEN)
 	    return GSASL_AUTHENTICATION_ERROR;
 
@@ -870,9 +871,8 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 
 	  /* XXX check clientmaxbuf too */
 
-	  if (memcmp(&buf[CLIENT_HELLO_LEN],
-		     state->serverhello,
-		     SERVER_HELLO_LEN) != 0)
+	  if (memcmp (&buf[CLIENT_HELLO_LEN],
+		      state->serverhello, SERVER_HELLO_LEN) != 0)
 	    return GSASL_AUTHENTICATION_ERROR;
 
 	  {
@@ -881,8 +881,9 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	    int cksumtype;
 	    Shishi_key *key;
 
-	    key = shishi_tkt_key (shishi_as_tkt(state->as));
-	    cksumtype = shishi_cipher_defaultcksumtype (shishi_key_type (key));
+	    key = shishi_tkt_key (shishi_as_tkt (state->as));
+	    cksumtype =
+	      shishi_cipher_defaultcksumtype (shishi_key_type (key));
 	    cksumlen = sizeof (cksum);
 	    err = shishi_checksum (state->sh, key,
 				   SHISHI_KEYUSAGE_APREQ_AUTHENTICATOR_CKSUM,
@@ -890,16 +891,14 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	    if (err != SHISHI_OK)
 	      return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
-	    buflen = sizeof(buf);
+	    buflen = sizeof (buf);
 	    err = shishi_authenticator_cksum
 	      (state->sh,
-	       shishi_ap_authenticator(state->ap),
-	       &cksumtype, buf, &buflen);
+	       shishi_ap_authenticator (state->ap), &cksumtype, buf, &buflen);
 	    if (err != SHISHI_OK)
 	      return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
-	    if (buflen != cksumlen ||
-		memcmp(buf, cksum, buflen) != 0)
+	    if (buflen != cksumlen || memcmp (buf, cksum, buflen) != 0)
 	      return GSASL_AUTHENTICATION_ERROR;
 	  }
 
@@ -924,18 +923,18 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
   else
     {
       /* XXX Currently we only handle AS-REQ and AP-REQ in
-	 non-infrastructure mode.  Supporting infrastructure mode is
-	 simple, just send the AS-REQ to the KDC and wait for AS-REP
-	 instead of creating AS-REP locally.
+         non-infrastructure mode.  Supporting infrastructure mode is
+         simple, just send the AS-REQ to the KDC and wait for AS-REP
+         instead of creating AS-REP locally.
 
-	 We should probably have a callback to decide policy:
-	 1) non-infrastructure mode (NIM) only
-	 2) infrastructure mode (IM) only
-	 3) proxied infrastructure mode (PIM) only
-	 4) NIM with fallback to IM (useful for local server overrides)
-	 5) IM with fallback to NIM (useful for admins if KDC is offline)
-	 6) ...etc with PIM too
-      */
+         We should probably have a callback to decide policy:
+         1) non-infrastructure mode (NIM) only
+         2) infrastructure mode (IM) only
+         3) proxied infrastructure mode (PIM) only
+         4) NIM with fallback to IM (useful for local server overrides)
+         5) IM with fallback to NIM (useful for admins if KDC is offline)
+         6) ...etc with PIM too
+       */
       return GSASL_NEED_SERVER_RETRIEVE_CALLBACK;
     }
 
@@ -957,7 +956,8 @@ _gsasl_kerberos_v5_server_encode (Gsasl_session_ctx * sctx,
     {
       /* XXX */
     }
-  else if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_INT)
+  else if (state && state->sessionkey
+	   && state->clientqop & GSASL_QOP_AUTH_INT)
     {
       res = shishi_safe (state->sh, &state->safe);
       if (res != SHISHI_OK)
@@ -1002,7 +1002,8 @@ _gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
     {
       /* XXX */
     }
-  else if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_INT)
+  else if (state && state->sessionkey
+	   && state->clientqop & GSASL_QOP_AUTH_INT)
     {
       Shishi_asn1 asn1safe;
 
@@ -1011,7 +1012,7 @@ _gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
 	return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
       res = shishi_safe_safe_der_set (state->safe, input, input_len);
-      printf("len %d err %d\n", input_len, res);
+      printf ("len %d err %d\n", input_len, res);
       if (res != SHISHI_OK)
 	return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
@@ -1023,7 +1024,7 @@ _gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
 				   output, output_len);
       if (res != SHISHI_OK)
 	return GSASL_KERBEROS_V5_INTERNAL_ERROR;
-      printf("len=%d\n", *output_len);
+      printf ("len=%d\n", *output_len);
       return GSASL_OK;
     }
   else
