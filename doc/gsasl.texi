@@ -64,7 +64,6 @@ section entitled ``GNU Free Documentation License''.
 * Callback Functions::          Set and use callbacks.
 * Property Functions::          Specify username, password etc.
 * Session Functions::           Perform an authentication.
-* Old Functions::               Descriptions of old API functions.
 * Utilities::                   Functions for various odd things.
 * Error Handling::              Error codes and such.
 * Examples::                    Example code.
@@ -75,6 +74,7 @@ section entitled ``GNU Free Documentation License''.
 Appendices
 
 * Protocol Clarifications::     Our notes on the SASL protocol.
+* Old Functions::               Descriptions of old API functions.
 * Copying This Manual::         How you can copy and share this manual.
 
 Indices
@@ -1376,25 +1376,6 @@ similar to the GSSAPI callback).
 
 
 @c **********************************************************
-@c *******************  Old Functions  **********************
-@c **********************************************************
-@node Old Functions
-@chapter Old Functions
-@cindex Deprecated functions
-@cindex Obsolete functions
-
-As GNU SASL is still under heavy development, some API functions have
-been found to be less useful.  Those old API functions will be
-supported during a transition period.  Refer to the NEWS file to find
-out since when a function has been deprecated.
-
-@include texi/obsolete.c.texi
-@include texi/callback-c.c.texi
-@include texi/callback-s.c.texi
-
-
-
-@c **********************************************************
 @c *******************  Errors  ****************************
 @c **********************************************************
 @node Error Handling
@@ -1614,6 +1595,25 @@ password either as a stored string (from a database) or as a query
 
 In the server, GNU SASL apply SASLPrep to the password with the
 AllowUnassigned bit cleared.
+
+@c **********************************************************
+@c *******************  Old Functions  **********************
+@c **********************************************************
+@node Old Functions
+@appendix Old Functions
+@cindex Deprecated functions
+@cindex Obsolete functions
+
+As GNU SASL is still under heavy development, some API functions have
+been found to be less useful.  Those old API functions will be
+supported during a transition period.  Refer to the NEWS file to find
+out since when a function has been deprecated.
+
+@include texi/obsolete.c.texi
+@include texi/callback-c.c.texi
+@include texi/callback-s.c.texi
+
+
 
 @node Copying This Manual
 @appendix Copying This Manual
