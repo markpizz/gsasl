@@ -11,8 +11,6 @@ document user visible changes for the library ("libgsasl"), for that
 see NEWS in the lib/ sub-directory, which is also distributed as a
 stand-alone package.
 
-** Polish translation added, by Jakub Bogusz.
-
 * Changes in 0.0.14 (released 2004-01-22)
 
 ** Moved all mechanism specific code into sub-directories of lib/.
