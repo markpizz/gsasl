@@ -923,7 +923,7 @@ example, the @acronym{SASL} application protocol profile for
 
 The following image illustrate the steps we have been talking about.
 
-@image{controlflow2,14cm,10cm}
+@image{controlflow2,16cm,12cm}
 
 We will now show the implementation of the @code{client} function used
 before.
@@ -1011,12 +1011,12 @@ implementing.
 
 Further, you should realize that it is bad programming style to use a
 fixed size buffer.  On GNU systems, you may use the @code{getline}
-functions instead.  However, in practice, there are few mechanisms
-that use very large tokens.  In typical configurations, the mechanism
-with the largest tokens (GSSAPI) can use at least 500 bytes.  A fixed
-buffer size of 8192 bytes may thus be sufficient for now.  But don't
-say I didn't warn you, when a future mechanism doesn't work in your
-application, because of a fixed size buffer.
+functions instead of @code{fgets}.  However, in practice, there are
+few mechanisms that use very large tokens.  In typical configurations,
+the mechanism with the largest tokens (GSSAPI) can use at least 500
+bytes.  A fixed buffer size of 8192 bytes may thus be sufficient for
+now.  But don't say I didn't warn you, when a future mechanism doesn't
+work in your application, because of a fixed size buffer.
 
 The @code{gsasl_step64} (and of course also @code{gasl_step}) return
 two non-error return codes.  @code{GSASL_OK} is used for success,
@@ -1085,23 +1085,25 @@ authentication loop, as in:
 @end example
 
 This may work for simple mechanisms, that only ever need an username
-and a password.  But some mechanism require more information, like
-authorization identities, a special PIN or passcode.  Querying the
-user for all that information, without knowing exactly which of it
-will be really needed is bad design.
+and a password.  But some mechanism require more information, such as
+an authorization identity, a special PIN or passcode, a realm, a
+hostname, a service name, or an anonymous identifier.  Querying the
+user for all that information, without knowing exactly which of it is
+really needed is bad user design.
 
-This is a bad idea for another reason.  What if the server abort the
-authentication process?  Then your application have already queried
-the user for a username and password.  It would be better if you only
-asked the user for this information, annoying to input, when it is
-known to be needed.
+The approach is a bad idea for another reason.  What if the server
+abort the authentication process?  Then your application have already
+queried the user for a username and password.  It would be better if
+you only asked the user for this information, annoying to input, when
+it is known to be needed.
 
 A better approach to this problem is to use a callback.  Then the
 mechanism may query your application whenever it need some
 information, like the username and password.  It will only do this at
 the precise step in the authentication when the information is
-actually needed.  Further, if the user abort a password prompt, the
-mechanism is informed of this, and could recover somehow.
+actually needed.  Further, if the user abort, e.g., a password prompt,
+the mechanism is directly informed of this (because it invoked the
+callback), and could recover somehow.
 
 Our final example (@pxref{Example 4}) specify a callback function,
 inside @code{main} as below.
@@ -1152,7 +1154,7 @@ int callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 @}
 @end example
 
-Again, it is bad style to use a fixed size buffer.
+Again, it is bad style to use a fixed size buffer.  Mmm'kay.
 
 Which properties you should handle is up to you.  If you don't know
 how to respond to a certain property, simply return
@@ -1160,18 +1162,8 @@ how to respond to a certain property, simply return
 authentication identity (@code{GSASL_AUTHID}), authorization identity
 (@code{GSASL_AUTHZID}), and password (@code{GSASL_PASSWORD}).  See
 @xref{Properties}, for the list of all properties, and what your
-callback should (ideally) do for them.
-
-@section Server note: client send data first
-
-A note for server authors is in place, on the optional initial client
-output (discussed in section 5.1 of RFC 2222).  In a server looking
-similar to the code above, the first call to @code{gsasl_step64} would
-have a @var{input} set to NULL.  The mechanisms interprete this as
-your protocol do not support initial client output.  If the protocol
-in which you implement SASL supports initial client output, the first
-call to @code{gsasl_server_step_base64} should include a real buffer
-with the initial client data.
+callback should (ideally) do for them, and which properties each
+mechanism require in order to work.
 
 @c **********************************************************
 @c *******************  Properties  *************************
