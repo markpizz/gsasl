@@ -360,6 +360,9 @@ AC_TYPE_UID_T
 AC_HEADER_TIME
 AC_CHECK_DECLS(errno)
 
+# Nettle uses alloca.
+AC_FUNC_ALLOCA
+
 # Need getopt.
 AC_CHECK_FUNCS(getopt_long,, [AC_LIBOBJ(getopt) AC_LIBOBJ(getopt1)])
 
