@@ -62,7 +62,7 @@ _gsasl_kerberos_v5_server_init (Gsasl_ctx * ctx)
 }
 
 int
-_gsasl_kerberos_v5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
+_gsasl_kerberos_v5_server_start (Gsasl_session * sctx, void **mech_data)
 {
   struct _Gsasl_kerberos_v5_server_state *state;
   int err;
@@ -103,7 +103,7 @@ _gsasl_kerberos_v5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 }
 
 int
-_gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
+_gsasl_kerberos_v5_server_step (Gsasl_session * sctx,
 				void *mech_data,
 				const char *input,
 				size_t input_len,
@@ -485,7 +485,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 }
 
 int
-_gsasl_kerberos_v5_server_encode (Gsasl_session_ctx * sctx,
+_gsasl_kerberos_v5_server_encode (Gsasl_session * sctx,
 				  void *mech_data,
 				  const char *input,
 				  size_t input_len,
@@ -532,7 +532,7 @@ _gsasl_kerberos_v5_server_encode (Gsasl_session_ctx * sctx,
 }
 
 int
-_gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
+_gsasl_kerberos_v5_server_decode (Gsasl_session * sctx,
 				  void *mech_data,
 				  const char *input,
 				  size_t input_len,
@@ -583,7 +583,7 @@ _gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
 }
 
 int
-_gsasl_kerberos_v5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
+_gsasl_kerberos_v5_server_finish (Gsasl_session * sctx, void *mech_data)
 {
   struct _Gsasl_kerberos_v5_server_state *state = mech_data;
 

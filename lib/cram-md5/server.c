@@ -42,7 +42,7 @@
 #define MD5LEN 16
 
 int
-_gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
+_gsasl_cram_md5_server_start (Gsasl_session * sctx, void **mech_data)
 {
   char *challenge;
 
@@ -58,7 +58,7 @@ _gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 }
 
 int
-_gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
+_gsasl_cram_md5_server_step (Gsasl_session * sctx,
 			     void *mech_data,
 			     const char *input, size_t input_len,
 			     char **output, size_t * output_len)
@@ -117,7 +117,7 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
 }
 
 void
-_gsasl_cram_md5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
+_gsasl_cram_md5_server_finish (Gsasl_session * sctx, void *mech_data)
 {
   char *challenge = mech_data;
 

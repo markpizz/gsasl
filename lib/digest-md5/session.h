@@ -26,7 +26,7 @@
 #include "digest-md5.h"
 
 int
-digest_md5_encode (Gsasl_session_ctx * sctx,
+digest_md5_encode (Gsasl_session * sctx,
 		   const char *input, size_t input_len,
 		   char **output, size_t * output_len,
 		   Gsasl_qop qop,
@@ -34,7 +34,7 @@ digest_md5_encode (Gsasl_session_ctx * sctx,
 		   char key[MD5LEN]);
 
 int
-digest_md5_decode (Gsasl_session_ctx * sctx,
+digest_md5_decode (Gsasl_session * sctx,
 		   const char *input,
 		   size_t input_len,
 		   char **output, size_t * output_len,

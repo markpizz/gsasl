@@ -38,7 +38,7 @@
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
-gsasl_client_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
+gsasl_client_listmech (Gsasl * ctx, char *out, size_t * outlen)
 {
   char *tmp;
   int rc;
@@ -81,7 +81,7 @@ gsasl_client_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
-gsasl_server_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
+gsasl_server_listmech (Gsasl * ctx, char *out, size_t * outlen)
 {
   char *tmp;
   int rc;
@@ -108,7 +108,7 @@ gsasl_server_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
 }
 
 static int
-_gsasl_step (Gsasl_session_ctx * sctx,
+_gsasl_step (Gsasl_session * sctx,
 	     const char *input, size_t input_len,
 	     char *output, size_t * output_len)
 {
@@ -160,7 +160,7 @@ _gsasl_step (Gsasl_session_ctx * sctx,
  * code.
  **/
 int
-gsasl_client_step (Gsasl_session_ctx * sctx,
+gsasl_client_step (Gsasl_session * sctx,
 		   const char *input,
 		   size_t input_len, char *output, size_t * output_len)
 {
@@ -191,7 +191,7 @@ gsasl_client_step (Gsasl_session_ctx * sctx,
  * code.
  **/
 int
-gsasl_server_step (Gsasl_session_ctx * sctx,
+gsasl_server_step (Gsasl_session * sctx,
 		   const char *input,
 		   size_t input_len, char *output, size_t * output_len)
 {
@@ -199,7 +199,7 @@ gsasl_server_step (Gsasl_session_ctx * sctx,
 }
 
 static int
-_gsasl_step64 (Gsasl_session_ctx * sctx,
+_gsasl_step64 (Gsasl_session * sctx,
 	       const char *b64input, char *b64output, size_t b64output_len)
 {
   char *tmp;
@@ -240,7 +240,7 @@ _gsasl_step64 (Gsasl_session_ctx * sctx,
  * Return value: See gsasl_client_step().
  **/
 int
-gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
+gsasl_client_step_base64 (Gsasl_session * sctx,
 			  const char *b64input,
 			  char *b64output, size_t b64output_len)
 {
@@ -263,7 +263,7 @@ gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
  * Return value: See gsasl_server_step().
  **/
 int
-gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
+gsasl_server_step_base64 (Gsasl_session * sctx,
 			  const char *b64input,
 			  char *b64output, size_t b64output_len)
 {
@@ -281,7 +281,7 @@ gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
  * future.
  **/
 void
-gsasl_client_finish (Gsasl_session_ctx * sctx)
+gsasl_client_finish (Gsasl_session * sctx)
 {
   gsasl_finish (sctx);
 }
@@ -297,7 +297,7 @@ gsasl_client_finish (Gsasl_session_ctx * sctx)
  * future.
  **/
 void
-gsasl_server_finish (Gsasl_session_ctx * sctx)
+gsasl_server_finish (Gsasl_session * sctx)
 {
   gsasl_finish (sctx);
 }
@@ -311,10 +311,10 @@ gsasl_server_finish (Gsasl_session_ctx * sctx)
  *
  * Return value: Returns the libgsasl handle given a libgsasl client handle.
  **/
-Gsasl_ctx *
-gsasl_client_ctx_get (Gsasl_session_ctx * sctx)
+Gsasl *
+gsasl_client_ctx_get (Gsasl_session * sctx)
 {
-  return gsasl_ctx_get (sctx);
+  return sctx->ctx;
 }
 
 /**
@@ -332,7 +332,7 @@ gsasl_client_ctx_get (Gsasl_session_ctx * sctx)
  * future.
  **/
 void
-gsasl_client_application_data_set (Gsasl_session_ctx * sctx,
+gsasl_client_application_data_set (Gsasl_session * sctx,
 				   void *application_data)
 {
   gsasl_appinfo_set (sctx, application_data);
@@ -353,7 +353,7 @@ gsasl_client_application_data_set (Gsasl_session_ctx * sctx,
  * Return value: Returns the application specific data, or NULL.
  **/
 void *
-gsasl_client_application_data_get (Gsasl_session_ctx * sctx)
+gsasl_client_application_data_get (Gsasl_session * sctx)
 {
   return gsasl_appinfo_get (sctx);
 }
@@ -367,10 +367,10 @@ gsasl_client_application_data_get (Gsasl_session_ctx * sctx)
  *
  * Return value: Returns the libgsasl handle given a libgsasl server handle.
  **/
-Gsasl_ctx *
-gsasl_server_ctx_get (Gsasl_session_ctx * sctx)
+Gsasl *
+gsasl_server_ctx_get (Gsasl_session * sctx)
 {
-  return gsasl_ctx_get (sctx);
+  return sctx->ctx;
 }
 
 /**
@@ -388,7 +388,7 @@ gsasl_server_ctx_get (Gsasl_session_ctx * sctx)
  * future.
  **/
 void
-gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
+gsasl_server_application_data_set (Gsasl_session * sctx,
 				   void *application_data)
 {
   gsasl_appinfo_set (sctx, application_data);
@@ -409,7 +409,7 @@ gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
  * Return value: Returns the application specific data, or NULL.
  **/
 void *
-gsasl_server_application_data_get (Gsasl_session_ctx * sctx)
+gsasl_server_application_data_get (Gsasl_session * sctx)
 {
   return gsasl_appinfo_get (sctx);
 }

@@ -60,11 +60,11 @@ struct _Gsasl_gssapi_server_state
 typedef struct _Gsasl_gssapi_server_state _Gsasl_gssapi_server_state;
 
 int
-_gsasl_gssapi_server_start (Gsasl_session_ctx * sctx, void **mech_data)
+_gsasl_gssapi_server_start (Gsasl_session * sctx, void **mech_data)
 {
   _Gsasl_gssapi_server_state *state;
   Gsasl_server_callback_service cb_service;
-  Gsasl_ctx *ctx;
+  Gsasl *ctx;
   OM_uint32 maj_stat, min_stat;
   gss_name_t server;
   gss_buffer_desc bufdesc;
@@ -138,7 +138,7 @@ _gsasl_gssapi_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 }
 
 int
-_gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
+_gsasl_gssapi_server_step (Gsasl_session * sctx,
 			   void *mech_data,
 			   const char *input, size_t input_len,
 			   char **output2, size_t * output2_len)
@@ -319,7 +319,7 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
 }
 
 void
-_gsasl_gssapi_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
+_gsasl_gssapi_server_finish (Gsasl_session * sctx, void *mech_data)
 {
   _Gsasl_gssapi_server_state *state = mech_data;
   OM_uint32 min_stat;

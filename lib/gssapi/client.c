@@ -60,7 +60,7 @@ struct _Gsasl_gssapi_client_state
 typedef struct _Gsasl_gssapi_client_state _Gsasl_gssapi_client_state;
 
 int
-_gsasl_gssapi_client_start (Gsasl_session_ctx * sctx, void **mech_data)
+_gsasl_gssapi_client_start (Gsasl_session * sctx, void **mech_data)
 {
   _Gsasl_gssapi_client_state *state;
 
@@ -79,7 +79,7 @@ _gsasl_gssapi_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 }
 
 int
-_gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
+_gsasl_gssapi_client_step (Gsasl_session * sctx,
 			   void *mech_data,
 			   const char *input, size_t input_len,
 			   char **output, size_t * output_len)
@@ -254,7 +254,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
 }
 
 void
-_gsasl_gssapi_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
+_gsasl_gssapi_client_finish (Gsasl_session * sctx, void *mech_data)
 {
   _Gsasl_gssapi_client_state *state = mech_data;
   OM_uint32 maj_stat, min_stat;
@@ -269,7 +269,7 @@ _gsasl_gssapi_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 }
 
 int
-_gsasl_gssapi_client_encode (Gsasl_session_ctx * sctx,
+_gsasl_gssapi_client_encode (Gsasl_session * sctx,
 			     void *mech_data,
 			     const char *input, size_t input_len,
 			     char **output, size_t * output_len)
@@ -324,7 +324,7 @@ _gsasl_gssapi_client_encode (Gsasl_session_ctx * sctx,
 }
 
 int
-_gsasl_gssapi_client_decode (Gsasl_session_ctx * sctx,
+_gsasl_gssapi_client_decode (Gsasl_session * sctx,
 			     void *mech_data,
 			     const char *input, size_t input_len,
 			     char **output, size_t * output_len)

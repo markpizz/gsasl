@@ -31,7 +31,7 @@
 #include <string.h>
 
 int
-_gsasl_external_client_step (Gsasl_session_ctx * sctx,
+_gsasl_external_client_step (Gsasl_session * sctx,
 			     void *mech_data,
 			     const char *input, size_t input_len,
 			     char **output, size_t * output_len)

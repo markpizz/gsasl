@@ -66,8 +66,8 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 void
 doit (void)
 {
-  Gsasl_ctx *ctx = NULL;
-  Gsasl_session_ctx *server = NULL, *client = NULL;
+  Gsasl *ctx = NULL;
+  Gsasl_session *server = NULL, *client = NULL;
   char *s1, *s2;
   size_t s1len, s2len;
   size_t i;
@@ -138,8 +138,8 @@ doit (void)
       if (debug)
 	printf ("\n");
 
-      gsasl_client_finish (client);
-      gsasl_server_finish (server);
+      gsasl_finish (client);
+      gsasl_finish (server);
     }
 
   gsasl_done (ctx);

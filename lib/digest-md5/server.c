@@ -52,7 +52,7 @@ struct _Gsasl_digest_md5_server_state
 typedef struct _Gsasl_digest_md5_server_state _Gsasl_digest_md5_server_state;
 
 int
-_gsasl_digest_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
+_gsasl_digest_md5_server_start (Gsasl_session * sctx, void **mech_data)
 {
   _Gsasl_digest_md5_server_state *state;
   Gsasl_server_callback_retrieve cb_retrieve;
@@ -88,7 +88,7 @@ _gsasl_digest_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 }
 
 int
-_gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
+_gsasl_digest_md5_server_step (Gsasl_session * sctx,
 			       void *mech_data,
 			       const char *input,
 			       size_t input_len,
@@ -758,7 +758,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 }
 
 void
-_gsasl_digest_md5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
+_gsasl_digest_md5_server_finish (Gsasl_session * sctx, void *mech_data)
 {
   _Gsasl_digest_md5_server_state *state = mech_data;
 
@@ -766,7 +766,7 @@ _gsasl_digest_md5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 }
 
 int
-_gsasl_digest_md5_server_encode (Gsasl_session_ctx * sctx,
+_gsasl_digest_md5_server_encode (Gsasl_session * sctx,
 				 void *mech_data,
 				 const char *input,
 				 size_t input_len,
@@ -797,7 +797,7 @@ _gsasl_digest_md5_server_encode (Gsasl_session_ctx * sctx,
 }
 
 int
-_gsasl_digest_md5_server_decode (Gsasl_session_ctx * sctx,
+_gsasl_digest_md5_server_decode (Gsasl_session * sctx,
 				 void *mech_data,
 				 const char *input,
 				 size_t input_len,
