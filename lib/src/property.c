@@ -230,6 +230,8 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
       size_t buflen = BUFSIZ - 1;
       int res;
 
+      buf[0] = '\0';
+
       /* Call obsolete callbacks to get properties.  Remove this when
        * the obsolete callbacks are no longer supported. */
 
