@@ -1,0 +1,27 @@
+GNU SASL is an implementation of the Simple Authentication and
+Security Layer framework and a few common SASL mechanisms.  SASL is
+used by network servers (e.g., IMAP, SMTP) to request authentication
+from clients, and in clients to authenticate against servers.
+
+GNU SASL contains of a library, a command line utility to access the
+library from shells and a manual.  The library includes support for
+the framework (with authentication functions and application data
+privacy and integrity functions) and at least partial support for the
+CRAM-MD5, EXTERNAL, GSSAPI, ANONYMOUS, PLAIN, SECURID, DIGEST-MD5,
+LOGIN, NTLM mechanisms.
+
+The library is easily ported because it does not do network
+communication by itself, but rather leaves it up to the calling
+application.  The library is flexible with regards to the
+authorization infrastructure used, as it utilizes callbacks into the
+application to decide whether a user is authorized or not.  GNU SASL
+has been ported to many Unix flavors.
+
+The project page of the library is available at:
+http://www.josefsson.org/libgsasl/
+
+For more information see:
+http://www.ietf.org/rfc/rfc2222.txt
+
+Further information including paid contract development:
+Simon Josefsson <simon@josefsson.org>
