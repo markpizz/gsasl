@@ -12,16 +12,15 @@
 @c
 @setfilename gsasl.info
 @include version.texi
-@settitle The Libgsasl Reference Manual
+@settitle The GNU SASL Manual
 
 @c Unify some of the indices.
 @syncodeindex tp fn
 @syncodeindex pg fn
 
 @copying
-This is @cite{The Libgsasl Reference Manual}, last updated
-@value{UPDATED}, for Version @value{VERSION} of the @acronym{Libgsasl}
-library.
+This is @cite{The GNU SASL Manual}, last updated @value{UPDATED}, for
+Version @value{VERSION} of the @acronym{Libgsasl} library.
 
 Copyright @copyright{} 2002 Simon Josefsson.
 
@@ -46,7 +45,7 @@ Free Software Foundation raise funds for GNU development.''
 @end direntry
 
 @titlepage
-@title The Libgsasl Reference Manual
+@title The GNU SASL Manual
 @subtitle for version @value{VERSION}, @value{UPDATED}
 @author Simon Josefsson (@email{bug-libgsasl@@josefsson.org})
 @page

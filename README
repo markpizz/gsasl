@@ -1,14 +1,10 @@
 Libgsasl README -- important introductory notes
 See the end for copying conditions.
 
-This directory holds the library `libgsasl', which implement the
-Simple Authentication and Security Layer (SASL), and an application
-`gsasl' for interfacing with the library from the command line.
-
-Libgsasl is unstable and in its early steps of development.  You
-should expect it to not work as well as having security problems.  The
-API will likely change. Let me repeat that, LIBGSASL IS MOST LIKELY
-INSECURE.
+This directory holds GNU SASL which is an implemention of the Simple
+Authentication and Security Layer (SASL).  It contains a runtime
+library `libgsasl' and an application `gsasl' for interfacing with the
+library from the command line.
 
 Currently there is some support for the following mechanisms:
 
@@ -42,6 +38,13 @@ The library (lib/) is licensed under the GNU Lesser Public License
 license (see COPYING.LIB), the application (src/) is licensed under
 the GNU Public License (see COPYING), and the documentation (doc/) is
 licensed under the GNU Free Documentation License (see COPYING.DOC).
+
+The reason the LGPL is used for this library is that other
+implementations of SASL exists, Cyrus SASL, but parts of it relies on
+software that is incompatible with the GPL.  Do not get the impression
+that the LGPL was chosen just because libgsasl is a library.  Because
+the LGPL does less to protect the user's freedom, if you are able to
+use this library under the GPL license, you are encouraged to do so.
 
 For updates to the project, see <URL:http://josefsson.org/libgsasl/>.
 
