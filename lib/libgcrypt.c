@@ -70,9 +70,9 @@ int
 gsasl_randomize (int strong, char *data, size_t datalen)
 {
   if (strong)
-    gcry_randomize (data, datalen, GCRY_VERY_STRONG_RANDOM);
+    gcry_randomize ((unsigned char *) data, datalen, GCRY_VERY_STRONG_RANDOM);
   else
-    gcry_randomize (data, datalen, GCRY_STRONG_RANDOM);
+    gcry_randomize ((unsigned char *) data, datalen, GCRY_STRONG_RANDOM);
   return GSASL_OK;
 }
 
@@ -82,7 +82,7 @@ gsasl_md5 (const char *in, size_t inlen, char *out[16])
   size_t outlen = gcry_md_get_algo_dlen (GCRY_MD_MD5);
   gcry_md_hd_t hd;
   gpg_error_t err;
-  char *p;
+  unsigned char *p;
 
   err = gcry_md_open (&hd, GCRY_MD_MD5, 0);
   if (err != GPG_ERR_NO_ERROR)
