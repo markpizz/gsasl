@@ -25,7 +25,7 @@
 
 #ifdef USE_GSS
 
-#include <gssapi.h>
+#include <gss.h>
 
 #else /* MIT GSSAPI */
 
