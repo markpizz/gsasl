@@ -7,8 +7,10 @@ libgssapi by MIT/Heimdal, libgcrypt by Werner Koch, GSS, Libidn, and
 Shishi by Simon Josefsson.  Templates for makefiles, manuals etc was
 borrowed from Libgcrypt.
 
-Sergey Poznyakoff sent useful bug reports, patches and/or suggested
-improvements.
+Bug reports, patches and/or suggestions were also received from:
+
+Andorz Nilsson
+Sergey Poznyakoff
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,

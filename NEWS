@@ -8,6 +8,8 @@ See the end for copying conditions.
 The directory gl/ is dedicated for GNULib functions, and replace the
 earlier ad-hoc usage of argp, memset, argp, etc.
 
+** Math library (-lm) no longer needed.
+
 ** Gettext 0.12.1 and libtool 1.5 is used.
 
 ** Libgcrypt from CVS is not supported.
