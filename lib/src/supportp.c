@@ -38,6 +38,9 @@ _gsasl_support_p (Gsasl_mechanism * mechs, size_t n_mechs, const char *name)
  * @ctx: libgsasl handle.
  * @name: name of SASL mechanism.
  *
+ * Decide whether there is client-side support for a specified
+ * mechanism.
+ *
  * Return value: Returns 1 if the libgsasl client supports the named
  * mechanism, otherwise 0.
  **/
@@ -51,6 +54,9 @@ gsasl_client_support_p (Gsasl * ctx, const char *name)
  * gsasl_server_support_p:
  * @ctx: libgsasl handle.
  * @name: name of SASL mechanism.
+ *
+ * Decide whether there is server-side support for a specified
+ * mechanism.
  *
  * Return value: Returns 1 if the libgsasl server supports the named
  * mechanism, otherwise 0.

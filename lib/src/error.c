@@ -31,6 +31,8 @@
  * gsasl_strerror:
  * @err: libgsasl error code
  *
+ * Convert return code to human readable string.
+ *
  * Return value: Returns a pointer to a statically allocated string
  * containing a description of the error with the error value @err.
  * This string can be used to output a diagnostic message to the user.

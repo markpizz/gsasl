@@ -27,6 +27,8 @@
  * @mechlist: input character array with SASL mechanism names,
  *   separated by invalid characters (e.g. SPC).
  *
+ * Given a list of mechanisms, suggest which to use.
+ *
  * Return value: Returns name of "best" SASL mechanism supported by
  * the libgsasl client which is present in the input string.
  **/
