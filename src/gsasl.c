@@ -1,5 +1,5 @@
 /* gsasl.c --- Command line interface to libgsasl.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -103,7 +103,7 @@ select_mechanism (char **mechlist)
   else if (args_info.server_flag)
     {
       if (!args_info.quiet_given)
-	fprintf (stderr, _("Chose SASL mechanism:\n"));
+	fprintf (stderr, _("Choose SASL mechanism:\n"));
       if (!readln (&in))
 	return 0;
       *mechlist = in;
