@@ -5,10 +5,9 @@ See the end for copying conditions.
 * Changes in 0.0.8 (unreleased)
 
 ** Improved GSSAPI implementation detection.
-Auto detection should work, unless you have both MIT and Heimdal
-installed, or wish to override the preference to use GSS over
-MIT/Heimdal.  In that case, you can --enable-gssapi=mit or
---enable-gssapi=heimdal.
+Auto detection should work, unless you have both MIT and Heimdal, or
+wish to override the default that prefer GSS over Heimdal over MIT.
+In that case, use --enable-gssapi=mit or --enable-gssapi=heimdal.
 
 ** GNU SASL contain APIs for internationalized string processing via SASLprep.
 You no longer have to use Libidn directly.
