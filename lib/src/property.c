@@ -136,8 +136,7 @@ gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
  * session specific data is present.
  **/
 void
-gsasl_property_set_global (Gsasl * ctx, Gsasl_property prop,
-			   const char *data)
+gsasl_property_set_global (Gsasl * ctx, Gsasl_property prop, const char *data)
 {
   char **p = map_global (ctx, prop);
 

@@ -38,7 +38,7 @@
  * Return value: GSASL_OK iff successful, otherwise GSASL_MALLOC_ERROR.
  **/
 int
-gsasl_register (Gsasl * ctx, const _Gsasl_mechanism *mech)
+gsasl_register (Gsasl * ctx, const _Gsasl_mechanism * mech)
 {
   _Gsasl_mechanism *tmp;
 
@@ -46,8 +46,7 @@ gsasl_register (Gsasl * ctx, const _Gsasl_mechanism *mech)
   if (mech->client.init == NULL || mech->client.init (ctx) == GSASL_OK)
     {
       tmp = realloc (ctx->client_mechs,
-		     sizeof (*ctx->client_mechs) *
-		     (ctx->n_client_mechs + 1));
+		     sizeof (*ctx->client_mechs) * (ctx->n_client_mechs + 1));
       if (tmp == NULL)
 	return GSASL_MALLOC_ERROR;
 
@@ -62,8 +61,7 @@ gsasl_register (Gsasl * ctx, const _Gsasl_mechanism *mech)
   if (mech->server.init == NULL || mech->server.init (ctx) == GSASL_OK)
     {
       tmp = realloc (ctx->server_mechs,
-		     sizeof (*ctx->server_mechs) *
-		     (ctx->n_server_mechs + 1));
+		     sizeof (*ctx->server_mechs) * (ctx->n_server_mechs + 1));
       if (tmp == NULL)
 	return GSASL_MALLOC_ERROR;
 

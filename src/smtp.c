@@ -53,7 +53,7 @@ smtp_select_mechanism (char **mechlist)
 	  if (strncmp (in, GREETING, strlen (GREETING)) == 0)
 	    *mechlist = in + strlen (GREETING);
 	}
-      while (strncmp(in, "250 ", 4) != 0);
+      while (strncmp (in, "250 ", 4) != 0);
     }
 
   return 1;

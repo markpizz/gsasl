@@ -71,21 +71,19 @@ gsasl_step (Gsasl_session * sctx,
   if (astep)
     {
       res = astep (sctx, sctx->mech_data,
-		   input, input_len,
-		   output, output_len);
+		   input, input_len, output, output_len);
     }
   else
     {
       /* XXX once all mechanisms uses the "astep" interface, this will
-	 go away. */
+         go away. */
       *output_len = 1000;
       *output = malloc (*output_len);
       if (*output == NULL)
 	return GSASL_MALLOC_ERROR;
 
       res = step (sctx, sctx->mech_data,
-		  input, input_len,
-		  *output, output_len);
+		  input, input_len, *output, output_len);
 
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	free (*output);

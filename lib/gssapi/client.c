@@ -285,15 +285,14 @@ _gsasl_gssapi_client_encode (Gsasl_session_ctx * sctx,
   foo.value = /*XXX*/ input;
 
   if (state && state->step == 3 &&
-      state->qop & (GSASL_QOP_AUTH_INT|GSASL_QOP_AUTH_CONF))
+      state->qop & (GSASL_QOP_AUTH_INT | GSASL_QOP_AUTH_CONF))
     {
       maj_stat = gss_wrap (&min_stat,
 			   state->context,
 			   state->qop & GSASL_QOP_AUTH_CONF ? 1 : 0,
 			   GSS_C_QOP_DEFAULT,
 			   input_message_buffer,
-			   NULL,
-			   &output_message_buffer);
+			   NULL, &output_message_buffer);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_WRAP_ERROR;
       if (*output_len < output_message_buffer.length)
@@ -316,9 +315,9 @@ _gsasl_gssapi_client_encode (Gsasl_session_ctx * sctx,
 
 int
 _gsasl_gssapi_client_decode (Gsasl_session_ctx * sctx,
-				 void *mech_data,
-				 const char *input, size_t input_len,
-				 char *output, size_t * output_len)
+			     void *mech_data,
+			     const char *input, size_t input_len,
+			     char *output, size_t * output_len)
 {
   _Gsasl_gssapi_client_state *state = mech_data;
   OM_uint32 min_stat, maj_stat;
@@ -330,7 +329,7 @@ _gsasl_gssapi_client_decode (Gsasl_session_ctx * sctx,
   foo.value = /*XXX*/ input;
 
   if (state && state->step == 3 &&
-      state->qop & (GSASL_QOP_AUTH_INT|GSASL_QOP_AUTH_CONF))
+      state->qop & (GSASL_QOP_AUTH_INT | GSASL_QOP_AUTH_CONF))
     {
       maj_stat = gss_unwrap (&min_stat,
 			     state->context,

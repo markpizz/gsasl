@@ -162,7 +162,7 @@ doit (void)
       free (s1);
 
       if (debug)
-	printf("\n");
+	printf ("\n");
 
       gsasl_client_finish (client);
       gsasl_server_finish (server);

@@ -79,8 +79,7 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 
   if (cb_validate)
     {
-      res = cb_validate (sctx, authorization_id, authentication_id,
-			 password);
+      res = cb_validate (sctx, authorization_id, authentication_id, password);
     }
   else
     {

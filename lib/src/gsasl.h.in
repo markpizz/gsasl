@@ -250,4 +250,4 @@ extern "C"
 }
 # endif
 
-#endif /* GSASL_H */
+#endif				/* GSASL_H */

@@ -72,8 +72,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
-  cb_authentication_id =
-    gsasl_client_callback_authentication_id_get (ctx);
+  cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
   if (cb_authentication_id == NULL)
     return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
 

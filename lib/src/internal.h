@@ -81,7 +81,7 @@ typedef struct _Gsasl_mechanism _Gsasl_mechanism;
 
 /* Move to gsasl.h once all mechanisms have been rewritten to use
    allocating API.  See register.c. */
-extern int gsasl_register (Gsasl * ctx, const _Gsasl_mechanism *mech);
+extern int gsasl_register (Gsasl * ctx, const _Gsasl_mechanism * mech);
 
 /* Main library handle. */
 struct Gsasl

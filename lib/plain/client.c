@@ -100,7 +100,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
 
   res = GSASL_OK;
 
- end:
+end:
   if (authzid)
     free (authzid);
   if (authid)
