@@ -20,6 +20,7 @@
  */
 
 #include "internal.h"
+#include "callbacks.h"
 
 #define MAX_LINE_LENGTH BUFSIZ
 
@@ -65,7 +66,7 @@ utf8cpy (char *dst, size_t * dstlen, char *src, size_t srclen)
   p = stringprep_locale_to_utf8 (src);
   if (p)
     {
-      int len = strlen (p);
+      size_t len = strlen (p);
 
       if (dst && *dstlen < len)
 	return GSASL_TOO_SMALL_BUFFER;
@@ -75,7 +76,7 @@ utf8cpy (char *dst, size_t * dstlen, char *src, size_t srclen)
     }
   else
     {
-      int i;
+      size_t i;
 
       fprintf (stderr, " ** failed to convert data from %s to UTF-8\n",
 	       stringprep_locale_charset ());
