@@ -213,8 +213,8 @@ fi
 if test "$with_system_idn" = "no"; then
 	AC_MSG_WARN([[
 
-The system's libidn 0.1.0 or later not used. Using copy
-distributed with GNU Ssasl instead.
+The system's GNU Libidn 0.1.0 or later not used. Using copy
+distributed with GNU SASL instead.
 
 ]])
 	LIBIDN_CFLAGS="-I\$(top_srcdir)/libidn"
@@ -295,6 +295,18 @@ if test x$enable_gtk_doc = xauto ; then
 fi
 AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 
+# Libgnet
+AC_ARG_WITH(gnet,
+  AC_HELP_STRING([--without-gnet],
+		[don't use libgnet even if available]))
+if test "$with_gnet" != "no" ; then
+	AM_PATH_GNET(1.1.2, with_gnet=yes, with_gnet=no)
+fi
+if test "$with_gnet" != "no" ; then
+	AC_DEFINE(USE_GNET, 1, [Define to 1 if you want to use libgnet.])
+fi
+AC_MSG_CHECKING([if libgnet should be used])
+AC_MSG_RESULT($with_gnet)
 
 AC_CONFIG_FILES(Makefile po/Makefile.in m4/Makefile intl/Makefile \
 		doc/Makefile doc/reference/Makefile lib/gsasl.h lib/Makefile \
