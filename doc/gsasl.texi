@@ -853,9 +853,9 @@ AC_MSG_RESULT($gsasl)
 @chapter Using the Library
 
 Your application's use of the library can be roughly modeled into the
-following steps: library initialization, optionally specifying a
-callback and/or properties, perform actual authentications, and
-finally cleaning up.  The following image illustrate this.
+following steps: initialize library, optionally specify the callback,
+perform actual authentication, and finally clean up.  The following
+image illustrate this.
 
 @image{controlflow,15cm,5cm}
 
@@ -865,10 +865,11 @@ handle several concurrent clients, or if it is a server that need to
 serve many clients simultaneous, things do get a bit more complicated.
 
 For illustration, we will write a simple client.  Writing a server
-would be similar, the only difference is that instead of supplying
-username or passwords, you need to decide whether someone should be
-allowed to log in or not.  The code for what we have discussed so far
-make up our @code{main} function in our client (@pxref{Example 1}):
+would be similar, the only difference is that, later on, instead of
+supplying username or passwords, you need to decide whether someone
+should be allowed to log in or not.  The code for what we have
+discussed so far make up our @code{main} function in our client
+(@pxref{Example 1}):
 
 @example
 int main (int argc, char *argv[])
@@ -882,9 +883,6 @@ int main (int argc, char *argv[])
               rc, gsasl_strerror (rc));
       return 1;
     @}
-
-  gsasl_property_set_global (ctx, GSASL_AUTHID, "jas");
-  gsasl_property_set_global (ctx, GSASL_PASSWORD, "secret");
 
   client (ctx);
 
@@ -904,22 +902,24 @@ each thread.  The library is thread safe.
 
 An actual authentication session is more complicated than what we have
 seen so far.  The steps that make up it are: decide which mechanism to
-use, start the session, optionally set any additional properties,
-perform the actual authentication loop, and cleanup.  Naturally, your
-application will start to talk its own protocol (e.g., SMTP or IMAP)
-after these steps have concluded.
+use, start the session, optionally specify the callback, optionally
+set any properties, perform the authentication loop, and clean up.
+Naturally, your application will start to talk its own protocol (e.g.,
+SMTP or IMAP) after these steps have concluded.
 
 The authentication loop is based on sending tokens (typically short
 messages encoded in base 64) back and forth between the client and
 server.  It continue until authentication succeeds or there is an
-error.  The actual data sent, the number of iterations in the loop,
-and other details are specified by each mechanism.  The goal of the
-library is to isolate your application from the details of all
-different mechanisms.  Note that the library do not send data to the
-server itself, but return it in an buffer.  You must send it to the
-server yourself, according to an application protocol profile.  For
-example, the @acronym{SASL} application protocol profile for
-@acronym{SMTP} is described in @acronym{RFC} 2554.
+error.  The format of the data to transfer, the number of iterations
+in the loop, and other details are specified by each mechanism.  The
+goal of the library is to isolate your application from the details of
+all different mechanisms.
+
+Note that the library do not send data to the server itself, but
+return it in an buffer.  You must send it to the server yourself,
+according to an application protocol profile.  For example, the
+@acronym{SASL} application protocol profile for @acronym{SMTP} is
+described in @acronym{RFC} 2554.
 
 The following image illustrate the steps we have been talking about.
 
@@ -943,6 +943,11 @@ void client (Gsasl *ctx)
       return;
     @}
 
+  /* Set username and password in session handle.  This info will be
+     lost when this session is deallocated below.  */
+  gsasl_property_set (session, GSASL_AUTHID, "jas");
+  gsasl_property_set (session, GSASL_PASSWORD, "secret");
+
   /* Do it. */
   client_authenticate (ctx, session);
 
@@ -954,8 +959,9 @@ void client (Gsasl *ctx)
 This function is responsible for deciding which mechanism to use.  In
 this case, the @samp{PLAIN} mechanism is hard coded, but you will see
 later how this can be made more flexible.  The function create a new
-session, then call another function @code{client_authenticate}, and
-end by cleaning up the session handle.  Let's continue with the
+session, store the username and password in the session handle, then
+call another function @code{client_authenticate} to handle the
+authentication loop, and end by cleaning up.  Let's continue with the
 implementation of @code{client_authenticate}.
 
 @example
@@ -1037,6 +1043,13 @@ conclude the authentication process, with no data, you should call
 @code{gsasl_step64} (or @code{gsasl_step}) specifying a zero-length
 token.
 
+If the functions (@code{gsasl_step} and @code{gsasl_step64}) return
+any non-error code, the content of the output buffer is undefined.
+Otherwise, it is the callers responsibility to deallocate the buffer,
+by calling @code{free}.  Note that in some situations, where the
+buffer is empty, @code{NULL} is returned as the buffer value.  You
+should treat this as an empty buffer.
+
 @section Choosing a mechanism
 
 Our earlier code was hard coded to use a specific mechanism.  This is
@@ -1049,8 +1062,10 @@ level.  There is a function @code{gsasl_client_suggest_mechanism}
 (@pxref{Global Functions}) that will try to pick the ``best''
 available mechanism from a list of mechanisms.  Our simple interactive
 example client (@pxref{Example 3}) include the following function to
-decide which mechanism to use.  Note that it doesn't blindly use what
-is returned from @code{gsasl_client_suggest_mechanism}.
+decide which mechanism to use.  Note that the code doesn't blindly use
+what is returned from @code{gsasl_client_suggest_mechanism}, but
+rather let some logic (in this case the user, through an interactive
+query) decide which mechanism is acceptable.
 
 @example
 const char *client_mechanism (Gsasl *ctx)
@@ -1080,8 +1095,8 @@ Our earlier code specified the username and password before the
 authentication loop, as in:
 
 @example
-  gsasl_property_set_global (ctx, GSASL_AUTHID, "jas");
-  gsasl_property_set_global (ctx, GSASL_PASSWORD, "secret");
+  gsasl_property_set (ctx, GSASL_AUTHID, "jas");
+  gsasl_property_set (ctx, GSASL_PASSWORD, "secret");
 @end example
 
 This may work for simple mechanisms, that only ever need an username
