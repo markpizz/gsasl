@@ -1,4 +1,3 @@
-# argp
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
@@ -37,9 +36,6 @@ libfoo_la_SOURCES += exit.h
 libfoo_la_SOURCES += exitfail.h exitfail.c
 
 
-libfoo_la_SOURCES += getline.h
-EXTRA_DIST += getndelim2.h getndelim2.c
-
 libfoo_la_SOURCES += getopt.h getopt.c getopt1.c
 
 libfoo_la_SOURCES += gettext.h
@@ -48,6 +44,17 @@ libfoo_la_SOURCES += gettext.h
 libfoo_la_SOURCES += mempcpy.h
 
 
+
+BUILT_SOURCES += $(STDBOOL_H)
+EXTRA_DIST += stdbool_.h
+
+# We need the following in order to create an <stdbool.h> when the system
+# doesn't have one that works.
+all-local $(libfoo_la_OBJECTS): $(STDBOOL_H)
+stdbool.h: stdbool_.h
+	sed -e 's/@''HAVE__BOOL''@/$(HAVE__BOOL)/g' < $(srcdir)/stdbool_.h > $@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += stdbool.h stdbool.h-t
 
 libfoo_la_SOURCES += strcase.h
 
@@ -60,7 +67,7 @@ EXTRA_DIST += sysexit_.h
 
 # We need the following in order to create a <sysexits.h> when the system
 # doesn't have one that works with the given compiler.
-all-local $(libfoo_la_OBJECTS): @SYSEXITS_H@
+all-local $(libfoo_la_OBJECTS): $(SYSEXITS_H)
 sysexits.h: sysexit_.h
 	cp $(srcdir)/sysexit_.h sysexits.h-t
 	mv sysexits.h-t sysexits.h
