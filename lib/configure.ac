@@ -19,7 +19,7 @@ dnl Process this file with autoconf to produce a configure script.
 # Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA
 
-AC_INIT([libgsasl], [0.0.15], [bug-gsasl@gnu.org])
+AC_INIT([libgsasl],[0.0.15],[bug-gsasl@gnu.org])
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
@@ -32,7 +32,7 @@ AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
-AC_PREREQ(2.57)
+AC_PREREQ(2.59)
 AM_INIT_AUTOMAKE([1.7 gnits])
 AC_CONFIG_HEADERS(config.h)
 
@@ -44,7 +44,7 @@ AC_PROG_LIBTOOL
 
 # ANONYMOUS
 AC_ARG_ENABLE(anonymous,
-  AC_HELP_STRING([--disable-anonymous], [don't use the ANONYMOUS mechanism]),
+  AS_HELP_STRING([--disable-anonymous], [don't use the ANONYMOUS mechanism]),
   anonymous=$enableval)
 if test "$anonymous" != "no" ; then
 	anonymous=yes
@@ -56,7 +56,7 @@ AM_CONDITIONAL(ANONYMOUS, test x$anonymous = xyes)
 
 # EXTERNAL
 AC_ARG_ENABLE(external,
-  AC_HELP_STRING([--disable-external], [don't use the EXTERNAL mechanism]),
+  AS_HELP_STRING([--disable-external], [don't use the EXTERNAL mechanism]),
   external=$enableval)
 if test "$external" != "no" ; then
 	external=yes
@@ -68,7 +68,7 @@ AM_CONDITIONAL(EXTERNAL, test x$external = xyes)
 
 # PLAIN
 AC_ARG_ENABLE(plain,
-  AC_HELP_STRING([--disable-plain], [don't use the PLAIN mechanism]),
+  AS_HELP_STRING([--disable-plain], [don't use the PLAIN mechanism]),
   plain=$enableval)
 if test "$plain" != "no" ; then
 	plain=yes
@@ -80,7 +80,7 @@ AM_CONDITIONAL(PLAIN, test x$plain = xyes)
 
 # LOGIN
 AC_ARG_ENABLE(login,
-  AC_HELP_STRING([--disable-login], [don't use the LOGIN mechanism]),
+  AS_HELP_STRING([--disable-login], [don't use the LOGIN mechanism]),
   login=$enableval)
 if test "$login" != "no" ; then
 	login=yes
@@ -92,7 +92,7 @@ AM_CONDITIONAL(LOGIN, test x$login = xyes)
 
 # SECURID
 AC_ARG_ENABLE(securid,
-  AC_HELP_STRING([--disable-securid], [don't use the SECURID mechanism]),
+  AS_HELP_STRING([--disable-securid], [don't use the SECURID mechanism]),
   securid=$enableval)
 if test "$securid" != "no" ; then
 	securid=yes
@@ -104,7 +104,7 @@ AM_CONDITIONAL(SECURID, test x$securid = xyes)
 
 # NTLM
 AC_ARG_ENABLE(ntlm,
-  AC_HELP_STRING([--disable-ntlm], [don't use the NTLM mechanism]),
+  AS_HELP_STRING([--disable-ntlm], [don't use the NTLM mechanism]),
   ntlm=$enableval)
 if test "$ntlm" != "no"; then
 	sj_CHECK_HEADERLIB(ntlm.h, ntlm, buildSmbNtlmAuthRequest,
@@ -119,7 +119,7 @@ AM_CONDITIONAL(NTLM, test x$ntlm = xyes)
 
 # Check for libgcrypt
 AC_ARG_WITH(libgcrypt,
-  AC_HELP_STRING([--with-libgcrypt], [use libgcrypt for low-level crypto]),
+  AS_HELP_STRING([--with-libgcrypt], [use libgcrypt for low-level crypto]),
   libgcrypt=$withval, libgcrypt=yes)
 if test "$libgcrypt" != "no" ; then
 	AM_PATH_LIBGCRYPT(1.1.42, :, [
@@ -142,7 +142,7 @@ AC_SUBST(NETTLE_LIBS)
 
 # CRAM-MD5
 AC_ARG_ENABLE(cram-md5,
-  AC_HELP_STRING([--disable-cram-md5], [don't use the CRAM-MD5 mechanism]),
+  AS_HELP_STRING([--disable-cram-md5], [don't use the CRAM-MD5 mechanism]),
   cram_md5=$enableval)
 if test "$cram_md5" != "no" ; then
 	cram_md5=yes
@@ -154,7 +154,7 @@ AM_CONDITIONAL(CRAM_MD5, test x$cram_md5 = xyes)
 
 # DIGEST-MD5
 AC_ARG_ENABLE(digest-md5,
-  AC_HELP_STRING([--disable-digest-md5], [don't use the DIGEST-MD5 mechanism]),
+  AS_HELP_STRING([--disable-digest-md5], [don't use the DIGEST-MD5 mechanism]),
   digest_md5=$enableval)
 if test "$digest_md5" != "no" ; then
 	digest_md5=yes
@@ -166,7 +166,7 @@ AM_CONDITIONAL(DIGEST_MD5, test x$digest_md5 = xyes)
 
 # GSSAPI.
 AC_ARG_ENABLE(gssapi,
-  AC_HELP_STRING([--disable-gssapi], [don't use the GSSAPI mechanism]),
+  AS_HELP_STRING([--disable-gssapi], [don't use the GSSAPI mechanism]),
   gssapi=$enableval, gssapi=yes)
 AC_MSG_NOTICE([checking for GSS implementation])
 if test "$gssapi" = "gss"; then
@@ -265,7 +265,7 @@ AM_CONDITIONAL(GSSAPI, test x$gssapi = xyes)
 
 # KERBEROS_V5
 AC_ARG_ENABLE(kerberos_v5,
-	AC_HELP_STRING([--disable-kerberos_v5],
+	AS_HELP_STRING([--disable-kerberos_v5],
                        [don't use the KERBEROS_V5 mechanism]),
 	kerberos_v5=$enableval, kerberos_v5=no)
 if test "$kerberos_v5" != "no" ; then
@@ -282,7 +282,7 @@ AM_CONDITIONAL(KERBEROS_V5, test x$kerberos_v5 = xyes)
 
 # Check for idn
 AC_ARG_WITH(stringprep,
-  AC_HELP_STRING([--without-stringprep],
+  AS_HELP_STRING([--without-stringprep],
 		[don't use libidn for string processing even if available]),
 	stringprep=$withval, stringprep=yes)
 if test "$stringprep" != "no"; then
@@ -297,10 +297,10 @@ AM_CONDITIONAL(STRINGPREP, test x$stringprep = xyes)
 
 # Allow disabling of client or server.
 AC_ARG_ENABLE(client,
-              AC_HELP_STRING([--disable-client], [Disable client code]),
+              AS_HELP_STRING([--disable-client], [Disable client code]),
 	      client=$enableval)
 AC_ARG_ENABLE(server,
-              AC_HELP_STRING([--disable-server], [Disable server code]),
+              AS_HELP_STRING([--disable-server], [Disable server code]),
 	      server=$enableval)
 if test "$client" != "no"; then
   AC_DEFINE(USE_CLIENT, 1, [Define to 1 if you want client code.])
