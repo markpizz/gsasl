@@ -26,16 +26,14 @@
 #  include "config.h"
 # endif
 
-# ifdef STDC_HEADERS
-#  include <stdio.h>
-#  include <stdlib.h>
-#  include <stdarg.h>
-#  include <ctype.h>
-#  include <string.h>
-# endif
-
 /* Get specifications. */
 # include "gsasl.h"
+
+/* Get malloc, free, ... */
+# include <stdlib.h>
+
+/* Get strlen, strcpy, ... */
+# include <string.h>
 
 /* Mechanism function prototypes. */
 typedef int (*_Gsasl_init_function) (Gsasl * ctx);

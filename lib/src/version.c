@@ -24,6 +24,9 @@
 
 #include "internal.h"
 
+/* Get isdigit. */
+# include <ctype.h>
+
 static const char *
 _gsasl_parse_version_number (const char *s, int *number)
 {
