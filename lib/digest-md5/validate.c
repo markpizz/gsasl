@@ -124,7 +124,7 @@ digest_md5_validate (digest_md5_challenge *c, digest_md5_response *r)
 	(r->qop ? r->qop : DIGEST_MD5_QOP_AUTH)))
     return -1;
 
-  if ((r->qop & DIGEST_MD5_QOP_AUTH) && !(c->ciphers & r->cipher))
+  if ((r->qop & DIGEST_MD5_QOP_AUTH_CONF) && !(c->ciphers & r->cipher))
     return -1;
 
   /* FIXME: Check more? */
