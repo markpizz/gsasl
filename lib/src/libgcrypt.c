@@ -67,16 +67,16 @@ _gsasl_crypto_init (void)
 }
 
 int
-gsasl_randomize (char *data, size_t datalen)
+gsasl_nonce (char *data, size_t datalen)
 {
-  gcry_randomize ((unsigned char *) data, datalen, GCRY_VERY_STRONG_RANDOM);
+  gcry_create_nonce ((unsigned char *) data, datalen);
   return GSASL_OK;
 }
 
 int
-gsasl_nonce (char *data, size_t datalen)
+gsasl_random (char *data, size_t datalen)
 {
-  gcry_create_nonce ((unsigned char *) data, datalen);
+  gcry_randomize ((unsigned char *) data, datalen, GCRY_VERY_STRONG_RANDOM);
   return GSASL_OK;
 }
 

@@ -93,7 +93,7 @@ gsasl_nonce (char *data, size_t datalen)
 }
 
 /**
- * gsasl_randomize:
+ * gsasl_random:
  * @data: output array to be filled with strong random data.
  * @datalen: size of output array.
  *
@@ -103,7 +103,7 @@ gsasl_nonce (char *data, size_t datalen)
  * Return value: Returns %GSASL_OK iff successful.
  **/
 int
-gsasl_randomize (char *data, size_t datalen)
+gsasl_random (char *data, size_t datalen)
 {
   return randomize (1, data, datalen);
 }
