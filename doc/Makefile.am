@@ -18,9 +18,7 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-DIST_SUBDIRS = reference
-
-SUBDIRS = @REFERENCE@
+SUBDIRS = reference man
 
 gsasl_texi_auto_deps = gsasl-api-version.texi gsasl-api-global.texi \
 	gsasl-api-session.texi gsasl-api-callback.texi gsasl-api-utils.texi \
@@ -28,11 +26,7 @@ gsasl_texi_auto_deps = gsasl-api-version.texi gsasl-api-global.texi \
 
 # gsasl.xml gsasl-db.txt gsasl-db.html gsasl-db.ps gsasl-db.pdf
 
-man_MANS = gsasl.1
-
-DISTCLEANFILES = $(man_MANS)
-
-EXTRA_DIST = gdoc gdoc-error gsasl-example1.c $(man_MANS) \
+EXTRA_DIST = gdoc gdoc-error gsasl-example1.c \
 	gsasl.html gsasl.ps gsasl.pdf $(gsasl_texi_auto_deps)
 
 info_TEXINFOS = gsasl.texi
@@ -89,15 +83,6 @@ gsasl-api-error.texi: $(gsasl_api_error_deps)
 
 gsasl-api-error-labels.texi: $(gsasl_api_error_label_deps)
 	$(PERL) $(srcdir)/gdoc-error $^ > $@
-
-# Man page:
-
-gsasl.1: $(top_srcdir)/src/gsasl.c $(top_builddir)/src/gsasl
-	$(HELP2MAN) \
-		--name="SASL library command line interface" \
-		--help-option="--program-name gsasl --help" \
-		--output=gsasl.1 \
-		$(top_builddir)/src/gsasl
 
 gsasl.html: gsasl.texi
 	$(MAKEINFO) --html --no-split --number-sections $<
