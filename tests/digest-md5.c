@@ -147,7 +147,7 @@ doit (void)
       if (debug)
 	printf ("S: %.*s\n", s1len, s1);
 
-      /* Client receive server input... */
+      /* Client respond... */
 
       res = gsasl_step (client, s1, s1len, &s2, &s2len);
       free (s1);
@@ -160,7 +160,7 @@ doit (void)
       if (debug)
 	printf ("C: %.*s\n", s2len, s2);
 
-      /* Server receive client's first output... */
+      /* Server finishes... */
 
       res = gsasl_step (server, s2, s2len, &s1, &s1len);
       free (s2);
@@ -173,7 +173,7 @@ doit (void)
       if (debug)
 	printf ("S: %.*s\n", s1len, s1);
 
-      /* Client receive server's second input... */
+      /* Client finishes... */
 
       res = gsasl_step (client, s1, s1len, &s2, &s2len);
       free (s1);
@@ -186,7 +186,7 @@ doit (void)
       if (debug)
 	printf ("C: %.*s\n", s2len, s2);
 
-      /* Server finishes.. */
+      /* Server is done. */
 
       res = gsasl_step (server, s2, s2len, &s1, &s1len);
       free (s2);
