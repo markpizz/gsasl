@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.4 (unreleased)
 
+** Fixed a bug in base64 handling that prevented SMTP client from working.
+
 ** New configure option --disable-obsolete to remove backwards compatibility.
 This is mostly intended to be used when cross compiling to platforms
 with limited memory.
