@@ -33,7 +33,7 @@ libgsasl_la_SOURCES = gsasl.h.in internal.h gettext.h \
 	init.c done.c error.c version.c callback.c common.c \
 	supportp.c suggest.c listmech.c \
 	xstart.c xstep.c xfinish.c xcode.c \
-	hexdump.c base64.c md5pwd.c obsolete.c
+	base64.c md5pwd.c obsolete.c
 
 if NETTLE
 libgsasl_la_SOURCES += nettle.c

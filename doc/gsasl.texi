@@ -1346,7 +1346,6 @@ similar to the GSSAPI callback).
 
 @include texi/stringprep.c.texi
 @include texi/base64.c.texi
-@include texi/hexdump.c.texi
 @include texi/md5pwd.c.texi
 
 
