@@ -333,7 +333,7 @@ void
 gsasl_client_application_data_set (Gsasl_session_ctx * sctx,
 				   void *application_data)
 {
-  return gsasl_appinfo_set (sctx, application_data);
+  gsasl_appinfo_set (sctx, application_data);
 }
 
 /**
@@ -389,7 +389,7 @@ void
 gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
 				   void *application_data)
 {
-  return gsasl_appinfo_set (sctx, application_data);
+  gsasl_appinfo_set (sctx, application_data);
 }
 
 /**
