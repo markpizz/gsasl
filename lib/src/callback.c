@@ -86,6 +86,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     Gsasl_server_callback_anonymous cb_anonymous;
     Gsasl_server_callback_external cb_external;
     Gsasl_server_callback_securid cb_securid;
+    Gsasl_server_callback_gssapi cb_gssapi;
     char buf[BUFSIZ];
     size_t buflen = BUFSIZ - 1;
     int res;
@@ -118,6 +119,14 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 			  sctx->pin, buf, &buflen);
 	buf[buflen] = '\0';
 	gsasl_property_set (sctx, GSASL_SUGGESTED_PIN, buf);
+	return res;
+	break;
+
+      case GSASL_VALIDATE_GSSAPI:
+	cb_gssapi = gsasl_server_callback_gssapi_get (sctx->ctx);
+	if (!cb_gssapi)
+	  break;
+	res = cb_gssapi (sctx, sctx->gssapi_display_name, sctx->authzid);
 	return res;
 	break;
 
