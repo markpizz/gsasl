@@ -44,6 +44,10 @@ gsasl_client_callback_*,
 gsasl_server_callback_*: DEPRECATED.  Old callback set/get interface.
 gsasl_ctx_get: DEPRECATED.  Not useful, application callback now get both
                library and session context.
+gsasl_encode, gsasl_decode: DEPRECATED.  These functions will change
+               function signature in the future, to allocate output.
+               The following functions are identical to these ones:
+gsasl_encode_inline, gsasl_decode_inline: ADD.  Same as gsasl_{en,de}code.
 
 * Changes in 0.1.4 (released 2004-08-08)
 
