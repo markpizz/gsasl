@@ -1353,16 +1353,6 @@ callback below and set them in the library (@pxref{Callback
 Functions}).  It is always enabled in the client as there are no
 client callbacks.
 
-@deftypefn Prototype int (*Gsasl_server_callback_external) (Gsasl_session_ctx * @var{ctx})
-
-@var{ctx}:  libgsasl handle.
-
-Type of callback function the application implements.  It should
-return @code{GSASL_OK} if user is authenticated by out of band means,
-otherwise @code{GSASL_AUTHENTICATION_ERROR}.
-
-@end deftypefn
-
 @node ANONYMOUS
 @section The ANONYMOUS mechanism
 
@@ -1374,41 +1364,6 @@ email address.
 This mechanism is only enabled in the client and server if you
 implement the respectively callbacks below and set them in the library
 (@pxref{Callback Functions}).
-
-@deftypefn Prototype int (*Gsasl_client_callback_anonymous) (Gsasl_session_ctx * @var{ctx}, char * @var{out}, size_t * @var{outlen})
-
-@var{ctx}:  libgsasl handle.
-
-@var{out}:  output array with client token.
-
-@var{outlen}:  on input the maximum size of the output array, on output
-contains the actual size of the output array.
-
-Type of callback function the application implements.  It should
-populate the output array with some input from the user and set the
-output array length, and return @code{GSASL_OK}, or fail with an error
-code.
-
-If OUT is NULL, the function should only populate the output length
-field with the length, and return GSASL_OK.  This usage may be used by
-the caller to allocate the proper buffer size.
-
-@end deftypefn
-
-@deftypefn Prototype int (*Gsasl_server_callback_anonymous) (Gsasl_session_ctx * @var{ctx}, const char * @var{token})
-
-@var{ctx}:  libgsasl handle.
-
-@var{ctx}:  output array with client token.
-
-@var{ctx}:  on input the maximum size of the output array, on output
-contains the actual size of the output array.  If OUT is
-
-Type of callback function the application implements.  It should
-return @code{GSASL_OK} if user should be permitted anonymous access,
-otherwise @code{GSASL_AUTHENTICATION_ERROR}.
-
-@end deftypefn
 
 @node PLAIN
 @section The PLAIN mechanism
@@ -1426,17 +1381,6 @@ This mechanism is only enabled in the client and server if you
 implement the respectively callbacks below and set them in the library
 (@pxref{Callback Functions}).
 
-@include gsasl-callback-authorization.texi
-
-@include gsasl-callback-authentication.texi
-
-@include gsasl-callback-password.texi
-
-@include gsasl-callback-validate.texi
-
-@include gsasl-callback-retrieve.texi
-
-
 @node LOGIN
 @section The LOGIN mechanism
 
@@ -1452,14 +1396,6 @@ used.
 This mechanism is only enabled in the client and server if you
 implement the respectively callbacks below and set them in the library
 (@pxref{Callback Functions}).
-
-@include gsasl-callback-authorization.texi
-
-@include gsasl-callback-password.texi
-
-@include gsasl-callback-validate.texi
-
-@include gsasl-callback-retrieve.texi
 
 @node CRAM-MD5
 @section The CRAM-MD5 mechanism
@@ -1483,14 +1419,6 @@ CRAM-MD5.
 This mechanism is only enabled in the client and server if you
 implement the respectively callbacks below and set them in the library
 (@pxref{Callback Functions}).
-
-@include gsasl-callback-authorization.texi
-
-@include gsasl-callback-password.texi
-
-@include gsasl-callback-retrieve.texi
-
-@include gsasl-callback-cram-md5.texi
 
 @node DIGEST-MD5
 @section The DIGEST-MD5 mechanism
@@ -1522,18 +1450,6 @@ This mechanism is only enabled in the client and server if you
 implement the respectively callbacks below and set them in the library
 (@pxref{Callback Functions}).
 
-@include gsasl-callback-authentication.texi
-
-@include gsasl-callback-authorization.texi
-
-@include gsasl-callback-password.texi
-
-@include gsasl-callback-client-service.texi
-
-@include gsasl-callback-retrieve.texi
-
-@include gsasl-callback-digest-md5.texi
-
 @node NTLM
 @section The NTLM mechanism
 
@@ -1543,10 +1459,6 @@ This mechanism is only enabled in the client if you implement the
 callbacks below and set them in the library (@pxref{Callback
 Functions}).
 
-@include gsasl-callback-authorization.texi
-
-@include gsasl-callback-password.texi
-
 @node SECURID
 @section The SECURID mechanism
 
@@ -1555,14 +1467,6 @@ and a passcode from a hardware token to authenticate users.  This
 mechanism is only enabled in the client and server if you implement
 the respectively callbacks below and set them in the library
 (@pxref{Callback Functions}).
-
-@include gsasl-callback-authentication.texi
-
-@include gsasl-callback-authorization.texi
-
-@include gsasl-callback-passcode.texi
-
-@include gsasl-callback-securid.texi
 
 @node GSSAPI
 @section The GSSAPI mechanism
@@ -1578,14 +1482,6 @@ server needs the name of the service and a function that authorizes a
 user.  This mechanism is only enabled in the client and server if you
 implement the respectively callbacks below and set them in the library
 (@pxref{Callback Functions}).
-
-@include gsasl-callback-authentication.texi
-
-@include gsasl-callback-client-service.texi
-
-@include gsasl-callback-server-service.texi
-
-@include gsasl-callback-gssapi.texi
 
 @node KERBEROS_V5
 @section The KERBEROS_V5 mechanism
@@ -1618,14 +1514,6 @@ AP-REQ/AP-REP exchange.  In infrastructure mode (proxied or
 otherwise), the client nor server need to implement any callbacks
 (this will likely change later, to allow a server to authorize users,
 similar to the GSSAPI callback).
-
-@include gsasl-callback-authentication.texi
-
-@include gsasl-callback-authorization.texi
-
-@include gsasl-callback-password.texi
-
-@include gsasl-callback-retrieve.texi
 
 @c **********************************************************
 @c *****************  Global Functions  *********************
@@ -1960,7 +1848,66 @@ out since when a function has been deprecated.
 @include texi/callback-c.c.texi
 @include texi/callback-s.c.texi
 
+@section Obsolete callback function prototypes
 
+@deftypefn Prototype int (*Gsasl_client_callback_anonymous) (Gsasl_session_ctx * @var{ctx}, char * @var{out}, size_t * @var{outlen})
+
+@var{ctx}:  libgsasl handle.
+
+@var{out}:  output array with client token.
+
+@var{outlen}:  on input the maximum size of the output array, on output
+contains the actual size of the output array.
+
+Type of callback function the application implements.  It should
+populate the output array with some input from the user and set the
+output array length, and return @code{GSASL_OK}, or fail with an error
+code.
+
+If OUT is NULL, the function should only populate the output length
+field with the length, and return GSASL_OK.  This usage may be used by
+the caller to allocate the proper buffer size.
+
+@end deftypefn
+
+@deftypefn Prototype int (*Gsasl_server_callback_anonymous) (Gsasl_session_ctx * @var{ctx}, const char * @var{token})
+
+@var{ctx}:  libgsasl handle.
+
+@var{ctx}:  output array with client token.
+
+@var{ctx}:  on input the maximum size of the output array, on output
+contains the actual size of the output array.  If OUT is
+
+Type of callback function the application implements.  It should
+return @code{GSASL_OK} if user should be permitted anonymous access,
+otherwise @code{GSASL_AUTHENTICATION_ERROR}.
+
+@end deftypefn
+
+@include gsasl-callback-authentication.texi
+@include gsasl-callback-authorization.texi
+@include gsasl-callback-client-service.texi
+@include gsasl-callback-cram-md5.texi
+@include gsasl-callback-digest-md5.texi
+
+@deftypefn Prototype int (*Gsasl_server_callback_external) (Gsasl_session_ctx * @var{ctx})
+
+@var{ctx}:  libgsasl handle.
+
+Type of callback function the application implements.  It should
+return @code{GSASL_OK} if user is authenticated by out of band means,
+otherwise @code{GSASL_AUTHENTICATION_ERROR}.
+
+@end deftypefn
+
+@include gsasl-callback-gssapi.texi
+@include gsasl-callback-passcode.texi
+@include gsasl-callback-password.texi
+@include gsasl-callback-retrieve.texi
+@include gsasl-callback-securid.texi
+@include gsasl-callback-server-service.texi
+@include gsasl-callback-validate.texi
 
 @node Copying This Manual
 @appendix Copying This Manual
