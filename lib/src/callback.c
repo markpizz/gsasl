@@ -113,7 +113,7 @@ gsasl_callback (Gsasl_session * sctx, Gsasl_property prop)
     return sctx->cb (sctx->ctx, sctx, prop);
 
   if (sctx->ctx->cb)
-    return gsasl_callback_global (sctx->ctx, prop);
+    return sctx->ctx->cb (sctx->ctx, sctx, prop);
 
   {
     /* Call obsolete callbacks.  Remove this when the obsolete
