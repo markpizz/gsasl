@@ -113,7 +113,7 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
       const char *key;
       char *normkey;
 
-      gsasl_callback (sctx, GSASL_PASSWORD);
+      gsasl_callback (NULL, sctx, GSASL_PASSWORD);
       key = gsasl_property_fast (sctx, GSASL_PASSWORD);
       if (!key)
 	return GSASL_NO_PASSWORD;
