@@ -87,26 +87,26 @@ utf8cpy (char *dst, size_t * dstlen, char *src, size_t srclen)
   int nonasciiflag = 0;
   char *p;
 
-  if (srclen != strlen(src))
+  if (srclen != strlen (src))
     return !GSASL_OK;
 
-  p = stringprep_locale_to_utf8(src);
+  p = stringprep_locale_to_utf8 (src);
   if (p)
     {
-      int len = strlen(p);
+      int len = strlen (p);
 
-      if (len > *dstlen)
+      if (dst && *dstlen < len)
 	return GSASL_TOO_SMALL_BUFFER;
       *dstlen = len;
       if (dst)
-	strcpy(dst, p);
+	strcpy (dst, p);
     }
   else
     {
       int i;
 
       fprintf (stderr, " ** failed to convert data from %s to UTF-8\n",
-	       stringprep_locale_charset());
+	       stringprep_locale_charset ());
       fprintf (stderr, " ** check the system locale configuration\n");
       fprintf (stderr, " ** treating input as ASCII\n");
 
@@ -425,6 +425,21 @@ server_callback_retrieve (Gsasl_session_ctx * ctx,
 			  char *realm, char *key, size_t * keylen)
 {
   int rc;
+
+  if (authentication_id && strlen (authentication_id) > 0)
+    printf ("Authentication ID: %s\n", authentication_id);
+  else
+    printf ("No authentication ID\n");
+
+  if (authorization_id && strlen (authorization_id) > 0)
+    printf ("Authorization ID: %s\n", authorization_id);
+  else
+    printf ("No authorization ID\n");
+
+  if (realm && strlen (realm) > 0)
+    printf ("Realm: %s\n", realm);
+  else
+    printf ("No realm\n");
 
   if (password == NULL)
     password = strdup (readline ("Enter password: "));
