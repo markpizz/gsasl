@@ -116,7 +116,10 @@ that support client and server mode, and the IMAP and SMTP protocols,
 fits in under 60kb on an Intel x86 platform, without any modifications
 to the code.  (This figure was accurate as of version 0.0.13.)
 
-GNU SASL is licensed under the GNU General Public License.
+Most of the library is licensed under the GNU Lesser General Public
+License, and the command-line interface and self-tests, as well as the
+NTLM and KERBEROS_V5 mechanisms, are licensed under the GNU General
+Public License
 
 @menu
 * Getting Started::
@@ -156,7 +159,8 @@ a similar job.
 @table @asis
 @item It's Free Software
 Anybody can use, modify, and redistribute it under the terms of the
-GNU General Public License.
+GNU General Public License.  The library can even be distributed under
+the GNU Lesser General Public License.
 
 @item It's thread-safe
 No global variables are used and multiple library handles and session

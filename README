@@ -1,10 +1,10 @@
 GNU SASL README -- Important introductory notes.
-Copyright (C) 2002, 2003 Simon Josefsson
+Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
 This directory holds GNU SASL which is an implementation of the Simple
-Authentication and Security Layer (SASL).  See ANNOUNCE for an
-overview, and doc/gsasl.{info,ps,pdf} for the manual.
+Authentication and Security Layer (SASL).  See doc/gsasl.{info,ps,pdf}
+for the manual.
 
 Currently there is some support for the following mechanisms:
 
@@ -48,10 +48,11 @@ please let me know so work duplication can be avoided.
   - Improve documentation
   - Port to Cyclone? CCured?
 
-The GNU SASL library, command-line application and test suite (lib/,
-src/, and tests/) are licensed under the GNU General Public License
-license (see COPYING), and the documentation (doc/) is licensed under
-the GNU Free Documentation License (see COPYING.DOC).
+The GNU SASL library (lib/) is licensed under the GNU Lesser General
+Public License (see lib/COPYING), the command-line application and
+test suite (src/, and tests/) are licensed under the GNU General
+Public License license (see COPYING), and the documentation (doc/) is
+licensed under the GNU Free Documentation License (see COPYING.DOC).
 
 For updates to the project, see <http://www.gnu.org/software/gsasl/>.
 

@@ -1,5 +1,5 @@
-/* callbacks.h	function prototypes for gsasl callbacks
- * Copyright (C) 2002, 2003  Simon Josefsson
+/* callbacks.h --- Prototypes for SASL callbacks.
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
