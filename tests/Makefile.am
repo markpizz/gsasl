@@ -18,6 +18,8 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+noinst_DATA = cram-md5.pwd
+
 AM_CPPFLAGS = -I$(top_builddir)/lib/src -I$(srcdir)/../gl -I../gl
 AM_LDFLAGS = -no-install
 LDADD = ../lib/src/libgsasl.la libutils.la
@@ -27,6 +29,6 @@ libutils_la_SOURCES = utils.h utils.c
 
 TESTS_ENVIRONMENT = THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c
 
-TESTS = simple cram-md5 digest-md5 threadsafety
-check_PROGRAMS = simple cram-md5 digest-md5
+TESTS = simple cram-md5 digest-md5 md5file threadsafety
+check_PROGRAMS = simple cram-md5 digest-md5 md5file
 dist_check_SCRIPTS = threadsafety
