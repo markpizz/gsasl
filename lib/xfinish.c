@@ -32,6 +32,7 @@ void
 gsasl_client_finish (Gsasl_session_ctx * sctx)
 {
   sctx->mech->client.finish (sctx, sctx->mech_data);
+  /* XXX return value? */
 
   free (sctx);
 }
@@ -47,6 +48,7 @@ void
 gsasl_server_finish (Gsasl_session_ctx * sctx)
 {
   sctx->mech->server.finish (sctx, sctx->mech_data);
+  /* XXX return value? */
 
   free (sctx);
 }
