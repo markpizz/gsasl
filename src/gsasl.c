@@ -220,6 +220,9 @@ main (int argc, char *argv[])
       return 1;
     }
 
+  if (args_info.smtp_flag && args_info.imap_flag)
+    args_info.imap_flag = 0;
+
   if (args_info.imap_flag && !args_info.service_given)
     {
       args_info.service_arg = strdup ("imap");
@@ -232,7 +235,7 @@ main (int argc, char *argv[])
       args_info.no_client_first_flag = 1;
     }
 
-  if (args_info.connect_given || argc > 1)
+  if (args_info.connect_given || args_info.inputs_num > 0)
     {
       struct servent *se;
       struct hostent *he;
@@ -258,11 +261,11 @@ main (int argc, char *argv[])
 		connect_service = strdup ("143");
 	    }
 	}
-      else if (argc > 1)
+      else if (args_info.inputs_num > 0)
 	{
-	  connect_hostname = argv[1];
-	  if (argc > 2)
-	    connect_service = argv[2];
+	  connect_hostname = args_info.inputs[0];
+	  if (args_info.inputs_num > 1)
+	    connect_service = args_info.inputs[1];
 	  else if (args_info.smtp_flag)
 	    connect_service = strdup ("25");
 	  else
