@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
-               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+          "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
   <bookinfo>
     <title>GNU SASL API Reference Manual</title>
@@ -10,58 +10,66 @@
     <title>GNU SASL API Reference Manual</title>
 
     <para>
-GNU SASL is an implementation of the Simple Authentication and
-Security Layer framework and a few common SASL mechanisms.  SASL is
-used by network servers (e.g., IMAP, SMTP) to request authentication
-from clients, and in clients to authenticate against servers.
+      GNU SASL is an implementation of the Simple Authentication and
+      Security Layer framework and a few common SASL mechanisms.  SASL
+      is used by network servers (e.g., IMAP, SMTP) to request
+      authentication from clients, and in clients to authenticate
+      against servers.
     </para>
 
     <para>
-GNU SASL contains of a library (`libgsasl'), a command line utility
-(`gsasl') to access the library from the shell, and a manual.  The
-library includes support for the framework (with authentication
-functions and application data privacy and integrity functions) and at
-least partial support for the CRAM-MD5, EXTERNAL, GSSAPI, ANONYMOUS,
-PLAIN, SECURID, DIGEST-MD5, LOGIN, NTLM mechanisms.
+      GNU SASL contains of a library (`libgsasl'), a command line
+      utility (`gsasl') to access the library from the shell, and a
+      manual.  The library includes support for the framework (with
+      authentication functions and application data privacy and
+      integrity functions) and at least partial support for the
+      CRAM-MD5, EXTERNAL, GSSAPI, ANONYMOUS, PLAIN, SECURID,
+      DIGEST-MD5, LOGIN, NTLM mechanisms.
     </para>
 
     <para>
-The library is easily ported because it does not do network
-communication by itself, but rather leaves it up to the calling
-application.  The library is flexible with regards to the
-authorization infrastructure used, as it utilizes callbacks into the
-application to decide whether a user is authorized or not.  GNU SASL
-has been ported to many Unix flavors.
+      The library is easily ported because it does not do network
+      communication by itself, but rather leaves it up to the calling
+      application.  The library is flexible with regards to the
+      authorization infrastructure used, as it utilizes callbacks into
+      the application to decide whether a user is authorized or not.
+      GNU SASL has been ported to many Unix flavors.
     </para>
 
     <para>
-GNU SASL is developed for the GNU/Linux system, but runs on over 20
-platforms including most major Unix platforms and Windows, and many
-kind of devices including iPAQ handhelds and S/390 mainframes.
+      GNU SASL is developed for the GNU/Linux system, but runs on over
+      20 platforms including most major Unix platforms and Windows,
+      and many kind of devices including iPAQ handhelds and S/390
+      mainframes.
     </para>
 
     <para>
-The GNU SASL library is licensed under the GNU Lesser General Public
-License (LGPL).  The command-line application and test suite (src/,
-and tests/) are licensed under the GNU General Public License license
-(see COPYING), and the documentation (doc/) is licensed under the GNU
-Free Documentation License (see COPYING.DOC).
+      The GNU SASL library is licensed under the GNU Lesser General
+      Public License (LGPL).  The command-line application and test
+      suite (src/, and tests/) are licensed under the GNU General
+      Public License license (see COPYING), and the documentation
+      (doc/) is licensed under the GNU Free Documentation License (see
+      COPYING.DOC).
     </para>
 
     <para>
-A conceptual view of how your application, the library, and each
-mechanism interact is shown in <xref linkend="abstraction"/>.  The
-operation of an application using the library can best be understood
-in terms of a flow chart diagram, as shown in <xref
-linkend="controlflow"/>.  The details on how the actual negotiation
-are carried out are illustrated in <xref linkend="controlflow2"/>.
+      A conceptual view of how your application, the library, and each
+      mechanism interact is shown in <xref linkend="abstraction"/>.
     </para>
 
     <figure id="abstraction">
       <title>Illustration of separation between application and
-      individual mechanism</title>
+	individual mechanism</title>
       <graphic fileref="abstraction.png" format="PNG"></graphic>
     </figure>
+
+    <para>
+      The operation of an application using the library can best be
+      understood in terms of a flow chart diagram, as shown in <xref
+      linkend="controlflow"/>.  The details on how the actual
+      negotiation are carried out are illustrated in <xref
+      linkend="controlflow2"/>.
+    </para>
 
     <figure id="controlflow">
       <title>High-level control flow of SASL application</title>
