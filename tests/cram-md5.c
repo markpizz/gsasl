@@ -30,8 +30,8 @@
 
 #include "utils.h"
 
-#define PASSWORD "sesame"
-#define USERNAME "foo bar"
+#define PASSWORD "Open, Sesame"
+#define USERNAME "Ali Baba"
 
 static int
 server_cb_retrieve (Gsasl_session_ctx * xctx,
