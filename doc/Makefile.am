@@ -44,7 +44,8 @@ AM_MAKEINFOHTMLFLAGS = --no-split --number-sections --css-include=texinfo.css
 dist_man_MANS = gsasl.1 $(gdoc_MANS)
 DISTCLEANFILES = $(dist_man_MANS)
 
-gsasl.1: $(top_srcdir)/src/gsasl.c $(top_builddir)/src/gsasl
+gsasl.1: $(top_srcdir)/src/gsasl.c $(top_srcdir)/src/gsasl.ggo \
+		$(top_srcdir)/configure.ac
 	$(HELP2MAN) \
 		--name="SASL library command line interface" \
 		--output=$@ $(top_builddir)/src/gsasl
