@@ -25,7 +25,7 @@
 
 #include <shishi.h>
 #ifdef HAVE_NETINET_IN_H
-#include <netinet/in.h>
+#include <netinet/in.h> /* ntohl */
 #endif
 
 #define DEBUG 0
@@ -50,7 +50,7 @@ struct _Gsasl_kerberos_v5_client_state
   int servermutual;
   uint32_t servermaxbuf;
   Shishi *sh;
-  Shishi_ticket *tkt;
+  Shishi_tkt *tkt;
   Shishi_as *as;
   Shishi_ap *ap;
 };
@@ -181,7 +181,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
        * A callback to decide should be added, but without the default
        * should be:
        *
-       * IF shishi_ticketset_get_for_server() THEN
+       * IF shishi_tktset_get_for_server() THEN
        *    INFRASTRUCTURE MODE
        * ELSE IF shishi_realm_for_server(server) THEN
        *    PROXY INFRASTRUCTURE (then fallback to NIM?)
@@ -237,7 +237,7 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 	  size_t hostnamelen = 0;
 
 	  res = cb_service (sctx, NULL, &servicelen, NULL, &hostnamelen,
-			    /* XXX support service names too? */
+			    /* XXX support servicename a'la DIGEST-MD5 too? */
 			    NULL, NULL);
 	  if (res != GSASL_OK)
 	    return res;
@@ -264,12 +264,12 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 	    return res;
 	}
 
-      /* XXX query client for encryption types and set the etype field?
-	 Already done in shishi though... */
+      /* XXX query application for encryption types and set the etype
+	 field?  Already configured by shishi though... */
 
       res = shishi_a2d (state->sh, shishi_as_req (state->as),
 			output, output_len);
-      if (res)
+      if (res != SHISHI_OK)
 	return GSASL_SHISHI_ERROR;
 
       state->step = STEP_NONINFRA_WAIT_ASREP;
@@ -289,8 +289,8 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
       output[len] = '\0';
 
       res = shishi_as_rep_process (state->as, NULL, output);
-      if (res)
-	return GSASL_SHISHI_ERROR;
+      if (res != SHISHI_OK)
+	return GSASL_AUTHENTICATION_ERROR;
 
       state->step = STEP_NONINFRA_SEND_APREQ;
       /* fall through */
@@ -316,22 +316,22 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
       len += CLIENT_HELLO_LEN + SERVER_HELLO_LEN;
       res = shishi_ap_tktoptionsdata (state->sh,
 				      &state->ap,
-				      shishi_as_ticket(state->as),
+				      shishi_as_tkt(state->as),
 				      SHISHI_APOPTIONS_MUTUAL_REQUIRED,
 				      output, len);
-      if (res)
+      if (res != SHISHI_OK)
 	return GSASL_SHISHI_ERROR;
 
       res = shishi_authenticator_add_authorizationdata
 	(state->sh, shishi_ap_authenticator(state->ap),
 	 -1, output, len);
-      if (res)
+      if (res != SHISHI_OK)
 	return GSASL_SHISHI_ERROR;
 
       /* XXX set realm in AP-REQ and Authenticator */
 
       res = shishi_ap_req_der (state->ap, output, output_len);
-      if (res)
+      if (res != SHISHI_OK)
 	return GSASL_SHISHI_ERROR;
 
       state->step = STEP_NONINFRA_WAIT_APREP;
@@ -344,8 +344,8 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 	return GSASL_MECHANISM_PARSE_ERROR;
 
       res = shishi_ap_rep_verify (state->ap);
-      if (res)
-	return GSASL_SHISHI_ERROR;
+      if (res != SHISHI_OK)
+	return GSASL_AUTHENTICATION_ERROR;
 
       state->step = STEP_SUCCESS;
 
@@ -393,7 +393,7 @@ struct _Gsasl_kerberos_v5_server_state
   char *password;
   Shishi_key *userkey; /* user's key derived with string2key */
   Shishi_key *sessionkey; /* shared between client and server */
-  Shishi_key *sessionticketkey; /* known only by server */
+  Shishi_key *sessiontktkey; /* known only by server */
   Shishi_ap *ap;
   Shishi_as *as;
 };
@@ -440,7 +440,7 @@ _gsasl_kerberos_v5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
      Listeners that crack the sessionkey will see cipher text
      encrypted with this key. */
   err = shishi_key_random (state->sh, SHISHI_AES256_CTS_HMAC_SHA1_96,
-			   &state->sessionticketkey);
+			   &state->sessiontktkey);
   if (err)
     return GSASL_SHISHI_ERROR;
 
@@ -556,11 +556,11 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 
       if (shishi_as_req_der_set(state->as, input, input_len) == SHISHI_OK)
 	{
-	  Shishi_ticket *ticket;
+	  Shishi_tkt *tkt;
 	  int etype, i;
 
-	  ticket = shishi_as_ticket (state->as);
-	  if (!ticket)
+	  tkt = shishi_as_tkt (state->as);
+	  if (!tkt)
 	    return GSASL_SHISHI_ERROR;
 
 	  i = 1;
@@ -574,12 +574,12 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	  if (err != SHISHI_OK)
 	    return err;
 
-	  /* XXX use the "preferred server kdc etype" from shishi instead? */
+	  /* XXX use a "preferred server kdc etype" from shishi instead? */
 	  err = shishi_key_random (state->sh, etype, &state->sessionkey);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
-	  err = shishi_ticket_key_set (ticket, state->sessionkey);
+	  err = shishi_tkt_key_set (tkt, state->sessionkey);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
@@ -647,7 +647,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	     we simply doesn't care about what client requested and
 	     return a ticket for this server.  This is bad. */
 
-	  err = shishi_ticket_clientrealm_set (ticket, state->userrealm,
+	  err = shishi_tkt_clientrealm_set (tkt, state->userrealm,
 					       state->username);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
@@ -659,7 +659,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	    if (p == NULL)
 	      return GSASL_MALLOC_ERROR;
 	    sprintf(p, "%s/%s", state->serverservice, state->serverhostname);
-	    err = shishi_ticket_serverrealm_set (ticket,
+	    err = shishi_tkt_serverrealm_set (tkt,
 						 state->serverrealm, p);
 	    free(p);
 	    if (err)
@@ -683,7 +683,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	  if (err != GSASL_OK)
 	    return err;
 
-	  err = shishi_ticket_build (ticket, state->sessionticketkey);
+	  err = shishi_tkt_build (tkt, state->sessiontktkey);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
@@ -694,11 +694,10 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 #if DEBUG
 	  shishi_kdcreq_print (state->sh, stderr, shishi_as_req(state->as));
 	  shishi_encticketpart_print (state->sh, stderr,
-				      shishi_ticket_encticketpart (ticket));
-	  shishi_asn1ticket_print (state->sh, stderr,
-				   shishi_ticket_ticket (ticket));
+				      shishi_tkt_encticketpart (tkt));
+	  shishi_ticket_print (state->sh, stderr, shishi_tkt_ticket (tkt));
 	  shishi_enckdcreppart_print (state->sh, stderr,
-				      shishi_ticket_enckdcreppart (state->as));
+				      shishi_tkt_enckdcreppart (state->as));
 	  shishi_kdcrep_print (state->sh, stderr, shishi_as_rep(state->as));
 #endif
 
@@ -718,15 +717,14 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 
 	  shishi_ap_req_set (state->ap, asn1);
 
-	  err = shishi_ap_req_process (state->ap, state->sessionticketkey);
+	  err = shishi_ap_req_process (state->ap, state->sessiontktkey);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
 #if DEBUG
 	  shishi_apreq_print(state->sh, stderr, shishi_ap_req (state->ap));
-	  shishi_asn1ticket_print
-	    (state->sh, stderr,
-	     shishi_ticket_ticket(shishi_ap_ticket (state->ap)));
+	  shishi_ticket_print (state->sh, stderr,
+			       shishi_tkt_ticket(shishi_ap_tkt (state->ap)));
 	  shishi_authenticator_print(state->sh, stderr,
 				     shishi_ap_authenticator (state->ap));
 #endif
@@ -775,7 +773,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	    int cksumtype;
 	    Shishi_key *key;
 
-	    key = shishi_ticket_key (shishi_as_ticket(state->as));
+	    key = shishi_tkt_key (shishi_as_tkt(state->as));
 	    cksumtype = shishi_cipher_defaultcksumtype (shishi_key_type (key));
 	    cksumlen = sizeof (cksum);
 	    err = shishi_checksum (state->sh, key,
