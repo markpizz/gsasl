@@ -8,6 +8,10 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.4 (unreleased)
 
+** New configure option --disable-obsolete to remove backwards compatibility.
+This is mostly intended to be used when cross compiling to platforms
+with limited memory.
+
 ** DIGEST-MD5 rewritten and enabled by default (see lib/NEWS for details).
 
 ** Command line tool now query for realm, hostname and service name properly.

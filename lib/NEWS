@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Version 0.2.4 (unreleased)
 
+** New configure option --disable-obsolete to remove backwards compatibility.
+This is mostly intended to be used when cross compiling to platforms
+with limited memory.
+
 ** The DIGEST-MD5 mechanism is rewritten and enabled by default.
 The implementation is written so it can be used separately from GNU
 SASL in your own product, it only uses C89 and two external symbols
