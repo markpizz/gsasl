@@ -10,6 +10,10 @@ AC_DEFUN([gl_FUNC_STRDUP],
 [
   AC_REPLACE_FUNCS(strdup)
   AC_CHECK_DECLS_ONCE(strdup)
+  AH_BOTTOM([/* Prototype for strdup. */
+#if !HAVE_DECL_STRDUP
+extern char *strdup (const char *s);
+#endif])
   gl_PREREQ_STRDUP
 ])
 
