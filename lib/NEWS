@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
-* Changes in 0.2.0 (unreleased)
+* Changes in 0.2.0 (released 2004-11-07)
 
 ** Important information for 0.0.x or 0.1.x users.
 The only externally visible (i.e., in the API/ABI-sense) effect of the
