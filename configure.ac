@@ -45,7 +45,7 @@ AC_SEARCH_LIBS(socket, socket)
 AC_SEARCH_LIBS(gethostbyname, nsl)
 
 # We want getaddrinfo, should be a gnulib module for it.
-AC_CHECK_FUNC(getaddrinfo)
+AC_CHECK_FUNCS(getaddrinfo)
 
 # For gnulib stuff in gl/.
 gl_GETOPT
