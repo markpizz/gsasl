@@ -30,6 +30,25 @@
 /* Get gc_nonce. */
 #include <gc.h>
 
+/*
+ * From draft-ietf-sasl-crammd5-02.txt:
+ *
+ *   The data encoded in the challenge contains a presumptively
+ *   arbitrary string of random digits, a time-stamp, and the
+ *   fully-qualified primary host name of the server.
+ *...
+ *   challenge  = "<" 1*DIGIT "." 1*DIGIT "@" hostname ">"
+ *
+ * This implementation avoid the information leakage by always using
+ * 0 as the time stamp and a fixed host name.  This is
+ * unproblematic, as any client that try to validate the challenge
+ * string somehow, would violate the same specification:
+ *
+ *   The client MUST NOT interpret or attempt to validate the
+ *   contents of the challenge in any way.
+ *
+ */
+
 /* The sequence of X in TEMPLATE must be twice as long as NONCELEN. */
 #define NONCELEN 10
 #define TEMPLATE "<XXXXXXXXXXXXXXXXXXXX.0@localhost>"
@@ -47,25 +66,6 @@ cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN])
   size_t i;
 
   assert (strlen (TEMPLATE) == CRAM_MD5_CHALLENGE_LEN - 1);
-
-  /*
-   * From draft-ietf-sasl-crammd5-02.txt:
-   *
-   *   The data encoded in the challenge contains a presumptively
-   *   arbitrary string of random digits, a time-stamp, and the
-   *   fully-qualified primary host name of the server.
-   *...
-   *   challenge  = "<" 1*DIGIT "." 1*DIGIT "@" hostname ">"
-   *
-   * This implementation avoid the information leakage by always using
-   * 0 as the time stamp and a fixed host name.  This is
-   * unproblematic, as any client that try to validate the challenge
-   * string somehow, would violate the same specification:
-   *
-   *   The client MUST NOT interpret or attempt to validate the
-   *   contents of the challenge in any way.
-   *
-   */
 
   memcpy (challenge, TEMPLATE, CRAM_MD5_CHALLENGE_LEN);
 
