@@ -30,6 +30,8 @@
  * to the list of plugins that is used by the library.
  *
  * Return value: GSASL_OK iff successful, otherwise GSASL_MALLOC_ERROR.
+ *
+ * Since: 0.2.0
  **/
 int
 gsasl_register (Gsasl * ctx, const Gsasl_mechanism * mech)

@@ -450,6 +450,8 @@ gsasl_ctx_get (Gsasl_session * sctx)
  * an error code.
  *
  * Deprecated: Use gsasl_encode() instead.
+ *
+ * Since: 0.2.0
  **/
 int
 gsasl_encode_inline (Gsasl_session * sctx,
@@ -488,6 +490,8 @@ gsasl_encode_inline (Gsasl_session * sctx,
  * an error code.
  *
  * Deprecated: Use gsasl_decode() instead.
+ *
+ * Since: 0.2.0
  **/
 int
 gsasl_decode_inline (Gsasl_session * sctx,

@@ -36,6 +36,8 @@
  * "token") where "token" is the anonymous token the application
  * wishes the SASL mechanism to use.  See the manual for the meaning
  * of all parameters.
+ *
+ * Since: 0.2.0
  **/
 void
 gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb)
@@ -65,6 +67,8 @@ gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb)
  *
  * Return value: Returns whatever the application callback return, or
  *   GSASL_NO_CALLBACK if no application was known.
+ *
+ * Since: 0.2.0
  **/
 int
 gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
@@ -148,6 +152,8 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
  * retrieved by calling gsasl_callback_hook_get().  It is normally
  * used by the application to maintain state between the main program
  * and the callback.
+ *
+ * Since: 0.2.0
  **/
 void
 gsasl_callback_hook_set (Gsasl * ctx, void *hook)
@@ -165,6 +171,8 @@ gsasl_callback_hook_set (Gsasl * ctx, void *hook)
  * program and the callback.
  *
  * Return value: Returns the application specific data, or NULL.
+ *
+ * Since: 0.2.0
  **/
 void *
 gsasl_callback_hook_get (Gsasl * ctx)

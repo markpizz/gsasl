@@ -149,6 +149,8 @@ map_global (Gsasl * ctx, Gsasl_property prop)
  * same time.  The functions gsasl_property_get() and
  * gsasl_property_fast() will fall back to the global variables if no
  * session specific data is present.
+ *
+ * Since: 0.2.0
  **/
 void
 gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
@@ -172,6 +174,8 @@ gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
  *
  * Except for the length indicator, this function is identical to
  * gsasl_property_set.
+ *
+ * Since: 0.2.0
  **/
 void
 gsasl_property_lset (Gsasl_session * sctx, Gsasl_property prop,
@@ -212,6 +216,8 @@ gsasl_property_lset (Gsasl_session * sctx, Gsasl_property prop,
  * same time.  The functions gsasl_property_get() and
  * gsasl_property_fast() will fall back to the global variables if no
  * session specific data is present.
+ *
+ * Since: 0.2.0
  **/
 void
 gsasl_property_set_global (Gsasl * ctx, Gsasl_property prop, const char *data)
@@ -243,6 +249,8 @@ gsasl_property_set_global (Gsasl * ctx, Gsasl_property prop, const char *data)
  * is not already known.
  *
  * Return value: Return data for property, or NULL if no value known.
+ *
+ * Since: 0.2.0
  **/
 const char *
 gsasl_property_fast_global (Gsasl * ctx, Gsasl_property prop)
@@ -269,6 +277,8 @@ gsasl_property_fast_global (Gsasl * ctx, Gsasl_property prop)
  * is not already known.
  *
  * Return value: Return data for property, or NULL if no value known.
+ *
+ * Since: 0.2.0
  **/
 const char *
 gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
@@ -303,6 +313,8 @@ gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
  * old.
  *
  * Return value: Return data for property, or NULL if no value known.
+ *
+ * Since: 0.2.0
  **/
 const char *
 gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
@@ -447,6 +459,8 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
  * gsasl_callback_global(), if a value is not already known.
  *
  * Return value: Return data for property, or NULL if no value known.
+ *
+ * Since: 0.2.0
  **/
 const char *
 gsasl_property_get_global (Gsasl * ctx, Gsasl_property prop)
