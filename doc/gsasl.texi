@@ -20,7 +20,7 @@
 
 @copying
 This is @cite{The GNU SASL Manual}, last updated @value{UPDATED}, for
-Version @value{VERSION} of the @acronym{Libgsasl} library.
+Version @value{VERSION} of GNU SASL.
 
 Copyright @copyright{} 2002 Simon Josefsson.
 
@@ -92,9 +92,24 @@ Indices
 @node Introduction
 @chapter Introduction
 
-`Libgsasl' is a library that provides a Simple Authentication and
-Security Layer (SASL) interface for applications.  Included are also a
-set of well known SASL mechanisms.
+GNU SASL is an implementation of the Simple Authentication and
+Security Layer framework and a few common SASL mechanisms.  SASL is
+used by network servers (e.g., IMAP, SMTP) to request authentication
+from clients, and in clients to authenticate against servers.
+
+GNU SASL contains of a library (`libgsasl'), a command line utility
+(`gsasl') to access the library from shells and a manual.  The library
+includes support for the framework (with authentication functions and
+application data privacy and integrity functions) and at least partial
+support for the CRAM-MD5, EXTERNAL, GSSAPI, ANONYMOUS, PLAIN, SECURID,
+DIGEST-MD5, LOGIN, NTLM mechanisms.
+
+The library is easily ported because it does not do network
+communication by itself, but rather leaves it up to the calling
+application.  The library is flexible with regards to the
+authorization infrastructure used, as it utilizes callbacks into the
+application to decide whether a user is authorized or not.  GNU SASL
+has been ported to many Unix flavors.
 
 @menu
 * Getting Started::
@@ -110,7 +125,8 @@ set of well known SASL mechanisms.
 This manual documents the `Libgsasl' library programming interface.
 All functions and data types provided by the library are explained.
 
-The reader is assumed to possess basic familiarity with SASL.
+The reader is assumed to possess basic familiarity with SASL and
+network programming in C or C++.
 
 This manual can be used in several ways.  If read from the beginning
 to the end, it gives a good introduction into the library and how it
