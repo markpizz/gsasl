@@ -24,6 +24,8 @@
 
 #include "shared.h"
 
+#include "session.h"
+
 struct _Gsasl_digest_md5_server_state
 {
   int step;
@@ -775,7 +777,7 @@ _gsasl_digest_md5_server_decode (Gsasl_session_ctx * sctx,
 				 size_t input_len,
 				 char **output, size_t * output_len)
 {
-  _Gsasl_digest_md5_client_state *state = mech_data;
+  _Gsasl_digest_md5_server_state *state = mech_data;
   int res;
 
   if (state && state->step == 3)
