@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.5 (unreleased)
 
+** ANONYMOUS server reject empty and overlong tokens.
+
 * Version 0.2.4 (released 2005-01-01)
 
 ** The CRAM-MD5 mechanism is now preferred over DIGEST-MD5.
