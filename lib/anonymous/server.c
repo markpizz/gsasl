@@ -20,7 +20,18 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get specification. */
 #include "anonymous.h"
+
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get memcpy. */
+#include <string.h>
 
 int
 _gsasl_anonymous_server_start (Gsasl_session_ctx * sctx, void **mech_data)

@@ -20,7 +20,18 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get specification. */
 #include "external.h"
+
+/* Get malloc, free. */
+#include <stdlib.h>
+
+/* Get memcpy, strlen. */
+#include <string.h>
 
 int
 _gsasl_external_server_start (Gsasl_session_ctx * sctx, void **mech_data)

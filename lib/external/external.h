@@ -23,7 +23,7 @@
 #ifndef EXTERNAL_H
 #define EXTERNAL_H
 
-#include "internal.h"
+#include <gsasl.h>
 
 #define _GSASL_EXTERNAL_NAME "EXTERNAL"
 

@@ -1,4 +1,4 @@
-/* anonymous.c --- ANONYMOUS mechanism as defined in RFC 2245, client side.
+/* client.c --- ANONYMOUS mechanism as defined in RFC 2245, client side.
  * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
@@ -20,7 +20,14 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get specification. */
 #include "anonymous.h"
+
+#include <strdup.h>
 
 int
 _gsasl_anonymous_client_start (Gsasl_session_ctx * sctx, void **mech_data)

@@ -20,7 +20,15 @@
  *
  */
 
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* Get specification. */
 #include "external.h"
+
+/* Get strdup, strlen. */
+#include <string.h>
 
 int
 _gsasl_external_client_start (Gsasl_session_ctx * sctx, void **mech_data)
