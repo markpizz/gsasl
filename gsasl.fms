@@ -8,8 +8,9 @@ OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
 BSD-Port-URL: http://www.freshports.org/security/gsasl/
 CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
 Mirror-Site-URL: http://josefsson.org/gsasl/
-Version: 0.2.1
+Version: 0.2.2
 Release-Focus: Minor bugfixes
 
-Fix DIGEST-MD5 application data encode/decode functions. Documentation
-fixes.
+Fix memory leak in server-side CRAM-MD5.  Fix read out of bound error
+in client-side CRAM-MD5.  Tighten the base64 decoder, will not accept
+white space in input.  Documentation fixes.  Update of gnulib files.
