@@ -67,7 +67,8 @@ enum {
   OPTION_HOSTNAME,
   OPTION_SERVICENAME,
   OPTION_ENABLE_CRAM_MD5_VALIDATE,
-  OPTION_DISABLE_CLEARTEXT_VALIDATE
+  OPTION_DISABLE_CLEARTEXT_VALIDATE,
+  OPTION_QOP
 };
 
 const char *argp_program_version = "gsasl (" PACKAGE_STRING ")";
@@ -92,6 +93,7 @@ size_t nrealms;
 int enable_cram_md5_validate;
 int disable_cleartext_validate;
 int maxbuf;
+int qop;
 
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
@@ -162,6 +164,17 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
     case OPTION_DISABLE_CLEARTEXT_VALIDATE:
       disable_cleartext_validate = 1;
+      break;
+
+    case OPTION_QOP:
+      if (strcmp(arg, "auth") == 0)
+	qop = GSASL_QOP_AUTH;
+      else if (strcmp(arg, "auth-int") == 0)
+	qop = GSASL_QOP_AUTH_INT;
+      else if (strcmp(arg, "auth-conf") == 0)
+	qop = GSASL_QOP_AUTH_CONF;
+      else
+	argp_error (state, "unknown quality of protection: `%s'", arg);
       break;
 
     case 'c':
@@ -250,6 +263,12 @@ static struct argp_option options[] = {
   {"disable-cleartext-validate", OPTION_DISABLE_CLEARTEXT_VALIDATE, 0, 0, 
    "Disable cleartext validate hook, forcing server to prompt for password."},
 
+  {"quality-of-protection", OPTION_QOP, "<auth | auth-int | auth-conf>", 0,
+   "How application payload will be protected.  \"auth\" means no protection, "
+   "\"auth-int\" means integrity protection, \"auth-conf\" means integrity "
+   "and confidentialiy protection.  Currently only used by DIGEST-MD5, where "
+   "the default is \"auth-conf\"."},
+
   {0, 0, 0, 0, "Other options:", 1000},
   
   {"verbose", 'v', 0, 0, "Produce verbose output."},
@@ -287,7 +306,8 @@ main (int argc, char *argv[])
 
   if (maxbuf != 0)
     gsasl_client_callback_maxbuf_set (ctx, client_callback_maxbuf);
-  gsasl_client_callback_qop_set (ctx, client_callback_qop);
+  if (qop != 0)
+    gsasl_client_callback_qop_set (ctx, client_callback_qop);
   gsasl_client_callback_anonymous_set (ctx, client_callback_anonymous);
   gsasl_client_callback_authentication_id_set (ctx, 
 					       client_callback_authentication_id);
@@ -340,10 +360,14 @@ main (int argc, char *argv[])
     {
       char input[MAX_LINE_LENGTH];
       char output[MAX_LINE_LENGTH];
+      char b64output[MAX_LINE_LENGTH];
       size_t output_len;
+      size_t b64output_len;
       const char *mech;
       Gsasl_session_ctx *xctx = NULL;
       int res;
+
+      /* Decide mechanism to use */
 
       if (mechanism)
 	{
@@ -380,6 +404,8 @@ main (int argc, char *argv[])
 	  mech = input;
 	}
 
+      /* Authenticate using mechanism */
+
       if (mode == 'c')
 	res = gsasl_client_start (ctx, mech, &xctx);
       else
@@ -410,8 +436,8 @@ main (int argc, char *argv[])
 	  fprintf(stdout, "%s\n", output);
 
 	  if (!silent)
-	    fprintf(stderr, 
-		    _("Enter base64 data from %s (press RET if none):\n"), 
+	    fprintf(stderr, _("Enter base64 authentication data from %s "
+			      "(press RET if none):\n"), 
 		    mode == 'c' ? _("server") : _("client"));
 	  
 	  input[0] = '\0';
@@ -429,11 +455,58 @@ main (int argc, char *argv[])
       if (!silent)
 	{
 	  if (mode == 'c')
-	    fprintf(stderr, _("Client finished (server trusted)...\n"));
+	    fprintf(stderr,
+		    _("Client authentication finished (server trusted)...\n"));
 	  else
-	    fprintf(stderr, _("Server finished (client trusted)...\n"));
+	    fprintf(stderr,
+		    _("Server authentication finished (client trusted)...\n"));
 	}
-      
+
+      /* Transfer application payload */
+
+      do
+	{
+	  if (!silent)
+	    fprintf(stderr, _("Enter application data (EOF to finish):\n"));
+	  
+	  input[0] = '\0';
+	  fgets(input, MAX_LINE_LENGTH, stdin);
+	  input[strlen(input)-1] = '\0';
+
+	  res = gsasl_encode (xctx, input, strlen(input), output, &output_len);
+	  if (res != GSASL_OK)
+	    break;
+
+	  b64output_len = sizeof(b64output);
+	  b64output_len = gsasl_base64_encode(output, output_len, 
+					      b64output, b64output_len);
+	  if (b64output_len == -1)
+	    {
+	      res = GSASL_BASE64_ERROR;
+	      break;
+	    }
+
+	  if (!silent)
+	    fprintf(stderr, _("Base64 encoded application data to send:\n"));
+	  fprintf(stdout, "%s\n", b64output);
+	}
+      while (!feof(stdin));
+
+      if (res != GSASL_OK)
+	{
+	  fprintf(stderr, _("Libgsasl error (%d): %s\n"), 
+		  res, gsasl_strerror(res));
+	  return 1;
+	}
+
+      if (!silent)
+	{
+	  if (mode == 'c')
+	    fprintf(stderr, _("Client finished...\n"));
+	  else
+	    fprintf(stderr, _("Server finished...\n"));
+	}
+
       if (mode == 'c')
 	gsasl_client_finish (xctx);
       else
