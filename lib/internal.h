@@ -46,22 +46,28 @@
 /* Used by *-md5.c. */
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
 
+typedef int (*_Gsasl_init_function) (Gsasl_ctx * ctx);
+typedef void (*_Gsasl_done_function) (Gsasl_ctx * ctx);
+typedef int (*_Gsasl_start_function) (Gsasl_session_ctx * sctx,
+				      void **mech_data);
+typedef int (*_Gsasl_step_function) (Gsasl_session_ctx * sctx,
+				     void *mech_data,
+				     const char *input, size_t input_len,
+				     char *output, size_t * output_len);
+typedef int (*_Gsasl_finish_function) (Gsasl_session_ctx * sctx,
+				       void *mech_data);
 typedef int (*_Gsasl_code_function) (Gsasl_session_ctx * sctx,
 				     void *mech_data,
-				     const char *input,
-				     size_t input_len,
+				     const char *input, size_t input_len,
 				     char *output, size_t * output_len);
 
 struct _Gsasl_mechanism_functions
 {
-  int (*init) (Gsasl_ctx * ctx);
-  void (*done) (Gsasl_ctx * ctx);
-  int (*start) (Gsasl_session_ctx * sctx, void **mech_data);
-  int (*step) (Gsasl_session_ctx * sctx,
-	       void *mech_data,
-	       const char *input,
-	       size_t input_len, char *output, size_t * output_len);
-  int (*finish) (Gsasl_session_ctx * sctx, void *mech_data);
+  _Gsasl_init_function init;
+  _Gsasl_done_function done;
+  _Gsasl_start_function start;
+  _Gsasl_step_function step;
+  _Gsasl_finish_function finish;
   _Gsasl_code_function encode;
   _Gsasl_code_function decode;
 };
