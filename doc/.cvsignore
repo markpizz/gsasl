@@ -8,6 +8,10 @@ gsasl-api-global.texi
 gsasl-api-session.texi
 gsasl-api-utils.texi
 gsasl-api-version.texi
+gsasl-db.pdf
+gsasl-db.ps
+gsasl-db.txt
+gsasl-db.xml
 gsasl.1
 gsasl.aux
 gsasl.cp
@@ -30,6 +34,7 @@ gsasl.toc
 gsasl.tp
 gsasl.txt
 gsasl.vr
+html
 man
 mdate-sh
 stamp-vti
