@@ -116,7 +116,10 @@ has been ported to many Unix flavors.
 * Features::
 * SASL Overview::
 * Supported Platforms::
+* Commercial Support::
+* Downloading and Installing::
 * Bug Reports::
+* Contributing::
 @end menu
 
 @node Getting Started
@@ -169,33 +172,7 @@ it uses callbacks back into the application to answer these questions.
 @node SASL Overview
 @section SASL Overview
 
-This section describes SASL from a protocol point of view@footnote{The
-text is a lightly adapted version of the introduction section from RFC
-2222 by John G. Myers, copyright 1997 by The Internet Society with the
-following copying conditions:
-
-This document and translations of it may be copied and furnished to
-others, and derivative works that comment on or otherwise explain it
-or assist in its implmentation may be prepared, copied, published
-andand distributed, in whole or in part, without restriction of any
-kind, provided that the above copyright notice and this paragraph are
-included on all such copies and derivative works.  However, this
-document itself may not be modified in any way, such as by removing
-the copyright notice or references to the Internet Society or other
-Internet organizations, except as needed for the purpose of developing
-Internet standards in which case the procedures for copyrights defined
-in the Internet Standards process must be followed, or as required to
-translate it into languages other than English.
-
-The limited permissions granted above are perpetual and will not be
-revoked by the Internet Society or its successors or assigns.
-
-This document and the information contained herein is provided on an
-"AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
-TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT
-NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN
-WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
-MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.}.
+This section describes SASL from a protocol point of view.
 
 The Simple Authentication and Security Layer (SASL) is a method for
 adding authentication support to connection-based protocols.  A
@@ -370,6 +347,104 @@ GCC 2.95.4 and GNU Make. @code{alpha-unknown-freebsd4.7},
 If you use Libgsasl on, or port Libgsasl to, a new platform please
 report it to the author.
 
+@node Commercial Support
+@section Commercial Support
+
+Commercial support is available for users of GNU SASL.  The kind of
+support that can be purchased may include:
+
+@itemize
+
+@item Implement new features.
+Such as a new SASL mechanism.
+
+@item Port Libgsasl to new platforms.
+This could include porting to an embedded platforms that may need
+memory or size optimization.
+
+@item Integrating SASL as a security environment in your existing project.
+
+@item System design of components related to SASL.
+
+@end itemize
+
+If you are interested, please write to:
+
+@verbatim
+Simon Josefsson Datakonsult
+Drottningholmsv. 70
+112 42 Stockholm
+Sweden
+
+E-mail: simon@josefsson.org
+@end verbatim
+
+If your company provide support related to GNU SASL and would like to
+be mentioned here, contact the author (@pxref{Bug Reports}).
+
+@node Downloading and Installing
+@section Downloading and Installing
+@cindex Installation
+@cindex Download
+
+The package can be downloaded from several places, including
+@url{http://josefsson.org/gsasl/releases/}.  The latest version is
+stored in a file, e.g., @samp{gsasl-0.0.42.tar.gz} where the
+@samp{0.0.42} indicate the highest version number.
+
+The package is then extracted, configured and built like many other
+packages that use Autoconf.  For detailed information on configuring
+and building it, refer to the @file{INSTALL} file that is part of the
+distribution archive.
+
+Here is an example terminal session that download, configure, build
+and install the package.  You will need a few basic tools, such as
+@samp{sh}, @samp{make} and @samp{cc}.
+
+@example
+$ wget -q http://josefsson.org/gsasl/releases/gsasl-0.0.8.tar.gz
+$ tar xfz gsasl-0.0.8.tar.gz
+$ cd gsasl-0.0.8/
+$ ./configure
+...
+$ make
+...
+$ make install
+...
+@end example
+
+After that gsasl should be properly installed and ready for use.
+
+A few @code{configure} options may be relevant, summarized in the
+table.
+
+@table @code
+
+@item --disable-client
+@itemx --disable-server
+If your target system require a minimal implementation, you may wish
+to disable the client or the server part of the code.  This removes
+symbols from he library, so if you attempt to link an application that
+uses server functions to a libgsasl built with
+@code{--disable-server}, you will get linker errors.
+
+@item --disable-anonymous
+@itemx --disable-external
+@itemx --disable-plain
+@itemx --disable-login
+@itemx --disable-securid
+@itemx --disable-ntlm
+@itemx --disable-cram-md5
+@itemx --disable-digest-md5
+@itemx --disable-gssapi
+@itemx --disable-kerberos_v5
+Disable individual mechanisms (@pxref{Mechanisms}).
+
+@end table
+
+For the complete list, refer to the output from @code{configure
+--help}.
+
 @node Bug Reports
 @section Bug Reports
 @cindex Reporting Bugs
@@ -411,6 +486,61 @@ Send your bug report to:
 
 @center @samp{bug-gsasl@@gnu.org}
 
+@node Contributing
+@section Contributing
+@cindex Contributing
+@cindex Hacking
+
+If you want to submit a patch for inclusion -- from solve a typo you
+discovered, up to adding support for a new feature -- you should
+submit it as a bug report (@pxref{Bug Reports}).  There are some
+things that you can do to increase the chances for it to be included
+in the official package.
+
+Unless your patch is very small (say, under 10 lines) we require that
+you assign the copyright of your work to the Free Software Foundation.
+This is to protect the freedom of the project.  If you have not
+already signed papers, we will send you the necessary information when
+you submit your contribution.
+
+For contributions that doesn't consist of actual programming code, the
+only guidelines are common sense.  Use it.
+
+For code contributions, a number of style guides will help you:
+
+@itemize @bullet
+
+@item Coding Style.
+Follow the GNU Standards document (@pxref{top, GNU Coding Standards,,
+standards}).
+
+If you normally code using another coding standard, there is no
+problem, but you should use @samp{indent} to reformat the code
+(@pxref{top, GNU Indent,, indent}) before submitting your work.
+
+@item Use the unified diff format @samp{diff -u}.
+
+@item Return errors.
+No reason whatsoever should abort the execution of the library.  Even
+memory allocation errors, e.g. when malloc return NULL, should work
+although result in an error code.
+
+@item Design with thread safety in mind.
+Don't use global variables.  Don't even write to per-handle global
+variables unless the documented behaviour of the function you write is
+to write to the per-handle global variable.
+
+@item Avoid using the C math library.
+It causes problems for embedded implementations, and in most
+situations it is very easy to avoid using it.
+
+@item Document your functions.
+Use comments before each function headers, that, if properly
+formatted, are extracted into Texinfo manuals and GTK-DOC web pages.
+
+@item Supply a ChangeLog and NEWS entries, where appropriate.
+
+@end itemize
 
 @c **********************************************************
 @c *******************  Preparation  ************************
@@ -433,6 +563,7 @@ A faster way to find out how to adapt your application for use with
 * Initialization::
 * Version Check::
 * Building the source::
+* Autoconf tests::
 @end menu
 
 @node Header
@@ -569,6 +700,71 @@ specifying both options to @command{pkg-config}:
 
 @example
 gcc -o foo foo.c `pkg-config libgsasl --cflags --libs`
+@end example
+
+@node Autoconf tests
+@section Autoconf tests
+@cindex Autoconf tests
+@cindex Configure tests
+
+If you work on a project that uses Autoconf (@pxref{top, GNU
+Autoconf,, autoconf}) to help find installed libraries, the
+suggestions in the previous section are not the entire story.  There
+are a few methods to detect and incorporate Libgsasl into your
+Autoconf based package.  The preferred approach, is to use Libtool in
+your project, and use the normal Autoconf header file and library
+tests.
+
+@subsubsection Autoconf test via @samp{pkg-config}
+
+If your audience is a typical GNU/Linux desktop, you can often assume
+they have the @samp{pkg-config} tool installed, in which you can use
+its Autoconf M4 macro to find and set up your package for use with
+Shishi.  The following illustrate this scenario.
+
+@example
+AC_ARG_ENABLE(gsasl,
+	AC_HELP_STRING([--disable-gsasl], [don't use GNU SASL]),
+	gsasl=$enableval)
+if test "$gsal" != "no" ; then
+	PKG_CHECK_MODULES(GSASL, libgsasl >= 0.0.8,
+			[gsasl=yes],
+                        [gsasl=no])
+	if test "$gsasl" != "yes" ; then
+		sal=no
+		AC_MSG_WARN([Cannot find GNU SASL, disabling])
+	else
+		gsasl=yes
+		AC_DEFINE(USE_GSASL, 1, [Define to 1 if you want GNU SASL.])
+	fi
+fi
+AC_MSG_CHECKING([if GNU SASL should be used])
+AC_MSG_RESULT($gsasl)
+@end example
+
+@subsubsection Standalone Autoconf test using Libtool
+
+If your package uses Libtool(@pxref{top, GNU Libtool,, libtool}), you
+can use the normal Autoconf tests to find the Shishi library and rely
+on the Libtool dependency tracking to include the proper dependency
+libraries (e.g., Libidn).  The following illustrate this scenario.
+
+@example
+AC_CHECK_HEADER(gsasl.h,
+	AC_CHECK_LIB(gsasl, gsasl_check_version,
+		[gsasl=yes AC_SUBST(GSASL_LIBS, -lgsasl)],
+		gsasl=no),
+	gsasl=no)
+AC_ARG_ENABLE(gsasl,
+	AC_HELP_STRING([--disable-gsasl], [don't use GNU SASL]),
+	gsasl=$enableval)
+if test "$gsasl" != "no" ; then
+	AC_DEFINE(USE_SASL, 1, [Define to 1 if you want GNU SASL.])
+else
+	AC_MSG_WARN([Cannot find GNU SASL, diabling])
+fi
+AC_MSG_CHECKING([if GNU SASL should be used])
+AC_MSG_RESULT($gsasl)
 @end example
 
 @c **********************************************************
@@ -1205,9 +1401,11 @@ Werner Koch.
 Cryptographic functions for some SASL mechanisms uses Libgcrypt by
 Werner Koch et al.  The NTLM mechanism uses Libntlm by Grant Edwards
 et al, using code from Samba written by Andrew Tridgell, and now
-maintained by Simon Josefsson.  The GSSAPI mechanism uses libgssapi
-written by the Massachusetts Institute of Technology Kerberos Team.
+maintained by Simon Josefsson.  The KERBEROS_V5 mechanism uses Shishi
+by Simon Josefsson.  The GSSAPI mechanism uses a GSS-API
+implementation, such as GSSLib by Simon Josefsson.
 
+This manual borrows text from the SASL specification.
 
 @c **********************************************************
 @c ********************  Invoking gsasl  ********************
