@@ -1,3 +1,96 @@
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.2.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/zh_CN.po: Generated.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/zh_CN.po: Sync with TP.
+
+2004-11-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getopt_.h, gl/m4/getopt.m4: Update.
+
+2004-11-28  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2004-11-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2004-11-26  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2004-11-26  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Make cronological.
+
+2004-11-26  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Fix AM_CPPFLAGS, so objdir != srcdir builds
+	work, tiny patch from Mike Castle <dalgoda@ix.netcom.com>.
+
+2004-11-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Normalize warning messages.
+
+2004-11-23  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/zh_CN.po: Try without
+	line numbers.
+
+2004-11-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Sync with libidn.
+
+2004-11-23  Simon Josefsson <simon@josefsson.org>
+
+	* po/Makevars, po/LINGUAS: Fix.
+
+2004-11-23  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/zh_CN.po: Sync with TP.
+
+2004-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getopt_.h: Update.
+
+2004-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix valgrins warnings.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Change headings.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getaddrinfo.c, gl/getaddrinfo.h, gl/getopt.c, gl/getopt1.c,
+	gl/getopt_.h, gl/getopt_int.h, gl/progname.c, gl/progname.h,
+	gl/m4/getaddrinfo.m4, gl/m4/getopt.m4, gl/gai_strerror.c,
+	gl/m4/sockpfaf.m4: Update.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Add.
+
 2004-11-19  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
