@@ -45,12 +45,6 @@ _gsasl_external_client_step (Gsasl_session_ctx * sctx,
   return GSASL_OK;
 }
 
-int
-_gsasl_external_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
-{
-  return GSASL_OK;
-}
-
 #endif /* USE_CLIENT */
 
 /* Server */
@@ -96,12 +90,6 @@ _gsasl_external_server_step (Gsasl_session_ctx * sctx,
   *output_len = 0;
 
   return res;
-}
-
-int
-_gsasl_external_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
-{
-  return GSASL_OK;
 }
 
 #endif /* USE_SERVER */
