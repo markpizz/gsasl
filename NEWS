@@ -4,6 +4,16 @@ See the end for copying conditions.
 
 * Changes in 0.0.8 (unreleased)
 
+** GNULib is used for compatibility functions.
+The directory gl/ is dedicated for GNULib functions, and replace the
+earlier ad-hoc usage of argp, memset, argp, etc.
+
+** Gettext 0.12.1 and libtool 1.5 is used.
+
+** Libgcrypt from CVS is not supported.
+Recent libgcrypt is API incompatible with earlier released versions.
+If a too recent version is installed, it will not be used.
+
 ** Bug fixes.
 
 * Changes in 0.0.7 (released 2003-06-02)
