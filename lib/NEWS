@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Version 0.2.3 (unreleased)
 
+** NTLM now set the 'domain' field to the GSASL_REALM property value.
+Some servers appear to need non-empty but arbitrary domain values,
+reported by Martin Lambers.
+
 ** PLAIN client no longer perform NFKC on strings.
 This aligns with draft-ietf-sasl-plain-05.
 
@@ -31,6 +35,7 @@ were added, this was forgotten in the last release.
 gsasl_stringprep_nfkc, gsasl_stringprep_saslprep,
 gsasl_stringprep_trace: DEPRECATED.  Use gsasl_saslprep() instead.
 gsasl_saslprep: ADD.
+GSASL_REALM: ADD, new property.
 
 * Version 0.2.2 (released 2004-11-29)
 
