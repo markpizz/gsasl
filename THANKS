@@ -1,16 +1,16 @@
 GNU SASL THANKS -- Acknowledgements.
+Copyright (C) 2002, 2003 Simon Josefsson
 See the end for copying conditions.
 
-Libgsasl uses libntlm by Grant Edwards, libgssapi by MIT, libgcrypt by
-Werner Koch.  Templates for makefiles, manuals etc was borrowed from
+Libgsasl uses libntlm by Grant Edwards maintained by Simon Josefsson,
+libgssapi by MIT, libgcrypt by Werner Koch, Libidn and Shishi by Simon
+Josefsson.  Templates for makefiles, manuals etc was borrowed from
 Libgcrypt.
 
 Sergey Poznyakoff sent useful bug reports, patches and/or suggested
 improvements.
 
 ----------------------------------------------------------------------
-Copyright (C) 2002 Simon Josefsson
-
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
 notice and this notice are preserved.
