@@ -14,3 +14,10 @@ sgml-build.stamp
 tmpl
 tmpl-build.stamp
 xml
+gsasl-decl-list.txt
+gsasl-decl.txt
+gsasl-sections.txt
+gsasl-undocumented.txt
+gsasl-unused.txt
+sgml.stamp
+tmpl.stamp
