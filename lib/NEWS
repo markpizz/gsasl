@@ -28,10 +28,9 @@ reported by Martin Lambers.
 ** PLAIN client now work when no authorization identity is provided,
 reported by Martin Lambers.
 
-** Callback backwards compatibility improved, thanks to Sergey
-Poznyakoff <gray@Mirddin.farlep.net>.  The GSASL_VALIDATE_SIMPLE and
-GSASL_PASSWORD are now translated into calls to
-gsasl_server_callback_validate_get() and
+** Callback backwards compatibility improved, thanks to Sergey Poznyakoff.
+The GSASL_VALIDATE_SIMPLE and GSASL_PASSWORD are now translated into
+calls to gsasl_server_callback_validate_get() and
 gsasl_server_callback_retrieve_get(), respectively.
 
 ** A crash in the new base64 code was fixed.
