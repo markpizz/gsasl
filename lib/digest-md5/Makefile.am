@@ -23,7 +23,10 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src \
 	-I$(srcdir)/../gl -I../crypto
 
 noinst_LTLIBRARIES = libgsasl-digest_md5.la
-libgsasl_digest_md5_la_SOURCES = digest-md5.h shared.h shared.c getsubopt.c
+libgsasl_digest_md5_la_SOURCES = digest-md5.h \
+	shared.h shared.c \
+	session.h session.c \
+	getsubopt.c
 
 if CLIENT
 libgsasl_digest_md5_la_SOURCES += client.c

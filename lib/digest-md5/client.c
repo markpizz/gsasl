@@ -806,53 +806,14 @@ _gsasl_digest_md5_client_encode (Gsasl_session_ctx * sctx,
   _Gsasl_digest_md5_client_state *state = mech_data;
   int res;
 
-  if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_CONF)
+  if (state && state->step == 3)
     {
-      return GSASL_INTEGRITY_ERROR;
-    }
-  else if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_INT)
-    {
-      char *seqnumin;
-      char *hash;
-      uint32_t tmp;
-      size_t len;
+      res = digest_md5_encode (sctx, input, input_len, output, output_len,
+			       state->qop, state->sendseqnum, state->kic);
+      if (res != GSASL_OK)
+	return res;
 
-      seqnumin = malloc (MAC_SEQNUM_LEN + input_len);
-      if (seqnumin == NULL)
-	return GSASL_MALLOC_ERROR;
-
-      tmp = htonl (state->sendseqnum);
-      memcpy (seqnumin, (char *) &tmp, MAC_SEQNUM_LEN);
-      memcpy (seqnumin + MAC_SEQNUM_LEN, input, input_len);
-
-      res = gsasl_hmac_md5 (state->kic, MD5LEN,
-			    seqnumin, MAC_SEQNUM_LEN + input_len,
-			    (char **) &hash);
-      free (seqnumin);
-      if (res != GSASL_OK || hash == NULL)
-	return GSASL_CRYPTO_ERROR;
-
-      *output_len = MAC_DATA_LEN + input_len + MAC_HMAC_LEN +
-	MAC_MSG_TYPE_LEN + MAC_SEQNUM_LEN;
-      *output = malloc (*output_len);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-
-      len = MAC_DATA_LEN;
-      memcpy (output + len, input, input_len);
-      len += input_len;
-      memcpy (output + len, hash, MAC_HMAC_LEN);
-      len += MAC_HMAC_LEN;
-      memcpy (output + len, MAC_MSG_TYPE, MAC_MSG_TYPE_LEN);
-      len += MAC_MSG_TYPE_LEN;
-      tmp = htonl (state->sendseqnum);
-      memcpy (output + len, &tmp, MAC_SEQNUM_LEN);
-      len += MAC_SEQNUM_LEN;
-      tmp = htonl (len - MAC_DATA_LEN);
-      memcpy (output, &tmp, MAC_DATA_LEN);
       state->sendseqnum++;
-
-      free (hash);
     }
   else
     {
@@ -874,65 +835,16 @@ _gsasl_digest_md5_client_decode (Gsasl_session_ctx * sctx,
 				 char **output, size_t * output_len)
 {
   _Gsasl_digest_md5_client_state *state = mech_data;
+  int res;
 
-  if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_CONF)
+  if (state && state->step == 3)
     {
-      return GSASL_INTEGRITY_ERROR;
-    }
-  else if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_INT)
-    {
-      char *seqnumin;
-      char *hash;
-      uint32_t len, tmp;
-      int res;
+      res = digest_md5_decode (sctx, input, input_len, output, output_len,
+			       state->qop, state->readseqnum, state->kis);
+      if (res != GSASL_OK)
+	return res;
 
-      if (input_len < SASL_INTEGRITY_PREFIX_LENGTH)
-	return GSASL_NEEDS_MORE;
-
-      len = ntohl (*(uint32_t *) input);
-
-      if (input_len < SASL_INTEGRITY_PREFIX_LENGTH + len)
-	return GSASL_NEEDS_MORE;
-
-      len -= MAC_HMAC_LEN + MAC_MSG_TYPE_LEN + MAC_SEQNUM_LEN;
-
-      seqnumin = malloc (SASL_INTEGRITY_PREFIX_LENGTH + len);
-      if (seqnumin == NULL)
-	return GSASL_MALLOC_ERROR;
-
-      tmp = htonl (state->readseqnum);
-
-      memcpy (seqnumin, (char *) &tmp, SASL_INTEGRITY_PREFIX_LENGTH);
-      memcpy (seqnumin + SASL_INTEGRITY_PREFIX_LENGTH,
-	      input + MAC_DATA_LEN, len);
-
-      res = gsasl_hmac_md5 (state->kis, MD5LEN,
-			    seqnumin, MAC_SEQNUM_LEN + len, (char **) &hash);
-      free (seqnumin);
-      if (res != GSASL_OK || hash == NULL)
-	return GSASL_CRYPTO_ERROR;
-
-      if (memcmp
-	  (hash,
-	   input + input_len - MAC_SEQNUM_LEN - MAC_MSG_TYPE_LEN -
-	   MAC_HMAC_LEN, MAC_HMAC_LEN) == 0
-	  && memcmp (MAC_MSG_TYPE,
-		     input + input_len - MAC_SEQNUM_LEN - MAC_MSG_TYPE_LEN,
-		     MAC_MSG_TYPE_LEN) == 0
-	  && memcmp (&tmp, input + input_len - MAC_SEQNUM_LEN,
-		     MAC_SEQNUM_LEN) == 0)
-	{
-	  *output_len = len;
-	  *output = malloc (*output_len);
-	  if (!*output)
-	    return GSASL_MALLOC_ERROR;
-	  memcpy (*output, input + MAC_DATA_LEN, len);
-	  state->readseqnum++;
-	}
-      else
-	return GSASL_INTEGRITY_ERROR;
-
-      free (hash);
+      state->readseqnum++;
     }
   else
     {
@@ -942,7 +854,6 @@ _gsasl_digest_md5_client_decode (Gsasl_session_ctx * sctx,
 	return GSASL_MALLOC_ERROR;
       memcpy (*output, input, input_len);
     }
-
 
   return GSASL_OK;
 }
