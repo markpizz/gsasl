@@ -10,6 +10,10 @@ See the end for copying conditions.
 
 ** Documentation fixes.
 
+** API and ABI modifications.
+gsasl_base64_encode, gsasl_base64_decode: DEPRECATED.
+gsasl_base64_to, gsasl_base64_from: NEW.  Allocates the output buffer.
+
 * Version 0.2.1 (released 2004-11-19)
 
 ** Fix DIGEST-MD5 application data encode/decode functions.
