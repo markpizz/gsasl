@@ -23,5 +23,13 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src \
 	-I$(srcdir)/../gl 
 
 noinst_LTLIBRARIES = libgsasl-kerberos_v5.la
-libgsasl_kerberos_v5_la_SOURCES = kerberos_v5.h kerberos_v5.c
+libgsasl_kerberos_v5_la_SOURCES = kerberos_v5.h shared.h
 libgsasl_kerberos_v5_la_LIBADD = $(top_builddir)/gl/libgl.la
+
+if CLIENT
+libgsasl_kerberos_v5_la_SOURCES += client.c
+endif
+
+if SERVER
+libgsasl_kerberos_v5_la_SOURCES += server.c
+endif
