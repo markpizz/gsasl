@@ -19,7 +19,7 @@ The old API entry points will continue to be valid until at least
 
 ** Token parser in DIGEST-MD5 fixed, improve interoperability of DIGEST-MD5.
 
-** Libgcrypt 1.1.42 or later is used if available.
+** Libgcrypt 1.1.42 or later is used if available (for CRAM-MD5 and DIGEST-MD5).
 The previous libgcrypt API is no longer supported.
 
 ** CRAM-MD5 and DIGEST-MD5 no longer require libgcrypt (but can still use it).
