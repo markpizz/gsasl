@@ -37,6 +37,9 @@ gsasl_hexdump (FILE *fh, const char *buffer, size_t len)
   for (i=0; i < len; i++)
     {
       fprintf(fh, _("%d: hex %02X dec %d ascii %c\n"), 
-	      i, buffer[i], buffer[i], buffer[i]);
+	      i,
+	      (unsigned char)buffer[i],
+	      (unsigned char)buffer[i], 
+	      (unsigned char)buffer[i]);
     }
 }
