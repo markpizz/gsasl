@@ -91,10 +91,7 @@
 #define RSPAUTH_PRE "rspauth="
 #define RSPAUTH_POST ""
 
-#define A2_PRE "AUTHENTICATE:"
-#define A2_POST ":00000000000000000000000000000000"
 #define COLON ":"
-#define NCLEN 8
 #define MD5LEN 16
 #define SASL_INTEGRITY_PREFIX_LENGTH 4
 #define MACLEN 16
@@ -109,18 +106,6 @@
 #define MAXBUF_MAX_DECIMAL_SIZE 8
 #define RESPONSE_LENGTH 32
 #define RSPAUTH_LENGTH RESPONSE_LENGTH
-#define DERIVE_CLIENT_INTEGRITY_KEY_STRING \
-  "Digest session key to client-to-server signing key magic constant"
-#define DERIVE_CLIENT_INTEGRITY_KEY_STRING_LEN 65
-#define DERIVE_SERVER_INTEGRITY_KEY_STRING \
-  "Digest session key to server-to-client signing key magic constant"
-#define DERIVE_SERVER_INTEGRITY_KEY_STRING_LEN 65
-#define DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING \
-  "Digest H(A1) to client-to-server sealing key magic constant"
-#define DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN 59
-#define DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING \
-  "Digest H(A1) to server-to-client sealing key magic constant"
-#define DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING_LEN 59
 
 /* MIN(a,b) returns the minimum of A and B.  */
 #ifndef MIN
