@@ -374,7 +374,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	uint32_t nc = 0;
 	char *authzid = NULL;
 	char *digesturi = NULL;
-	const char *subopts, *value;
+	char *subopts, *value;
 	char *realm = NULL;
 	char *username = NULL;
 	char *response = NULL;

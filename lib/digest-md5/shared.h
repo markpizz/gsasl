@@ -143,7 +143,7 @@ enum
   CHALLENGE_CIPHER
 };
 
-extern const char *digest_challenge_opts[];
+extern char *const digest_challenge_opts[];
 
 enum
 {
@@ -162,7 +162,7 @@ enum
   RESPONSE_AUTHZID
 };
 
-extern const char *digest_response_opts[];
+extern char *const digest_response_opts[];
 
 enum
 {
@@ -170,7 +170,7 @@ enum
   RESPONSEAUTH_RSPAUTH = 0
 };
 
-extern const char *digest_responseauth_opts[];
+extern char *const digest_responseauth_opts[];
 
 enum
 {
@@ -180,7 +180,7 @@ enum
   QOP_AUTH_CONF_OPTION
 };
 
-extern const char *qop_opts[];
+extern char *const qop_opts[];
 
 enum
 {
@@ -193,7 +193,7 @@ enum
   CIPHER_AES_OPTION
 };
 
-extern const char *cipher_opts[];
+extern char *const cipher_opts[];
 
 extern int
 _gsasl_getsubopt (char **optionp, char *const *tokens, char **valuep);

@@ -34,7 +34,7 @@
 #include "digest-md5.h"
 #include "shared.h"
 
-const char *digest_challenge_opts[] = {
+char *const digest_challenge_opts[] = {
   /* the order must match the previous enum */
   "realm",
   "nonce",
@@ -47,7 +47,7 @@ const char *digest_challenge_opts[] = {
   NULL
 };
 
-const char *digest_response_opts[] = {
+char *const digest_response_opts[] = {
   /* the order must match the previous enum */
   "username",
   "realm",
@@ -65,13 +65,13 @@ const char *digest_response_opts[] = {
 };
 
 
-const char *digest_responseauth_opts[] = {
+char *const digest_responseauth_opts[] = {
   /* the order must match the previous enum */
   "rspauth",
   NULL
 };
 
-const char *qop_opts[] = {
+char *const qop_opts[] = {
   /* the order must match the previous enum */
   QOP_AUTH,
   QOP_AUTH_INT,
@@ -79,7 +79,7 @@ const char *qop_opts[] = {
   NULL
 };
 
-const char *cipher_opts[] = {
+char *const cipher_opts[] = {
   /* the order must match the previous enum */
   CIPHER_DES,
   CIPHER_3DES,
