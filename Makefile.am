@@ -58,7 +58,7 @@ release:
 	rm -f $(distdir).tar.gz.asc
 	gpg -a --sign --detach $(distdir).tar.gz
 	gpg --verify $(distdir).tar.gz.asc
-	scp $(distdir).tar.gz* gnudist.gnu.org:~alpha/gnu/$(PACKAGE)/
+	scp $(distdir).tar.gz* gnuftp.gnu.org:~alpha/gnu/$(PACKAGE)/
 	test -d $(htmldir) && cp -v doc/$(PACKAGE).{ps,pdf,html} $(htmldir)/
 	test -d $(htmldir)/reference && \
 		cp -v reference/*.html $(htmldir)/reference/
