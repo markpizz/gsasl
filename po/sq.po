@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-08-08 00:42+0200\n"
+"POT-Creation-Date: 2004-11-19 02:49+0100\n"
 "PO-Revision-Date: 2004-09-11 11:58+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
@@ -40,58 +40,62 @@ msgstr "Rezultati nga klienti:\n"
 msgid "Output from server:\n"
 msgstr "Rezultati nga serveri:\n"
 
-#: src/gsasl.c:335 src/gsasl.c:377 src/gsasl.c:428 src/gsasl.c:470
-#: src/gsasl.c:562
+#: src/gsasl.c:304 src/gsasl.c:346 src/gsasl.c:397 src/gsasl.c:439
+#: src/gsasl.c:532
 #, c-format
 msgid "Libgsasl error (%d): %s"
 msgstr "Gabim i libgsasl (%d): %s"
 
-#: src/gsasl.c:384
+#: src/gsasl.c:353
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Ky klient suporton mekanizmat në vijim:\n"
 
-#: src/gsasl.c:387
+#: src/gsasl.c:356
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Ky server suporton mekanizmat në vijim:\n"
 
-#: src/gsasl.c:411
+#: src/gsasl.c:380
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "E pamundur gjetja e mekanizmit...\n"
 
-#: src/gsasl.c:457
+#: src/gsasl.c:426
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Shto të dhënat me bazë64 të autentifikimit nga serveri (shtyp RET nëse nuk duhen):\n"
+msgstr ""
+"Shto të dhënat me bazë64 të autentifikimit nga serveri (shtyp RET nëse nuk "
+"duhen):\n"
 
-#: src/gsasl.c:460
+#: src/gsasl.c:429
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Shto të dhënat me bazë64 të autentifikimit nga klienti (shtyp RET nëse nuk duhen):\n"
+msgstr ""
+"Shto të dhënat me bazë64 të autentifikimit nga klienti (shtyp RET nëse nuk "
+"duhen):\n"
 
-#: src/gsasl.c:479
+#: src/gsasl.c:448
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Autentifikimi i klientit përfundoi (i besuar nga serveri)...\n"
 
-#: src/gsasl.c:482
+#: src/gsasl.c:451
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Autentifikimi nga serveri përfundoi (klient i besuar)...\n"
 
-#: src/gsasl.c:497
+#: src/gsasl.c:466
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Shkruaj të dhënat e programit (EOF për të mbaruar):\n"
 
-#: src/gsasl.c:536
+#: src/gsasl.c:510
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Të dhënat e kodifikuara me bazë64 të programit për t'u dërguar:\n"
 
-#: src/gsasl.c:567
+#: src/gsasl.c:537
 #, c-format
 msgid "Session finished...\n"
 msgstr "Seanca përfundoi...\n"
