@@ -74,8 +74,6 @@ _gsasl_anonymous_client_step (Gsasl_session_ctx * sctx,
   if (*step > 0)
     return GSASL_OK;
 
-  (*step)++;
-
   ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
@@ -87,6 +85,8 @@ _gsasl_anonymous_client_step (Gsasl_session_ctx * sctx,
   res = cb_anonymous (sctx, output, output_len);
   if (res != GSASL_OK)
     return res;
+
+  (*step)++;
 
   return GSASL_OK;
 }
