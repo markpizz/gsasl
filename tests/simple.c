@@ -89,7 +89,7 @@ static struct sasltv sasltv[] = {
    {"VXNlciBOYW1l", "YXV0aGlk", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}, "a", "a",
    "authid"},
   {CLIENT, "LOGIN",
-   {"VXNlciBOYW1l", "YXV0aGlk", "UGFzc3dvcmQ=", "YQ==", NULL, NULL}, UTF8_a,
+   {"VXNlciBOYW1l", "YXV0aGlk", "UGFzc3dvcmQ=", "wqo=", NULL, NULL}, UTF8_a,
    UTF8_a, "authid"},
   {SERVER, "LOGIN",
    {"", "VXNlciBOYW1l", "YXV0aGlk", "UGFzc3dvcmQ=", "cGFzc3dvcmQ=",
