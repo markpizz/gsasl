@@ -51,6 +51,10 @@ typedef int (*_Gsasl_code_function) (Gsasl_session * sctx,
 				     const char *input, size_t input_len,
 				     char *output, size_t * output_len);
 
+typedef int (*_Gsasl_step_function_a) (Gsasl_session * sctx, void *mech_data,
+				       const char *input, size_t input_len,
+				       char **output, size_t * output_len);
+
 /* Collection of mechanism functions for either client or server. */
 struct _Gsasl_mechanism_functions
 {
@@ -61,6 +65,8 @@ struct _Gsasl_mechanism_functions
   _Gsasl_finish_function finish;
   _Gsasl_code_function encode;
   _Gsasl_code_function decode;
+  /* New allocating interface. */
+  _Gsasl_step_function_a astep;
 };
 
 /* Information about a mechanism. */
