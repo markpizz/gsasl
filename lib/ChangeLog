@@ -1,5 +1,13 @@
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
+	* po/sv.po: Generated.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS: Version 0.1.0.
 
 2004-04-16  Simon Josefsson <simon@josefsson.org>

@@ -1,5 +1,29 @@
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
+	* NEWS: Version 0.1.0.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Fix versions.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix ChangeLog target.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* README: Fix.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
 	* gl/m4/getopt.m4: Re-add (accidentally removed).
 
 2004-04-16  Simon Josefsson <simon@josefsson.org>
