@@ -1,10 +1,21 @@
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
-	* po/sv.po: Generated.
+	* src/Makefile.am, anonymous/Makefile.am, cram-md5/Makefile.am,
+	digest-md5/Makefile.am, external/Makefile.am, gssapi/Makefile.am,
+	kerberos_v5/Makefile.am, login/Makefile.am, ntlm/Makefile.am,
+	plain/Makefile.am, securid/Makefile.am: Remove indent target.
 
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
-	* ChangeLog: Generated.
+	* Makefile.am: Fix ChangeLog target.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use modern software.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Generated.
 
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
@@ -128,11 +139,6 @@
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
-	* src/.cvsignore, .cvsignore, m4/.cvsignore, po/.cvsignore: [no log
-	message]
-
-2004-04-15  Simon Josefsson <simon@josefsson.org>
-
 	* configure.ac: Build src/Makefile.
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
@@ -170,8 +176,8 @@
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile.am, gl/.cvsignore, gl/Makefile.am, gl/gettext.h,
-	gl/strdup.c, gl/strdup.h: Add gl/.
+	* Makefile.am, gl/Makefile.am, gl/gettext.h, gl/strdup.c,
+	gl/strdup.h: Add gl/.
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
@@ -179,8 +185,7 @@
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
-	* po/.cvsignore, po/LINGUAS, po/Makevars, po/POTFILES.in, po/pl.po,
-	po/sv.po: Add.
+	* po/LINGUAS, po/Makevars, po/POTFILES.in, po/pl.po, po/sv.po: Add.
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
@@ -192,7 +197,7 @@
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
-	* NEWS, THANKS, ChangeLog: Add.
+	* NEWS, THANKS: Add.
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
@@ -217,10 +222,6 @@
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
-	* autogen.sh: Add.
-
-2004-04-15  Simon Josefsson <simon@josefsson.org>
-
 	* Makefile.am: Add libgsasl.pc*.  Recurse into crypto/ if needed.
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
@@ -229,12 +230,11 @@
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
-	* crypto/.cvsignore, crypto/Makefile.am, crypto/README,
-	crypto/README.gsasl, crypto/hmac-md5.c, crypto/hmac.c,
-	crypto/hmac.h, crypto/macros.h, crypto/md5-meta.c, crypto/md5.c,
-	crypto/md5.h, crypto/memxor.c, crypto/memxor.h,
-	crypto/nettle-internal.h, crypto/nettle-meta.h: Move crypto/ from
-	top-level to lib/.
+	* crypto/Makefile.am, crypto/README, crypto/README.gsasl,
+	crypto/hmac-md5.c, crypto/hmac.c, crypto/hmac.h, crypto/macros.h,
+	crypto/md5-meta.c, crypto/md5.c, crypto/md5.h, crypto/memxor.c,
+	crypto/memxor.h, crypto/nettle-internal.h, crypto/nettle-meta.h:
+	Move crypto/ from top-level to lib/.
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
@@ -309,13 +309,6 @@
 2004-01-18  Simon Josefsson <simon@josefsson.org>
 
 	* digest-md5/Makefile.am: Add.
-
-2004-01-17  Simon Josefsson <simon@josefsson.org>
-
-	* anonymous/.cvsignore, cram-md5/.cvsignore, digest-md5/.cvsignore,
-	external/.cvsignore, gssapi/.cvsignore, kerberos_v5/.cvsignore,
-	login/.cvsignore, ntlm/.cvsignore, plain/.cvsignore,
-	securid/.cvsignore: [no log message]
 
 2004-01-17  Simon Josefsson <simon@josefsson.org>
 
@@ -402,20 +395,20 @@
 
 2003-11-20  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile.am, gl/m4/.cvsignore, gl/m4/alloca.m4, gl/m4/argp.m4,
-	gl/m4/codeset.m4, gl/m4/error.m4, gl/m4/exitfail.m4,
-	gl/m4/extensions.m4, gl/m4/getopt.m4, gl/m4/gettext.m4,
-	gl/m4/glibc21.m4, gl/m4/iconv.m4, gl/m4/intdiv0.m4,
-	gl/m4/inttypes-pri.m4, gl/m4/inttypes.m4, gl/m4/inttypes_h.m4,
-	gl/m4/isc-posix.m4, gl/m4/lcmessage.m4, gl/m4/lib-ld.m4,
-	gl/m4/lib-link.m4, gl/m4/lib-prefix.m4, gl/m4/malloc.m4,
-	gl/m4/mempcpy.m4, gl/m4/nls.m4, gl/m4/onceonly_2_57.m4,
-	gl/m4/po.m4, gl/m4/progtest.m4, gl/m4/realloc.m4,
-	gl/m4/restrict.m4, gl/m4/stdbool.m4, gl/m4/stdint_h.m4,
-	gl/m4/strcase.m4, gl/m4/strchrnul.m4, gl/m4/strerror_r.m4,
-	gl/m4/strndup.m4, gl/m4/strnlen.m4, gl/m4/sysexits.m4,
-	gl/m4/uintmax_t.m4, gl/m4/ulonglong.m4, gl/m4/unlocked-io.m4,
-	gl/m4/xalloc.m4: Use getopt instead of argp.  Remove gnulib (gl/).
+	* Makefile.am, gl/m4/alloca.m4, gl/m4/argp.m4, gl/m4/codeset.m4,
+	gl/m4/error.m4, gl/m4/exitfail.m4, gl/m4/extensions.m4,
+	gl/m4/getopt.m4, gl/m4/gettext.m4, gl/m4/glibc21.m4,
+	gl/m4/iconv.m4, gl/m4/intdiv0.m4, gl/m4/inttypes-pri.m4,
+	gl/m4/inttypes.m4, gl/m4/inttypes_h.m4, gl/m4/isc-posix.m4,
+	gl/m4/lcmessage.m4, gl/m4/lib-ld.m4, gl/m4/lib-link.m4,
+	gl/m4/lib-prefix.m4, gl/m4/malloc.m4, gl/m4/mempcpy.m4,
+	gl/m4/nls.m4, gl/m4/onceonly_2_57.m4, gl/m4/po.m4,
+	gl/m4/progtest.m4, gl/m4/realloc.m4, gl/m4/restrict.m4,
+	gl/m4/stdbool.m4, gl/m4/stdint_h.m4, gl/m4/strcase.m4,
+	gl/m4/strchrnul.m4, gl/m4/strerror_r.m4, gl/m4/strndup.m4,
+	gl/m4/strnlen.m4, gl/m4/sysexits.m4, gl/m4/uintmax_t.m4,
+	gl/m4/ulonglong.m4, gl/m4/unlocked-io.m4, gl/m4/xalloc.m4: Use
+	getopt instead of argp.  Remove gnulib (gl/).
 
 2003-11-20  Simon Josefsson <simon@josefsson.org>
 
@@ -1018,7 +1011,7 @@
 
 2003-10-02  Simon Josefsson <simon@josefsson.org>
 
-	* .cvsignore, Makefile.am, anonymous.c, anonymous.h, callback-c.c,
+	* Makefile.am, anonymous.c, anonymous.h, callback-c.c,
 	callback-s.c, callback.c, cram-md5.c, cram-md5.h, digest-md5.c,
 	digest-md5.h, external.c, external.h, gssapi.c, kerberos_v5.c,
 	kerberos_v5.h, login.c, login.h, ntlm.c, plain.c, plain.h,
@@ -1136,19 +1129,18 @@
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
-	* gl/m4/.cvsignore, gl/m4/Makefile.am, gl/m4/alloca.m4,
-	gl/m4/argp.m4, gl/m4/codeset.m4, gl/m4/error.m4,
-	gl/m4/gethostname.m4, gl/m4/getopt.m4, gl/m4/gettext.m4,
-	gl/m4/glibc21.m4, gl/m4/iconv.m4, gl/m4/intdiv0.m4,
-	gl/m4/inttypes-pri.m4, gl/m4/inttypes.m4, gl/m4/inttypes_h.m4,
-	gl/m4/isc-posix.m4, gl/m4/lcmessage.m4, gl/m4/lib-ld.m4,
-	gl/m4/lib-link.m4, gl/m4/lib-prefix.m4, gl/m4/malloc.m4,
-	gl/m4/memmove.m4, gl/m4/memset.m4, gl/m4/nls.m4,
-	gl/m4/onceonly_2_57.m4, gl/m4/po.m4, gl/m4/progtest.m4,
-	gl/m4/realloc.m4, gl/m4/stdint_h.m4, gl/m4/strchrnul.m4,
-	gl/m4/strdup.m4, gl/m4/strerror.m4, gl/m4/strerror_r.m4,
-	gl/m4/sysexits.m4, gl/m4/uintmax_t.m4, gl/m4/ulonglong.m4,
-	gl/m4/unlocked-io.m4, gl/m4/xalloc.m4: Add.
+	* gl/m4/Makefile.am, gl/m4/alloca.m4, gl/m4/argp.m4,
+	gl/m4/codeset.m4, gl/m4/error.m4, gl/m4/gethostname.m4,
+	gl/m4/getopt.m4, gl/m4/gettext.m4, gl/m4/glibc21.m4,
+	gl/m4/iconv.m4, gl/m4/intdiv0.m4, gl/m4/inttypes-pri.m4,
+	gl/m4/inttypes.m4, gl/m4/inttypes_h.m4, gl/m4/isc-posix.m4,
+	gl/m4/lcmessage.m4, gl/m4/lib-ld.m4, gl/m4/lib-link.m4,
+	gl/m4/lib-prefix.m4, gl/m4/malloc.m4, gl/m4/memmove.m4,
+	gl/m4/memset.m4, gl/m4/nls.m4, gl/m4/onceonly_2_57.m4, gl/m4/po.m4,
+	gl/m4/progtest.m4, gl/m4/realloc.m4, gl/m4/stdint_h.m4,
+	gl/m4/strchrnul.m4, gl/m4/strdup.m4, gl/m4/strerror.m4,
+	gl/m4/strerror_r.m4, gl/m4/sysexits.m4, gl/m4/uintmax_t.m4,
+	gl/m4/ulonglong.m4, gl/m4/unlocked-io.m4, gl/m4/xalloc.m4: Add.
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
@@ -1241,10 +1233,6 @@
 
 	* common.c, cram-md5.c, digest-md5.c, kerberos_v5.c, kerberos_v5.h:
 	Indent.
-
-2003-01-31  Simon Josefsson <simon@josefsson.org>
-
-	* .cvsignore: [no log message]
 
 2003-01-31  Simon Josefsson <simon@josefsson.org>
 
@@ -1411,13 +1399,13 @@
 
 2002-11-07  Simon Josefsson <simon@josefsson.org>
 
-	* .cvsignore, CaseFolding-3.2.0.txt,
-	CompositionExclusions-3.2.0.txt, LineBreak-3.2.0.txt, Makefile.am,
-	SpecialCasing-3.2.0.txt, UnicodeData-3.2.0.txt, cram-md5.c,
-	digest-md5.c, gen-unicode-tables.pl, gsasl.h.in, gunibreak.h,
-	gunicomp.h, gunidecomp.h, internal.h, login.c, plain.c, unicode.c:
-	Use libstringprep (include copy of 0.0.1) instead of internal
-	Unicode stuff.
+	* CaseFolding-3.2.0.txt, CompositionExclusions-3.2.0.txt,
+	LineBreak-3.2.0.txt, Makefile.am, SpecialCasing-3.2.0.txt,
+	UnicodeData-3.2.0.txt, cram-md5.c, digest-md5.c,
+	gen-unicode-tables.pl, gsasl.h.in, gunibreak.h, gunicomp.h,
+	gunidecomp.h, internal.h, login.c, plain.c, unicode.c: Use
+	libstringprep (include copy of 0.0.1) instead of internal Unicode
+	stuff.
 
 2002-10-19  Simon Josefsson <simon@josefsson.org>
 
@@ -1453,10 +1441,6 @@
 	suggest.c, supportp.c, unicode.c, version.c, x-gssapi.h, x-ntlm.h,
 	xcode.c, xfinish.c, xstart.c, xstep.c: Add indent Makefile targets.
 	Indent all files.
-
-2002-10-12  Simon Josefsson <simon@josefsson.org>
-
-	* .cvsignore: [no log message]
 
 2002-10-12  Simon Josefsson <simon@josefsson.org>
 
@@ -1506,10 +1490,6 @@
 
 2002-10-07  Simon Josefsson <simon@josefsson.org>
 
-	* .cvsignore: [no log message]
-
-2002-10-07  Simon Josefsson <simon@josefsson.org>
-
 	* CaseFolding-3.2.0.txt, CompositionExclusions-3.2.0.txt,
 	LineBreak-3.2.0.txt, Makefile.am, SpecialCasing-3.2.0.txt,
 	UnicodeData-3.2.0.txt, anonymous.c, anonymous.h, base64.c,
@@ -1522,8 +1502,8 @@
 	unicode.c, version.c, x-gssapi.h, x-ntlm.h, xfinish.c, xstart.c,
 	xstep.c: Initial release, version 0.0.0.
 
-	----------------------------------------------------------------------
-	Copyright 2002, 2003  Simon Josefsson
-	Copying and distribution of this file, with or without modification,
-	are permitted in any medium without royalty provided the copyright
-	notice and this notice are preserved.
+----------------------------------------------------------------------
+	Copyright 2002, 2003, 2004 Simon Josefsson
+	Copying and distribution of this file, with or without
+	modification, are permitted in any medium without royalty
+	provided the copyright notice and this notice are preserved.
