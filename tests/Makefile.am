@@ -18,14 +18,13 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-tests = simple
-
-check_PROGRAMS = $(tests)
-
-TESTS = $(tests)
-
-INCLUDES = -I$(top_srcdir)/lib
+AM_CPPFLAGS = -I$(top_srcdir)/lib
 LDADD = ../lib/libgsasl.la
+
+TESTS = simple
+check_PROGRAMS = $(TESTS)
+
+# Maintainer targets
 
 indent:
 	indent $(SOURCES)
