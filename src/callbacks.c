@@ -37,7 +37,7 @@ extern char *hostname;
 extern char *servicename;
 extern char **realms;
 extern size_t nrealms;
-extern int maxbuf;
+extern unsigned long maxbuf;
 extern int qop;
 
 static char *
@@ -261,8 +261,8 @@ client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops)
   return qop;
 }
 
-int
-client_callback_maxbuf (Gsasl_session_ctx * ctx, int servermaxbuf)
+unsigned long
+client_callback_maxbuf (Gsasl_session_ctx * ctx, unsigned long servermaxbuf)
 {
   return maxbuf;
 }
@@ -331,7 +331,7 @@ server_callback_qop (Gsasl_session_ctx * ctx)
   return GSASL_QOP_AUTH | GSASL_QOP_AUTH_INT | GSASL_QOP_AUTH_CONF;
 }
 
-int
+unsigned long
 server_callback_maxbuf (Gsasl_session_ctx * ctx)
 {
   return maxbuf;

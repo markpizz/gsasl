@@ -672,7 +672,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
       {
 	char **realm = NULL;
 	size_t nrealm = 0;
-	int maxbuf = MAXBUF_DEFAULT;
+	unsigned long maxbuf = MAXBUF_DEFAULT;
 	char *zinput = NULL;
 
 	if (input == NULL || input_len == 0)
@@ -755,7 +755,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	      break;
 
 	    case CHALLENGE_MAXBUF:
-	      maxbuf = strtol (value, NULL, 10);
+	      maxbuf = strtoul (value, NULL, 10);
 	      break;
 
 	    case CHALLENGE_CHARSET:
@@ -1115,7 +1115,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	  {
 	    char *tmp;
 
-	    asprintf (&tmp, "%d", maxbuf);
+	    asprintf (&tmp, "%ul", maxbuf);
 
 	    if (outlen + strlen (MAXBUF_PRE) + strlen (tmp) +
 		strlen (MAXBUF_POST) >= *output_len)
@@ -1528,7 +1528,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
   Gsasl_ctx *ctx;
   int res;
   int outlen;
-  int maxbuf;
+  unsigned long maxbuf;
 
   ctx = gsasl_server_ctx_get (sctx);
   if (ctx == NULL)
@@ -1661,7 +1661,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	{
 	  char *tmp;
 
-	  asprintf (&tmp, "%d", maxbuf);
+	  asprintf (&tmp, "%ul", maxbuf);
 
 	  if (outlen + strlen (MAXBUF_PRE) + strlen (tmp) +
 	      strlen (MAXBUF_POST) >= *output_len)
@@ -1797,7 +1797,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	unsigned char *response = NULL;
 	char *zinput = NULL;
 	Gsasl_qop qop = 0;
-	int maxbuf = MAXBUF_DEFAULT;
+	unsigned long maxbuf = MAXBUF_DEFAULT;
 	int cipher = 0;
 	int i;
 	GCRY_MD_HD md5h = NULL;
@@ -1911,7 +1911,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	      break;
 
 	    case RESPONSE_MAXBUF:
-	      maxbuf = strtol (value, NULL, 10);
+	      maxbuf = strtoul (value, NULL, 10);
 	      break;
 
 	    case RESPONSE_CHARSET:

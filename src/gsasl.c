@@ -62,7 +62,7 @@ char **realms;
 size_t nrealms;
 int enable_cram_md5_validate;
 int disable_cleartext_validate;
-int maxbuf;
+unsigned long maxbuf;
 int qop;
 int application_data;
 int no_client_first;
