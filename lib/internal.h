@@ -37,7 +37,9 @@
 /* Get specifications. */
 #include "gsasl.h"
 
+#if WITH_STRINGPREP
 #include <stringprep.h>
+#endif
 
 #include "gettext.h"
 #define _(String) dgettext (PACKAGE, String)

@@ -64,7 +64,10 @@
 #include <locale.h>
 #endif
 
+#ifdef WITH_STRINGPREP
 #include <stringprep.h>
+#endif
+
 #include <argp.h>
 
 #include <gsasl.h>
