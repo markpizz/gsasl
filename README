@@ -1,9 +1,15 @@
+Libgsasl README -- important introductory notes
+See the end for copying conditions.
+
 This directory holds the library `libgsasl', which implement the
 Simple Authentication and Security Layer (SASL), and an application
 `gsasl' for interfacing with the library from the command line.
 
 Libgsasl is unstable and in its early steps of development.  You
-should expect it to not work as well as having security problems.
+should expect it to not work as well as having security problems.  The
+API will likely change. Let me repeat that, LIBGSASL IS MOST LIKELY
+INSECURE.
+
 Currently there is some support for the following mechanisms:
 
   - CRAM-MD5 (RFC 2195, requires libgcrypt)
@@ -15,19 +21,6 @@ Currently there is some support for the following mechanisms:
   - DIGEST-MD5 (RFC 2831, requires libgcrypt)
   - LOGIN (non-standard)
   - NTLM (non-standard, client only, requires libntlm)
-
-Libgsasl has at some point in time passed the self tests on the
-following systems, but no guarantees.
-
-  - alphaev67-dec-osf5.0 (Compaq Tru64 UNIX C and Tru64 Make)
-  - i686-pc-linux-gnu (Debian unstable)
-  - i686-pc-linux-gnu (RedHat 7.2)
-  - mips-sgi-irix6.5 (MIPS C compiler in 64 bit mode and IRIX make)
-  - rs6000-ibm-aix4.3.2.0 (GCC 2.9-aix43-000718, GNU make)
-  - rs6000-ibm-aix4.3.2.0 (IBM C for AIX compiler and AIX Make)
-  - sparc-sun-solaris2.6 (Sun WorkShop Compiler C 5.0 and Sun make)
-  - sparc-sun-solaris2.6 (GCC 3.1 and GNU make)
-  - sparc-sun-solaris2.8 (GCC 3.1 and GNU make)
 
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
@@ -50,4 +43,17 @@ licensed under the GNU Free Documentation License (see COPYING.DOC).
 
 For updates to the project, see <URL:http://josefsson.org/libgsasl/>.
 
-Send all bug reports by electronic mail to bug-libgsasl@josefsson.org.
+----------------------------------------------------------------------
+Copyright information:
+
+Copyright (C) 2002 Simon Josefsson
+
+   Permission is granted to anyone to make or distribute verbatim copies
+   of this document as received, in any medium, provided that the
+   copyright notice and this permission notice are preserved,
+   thus giving the recipient permission to redistribute in turn.
+
+   Permission is granted to distribute modified versions
+   of this document, or of portions of it,
+   under the above conditions, provided also that they
+   carry prominent notices stating who last changed them.
