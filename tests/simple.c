@@ -19,7 +19,12 @@
  *
  */
 
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+/* We need the library config.h too. */
+#include "lib/config.h"
 
 #include <stdio.h>
 #include <stdarg.h>
