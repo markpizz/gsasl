@@ -69,7 +69,7 @@ Free Software Foundation raise funds for GNU development.''
 * Mechanisms::                  Mechanism specific information.
 * Global Functions::            Functions to use in global context.
 * Callback Functions::          Functions to set and get callbacks.
-* Session Functions::           Functions to perform the actual authentication.
+* Session Functions::           Functions used during a SASL session.
 * Utilities::                   Functions for various odd things.
 * Error Handling::              Error codes and such.
 * Examples::                    Example code.
