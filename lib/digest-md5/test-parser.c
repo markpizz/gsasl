@@ -49,9 +49,30 @@ main (int argc, char *argv[])
 
     printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, &c);
+    if (rc == 0)
+      abort ();
+    printf ("PASS\n");
+  }
+
+  {
+    char *token = "cipher=\"des\", nonce=42, algorithm=md5-sess";
+
+    printf ("challenge `%s': ", token);
+    rc = digest_md5_parse_challenge (token, &c);
+    if (rc == 0)
+      abort ();
+    printf ("PASS\n");
+  }
+
+  {
+    char *token = "qop=\"auth, auth-conf\", nonce=42, algorithm=md5-sess, cipher=\"des\"";
+
+    printf ("challenge `%s': ", token);
+    rc = digest_md5_parse_challenge (token, &c);
     if (rc != 0)
       abort ();
-    printf ("qop %02x: %s\n", c.qops, c.qops == 5 ? "PASS" : "FAILURE");
+    printf ("qop %02x ciphers %02x: %s\n", c.qops, c.ciphers,
+	    (c.qops == 5 && c.ciphers == 1) ? "PASS" : "FAILURE");
   }
 
   {
