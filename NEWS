@@ -33,6 +33,11 @@ If a too recent version is installed, it will not be used.
 
 ** Bug fixes.
 
+** API and ABI is backwards compatible with the previous version.
+Except for the Gsasl_client_callback_maxbuf and
+Gsasl_server_callback_maxbuf types which now uses 'unsigned long'
+instead of 'int'.
+
 * Changes in 0.0.7 (released 2003-06-02)
 
 ** Two new GSS libraries supported for the GSS-API mechanism.
