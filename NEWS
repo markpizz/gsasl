@@ -4,6 +4,13 @@ See the end for copying conditions.
 
 * Changes in 0.0.15 (unreleased)
 
+** The library re-licensed to LGPL and distributed as a separate package.
+This means a fork of this NEWS file, all the entries below relate to
+the combined work of earlier versions.  New entries above does not
+document user visible changes for the library ("libgsasl"), for that
+see NEWS in the lib/ sub-directory, which is also distributed as a
+stand-alone package.
+
 ** Polish translation added, by Jakub Bogusz.
 
 * Changes in 0.0.14 (released 2004-01-22)
