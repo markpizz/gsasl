@@ -145,7 +145,7 @@ digest_md5_print_response (digest_md5_response *r)
 		"nc=%08lx, %s, digest-uri=\"%s\", response=%s, "
 		"%s, %s, %s, %s%s%s",
 		r->username,
-		r->realm ? " realm=\"" : "",
+		r->realm ? "realm=\"" : "",
 		r->realm ? r->realm : "",
 		r->realm ? "\"" : "",
 		r->nonce,
