@@ -134,13 +134,13 @@ AC_MSG_RESULT($libgcrypt)
 if test "$libgcrypt" != "no" ; then
 	AC_DEFINE(USE_GCRYPT, 1, [Define to 1 if you want to use libgcrypt.])
 else
-	CRYPTO_CFLAGS="-I\$(top_srcdir)/crypto"
-	CRYPTO_LIBS="\$(top_builddir)/crypto/libnettle.la"
+	NETTLE_CFLAGS="-I\$(top_srcdir)/crypto"
+	NETTLE_LIBS="\$(top_builddir)/crypto/libnettle.la"
 fi
 AM_CONDITIONAL(LIBGCRYPT, test "$libgcrypt" != "no")
 AM_CONDITIONAL(NETTLE, test "$libgcrypt" = "no")
-AC_SUBST(CRYPTO_CFLAGS)
-AC_SUBST(CRYPTO_LIBS)
+AC_SUBST(NETTLE_CFLAGS)
+AC_SUBST(NETTLE_LIBS)
 
 # CRAM-MD5
 AC_ARG_ENABLE(cram-md5,
@@ -182,10 +182,8 @@ elif test "$gssapi" = "mit"; then
 	AC_MSG_NOTICE([trying MIT])
 	AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
 	if test "$KRB5_CONFIG" != "no" ; then
-		GSSAPI_CFLAGS=`$KRB5_CONFIG --cflags`
-		GSSAPI_LIBS=`$KRB5_CONFIG --libs gssapi`
-		save_CPPFLAGS=$CPPFLAGS
-		CPPFLAGS=$GSSAPI_CFLAGS
+		CPPFLAGS="$CPPFLAGS `$KRB5_CONFIG --cflags`"
+		LIBS="$LIBS `$KRB5_CONFIG --libs gssapi`"
 		AC_CHECK_HEADERS(gssapi/gssapi.h gssapi/gssapi_generic.h)
 		AC_CHECK_DECL(GSS_C_NT_HOSTBASED_SERVICE,,
 			[AC_DEFINE(GSS_C_NT_HOSTBASED_SERVICE,
@@ -198,9 +196,6 @@ elif test "$gssapi" = "mit"; then
 # include <gssapi/gssapi_generic.h>
 #endif
 ])
-		CPPFLAGS=$save_CPPFLAGS
-		AC_SUBST(GSSAPI_CFLAGS)
-		AC_SUBST(GSSAPI_LIBS)
 		gssapi=yes
 	else
 		AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
@@ -210,14 +205,9 @@ elif test "$gssapi" = "heimdal"; then
 	AC_MSG_NOTICE([trying Heimdal])
 	AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
 	if test "$KRB5_CONFIG" != "no" ; then
-		GSSAPI_CFLAGS=`$KRB5_CONFIG --cflags`
-		GSSAPI_LIBS=`$KRB5_CONFIG --libs gssapi`
-		save_CPPFLAGS=$CPPFLAGS
-		CPPFLAGS=$GSSAPI_CFLAGS
+		CPPFLAGS="$CPPFLAGS `$KRB5_CONFIG --cflags`"
+		LIBS="$LIBS `$KRB5_CONFIG --libs gssapi`"
 		AC_CHECK_HEADERS(gssapi.h)
-		CPPFLAGS=$save_CPPFLAGS
-		AC_SUBST(GSSAPI_CFLAGS)
-		AC_SUBST(GSSAPI_LIBS)
 		gssapi=yes
 	else
 		AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
@@ -237,10 +227,8 @@ elif test "$gssapi" != "no" ; then
 		AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
 		if test "$KRB5_CONFIG" != "no" ; then
 			AC_MSG_NOTICE([MIT/Heimdal found])
-			GSSAPI_CFLAGS=`$KRB5_CONFIG --cflags`
-			GSSAPI_LIBS=`$KRB5_CONFIG --libs gssapi`
-			save_CPPFLAGS=$CPPFLAGS
-			CPPFLAGS=$GSSAPI_CFLAGS
+			CPPFLAGS="$CPPFLAGS `$KRB5_CONFIG --cflags`"
+			LIBS="$LIBS `$KRB5_CONFIG --libs gssapi`"
 			AC_CHECK_HEADERS(gssapi.h gssapi/gssapi.h gssapi/gssapi_generic.h)
 			if test "$ac_cv_header_gssapi_h" = "yes" && \
 			   test	"$ac_cv_header_gssapi_gssapi_h" = "yes"; then
@@ -263,9 +251,6 @@ elif test "$gssapi" != "no" ; then
 #endif
 ])
 			fi
-			CPPFLAGS=$save_CPPFLAGS
-			AC_SUBST(GSSAPI_CFLAGS)
-			AC_SUBST(GSSAPI_LIBS)
 			gssapi=yes
 		else
 			AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
