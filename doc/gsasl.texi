@@ -851,6 +851,8 @@ AC_MSG_RESULT($gsasl)
 @node Using the Library
 @chapter Using the Library
 
+@image{controlflow,15cm,15cm}
+
 After initialization of the library, the core part of the library is
 run within a loop until it has finished.  The library is handed input
 from the other protocol entity and results in output which is to be
