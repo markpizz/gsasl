@@ -12,6 +12,10 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 ** DIGEST-MD5 is disabled by default, pending a rewrite for the new API.
 
+** Command line tool uses new callback interface to the library.
+
+** Command line tool uses "iconvme" from gnulib for UTF-8 string conversion.
+
 ** Server mode in the command line tool does not work currently.
 It is unclear if this feature was ever that useful.  If there are no
 objections, it will be removed completely in future versions.
