@@ -429,6 +429,17 @@ GNU SASL contains a library (`libgsasl'), a command line utility
 @Returns: 
 
 
+<!-- ##### USER_FUNCTION Gsasl_client_callback_realm ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@out: 
+@outlen: 
+@Returns: 
+
+
 <!-- ##### USER_FUNCTION Gsasl_server_callback_retrieve ##### -->
 <para>
 
