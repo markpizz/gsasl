@@ -190,15 +190,19 @@ if test "$libgcrypt" = "no" ; then
 	NAME_OF_NONCE_DEVICE=$enableval)
   AC_MSG_RESULT($NAME_OF_NONCE_DEVICE)
 
-  AC_CHECK_FILE($NAME_OF_RANDOM_DEVICE,, AC_MSG_ERROR([[
-*** Device for (strong) random data $NAME_OF_RANDOM_DEVICE does not exist
-]]))
-  AC_CHECK_FILE($NAME_OF_PSEUDO_RANDOM_DEVICE,, AC_MSG_ERROR([[
-*** Device for pseudo-random data $NAME_OF_PSEUDO_RANDOM_DEVICE does not exist
-]]))
-  AC_CHECK_FILE($NAME_OF_NONCE_DEVICE,, AC_MSG_ERROR([[
-*** Device for unpredictable nonces $NAME_OF_NONCE_DEVICE does not exist
-]]))
+  if test "$cross_compiling" != yes; then
+    AC_CHECK_FILE($NAME_OF_RANDOM_DEVICE,, AC_MSG_ERROR([[
+      *** Device for (strong) random data $NAME_OF_RANDOM_DEVICE does not exist
+    ]]))
+    AC_CHECK_FILE($NAME_OF_PSEUDO_RANDOM_DEVICE,, AC_MSG_ERROR([[
+      *** Device for pseudo-random data $NAME_OF_PSEUDO_RANDOM_DEVICE does not exist
+    ]]))
+    AC_CHECK_FILE($NAME_OF_NONCE_DEVICE,, AC_MSG_ERROR([[
+      *** Device for unpredictable nonces $NAME_OF_NONCE_DEVICE does not exist
+    ]]))
+  else
+    AC_MSG_NOTICE([[Cross compiling, assuming random devices exists...]])  
+  fi
 
   # FIXME: Open+read 42 bytes+close twice and compare data.  Should differ.
 
