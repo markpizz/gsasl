@@ -26,12 +26,6 @@
 # include <config.h>
 #endif
 
-/* Get SIZE_MAX.  */
-#include <limits.h>
-#if HAVE_STDINT_H
-# include <stdint.h>
-#endif
-
 /* Get malloc. */
 #include <stdlib.h>
 
@@ -365,7 +359,7 @@ base64_decode_alloc (const char *in, size_t inlen, char **out,
   needlen = 3 * inlen / 4; /* FIXME: May allocate one 1 or 2 bytes too
 			      much, depending on input. */
 
-  *out = malloc (*outlen);
+  *out = malloc (needlen);
   if (!*out)
     return true;
 
@@ -376,7 +370,7 @@ base64_decode_alloc (const char *in, size_t inlen, char **out,
       return false;
     }
 
-  if (*outlen)
+  if (outlen)
     *outlen = needlen;
 
   return true;
