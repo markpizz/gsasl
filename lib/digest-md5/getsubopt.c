@@ -23,6 +23,8 @@
 
 #include "shared.h"
 
+#include <string.h>
+
 /* Parse comma separate list into words.
    Copyright (C) 1996, 1997, 1999 Free Software Foundation, Inc.
    From the GNU C Library, under GNU LGPL version 2.1.
