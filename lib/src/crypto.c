@@ -21,6 +21,8 @@
 
 #include "internal.h"
 
+#include "gc.h"
+
 /**
  * gsasl_nonce:
  * @data: output array to be filled with unpredictable random data.
