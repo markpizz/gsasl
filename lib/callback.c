@@ -36,7 +36,7 @@ gsasl_ctx_get (Gsasl_session * sctx)
 /**
  * gsasl_application_data_set:
  * @ctx: libgsasl handle.
- * @application_data: opaque pointer to application specific data.
+ * @appdata: opaque pointer to application specific data.
  *
  * Store application specific data in the libgsasl handle.  The
  * application data can be later (for instance, inside a callback) be
@@ -45,9 +45,9 @@ gsasl_ctx_get (Gsasl_session * sctx)
  * and the callback.
  **/
 void
-gsasl_application_data_set (Gsasl * ctx, void *application_data)
+gsasl_application_data_set (Gsasl * ctx, void *appdata)
 {
-  ctx->application_data = application_data;
+  ctx->application_data = appdata;
 }
 
 /**
@@ -55,7 +55,7 @@ gsasl_application_data_set (Gsasl * ctx, void *application_data)
  * @ctx: libgsasl handle.
  *
  * Retrieve application specific data from libgsasl handle. The
- * application data is set using gsasl_application_data_set().  It is
+ * application data is set using gsasl_appdata_set().  It is
  * normally used by the application to maintain state between the main
  * program and the callback.
  *
@@ -70,7 +70,7 @@ gsasl_application_data_get (Gsasl * ctx)
 /**
  * gsasl_appinfo_set:
  * @sctx: libgsasl session handle.
- * @application_data: opaque pointer to application specific data.
+ * @appdata: opaque pointer to application specific data.
  *
  * Store application specific data in the libgsasl session handle.
  * The application data can be later (for instance, inside a callback)
@@ -79,9 +79,9 @@ gsasl_application_data_get (Gsasl * ctx)
  * main program and the callback.
  **/
 void
-gsasl_appinfo_set (Gsasl_session * sctx, void *application_data)
+gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
 {
-  sctx->application_data = application_data;
+  sctx->application_data = appdata;
 }
 
 /**
