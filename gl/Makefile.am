@@ -59,3 +59,6 @@ libfoo_a_SOURCES += unlocked-io.h
 
 libfoo_a_SOURCES += xalloc.h xmalloc.c xstrdup.c
 
+libfoo_a_SOURCES += strchrnul.h
+
+libfoo_a_SOURCES += unlocked-io.h
