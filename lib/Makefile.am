@@ -27,7 +27,7 @@ include_HEADERS = gsasl.h
 
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @NETTLE_LIBS@
-libgsasl_la_SOURCES = gsasl.h.in internal.h gettext.h \
+libgsasl_la_SOURCES = gsasl.h.in internal.h crypto.h gettext.h \
 	init.c done.c error.c version.c common.c \
 	callback.c callback-c.c callback-s.c \
 	supportp.c suggest.c listmech.c \
