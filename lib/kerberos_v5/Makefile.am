@@ -18,10 +18,13 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-AM_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_builddir)/lib
+# -Igl is for strdup.
+AM_CPPFLAGS = -I$(top_srcdir)/gl \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 
 noinst_LTLIBRARIES = libgsasl-kerberos_v5.la
 libgsasl_kerberos_v5_la_SOURCES = kerberos_v5.h kerberos_v5.c
+libgsasl_kerberos_v5_la_LIBADD = $(top_builddir)/gl/libgl.la
 
 indent:
 	indent $(libgsasl_kerberos_v5_la_SOURCES)
