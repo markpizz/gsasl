@@ -61,6 +61,9 @@ getpassword (char *prompt)
 
   p = fgets (buf, sizeof (buf), stdin);
 
+  /* Remove \n. */
+  buf[strlen (buf) - 1] = '\0';
+
   if (tty_set_echo (1))
     return NULL;
 

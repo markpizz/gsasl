@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Changes in 0.1.2 (unreleased)
 
+** The GNU Readline library is used to read data, if available.
+
+** Passwords read from stdin are not echoed to the terminal.
+
 * Changes in 0.1.1 (released 2004-06-26)
 
 ** In the command line client, the default quality of protection is now none.
