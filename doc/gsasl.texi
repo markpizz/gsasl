@@ -1255,11 +1255,6 @@ when invoked for @code{GSASL_VALIDATE_GSSAPI}.
 The name of the authentication domain.  This is used by several
 mechanisms, including DIGEST-MD5, GSS-API, KERBEROS_V5 and NTLM.
 
-@item @code{GSASL_QOP}
-
-A string denoting quality of service, currently used by DIGEST-MD5.
-The string may be @code{auth}, @code{auth-int}, or @code{auth-conf}.
-
 @item @code{GSASL_PASSCODE}
 
 The SecurID passcode.
