@@ -59,7 +59,7 @@ getpassword (char *prompt)
   if (tty_set_echo (0))
     return NULL;
 
-  p = fgets (buf, sizeof (buf), stdin)
+  p = fgets (buf, sizeof (buf), stdin);
 
   if (tty_set_echo (1))
     return NULL;
