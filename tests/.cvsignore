@@ -7,5 +7,6 @@ simple
 cram-md5
 digest-md5
 md5file
+old-cram-md5
 *.la
 *.lo
