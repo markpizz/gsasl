@@ -1,4 +1,4 @@
-# Copyright (C) 2002, 2003 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -37,7 +37,7 @@ option "smtp" - "Use a SMTP-like logon procedure (client only). Also sets the --
 option "mechanism" m "Mechanism to use." string no
 option "no-client-first" - "Disallow client to send data first (client only)." flag off
 
-section "SASL mechanism options (prompted for if unspecified and needed)"
+section "SASL mechanism options (they are prompted for when required)"
 option "anonymous-token" n "Token for anonymous authentication, usually mail address (ANONYMOUS only)." string no
 option "authentication-id" a "Identity of credential owner." string no
 option "authorization-id" z "Identity to request service for." string no
