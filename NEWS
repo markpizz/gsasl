@@ -10,10 +10,8 @@ installed, or wish to override the preference to use GSS over
 MIT/Heimdal.  In that case, you can --enable-gssapi=mit or
 --enable-gssapi=heimdal.
 
-** GNU SASL contain APIs for internationalized string processing.
-You no longer have to use Libidn directly for this.  The currently
-supported functions are gsasl_stringprep_nfkc,
-gsasl_stringprep_saslprep, and gsasl_stringprep_trace.
+** GNU SASL contain APIs for internationalized string processing via SASLprep.
+You no longer have to use Libidn directly for this.
 
 ** Man pages for all public functions are included.
 
@@ -23,7 +21,9 @@ earlier ad-hoc usage of argp, memset, etc.
 
 ** GNU SASL will be C89 compatible.
 The library itself (lib/*) only use C89.  The remaining parts (src/
-and tests/) can use C89 and any functionality from GNULib.
+and tests/) can use C89 and any functionality from GNULib.  This
+decision may be revised in the future, if it turns out there are
+problems with this.
 
 ** Improvements for embedded or otherwise limited systems.
 The math library (-lm) is no longer required.  All client code can be
