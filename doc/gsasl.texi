@@ -657,7 +657,7 @@ new features may have been introduced but due to problem with the
 dynamic linker an old version is actually used.  So you may want to
 check that the version is okay right after program startup.
 
-@include gsasl-api-version.texi
+@include texi/gsasl_check_version.texi
 
 The normal way to use the function is to put something similar to the
 following early in your @code{main()}:
@@ -1305,7 +1305,11 @@ similar to the GSSAPI callback).
 @node Global Functions
 @chapter Global Functions
 
-@include gsasl-api-global.texi
+@include texi/init.c.texi
+@include texi/done.c.texi
+@include texi/listmech.c.texi
+@include texi/supportp.c.texi
+@include texi/suggest.c.texi
 
 
 @c **********************************************************
@@ -1315,7 +1319,9 @@ similar to the GSSAPI callback).
 @chapter Callback Functions
 @cindex Callbacks
 
-@include gsasl-api-callback.texi
+@include texi/callback.c.texi
+@include texi/callback-s.c.texi
+@include texi/callback-c.c.texi
 
 
 @c **********************************************************
@@ -1325,7 +1331,11 @@ similar to the GSSAPI callback).
 @chapter Session Functions
 @cindex SASL sessions
 
-@include gsasl-api-session.texi
+@include texi/xstart.c.texi
+@include texi/xstep.c.texi
+@include texi/xfinish.c.texi
+@include texi/xcode.c.texi
+
 
 
 @c **********************************************************
@@ -1334,7 +1344,11 @@ similar to the GSSAPI callback).
 @node Utilities
 @chapter Utilities
 
-@include gsasl-api-utils.texi
+@include texi/stringprep.c.texi
+@include texi/base64.c.texi
+@include texi/hexdump.c.texi
+@include texi/md5pwd.c.texi
+
 
 
 @c **********************************************************
@@ -1378,7 +1392,7 @@ to always be @code{0} so you may use it in boolean constructs.
 @node Error strings
 @section Error strings
 
-@include gsasl-api-error.texi
+@include texi/error.c.texi
 
 @c **********************************************************
 @c ***********************  Examples  ***********************
