@@ -156,7 +156,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
 				  GSS_C_NT_HOSTBASED_SERVICE,
 				  &state->service);
       free (bufdesc.value);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	{
 	  free (state);
 	  return GSASL_GSSAPI_IMPORT_NAME_ERROR;
@@ -232,12 +232,12 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
       bufdesc.value = /*XXX*/ (char *) input;
       maj_stat = gss_unwrap (&min_stat, state->context, &bufdesc,
 			     &bufdesc2, &conf_state, &qop_state);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_UNWRAP_ERROR;
 
       memcpy (output, bufdesc2.value, 4);
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
       if ((output[0] & GSSAPI_AUTH_NONE) == 0)
@@ -251,13 +251,13 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
       bufdesc.value = output;
       maj_stat = gss_wrap (&min_stat, state->context, 0, GSS_C_QOP_DEFAULT,
 			   &bufdesc, &conf_state, &bufdesc2);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_WRAP_ERROR;
       memcpy (output, bufdesc2.value, bufdesc2.length);
       *output_len = bufdesc2.length;
 
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
       state->step++;
@@ -368,7 +368,7 @@ _gsasl_gssapi_server_start (Gsasl_session_ctx * sctx, void **mech_data)
   maj_stat = gss_import_name (&min_stat, &bufdesc, GSS_C_NT_HOSTBASED_SERVICE,
 			      &server);
   free (bufdesc.value);
-  if (maj_stat != GSS_S_COMPLETE)
+  if (GSS_ERROR (maj_stat))
     {
       free (state);
       return GSASL_GSSAPI_IMPORT_NAME_ERROR;
@@ -379,7 +379,7 @@ _gsasl_gssapi_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 			       &state->cred, NULL, NULL);
   gss_release_name (&min_stat, &server);
 
-  if (maj_stat != GSS_S_COMPLETE)
+  if (GSS_ERROR (maj_stat))
     {
       free (state);
       return GSASL_GSSAPI_ACQUIRE_CRED_ERROR;
@@ -458,7 +458,7 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
       *output_len = bufdesc2.length;
 
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
       res = GSASL_NEEDS_MORE;
@@ -474,7 +474,7 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
       bufdesc1.value = output;
       maj_stat = gss_wrap (&min_stat, state->context, 0, GSS_C_QOP_DEFAULT,
 			   &bufdesc1, NULL, &bufdesc2);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_WRAP_ERROR;
 
       if (*output_len < bufdesc2.length)
@@ -486,7 +486,7 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
       *output_len = bufdesc2.length;
 
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
       state->step++;
@@ -498,7 +498,7 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
       bufdesc1.length = input_len;
       maj_stat = gss_unwrap (&min_stat, state->context, &bufdesc1,
 			     &bufdesc2, NULL, NULL);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_UNWRAP_ERROR;
 
       /* [RFC 2222 section 7.2.1]:
@@ -533,12 +533,12 @@ _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
       memcpy (username, (char *) bufdesc2.value + 4, bufdesc2.length - 4);
       username[bufdesc2.length - 4] = '\0';
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
       maj_stat = gss_display_name (&min_stat, state->client,
 				   &client_name, &mech_type);
-      if (maj_stat != GSS_S_COMPLETE)
+      if (GSS_ERROR (maj_stat))
 	{
 	  free (username);
 	  return GSASL_GSSAPI_DISPLAY_NAME_ERROR;
