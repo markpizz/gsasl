@@ -431,13 +431,16 @@ main (int argc, char *argv[])
 	  else
 	    res = gsasl_server_step_base64 (xctx, input, output, output_len);
 
-	  if (res != GSASL_NEEDS_MORE)
+	  if (res != GSASL_NEEDS_MORE && res != GSASL_OK)
 	    break;
 
 	  if (!silent)
 	    fprintf (stderr, _("Output from %s:\n"),
 		     mode == 'c' ? _("client") : _("server"));
 	  fprintf (stdout, "%s\n", output);
+
+	  if (res != GSASL_NEEDS_MORE)
+	    break;
 
 	  if (!silent)
 	    fprintf (stderr, _("Enter base64 authentication data from %s "
