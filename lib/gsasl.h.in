@@ -137,6 +137,9 @@ extern "C"
   extern void gsasl_application_data_set (Gsasl_ctx * ctx,
 					  void *application_data);
   extern void *gsasl_application_data_get (Gsasl_ctx * ctx);
+  extern void gsasl_application_session_data_set (Gsasl_session_ctx * sctx,
+						  void *application_data);
+  extern void *gsasl_application_session_data_get (Gsasl_session_ctx * sctx);
 
 /* Mechanism handling: listmech.c, supportp.c, suggest.c */
   extern int gsasl_client_mechlist (Gsasl_ctx * ctx, char **out);
