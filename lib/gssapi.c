@@ -259,11 +259,11 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
       state->step++;
-      res = GSASL_NEEDS_MORE;
+      res = GSASL_OK;
       break;
 
     default:
-      res = GSASL_OK;
+      res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
       break;
     }
 
