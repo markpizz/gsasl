@@ -68,9 +68,9 @@ _gsasl_login_client_step (Gsasl_session * sctx,
   switch (state->step)
     {
     case 0:
-      p = gsasl_property_get (sctx, GSASL_AUTHZID);
+      p = gsasl_property_get (sctx, GSASL_AUTHID);
       if (!p)
-	return GSASL_NO_AUTHZID;
+	return GSASL_NO_AUTHID;
 
       tmp = gsasl_stringprep_nfkc (p, -1);
       if (tmp == NULL)
