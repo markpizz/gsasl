@@ -72,12 +72,11 @@ _gsasl_login_client_step (Gsasl_session * sctx,
       if (!p)
 	return GSASL_NO_AUTHID;
 
-      tmp = gsasl_stringprep_nfkc (p, -1);
-      if (tmp == NULL)
-	return GSASL_UNICODE_NORMALIZATION_ERROR;
+      res = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED, output, NULL);
+      if (res != GSASL_OK)
+	return res;
 
-      *output = tmp;
-      *output_len = strlen (tmp);
+      *output_len = strlen (*output);
 
       state->step++;
       res = GSASL_NEEDS_MORE;
@@ -88,12 +87,11 @@ _gsasl_login_client_step (Gsasl_session * sctx,
       if (!p)
 	return GSASL_NO_PASSWORD;
 
-      tmp = gsasl_stringprep_nfkc (p, -1);
-      if (tmp == NULL)
-	return GSASL_UNICODE_NORMALIZATION_ERROR;
+      res = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED, output, NULL);
+      if (res != GSASL_OK)
+	return res;
 
-      *output = tmp;
-      *output_len = strlen (tmp);
+      *output_len = strlen (*output);
 
       state->step++;
       res = GSASL_OK;
