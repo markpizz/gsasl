@@ -68,7 +68,6 @@ _gsasl_gssapi_server_start (Gsasl_session * sctx, void **mech_data)
   gss_buffer_desc bufdesc;
   const char *service;
   const char *hostname;
-  int res;
 
   service = gsasl_property_get (sctx, GSASL_SERVICE);
   if (!service)
@@ -129,12 +128,10 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
 			   char **output2, size_t * output2_len)
 {
   _Gsasl_gssapi_server_state *state = mech_data;
-  Gsasl_server_callback_gssapi cb_gssapi;
   gss_buffer_desc bufdesc1, bufdesc2;
   OM_uint32 maj_stat, min_stat;
   gss_buffer_desc client_name;
   gss_OID mech_type;
-  Gsasl *ctx;
   char *username;
   int res;
   /* FIXME: Remove fixed size buffer. */
@@ -144,14 +141,6 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
 
   *output2 = NULL;
   *output2_len = 0;
-
-  ctx = gsasl_server_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  cb_gssapi = gsasl_server_callback_gssapi_get (ctx);
-  if (cb_gssapi == NULL)
-    return GSASL_NEED_SERVER_GSSAPI_CALLBACK;
 
   switch (state->step)
     {
@@ -285,7 +274,10 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
 	  return GSASL_GSSAPI_DISPLAY_NAME_ERROR;
 	}
 
-      res = cb_gssapi (sctx, client_name.value, username);
+      gsasl_property_set (sctx, GSASL_AUTHZID, username);
+      gsasl_property_set (sctx, GSASL_GSSAPI_DISPLAY_NAME, client_name.value);
+
+      res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_GSSAPI);
 
       free (username);
 
