@@ -28,7 +28,7 @@ AC_INIT(libgsasl, 0.0.4, bug-libgsasl@josefsson.org)
 # No interfaces changed:                    REVISION++
 LT_CURRENT=2
 LT_AGE=1
-LT_REVISION=0
+LT_REVISION=1
 AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_AGE)
 AC_SUBST(LT_REVISION)
