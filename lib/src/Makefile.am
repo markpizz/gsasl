@@ -37,7 +37,7 @@ libgsasl_la_SOURCES = gsasl.h.in internal.h \
 	base64.c md5pwd.c crypto.c obsolete.c
 
 if STRINGPREP
-libgsasl_la_SOURCES += stringprep.c
+libgsasl_la_SOURCES += stringprep.c saslprep.c
 else
 libgsasl_la_SOURCES += stringprep-no.c
 endif
