@@ -32,8 +32,10 @@
  * OK: data in OUT/OUTLEN
  *
  * size_t outlen = base64_encode_alloc (in, inlen, &out);
+ * if (out == NULL && outlen == 0 && inlen != 0)
+ *   FAIL: input too long
  * if (out == NULL)
- *   FAIL: memory allocation error, or input string too long
+ *   FAIL: memory allocation error
  * OK: data in OUT/LEN.
  *
  */
@@ -348,11 +350,12 @@ base64_decode (const char *in, size_t inlen, char *out, size_t * outlen)
 		}
 	    }
 	}
+
       in += 4;
       inlen -= 4;
     }
 
-  *outlen = *outlen - outleft;
+  *outlen -= outleft;
 
   if (inlen != 0)
     return false;
