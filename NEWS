@@ -2,6 +2,8 @@ GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
+* Changes in 0.0.15 (unreleased)
+
 * Changes in 0.0.14 (released 2004-01-22)
 
 ** Moved all mechanism specific code into sub-directories of lib/.
