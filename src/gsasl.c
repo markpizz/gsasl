@@ -387,12 +387,8 @@ readln (char *buf, size_t maxbuflen)
     if (!fgets (buf, maxbuflen, stdin))
       return 0;
 
-  while (buf[0] && (buf[strlen (buf) - 1] == '\n' ||
-		    buf[strlen (buf) - 1] == '\r'))
-    buf[strlen (buf) - 1] = '\0';
-
   if (sockfd)
-    printf ("%s\n", buf);
+    printf ("%s", buf);
 
   return 1;
 }
