@@ -31,7 +31,7 @@
  * the libgsasl client which is present in the input string.
  **/
 const char *
-gsasl_client_suggest_mechanism (Gsasl_ctx *ctx, const char *mechlist)
+gsasl_client_suggest_mechanism (Gsasl_ctx * ctx, const char *mechlist)
 {
   /* XXX parse mechlist */
   return ctx->client_mechs[0].name;
@@ -47,7 +47,7 @@ gsasl_client_suggest_mechanism (Gsasl_ctx *ctx, const char *mechlist)
  * the libgsasl server which is present in the input string.
  **/
 const char *
-gsasl_server_suggest_mechanism (Gsasl_ctx *ctx, const char *mechlist)
+gsasl_server_suggest_mechanism (Gsasl_ctx * ctx, const char *mechlist)
 {
   /* XXX parse mechlist */
   return ctx->server_mechs[0].name;

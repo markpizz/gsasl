@@ -45,18 +45,19 @@
 
 #include <config.h>
 
-typedef char   gchar;
-typedef short  gshort;
-typedef long   glong;
-typedef int    gint;
-typedef gint   gboolean;
+typedef char gchar;
+typedef short gshort;
+typedef long glong;
+typedef int gint;
+typedef gint gboolean;
 
-typedef unsigned char   guchar;
-typedef unsigned short  gushort;
-typedef unsigned long   gulong;
-typedef unsigned int    guint;
+typedef unsigned char guchar;
+typedef unsigned short gushort;
+typedef unsigned long gulong;
+typedef unsigned int guint;
 
-typedef enum {
+typedef enum
+{
   G_NORMALIZE_DEFAULT,
   G_NORMALIZE_NFD = G_NORMALIZE_DEFAULT,
   G_NORMALIZE_DEFAULT_COMPOSE,
@@ -65,7 +66,8 @@ typedef enum {
   G_NORMALIZE_NFKD = G_NORMALIZE_ALL,
   G_NORMALIZE_ALL_COMPOSE,
   G_NORMALIZE_NFKC = G_NORMALIZE_ALL_COMPOSE
-} GNormalizeMode;
+}
+GNormalizeMode;
 
 #include "gunidecomp.h"
 #include "gunicomp.h"
@@ -130,7 +132,7 @@ typedef unsigned int gsize;
     ((Char) < 0x10000 ? 3 :            \
      ((Char) < 0x200000 ? 4 :          \
       ((Char) < 0x4000000 ? 5 : 6)))))
-   
+
 
 #define UTF8_GET(Result, Chars, Count, Mask, Len)			      \
   (Result) = (Chars)[0] & (Mask);					      \
@@ -149,18 +151,26 @@ typedef unsigned int gsize;
     ((Char) < 0x110000 &&                     \
      ((Char) < 0xD800 || (Char) >= 0xE000) && \
      (Char) != 0xFFFE && (Char) != 0xFFFF)
-   
+
 static const gchar utf8_skip_data[256] = {
-  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-  3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,5,5,5,5,6,6,1,1
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1,
+  2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2,
+  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 5,
+    5, 5, 5, 6, 6, 1, 1
 };
-static const gchar * const g_utf8_skip = utf8_skip_data;
+static const gchar *const g_utf8_skip = utf8_skip_data;
 
 #define g_utf8_next_char(p) (char *)((p) + g_utf8_skip[*(guchar *)(p)])
 
@@ -183,7 +193,7 @@ static const gchar * const g_utf8_skip = utf8_skip_data;
  * Return value: the resulting character
  **/
 static gunichar
-g_utf8_get_char (const gchar *p)
+g_utf8_get_char (const gchar * p)
 {
   int i, mask = 0, len;
   gunichar result;
@@ -191,7 +201,7 @@ g_utf8_get_char (const gchar *p)
 
   UTF8_COMPUTE (c, mask, len);
   if (len == -1)
-    return (gunichar)-1;
+    return (gunichar) - 1;
   UTF8_GET (result, p, i, mask, len);
 
   return result;
@@ -216,8 +226,7 @@ g_utf8_get_char (const gchar *p)
  * manual for more information. 
  **/
 static void
-g_unicode_canonical_ordering (gunichar *string,
-			      gsize     len)
+g_unicode_canonical_ordering (gunichar * string, gsize len)
 {
   gsize i;
   int swap = 1;
@@ -245,7 +254,7 @@ g_unicode_canonical_ordering (gunichar *string,
 		  swap = 1;
 		}
 	      /* We're re-entering the loop looking at the old
-		 character again.  */
+	         character again.  */
 	      next = last;
 	    }
 	  last = next;
@@ -254,14 +263,12 @@ g_unicode_canonical_ordering (gunichar *string,
 }
 
 static const guchar *
-find_decomposition (gunichar ch,
-		    gboolean compat)
+find_decomposition (gunichar ch, gboolean compat)
 {
   int start = 0;
   int end = G_N_ELEMENTS (decomp_table);
-  
-  if (ch >= decomp_table[start].ch &&
-      ch <= decomp_table[end - 1].ch)
+
+  if (ch >= decomp_table[start].ch && ch <= decomp_table[end - 1].ch)
     {
       while (TRUE)
 	{
@@ -282,8 +289,10 @@ find_decomposition (gunichar ch,
 		  if (offset == 0xff)
 		    return NULL;
 		}
-	      
-	      return &(decomp_expansion_string[decomp_table[half].expansion_offset + offset]);
+
+	      return
+		&(decomp_expansion_string
+		  [decomp_table[half].expansion_offset + offset]);
 	    }
 	  else if (half == start)
 	    break;
@@ -306,40 +315,44 @@ find_decomposition (gunichar ch,
      (((Char) > (G_UNICODE_LAST_CHAR)) ? 0 : CI((Char) >> 8, (Char) & 0xff))
 
 static gboolean
-combine (gunichar  a,
-	 gunichar  b,
-	 gunichar *result)
+combine (gunichar a, gunichar b, gunichar * result)
 {
   gushort index_a, index_b;
 
-  index_a = COMPOSE_INDEX(a);
+  index_a = COMPOSE_INDEX (a);
   if (index_a >= COMPOSE_FIRST_SINGLE_START && index_a < COMPOSE_SECOND_START)
     {
       if (b == compose_first_single[index_a - COMPOSE_FIRST_SINGLE_START][0])
 	{
-	  *result = compose_first_single[index_a - COMPOSE_FIRST_SINGLE_START][1];
-	  return TRUE;
-	}
-      else
-	return FALSE;
-    }
-  
-  index_b = COMPOSE_INDEX(b);
-  if (index_b >= COMPOSE_SECOND_SINGLE_START)
-    {
-      if (a == compose_second_single[index_b - COMPOSE_SECOND_SINGLE_START][0])
-	{
-	  *result = compose_second_single[index_b - COMPOSE_SECOND_SINGLE_START][1];
+	  *result =
+	    compose_first_single[index_a - COMPOSE_FIRST_SINGLE_START][1];
 	  return TRUE;
 	}
       else
 	return FALSE;
     }
 
-  if (index_a >= COMPOSE_FIRST_START && index_a < COMPOSE_FIRST_SINGLE_START &&
-      index_b >= COMPOSE_SECOND_START && index_a < COMPOSE_SECOND_SINGLE_START)
+  index_b = COMPOSE_INDEX (b);
+  if (index_b >= COMPOSE_SECOND_SINGLE_START)
     {
-      gunichar res = compose_array[index_a - COMPOSE_FIRST_START][index_b - COMPOSE_SECOND_START];
+      if (a ==
+	  compose_second_single[index_b - COMPOSE_SECOND_SINGLE_START][0])
+	{
+	  *result =
+	    compose_second_single[index_b - COMPOSE_SECOND_SINGLE_START][1];
+	  return TRUE;
+	}
+      else
+	return FALSE;
+    }
+
+  if (index_a >= COMPOSE_FIRST_START && index_a < COMPOSE_FIRST_SINGLE_START
+      && index_b >= COMPOSE_SECOND_START
+      && index_a < COMPOSE_SECOND_SINGLE_START)
+    {
+      gunichar res =
+	compose_array[index_a - COMPOSE_FIRST_START][index_b -
+						     COMPOSE_SECOND_START];
 
       if (res)
 	{
@@ -352,18 +365,14 @@ combine (gunichar  a,
 }
 
 static gunichar *
-_g_utf8_normalize_wc (const gchar    *str,
-		      gssize          max_len,
-		      GNormalizeMode  mode)
+_g_utf8_normalize_wc (const gchar * str, gssize max_len, GNormalizeMode mode)
 {
   gsize n_wc;
   gunichar *wc_buffer;
   const char *p;
   gsize last_start;
-  gboolean do_compat = (mode == G_NORMALIZE_NFKC ||
-			mode == G_NORMALIZE_NFKD);
-  gboolean do_compose = (mode == G_NORMALIZE_NFC ||
-			 mode == G_NORMALIZE_NFKC);
+  gboolean do_compat = (mode == G_NORMALIZE_NFKC || mode == G_NORMALIZE_NFKD);
+  gboolean do_compose = (mode == G_NORMALIZE_NFC || mode == G_NORMALIZE_NFKC);
 
   n_wc = 0;
   p = str;
@@ -377,8 +386,7 @@ _g_utf8_normalize_wc (const gchar    *str,
 	{
 	  int len;
 	  /* We store as a double-nul terminated string.  */
-	  for (len = 0; (decomp[len] || decomp[len + 1]);
-	       len += 2)
+	  for (len = 0; (decomp[len] || decomp[len + 1]); len += 2)
 	    ;
 	  n_wc += len / 2;
 	}
@@ -399,15 +407,14 @@ _g_utf8_normalize_wc (const gchar    *str,
       const guchar *decomp;
       int cc;
       gsize old_n_wc = n_wc;
-	  
+
       decomp = find_decomposition (wc, do_compat);
-	  
+
       if (decomp)
 	{
 	  int len;
 	  /* We store as a double-nul terminated string.  */
-	  for (len = 0; (decomp[len] || decomp[len + 1]);
-	       len += 2)
+	  for (len = 0; (decomp[len] || decomp[len + 1]); len += 2)
 	    wc_buffer[n_wc++] = (decomp[len] << 8 | decomp[len + 1]);
 	}
       else
@@ -419,23 +426,25 @@ _g_utf8_normalize_wc (const gchar    *str,
 
 	  if (cc == 0)
 	    {
-	      g_unicode_canonical_ordering (wc_buffer + last_start, n_wc - last_start);
+	      g_unicode_canonical_ordering (wc_buffer + last_start,
+					    n_wc - last_start);
 	      last_start = old_n_wc;
 	    }
 	}
-      
+
       p = g_utf8_next_char (p);
     }
 
   if (n_wc > 0)
     {
-      g_unicode_canonical_ordering (wc_buffer + last_start, n_wc - last_start);
+      g_unicode_canonical_ordering (wc_buffer + last_start,
+				    n_wc - last_start);
       last_start = n_wc;
     }
-	  
+
   wc_buffer[n_wc] = 0;
 
-  /* All decomposed and reordered */ 
+  /* All decomposed and reordered */
 
 
   if (do_compose && n_wc > 0)
@@ -443,7 +452,7 @@ _g_utf8_normalize_wc (const gchar    *str,
       gsize i, j;
       int last_cc = 0;
       last_start = 0;
-      
+
       for (i = 0; i < n_wc; i++)
 	{
 	  int cc = COMBINING_CLASS (wc_buffer[i]);
@@ -454,15 +463,15 @@ _g_utf8_normalize_wc (const gchar    *str,
 		       &wc_buffer[last_start]))
 	    {
 	      for (j = i + 1; j < n_wc; j++)
-		wc_buffer[j-1] = wc_buffer[j];
+		wc_buffer[j - 1] = wc_buffer[j];
 	      n_wc--;
 	      i--;
-	      
+
 	      if (i == last_start)
 		last_cc = 0;
 	      else
-		last_cc = COMBINING_CLASS (wc_buffer[i-1]);
-	      
+		last_cc = COMBINING_CLASS (wc_buffer[i - 1]);
+
 	      continue;
 	    }
 
@@ -490,10 +499,9 @@ _g_utf8_normalize_wc (const gchar    *str,
  * Return value: number of bytes written
  **/
 static int
-g_unichar_to_utf8 (gunichar c,
-		   gchar   *outbuf)
+g_unichar_to_utf8 (gunichar c, gchar * outbuf)
 {
-  guint len = 0;    
+  guint len = 0;
   int first;
   int i;
 
@@ -512,7 +520,7 @@ g_unichar_to_utf8 (gunichar c,
       first = 0xe0;
       len = 3;
     }
-   else if (c < 0x200000)
+  else if (c < 0x200000)
     {
       first = 0xf0;
       len = 4;
@@ -563,10 +571,8 @@ g_unichar_to_utf8 (gunichar c,
  *               @error set.
  **/
 static gchar *
-g_ucs4_to_utf8 (const gunichar *str,
-		glong           len,              
-		glong          *items_read,       
-		glong          *items_written)
+g_ucs4_to_utf8 (const gunichar * str,
+		glong len, glong * items_read, glong * items_written)
 {
   gint result_length;
   gchar *result = NULL;
@@ -574,7 +580,7 @@ g_ucs4_to_utf8 (const gunichar *str,
   gint i;
 
   result_length = 0;
-  for (i = 0; len < 0 || i < len ; i++)
+  for (i = 0; len < 0 || i < len; i++)
     {
       if (!str[i])
 	break;
@@ -583,10 +589,10 @@ g_ucs4_to_utf8 (const gunichar *str,
 	{
 	  if (items_read)
 	    *items_read = i;
-	  
+
 	  goto err_out;
 	}
-      
+
       result_length += UTF8_LENGTH (str[i]);
     }
 
@@ -596,13 +602,13 @@ g_ucs4_to_utf8 (const gunichar *str,
   i = 0;
   while (p < result + result_length)
     p += g_unichar_to_utf8 (str[i++], p);
-  
+
   *p = '\0';
 
   if (items_written)
     *items_written = p - result;
 
- err_out:
+err_out:
   if (items_read)
     *items_read = i;
 
@@ -646,13 +652,11 @@ g_ucs4_to_utf8 (const gunichar *str,
  *   normalized form of @str.
  **/
 static gchar *
-g_utf8_normalize (const gchar    *str,
-		  gssize          len,
-		  GNormalizeMode  mode)
+g_utf8_normalize (const gchar * str, gssize len, GNormalizeMode mode)
 {
   gunichar *result_wc = _g_utf8_normalize_wc (str, len, mode);
   gchar *result;
-  
+
   result = g_ucs4_to_utf8 (result_wc, -1, NULL, NULL);
   g_free (result_wc);
 
@@ -660,8 +664,7 @@ g_utf8_normalize (const gchar    *str,
 }
 
 char *
-gsasl_utf8_nfkc_normalize (const char *str,
-			   int len)
+gsasl_utf8_nfkc_normalize (const char *str, int len)
 {
   return g_utf8_normalize (str, len, G_NORMALIZE_NFKC);
 }

@@ -29,7 +29,7 @@
  * used with other libgsasl functions after this call.
  **/
 void
-gsasl_done (Gsasl_ctx *ctx)
+gsasl_done (Gsasl_ctx * ctx)
 {
   int i;
 
@@ -37,18 +37,18 @@ gsasl_done (Gsasl_ctx *ctx)
     return;
 
   for (i = 0; i < ctx->n_client_mechs; i++)
-    ctx->client_mechs[i].client.done(ctx);
+    ctx->client_mechs[i].client.done (ctx);
 
   for (i = 0; i < ctx->n_server_mechs; i++)
-    ctx->server_mechs[i].server.done(ctx);
+    ctx->server_mechs[i].server.done (ctx);
 
   if (ctx->client_mechs)
-    free(ctx->client_mechs);
+    free (ctx->client_mechs);
 
   if (ctx->server_mechs)
-    free(ctx->server_mechs);
+    free (ctx->server_mechs);
 
-  free(ctx);
+  free (ctx);
 
   return;
 }

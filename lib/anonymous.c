@@ -24,20 +24,19 @@
 #ifdef USE_ANONYMOUS
 
 int
-_gsasl_anonymous_client_init (Gsasl_ctx *ctx)
+_gsasl_anonymous_client_init (Gsasl_ctx * ctx)
 {
   return GSASL_OK;
 }
 
 void
-_gsasl_anonymous_client_done (Gsasl_ctx *ctx)
+_gsasl_anonymous_client_done (Gsasl_ctx * ctx)
 {
   return;
 }
 
 int
-_gsasl_anonymous_client_start (Gsasl_session_ctx *cctx, 
-			       void **mech_data)
+_gsasl_anonymous_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 {
   Gsasl_ctx *ctx;
   int *step;
@@ -49,24 +48,23 @@ _gsasl_anonymous_client_start (Gsasl_session_ctx *cctx,
   if (gsasl_client_callback_anonymous_get (ctx) == NULL)
     return GSASL_NEED_SERVER_ANONYMOUS_CALLBACK;
 
-  step = (int*) malloc(sizeof(*step));
+  step = (int *) malloc (sizeof (*step));
   if (step == NULL)
     return GSASL_MALLOC_ERROR;
 
   *step = 0;
 
   *mech_data = step;
-  
+
   return GSASL_OK;
 }
 
 int
-_gsasl_anonymous_client_step  (Gsasl_session_ctx *cctx, 
-			       void *mech_data, 
-			       const char *input,
-			       size_t input_len,
-			       char *output,
-			       size_t *output_len)
+_gsasl_anonymous_client_step (Gsasl_session_ctx * cctx,
+			      void *mech_data,
+			      const char *input,
+			      size_t input_len,
+			      char *output, size_t * output_len)
 {
   int *step = mech_data;
   Gsasl_client_callback_anonymous cb_anonymous;
@@ -88,20 +86,19 @@ _gsasl_anonymous_client_step  (Gsasl_session_ctx *cctx,
 
   res = cb_anonymous (cctx, output, output_len);
   if (res != GSASL_OK)
-      return res;
+    return res;
 
-  *output_len = strlen(output);
+  *output_len = strlen (output);
 
   return GSASL_NEEDS_MORE;
 }
 
 int
-_gsasl_anonymous_client_finish (Gsasl_session_ctx *cctx,
-				void *mech_data)
+_gsasl_anonymous_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
 {
   int *step = mech_data;
 
-  free(step);
+  free (step);
 
   return GSASL_OK;
 }
@@ -109,20 +106,19 @@ _gsasl_anonymous_client_finish (Gsasl_session_ctx *cctx,
 /* Server */
 
 int
-_gsasl_anonymous_server_init (Gsasl_ctx *ctx)
+_gsasl_anonymous_server_init (Gsasl_ctx * ctx)
 {
   return GSASL_OK;
 }
 
 void
-_gsasl_anonymous_server_done (Gsasl_ctx *ctx)
+_gsasl_anonymous_server_done (Gsasl_ctx * ctx)
 {
   return;
 }
 
 int
-_gsasl_anonymous_server_start (Gsasl_session_ctx *sctx, 
-			       void **mech_data)
+_gsasl_anonymous_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   Gsasl_ctx *ctx;
 
@@ -137,12 +133,11 @@ _gsasl_anonymous_server_start (Gsasl_session_ctx *sctx,
 }
 
 int
-_gsasl_anonymous_server_step (Gsasl_session_ctx *sctx, 
-			      void *mech_data, 
+_gsasl_anonymous_server_step (Gsasl_session_ctx * sctx,
+			      void *mech_data,
 			      const char *input,
 			      size_t input_len,
-			      char *output,
-			      size_t *output_len)
+			      char *output, size_t * output_len)
 {
   Gsasl_server_callback_anonymous cb_anonymous;
   Gsasl_ctx *ctx;
@@ -163,23 +158,22 @@ _gsasl_anonymous_server_step (Gsasl_session_ctx *sctx,
   if (cb_anonymous == NULL)
     return GSASL_NEED_SERVER_ANONYMOUS_CALLBACK;
 
-  token = malloc(input_len + 1);
+  token = malloc (input_len + 1);
   if (token == NULL)
     return GSASL_MALLOC_ERROR;
 
-  memcpy(token, input, input_len);
+  memcpy (token, input, input_len);
   token[input_len] = '\0';
 
-  res = cb_anonymous(sctx, token);
+  res = cb_anonymous (sctx, token);
 
-  free(token);
+  free (token);
 
   return res;
 }
 
 int
-_gsasl_anonymous_server_finish (Gsasl_session_ctx *sctx, 
-				void *mech_data)
+_gsasl_anonymous_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   return GSASL_OK;
 }

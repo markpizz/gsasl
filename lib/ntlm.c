@@ -25,27 +25,27 @@
 
 #include <ntlm.h>
 
-struct _Gsasl_ntlm_state {
+struct _Gsasl_ntlm_state
+{
   int step;
   char *username;
 };
 typedef struct _Gsasl_ntlm_state _Gsasl_ntlm_state;
 
 int
-_gsasl_ntlm_client_init (Gsasl_ctx *ctx)
+_gsasl_ntlm_client_init (Gsasl_ctx * ctx)
 {
   return GSASL_OK;
 }
 
 void
-_gsasl_ntlm_client_done (Gsasl_ctx *ctx)
+_gsasl_ntlm_client_done (Gsasl_ctx * ctx)
 {
   return;
 }
 
 int
-_gsasl_ntlm_client_start (Gsasl_session_ctx *cctx, 
-			  void **mech_data)
+_gsasl_ntlm_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 {
   _Gsasl_ntlm_state *state;
   Gsasl_ctx *ctx;
@@ -60,7 +60,7 @@ _gsasl_ntlm_client_start (Gsasl_session_ctx *cctx,
   if (gsasl_client_callback_password_get (ctx) == NULL)
     return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
-  state = (_Gsasl_ntlm_state*) malloc(sizeof(*state));
+  state = (_Gsasl_ntlm_state *) malloc (sizeof (*state));
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
@@ -68,23 +68,21 @@ _gsasl_ntlm_client_start (Gsasl_session_ctx *cctx,
   state->username = NULL;
 
   *mech_data = state;
-  
+
   return GSASL_OK;
 }
 
 int
-_gsasl_ntlm_client_step  (Gsasl_session_ctx *cctx, 
-			  void *mech_data, 
-			  const char *input,
-			  size_t input_len,
-			  char *output,
-			  size_t *output_len)
+_gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
+			 void *mech_data,
+			 const char *input,
+			 size_t input_len, char *output, size_t * output_len)
 {
   _Gsasl_ntlm_state *state = mech_data;
-  tSmbNtlmAuthRequest   request;
+  tSmbNtlmAuthRequest request;
   tSmbNtlmAuthChallenge challenge;
-  tSmbNtlmAuthResponse  response;
-  Gsasl_client_callback_authorization_id cb_authorization_id; 
+  tSmbNtlmAuthResponse response;
+  Gsasl_client_callback_authorization_id cb_authorization_id;
   Gsasl_client_callback_password cb_password;
   Gsasl_ctx *ctx;
   /* XXX create callback for domain? Doesn't seem to be needed by servers */
@@ -103,7 +101,7 @@ _gsasl_ntlm_client_step  (Gsasl_session_ctx *cctx,
   if (cb_password == NULL)
     return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
-  switch(state->step)
+  switch (state->step)
     {
     case 0:
       if (input_len == 0)
@@ -120,15 +118,15 @@ _gsasl_ntlm_client_step  (Gsasl_session_ctx *cctx,
       if (res != GSASL_OK)
 	return res;
 
-      state->username = strdup(output);
+      state->username = strdup (output);
 
-      buildSmbNtlmAuthRequest(&request, state->username, domain);
+      buildSmbNtlmAuthRequest (&request, state->username, domain);
 
-      if (*output_len < SmbLength(&request))
+      if (*output_len < SmbLength (&request))
 	return GSASL_TOO_SMALL_BUFFER;
 
-      *output_len = SmbLength(&request);
-      memcpy(output, &request, *output_len);
+      *output_len = SmbLength (&request);
+      memcpy (output, &request, *output_len);
 
       /* dumpSmbNtlmAuthRequest(stdout, &request); */
 
@@ -138,26 +136,27 @@ _gsasl_ntlm_client_step  (Gsasl_session_ctx *cctx,
       break;
 
     case 1:
-      if (input_len > sizeof(challenge))
+      if (input_len > sizeof (challenge))
 	return GSASL_MECHANISM_PARSE_ERROR;
 
       /* Hand crafted challenge for parser testing:
-	 TlRMTVNTUAAAAAAAAAAAAAAAAAAAAGFiY2RlZmdoMDEyMzQ1Njc4ODY2NDQwMTIz */
+         TlRMTVNTUAAAAAAAAAAAAAAAAAAAAGFiY2RlZmdoMDEyMzQ1Njc4ODY2NDQwMTIz */
 
-      memcpy(&challenge, input, input_len);
+      memcpy (&challenge, input, input_len);
 
       /* XXX? password stored in callee's output buffer */
       res = cb_password (cctx, output, *output_len);
       if (res != GSASL_OK)
 	return res;
 
-      buildSmbNtlmAuthResponse(&challenge, &response, state->username, output);
+      buildSmbNtlmAuthResponse (&challenge, &response, state->username,
+				output);
 
-      if (*output_len < SmbLength(&response))
+      if (*output_len < SmbLength (&response))
 	return GSASL_TOO_SMALL_BUFFER;
 
-      *output_len = SmbLength(&response);
-      memcpy(output, &response, *output_len);
+      *output_len = SmbLength (&response);
+      memcpy (output, &response, *output_len);
 
       /* dumpSmbNtlmAuthResponse(stdout, &response); */
 
@@ -181,15 +180,14 @@ _gsasl_ntlm_client_step  (Gsasl_session_ctx *cctx,
 }
 
 int
-_gsasl_ntlm_client_finish (Gsasl_session_ctx *cctx,
-			   void *mech_data)
+_gsasl_ntlm_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
 {
   _Gsasl_ntlm_state *state = mech_data;
 
   if (state->username)
-    free(state->username);
+    free (state->username);
 
-  free(state);
+  free (state);
 
   return GSASL_OK;
 }

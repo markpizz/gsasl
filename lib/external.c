@@ -24,41 +24,39 @@
 #ifdef USE_EXTERNAL
 
 int
-_gsasl_external_client_init (Gsasl_ctx *ctx)
+_gsasl_external_client_init (Gsasl_ctx * ctx)
 {
   return GSASL_OK;
 }
 
 void
-_gsasl_external_client_done (Gsasl_ctx *ctx)
+_gsasl_external_client_done (Gsasl_ctx * ctx)
 {
   return;
 }
 
 int
-_gsasl_external_client_start (Gsasl_session_ctx *cctx, 
-			      void **mech_data)
+_gsasl_external_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 {
   int *step;
 
-  step = (int*) malloc(sizeof(*step));
+  step = (int *) malloc (sizeof (*step));
   if (step == NULL)
     return GSASL_MALLOC_ERROR;
 
   *step = 0;
 
   *mech_data = step;
-  
+
   return GSASL_OK;
 }
 
 int
-_gsasl_external_client_step  (Gsasl_session_ctx *cctx, 
-			      void *mech_data, 
-			      const char *input,
-			      size_t input_len,
-			      char *output,
-			      size_t *output_len)
+_gsasl_external_client_step (Gsasl_session_ctx * cctx,
+			     void *mech_data,
+			     const char *input,
+			     size_t input_len,
+			     char *output, size_t * output_len)
 {
   int *step = mech_data;
 
@@ -73,12 +71,11 @@ _gsasl_external_client_step  (Gsasl_session_ctx *cctx,
 }
 
 int
-_gsasl_external_client_finish (Gsasl_session_ctx *cctx,
-			       void *mech_data)
+_gsasl_external_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
 {
   int *step = mech_data;
 
-  free(step);
+  free (step);
 
   return GSASL_OK;
 }
@@ -86,20 +83,19 @@ _gsasl_external_client_finish (Gsasl_session_ctx *cctx,
 /* Server */
 
 int
-_gsasl_external_server_init (Gsasl_ctx *ctx)
+_gsasl_external_server_init (Gsasl_ctx * ctx)
 {
   return GSASL_OK;
 }
 
 void
-_gsasl_external_server_done (Gsasl_ctx *ctx)
+_gsasl_external_server_done (Gsasl_ctx * ctx)
 {
   return;
 }
 
 int
-_gsasl_external_server_start (Gsasl_session_ctx *sctx, 
-			      void **mech_data)
+_gsasl_external_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   Gsasl_ctx *ctx;
 
@@ -114,12 +110,11 @@ _gsasl_external_server_start (Gsasl_session_ctx *sctx,
 }
 
 int
-_gsasl_external_server_step (Gsasl_session_ctx *sctx, 
-			     void *mech_data, 
+_gsasl_external_server_step (Gsasl_session_ctx * sctx,
+			     void *mech_data,
 			     const char *input,
 			     size_t input_len,
-			     char *output,
-			     size_t *output_len)
+			     char *output, size_t * output_len)
 {
   Gsasl_server_callback_external cb_external;
   Gsasl_ctx *ctx;
@@ -141,8 +136,7 @@ _gsasl_external_server_step (Gsasl_session_ctx *sctx,
 }
 
 int
-_gsasl_external_server_finish (Gsasl_session_ctx *sctx, 
-			       void *mech_data)
+_gsasl_external_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   return GSASL_OK;
 }

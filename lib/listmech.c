@@ -22,12 +22,9 @@
 #include "internal.h"
 
 static int
-_gsasl_listmech (Gsasl_ctx *ctx,
-		 _Gsasl_mechanism *mechs, 
-		 size_t n_mechs, 
-		 char *out, 
-		 size_t *outlen,
-		 int clientp)
+_gsasl_listmech (Gsasl_ctx * ctx,
+		 _Gsasl_mechanism * mechs,
+		 size_t n_mechs, char *out, size_t * outlen, int clientp)
 {
   Gsasl_session_ctx *xctx;
   void *mech_data;
@@ -45,9 +42,9 @@ _gsasl_listmech (Gsasl_ctx *ctx,
   *out = '\0';
   for (i = 0; i < n_mechs; i++)
     {
-      if ((clientp && 
+      if ((clientp &&
 	   gsasl_client_start (ctx, mechs[i].name, &xctx) == GSASL_OK) ||
-	  (!clientp && 
+	  (!clientp &&
 	   gsasl_server_start (ctx, mechs[i].name, &xctx) == GSASL_OK))
 	{
 	  if (clientp)
@@ -55,11 +52,11 @@ _gsasl_listmech (Gsasl_ctx *ctx,
 	  else
 	    gsasl_server_finish (xctx);
 
-	  if (strlen(out) + strlen(mechs[i].name) + strlen(" ") >= *outlen)
+	  if (strlen (out) + strlen (mechs[i].name) + strlen (" ") >= *outlen)
 	    return GSASL_TOO_SMALL_BUFFER;
 
-	  strcat(out, mechs[i].name);
-	  strcat(out, " ");
+	  strcat (out, mechs[i].name);
+	  strcat (out, " ");
 	}
     }
 
@@ -80,9 +77,9 @@ _gsasl_listmech (Gsasl_ctx *ctx,
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
-gsasl_client_listmech (Gsasl_ctx *ctx, char *out, size_t *outlen)
+gsasl_client_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
 {
-  return _gsasl_listmech (ctx, ctx->client_mechs, ctx->n_client_mechs, 
+  return _gsasl_listmech (ctx, ctx->client_mechs, ctx->n_client_mechs,
 			  out, outlen, 1);
 }
 
@@ -100,8 +97,8 @@ gsasl_client_listmech (Gsasl_ctx *ctx, char *out, size_t *outlen)
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
-gsasl_server_listmech (Gsasl_ctx *ctx, char *out, size_t *outlen)
+gsasl_server_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
 {
-  return _gsasl_listmech (ctx, ctx->server_mechs, ctx->n_server_mechs, 
+  return _gsasl_listmech (ctx, ctx->server_mechs, ctx->n_server_mechs,
 			  out, outlen, 0);
 }

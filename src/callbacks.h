@@ -25,97 +25,74 @@
 #include <gsasl.h>
 
 extern int
-client_callback_anonymous (Gsasl_session_ctx *ctx, 
-			   char *out,
-			   size_t *outlen);
+client_callback_anonymous (Gsasl_session_ctx * ctx,
+			   char *out, size_t * outlen);
 
 extern int
-client_callback_authorization_id (Gsasl_session_ctx *ctx, 
-				  char *out,
-				  size_t *outlen);
+client_callback_authorization_id (Gsasl_session_ctx * ctx,
+				  char *out, size_t * outlen);
 
 extern int
-client_callback_authentication_id (Gsasl_session_ctx *ctx, 
-				   char *out,
-				   size_t *outlen);
+client_callback_authentication_id (Gsasl_session_ctx * ctx,
+				   char *out, size_t * outlen);
 
 extern int
-client_callback_password (Gsasl_session_ctx *ctx, 
-			  char *out,
-			  size_t *outlen);
+client_callback_password (Gsasl_session_ctx * ctx,
+			  char *out, size_t * outlen);
 
 extern int
-client_callback_service (Gsasl_session_ctx *ctx, 
+client_callback_service (Gsasl_session_ctx * ctx,
 			 char *srv,
-			 size_t *srvlen,
+			 size_t * srvlen,
 			 char *host,
-			 size_t *hostlen,
-			 char *srvname,
-			 size_t *srvnamelen);
+			 size_t * hostlen,
+			 char *srvname, size_t * srvnamelen);
 
 extern int
-client_callback_passcode (Gsasl_session_ctx *ctx, 
-			  char *out,
-			  size_t *outlen);
+client_callback_passcode (Gsasl_session_ctx * ctx,
+			  char *out, size_t * outlen);
 
 extern Gsasl_qop
-client_callback_qop (Gsasl_session_ctx *ctx, 
-		     Gsasl_qop serverqops);
+client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops);
 
-extern int
-client_callback_maxbuf (Gsasl_session_ctx *ctx,
-			int servermaxbuf);
+extern int client_callback_maxbuf (Gsasl_session_ctx * ctx, int servermaxbuf);
 /* Server callbacks */
 
 extern int
-server_callback_cram_md5 (Gsasl_session_ctx *ctx,
-			  char *username,
-			  char *challenge,
-			  char *response);
+server_callback_cram_md5 (Gsasl_session_ctx * ctx,
+			  char *username, char *challenge, char *response);
 
 extern int
-server_callback_anonymous (Gsasl_session_ctx *ctx, 
-			   const char *message);
+server_callback_anonymous (Gsasl_session_ctx * ctx, const char *message);
 
-extern Gsasl_qop
-server_callback_qop (Gsasl_session_ctx *ctx);
+extern Gsasl_qop server_callback_qop (Gsasl_session_ctx * ctx);
 
-extern int
-server_callback_maxbuf (Gsasl_session_ctx *ctx);
+extern int server_callback_maxbuf (Gsasl_session_ctx * ctx);
 
 extern int
-server_callback_realm (Gsasl_session_ctx *ctx, 
-		       char *out,
-		       size_t *outlen,
-		       size_t nth);
+server_callback_realm (Gsasl_session_ctx * ctx,
+		       char *out, size_t * outlen, size_t nth);
+
+extern int server_callback_external (Gsasl_session_ctx * ctx);
 
 extern int
-server_callback_external (Gsasl_session_ctx *ctx);
-
-extern int
-server_callback_validate (Gsasl_session_ctx *ctx, 
+server_callback_validate (Gsasl_session_ctx * ctx,
 			  char *authorization_id,
-			  char *authentication_id,
-			  char *password);
+			  char *authentication_id, char *password);
 
 extern int
-server_callback_retrieve (Gsasl_session_ctx *ctx,
+server_callback_retrieve (Gsasl_session_ctx * ctx,
 			  char *authentication_id,
 			  char *authorization_id,
-			  char *realm,
-			  char *key,
-			  size_t *keylen);
+			  char *realm, char *key, size_t * keylen);
 
 extern int
-server_callback_service (Gsasl_session_ctx *ctx, 
+server_callback_service (Gsasl_session_ctx * ctx,
 			 char *srv,
-			 size_t *srvlen,
-			 char *host,
-			 size_t *hostlen);
+			 size_t * srvlen, char *host, size_t * hostlen);
 
 int
-server_callback_gssapi (Gsasl_session_ctx *ctx, 	
-			char *clientname,
-			char *authentication_id);
+server_callback_gssapi (Gsasl_session_ctx * ctx,
+			char *clientname, char *authentication_id);
 
 #endif /* _CALLBACKS_H */

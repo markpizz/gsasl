@@ -29,11 +29,11 @@
  * other libgsasl functions after this call.
  **/
 void
-gsasl_client_finish (Gsasl_session_ctx *xctx)
+gsasl_client_finish (Gsasl_session_ctx * xctx)
 {
   xctx->mech->client.finish (xctx, xctx->mech_data);
 
-  free(xctx);
+  free (xctx);
 }
 
 /**
@@ -44,9 +44,9 @@ gsasl_client_finish (Gsasl_session_ctx *xctx)
  * other libgsasl functions after this call.
  **/
 void
-gsasl_server_finish (Gsasl_session_ctx *xctx)
+gsasl_server_finish (Gsasl_session_ctx * xctx)
 {
   xctx->mech->server.finish (xctx, xctx->mech_data);
 
-  free(xctx);
+  free (xctx);
 }

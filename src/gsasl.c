@@ -59,7 +59,8 @@ extern char *_gsasl_gettext (const char *str);
 
 #define MAX_LINE_LENGTH BUFSIZ
 
-enum {
+enum
+{
   OPTION_CLIENT_MECHANISMS = 300,
   OPTION_SERVER_MECHANISMS,
   OPTION_PASSCODE,
@@ -109,53 +110,53 @@ parse_opt (int key, char *arg, struct argp_state *state)
       break;
 
     case 'a':
-      authentication_id = strdup(arg);
+      authentication_id = strdup (arg);
       break;
 
     case 'z':
-      authorization_id = strdup(arg);
+      authorization_id = strdup (arg);
       break;
 
     case 'p':
-      password = strdup(arg);
+      password = strdup (arg);
       break;
 
     case 'n':
-      anonymous_token = strdup(arg);
+      anonymous_token = strdup (arg);
       break;
 
     case 'm':
-      mechanism = strdup(arg);
+      mechanism = strdup (arg);
       break;
 
     case 'r':
       if (nrealms == 0)
-	realms = malloc(sizeof(*realms));
+	realms = malloc (sizeof (*realms));
       else
-	realms = realloc(realms, sizeof(*realms)*(nrealms+1));
+	realms = realloc (realms, sizeof (*realms) * (nrealms + 1));
       if (realms == NULL)
 	argp_error (state, gsasl_strerror (GSASL_MALLOC_ERROR));
-      realms[nrealms++] = strdup(arg);
+      realms[nrealms++] = strdup (arg);
       break;
 
     case 'x':
-      maxbuf = strtoul(arg, NULL, 0);
+      maxbuf = strtoul (arg, NULL, 0);
       break;
 
     case OPTION_PASSCODE:
-      passcode = strdup(arg);
+      passcode = strdup (arg);
       break;
 
     case OPTION_SERVICE:
-      service = strdup(arg);
+      service = strdup (arg);
       break;
 
     case OPTION_HOSTNAME:
-      hostname = strdup(arg);
+      hostname = strdup (arg);
       break;
 
     case OPTION_SERVICENAME:
-      servicename = strdup(arg);
+      servicename = strdup (arg);
       break;
 
     case OPTION_ENABLE_CRAM_MD5_VALIDATE:
@@ -167,11 +168,11 @@ parse_opt (int key, char *arg, struct argp_state *state)
       break;
 
     case OPTION_QOP:
-      if (strcmp(arg, "auth") == 0)
+      if (strcmp (arg, "auth") == 0)
 	qop = GSASL_QOP_AUTH;
-      else if (strcmp(arg, "auth-int") == 0)
+      else if (strcmp (arg, "auth-int") == 0)
 	qop = GSASL_QOP_AUTH_INT;
-      else if (strcmp(arg, "auth-conf") == 0)
+      else if (strcmp (arg, "auth-conf") == 0)
 	qop = GSASL_QOP_AUTH_CONF;
       else
 	argp_error (state, "unknown quality of protection: `%s'", arg);
@@ -195,7 +196,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
       if (mode == 0 && listmode == 0)
 	{
 	  argp_state_help (state, stdout, ARGP_HELP_STD_HELP);
-	  exit(0);
+	  exit (0);
 	}
       break;
 
@@ -209,58 +210,58 @@ parse_opt (int key, char *arg, struct argp_state *state)
 static struct argp_option options[] = {
 
   {0, 0, 0, 0, "Commands:"},
-  
+
   {"client", 'c', 0, 0, "Act as client."},
-  
+
   {"server", 's', 0, 0, "Act as server."},
-  
-  {"client-mechanisms", OPTION_CLIENT_MECHANISMS, 0, 0, 
+
+  {"client-mechanisms", OPTION_CLIENT_MECHANISMS, 0, 0,
    "Write name of supported client mechanisms separated by space to stdout."},
-  
-  {"server-mechanisms", OPTION_SERVER_MECHANISMS, 0, 0, 
+
+  {"server-mechanisms", OPTION_SERVER_MECHANISMS, 0, 0,
    "Write name of supported server mechanisms separated by space to stdout."},
-  
+
   {0, 0, 0, 0, "SASL options (prompted for if unspecified):", 500},
 
-  {"anonymous-token", 'n', "STRING", 0, 
+  {"anonymous-token", 'n', "STRING", 0,
    "Token for anonymous authentication (usually mail address)."},
 
-  {"authentication-id", 'a', "STRING", 0, 
+  {"authentication-id", 'a', "STRING", 0,
    "Identity of credential owner."},
 
-  {"authorization-id", 'z', "STRING", 0, 
+  {"authorization-id", 'z', "STRING", 0,
    "Identity to request service for."},
 
-  {"password", 'p', "STRING", 0, 
+  {"password", 'p', "STRING", 0,
    "Password for authentication."},
 
-  {"mechanism", 'm', "STRING", 0, 
+  {"mechanism", 'm', "STRING", 0,
    "Mechanism to use."},
 
-  {"realm", 'r', "STRING", 0, 
+  {"realm", 'r', "STRING", 0,
    "Realm (may be given more than once iff server). Defaults to hostname."},
 
-  {"maxbuf", 'x', "NUMBER", 0, 
+  {"maxbuf", 'x', "NUMBER", 0,
    "Indicate maximum buffer size (DIGEST-MD5 only)."},
 
-  {"passcode", OPTION_PASSCODE, "NUMBER", 0, 
+  {"passcode", OPTION_PASSCODE, "NUMBER", 0,
    "Passcode for authentication (SECURID only)."},
 
-  {"service", OPTION_SERVICE, "STRING", 0, 
+  {"service", OPTION_SERVICE, "STRING", 0,
    "Set the requested service name (should be a registered GSSAPI host "
    "based service name)."},
 
-  {"hostname", OPTION_HOSTNAME, "STRING", 0, 
+  {"hostname", OPTION_HOSTNAME, "STRING", 0,
    "Set the name of the server with the requested service."},
 
-  {"service-name", OPTION_SERVICENAME, "STRING", 0, 
+  {"service-name", OPTION_SERVICENAME, "STRING", 0,
    "Set the generic server name in case of a replicated server "
    "(DIGEST-MD5 only)."},
 
-  {"enable-cram-md5-validate", OPTION_ENABLE_CRAM_MD5_VALIDATE, 0, 0, 
+  {"enable-cram-md5-validate", OPTION_ENABLE_CRAM_MD5_VALIDATE, 0, 0,
    "Validate CRAM-MD5 challenge and response interactively."},
 
-  {"disable-cleartext-validate", OPTION_DISABLE_CLEARTEXT_VALIDATE, 0, 0, 
+  {"disable-cleartext-validate", OPTION_DISABLE_CLEARTEXT_VALIDATE, 0, 0,
    "Disable cleartext validate hook, forcing server to prompt for password."},
 
   {"quality-of-protection", OPTION_QOP, "<auth | auth-int | auth-conf>", 0,
@@ -270,13 +271,13 @@ static struct argp_option options[] = {
    "the default is \"auth-conf\"."},
 
   {0, 0, 0, 0, "Other options:", 1000},
-  
+
   {"verbose", 'v', 0, 0, "Produce verbose output."},
-  
+
   {"quiet", 'q', 0, 0, "Don't produce any diagnostic output."},
-  
+
   {"silent", 0, 0, OPTION_ALIAS},
-  
+
   {0}
 };
 
@@ -300,7 +301,8 @@ main (int argc, char *argv[])
   res = gsasl_init (&ctx);
   if (res != GSASL_OK)
     {
-      fprintf(stderr, _("GSASL error (%d): %s\n"), res, gsasl_strerror(res));
+      fprintf (stderr, _("GSASL error (%d): %s\n"), res,
+	       gsasl_strerror (res));
       return 1;
     }
 
@@ -309,9 +311,9 @@ main (int argc, char *argv[])
   if (qop != 0)
     gsasl_client_callback_qop_set (ctx, client_callback_qop);
   gsasl_client_callback_anonymous_set (ctx, client_callback_anonymous);
-  gsasl_client_callback_authentication_id_set (ctx, 
+  gsasl_client_callback_authentication_id_set (ctx,
 					       client_callback_authentication_id);
-  gsasl_client_callback_authorization_id_set (ctx, 
+  gsasl_client_callback_authorization_id_set (ctx,
 					      client_callback_authorization_id);
   gsasl_client_callback_password_set (ctx, client_callback_password);
   gsasl_client_callback_passcode_set (ctx, client_callback_passcode);
@@ -331,13 +333,13 @@ main (int argc, char *argv[])
   gsasl_server_callback_service_set (ctx, server_callback_service);
   gsasl_server_callback_gssapi_set (ctx, server_callback_gssapi);
 
-  if (listmode == OPTION_CLIENT_MECHANISMS || 
+  if (listmode == OPTION_CLIENT_MECHANISMS ||
       listmode == OPTION_SERVER_MECHANISMS)
     {
       char mechs[MAX_LINE_LENGTH];
       size_t mechslen;
 
-      mechslen = sizeof(mechs);
+      mechslen = sizeof (mechs);
       if (listmode == OPTION_CLIENT_MECHANISMS)
 	res = gsasl_client_listmech (ctx, mechs, &mechslen);
       else
@@ -345,15 +347,16 @@ main (int argc, char *argv[])
 
       if (res != GSASL_OK)
 	{
-	  fprintf(stderr, _("GSASL error (%d): %s\n"), res, gsasl_strerror(res));
+	  fprintf (stderr, _("GSASL error (%d): %s\n"), res,
+		   gsasl_strerror (res));
 	  return 1;
 	}
 
       if (!silent)
-	fprintf(stderr, _("This %s supports the following mechanisms:\n"),
-		listmode == OPTION_CLIENT_MECHANISMS ? 
-		_("client") : _("server"));
-      fprintf(stdout, "%s\n", mechs);
+	fprintf (stderr, _("This %s supports the following mechanisms:\n"),
+		 listmode == OPTION_CLIENT_MECHANISMS ?
+		 _("client") : _("server"));
+      fprintf (stdout, "%s\n", mechs);
     }
 
   if (mode == 'c' || mode == 's')
@@ -376,31 +379,32 @@ main (int argc, char *argv[])
       else if (mode == 'c')
 	{
 	  if (!silent)
-	    fprintf(stderr, _("Input SASL mechanism supported by server:\n"));
+	    fprintf (stderr,
+		     _("Input SASL mechanism supported by server:\n"));
 	  input[0] = '\0';
-	  fgets(input, MAX_LINE_LENGTH, stdin);
-	  
+	  fgets (input, MAX_LINE_LENGTH, stdin);
+
 	  mech = gsasl_client_suggest_mechanism (ctx, input);
 	  if (mech == NULL)
 	    {
-	      fprintf(stderr, _("Cannot find mechanism...\n"));
+	      fprintf (stderr, _("Cannot find mechanism...\n"));
 	      return 1;
 	    }
-	  
+
 	  if (!silent)
-	    fprintf(stderr, _("Libgsasl wants to use:\n"));
-	  fprintf(stdout, "%s\n", mech);
+	    fprintf (stderr, _("Libgsasl wants to use:\n"));
+	  fprintf (stdout, "%s\n", mech);
 	}
       else
 	{
 	  if (!silent)
-	    fprintf(stderr, _("Chose SASL mechanisms:\n"));
+	    fprintf (stderr, _("Chose SASL mechanisms:\n"));
 	  input[0] = '\0';
-	  fgets(input, MAX_LINE_LENGTH, stdin);
-	  input[strlen(input)-1] = '\0';
-	  
+	  fgets (input, MAX_LINE_LENGTH, stdin);
+	  input[strlen (input) - 1] = '\0';
+
 	  if (!silent)
-	    fprintf(stderr, _("Chosed mechanism `%s'\n"), input);
+	    fprintf (stderr, _("Chosed mechanism `%s'\n"), input);
 	  mech = input;
 	}
 
@@ -412,14 +416,14 @@ main (int argc, char *argv[])
 	res = gsasl_server_start (ctx, mech, &xctx);
       if (res != GSASL_OK)
 	{
-	  fprintf(stderr, _("Libgsasl error (%d): %s\n"), 
-		  res, gsasl_strerror(res));
+	  fprintf (stderr, _("Libgsasl error (%d): %s\n"),
+		   res, gsasl_strerror (res));
 	  return 1;
 	}
 
       input[0] = '\0';
       output[0] = '\0';
-      output_len = sizeof(output);
+      output_len = sizeof (output);
       do
 	{
 	  if (mode == 'c')
@@ -429,37 +433,39 @@ main (int argc, char *argv[])
 
 	  if (res != GSASL_NEEDS_MORE)
 	    break;
-	  
-	  if (!silent)
-	    fprintf(stderr, _("Output from %s:\n"), 
-		    mode == 'c' ? _("client") : _("server"));
-	  fprintf(stdout, "%s\n", output);
 
 	  if (!silent)
-	    fprintf(stderr, _("Enter base64 authentication data from %s "
-			      "(press RET if none):\n"), 
-		    mode == 'c' ? _("server") : _("client"));
-	  
+	    fprintf (stderr, _("Output from %s:\n"),
+		     mode == 'c' ? _("client") : _("server"));
+	  fprintf (stdout, "%s\n", output);
+
+	  if (!silent)
+	    fprintf (stderr, _("Enter base64 authentication data from %s "
+			       "(press RET if none):\n"),
+		     mode == 'c' ? _("server") : _("client"));
+
 	  input[0] = '\0';
-	  fgets(input, MAX_LINE_LENGTH, stdin);
+	  fgets (input, MAX_LINE_LENGTH, stdin);
 	}
       while (res == GSASL_NEEDS_MORE);
-      
+
       if (res != GSASL_OK)
 	{
-	  fprintf(stderr, _("Libgsasl error (%d): %s\n"), 
-		  res, gsasl_strerror(res));
+	  fprintf (stderr, _("Libgsasl error (%d): %s\n"),
+		   res, gsasl_strerror (res));
 	  return 1;
 	}
 
       if (!silent)
 	{
 	  if (mode == 'c')
-	    fprintf(stderr,
-		    _("Client authentication finished (server trusted)...\n"));
+	    fprintf (stderr,
+		     _
+		     ("Client authentication finished (server trusted)...\n"));
 	  else
-	    fprintf(stderr,
-		    _("Server authentication finished (client trusted)...\n"));
+	    fprintf (stderr,
+		     _
+		     ("Server authentication finished (client trusted)...\n"));
 	}
 
       /* Transfer application payload */
@@ -467,19 +473,20 @@ main (int argc, char *argv[])
       do
 	{
 	  if (!silent)
-	    fprintf(stderr, _("Enter application data (EOF to finish):\n"));
-	  
-	  input[0] = '\0';
-	  fgets(input, MAX_LINE_LENGTH, stdin);
-	  input[strlen(input)-1] = '\0';
+	    fprintf (stderr, _("Enter application data (EOF to finish):\n"));
 
-	  res = gsasl_encode (xctx, input, strlen(input), output, &output_len);
+	  input[0] = '\0';
+	  fgets (input, MAX_LINE_LENGTH, stdin);
+	  input[strlen (input) - 1] = '\0';
+
+	  res =
+	    gsasl_encode (xctx, input, strlen (input), output, &output_len);
 	  if (res != GSASL_OK)
 	    break;
 
-	  b64output_len = sizeof(b64output);
-	  b64output_len = gsasl_base64_encode(output, output_len, 
-					      b64output, b64output_len);
+	  b64output_len = sizeof (b64output);
+	  b64output_len = gsasl_base64_encode (output, output_len,
+					       b64output, b64output_len);
 	  if (b64output_len == -1)
 	    {
 	      res = GSASL_BASE64_ERROR;
@@ -487,24 +494,24 @@ main (int argc, char *argv[])
 	    }
 
 	  if (!silent)
-	    fprintf(stderr, _("Base64 encoded application data to send:\n"));
-	  fprintf(stdout, "%s\n", b64output);
+	    fprintf (stderr, _("Base64 encoded application data to send:\n"));
+	  fprintf (stdout, "%s\n", b64output);
 	}
-      while (!feof(stdin));
+      while (!feof (stdin));
 
       if (res != GSASL_OK)
 	{
-	  fprintf(stderr, _("Libgsasl error (%d): %s\n"), 
-		  res, gsasl_strerror(res));
+	  fprintf (stderr, _("Libgsasl error (%d): %s\n"),
+		   res, gsasl_strerror (res));
 	  return 1;
 	}
 
       if (!silent)
 	{
 	  if (mode == 'c')
-	    fprintf(stderr, _("Client finished...\n"));
+	    fprintf (stderr, _("Client finished...\n"));
 	  else
-	    fprintf(stderr, _("Server finished...\n"));
+	    fprintf (stderr, _("Server finished...\n"));
 	}
 
       if (mode == 'c')
@@ -513,7 +520,7 @@ main (int argc, char *argv[])
 	gsasl_server_finish (xctx);
     }
 
-  gsasl_done(ctx);
+  gsasl_done (ctx);
 
   return 0;
 }

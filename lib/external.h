@@ -24,30 +24,28 @@
 
 #define _GSASL_EXTERNAL_NAME "EXTERNAL"
 
-extern int  _gsasl_external_client_init (Gsasl_ctx *ctx);
-extern void _gsasl_external_client_done (Gsasl_ctx *ctx);
-extern int  _gsasl_external_client_start (Gsasl_session_ctx *cctx,
-					  void **mech_data);
-extern int  _gsasl_external_client_step (Gsasl_session_ctx *cctx,
-					 void *mech_data, 
-					 const char *input, 
-					 size_t input_len,
-					 char *output, 
-					 size_t *output_len);
-extern int  _gsasl_external_client_finish (Gsasl_session_ctx *cctx,
-					   void *mech_data);
+extern int _gsasl_external_client_init (Gsasl_ctx * ctx);
+extern void _gsasl_external_client_done (Gsasl_ctx * ctx);
+extern int _gsasl_external_client_start (Gsasl_session_ctx * cctx,
+					 void **mech_data);
+extern int _gsasl_external_client_step (Gsasl_session_ctx * cctx,
+					void *mech_data,
+					const char *input,
+					size_t input_len,
+					char *output, size_t * output_len);
+extern int _gsasl_external_client_finish (Gsasl_session_ctx * cctx,
+					  void *mech_data);
 
-extern int  _gsasl_external_server_init (Gsasl_ctx *ctx);
-extern void _gsasl_external_server_done (Gsasl_ctx *ctx);
-extern int  _gsasl_external_server_start (Gsasl_session_ctx *sctx,
-					  void **mech_data);
-extern int  _gsasl_external_server_step (Gsasl_session_ctx *sctx,
-					 void *mech_data, 
-					 const char *input,
-					 size_t input_len,
-					 char *output, 
-					 size_t *output_len);
-extern int  _gsasl_external_server_finish (Gsasl_session_ctx *sctx,
-					   void *mech_data);
+extern int _gsasl_external_server_init (Gsasl_ctx * ctx);
+extern void _gsasl_external_server_done (Gsasl_ctx * ctx);
+extern int _gsasl_external_server_start (Gsasl_session_ctx * sctx,
+					 void **mech_data);
+extern int _gsasl_external_server_step (Gsasl_session_ctx * sctx,
+					void *mech_data,
+					const char *input,
+					size_t input_len,
+					char *output, size_t * output_len);
+extern int _gsasl_external_server_finish (Gsasl_session_ctx * sctx,
+					  void *mech_data);
 
 #endif /* _EXTERNAL_H */

@@ -36,14 +36,12 @@
  * an error code.
  **/
 int
-gsasl_encode (Gsasl_session_ctx *xctx, 
+gsasl_encode (Gsasl_session_ctx * xctx,
 	      const char *input,
-	      size_t input_len,
-	      char *output,
-	      size_t *output_len)
+	      size_t input_len, char *output, size_t * output_len)
 {
   int res;
-  _Gsasl_code_function code = xctx ? (xctx->clientp ? 
+  _Gsasl_code_function code = xctx ? (xctx->clientp ?
 				      xctx->mech->client.encode :
 				      xctx->mech->server.encode) : NULL;
 
@@ -51,12 +49,13 @@ gsasl_encode (Gsasl_session_ctx *xctx,
     {
       *output_len = input_len;
       if (output)
-	memcpy(output, input, input_len);
+	memcpy (output, input, input_len);
       res = GSASL_OK;
     }
   else
     {
-      res = code(xctx, xctx->mech_data, input, input_len, output, output_len);
+      res =
+	code (xctx, xctx->mech_data, input, input_len, output, output_len);
     }
 
   return res;
@@ -77,14 +76,12 @@ gsasl_encode (Gsasl_session_ctx *xctx,
  * an error code.
  **/
 int
-gsasl_decode (Gsasl_session_ctx *xctx, 
+gsasl_decode (Gsasl_session_ctx * xctx,
 	      const char *input,
-	      size_t input_len,
-	      char *output,
-	      size_t *output_len)
+	      size_t input_len, char *output, size_t * output_len)
 {
   int res;
-  _Gsasl_code_function code = xctx ? (xctx->clientp ? 
+  _Gsasl_code_function code = xctx ? (xctx->clientp ?
 				      xctx->mech->client.decode :
 				      xctx->mech->server.decode) : NULL;
 
@@ -92,12 +89,13 @@ gsasl_decode (Gsasl_session_ctx *xctx,
     {
       *output_len = input_len;
       if (output)
-	memcpy(output, input, input_len);
+	memcpy (output, input, input_len);
       res = GSASL_OK;
     }
   else
     {
-      res = code(xctx, xctx->mech_data, input, input_len, output, output_len);
+      res =
+	code (xctx, xctx->mech_data, input, input_len, output, output_len);
     }
 
   return res;

@@ -30,16 +30,15 @@
  * Print a byte array to given file handle, mostly for debugging purposes.
  **/
 void
-gsasl_hexdump (FILE *fh, const char *buffer, size_t len)
+gsasl_hexdump (FILE * fh, const char *buffer, size_t len)
 {
   int i;
 
-  for (i=0; i < len; i++)
+  for (i = 0; i < len; i++)
     {
-      fprintf(fh, _("%d: hex %02X dec %d ascii %c\n"), 
-	      i,
-	      (unsigned char)buffer[i],
-	      (unsigned char)buffer[i], 
-	      (unsigned char)buffer[i]);
+      fprintf (fh, _("%d: hex %02X dec %d ascii %c\n"),
+	       i,
+	       (unsigned char) buffer[i],
+	       (unsigned char) buffer[i], (unsigned char) buffer[i]);
     }
 }

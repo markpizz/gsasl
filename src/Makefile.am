@@ -32,3 +32,6 @@ bin_PROGRAMS = gsasl
 
 gsasl_SOURCES = gsasl.c callbacks.h callbacks.c gettext.h
 gsasl_LDADD = ../lib/libgsasl.la @LIBARGP@ libcharset/libcharset.la
+
+indent:
+	indent $(gsasl_SOURCES)

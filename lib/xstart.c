@@ -22,24 +22,24 @@
 #include "internal.h"
 
 static int
-_gsasl_session_start (Gsasl_ctx *ctx,
-		      const char *mech, 
-		      Gsasl_session_ctx **xctx,
-		      int clientp)
+_gsasl_session_start (Gsasl_ctx * ctx,
+		      const char *mech,
+		      Gsasl_session_ctx ** xctx, int clientp)
 {
   int i = 0;
   int res;
 
-  *xctx = (Gsasl_session_ctx*) malloc(sizeof(**xctx));
+  *xctx = (Gsasl_session_ctx *) malloc (sizeof (**xctx));
   if (*xctx == NULL)
     return GSASL_MALLOC_ERROR;
 
-  memset(*xctx, 0, sizeof(**xctx));
+  memset (*xctx, 0, sizeof (**xctx));
 
   for (i = 0; i < (clientp ? ctx->n_client_mechs : ctx->n_server_mechs); i++)
     {
-      if (mech && ((clientp && strcmp(mech, ctx->client_mechs[i].name) == 0) ||
-		   (!clientp && strcmp(mech, ctx->server_mechs[i].name) == 0)))
+      if (mech
+	  && ((clientp && strcmp (mech, ctx->client_mechs[i].name) == 0)
+	      || (!clientp && strcmp (mech, ctx->server_mechs[i].name) == 0)))
 	{
 	  if (clientp)
 	    (*xctx)->mech = &ctx->client_mechs[i];
@@ -51,7 +51,7 @@ _gsasl_session_start (Gsasl_ctx *ctx,
 
   if ((*xctx)->mech == NULL)
     {
-      free(*xctx);
+      free (*xctx);
       *xctx = NULL;
       return GSASL_UNKNOWN_MECHANISM;
     }
@@ -60,13 +60,13 @@ _gsasl_session_start (Gsasl_ctx *ctx,
   (*xctx)->clientp = clientp;
   (*xctx)->mech_data = NULL;
   if (clientp)
-    res = (*xctx)->mech->client.start(*xctx, &(*xctx)->mech_data);
+    res = (*xctx)->mech->client.start (*xctx, &(*xctx)->mech_data);
   else
-    res = (*xctx)->mech->server.start(*xctx, &(*xctx)->mech_data);
+    res = (*xctx)->mech->server.start (*xctx, &(*xctx)->mech_data);
 
   if (res != GSASL_OK)
     {
-      free(*xctx);
+      free (*xctx);
       *xctx = NULL;
       return res;
     }
@@ -87,9 +87,8 @@ _gsasl_session_start (Gsasl_ctx *ctx,
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
-gsasl_client_start (Gsasl_ctx *ctx,
-		    const char *mech, 
-		    Gsasl_session_ctx **xctx)
+gsasl_client_start (Gsasl_ctx * ctx,
+		    const char *mech, Gsasl_session_ctx ** xctx)
 {
   return _gsasl_session_start (ctx, mech, xctx, 1);
 }
@@ -107,9 +106,8 @@ gsasl_client_start (Gsasl_ctx *ctx,
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
-gsasl_server_start (Gsasl_ctx *ctx,
-		    const char *mech, 
-		    Gsasl_session_ctx **xctx)
+gsasl_server_start (Gsasl_ctx * ctx,
+		    const char *mech, Gsasl_session_ctx ** xctx)
 {
   return _gsasl_session_start (ctx, mech, xctx, 0);
 }

@@ -28,31 +28,29 @@
 
 #define _GSASL_CRAM_MD5_NAME "CRAM-MD5"
 
-extern int  _gsasl_cram_md5_client_init (Gsasl_ctx *ctx);
-extern void _gsasl_cram_md5_client_done (Gsasl_ctx *ctx);
-extern int  _gsasl_cram_md5_client_start (Gsasl_session_ctx *cctx,
-					  void **mech_data);
-extern int  _gsasl_cram_md5_client_step (Gsasl_session_ctx *cctx,
-					 void *mech_data, 
-					 const char *input, 
-					 size_t input_len,
-					 char *output, 
-					 size_t *output_len);
-extern int  _gsasl_cram_md5_client_finish (Gsasl_session_ctx *cctx,
-					   void *mech_data);
+extern int _gsasl_cram_md5_client_init (Gsasl_ctx * ctx);
+extern void _gsasl_cram_md5_client_done (Gsasl_ctx * ctx);
+extern int _gsasl_cram_md5_client_start (Gsasl_session_ctx * cctx,
+					 void **mech_data);
+extern int _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
+					void *mech_data,
+					const char *input,
+					size_t input_len,
+					char *output, size_t * output_len);
+extern int _gsasl_cram_md5_client_finish (Gsasl_session_ctx * cctx,
+					  void *mech_data);
 
-extern int  _gsasl_cram_md5_server_init (Gsasl_ctx *ctx);
-extern void _gsasl_cram_md5_server_done (Gsasl_ctx *ctx);
-extern int  _gsasl_cram_md5_server_start (Gsasl_session_ctx *sctx,
-					  void **mech_data);
-extern int  _gsasl_cram_md5_server_step (Gsasl_session_ctx *sctx,
-					 void *mech_data, 
-					 const char *input,
-					 size_t input_len,
-					 char *output, 
-					 size_t *output_len);
-extern int  _gsasl_cram_md5_server_finish (Gsasl_session_ctx *sctx,
-					   void *mech_data);
+extern int _gsasl_cram_md5_server_init (Gsasl_ctx * ctx);
+extern void _gsasl_cram_md5_server_done (Gsasl_ctx * ctx);
+extern int _gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx,
+					 void **mech_data);
+extern int _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
+					void *mech_data,
+					const char *input,
+					size_t input_len,
+					char *output, size_t * output_len);
+extern int _gsasl_cram_md5_server_finish (Gsasl_session_ctx * sctx,
+					  void *mech_data);
 
 #endif /* USE_CRAM_MD5 */
 

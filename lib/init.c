@@ -31,7 +31,7 @@ _gsasl_gettext (const char *str)
 void
 _gsasl_gettext_init ()
 {
-  bindtextdomain(PACKAGE, LOCALEDIR);
+  bindtextdomain (PACKAGE, LOCALEDIR);
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET
   bind_textdomain_codeset (PACKAGE, "UTF-8");
 #endif
@@ -50,65 +50,65 @@ _gsasl_gettext_init ()
  * Return value: GSASL_OK iff successful, otherwise GSASL_MALLOC_ERROR.
  **/
 int
-gsasl_init (Gsasl_ctx **ctx)
+gsasl_init (Gsasl_ctx ** ctx)
 {
   int i;
 
 #if ENABLE_NLS
-  _gsasl_gettext_init();
+  _gsasl_gettext_init ();
 #endif
 
-  *ctx = (Gsasl_ctx*) malloc(sizeof(**ctx));
+  *ctx = (Gsasl_ctx *) malloc (sizeof (**ctx));
   if (*ctx == NULL)
     return GSASL_MALLOC_ERROR;
 
-  memset(*ctx, 0, sizeof(**ctx));
+  memset (*ctx, 0, sizeof (**ctx));
 
   i = 0;
   while (_gsasl_all_mechanisms[i].name)
     {
       if (_gsasl_all_mechanisms[i].client.init &&
-	  _gsasl_all_mechanisms[i].client.init(*ctx) == GSASL_OK)
+	  _gsasl_all_mechanisms[i].client.init (*ctx) == GSASL_OK)
 	{
 	  if ((*ctx)->client_mechs)
-	    (*ctx)->client_mechs = (_Gsasl_mechanism*) 
-	      realloc ((*ctx)->client_mechs, 
-		       sizeof(*(*ctx)->client_mechs) * 
+	    (*ctx)->client_mechs = (_Gsasl_mechanism *)
+	      realloc ((*ctx)->client_mechs,
+		       sizeof (*(*ctx)->client_mechs) *
 		       ((*ctx)->n_client_mechs + 1));
 	  else
-	    (*ctx)->client_mechs = (_Gsasl_mechanism*) 
-	      malloc (sizeof(*(*ctx)->client_mechs));
+	    (*ctx)->client_mechs = (_Gsasl_mechanism *)
+	      malloc (sizeof (*(*ctx)->client_mechs));
 
 	  if ((*ctx)->client_mechs == NULL)
 	    {
-	      gsasl_done(*ctx);
+	      gsasl_done (*ctx);
 	      return GSASL_MALLOC_ERROR;
 	    }
 
-	  (*ctx)->client_mechs[(*ctx)->n_client_mechs] = 
+	  (*ctx)->client_mechs[(*ctx)->n_client_mechs] =
 	    _gsasl_all_mechanisms[i];
 	  (*ctx)->n_client_mechs++;
 	}
 
       if (_gsasl_all_mechanisms[i].server.init &&
-	  _gsasl_all_mechanisms[i].server.init(*ctx) == GSASL_OK)
+	  _gsasl_all_mechanisms[i].server.init (*ctx) == GSASL_OK)
 	{
 	  if ((*ctx)->server_mechs)
-	    (*ctx)->server_mechs = (_Gsasl_mechanism*) 
-	      realloc ((*ctx)->server_mechs, 
-		       sizeof(*(*ctx)->server_mechs) * 
+	    (*ctx)->server_mechs = (_Gsasl_mechanism *)
+	      realloc ((*ctx)->server_mechs,
+		       sizeof (*(*ctx)->server_mechs) *
 		       ((*ctx)->n_server_mechs + 1));
 	  else
-	    (*ctx)->server_mechs = (_Gsasl_mechanism*) 
-	      malloc (sizeof(*(*ctx)->server_mechs));
+	    (*ctx)->server_mechs = (_Gsasl_mechanism *)
+	      malloc (sizeof (*(*ctx)->server_mechs));
 
 	  if ((*ctx)->server_mechs == NULL)
 	    {
-	      gsasl_done(*ctx);
+	      gsasl_done (*ctx);
 	      return GSASL_MALLOC_ERROR;
 	    }
 
-	  (*ctx)->server_mechs[(*ctx)->n_server_mechs] = 
+	  (*ctx)->server_mechs[(*ctx)->n_server_mechs] =
 	    _gsasl_all_mechanisms[i];
 	  (*ctx)->n_server_mechs++;
 	}

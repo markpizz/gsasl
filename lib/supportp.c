@@ -22,12 +22,12 @@
 #include "internal.h"
 
 static int
-_gsasl_support_p (_Gsasl_mechanism *mechs, size_t n_mechs, const char *name)
+_gsasl_support_p (_Gsasl_mechanism * mechs, size_t n_mechs, const char *name)
 {
   int i;
 
   for (i = 0; i < n_mechs; i++)
-    if (name && strcmp(name, mechs[i].name) == 0)
+    if (name && strcmp (name, mechs[i].name) == 0)
       return 1;
 
   return 0;
@@ -42,7 +42,7 @@ _gsasl_support_p (_Gsasl_mechanism *mechs, size_t n_mechs, const char *name)
  * mechanism, otherwise 0.
  **/
 int
-gsasl_client_support_p (Gsasl_ctx *ctx, const char *name)
+gsasl_client_support_p (Gsasl_ctx * ctx, const char *name)
 {
   return _gsasl_support_p (ctx->client_mechs, ctx->n_client_mechs, name);
 }
@@ -56,7 +56,7 @@ gsasl_client_support_p (Gsasl_ctx *ctx, const char *name)
  * mechanism, otherwise 0.
  **/
 int
-gsasl_server_support_p (Gsasl_ctx *ctx, const char *name)
+gsasl_server_support_p (Gsasl_ctx * ctx, const char *name)
 {
   return _gsasl_support_p (ctx->server_mechs, ctx->n_server_mechs, name);
 }

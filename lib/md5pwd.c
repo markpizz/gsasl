@@ -42,56 +42,54 @@
  * found, or other error code.
  **/
 int
-gsasl_md5pwd_get_password (const char *filename, 
-			   const char *username,
-			   char *key,
-			   size_t *keylen)
+gsasl_md5pwd_get_password (const char *filename,
+			   const char *username, char *key, size_t * keylen)
 {
   char matchbuf[BUFSIZ];
   char line[BUFSIZ];
   FILE *fh;
 
-  fh = fopen(filename, "r");
+  fh = fopen (filename, "r");
   if (fh == NULL)
-      return GSASL_FOPEN_ERROR;
+    return GSASL_FOPEN_ERROR;
 
-  sprintf(matchbuf, "%s\t", username);
+  sprintf (matchbuf, "%s\t", username);
 
-  while (!feof(fh))
+  while (!feof (fh))
     {
-      if (fgets(line, BUFSIZ, fh) == NULL)
+      if (fgets (line, BUFSIZ, fh) == NULL)
 	break;
 
       if (line[0] == '#')
 	continue;
 
-      while (strlen(line) > 0 && (line[strlen(line)-1] == '\n' || 
-				  line[strlen(line)-1] == '\r'))
-	line[strlen(line)-1] = '\0';
+      while (strlen (line) > 0 && (line[strlen (line) - 1] == '\n' ||
+				   line[strlen (line) - 1] == '\r'))
+	line[strlen (line) - 1] = '\0';
 
-      if (strlen(line) <= strlen(matchbuf))
+      if (strlen (line) <= strlen (matchbuf))
 	continue;
 
-      if (strncmp(matchbuf, line, strlen(matchbuf)) == 0)
+      if (strncmp (matchbuf, line, strlen (matchbuf)) == 0)
 	{
-	  if (*keylen < strlen(line) - strlen(matchbuf))
+	  if (*keylen < strlen (line) - strlen (matchbuf))
 	    {
-	      fclose(fh);
+	      fclose (fh);
 	      return GSASL_TOO_SMALL_BUFFER;
 	    }
 
-	  *keylen = strlen(line) - strlen(matchbuf);
+	  *keylen = strlen (line) - strlen (matchbuf);
 
 	  if (key)
-	    memcpy(key, &line[strlen(matchbuf)], *keylen);
+	    memcpy (key, &line[strlen (matchbuf)], *keylen);
 
-	  fclose(fh);
+	  fclose (fh);
 
 	  return GSASL_OK;
 	}
     }
-  
-  if (fclose(fh) != 0)
+
+  if (fclose (fh) != 0)
     return GSASL_FCLOSE_ERROR;
 
   return GSASL_AUTHENTICATION_ERROR;

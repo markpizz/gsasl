@@ -26,11 +26,11 @@
 #include <gcrypt.h>
 
 int
-_gsasl_cram_md5_client_init (Gsasl_ctx *ctx)
+_gsasl_cram_md5_client_init (Gsasl_ctx * ctx)
 {
   int res;
 
-  if (gcry_check_version(GCRYPT_VERSION) == NULL)
+  if (gcry_check_version (GCRYPT_VERSION) == NULL)
     return GSASL_GCRYPT_ERROR;
 
   res = gcry_control (GCRYCTL_INIT_SECMEM, 512, 0);
@@ -41,14 +41,13 @@ _gsasl_cram_md5_client_init (Gsasl_ctx *ctx)
 }
 
 void
-_gsasl_cram_md5_client_done (Gsasl_ctx *ctx)
+_gsasl_cram_md5_client_done (Gsasl_ctx * ctx)
 {
   return;
 }
 
 int
-_gsasl_cram_md5_client_start (Gsasl_session_ctx *cctx, 
-			      void **mech_data)
+_gsasl_cram_md5_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 {
   Gsasl_ctx *ctx;
   int *done;
@@ -63,24 +62,23 @@ _gsasl_cram_md5_client_start (Gsasl_session_ctx *cctx,
   if (gsasl_client_callback_password_get (ctx) == NULL)
     return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
-  done = (int*) malloc(sizeof(*done));
+  done = (int *) malloc (sizeof (*done));
   if (done == NULL)
     return GSASL_MALLOC_ERROR;
 
   *done = 0;
 
   *mech_data = done;
-  
+
   return GSASL_OK;
 }
 
 int
-_gsasl_cram_md5_client_step  (Gsasl_session_ctx *cctx, 
-			      void *mech_data, 
-			      const char *input,
-			      size_t input_len,
-			      char *output,
-			      size_t *output_len)
+_gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
+			     void *mech_data,
+			     const char *input,
+			     size_t input_len,
+			     char *output, size_t * output_len)
 {
   int *step = mech_data;
   Gsasl_ctx *ctx;
@@ -118,22 +116,22 @@ _gsasl_cram_md5_client_step  (Gsasl_session_ctx *cctx,
   md5h = gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_HMAC);
   if (md5h == NULL)
     return GSASL_GCRYPT_ERROR;
-    
+
   /* XXX? password stored in callee's output buffer */
   len = *output_len;
-  res = cb_password (cctx, output, &len); 
+  res = cb_password (cctx, output, &len);
   if (res != GSASL_OK)
     return res;
   tmp = gsasl_utf8_nfkc_normalize (output, len);
   if (tmp == NULL)
     return GSASL_UNICODE_NORMALIZATION_ERROR;
-  res = gcry_md_setkey (md5h, tmp, strlen(tmp));
-  free(tmp);
+  res = gcry_md_setkey (md5h, tmp, strlen (tmp));
+  free (tmp);
   if (res != GCRYERR_SUCCESS)
     return GSASL_GCRYPT_ERROR;
 
   gcry_md_write (md5h, input, input_len);
-  
+
   hash = gcry_md_read (md5h, GCRY_MD_MD5);
   if (hash == NULL)
     return GSASL_GCRYPT_ERROR;
@@ -145,24 +143,24 @@ _gsasl_cram_md5_client_step  (Gsasl_session_ctx *cctx,
   tmp = gsasl_utf8_nfkc_normalize (output, len);
   if (tmp == NULL)
     return GSASL_UNICODE_NORMALIZATION_ERROR;
-  if (strlen(tmp) + strlen(" ") + 2*hash_len >= *output_len)
+  if (strlen (tmp) + strlen (" ") + 2 * hash_len >= *output_len)
     {
-      free(tmp);
+      free (tmp);
       return GSASL_TOO_SMALL_BUFFER;
     }
-  len = strlen(tmp);
-  memcpy(output, tmp, len);
-  free(tmp);
+  len = strlen (tmp);
+  memcpy (output, tmp, len);
+  free (tmp);
   output[len++] = ' ';
 
   for (i = 0; i < hash_len; i++)
     {
-      output[len + 2*i + 1] = HEXCHAR(hash[i]);
-      output[len + 2*i + 0] = HEXCHAR(hash[i] >> 4);
+      output[len + 2 * i + 1] = HEXCHAR (hash[i]);
+      output[len + 2 * i + 0] = HEXCHAR (hash[i] >> 4);
     }
-  *output_len = len + 2*hash_len;
+  *output_len = len + 2 * hash_len;
 
-  gcry_md_close(md5h);
+  gcry_md_close (md5h);
 
   (*step)++;
 
@@ -170,12 +168,11 @@ _gsasl_cram_md5_client_step  (Gsasl_session_ctx *cctx,
 }
 
 int
-_gsasl_cram_md5_client_finish (Gsasl_session_ctx *cctx,
-			    void *mech_data)
+_gsasl_cram_md5_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
 {
   int *step = mech_data;
 
-  free(step);
+  free (step);
 
   return GSASL_OK;
 }
@@ -183,23 +180,22 @@ _gsasl_cram_md5_client_finish (Gsasl_session_ctx *cctx,
 /* Server */
 
 int
-_gsasl_cram_md5_server_init (Gsasl_ctx *ctx)
+_gsasl_cram_md5_server_init (Gsasl_ctx * ctx)
 {
-  if (gcry_check_version(GCRYPT_VERSION) == NULL)
+  if (gcry_check_version (GCRYPT_VERSION) == NULL)
     return GSASL_GCRYPT_ERROR;
 
   return GSASL_OK;
 }
 
 void
-_gsasl_cram_md5_server_done (Gsasl_ctx *ctx)
+_gsasl_cram_md5_server_done (Gsasl_ctx * ctx)
 {
   return;
 }
 
 int
-_gsasl_cram_md5_server_start (Gsasl_session_ctx *sctx, 
-			      void **mech_data)
+_gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   Gsasl_ctx *ctx;
   char *challenge;
@@ -219,34 +215,32 @@ _gsasl_cram_md5_server_start (Gsasl_session_ctx *sctx,
 #define NUMBER_OF_XS 16
 #define CHALLENGE_FORMAT "<XXXXXXXXXXXXXXXX.libgsasl@localhost>"
 
-  challenge = (char*) malloc(strlen(CHALLENGE_FORMAT) + 1);
+  challenge = (char *) malloc (strlen (CHALLENGE_FORMAT) + 1);
   if (challenge == NULL)
     return GSASL_MALLOC_ERROR;
 
-  strcpy(challenge, CHALLENGE_FORMAT);
+  strcpy (challenge, CHALLENGE_FORMAT);
 
   gcry_randomize (challenge + 1, NUMBER_OF_XS, GCRY_WEAK_RANDOM);
 
-  for (i = 0; i < NUMBER_OF_XS/2; i++)
+  for (i = 0; i < NUMBER_OF_XS / 2; i++)
     {
-      challenge[START_OF_XS + NUMBER_OF_XS/2 + i] = 
-	HEXCHAR(challenge[START_OF_XS + i]);
-      challenge[START_OF_XS + i] = 
-	HEXCHAR(challenge[START_OF_XS + i] >> 4);
+      challenge[START_OF_XS + NUMBER_OF_XS / 2 + i] =
+	HEXCHAR (challenge[START_OF_XS + i]);
+      challenge[START_OF_XS + i] = HEXCHAR (challenge[START_OF_XS + i] >> 4);
     }
-  
+
   *mech_data = challenge;
 
   return GSASL_OK;
 }
 
 int
-_gsasl_cram_md5_server_step (Gsasl_session_ctx *sctx, 
-			     void *mech_data, 
+_gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
+			     void *mech_data,
 			     const char *input,
 			     size_t input_len,
-			     char *output,
-			     size_t *output_len)
+			     char *output, size_t * output_len)
 {
   char *challenge = mech_data;
   Gsasl_server_callback_cram_md5 cb_cram_md5;
@@ -258,11 +252,11 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx *sctx,
 
   if (input_len == 0)
     {
-      if (*output_len < strlen(challenge))
+      if (*output_len < strlen (challenge))
 	return GSASL_TOO_SMALL_BUFFER;
-      
-      *output_len = strlen(challenge);
-      memcpy(output, challenge, *output_len);
+
+      *output_len = strlen (challenge);
+      memcpy (output, challenge, *output_len);
 
       return GSASL_NEEDS_MORE;
     }
@@ -282,30 +276,30 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx *sctx,
   if (cb_cram_md5 == NULL && cb_retrieve == NULL)
     return GSASL_NEED_SERVER_CRAM_MD5_CALLBACK;
 
-  username = (char*) malloc(input_len);
+  username = (char *) malloc (input_len);
   if (username == NULL)
     return GSASL_MALLOC_ERROR;
 
-  memcpy(username, input, input_len - hash_len * 2);
+  memcpy (username, input, input_len - hash_len * 2);
   username[input_len - hash_len * 2 - 1] = '\0';
 
   if (cb_cram_md5)
     {
       char *response;
 
-      response = (char*) malloc(hash_len * 2 + 1);
+      response = (char *) malloc (hash_len * 2 + 1);
       if (response == NULL)
 	{
-	  free(username);
+	  free (username);
 	  return GSASL_MALLOC_ERROR;
 	}
 
-      memcpy(response, input + input_len - hash_len * 2, hash_len * 2);
+      memcpy (response, input + input_len - hash_len * 2, hash_len * 2);
       response[hash_len * 2 + 1] = '\0';
 
       res = cb_cram_md5 (sctx, username, challenge, response);
 
-      free(response);
+      free (response);
     }
   else if (cb_retrieve)
     {
@@ -320,67 +314,67 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx *sctx,
       md5h = gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_HMAC);
       if (md5h == NULL)
 	{
-	  free(username);
+	  free (username);
 	  return GSASL_GCRYPT_ERROR;
 	}
 
-      res = cb_retrieve(sctx, username, NULL, NULL, NULL, &keylen);
+      res = cb_retrieve (sctx, username, NULL, NULL, NULL, &keylen);
       if (res != GSASL_OK)
 	return res;
-      key = malloc(keylen);
+      key = malloc (keylen);
       if (key == NULL)
 	return GSASL_MALLOC_ERROR;
-      res = cb_retrieve(sctx, username, NULL, NULL, key, &keylen);
+      res = cb_retrieve (sctx, username, NULL, NULL, key, &keylen);
       if (res != GSASL_OK)
 	{
-	  free(username);
-	  free(key);
+	  free (username);
+	  free (key);
 	  return res;
 	}
       normkey = gsasl_utf8_nfkc_normalize (key, keylen);
-      free(key);
+      free (key);
       if (normkey == NULL)
 	{
-	  free(username);
+	  free (username);
 	  return GSASL_UNICODE_NORMALIZATION_ERROR;
 	}
 
-      res = gcry_md_setkey (md5h, normkey, strlen(normkey));
-      free(normkey);
+      res = gcry_md_setkey (md5h, normkey, strlen (normkey));
+      free (normkey);
       if (res != GCRYERR_SUCCESS)
 	{
-	  free(username);
+	  free (username);
 	  return GSASL_GCRYPT_ERROR;
 	}
 
-      gcry_md_write (md5h, challenge, strlen(challenge));
-  
+      gcry_md_write (md5h, challenge, strlen (challenge));
+
       hash = gcry_md_read (md5h, GCRY_MD_MD5);
       if (hash == NULL)
 	{
-	  free(username);
+	  free (username);
 	  return GSASL_GCRYPT_ERROR;
 	}
 
       res = GSASL_OK;
       for (i = 0; i < hash_len; i++)
-	if ((input[input_len - hash_len*2 + 2*i + 1] != HEXCHAR(hash[i])) ||
-	    (input[input_len - hash_len*2 + 2*i + 0] != HEXCHAR(hash[i] >> 4)))
+	if ((input[input_len - hash_len * 2 + 2 * i + 1] != HEXCHAR (hash[i]))
+	    || (input[input_len - hash_len * 2 + 2 * i + 0] !=
+		HEXCHAR (hash[i] >> 4)))
 	  res = GSASL_AUTHENTICATION_ERROR;
     }
 
-  free(username);
+  free (username);
 
   return res;
 }
 
 int
-_gsasl_cram_md5_server_finish (Gsasl_session_ctx *sctx, 
-			       void *mech_data)
+_gsasl_cram_md5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   char *challenge = mech_data;
 
-  free(challenge);
+  free (challenge);
 
   return GSASL_OK;
 }

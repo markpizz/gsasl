@@ -40,31 +40,28 @@ extern char *_gsasl_gettext (const char *str);
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 
-typedef int (*_Gsasl_code_function) (Gsasl_session_ctx *cctx,
+typedef int (*_Gsasl_code_function) (Gsasl_session_ctx * cctx,
 				     void *mech_data,
 				     const char *input,
 				     size_t input_len,
-				     char *output,
-				     size_t *output_len);
+				     char *output, size_t * output_len);
 
-struct _Gsasl_mechanism_functions {
-  int	(*init)   (Gsasl_ctx *ctx);
-  void	(*done)   (Gsasl_ctx *ctx);
-  int	(*start)  (Gsasl_session_ctx *cctx, 
-		   void **mech_data);
-  int	(*step)   (Gsasl_session_ctx *cctx, 
-		   void *mech_data, 
-		   const char *input, 
-		   size_t input_len,
-		   char *output, 
-		   size_t *output_len);
-  int	(*finish) (Gsasl_session_ctx *cctx, 
-		   void *mech_data);
+struct _Gsasl_mechanism_functions
+{
+  int (*init) (Gsasl_ctx * ctx);
+  void (*done) (Gsasl_ctx * ctx);
+  int (*start) (Gsasl_session_ctx * cctx, void **mech_data);
+  int (*step) (Gsasl_session_ctx * cctx,
+	       void *mech_data,
+	       const char *input,
+	       size_t input_len, char *output, size_t * output_len);
+  int (*finish) (Gsasl_session_ctx * cctx, void *mech_data);
   _Gsasl_code_function encode;
   _Gsasl_code_function decode;
 };
 
-struct _Gsasl_mechanism {
+struct _Gsasl_mechanism
+{
   char *name;
 
   struct _Gsasl_mechanism_functions client;
@@ -74,37 +71,39 @@ typedef struct _Gsasl_mechanism _Gsasl_mechanism;
 
 extern _Gsasl_mechanism _gsasl_all_mechanisms[];
 
-struct Gsasl_ctx {
-  size_t                                    n_client_mechs;
-  _Gsasl_mechanism                          *client_mechs;
-  size_t                                    n_server_mechs;
-  _Gsasl_mechanism                          *server_mechs;
-  void                                      *application_data;
-  Gsasl_client_callback_authorization_id    cbc_authorization_id;
-  Gsasl_client_callback_authentication_id   cbc_authentication_id;
-  Gsasl_client_callback_password            cbc_password;
-  Gsasl_client_callback_passcode            cbc_passcode;
-  Gsasl_client_callback_pin                 cbc_pin;
-  Gsasl_client_callback_anonymous           cbc_anonymous;
-  Gsasl_client_callback_qop                 cbc_qop;
-  Gsasl_client_callback_maxbuf              cbc_maxbuf;
-  Gsasl_client_callback_service             cbc_service;
-  Gsasl_server_callback_validate            cbs_validate;
-  Gsasl_server_callback_securid             cbs_securid;
-  Gsasl_server_callback_retrieve            cbs_retrieve;
-  Gsasl_server_callback_cram_md5            cbs_cram_md5;
-  Gsasl_server_callback_digest_md5          cbs_digest_md5;
-  Gsasl_server_callback_external            cbs_external;
-  Gsasl_server_callback_anonymous           cbs_anonymous;
-  Gsasl_server_callback_realm               cbs_realm;
-  Gsasl_server_callback_qop                 cbs_qop;
-  Gsasl_server_callback_maxbuf              cbs_maxbuf;
-  Gsasl_server_callback_cipher              cbs_cipher;
-  Gsasl_server_callback_service             cbs_service;
-  Gsasl_server_callback_gssapi              cbs_gssapi;
+struct Gsasl_ctx
+{
+  size_t n_client_mechs;
+  _Gsasl_mechanism *client_mechs;
+  size_t n_server_mechs;
+  _Gsasl_mechanism *server_mechs;
+  void *application_data;
+  Gsasl_client_callback_authorization_id cbc_authorization_id;
+  Gsasl_client_callback_authentication_id cbc_authentication_id;
+  Gsasl_client_callback_password cbc_password;
+  Gsasl_client_callback_passcode cbc_passcode;
+  Gsasl_client_callback_pin cbc_pin;
+  Gsasl_client_callback_anonymous cbc_anonymous;
+  Gsasl_client_callback_qop cbc_qop;
+  Gsasl_client_callback_maxbuf cbc_maxbuf;
+  Gsasl_client_callback_service cbc_service;
+  Gsasl_server_callback_validate cbs_validate;
+  Gsasl_server_callback_securid cbs_securid;
+  Gsasl_server_callback_retrieve cbs_retrieve;
+  Gsasl_server_callback_cram_md5 cbs_cram_md5;
+  Gsasl_server_callback_digest_md5 cbs_digest_md5;
+  Gsasl_server_callback_external cbs_external;
+  Gsasl_server_callback_anonymous cbs_anonymous;
+  Gsasl_server_callback_realm cbs_realm;
+  Gsasl_server_callback_qop cbs_qop;
+  Gsasl_server_callback_maxbuf cbs_maxbuf;
+  Gsasl_server_callback_cipher cbs_cipher;
+  Gsasl_server_callback_service cbs_service;
+  Gsasl_server_callback_gssapi cbs_gssapi;
 };
 
-struct Gsasl_session_ctx {
+struct Gsasl_session_ctx
+{
   Gsasl_ctx *ctx;
   int clientp;
   _Gsasl_mechanism *mech;
