@@ -1112,11 +1112,14 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	if (cb_maxbuf
 	    && (maxbuf = cb_maxbuf (sctx, maxbuf)) != MAXBUF_DEFAULT)
 	  {
-	    if (outlen + strlen (MAXBUF_PRE) +
-		/* XXX don't require -lm, how? */
-		1 + floor (log10 (INT_MAX)) +
+	    char *tmp;
+
+	    asprintf (&tmp, "%d", maxbuf);
+
+	    if (outlen + strlen (MAXBUF_PRE) + strlen (tmp) +
 		strlen (MAXBUF_POST) >= *output_len)
 	      {
+		free (tmp);
 		res = GSASL_TOO_SMALL_BUFFER;
 		goto done;
 	      }
@@ -1124,11 +1127,13 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	    strcat (output, MAXBUF_PRE);
 	    outlen += strlen (MAXBUF_PRE);
 
-	    sprintf (&output[outlen], "%d", maxbuf);
+	    strcat (output, tmp);
 	    outlen += strlen (&output[outlen]);
 
 	    strcat (output, MAXBUF_POST);
 	    outlen += strlen (MAXBUF_POST);
+
+	    free (tmp);
 	  }
 	/* cipher */
 	if (state->qop & GSASL_QOP_AUTH_CONF)
