@@ -58,9 +58,19 @@ _gsasl_setup (Gsasl_ctx * ctx,
   sctx->clientp = clientp;
 
   if (clientp)
-    res = sctx->mech->client.start (sctx, &sctx->mech_data);
+    {
+      if (sctx->mech->client.start)
+	res = sctx->mech->client.start (sctx, &sctx->mech_data);
+      else
+	res = GSASL_NO_CLIENT_CODE;
+    }
   else
-    res = sctx->mech->server.start (sctx, &sctx->mech_data);
+    {
+      if (sctx->mech->server.start)
+	res = sctx->mech->server.start (sctx, &sctx->mech_data);
+      else
+	res = GSASL_NO_SERVER_CODE;
+    }
   if (res != GSASL_OK)
     return res;
 
