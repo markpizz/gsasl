@@ -291,7 +291,7 @@ AC_MSG_RESULT($server)
 # Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(sys/types.h)
-AC_CHECK_HEADERS(unistd.h strings.h netdb.h math.h limits.h)
+AC_CHECK_HEADERS(unistd.h strings.h netdb.h limits.h)
 AC_CHECK_HEADERS(sys/poll.h sys/time.h sys/select.h sys/socket.h)
 AC_CHECK_HEADERS(netinet/in.h errno.h)
 
