@@ -104,7 +104,7 @@ PLAIN, SECURID, DIGEST-MD5, LOGIN, and NTLM mechanisms.
 The library is easily ported because it does not do network
 communication by itself, but rather leaves it up to the calling
 application.  The library is flexible with regards to the
-authorization infrastructure used, as it utilizes callbacks into the
+authorization infrastructure used, as it utilize a callback into the
 application to decide whether a user is authorized or not.
 
 GNU SASL is developed for the GNU/Linux system, but runs on over 20
@@ -118,8 +118,8 @@ that support client and server mode, and the IMAP and SMTP protocols,
 fits in under 60kb on an Intel x86 platform, without any modifications
 to the code.  (This figure was accurate as of version 0.0.13.)
 
-Most of the library is licensed under the GNU Lesser General Public
-License, but the command-line interface and self-tests are licensed
+The library is licensed under the GNU Lesser General Public License,
+and the command-line interface, self-tests and examples are licensed
 under the GNU General Public License.
 
 @menu
@@ -165,7 +165,7 @@ the GNU Lesser General Public License.
 
 @item It's thread-safe
 No global variables are used and multiple library handles and session
-handles may be used in parallell.
+handles may be used in parallel.
 
 @item It's internationalized
 It handles non-ASCII username and passwords and user visible strings
@@ -181,7 +181,7 @@ POSIX is required.
 
 Note that the library do not implement any policy to decide whether a
 certain user is ``authenticated'' or ``authorized'' or not.  Rather,
-it uses callbacks back into the application to answer these questions.
+it uses a callback into the application to answer these questions.
 
 @node SASL Overview
 @section SASL Overview
@@ -419,8 +419,8 @@ The package can be downloaded from several places, including:
 @url{http://josefsson.org/gsasl/releases/}
 
 The latest version is stored in a file, e.g.,
-@samp{gsasl-0.0.42.tar.gz} where the @samp{0.0.42} indicate the
-highest version number.
+@samp{gsasl-@value{VERSION}.tar.gz} where the @samp{@value{VERSION}}
+value is the highest version number in the directory.
 
 The package is then extracted, configured and built like many other
 packages that use Autoconf.  For detailed information on configuring
@@ -624,11 +624,48 @@ The library must be initialized before it can be used.  The library is
 initialized by calling @code{gsasl_init} (@pxref{Global Functions}).
 The resources allocated by the initialization process can be released
 if the application no longer has a need to call `Libgsasl' functions,
-this is done by calling @code{gsasl_done}.
+this is done by calling @code{gsasl_done}.  For example:
 
-In order to take advantage of the internationalisation features in the
-library, such as translated error messages, the application must set
-the current locale using @code{setlocale} before initialization.
+@example
+int
+main (int argc, char *argv[])
+@{
+  Gsasl_ctx *ctx = NULL;
+  int rc;
+...
+  rc = gsasl_init (&ctx);
+  if (rc != GSASL_OK)
+    @{
+      printf ("SASL initialization failure (%d): %s\n",
+              rc, gsasl_strerror (rc));
+      return 1;
+    @}
+...
+@end example
+
+In order to make error messages from @code{gsasl_strerror} be
+translated (@pxref{Top,,,gettext,GNU Gettext}) the application must
+set the current locale using @code{setlocale} before calling
+@code{gsasl_init}.  For example:
+
+@example
+int
+main (int argc, char *argv[])
+@{
+  Gsasl_ctx *ctx = NULL;
+  int rc;
+...
+  setlocale (LC_ALL, "");
+...
+  rc = gsasl_init (&ctx);
+  if (rc != GSASL_OK)
+    @{
+      printf (gettext ("SASL initialization failure (%d): %s\n"),
+              rc, gsasl_strerror (rc));
+      return 1;
+    @}
+...
+@end example
 
 In order to take advantage of the secure memory features in
 Libgcrypt@footnote{Note that GNU SASL can also use Nettle for the
@@ -641,12 +678,12 @@ information.  Example code to initialize secure memory in your code:
 @example
 #include <gcrypt.h>
 ...
-
 int
 main (int argc, char *argv[])
 @{
+  Gsasl_ctx *ctx = NULL;
+  int rc;
 ...
-
   /* Check version of libgcrypt. */
   if (!gcry_check_version (GCRYPT_VERSION))
     die ("version mismatch\n");
@@ -657,7 +694,15 @@ main (int argc, char *argv[])
 
   /* Tell Libgcrypt that initialization has completed. */
   gcry_control (GCRYCTL_INITIALIZATION_FINISHED, 0);
-  ...
+...
+  rc = gsasl_init (&ctx);
+  if (rc != GSASL_OK)
+    @{
+      printf ("SASL initialization failure (%d): %s\n",
+              rc, gsasl_strerror (rc));
+      return 1;
+    @}
+...
 @end example
 
 If you do not do this, keying material will not be allocated in secure
