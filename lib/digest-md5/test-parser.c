@@ -1,4 +1,4 @@
-/* test-parser.c --- Self tests of DIGEST-MD5 parser.
+/* test-parser.c --- Self tests of DIGEST-MD5 parser & printer.
  * Copyright (C) 2004  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
@@ -21,8 +21,11 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "parser.h"
+#include "printer.h"
 
 int
 main (int argc, char *argv[])
@@ -31,6 +34,7 @@ main (int argc, char *argv[])
   digest_md5_response r;
   digest_md5_finish f;
   int rc;
+  char *tmp;
 
   {
     char *token = "nonce=4711, foo=bar, algorithm=md5-sess";
@@ -42,6 +46,11 @@ main (int argc, char *argv[])
     printf ("nonce `%s': %s", c.nonce,
 	    strcmp ("4711", c.nonce) == 0 ? "PASS" : "FAILURE");
     printf ("\n");
+    tmp = digest_md5_print_challenge (&c);
+    if (!tmp)
+      abort ();
+    printf ("printed `%s' PASS\n", tmp);
+    free (tmp);
   }
 
   {
@@ -65,7 +74,8 @@ main (int argc, char *argv[])
   }
 
   {
-    char *token = "qop=\"auth, auth-conf\", nonce=42, algorithm=md5-sess, cipher=\"des\"";
+    char *token = "qop=\"auth, auth-conf\", nonce=42, algorithm=md5-sess, "
+      "cipher=\"des\"";
 
     printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, &c);
@@ -73,6 +83,11 @@ main (int argc, char *argv[])
       abort ();
     printf ("qop %02x ciphers %02x: %s\n", c.qops, c.ciphers,
 	    (c.qops == 5 && c.ciphers == 1) ? "PASS" : "FAILURE");
+    tmp = digest_md5_print_challenge (&c);
+    if (!tmp)
+      abort ();
+    printf ("printed `%s' PASS\n", tmp);
+    free (tmp);
   }
 
   {
@@ -95,6 +110,11 @@ main (int argc, char *argv[])
     if (c.nrealms != 2)
       abort ();
     printf ("realms `%s', `%s': PASS\n", c.realms[0], c.realms[1]);
+    tmp = digest_md5_print_challenge (&c);
+    if (!tmp)
+      abort ();
+    printf ("printed `%s' PASS\n", tmp);
+    free (tmp);
   }
 
   /* Response */
@@ -120,6 +140,11 @@ main (int argc, char *argv[])
     printf ("username `%s', nonce `%s', cnonce `%s',"
 	    " nc %08lx, digest-uri `%s', response `%s': PASS\n",
 	    r.username, r.nonce, r.cnonce, r.nc, r.digesturi, r.response);
+    tmp = digest_md5_print_response (&r);
+    if (!tmp)
+      abort ();
+    printf ("printed `%s' PASS\n", tmp);
+    free (tmp);
   }
 
   /* Auth-response, finish. */
