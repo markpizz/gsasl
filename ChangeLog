@@ -1,3 +1,1043 @@
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.0.9.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* po/gsasl.pot, po/sv.po: Generated.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Remove bogus args_info declaration.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* lib/common.c, lib/digest-md5/digest-md5.c, src/callbacks.c,
+	src/gsasl.c, src/imap.c, src/smtp.c: Indent.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump so version.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* lib/obsolete.c: Fix warning.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* po/gsasl.pot, po/sv.po: Generated.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Add smtp.h and imap.h.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* README: Fix.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cram-md5/cram-md5.c, src/imap.c, src/smtp.c: Fix.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am, src/callbacks.c, src/gsasl.c, src/imap.c,
+	src/imap.h, src/internal.h, src/smtp.c, src/smtp.h: Cleanup
+	IMAP/SMTP interaction.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/digest-md5.c: Fix warnings.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/common.c: Add NULL elements to fix warnings.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c, src/gsasl.ggo: Add support for SMTP.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Cleanup.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Cleanup.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Sync commit.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Sync commit.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Sync commit.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Cleanup.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* po/POTFILES.in: Fix typo.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* po/POTFILES.in: Add.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/digest-md5.c: Remove 'unsigned' from 'char *'.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/hmac.c: Use assert instead of abort.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/hmac.c: Don't use alloca.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Remove unused or pre-C89 checks.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/hmac.c: Don't use alloca.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Check for alloca.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/Makefile.am: Link $(ALLOCA).
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac: Remove gnulib (gl/).
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, src/Makefile.am, src/callbacks.c, src/getopt.c,
+	src/getopt.h, src/getopt1.c, src/gsasl.c, src/gsasl.ggo,
+	src/internal.h: Use getopt instead of argp.  Remove gnulib (gl/).
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Don't use argp specific parameter for help2man.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update DocBook HTML targets.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Call textdomain.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Link with gnulib (for rpl_malloc breakage).
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/error.c:
+	(gsasl_strerror): Call bindtextdomain().
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/init.c:
+	(gsasl_init): Move gettext initialization to error.c.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix license.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add crypto API.  Move old API down.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix typo.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update DocBook HTML targets (I smell a
+	pattern...).
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Markup fixes.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/kerberos_v5/kerberos_v5.c: Indent.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Fix indent target.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/stringprep-no.c, lib/stringprep.c: Doc fix.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Remove.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/internal.h: Add comments.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/callback-c.c, lib/callback-s.c, lib/gsasl.h.in,
+	lib/internal.h, lib/nettle.c, lib/obsolete.c, lib/xstart.c,
+	lib/xstep.c, lib/digest-md5/digest-md5.c, lib/gssapi/gssapi.c,
+	src/gsasl.c: Indent.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/internal.h: Fix file comment.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/init.c: Declare _gsasl_all_mechanisms (defined in common.c).
+	Fix comments.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/internal.h: Remove _gsasl_all_mechanism declaration.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/internal.h: Remove stringprep hack.  Remove VALID_HANDLE and
+	VALID_SESSION_HANDLE.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/stringprep.c, lib/stringprep-no.c: Fix file comment.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/stringprep.c: Add comment.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/stringprep-no.c: Implement dummy API functions.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/done.c:
+	(gsasl_done): Don't use VALID_HANDLE.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstep.c:
+	(gsasl_step): Don't use VALID_SESSION_HANDLE.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/error.c, lib/internal.h: Move gettext declarations from
+	internal.h to error.c.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cram-md5/cram-md5.c, lib/digest-md5/digest-md5.c: Don't
+	initialize crypto (done by gsasl_init).
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/init.c:
+	(gsasl_init): Call _gsasl_crypto_init() to initialize crypto
+	functions.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in:
+	(gsasl_randomize, gsasl_md5, gsasl_hmac_md5): Add.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/internal.h: Remove.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstep.c: Add XXX.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstep.c:
+	(gsasl_step): Check if sctx is valid.  Suggested by pitrp@wg78.de
+	(Peter Prohaska).
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/done.c:
+	(gsasl_done): Use VALID_HANDLE.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/error.c:
+	(gsasl_strerror): Add GSASL_INVALID_HANDLE.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in:
+	(Gsasl_rc): Add GSASL_INVALID_HANDLE.
+
+2003-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/internal.h:
+	(VALID_CTX): Rename to VALID_HANDLE.
+	(VALID_SESSION_CTX): Rename to VALID_SESSION_HANDLE.
+
+2003-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update DocBook HTML targets.
+
+2003-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstep.c:
+	(gsasl_step): Don't loop around TOO_SMALL_BUFFER, it only hides
+	problems because the plugins are not written to handle this.  Will
+	be solved when mechanism interface is fixed.
+
+2003-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Mention versions.
+
+2003-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c:
+	(readln): Try to be compatible with gsasl 0.0.6.
+
+2003-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstep.c: Increase initial length, for GSSAPI, until we
+	rewrite the internal mechanism API as well.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/obsolete.c: Add.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update DocBook HTML targets.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add 'Old Functions'.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update DocBook HTML target.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/callback.c, lib/gsasl.h.in: Shorten parameter name.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/callback-c.c, lib/callback-s.c, lib/callback.c, lib/done.c,
+	lib/gsasl.h.in, lib/init.c, lib/internal.h, lib/listmech.c,
+	lib/suggest.c, lib/supportp.c, lib/xcode.c, lib/xfinish.c,
+	lib/xstart.c, lib/xstep.c, po/gsasl.pot, po/sv.po: Rename Gsasl_ctx
+	to Gsasl, and Gsasl_session_ctx to Gsasl_session.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/callback-s.c:
+	(gsasl_server_ctx_get): Moved to obsolete.c (use gsasl_ctx_get
+	instead).
+	(gsasl_server_application_data_get): Moved to obsolete.c (use
+	gsasl_appinfo_get).
+	(gsasl_server_application_data_set): Moved to obsolete.c (use
+	gsasl_appinfo_set).
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.  Fix.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in: Move deprecated functions around.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/obsolete.c:
+	(gsasl_client_ctx_get): Add, from callback-c.c.
+	(gsasl_client_application_data_set): Likewise.
+	(gsasl_client_application_data_get): Likewise.
+	(gsasl_server_ctx_get): Add, from callback-s.c.
+	(gsasl_server_application_data_set): Likewise.
+	(gsasl_server_application_data_get): Likewise.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/callback-c.c:
+	(gsasl_client_ctx_get): Move to obsolete.c (use gsasl_ctx_get
+	instead).
+	(gsasl_client_application_data_get): Move to obsolete.c (use
+	gsasl_appinfo_get instead).
+	(gsasl_client_application_data_set): Move to obsolete.c (use
+	gsasl_appinfo_set instead).
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/callback.c:
+	(gsasl_ctx_get): Add.
+	(gsasl_application_session_data_get): Rename to gsasl_appinfo_get.
+	(gsasl_application_session_data_set): Rename to gsasl_appinfo_set.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in:
+	(gsasl_application_session_data_set,
+	gsasl_application_session_data_get): New.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/callback.c:
+	(gsasl_application_session_data_get,
+	gsasl_application_session_data_set): New.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/Makefile.am, crypto/md5-meta.c: Add md5-meta.c.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/plain/plain.c: Fix mem leak (again).
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ntlm/ntlm.c, lib/plain/plain.c: Fix mem leak.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/obsolete.c: Fix mem leaks.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Indent.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Indent.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix DocBook HTML targets.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.  Fix.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xfinish.c:
+	(gsasl_finish): New.
+	(gsasl_client_finish, gsasl_server_finish): Removed, moved to
+	obsolete.c.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in:
+	(gsasl_step, gsasl_step64): New.
+	(gsasl_finish): Likewise.
+	(gsasl_client_step, gsasl_server_step): Deprecated; moved around to
+	obsolete.c.
+	(gsasl_client_step_base64, gsasl_server_step_base64): Likewise.
+	(gsasl_client_finish, gsasl_server_finish): Likewise.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstep.c:
+	(gsasl_client_step, gsasl_server_step): Deprecated, moved to
+	obsolete.c.
+	(gsasl_client_step_base64, gsasl_server_step_base64): Likewise.
+	(_gsasl_session_step_base64): Removed.
+	(gsasl_step): New function.
+	(gsasl_step64): New function, based on _gsasl_session_step_base64.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/obsolete.c:
+	(gsasl_client_step, gsasl_server_step): New, from xstep.c.
+	(gsasl_client_step_base64, gsasl_server_step_base64): Likewise.
+	(_gsasl_step, _gsasl_step64): Utility functions, used by previous
+	wrappers.
+	(gsasl_client_finish, gsasl_server_finish): New, from xfinish.c.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/securid/securid.c: Fix size checks.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Add size checks to callbacks.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/anonymous/anonymous.c:
+	(_gsasl_anonymous_client_step): Don't increment step until we are
+	going to return success.
+
+2003-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/internal.h:
+	(_Gsasl_mechanism_functions): Split out function typedefs.
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/common.c: Add W to GSASL_VALID_MECHANISM_CHARACTERS.
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Replace gsasl.html target with
+	AM_MAKEINFOHTMLFLAGS (part of CVS automake).
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in: Reorder error codes.  Rename GSASL_SHISHI_ERROR
+	to GSASL_KERBEROS_V5_INTERNAL_ERROR (but keep alias for a while).
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/kerberos_v5/kerberos_v5.c: Replace GSASL_SHISHI_ERROR with
+	GSASL_KERBEROS_V5_INTERNAL_ERROR.
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in: Remove gsasl_hexdump declaration.
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/digest-md5.c: Fix typo in last commit.
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/digest-md5.c: Don't use unportable asprintf.  Use
+	#define for maxbuf magic values.  Check callback supplied maxbuf
+	values for out of range.
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/digest-md5.c: Check supplied maxbuf values better.
+
+2003-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gssapi/gssapi.c: Add the RFC reference to comment.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix --disable-client/server discussion.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Update building for CVS explanation.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi:
+	(Features): Mention protability.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* README: Fix todos.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* README: Mention portability.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* README: Update dependencies for each mechanism.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs.sh: Remove texinfo bug workaround (was fixed in CVS
+	texinfo).
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update DocBook HTML targets.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Fix typo.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Typo.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/listmech.c:
+	(gsasl_server_mechlist): Use clientp=0.  From pitrp@wg78.de (Peter
+	Prohaska).
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libgcrypt.c, lib/listmech.c, lib/xstart.c, lib/xstep.c,
+	lib/digest-md5/digest-md5.c, lib/gssapi/gssapi.c: Indent.
+
+2003-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Fix GSSAPI/NTLM header file names.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/error.c:
+	(gsasl_strerror): Add GSASL_NO_CLIENT_CODE, GSASL_NO_SERVER_CODE.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in: Add GSASL_NO_CLIENT_CODE, GSASL_NO_SERVER_CODE.
+	Typedef error code enum to Gsasl_rc.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstart.c:
+	(_gsasl_setup): Don't fail if there is no start function in the
+	mechanism.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/common.c: Fix typos.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Always build callback-c. and callback-s.c.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstep.c:
+	(_gsasl_session_step_base64): Cleanups, e.g. check malloc return
+	values.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xfinish.c:
+	(gsasl_client_finish, gsasl_server_finish): Add XXX.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xcode.c:
+	(_gsasl_code): Check output buffer size.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstart.c:
+	(_gsasl_start): Split off some code into _gsasl_setup, and use it.
+	(_gsasl_setup): New function.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstart.c:
+	(_gsasl_find_mechanism): New.
+	(_gsasl_start): Simplified, renamed from _gsasl_session_start.
+	(gsasl_client_start, gsasl_server_start): Fix call to _gsasl_start.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xcode.c:
+	(gsasl_encode, gsasl_decode): Call _gsasl_code.
+	(_gsasl_code): New function, generalization of the other two.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/common.c:
+	(GSASL_VALID_MECHANISM_CHARACTERS): Remove lower case characters.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/done.c:
+	(gsasl_done): Use VALID_CTX.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/internal.h: Add VALID_CTX and VALID_SESSION_CTX macros.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/obsolete.c, lib/xstep.c, lib/xfinish.c, lib/xstart.c,
+	lib/xcode.c, lib/listmech.c, lib/suggest.c, lib/supportp.c: Remove
+	USE_CLIENT/USE_SERVER #ifdef's.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/common.c: Update #include of mechanism headers.  Move
+	USE_CLIENT/USE_SERVER #ifdef's within structure, so that members are
+	initialized to NULL when USE_CLIENT/USE_SERVER is not defined.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/anonymous.c, lib/anonymous.h, lib/common.c,
+	lib/cram-md5.c, lib/cram-md5.h, lib/digest-md5.c, lib/digest-md5.h,
+	lib/external.c, lib/external.h, lib/gssapi.c, lib/kerberos_v5.c,
+	lib/kerberos_v5.h, lib/login.c, lib/login.h, lib/ntlm.c,
+	lib/plain.c, lib/plain.h, lib/securid.c, lib/securid.h,
+	lib/x-gssapi.h, lib/x-ntlm.h, lib/anonymous/anonymous.c,
+	lib/anonymous/anonymous.h, lib/cram-md5/cram-md5.c,
+	lib/cram-md5/cram-md5.h, lib/digest-md5/digest-md5.c,
+	lib/digest-md5/digest-md5.h, lib/external/external.c,
+	lib/external/external.h, lib/gssapi/gssapi.c,
+	lib/gssapi/x-gssapi.h, lib/kerberos_v5/kerberos_v5.c,
+	lib/kerberos_v5/kerberos_v5.h, lib/login/login.c,
+	lib/login/login.h, lib/ntlm/ntlm.c, lib/ntlm/x-ntlm.h,
+	lib/plain/plain.c, lib/plain/plain.h, lib/securid/securid.c,
+	lib/securid/securid.h: Move implementation of each mechanism into a
+	separate directory.  Update SOURCES in Makefile.am and #include's in
+	common.c accordingly.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Use AM_CPPFLAGS instead of target_CPPFLAGS.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Update gnulib section.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Remove unused ps_TEXINFOS pdf_TEXINFOS.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, src/Makefile.am, tests/Makefile.am: Use
+	*_CPPFLAGS instead of obsolete INCLUDES.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* m4/Makefile.am: Remove (not needed by modern automake).
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Replace AC_HELP_STRING with AS_HELP_STRING.  Move
+	DocBook stuff last.  Remove TEXI2PDF.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Don't descend into m4.  Move gl/ after lib/.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Conformance fixes.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/securid.c: Make PASSCODE/PIN #define's visible to entire
+	file.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/internal.h: Remove CPP cruft.
+
+2003-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Remove libtool bug workaround.  Remove dmalloc
+	check.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Add DocBook targets.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template: Add Doxygen.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Remove.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am, doc/reference/gsasl-docs.tmpl,
+	doc/reference/gsasl.types: Rewrite, taken from libidn.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* po/POTFILES.in: Remove hexdump.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Don't disable gtk-doc for distcheck here.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use gtk-doc.m4.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* m4/Makefile.am, m4/gtk-doc.m4: Add gtk-doc.m4.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Don't build doc/man/Makefile.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs.sh: Mkdir -p.  Work around _ XML bug in makeinfo
+	--docbook.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs.sh: Mkdir HTML.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template: Sync with libidn (modulo doxygen).
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs.sh: Sync with libidn.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs.sh, doc/gendocs_template: Add (from texinfo).
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, lib/Makefile.am, lib/hexdump.c: Remove hexdump.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5.c: Remove debug code.
+
+2003-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5.c: Use GSASL crypto API instead of libgcrypt.
+
+2003-11-01  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Fix typo.
+
+2003-11-01  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Update PGP key.
+
+2003-11-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Change @include's to point at GDOC version.
+
+2003-11-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.gdoci: Rebuild Makefile after modifying
+	Makefile.gdoc (shouldn't that be automatic?).
+
+2003-11-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Use GDOC framework.  Cleanup DocBook targets.
+
+2003-11-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.gdoci: Add.
+
+2003-11-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Don't build in man/.  Move gsasl.1 man target
+	here.  Add GDOC framework.
+
+2003-11-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Update.
+
+2003-10-29  Simon Josefsson <simon@josefsson.org>
+
+	* README: Add todo item.
+
+2003-10-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libgcrypt.c:
+	(_gsasl_crypto_init): Fix warnings.
+
+2003-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Dist doxygen/gdoc2doxygen.
+
+2003-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/doxygen/gdoc2doxygen: Add.
+
+2003-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/doxygen/Doxyfile.in: Fix.
+
+2003-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/doxygen/Doxyfile.in: Add.
+
+2003-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Dist doxygen/Doxyfile.in.
+
+2003-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Add AC_CONFIG_AUX_DIR for new automake.  Build
+	doc/doxygen/Doxyfile.
+
+2003-10-16  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add.
+
+2003-10-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2003-10-15  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix order.
+
+2003-10-15  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac: Use conditional NETTLE instead of
+	@CRYPTO@ substitution.
+
+2003-10-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cram-md5.c: Rename MD5_LEN to MD5LEN, for consistency with
+	digest-md5.c.
+
+2003-10-14  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/Makefile.am, crypto/README, crypto/hmac-md5.c,
+	crypto/hmac.c, crypto/hmac.h, crypto/macros.h, crypto/md5.c,
+	crypto/md5.h, crypto/memxor.c, crypto/memxor.h,
+	crypto/nettle-meta.h: Add (from Lsh Nettle CVS).
+
+2003-10-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cram-md5.c: Use abstract crypto interface.
+
+2003-10-14  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, NEWS, configure.ac, lib/Makefile.am, lib/gsasl.h.in,
+	lib/internal.h, lib/libgcrypt.c, lib/nettle.c: Add crypto/
+	containing (parts of) Nettle.  Test for libgcrypt 1.1.42 or later.
+	Fall back to Nettle if libgcrypt not found.  Add abstract crypto
+	interface.
+
+2003-10-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-10-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5.c: Remove unused error checking, based on report
+	from Marc Mutz <mutz@kde.org>.
+
+2003-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2003-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5.c: Fix tokenizing of strings when they end with ",
+	based on report from Marc Mutz <mutz@kde.org>.
+
+2003-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2003-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
 2003-10-11  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.0.8.
@@ -17,27 +1057,7 @@
 
 2003-10-10  Simon Josefsson <simon@josefsson.org>
 
-	* gl/argp-help.c, gl/argp-namefrob.h, gl/argp-parse.c, gl/argp.h,
-	gl/m4/argp.m4: Fix for Solaris Forte 7 CC, based on report from
-	Lars Engebretsen <enge@nada.kth.se>.
-
-2003-10-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/Makefile.am, gl/strcase.h, gl/strcasecmp.c, gl/m4/strcase.m4,
-	gl/m4/Makefile.am: Add.
-
-2003-10-10  Simon Josefsson <simon@josefsson.org>
-
 	* configure.ac: Gnulib fix.
-
-2003-10-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/Makefile.am, gl/unlocked-io.h, gl/m4/Makefile.am,
-	gl/m4/restrict.m4: Update.
-
-2003-10-10  Simon Josefsson <simon@josefsson.org>
-
-	* doc/reference/tmpl/gsasl.sgml: Update.
 
 2003-10-09  Simon Josefsson <simon@josefsson.org>
 
@@ -64,10 +1084,6 @@
 2003-10-09  Simon Josefsson <simon@josefsson.org>
 
 	* lib/gssapi.c: Fix comment.
-
-2003-10-09  Simon Josefsson <simon@josefsson.org>
-
-	* doc/man/Makefile.am: Add.
 
 2003-10-09  Simon Josefsson <simon@josefsson.org>
 
@@ -122,16 +1138,6 @@
 
 	* configure.ac: Add getline.
 
-2003-10-09  Simon Josefsson <simon@josefsson.org>
-
-	* gl/Makefile.am, gl/argp-ba.c, gl/argp-eexst.c,
-	gl/argp-fmtstream.c, gl/argp-fmtstream.h, gl/argp-fs-xinl.c,
-	gl/argp-help.c, gl/argp-namefrob.h, gl/argp-parse.c, gl/argp-pv.c,
-	gl/argp-pvh.c, gl/argp-xinl.c, gl/argp.h, gl/getline.c,
-	gl/getline.h, gl/getndelim2.c, gl/getndelim2.h, gl/m4/Makefile.am,
-	gl/m4/getline.m4, gl/m4/getndelim2.m4, gl/m4/ssize_t.m4: Add
-	getline.  Update argp from gnulib.
-
 2003-10-07  Simon Josefsson <simon@josefsson.org>
 
 	* src/callbacks.c:
@@ -157,10 +1163,6 @@
 2003-10-06  Simon Josefsson <simon@josefsson.org>
 
 	* lib/stringprep-no.c: Fix.
-
-2003-10-06  Simon Josefsson <simon@josefsson.org>
-
-	* doc/reference/tmpl/gsasl.sgml: Generated.
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
 
@@ -195,10 +1197,6 @@
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
 
-	* doc/reference/tmpl/gsasl.sgml: Generated.
-
-2003-10-06  Simon Josefsson <simon@josefsson.org>
-
 	* lib/common.c, lib/gsasl.h.in, lib/xstep.c, src/callbacks.c,
 	src/callbacks.h, src/gsasl.c, tests/simple.c: Indent.
 
@@ -220,11 +1218,7 @@
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
 
-	* doc/gsasl.texi, doc/reference/tmpl/gsasl.sgml: Add.
-
-2003-10-06  Simon Josefsson <simon@josefsson.org>
-
-	* doc/man/Makefile.am: Update.
+	* doc/gsasl.texi: Add.
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
 
@@ -247,13 +1241,6 @@
 
 	* configure.ac, lib/Makefile.am, lib/internal.h,
 	lib/stringprep-no.c, lib/stringprep.c: Make libstringprep optional.
-
-2003-10-03  Simon Josefsson <simon@josefsson.org>
-
-	* gl/argp-ba.c, gl/argp-eexst.c, gl/argp-fmtstream.c,
-	gl/argp-fs-xinl.c, gl/argp-help.c, gl/argp-namefrob.h,
-	gl/argp-parse.c, gl/argp-pv.c, gl/argp-pvh.c, gl/argp-xinl.c: Sync
-	with my proposed glibc patches.
 
 2003-10-02  Simon Josefsson <simon@josefsson.org>
 
@@ -329,7 +1316,7 @@
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* doc/Makefile.am, doc/man/Makefile.am: Add man pages.
+	* doc/Makefile.am: Add man pages.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
@@ -373,13 +1360,7 @@
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* configure.ac, gl/Makefile.am, gl/minmax.h: Remove minmax.
-
-2003-10-01  Simon Josefsson <simon@josefsson.org>
-
-	* gl/Makefile.am, gl/gethostname.c, gl/memmove.c, gl/memset.c,
-	gl/strdup.c, gl/m4/Makefile.am, gl/m4/gethostname.m4,
-	gl/m4/memmove.m4, gl/m4/memset.m4, gl/m4/strdup.m4: We assume C89.
+	* configure.ac: Remove minmax.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
@@ -387,16 +1368,7 @@
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* configure.ac, gl/Makefile.am, gl/argp-ba.c, gl/argp-eexst.c,
-	gl/argp-fmtstream.c, gl/argp-fmtstream.h, gl/argp-fs-xinl.c,
-	gl/argp-help.c, gl/argp-namefrob.h, gl/argp-parse.c, gl/argp-pv.c,
-	gl/argp-pvh.c, gl/argp-xinl.c, gl/argp.h, gl/asnprintf.c,
-	gl/asprintf.c, gl/printf-args.c, gl/printf-args.h,
-	gl/printf-parse.c, gl/printf-parse.h, gl/vasnprintf.c,
-	gl/vasnprintf.h, gl/vasprintf.c, gl/vasprintf.h, gl/m4/Makefile.am,
-	gl/m4/intmax_t.m4, gl/m4/longdouble.m4, gl/m4/longlong.m4,
-	gl/m4/signed.m4, gl/m4/vasnprintf.m4, gl/m4/vasprintf.m4,
-	gl/m4/wchar_t.m4, gl/m4/wint_t.m4, lib/gettext.h: GNULib sync.
+	* configure.ac, lib/gettext.h: GNULib sync.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
@@ -408,31 +1380,11 @@
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* gl/Makefile.am, gl/minmax.h: Add minmax.
-
-2003-10-01  Simon Josefsson <simon@josefsson.org>
-
 	* configure.ac: Refuse to disable both client and server.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* configure.ac, gl/Makefile.am, gl/alloca.c, gl/alloca_.h,
-	gl/argp-ba.c, gl/argp-eexst.c, gl/argp-fmtstream.c,
-	gl/argp-fmtstream.h, gl/argp-fs-xinl.c, gl/argp-help.c,
-	gl/argp-namefrob.h, gl/argp-parse.c, gl/argp-pv.c, gl/argp-pvh.c,
-	gl/argp-xinl.c, gl/argp.h, gl/error.c, gl/error.h, gl/exit.h,
-	gl/exitfail.c, gl/gethostname.c, gl/getopt.c, gl/getopt.h,
-	gl/getopt1.c, gl/malloc.c, gl/memmove.c, gl/mempcpy.c,
-	gl/mempcpy.h, gl/memset.c, gl/realloc.c, gl/strchrnul.c,
-	gl/strdup.c, gl/strerror.c, gl/strndup.c, gl/strndup.h,
-	gl/strnlen.c, gl/vasnprintf.c, gl/xmalloc.c, gl/xstrdup.c,
-	gl/m4/Makefile.am, gl/m4/alloca.m4, gl/m4/argp.m4, gl/m4/error.m4,
-	gl/m4/exitfail.m4, gl/m4/extensions.m4, gl/m4/getopt.m4,
-	gl/m4/lib-ld.m4, gl/m4/lib-link.m4, gl/m4/lib-prefix.m4,
-	gl/m4/mempcpy.m4, gl/m4/strchrnul.m4, gl/m4/strdup.m4,
-	gl/m4/strerror.m4, gl/m4/strndup.m4, gl/m4/strnlen.m4,
-	gl/m4/unlocked-io.m4, gl/m4/vasnprintf.m4, gl/m4/xalloc.m4: GNULib
-	sync.
+	* configure.ac: GNULib sync.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
@@ -481,10 +1433,6 @@
 
 	* configure.ac: Fix libidn CFLAGS.
 
-2003-08-09  Simon Josefsson <simon@josefsson.org>
-
-	* gl/Makefile.am: Use libtool.
-
 2003-08-05  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Fix.
@@ -519,17 +1467,6 @@
 
 	* lib/Makefile.am: Remove -lm.
 
-2003-08-04  Simon Josefsson <simon@josefsson.org>
-
-	* gl/Makefile.am, gl/asnprintf.c, gl/asprintf.c, gl/exitfail.c,
-	gl/exitfail.h, gl/gettext.h, gl/printf-args.c, gl/printf-args.h,
-	gl/printf-parse.c, gl/printf-parse.h, gl/unlocked-io.h,
-	gl/vasnprintf.c, gl/vasnprintf.h, gl/vasprintf.c, gl/vasprintf.h,
-	gl/xalloc.h, gl/xmalloc.c, gl/m4/Makefile.am, gl/m4/exitfail.m4,
-	gl/m4/intmax_t.m4, gl/m4/longdouble.m4, gl/m4/longlong.m4,
-	gl/m4/signed.m4, gl/m4/vasnprintf.m4, gl/m4/vasprintf.m4,
-	gl/m4/wchar_t.m4, gl/m4/wint_t.m4: Add.
-
 2003-07-31  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Replace gnudist with gnuftp.
@@ -547,21 +1484,6 @@
 	* doc/gsasl.texi: Update documentation to new API exit codes,
 	suggested by Andorz Nilsson.
 
-2003-07-11  Simon Josefsson <simon@josefsson.org>
-
-	* gl/argp-ba.c, gl/argp-eexst.c, gl/argp-fmtstream.c,
-	gl/argp-fmtstream.h, gl/argp-fs-xinl.c, gl/argp-help.c,
-	gl/argp-namefrob.h, gl/argp-parse.c, gl/argp-pv.c, gl/argp-pvh.c,
-	gl/argp-xinl.c, gl/argp.h: Sync.
-
-2003-07-11  Simon Josefsson <simon@josefsson.org>
-
-	* gl/argp-fmtstream.h, gl/argp-namefrob.h: Cleanup.
-
-2003-07-11  Simon Josefsson <simon@josefsson.org>
-
-	* gl/argp-fmtstream.c, gl/argp-help.c, gl/argp-parse.c: Sync.
-
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
 	* configure.ac: Check for sys/types.h earlier.  Improve libidn
@@ -573,27 +1495,6 @@
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
-	* gl/argp-namefrob.h: Be safer when config.h doesn't define
-	_UNLOCKED stuff.
-
-2003-07-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/argp-namefrob.h, gl/m4/Makefile.am: Add.
-
-2003-07-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/argp-help.c: Move namespace fixes to argp-namefrob.h.
-
-2003-07-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/Makefile.am, gl/argp-fmtstream.c, gl/argp-fmtstream.h,
-	gl/argp-help.c, gl/argp-namefrob.h, gl/argp-parse.c,
-	gl/argp-xinl.c, gl/argp.h, gl/mempcpy.c, gl/mempcpy.h,
-	gl/strndup.c, gl/strnlen.c, gl/m4/argp.m4, gl/m4/mempcpy.m4,
-	gl/m4/strndup.m4, gl/m4/strnlen.m4: Portability fixes.
-
-2003-07-10  Simon Josefsson <simon@josefsson.org>
-
 	* configure.ac: More gnulib tests.
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
@@ -602,16 +1503,7 @@
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
-	* gl/Makefile.am: Add deps.
-
-2003-07-10  Simon Josefsson <simon@josefsson.org>
-
 	* configure.ac: Warn about too recent libgcrypt.
-
-2003-07-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/argp.h, gl/argp-fmtstream.h, gl/argp-help.c: Sent to
-	libc-alpha.
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
@@ -679,30 +1571,6 @@
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am, src/Makefile.am: Replace argp with gl.
-
-2003-07-10  Simon Josefsson <simon@josefsson.org>
-
-	* gl/Makefile.am, gl/alloca.c, gl/alloca_.h, gl/argp-ba.c,
-	gl/argp-eexst.c, gl/argp-fmtstream.c, gl/argp-fmtstream.h,
-	gl/argp-fs-xinl.c, gl/argp-help.c, gl/argp-namefrob.h,
-	gl/argp-parse.c, gl/argp-pv.c, gl/argp-pvh.c, gl/argp-xinl.c,
-	gl/argp.h, gl/error.c, gl/error.h, gl/gethostname.c, gl/getopt.c,
-	gl/getopt.h, gl/getopt1.c, gl/gettext.h, gl/malloc.c, gl/memmove.c,
-	gl/memset.c, gl/realloc.c, gl/strchrnul.c, gl/strchrnul.h,
-	gl/strdup.c, gl/strerror.c, gl/sysexit_.h, gl/unlocked-io.h,
-	gl/xalloc.h, gl/xmalloc.c, gl/xstrdup.c, gl/m4/Makefile.am,
-	gl/m4/alloca.m4, gl/m4/argp.m4, gl/m4/codeset.m4, gl/m4/error.m4,
-	gl/m4/gethostname.m4, gl/m4/getopt.m4, gl/m4/gettext.m4,
-	gl/m4/glibc21.m4, gl/m4/iconv.m4, gl/m4/intdiv0.m4,
-	gl/m4/inttypes-pri.m4, gl/m4/inttypes.m4, gl/m4/inttypes_h.m4,
-	gl/m4/isc-posix.m4, gl/m4/lcmessage.m4, gl/m4/lib-ld.m4,
-	gl/m4/lib-link.m4, gl/m4/lib-prefix.m4, gl/m4/malloc.m4,
-	gl/m4/memmove.m4, gl/m4/memset.m4, gl/m4/nls.m4,
-	gl/m4/onceonly_2_57.m4, gl/m4/po.m4, gl/m4/progtest.m4,
-	gl/m4/realloc.m4, gl/m4/stdint_h.m4, gl/m4/strchrnul.m4,
-	gl/m4/strdup.m4, gl/m4/strerror.m4, gl/m4/strerror_r.m4,
-	gl/m4/sysexits.m4, gl/m4/uintmax_t.m4, gl/m4/ulonglong.m4,
-	gl/m4/unlocked-io.m4, gl/m4/xalloc.m4: Add.
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
@@ -882,10 +1750,6 @@
 
 2003-02-14  Simon Josefsson <simon@josefsson.org>
 
-	* doc/reference/tmpl/gsasl.sgml: Add.
-
-2003-02-14  Simon Josefsson <simon@josefsson.org>
-
 	* src/gsasl.c, src/internal.h: Fix socket address.
 
 2003-02-14  Simon Josefsson <simon@josefsson.org>
@@ -934,10 +1798,6 @@
 2003-02-05  Simon Josefsson <simon@josefsson.org>
 
 	* lib/kerberos_v5.c: API fixes.
-
-2003-02-03  Simon Josefsson <simon@josefsson.org>
-
-	* doc/reference/tmpl/gsasl.sgml: Generated.
 
 2003-02-03  Simon Josefsson <simon@josefsson.org>
 
@@ -1118,11 +1978,7 @@
 
 2003-01-20  Simon Josefsson <simon@josefsson.org>
 
-	* doc/reference/tmpl/gsasl.sgml, README-alpha: Fix.
-
-2003-01-20  Simon Josefsson <simon@josefsson.org>
-
-	* doc/reference/tmpl/gsasl.sgml: Add.
+	* README-alpha: Fix.
 
 2003-01-20  Simon Josefsson <simon@josefsson.org>
 
@@ -1865,8 +2721,8 @@
 	tests/Makefile.am, tests/plain-client.sh, tests/unicode.c: Initial
 	release, version 0.0.0.
 
-----------------------------------------------------------------------
-  Copyright 2002, 2003  Simon Josefsson
- Copying and distribution of this file, with or without modification,
- are permitted in any medium without royalty provided the copyright
- notice and this notice are preserved.
+	----------------------------------------------------------------------
+	Copyright 2002, 2003  Simon Josefsson
+	Copying and distribution of this file, with or without modification,
+	are permitted in any medium without royalty provided the copyright
+	notice and this notice are preserved.
