@@ -134,14 +134,9 @@ gc_set_allocators (gc_malloc_t func_malloc,
 #include "nettle-meta.h"
 #include "hmac.h"
 #include "md5.h"
-#include "sha.h"
 
 #if MD5_DIGEST_SIZE != GC_MD5_LEN
 # error MD5 length mismatch
-#endif
-
-#if SHA1_DIGEST_SIZE != GC_SHA1_LEN
-# error SHA1 length mismatch
 #endif
 
 #define MAX_DIGEST_SIZE 20
@@ -173,10 +168,6 @@ gc_hash_open (int hash, int mode, gc_hash * outhandle)
     {
     case GC_MD5:
       hinf->info = &nettle_md5;
-      break;
-
-    case GC_SHA1:
-      hinf->info = &nettle_sha1;
       break;
 
       /* FIXME: RMD160. */
@@ -283,10 +274,6 @@ gc_hash_digest_length (int hash)
       return MD5_DIGEST_SIZE;
       break;
 
-    case GC_SHA1:
-      return SHA1_DIGEST_SIZE;
-      break;
-
     case GC_RMD160:
       return /* FIXME */ 20;
       break;
@@ -360,16 +347,6 @@ gc_hash_buffer (int hash, const char *in, size_t inlen, char *out)
       }
       break;
 
-    case GC_SHA1:
-      {
-	struct sha1_ctx sha1;
-
-	sha1_init (&sha1);
-	sha1_update (&sha1, inlen, in);
-	sha1_digest (&sha1, GC_SHA1_LEN, out);
-      }
-      break;
-
       /* FIXME: RMD160. */
 
     default:
@@ -422,31 +399,6 @@ gc_hmac_md5 (const char *key, size_t keylen,
   hmac_md5_set_key (&ctx, keylen, key);
   hmac_md5_update (&ctx, inlen, in);
   hmac_md5_digest (&ctx, GC_MD5_LEN, outhash);
-
-  return GC_OK;
-}
-
-/**
- * gc_hmac_sha1:
- * @key: input character array with key to use.
- * @keylen: length of input character array with key to use.
- * @in: input character array of data to hash.
- * @inlen: length of input character array of data to hash.
- * @outhash: pre-allocated character array with keyed hash of data.
- *
- * Compute keyed checksum of data using HMAC-SHA1.
- *
- * Return value: Returns %GC_OK iff successful.
- **/
-int
-gc_hmac_sha1 (const char *key, size_t keylen,
-	      const char *in, size_t inlen, char outhash[SHA1_DIGEST_SIZE])
-{
-  struct hmac_sha1_ctx ctx;
-
-  hmac_sha1_set_key (&ctx, keylen, key);
-  hmac_sha1_update (&ctx, inlen, in);
-  hmac_sha1_digest (&ctx, SHA1_DIGEST_SIZE, outhash);
 
   return GC_OK;
 }

@@ -92,34 +92,4 @@ hmac_md5_digest(struct hmac_md5_ctx *ctx,
 		unsigned length, uint8_t *digest);
 
 
-/* hmac-sha1 */
-struct hmac_sha1_ctx HMAC_CTX(struct sha1_ctx);
-
-void
-hmac_sha1_set_key(struct hmac_sha1_ctx *ctx,
-		  unsigned key_length, const uint8_t *key);
-
-void
-hmac_sha1_update(struct hmac_sha1_ctx *ctx,
-		 unsigned length, const uint8_t *data);
-
-void
-hmac_sha1_digest(struct hmac_sha1_ctx *ctx,
-		 unsigned length, uint8_t *digest);
-
-/* hmac-sha256 */
-struct hmac_sha256_ctx HMAC_CTX(struct sha256_ctx);
-
-void
-hmac_sha256_set_key(struct hmac_sha256_ctx *ctx,
-		    unsigned key_length, const uint8_t *key);
-
-void
-hmac_sha256_update(struct hmac_sha256_ctx *ctx,
-		   unsigned length, const uint8_t *data);
-
-void
-hmac_sha256_digest(struct hmac_sha256_ctx *ctx,
-		   unsigned length, uint8_t *digest);
-
 #endif /* NETTLE_HMAC_H_INCLUDED */
