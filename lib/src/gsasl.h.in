@@ -1,5 +1,5 @@
-/* gsasl.h	header file for libgsasl                              -*- c -*-
- * Copyright (C) 2002, 2003  Simon Josefsson
+/* gsasl.h --- Header file for libgsasl.                              -*- c -*-
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
