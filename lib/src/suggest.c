@@ -1,4 +1,4 @@
-/* suggest.c --- Suggest client and server mechanism in a set of mechanisms.
+/* suggest.c --- Suggest client mechanism to use, from a set of mechanisms.
  * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
@@ -21,19 +21,22 @@
 
 #include "internal.h"
 
-static const char *
-_gsasl_suggest_mechanism (Gsasl * ctx,
-			  Gsasl_mechanism * mechs,
-			  size_t n_mechs,
-			  const char *mechlist,
-			  int (*start_mech_func) (Gsasl * ctx,
-						  const char *mech,
-						  Gsasl_session ** sctx))
+/**
+ * gsasl_client_suggest_mechanism:
+ * @ctx: libgsasl handle.
+ * @mechlist: input character array with SASL mechanism names,
+ *   separated by invalid characters (e.g. SPC).
+ *
+ * Return value: Returns name of "best" SASL mechanism supported by
+ * the libgsasl client which is present in the input string.
+ **/
+const char *
+gsasl_client_suggest_mechanism (Gsasl * ctx, const char *mechlist)
 {
   size_t mechlist_len, target_mech, i;
 
   mechlist_len = mechlist ? strlen (mechlist) : 0;
-  target_mech = n_mechs;	/* ~ no target */
+  target_mech = ctx->n_client_mechs;	/* ~ no target */
 
   for (i = 0; i < mechlist_len;)
     {
@@ -48,14 +51,15 @@ _gsasl_suggest_mechanism (Gsasl * ctx,
 
 	  /* Assumption: the mechs array is sorted by preference
 	   * from low security to high security. */
-	  for (j = (target_mech < n_mechs ? target_mech + 1 : 0);
-	       j < n_mechs; ++j)
+	  for (j = (target_mech < ctx->n_client_mechs ? target_mech + 1 : 0);
+	       j < ctx->n_client_mechs; ++j)
 	    {
-	      if (strncmp (mechs[j].name, mechlist + i, len) == 0)
+	      if (strncmp (ctx->client_mechs[j].name, mechlist + i, len) == 0)
 		{
 		  Gsasl_session *sctx;
 
-		  if (GSASL_OK == start_mech_func (ctx, mechs[j].name, &sctx))
+		  if (gsasl_client_start (ctx, ctx->client_mechs[j].name,
+					  &sctx) == GSASL_OK)
 		    {
 		      gsasl_finish (sctx);
 		      target_mech = j;
@@ -68,41 +72,6 @@ _gsasl_suggest_mechanism (Gsasl * ctx,
 	}
     }
 
-  return target_mech < n_mechs ? mechs[target_mech].name : NULL;
-}
-
-/**
- * gsasl_client_suggest_mechanism:
- * @ctx: libgsasl handle.
- * @mechlist: input character array with SASL mechanism names,
- * separated by invalid characters (e.g. SPC).
- *
- * Return value: Returns name of "best" SASL mechanism supported by
- * the libgsasl client which is present in the input string.
- **/
-const char *
-gsasl_client_suggest_mechanism (Gsasl * ctx, const char *mechlist)
-{
-  return _gsasl_suggest_mechanism (ctx,
-				   ctx->client_mechs,
-				   ctx->n_client_mechs,
-				   mechlist, gsasl_client_start);
-}
-
-/**
- * gsasl_server_suggest_mechanism:
- * @ctx: libgsasl handle.
- * @mechlist: input character array with SASL mechanism names,
- * separated by invalid characters (e.g. SPC).
- *
- * Return value: Returns name of "best" SASL mechanism supported by
- * the libgsasl server which is present in the input string.
- **/
-const char *
-gsasl_server_suggest_mechanism (Gsasl * ctx, const char *mechlist)
-{
-  return _gsasl_suggest_mechanism (ctx,
-				   ctx->server_mechs,
-				   ctx->n_server_mechs,
-				   mechlist, gsasl_server_start);
+  return target_mech < ctx->n_client_mechs ?
+    ctx->client_mechs[target_mech].name : NULL;
 }

@@ -25,6 +25,9 @@ gsasl_encode, gsasl_decode: MODIFIED.  Now allocate the output parameter.
 gsasl_encode_inline, gsasl_decode_inline: ADD, DEPRECATED.
   Same as the old gsasl_encode and gsasl_decode, to simplify conversion.
 
+gsasl_server_suggest_mechanism: REMOVED.  This was a thinko, there is
+  never a need for something like this function.
+
 Gsasl_callback: ADD.  New function prototype.
 gsasl_callback_set: ADD.  New functions.
 gsasl_callback: ADD.  New functions.
