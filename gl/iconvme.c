@@ -42,7 +42,7 @@
    holds the error reason.  Note that this function does not handle
    embedded zero's in the output well.  */
 char *
-iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
+iconv_string (const char *str, const char *from_codeset, const char *to_codeset)
 {
   char *dest = NULL;
 #if HAVE_ICONV
@@ -77,7 +77,7 @@ iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
 
   inbytes_remaining = strlen (p);
   /* Guess the maximum length the output string can have.  */
-  outbuf_size = (inbytes_remaining + 1) * 5;
+  outbuf_size = (inbytes_remaining + 1) * MB_LEN_MAX;
 
   outp = dest = malloc (outbuf_size);
   if (dest == NULL)
@@ -86,8 +86,7 @@ iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
 
 again:
 
-  err = iconv (cd, (ICONV_CONST char **) &p, &inbytes_remaining,
-	       &outp, &outbytes_remaining);
+  err = iconv (cd, &p, &inbytes_remaining, &outp, &outbytes_remaining);
 
   if (err == (size_t) - 1)
     {

@@ -19,7 +19,7 @@
 #ifndef ICONVME_H
 # define ICONVME_H
 
-extern char *iconv_z (const char *to_codeset, const char *from_codeset,
-		      const char *str);
+extern char *iconv_string (const char *string, const char *from_code,
+			   const char *to_code);
 
 #endif /* ICONVME_H */
