@@ -2,6 +2,8 @@ GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
+* Changes in 0.1.1 (unreleased)
+
 * Changes in 0.1.0 (released 2004-04-16)
 
 ** The library re-licensed to LGPL and distributed as a separate package.
