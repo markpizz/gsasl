@@ -36,9 +36,7 @@
 ssize_t
 getdelim (char **lineptr, size_t *n, int delimiter, FILE *fp)
 {
-  int result;
   ssize_t cur_len = 0;
-  ssize_t len;
 
   if (lineptr == NULL || n == NULL)
     return -1;
@@ -53,7 +51,6 @@ getdelim (char **lineptr, size_t *n, int delimiter, FILE *fp)
 
   for (;;)
     {
-      size_t needed;
       char *t;
       int i;
 
@@ -61,22 +58,28 @@ getdelim (char **lineptr, size_t *n, int delimiter, FILE *fp)
       if (i == EOF)
 	break;
 
-      /* Make enough space for len+1 (for final NUL) bytes.  */
-      needed = cur_len + 1;
-      if (needed > *n)
+      /* Make enough space for curlen+1 bytes plus last NUL.  */
+      if (cur_len + 1 >= *n)
 	{
+	  size_t needed = 2 * (cur_len + 1) + 1;   /* Be generous. */
 	  char *new_lineptr;
 
-	  if (needed < 2 * *n)
-	    needed = 2 * *n;  /* Be generous. */
-	  new_lineptr = (char *) realloc (*lineptr, needed);
+	  if (needed < cur_len)
+	    return -1; /* overflow */
+
+	  new_lineptr = realloc (*lineptr, needed);
 	  if (new_lineptr == NULL)
 	    return -1;
+
 	  *lineptr = new_lineptr;
 	  *n = needed;
 	}
-      (*lineptr)[cur_len] = c;
+
+      (*lineptr)[cur_len] = i;
       cur_len++;
+
+      if (i == delimiter)
+	break;
     }
   (*lineptr)[cur_len] = '\0';
 
