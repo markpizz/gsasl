@@ -28,7 +28,7 @@ option "client-mechanisms" - "Write name of supported client mechanisms separate
 option "server-mechanisms" - "Write name of supported server mechanisms separated by space to stdout." flag off
 
 section "Network options"
-option "connect" - "Connect to TCP server and negotiate on stream instead of stdin/stdout. SERVICE is the protocol service, or an integer denoting the port, and defaults to 143 (imap) if not specified. Also sets the --hostname default." string typestr="HOSTNAME[:SERVICE]" no
+option "connect" - "Connect to TCP server and negotiate on stream instead of stdin/stdout. PORT is the protocol service, or an integer denoting the port, and defaults to 143 (imap) if not specified. Also sets the --hostname default." string typestr="HOST[:PORT]" no
 
 section "Generic options"
 option "application-data" d "After authentication, read data from stdin and run it through the mechanism's security layer and print it base64 encoded to stdout. The default is to terminate after authentication." flag on
