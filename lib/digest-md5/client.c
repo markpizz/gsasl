@@ -129,9 +129,10 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	else
 	  gsasl_property_set (sctx, GSASL_REALM, NULL);
 
+	/* FIXME: qop, cipher, maxbuf. */
+
 	/* Create response token. */
 	state->response.utf8 = 1;
-
 	state->response.qop = 1;
 
 	state->response.nonce = strdup (state->challenge.nonce);
