@@ -62,17 +62,18 @@ _gsasl_listmech (Gsasl_ctx * ctx,
   return GSASL_OK;
 }
 
+#ifdef USE_CLIENT
 /**
  * gsasl_client_listmech:
  * @ctx: libgsasl handle.
  * @out: output character array.
  * @outlen: input maximum size of output character array, on output
  * contains actual length of output array.
- * 
+ *
  * Write SASL names, separated by space, of mechanisms supported by
  * the libgsasl client to the output array.  To find out how large the
  * output array must be, call this function with out=NULL.
- * 
+ *
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
@@ -81,14 +82,16 @@ gsasl_client_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
   return _gsasl_listmech (ctx, ctx->client_mechs, ctx->n_client_mechs,
 			  out, outlen, 1);
 }
+#endif
 
+#ifdef USE_SERVER
 /**
  * gsasl_server_listmech:
  * @ctx: libgsasl handle.
  * @out: output character array.
  * @outlen: input maximum size of output character array, on output
  * contains actual length of output array.
- * 
+ *
  * Write SASL names, separated by space, of mechanisms supported by
  * the libgsasl server to the output array.  To find out how large the
  * output array must be, call this function with out=NULL.
@@ -101,3 +104,4 @@ gsasl_server_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
   return _gsasl_listmech (ctx, ctx->server_mechs, ctx->n_server_mechs,
 			  out, outlen, 0);
 }
+#endif

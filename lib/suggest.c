@@ -1,5 +1,5 @@
 /* suggest.c	suggest client and server mechanism in a set of mechanisms
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -21,6 +21,7 @@
 
 #include "internal.h"
 
+#ifdef USE_CLIENT
 /**
  * gsasl_client_suggest_mechanism:
  * @ctx: libgsasl handle.
@@ -36,7 +37,9 @@ gsasl_client_suggest_mechanism (Gsasl_ctx * ctx, const char *mechlist)
   /* XXX parse mechlist */
   return ctx->client_mechs[0].name;
 }
+#endif
 
+#if USE_SERVER
 /**
  * gsasl_server_suggest_mechanism:
  * @ctx: libgsasl handle.
@@ -52,3 +55,4 @@ gsasl_server_suggest_mechanism (Gsasl_ctx * ctx, const char *mechlist)
   /* XXX parse mechlist */
   return ctx->server_mechs[0].name;
 }
+#endif

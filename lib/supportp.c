@@ -33,6 +33,7 @@ _gsasl_support_p (_Gsasl_mechanism * mechs, size_t n_mechs, const char *name)
   return 0;
 }
 
+#ifdef USE_CLIENT
 /**
  * gsasl_client_support_p:
  * @ctx: libgsasl handle.
@@ -46,7 +47,9 @@ gsasl_client_support_p (Gsasl_ctx * ctx, const char *name)
 {
   return _gsasl_support_p (ctx->client_mechs, ctx->n_client_mechs, name);
 }
+#endif
 
+#ifdef USE_SERVER
 /**
  * gsasl_server_support_p:
  * @ctx: libgsasl handle.
@@ -60,3 +63,4 @@ gsasl_server_support_p (Gsasl_ctx * ctx, const char *name)
 {
   return _gsasl_support_p (ctx->server_mechs, ctx->n_server_mechs, name);
 }
+#endif
