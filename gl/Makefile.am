@@ -20,7 +20,7 @@
 
 noinst_LTLIBRARIES = libgl.la
 
-libgl_la_SOURCES = gettext.h \
+libgl_la_SOURCES = dummy.c gettext.h \
 	strdup.h \
 	getpassword.h getpassword.c
 if !READLINE
