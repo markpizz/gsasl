@@ -15,7 +15,7 @@
 This manual is last updated @value{UPDATED} for version
 @value{VERSION} of GNU SASL.
 
-Copyright @copyright{} 2002, 2003, 2004 Simon Josefsson.
+Copyright @copyright{} 2002, 2003, 2004, 2005 Simon Josefsson.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -466,6 +466,10 @@ to disable the client or the server part of the code.  This do not
 remove symbols from the library, so if you attempt to call an
 application that uses server functions in a library built with
 @code{--disable-server}, the function will return an error code.
+
+@item --disable-obsolete
+This remove backwards compatibility (@pxref{Old Functions}).  Use if
+you want to limit the size of the library.
 
 @item --disable-anonymous
 @itemx --disable-external
@@ -1866,8 +1870,7 @@ terminal.
                              protection, "auth-conf" means integrity and
                              confidentialiy protection.  Currently only used by
                              DIGEST-MD5, where the default is "auth-conf".
-  -r, --realm=STRING         Realm (may be given more than once iff server).
-                             Defaults to hostname.
+  -r, --realm=STRING         Realm. Defaults to hostname.
       --service=STRING       Set the requested service name (should be a
                              registered GSSAPI host based service name).
       --service-name=STRING  Set the generic server name in case of a
