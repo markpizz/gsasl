@@ -311,7 +311,18 @@ gsasl_strerror (int err)
       break;
 
     case GSASL_NO_ANONYMOUS_TOKEN:
-      p = _("Authentication failed because no anonymous token was provided.");
+      p = _("Authentication failed because the "
+	    "anonymous token was not provided.");
+      break;
+
+    case GSASL_NO_AUTHZID:
+      p = _("Authentication failed because the "
+	    "authorization identity was not provided.");
+      break;
+
+    case GSASL_NO_PASSWORD:
+      p = _("Authentication failed because the "
+	    "password was not provided.");
       break;
 
     default:

@@ -33,17 +33,6 @@ int
 _gsasl_login_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   struct _Gsasl_login_client_state *state;
-  Gsasl_ctx *ctx;
-
-  ctx = gsasl_client_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  if (gsasl_client_callback_authorization_id_get (ctx) == NULL)
-    return GSASL_NEED_CLIENT_AUTHORIZATION_ID_CALLBACK;
-
-  if (gsasl_client_callback_password_get (ctx) == NULL)
-    return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
   state = malloc (sizeof (*state));
   if (state == NULL)
@@ -59,58 +48,44 @@ _gsasl_login_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 int
 _gsasl_login_client_step (Gsasl_session_ctx * sctx,
 			  void *mech_data,
-			  const char *input,
-			  size_t input_len, char *output, size_t * output_len)
+			  const char *input, size_t input_len,
+			  char **output, size_t * output_len)
 {
   struct _Gsasl_login_client_state *state = mech_data;
-  Gsasl_client_callback_authorization_id cb_authorization_id;
-  Gsasl_client_callback_password cb_password;
-  Gsasl_ctx *ctx;
+  const char *p;
   char *tmp;
   int res;
-
-  ctx = gsasl_client_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  cb_authorization_id = gsasl_client_callback_authorization_id_get (ctx);
-  if (cb_authorization_id == NULL)
-    return GSASL_NEED_CLIENT_AUTHORIZATION_ID_CALLBACK;
-
-  cb_password = gsasl_client_callback_password_get (ctx);
-  if (cb_password == NULL)
-    return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
   switch (state->step)
     {
     case 0:
-      res = cb_authorization_id (sctx, output, output_len);
-      if (res != GSASL_OK)
-	return res;
-      tmp = gsasl_stringprep_nfkc (output, *output_len);
+      p = gsasl_property_get (sctx, GSASL_CLIENT_AUTHZID);
+      if (!p)
+	return GSASL_NO_AUTHZID;
+
+      tmp = gsasl_stringprep_nfkc (p, -1);
       if (tmp == NULL)
 	return GSASL_UNICODE_NORMALIZATION_ERROR;
-      if (*output_len < strlen (tmp))
-	return GSASL_TOO_SMALL_BUFFER;
-      memcpy (output, tmp, strlen (tmp));
+
+      *output = tmp;
       *output_len = strlen (tmp);
-      free (tmp);
+
       state->step++;
       res = GSASL_NEEDS_MORE;
       break;
 
     case 1:
-      res = cb_password (sctx, output, output_len);
-      if (res != GSASL_OK)
-	return res;
-      tmp = gsasl_stringprep_nfkc (output, *output_len);
+      p = gsasl_property_get (sctx, GSASL_CLIENT_PASSWORD);
+      if (!p)
+	return GSASL_NO_PASSWORD;
+
+      tmp = gsasl_stringprep_nfkc (p, -1);
       if (tmp == NULL)
 	return GSASL_UNICODE_NORMALIZATION_ERROR;
-      if (*output_len < strlen (tmp))
-	return GSASL_TOO_SMALL_BUFFER;
-      memcpy (output, tmp, strlen (tmp));
+
+      *output = tmp;
       *output_len = strlen (tmp);
-      free (tmp);
+
       state->step++;
       res = GSASL_OK;
       break;
@@ -176,8 +151,8 @@ _gsasl_login_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 int
 _gsasl_login_server_step (Gsasl_session_ctx * sctx,
 			  void *mech_data,
-			  const char *input,
-			  size_t input_len, char *output, size_t * output_len)
+			  const char *input, size_t input_len,
+			  char *output, size_t * output_len)
 {
   struct _Gsasl_login_server_state *state = mech_data;
   Gsasl_server_callback_validate cb_validate;

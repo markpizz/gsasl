@@ -125,10 +125,11 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     _gsasl_login_client_start,
-    _gsasl_login_client_step,
+    NULL,
     _gsasl_login_client_finish,
     NULL,
-    NULL
+    NULL,
+    _gsasl_login_client_step
 #endif
     },
    {
