@@ -19,7 +19,7 @@ dnl Process this file with autoconf to produce a configure script.
 # Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA
 
-AC_INIT([libgsasl],[0.0.15],[bug-gsasl@gnu.org])
+AC_INIT([libgsasl], [0.0.15], [bug-gsasl@gnu.org])
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
@@ -38,7 +38,7 @@ AC_CONFIG_HEADERS(config.h)
 
 # Checks for programs.
 AM_GNU_GETTEXT(external)
-AM_GNU_GETTEXT_VERSION(0.12.1)
+AM_GNU_GETTEXT_VERSION(0.14.1)
 AC_PROG_CC
 AC_PROG_LIBTOOL
 
@@ -322,13 +322,7 @@ AM_CONDITIONAL(SERVER, test x$server = xyes)
 
 # Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(sys/types.h sys/poll.h sys/time.h sys/select.h sys/socket.h)
-AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h errno.h)
 AX_CREATE_STDINT_H(crypto/nettle-types.h, sys/types.h)
-
-# Checks for typedefs, structures, and compiler characteristics.
-AC_TYPE_UID_T
-AC_CHECK_DECLS(errno)
 
 # We are done
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
