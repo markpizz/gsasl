@@ -17,9 +17,6 @@
 # License along with GNU SASL Library; if not, write to the Free
 # Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA
-#
-# NB!  Shishi is licensed under GPL, so linking GSASL with it require
-# that you follow the GPL for GSASL as well.
 
 # -Igl is for strdup.
 AM_CPPFLAGS = -I$(srcdir)/../src -I../src \
