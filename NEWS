@@ -11,6 +11,11 @@ This aligns with draft-ietf-sasl-crammd5-01.
 
 ** The string preparation (SASLprep and trace) functions now work correctly.
 
+** DocBook manuals no longer included.
+The reason is that recent DocBook tools from the distribution I use
+(Debian) fails with an error.  DocBook manuals may be included in the
+future, if I can get the tools to work.
+
 ** API and ABI modifications.
 GSASL_SASLPREP_ERROR: ADD.
 

@@ -24,8 +24,6 @@ endif
 
 EXTRA_DIST = gdoc gdoc-error gsasl-example1.c \
 	gsasl.html gsasl.ps gsasl.pdf \
-	gsasl-db.xml gsasl-db.txt gsasl-db.ps gsasl-db.pdf \
-	$(gsasl_html_auto_deps) \
 	doxygen/Doxyfile.in doxygen/gdoc2doxygen
 
 info_TEXINFOS = gsasl.texi
@@ -58,34 +56,3 @@ GDOC_MAN_EXTRA_ARGS = -module $(PACKAGE) -sourceversion $(VERSION) \
 	-bugsto $(PACKAGE_BUGREPORT) -includefuncprefix -seeinfo $(PACKAGE) \
 	-copyright "2002, 2003 Simon Josefsson" -verbatimcopying
 include $(srcdir)/Makefile.gdoci
-
-# DocBook
-
-gsasl_html_auto_deps = html/a2496.html html/a2612.html html/c1101.html	\
-	html/c1189.html html/c14.html html/c1704.html html/c1837.html	\
-	html/c1990.html html/c2197.html html/c2440.html			\
-	html/c2450.html html/c2455.html html/c2465.html			\
-	html/c2468.html html/c2474.html html/c2479.html			\
-	html/c2483.html html/c2487.html html/c2492.html html/c303.html	\
-	html/c393.html html/c427.html html/c8.html html/i2706.html	\
-	html/i2838.html html/index.html html/x1028.html html/x177.html	\
-	html/x193.html html/x24.html html/x2429.html html/x256.html	\
-	html/x2681.html html/x274.html html/x317.html html/x329.html	\
-	html/x347.html html/x374.html html/x448.html html/x46.html	\
-	html/x482.html html/x57.html html/x571.html html/x645.html	\
-	html/x720.html html/x836.html html/x872.html html/x948.html
-
-gsasl-db.xml: gsasl.texi $(gsasl_TEXINFOS)
-	$(MAKEINFO) --docbook --output $@ gsasl.texi
-
-$(gsasl_html_auto_deps): gsasl-db.xml
-	$(DOCBOOK2HTML) -o html $^
-
-gsasl-db.txt: gsasl-db.xml
-	$(DOCBOOK2TXT) $^
-
-gsasl-db.pdf: gsasl-db.xml
-	$(DOCBOOK2PDF) $^
-
-gsasl-db.ps: gsasl-db.xml
-	$(DOCBOOK2PS) $^
