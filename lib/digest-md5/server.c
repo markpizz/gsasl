@@ -594,7 +594,6 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	    char *tmp;
 	    size_t keylen;
 	    char *key;
-	    char *normkey;
 
 	    res = cb_retrieve (sctx, username, authzid, realm, NULL, &keylen);
 	    if (res != GSASL_OK)
@@ -611,13 +610,6 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 		free (key);
 		goto done;
 	      }
-	    normkey = gsasl_stringprep_nfkc (key, keylen);
-	    free (key);
-	    if (normkey == NULL)
-	      {
-		res = GSASL_UNICODE_NORMALIZATION_ERROR;
-		goto done;
-	      }
 
 	    {
 	      char *hin;
@@ -627,7 +619,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	      hinlen = strlen (username) + strlen (COLON);
 	      if (realm)
 		hinlen += strlen (realm);
-	      hinlen += strlen (COLON) + strlen (normkey);
+	      hinlen += strlen (COLON) + strlen (key);
 
 	      p = hin = malloc (hinlen);
 	      if (hin == NULL)
@@ -647,9 +639,9 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 		}
 	      memcpy (p, COLON, strlen (COLON));
 	      p += strlen (COLON);
-	      memcpy (p, normkey, strlen (normkey));
-	      free (normkey);
-	      p += strlen (normkey);
+	      memcpy (p, key, strlen (key));
+	      p += strlen (key);
+	      free (key);
 
 	      res = gsasl_md5 (hin, hinlen, (char **) &tmp);
 	      free (hin);
