@@ -125,30 +125,26 @@ int
 _gsasl_gssapi_server_step (Gsasl_session * sctx,
 			   void *mech_data,
 			   const char *input, size_t input_len,
-			   char **output2, size_t * output2_len)
+			   char **output, size_t * output_len)
 {
   _Gsasl_gssapi_server_state *state = mech_data;
   gss_buffer_desc bufdesc1, bufdesc2;
   OM_uint32 maj_stat, min_stat;
   gss_buffer_desc client_name;
   gss_OID mech_type;
-  char *username;
+  char tmp[4];
   int res;
-  /* FIXME: Remove fixed size buffer. */
-  char output[BUFSIZ];
-  size_t outputlen = BUFSIZ - 1;
-  size_t *output_len = &outputlen;
 
-  *output2 = NULL;
-  *output2_len = 0;
+  *output = NULL;
+  *output_len = 0;
 
   switch (state->step)
     {
     case 0:
       if (input_len == 0)
 	{
-	  *output_len = 0;
-	  return GSASL_NEEDS_MORE;
+	  res = GSASL_NEEDS_MORE;
+	  break;
 	}
       state->step++;
       /* fall through */
@@ -171,48 +167,38 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
 					 &mech_type,
 					 &bufdesc2, NULL, NULL, NULL);
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
-	{
-	  return GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR;
-	}
+	return GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR;
 
-      if (*output_len < bufdesc2.length)
-	{
-	  maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-	  return GSASL_TOO_SMALL_BUFFER;
-	}
-
-      if (maj_stat == GSS_S_COMPLETE)
-	state->step++;
-
-      memcpy (output, bufdesc2.value, bufdesc2.length);
+      *output = malloc (bufdesc2.length);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, bufdesc2.value, bufdesc2.length);
       *output_len = bufdesc2.length;
 
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
+      if (maj_stat == GSS_S_COMPLETE)
+	state->step++;
+
       res = GSASL_NEEDS_MORE;
       break;
 
     case 2:
-      if (*output_len < 4)
-	return GSASL_TOO_SMALL_BUFFER;
-
-      memset (output, 0xFF, 4);
-      output[0] = GSASL_QOP_AUTH;
+      memset (tmp, 0xFF, 4);
+      tmp[0] = GSASL_QOP_AUTH;
       bufdesc1.length = 4;
-      bufdesc1.value = output;
+      bufdesc1.value = tmp;
       maj_stat = gss_wrap (&min_stat, state->context, 0, GSS_C_QOP_DEFAULT,
 			   &bufdesc1, NULL, &bufdesc2);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_WRAP_ERROR;
 
-      if (*output_len < bufdesc2.length)
-	{
-	  maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-	  return GSASL_TOO_SMALL_BUFFER;
-	}
-      memcpy (output, bufdesc2.value, bufdesc2.length);
+      *output = malloc (bufdesc2.length);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, bufdesc2.value, bufdesc2.length);
       *output_len = bufdesc2.length;
 
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
@@ -253,50 +239,29 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
 	  return GSASL_GSSAPI_UNSUPPORTED_PROTECTION_ERROR;
 	}
 
-      username = malloc (bufdesc2.length - 4 + 1);
-      if (username == NULL)
-	{
-	  gss_release_buffer (&min_stat, &bufdesc2);
-	  return GSASL_MALLOC_ERROR;
-	}
-
-      memcpy (username, (char *) bufdesc2.value + 4, bufdesc2.length - 4);
-      username[bufdesc2.length - 4] = '\0';
-      maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
+      gsasl_property_lset (sctx, GSASL_AUTHZID,
+			   bufdesc2.value + 4, bufdesc2.length - 4);
 
       maj_stat = gss_display_name (&min_stat, state->client,
 				   &client_name, &mech_type);
       if (GSS_ERROR (maj_stat))
-	{
-	  free (username);
-	  return GSASL_GSSAPI_DISPLAY_NAME_ERROR;
-	}
+	return GSASL_GSSAPI_DISPLAY_NAME_ERROR;
 
-      gsasl_property_set (sctx, GSASL_AUTHZID, username);
-      gsasl_property_set (sctx, GSASL_GSSAPI_DISPLAY_NAME, client_name.value);
+      gsasl_property_lset (sctx, GSASL_GSSAPI_DISPLAY_NAME,
+			   client_name.value, client_name.length);
+
+      maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
+      if (GSS_ERROR (maj_stat))
+	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
       res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_GSSAPI);
 
-      free (username);
-
-      *output_len = 0;
       state->step++;
       break;
 
     default:
       res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
       break;
-    }
-
-  if (res == GSASL_OK || res == GSASL_NEEDS_MORE)
-    {
-      *output2_len = *output_len;
-      *output2 = malloc (*output2_len);
-      if (!*output2)
-	return GSASL_MALLOC_ERROR;
-      memcpy (*output2, output, *output2_len);
     }
 
   return res;
