@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
+  <bookinfo>
+    <title>GNU SASL API Reference Manual</title>
+  </bookinfo>
+
+  <chapter>
+    <title>GNU SASL API Reference Manual</title>
+
+    <para>
+GNU SASL is an implementation of the Simple Authentication and
+Security Layer framework and a few common SASL mechanisms.  SASL is
+used by network servers (e.g., IMAP, SMTP) to request authentication
+from clients, and in clients to authenticate against servers.
+    </para>
+    <para>
+GNU SASL contains of a library (`libgsasl'), a command line utility
+(`gsasl') to access the library from the shell, and a manual.  The
+library includes support for the framework (with authentication
+functions and application data privacy and integrity functions) and at
+least partial support for the CRAM-MD5, EXTERNAL, GSSAPI, ANONYMOUS,
+PLAIN, SECURID, DIGEST-MD5, LOGIN, NTLM mechanisms.
+    </para>
+    <para>
+The library is easily ported because it does not do network
+communication by itself, but rather leaves it up to the calling
+application.  The library is flexible with regards to the
+authorization infrastructure used, as it utilizes callbacks into the
+application to decide whether a user is authorized or not.  GNU SASL
+has been ported to many Unix flavors.
+    </para>
+    <para>
+GNU SASL is developed for the GNU/Linux system, but runs on over 20
+platforms including most major Unix platforms and Windows, and many
+kind of devices including iPAQ handhelds and S/390 mainframes.
+    </para>
+    <para>
+GNU SASL is licensed under the GNU General Public License.
+    </para>
+
+    <xi:include href="xml/gsasl.xml"/>
+    <xi:include href="xml/gsasl-mech.xml"/>
+    <xi:include href="xml/gsasl-compat.xml"/>
+  </chapter>
+</book>

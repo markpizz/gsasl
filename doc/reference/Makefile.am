@@ -1,50 +1,69 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2003, 2004 Simon Josefsson.
-#
-# This file is part of GNU Libidn.
-#
-# GNU Libidn is free software; you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as
-# published by the Free Software Foundation; either version 2.1 of
-# the License, or (at your option) any later version.
-#
-# GNU Libidn is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public
-# License along with GNU Libidn; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-HIGNORE = internal.h
-HTML_OBJECTS = index.html c4.html \
-	gsasl-gsasl.html gsasl-gsasl-compat.html gsasl-gsasl-mech.html
+# We require automake 1.6 at least.
+AUTOMAKE_OPTIONS = 1.6
 
-EXTRA_DIST = $(PACKAGE)-docs.tmpl $(HTML_OBJECTS) $(IMAGES)
-IMAGES = home.png left.png right.png up.png
+# This is a blank Makefile.am for using gtk-doc.
+# Copy this to your project's API docs directory and modify the variables to
+# suit your project. See the GTK+ Makefiles in gtk+/docs/reference for examples
+# of using the various options.
 
-scan.stamp: $(top_srcdir)/lib/src/*.c $(top_srcdir)/lib/src/*.h
-	gtkdoc-scan --module=$(PACKAGE) --source-dir=$(top_srcdir)/lib/src \
-		--ignore-headers="$(HIGNORE)" && touch scan.stamp
+# The name of the module, e.g. 'glib'.
+DOC_MODULE=gsasl
 
-tmpl.stamp: scan.stamp
-	gtkdoc-mktmpl --module=$(PACKAGE) --output-dir=.
+# The top-level SGML file. You can change this if you want to.
+DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.sgml
 
-sgml.stamp: tmpl.stamp
-	gtkdoc-mkdb --module=$(PACKAGE) --source-dir=$(top_srcdir)/lib/src \
-		--tmpl-dir=. --output-dir=. \
-		--main-sgml-file=$(srcdir)/$(PACKAGE)-docs.tmpl
+# The directory containing the source code. Relative to $(srcdir).
+# gtk-doc will search all .c & .h files beneath here for inline comments
+# documenting the functions and macros.
+# e.g. DOC_SOURCE_DIR=../../../gtk
+DOC_SOURCE_DIR=../../lib/src
 
-index.html: sgml.stamp
-	cp $(srcdir)/$(PACKAGE)-docs.tmpl $(PACKAGE)-docs.sgml
-	gtkdoc-mkhtml $(PACKAGE) $(PACKAGE)-docs.sgml
-	rm -f $(PACKAGE)-docs.sgml ../html.stamp
-	gtkdoc-fixxref --module-dir=. --html-dir=$(HTML_DIR)
+# Extra options to pass to gtkdoc-scangobj. Not normally needed.
+SCANGOBJ_OPTIONS=
 
-all: index.html
+# Extra options to supply to gtkdoc-scan.
+# e.g. SCAN_OPTIONS=--deprecated-guards="GTK_DISABLE_DEPRECATED" 
+SCAN_OPTIONS=
 
-clean-local:
-	rm -f *.bak scan.stamp tmpl.stamp sgml.stamp *.txt *.sgml \
-		$(PACKAGE)-doc.bottom $(PACKAGE)-doc.top \
-		$(HTML_OBJECTS) $(IMAGES) style.css
+# Extra options to supply to gtkdoc-mkdb.
+# e.g. MKDB_OPTIONS=--sgml-mode --output-format=xml
+MKDB_OPTIONS=--sgml-mode --output-format=xml
+
+# Extra options to supply to gtkdoc-fixref. Not normally needed.
+# e.g. FIXXREF_OPTIONS=--extra-dir=../gdk-pixbuf/html --extra-dir=../gdk/html
+FIXXREF_OPTIONS=
+
+# Used for dependencies. The docs will be rebuilt if any of these change.
+# e.g. HFILE_GLOB=$(top_srcdir)/gtk/*.h
+# e.g. CFILE_GLOB=$(top_srcdir)/gtk/*.c
+HFILE_GLOB=$(top_srcdir)/lib/src/*.h
+CFILE_GLOB=$(top_srcdir)/lib/src/*.c
+
+# Header files to ignore when scanning.
+# e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h
+IGNORE_HFILES=internal.h
+
+# Images to copy into HTML directory.
+# e.g. HTML_IMAGES=$(top_srcdir)/gtk/stock-icons/stock_about_24.png
+HTML_IMAGES=
+
+# Extra SGML files that are included by $(DOC_MAIN_SGML_FILE).
+# e.g. content_files=running.sgml building.sgml changes-2.0.sgml
+content_files=
+
+# CFLAGS and LDFLAGS for compiling gtkdoc-scangobj with your library.
+# Only needed if you are using gtkdoc-scangobj to dynamically query widget
+# signals and properties.
+# e.g. INCLUDES=-I$(top_srcdir) -I$(top_builddir) $(GTK_DEBUG_FLAGS)
+# e.g. GTKDOC_LIBS=$(top_builddir)/gtk/$(gtktargetlib)
+INCLUDES=
+GTKDOC_LIBS=
+
+# This includes the standard gtk-doc make rules, copied by gtkdocize.
+include gtk-doc.make
+
+# Other files to distribute
+# e.g. EXTRA_DIST += version.xml.in
+EXTRA_DIST += 
