@@ -8,5 +8,6 @@ cram-md5
 digest-md5
 md5file
 old-cram-md5
+old-gssapi
 *.la
 *.lo
