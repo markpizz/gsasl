@@ -32,6 +32,12 @@ Random notes follow.
   you are believe saving one round-trip make up for added code
   complexity, hire me to implement the missing pieces.
 
+* spec comment: "cipher" when qop doesn't include auth-conf should
+  cause failure.
+
+* spec comment: unrecognized "cipher" in response should cause
+  failure.
+
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
