@@ -21,7 +21,7 @@
 
 #include "internal.h"
 
-/*
+/**
  * gsasl_register:
  * @ctx: pointer to libgsasl handle.
  * @mech: plugin structure with information about plugin.
