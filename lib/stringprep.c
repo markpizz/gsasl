@@ -1,4 +1,4 @@
-/* stringprep.c	internationalized SASL string processing
+/* stringprep.c --- Internationalized SASL string processing.
  * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.

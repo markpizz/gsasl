@@ -1,4 +1,4 @@
-/* internal.h	internal header file for libgsasl
+/* internal.h --- Internal header with hidden library handle structures.
  * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -72,8 +72,6 @@ struct _Gsasl_mechanism
 };
 typedef struct _Gsasl_mechanism _Gsasl_mechanism;
 
-extern _Gsasl_mechanism _gsasl_all_mechanisms[];
-
 struct Gsasl
 {
   size_t n_client_mechs;
@@ -114,16 +112,5 @@ struct Gsasl_session
   void *application_data;
   void *mech_data;
 };
-
-#ifndef WITH_STRINGPREP
-extern char *_gsasl_no_stringprep_nfkc (const char *in, ssize_t len);
-extern char *_gsasl_no_stringprep (const char *in, int *stringprep_rc);
-#define gsasl_stringprep_nfkc _gsasl_no_stringprep_nfkc
-#define gsasl_stringprep_saslprep _gsasl_no_stringprep
-#define gsasl_stringprep_trace _gsasl_no_stringprep
-#endif
-
-#define VALID_HANDLE(ctx) (ctx != NULL)
-#define VALID_SESSION_HANDLE(sctx) (sctx != NULL)
 
 #endif /* _INTERNAL_H */
