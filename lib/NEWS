@@ -13,6 +13,9 @@ information about the command line interface and other things
 matters more confusing, the "gsasl" distribution includes a copy of
 the "libgsasl" distribution.
 
+** API and ABI modifications.
+No changes since last version.
+
 * Changes in 0.0.14 (released 2004-01-22)
 
 ** Moved all mechanism specific code into sub-directories of lib/.
