@@ -53,6 +53,9 @@ gsasl_step (Gsasl_session * sctx,
   _Gsasl_step_function step;
   int res;
 
+  if (!VALID_SESSION_HANDLE(sctx))
+    return GSASL_INVALID_HANDLE;
+
   *output_len = 1000;
   *output = malloc (*output_len);
   if (*output == NULL)
