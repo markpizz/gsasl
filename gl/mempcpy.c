@@ -18,6 +18,8 @@
 /* Specification.  */
 #include "mempcpy.h"
 
+#include <string.h>
+
 /* Copy N bytes of SRC to DEST, return pointer to bytes after the
    last written byte.  */
 void *

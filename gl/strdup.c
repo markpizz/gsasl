@@ -1,4 +1,6 @@
-/* Copyright (C) 1991, 1996, 1997, 1998, 2002 Free Software Foundation, Inc.
+/* Copyright (C) 1991, 1996, 1997, 1998, 2002, 2003 Free Software
+   Foundation, Inc.
+
    This file is part of the GNU C Library.
 
    This program is free software; you can redistribute it and/or modify
@@ -16,16 +18,11 @@
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+# include <config.h>
 #endif
 
-#if defined _LIBC || defined  STDC_HEADERS
-# include <stdlib.h>
-# include <string.h>
-#else
-char *malloc ();
-char *memcpy ();
-#endif
+#include <stdlib.h>
+#include <string.h>
 
 #undef __strdup
 #undef strdup

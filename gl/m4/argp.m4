@@ -8,14 +8,6 @@ dnl the same distribution terms as the rest of that program.
 
 AC_DEFUN([gl_ARGP],
 [
-  gl_ARGP_PREREQ
-])
-
-# Prerequisites of lib/argp*.
-AC_DEFUN([gl_ARGP_PREREQ],
-[
-  AC_CHECK_HEADERS([argp.h linewrap.h features.h])
-  AC_CHECK_DECLS([program_invocation_name, program_invocation_short_name],,,
-                 [[#include <errno.h>]])
-  AC_CHECK_FUNCS(argp_parse flockfile)
+  AC_CHECK_HEADERS([argp.h linewrap.h])
+  AC_CHECK_FUNCS(argp_parse)
 ])

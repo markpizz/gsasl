@@ -3,20 +3,19 @@
    This file is part of the GNU C Library.
    Written by Miles Bader <miles@gnu.ai.mit.edu>.
 
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
 
-   The GNU C Library is distributed in the hope that it will be useful,
+   This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, write to the Free
-   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307 USA.  */
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation,
+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #ifndef _GNU_SOURCE
 # define _GNU_SOURCE	1
@@ -50,6 +49,7 @@ char *alloca ();
 #include <string.h>
 #include <assert.h>
 #include <stdarg.h>
+#include <malloc.h>
 #include <ctype.h>
 #ifdef USE_IN_LIBIO
 # include <wchar.h>
@@ -69,19 +69,13 @@ char *alloca ();
 # endif
 #endif
 
-#ifndef __attribute
-# define __attribute(xyz)     /* Ignore */
-#endif
-
-#ifndef _LIBC
-# if !HAVE_DECL_STRERROR
-char *strerror ();
-# endif
-#endif
-
 #include "argp.h"
 #include "argp-fmtstream.h"
 #include "argp-namefrob.h"
+
+#ifndef SIZE_MAX
+# define SIZE_MAX ((size_t) -1)
+#endif 
 
 /* User-selectable (using an environment variable) formatting parameters.
 
@@ -450,7 +444,8 @@ make_hol (const struct argp *argp, struct hol_cluster *cluster)
       hol->entries = malloc (sizeof (struct hol_entry) * hol->num_entries);
       hol->short_options = malloc (num_short_options + 1);
 
-      assert (hol->entries && hol->short_options);
+      assert (hol->entries && hol->short_options
+	      && hol->num_entries <= SIZE_MAX / sizeof (struct hol_entry));
 
       /* Fill in the entries.  */
       so = hol->short_options;
@@ -842,6 +837,9 @@ hol_append (struct hol *hol, struct hol *more)
 	  unsigned hol_so_len = strlen (hol->short_options);
 	  char *short_options =
 	    malloc (hol_so_len + strlen (more->short_options) + 1);
+
+	  assert (entries && short_options
+		  && num_entries <= SIZE_MAX / sizeof (struct hol_entry));
 
 	  __mempcpy (__mempcpy (entries, hol->entries,
 				hol->num_entries * sizeof (struct hol_entry)),
@@ -1674,32 +1672,6 @@ void __argp_help (const struct argp *argp, FILE *stream,
 weak_alias (__argp_help, argp_help)
 #endif
 
-char *__argp_basename(char *name)
-{
-  char *short_name = strrchr(name, '/');
-  return short_name ? short_name + 1 : name;
-}
-
-char *
-__argp_short_program_name(const struct argp_state *state)
-{
-  if (state)
-    return state->name;
-#if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME || defined _LIBC
-  return program_invocation_short_name;
-#elif HAVE_DECL_PROGRAM_INVOCATION_NAME
-  return __argp_basename(program_invocation_name);
-#else
-  /* FIXME: What now? Miles suggests that it is better to use NULL,
-     but currently the value is passed on directly to fputs_unlocked,
-     so that requires more changes. */
-#if __GNUC__
-# warning No reasonable value to return
-#endif /* __GNUC__ */
-  return "";
-#endif
-}
-
 /* Output, if appropriate, a usage message for STATE to STREAM.  FLAGS are
    from the set ARGP_HELP_*.  */
 void
@@ -1711,7 +1683,7 @@ __argp_state_help (const struct argp_state *state, FILE *stream, unsigned flags)
 	flags |= ARGP_HELP_LONG_ONLY;
 
       _help (state ? state->root_argp : 0, state, stream, flags,
-	     state ? state->name : __argp_short_program_name (state));
+	     state ? state->name : program_invocation_short_name);
 
       if (!state || ! (state->flags & ARGP_NO_EXIT))
 	{
@@ -1752,8 +1724,7 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 	      __asprintf (&buf, fmt, ap);
 
 	      __fwprintf (stream, L"%s: %s\n",
-			  state ? state->name :
-			  __argp_short_program_name (state),
+			  state ? state->name : program_invocation_short_name,
 			  buf);
 
 	      free (buf);
@@ -1762,8 +1733,7 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 #endif
 	    {
 	      fputs_unlocked (state
-			      ? state->name :
-			      __argp_short_program_name (state),
+			      ? state->name : program_invocation_short_name,
 			      stream);
 	      putc_unlocked (':', stream);
 	      putc_unlocked (' ', stream);
@@ -1808,12 +1778,11 @@ __argp_failure (const struct argp_state *state, int status, int errnum,
 #ifdef USE_IN_LIBIO
 	  if (_IO_fwide (stream, 0) > 0)
 	    __fwprintf (stream, L"%s",
-			state ? state->name :
-			__argp_short_program_name (state));
+			state ? state->name : program_invocation_short_name);
 	  else
 #endif
 	    fputs_unlocked (state
-			    ? state->name : __argp_short_program_name (state),
+			    ? state->name : program_invocation_short_name,
 			    stream);
 
 	  if (fmt)
@@ -1850,22 +1819,14 @@ __argp_failure (const struct argp_state *state, int status, int errnum,
 
 #ifdef USE_IN_LIBIO
 	      if (_IO_fwide (stream, 0) > 0)
-#if defined _LIBC
 		__fwprintf (stream, L": %s",
 			    __strerror_r (errnum, buf, sizeof (buf)));
-#else
-		__fwprintf (stream, L": %s", strerror (errnum));
-#endif
 	      else
 #endif
 		{
 		  putc_unlocked (':', stream);
 		  putc_unlocked (' ', stream);
-#if defined _LIBC
 		  fputs (__strerror_r (errnum, buf, sizeof (buf)), stream);
-#else
-		  fputs (strerror (errnum), stream);
-#endif
 		}
 	    }
 

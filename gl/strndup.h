@@ -1,6 +1,5 @@
-/* strerror.c --- ANSI C compatible system error routine
-
-   Copyright (C) 1986, 1988, 1989, 1991, 2002 Free Software Foundation, Inc.
+/* Duplicate a size-bounded string.
+   Copyright (C) 2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,22 +15,16 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#if 0
-# include <stdio.h>
+#if HAVE_STRNDUP
+
+/* Get strndup() declaration.  */
+#include <string.h>
+
+#else
+
+#include <stddef.h>
+
+/* Return a newly allocated copy of at most N bytes of STRING.  */
+extern char *strndup (const char *string, size_t n);
+
 #endif
-
-extern int sys_nerr;
-extern char *sys_errlist[];
-
-char *
-strerror(n)
-int n;
-{
-	static char mesg[30];
-
-	if (n < 0 || n >= sys_nerr) {
-		sprintf(mesg, "Unknown error (%d)", n);
-		return mesg;
-	} else
-		return sys_errlist[n];
-}

@@ -19,5 +19,5 @@ AC_DEFUN([gl_FUNC_MEMPCPY],
 
 # Prerequisites of lib/mempcpy.c.
 AC_DEFUN([gl_PREREQ_MEMPCPY], [
-  AC_CHECK_HEADERS_ONCE(string.h)
+  :
 ])

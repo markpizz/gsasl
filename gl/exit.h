@@ -1,5 +1,5 @@
-/* xstrdup.c -- copy a string with out of memory checking
-   Copyright (C) 1990, 1996, 1998, 2001, 2003 Free Software Foundation, Inc.
+/* exit() function.
+   Copyright (C) 1995, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,19 +15,18 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#if HAVE_CONFIG_H
-# include <config.h>
+#ifndef _EXIT_H
+#define _EXIT_H
+
+/* Get exit() declaration.  */
+#include <stdlib.h>
+
+/* Some systems do not define EXIT_*, even with STDC_HEADERS.  */
+#ifndef EXIT_SUCCESS
+# define EXIT_SUCCESS 0
+#endif
+#ifndef EXIT_FAILURE
+# define EXIT_FAILURE 1
 #endif
 
-/* Specification.  */
-#include "xalloc.h"
-
-#include <string.h>
-
-/* Return a newly allocated copy of STRING.  */
-
-char *
-xstrdup (const char *string)
-{
-  return strcpy (xmalloc (strlen (string) + 1), string);
-}
+#endif /* _EXIT_H */

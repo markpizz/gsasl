@@ -1,6 +1,8 @@
-## Process this file with automake to produce Makefile.in.
-
+# argp vasprintf gethostname memmove memset strdup
+# s/libfoo_a/libfoo_la/g s/libfoo.a/libfoo.la/g
 SUBDIRS = m4
+
+## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
@@ -16,14 +18,15 @@ MOSTLYCLEANFILES =
 CLEANFILES =
 DISTCLEANFILES =
 MAINTAINERCLEANFILES =
+BUILT_SOURCES += $(ALLOCA_H)
 EXTRA_DIST += alloca_.h
 
 # We need the following in order to create an <alloca.h> when the system
 # doesn't have one that works with the given compiler.
-all-local $(libfoo_la_OBJECTS): @ALLOCA_H@
+all-local $(libfoo_la_OBJECTS): $(ALLOCA_H)
 alloca.h: alloca_.h
-	cp $(srcdir)/alloca_.h alloca.h-t
-	mv alloca.h-t alloca.h
+	cp $(srcdir)/alloca_.h $@-t
+	mv $@-t $@
 MOSTLYCLEANFILES += alloca.h alloca.h-t
 
 libfoo_la_LIBADD += @ALLOCA@
@@ -33,6 +36,11 @@ libfoo_la_SOURCES += argp.h argp-ba.c argp-eexst.c \
            argp-namefrob.h argp-parse.c argp-pv.c argp-pvh.c argp-xinl.c
 
 
+libfoo_la_SOURCES += exit.h
+
+libfoo_la_SOURCES += exitfail.h exitfail.c
+
+
 
 libfoo_la_SOURCES += getopt.h getopt.c getopt1.c
 
@@ -40,9 +48,14 @@ libfoo_la_SOURCES += gettext.h
 
 
 
+libfoo_la_SOURCES += mempcpy.h
 
 
 
+libfoo_la_SOURCES += strchrnul.h
+
+
+libfoo_la_SOURCES += strndup.h
 
 
 EXTRA_DIST += sysexit_.h
@@ -57,14 +70,9 @@ MOSTLYCLEANFILES += sysexits.h sysexits.h-t
 
 libfoo_la_SOURCES += unlocked-io.h
 
-libfoo_la_SOURCES += xalloc.h xmalloc.c xstrdup.c
-
-libfoo_la_SOURCES += strchrnul.h
-
-libfoo_la_SOURCES += mempcpy.h
-
-libfoo_la_SOURCES += exitfail.h exitfail.c
-
 libfoo_la_SOURCES += printf-args.h printf-parse.h vasnprintf.h
 
 libfoo_la_SOURCES += vasprintf.h
+
+libfoo_la_SOURCES += xalloc.h xmalloc.c xstrdup.c
+

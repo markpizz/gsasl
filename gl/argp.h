@@ -3,20 +3,19 @@
    This file is part of the GNU C Library.
    Written by Miles Bader <miles@gnu.ai.mit.edu>.
 
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
 
-   The GNU C Library is distributed in the hope that it will be useful,
+   This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, write to the Free
-   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307 USA.  */
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation,
+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #ifndef _ARGP_H
 #define _ARGP_H
@@ -34,19 +33,6 @@
 
 #ifndef __THROW
 # define __THROW
-#endif
-
-#ifndef __attribute__
-/* This feature is available in gcc versions 2.5 and later.  */
-# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
-#  define __attribute__(Spec) /* empty */
-# endif
-/* The __-protected variants of `format' and `printf' attributes
-   are accepted by gcc versions 2.6.4 (effectively 2.7) and later.  */
-# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 7)
-#  define __format__ format
-#  define __printf__ printf
-# endif
 #endif
 
 #ifndef __error_t_defined
@@ -393,11 +379,11 @@ struct argp_state
 extern error_t argp_parse (__const struct argp *__restrict __argp,
 			   int __argc, char **__restrict __argv,
 			   unsigned __flags, int *__restrict __arg_index,
-			   void *__restrict __input) __THROW;
+			   void *__restrict __input);
 extern error_t __argp_parse (__const struct argp *__restrict __argp,
 			     int __argc, char **__restrict __argv,
 			     unsigned __flags, int *__restrict __arg_index,
-			     void *__restrict __input) __THROW;
+			     void *__restrict __input);
 
 /* Global variables.  */
 
@@ -461,10 +447,10 @@ extern error_t argp_err_exit_status;
    ARGP_HELP_*.  */
 extern void argp_help (__const struct argp *__restrict __argp,
 		       FILE *__restrict __stream,
-		       unsigned __flags, char *__restrict __name) __THROW;
+		       unsigned __flags, char *__restrict __name);
 extern void __argp_help (__const struct argp *__restrict __argp,
 			 FILE *__restrict __stream, unsigned __flags,
-			 char *__name) __THROW;
+			 char *__name);
 
 /* The following routines are intended to be called from within an argp
    parsing routine (thus taking an argp_state structure as the first
@@ -478,23 +464,23 @@ extern void __argp_help (__const struct argp *__restrict __argp,
    from the set ARGP_HELP_*.  */
 extern void argp_state_help (__const struct argp_state *__restrict __state,
 			     FILE *__restrict __stream,
-			     unsigned int __flags) __THROW;
+			     unsigned int __flags);
 extern void __argp_state_help (__const struct argp_state *__restrict __state,
 			       FILE *__restrict __stream,
-			       unsigned int __flags) __THROW;
+			       unsigned int __flags);
 
 /* Possibly output the standard usage message for ARGP to stderr and exit.  */
-extern void argp_usage (__const struct argp_state *__state) __THROW;
-extern void __argp_usage (__const struct argp_state *__state) __THROW;
+extern void argp_usage (__const struct argp_state *__state);
+extern void __argp_usage (__const struct argp_state *__state);
 
 /* If appropriate, print the printf string FMT and following args, preceded
    by the program name and `:', to stderr, and followed by a `Try ... --help'
    message, then exit (1).  */
 extern void argp_error (__const struct argp_state *__restrict __state,
-			__const char *__restrict __fmt, ...) __THROW
+			__const char *__restrict __fmt, ...)
      __attribute__ ((__format__ (__printf__, 2, 3)));
 extern void __argp_error (__const struct argp_state *__restrict __state,
-			  __const char *__restrict __fmt, ...) __THROW
+			  __const char *__restrict __fmt, ...)
      __attribute__ ((__format__ (__printf__, 2, 3)));
 
 /* Similar to the standard gnu error-reporting function error(), but will
@@ -507,11 +493,11 @@ extern void __argp_error (__const struct argp_state *__restrict __state,
    parsing but don't reflect a (syntactic) problem with the input.  */
 extern void argp_failure (__const struct argp_state *__restrict __state,
 			  int __status, int __errnum,
-			  __const char *__restrict __fmt, ...) __THROW
+			  __const char *__restrict __fmt, ...)
      __attribute__ ((__format__ (__printf__, 4, 5)));
 extern void __argp_failure (__const struct argp_state *__restrict __state,
 			    int __status, int __errnum,
-			    __const char *__restrict __fmt, ...) __THROW
+			    __const char *__restrict __fmt, ...)
      __attribute__ ((__format__ (__printf__, 4, 5)));
 
 /* Returns true if the option OPT is a valid short option.  */
@@ -531,13 +517,6 @@ extern void *_argp_input (__const struct argp *__restrict __argp,
 extern void *__argp_input (__const struct argp *__restrict __argp,
 			   __const struct argp_state *__restrict __state)
      __THROW;
-/* Used for extracting the program name from argv[0] */
-extern char *_argp_basename(char *name) __THROW;
-extern char *__argp_basename(char *name) __THROW;
-
-/* Getting the program name given an argp state */
-extern char *_argp_short_program_name(const struct argp_state *state) __THROW;
-extern char *__argp_short_program_name(const struct argp_state *state) __THROW;
 
 #ifdef __USE_EXTERN_INLINES
 

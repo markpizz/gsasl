@@ -23,7 +23,7 @@
 #else
 
 /* Get size_t */
-#include <string.h>
+#include <stddef.h>
 
 /* Copy N bytes of SRC to DEST, return pointer to bytes after the
    last written byte.  */

@@ -3,20 +3,19 @@
    This file is part of the GNU C Library.
    Written by Miles Bader <miles@gnu.ai.mit.edu>.
 
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
 
-   The GNU C Library is distributed in the hope that it will be useful,
+   This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, write to the Free
-   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307 USA.  */
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation,
+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* This package emulates glibc `line_wrap_stream' semantics for systems that
    don't have that.  */
@@ -385,10 +384,11 @@ __argp_fmtstream_ensure (struct argp_fmtstream *fs, size_t amount)
       if ((size_t) (fs->end - fs->buf) < amount)
 	/* Gotta grow the buffer.  */
 	{
-	  size_t new_size = fs->end - fs->buf + amount;
-	  char *new_buf = realloc (fs->buf, new_size);
+	  size_t old_size = fs->end - fs->buf;
+	  size_t new_size = old_size + amount;
+	  char *new_buf;
 
-	  if (! new_buf)
+	  if (new_size < old_size || ! (new_buf = realloc (fs->buf, new_size)))
 	    {
 	      __set_errno (ENOMEM);
 	      return 0;
