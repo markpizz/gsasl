@@ -280,7 +280,7 @@ static struct argp argp = {
   options,
   parse_opt,
   0,
-  "GSASL -- Command line interface to libgsasl"
+  "GNU SASL gsasl -- Command line interface to libgsasl."
 };
 
 int
