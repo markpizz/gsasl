@@ -4,6 +4,9 @@ See the end for copying conditions.
 
 * Version 0.2.5 (unreleased)
 
+** Strings that trigger the Unicode NFKC bug in PR#29 are now rejected.
+This is only enabled if you use Libidn 0.5.0 or later.
+
 ** ANONYMOUS server reject empty and overlong tokens.
 
 * Version 0.2.4 (released 2005-01-01)
