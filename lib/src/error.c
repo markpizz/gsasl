@@ -330,6 +330,10 @@ gsasl_strerror (int err)
 	    "password was not provided.");
       break;
 
+    case GSASL_UNICODE_NORMALIZATION_ERROR:
+      p = _("Failed to perform Unicode Normalization on string.");
+      break;
+
     default:
       p = _("Libgsasl unknown error");
       break;
