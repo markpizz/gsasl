@@ -48,7 +48,9 @@ gsasl_api_global_deps = $(top_srcdir)/lib/init.c \
 			$(top_srcdir)/lib/supportp.c \
 			$(top_srcdir)/lib/suggest.c
 
-gsasl_api_callback_deps = $(top_srcdir)/lib/callback.c
+gsasl_api_callback_deps = $(top_srcdir)/lib/callback.c \
+			$(top_srcdir)/lib/callback-s.c \
+			$(top_srcdir)/lib/callback-c.c
 
 gsasl_api_session_deps = $(top_srcdir)/lib/xstart.c \
 			$(top_srcdir)/lib/xstep.c \
@@ -56,8 +58,8 @@ gsasl_api_session_deps = $(top_srcdir)/lib/xstart.c \
 			$(top_srcdir)/lib/xcode.c
 
 gsasl_api_utils_deps = $(top_srcdir)/lib/base64.c \
-			 $(top_srcdir)/lib/hexdump.c \
-			 $(top_srcdir)/lib/md5pwd.c
+			$(top_srcdir)/lib/hexdump.c \
+			$(top_srcdir)/lib/md5pwd.c
 
 gsasl_api_error_deps = $(top_srcdir)/lib/error.c
 
