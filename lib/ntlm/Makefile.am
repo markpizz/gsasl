@@ -24,5 +24,5 @@ noinst_LTLIBRARIES = libgsasl-ntlm.la
 libgsasl_ntlm_la_SOURCES = x-ntlm.h
 
 if CLIENT
-libgsasl_ntlm_la_SOURCES += ntlm.c
+libgsasl_securid_la_SOURCES += ntlm.c
 endif
