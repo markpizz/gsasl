@@ -248,7 +248,7 @@ Gsasl_mechanism _gsasl_all_mechanisms[] = {
    },
 #endif /* USE_DIGEST_MD5 */
 
-#if 0 /* USE_KERBEROS_V5 */
+#if 0				/* USE_KERBEROS_V5 */
   {_GSASL_KERBEROS_V5_NAME,
    {
 #ifdef USE_CLIENT

@@ -22,8 +22,7 @@
 #include "internal.h"
 
 static Gsasl_mechanism *
-find_mechanism (const char *mech,
-		       size_t n_mechs, Gsasl_mechanism * mechs)
+find_mechanism (const char *mech, size_t n_mechs, Gsasl_mechanism * mechs)
 {
   size_t i;
 
@@ -39,9 +38,9 @@ find_mechanism (const char *mech,
 
 static int
 setup (Gsasl * ctx,
-	      const char *mech,
-	      Gsasl_session * sctx,
-	      size_t n_mechs, Gsasl_mechanism * mechs, int clientp)
+       const char *mech,
+       Gsasl_session * sctx,
+       size_t n_mechs, Gsasl_mechanism * mechs, int clientp)
 {
   Gsasl_mechanism *mechptr = NULL;
   int res;
@@ -76,9 +75,9 @@ setup (Gsasl * ctx,
 
 static int
 start (Gsasl * ctx,
-	      const char *mech,
-	      Gsasl_session ** sctx,
-	      size_t n_mechs, Gsasl_mechanism * mechs, int clientp)
+       const char *mech,
+       Gsasl_session ** sctx,
+       size_t n_mechs, Gsasl_mechanism * mechs, int clientp)
 {
   Gsasl_session *out;
   int res;
