@@ -284,8 +284,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_gssapi_client_start,
     _gsasl_gssapi_client_step,
     _gsasl_gssapi_client_finish,
-    NULL,
-    NULL
+    _gsasl_gssapi_client_encode,
+    _gsasl_gssapi_client_decode
 #endif
     },
    {
