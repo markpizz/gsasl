@@ -443,14 +443,12 @@ main (int argc, char *argv[])
   if (listmode == OPTION_CLIENT_MECHANISMS ||
       listmode == OPTION_SERVER_MECHANISMS)
     {
-      char mechs[MAX_LINE_LENGTH];
-      size_t mechslen;
+      char *mechs;
 
-      mechslen = sizeof (mechs);
       if (listmode == OPTION_CLIENT_MECHANISMS)
-	res = gsasl_client_listmech (ctx, mechs, &mechslen);
+	res = gsasl_client_mechlist (ctx, &mechs);
       else
-	res = gsasl_server_listmech (ctx, mechs, &mechslen);
+	res = gsasl_server_mechlist (ctx, &mechs);
 
       if (res != GSASL_OK)
 	{
@@ -463,7 +461,10 @@ main (int argc, char *argv[])
 	fprintf (stderr, _("This %s supports the following mechanisms:\n"),
 		 listmode == OPTION_CLIENT_MECHANISMS ?
 		 _("client") : _("server"));
+
       fprintf (stdout, "%s\n", mechs);
+
+      free (mechs);
     }
 
   if (imap && !readln (input, MAX_LINE_LENGTH))
