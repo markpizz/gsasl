@@ -21,7 +21,9 @@
 
 #include "internal.h"
 
-#include <stringprep.h>
+#if WITH_SASLPREP
+# include <stringprep.h>
+#endif
 
 /**
  * gsasl_saslprep - prepare internationalized string
@@ -42,6 +44,7 @@ int
 gsasl_saslprep (const char *in, Gsasl_saslprep_flags flags,
 		char **out, int *stringpreprc)
 {
+#if WITH_SASLPREP
   int rc;
 
   rc = stringprep_profile (in, out, "SASLprep",
@@ -56,6 +59,21 @@ gsasl_saslprep (const char *in, Gsasl_saslprep_flags flags,
       *out = NULL;
       return GSASL_SASLPREP_ERROR;
     }
+#else
+  size_t i, inlen = strlen (in);
+
+  for (i = 0; i < inlen; i++)
+    if (in[i] & 0x80)
+      {
+	*out = NULL;
+	return GSASL_SASLPREP_ERROR;
+      }
+
+  *out = malloc (inlen + 1);
+  if (!*out)
+    return GSASL_MALLOC_ERROR;
+  strcpy (*out, in);
+#endif
 
   return GSASL_OK;
 }
