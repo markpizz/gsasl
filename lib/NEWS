@@ -26,6 +26,8 @@ same, only the API changed (to remove fixed size buffer restrictions).
 This is mostly intended to be used when cross compiling to platforms
 with limited memory.
 
+** Gnulib files were updated.
+
 ** API and ABI modifications.
 gsasl_md5pwd_get_password: DEPRECATED.  Use gsasl_simple_getpass() instead.
 gsasl_simple_getpass: ADD.  No buffer length restriction.
