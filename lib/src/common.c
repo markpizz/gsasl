@@ -41,7 +41,7 @@ Gsasl_mechanism _gsasl_all_mechanisms[] = {
 #ifdef USE_CLIENT
     NULL,
     NULL,
-    _gsasl_anonymous_client_start,
+    NULL,
     _gsasl_anonymous_client_step,
     NULL,
     NULL,
@@ -52,7 +52,7 @@ Gsasl_mechanism _gsasl_all_mechanisms[] = {
 #ifdef USE_SERVER
     NULL,
     NULL,
-    _gsasl_anonymous_server_start,
+    NULL,
     _gsasl_anonymous_server_step,
     NULL,
     NULL,

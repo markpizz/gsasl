@@ -57,15 +57,19 @@ setup (Gsasl * ctx,
     {
       if (sctx->mech->client.start)
 	res = sctx->mech->client.start (sctx, &sctx->mech_data);
-      else
+      else if (!sctx->mech->client.step)
 	res = GSASL_NO_CLIENT_CODE;
+      else
+	res = GSASL_OK;
     }
   else
     {
       if (sctx->mech->server.start)
 	res = sctx->mech->server.start (sctx, &sctx->mech_data);
-      else
+      else if (!sctx->mech->server.step)
 	res = GSASL_NO_SERVER_CODE;
+      else
+	res = GSASL_OK;
     }
   if (res != GSASL_OK)
     return res;

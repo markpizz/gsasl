@@ -31,12 +31,6 @@
 #include <string.h>
 
 int
-_gsasl_anonymous_client_start (Gsasl_session_ctx * sctx, void **mech_data)
-{
-  return GSASL_OK;
-}
-
-int
 _gsasl_anonymous_client_step (Gsasl_session_ctx * sctx,
 			      void *mech_data,
 			      const char *input, size_t input_len,
