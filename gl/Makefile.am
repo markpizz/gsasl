@@ -27,25 +27,25 @@ MAINTAINERCLEANFILES =
 
 ## begin gnulib module dummy
 
-libgl_a_SOURCES += dummy.c
+libgl_la_SOURCES += dummy.c
 
 ## end   gnulib module dummy
 
 ## begin gnulib module exit
 
-libgl_a_SOURCES += exit.h
+libgl_la_SOURCES += exit.h
 
 ## end   gnulib module exit
 
 ## begin gnulib module getaddrinfo
 
-libgl_a_SOURCES += getaddrinfo.h
+libgl_la_SOURCES += getaddrinfo.h
 
 ## end   gnulib module getaddrinfo
 
 ## begin gnulib module getline
 
-libgl_a_SOURCES += getline.h
+libgl_la_SOURCES += getline.h
 EXTRA_DIST += getndelim2.h getndelim2.c
 
 ## end   gnulib module getline
@@ -57,7 +57,7 @@ EXTRA_DIST += getopt_.h getopt_int.h
 
 # We need the following in order to create an <getopt.h> when the system
 # doesn't have one that works with the given compiler.
-all-local $(libgl_a_OBJECTS): $(GETOPT_H)
+all-local $(libgl_la_OBJECTS): $(GETOPT_H)
 getopt.h: getopt_.h
 	cp $(srcdir)/getopt_.h $@-t
 	mv $@-t $@
@@ -67,19 +67,19 @@ MOSTLYCLEANFILES += getopt.h getopt.h-t
 
 ## begin gnulib module getpass-gnu
 
-libgl_a_SOURCES += getpass.h
+libgl_la_SOURCES += getpass.h
 
 ## end   gnulib module getpass-gnu
 
 ## begin gnulib module gettext
 
-libgl_a_SOURCES += gettext.h
+libgl_la_SOURCES += gettext.h
 
 ## end   gnulib module gettext
 
 ## begin gnulib module progname
 
-libgl_a_SOURCES += progname.h progname.c
+libgl_la_SOURCES += progname.h progname.c
 
 ## end   gnulib module progname
 
@@ -90,7 +90,7 @@ EXTRA_DIST += stdbool_.h
 
 # We need the following in order to create an <stdbool.h> when the system
 # doesn't have one that works.
-all-local $(libgl_a_OBJECTS): $(STDBOOL_H)
+all-local $(libgl_la_OBJECTS): $(STDBOOL_H)
 stdbool.h: stdbool_.h
 	sed -e 's/@''HAVE__BOOL''@/$(HAVE__BOOL)/g' < $(srcdir)/stdbool_.h > $@-t
 	mv $@-t $@
@@ -100,11 +100,7 @@ MOSTLYCLEANFILES += stdbool.h stdbool.h-t
 
 ## begin gnulib module strdup
 
-libgl_a_SOURCES += strdup.h
+libgl_la_SOURCES += strdup.h
 
 ## end   gnulib module strdup
 
-
-if !READLINE
-libgl_la_SOURCES += readline.c
-endif
