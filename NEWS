@@ -8,6 +8,10 @@ See the end for copying conditions.
 The directory gl/ is dedicated for GNULib functions, and replace the
 earlier ad-hoc usage of argp, memset, etc.
 
+** GNU SASL will be C89 compatible.
+The library itself (lib/*) only use C89.  The remaining parts (src/
+and tests/) can use C89 and any functionality from GNULib.
+
 ** Improvements for embedded or otherwise limited systems.
 The math library (-lm) is no longer required. All client code can be
 disabled by --disable-client, and all server code can be disabled by
