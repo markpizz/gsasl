@@ -2,7 +2,7 @@
 SIMPLE AUTHENTICATION AND SECURITY LAYER (SASL) MECHANISMS
 ----------------------------------------------------------
 
-(last updated 2004-01-21)
+(last updated 2004-04-29)
 
 The Simple Authentication and Security Layer (SASL) [RFC2222] is a
 method for adding authentication support to connection-based
@@ -48,7 +48,7 @@ NMAS_AUTHEN          LIMITED  [Gayman]    Mark G. Gayman <mgayman@novell.com>
 
 DIGEST-MD5           COMMON   [RFC2831]   IESG <iesg@ietf.org>
 
-9798-U-RSA-SHA1-ENC	 COMMON   [RFC3163]   robert.zuccherato@entrust.com
+9798-U-RSA-SHA1-ENC  COMMON    [RFC3163]  robert.zuccherato@entrust.com
 
 9798-M-RSA-SHA1-ENC  COMMON   [RFC3163]   robert.zuccherato@entrust.com
 
@@ -61,6 +61,8 @@ DIGEST-MD5           COMMON   [RFC2831]   IESG <iesg@ietf.org>
 9798-M-ECDSA-SHA1    COMMON   [RFC3163]   robert.zuccherato@entrust.com
 
 KERBEROS_V5          COMMON   [Josefsson] Simon Josefsson <simon@josefsson.org>
+
+NMAS-SAMBA-AUTH      LIMITED  [Brimhall]  Vince Brimhall <vbrimhall@novell.com>
  
 
 References
@@ -96,6 +98,8 @@ References
 
 People
 ------
+
+[Brimhall] Vince Brimhall, <vbrimhall@novell.com>, April 2004.
 
 [Gayman] Mark G. Gayman, <mgayman@novell.com>, September 2000.
 
