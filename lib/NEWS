@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson
 See the end for copying conditions.
 
-* Version 0.2.5 (unreleased)
+* Version 0.2.5 (released 2005-02-08)
 
 ** Strings that trigger the Unicode NFKC bug in PR#29 are now rejected.
 This is only enabled if you use Libidn 0.5.0 or later.
