@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gsasl 0.0.15\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-04-16 01:08+0200\n"
-"PO-Revision-Date: 2004-04-16 01:06+0200\n"
+"POT-Creation-Date: 2004-04-16 11:03+0200\n"
+"PO-Revision-Date: 2004-04-16 11:03+0200\n"
 "Last-Translator: Simon Josefsson <simon@josefsson.org>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,8 +18,8 @@ msgstr ""
 
 #: src/gsasl.c:106
 #, c-format
-msgid "Chose SASL mechanisms:\n"
-msgstr "Välj SASL-mekanismer:\n"
+msgid "Chose SASL mechanism:\n"
+msgstr "Välj SASL-mekanism:\n"
 
 #: src/gsasl.c:114
 #, c-format
