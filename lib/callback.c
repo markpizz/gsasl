@@ -22,6 +22,18 @@
 #include "internal.h"
 
 /**
+ * gsasl_ctx_get:
+ * @sctx: libgsasl session handle
+ *
+ * Return value: Returns the libgsasl handle given a libgsasl session handle.
+ **/
+Gsasl_ctx *
+gsasl_ctx_get (Gsasl_session_ctx * sctx)
+{
+  return sctx->ctx;
+}
+
+/**
  * gsasl_application_data_set:
  * @ctx: libgsasl handle.
  * @application_data: opaque pointer to application specific data.
@@ -56,7 +68,7 @@ gsasl_application_data_get (Gsasl_ctx * ctx)
 }
 
 /**
- * gsasl_application_session_data_set:
+ * gsasl_appinfo_set:
  * @sctx: libgsasl session handle.
  * @application_data: opaque pointer to application specific data.
  *
@@ -67,14 +79,13 @@ gsasl_application_data_get (Gsasl_ctx * ctx)
  * main program and the callback.
  **/
 void
-gsasl_application_session_data_set (Gsasl_session_ctx * sctx,
-				    void *application_data)
+gsasl_appinfo_set (Gsasl_session_ctx * sctx, void *application_data)
 {
   sctx->application_data = application_data;
 }
 
 /**
- * gsasl_client_application_data_get:
+ * gsasl_appinfo_get:
  * @sctx: libgsasl client handle.
  *
  * Retrieve application specific data from libgsasl session
@@ -86,7 +97,7 @@ gsasl_application_session_data_set (Gsasl_session_ctx * sctx,
  * Return value: Returns the application specific data, or NULL.
  **/
 void *
-gsasl_application_session_data_get (Gsasl_session_ctx * sctx)
+gsasl_appinfo_get (Gsasl_session_ctx * sctx)
 {
   return sctx->application_data;
 }
