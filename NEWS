@@ -6,7 +6,7 @@ See the end for copying conditions.
 
 ** Two new GSS libraries supported for the GSS-API mechanism.
 See http://josefsson.org/gss/ for GSS, which uses Shishi for Kerberos 5.
-See http://www.pdc.kth.se/heimdal/ for Heimdal.
+See http://www.pdc.kth.se/heimdal/ for Heimdal (Kerberos 5).
 
 ** Bug fixes.
 
