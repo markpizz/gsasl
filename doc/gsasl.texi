@@ -433,9 +433,9 @@ and install the package.  You will need a few basic tools, such as
 @samp{sh}, @samp{make} and @samp{cc}.
 
 @example
-$ wget -q http://josefsson.org/gsasl/releases/gsasl-0.0.8.tar.gz
-$ tar xfz gsasl-0.0.8.tar.gz
-$ cd gsasl-0.0.8/
+$ wget -q http://josefsson.org/gsasl/releases/gsasl-@value{VERSION}.tar.gz
+$ tar xfz gsasl-@value{VERSION}.tar.gz
+$ cd gsasl-@value{VERSION}/
 $ ./configure
 ...
 $ make
@@ -806,7 +806,7 @@ AC_ARG_ENABLE(gsasl,
 	AC_HELP_STRING([--disable-gsasl], [don't use GNU SASL]),
 	gsasl=$enableval)
 if test "$gsal" != "no" ; then
-	PKG_CHECK_MODULES(GSASL, libgsasl >= 0.0.8,
+	PKG_CHECK_MODULES(GSASL, libgsasl >= @value{VERSION},
 			[gsasl=yes],
                         [gsasl=no])
 	if test "$gsasl" != "yes" ; then
