@@ -138,7 +138,7 @@ extern int gsasl_md5 (const char *in, size_t inlen, char *out[16]);
 extern int gsasl_hmac_md5 (const char *key, size_t keylen,
 			   const char *in, size_t inlen, char *outhash[16]);
 
-#define VALID_CTX(ctx) (ctx != NULL)
-#define VALID_SESSION_CTX(sctx) (sctx != NULL)
+#define VALID_HANDLE(ctx) (ctx != NULL)
+#define VALID_SESSION_HANDLE(sctx) (sctx != NULL)
 
 #endif /* _INTERNAL_H */
