@@ -36,7 +36,7 @@
  *   The data encoded in the challenge contains a presumptively
  *   arbitrary string of random digits, a time-stamp, and the
  *   fully-qualified primary host name of the server.
- *...
+ * ...
  *   challenge  = "<" 1*DIGIT "." 1*DIGIT "@" hostname ">"
  *
  * This implementation avoid the information leakage by always using 0
