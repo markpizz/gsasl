@@ -1,220 +1,50 @@
 ## Process this file with automake to produce Makefile.in
+# Copyright (C) 2003 Simon Josefsson.
+#
+# This file is part of GNU Libidn.
+#
+# GNU Libidn is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# GNU Libidn is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with GNU Libidn; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-# This is a blank Makefile.am for using gtk-doc.
-# Copy this to your project's API docs directory and modify the variables to
-# suit your project. See the GTK+ Makefiles in gtk+/docs/reference for examples
-# of using the various options.
+HIGNORE = anonymous.h cram-md5.h digest-md5.h external.h gettext.h internal.h \
+	kerberos_v5.h login.h plain.h securid.h x-gssapi.h x-ntlm.h
+HTML_OBJECTS = index.html c4.html gsasl-gsasl.html
 
-# The name of the module, e.g. 'glib'.
-DOC_MODULE=gsasl
+EXTRA_DIST = $(PACKAGE)-docs.tmpl $(HTML_OBJECTS) $(IMAGES)
+IMAGES = home.png left.png right.png up.png
 
-# The top-level SGML file. Change it if you want.
-DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.sgml
+scan.stamp: $(top_srcdir)/lib/*.c $(top_srcdir)/lib/*.h
+	gtkdoc-scan --module=$(PACKAGE) --source-dir=$(top_srcdir)/lib \
+		--ignore-headers="$(HIGNORE)" && touch scan.stamp
 
-# The directory containing the source code. Relative to $(srcdir).
-# gtk-doc will search all .c & .h files beneath here for inline comments
-# documenting functions and macros.
-DOC_SOURCE_DIR=../../lib
+tmpl.stamp: scan.stamp
+	gtkdoc-mktmpl --module=$(PACKAGE) --output-dir=.
 
-# Extra options to pass to gtkdoc-scanobj or gtkdoc-scangobj.
-SCANOBJ_OPTIONS=
+sgml.stamp: tmpl.stamp
+	gtkdoc-mkdb --module=$(PACKAGE) --source-dir=$(top_srcdir)/lib \
+		--tmpl-dir=. --output-dir=. \
+		--main-sgml-file=$(srcdir)/$(PACKAGE)-docs.tmpl
 
-# Extra options to supply to gtkdoc-scan.
-SCAN_OPTIONS=
+index.html: sgml.stamp
+	cp $(srcdir)/$(PACKAGE)-docs.tmpl $(PACKAGE)-docs.sgml
+	gtkdoc-mkhtml $(PACKAGE) $(PACKAGE)-docs.sgml
+	rm -f $(PACKAGE)-docs.sgml ../html.stamp
+	gtkdoc-fixxref --module-dir=. --html-dir=$(HTML_DIR)
 
-# Extra options to supply to gtkdoc-mkdb.
-MKDB_OPTIONS=
-
-# Extra options to supply to gtkdoc-fixref.
-FIXXREF_OPTIONS=
-
-# Used for dependencies.
-HFILE_GLOB=$(top_srcdir)/lib/*.h
-CFILE_GLOB=$(top_srcdir)/lib/*.c
-
-# Header files to ignore when scanning.
-IGNORE_HFILES=\
-	anonymous.h \
-	cram-md5.h \
-	digest-md5.h \
-	external.h \
-	gettext.h \
-	internal.h \
-	kerberos_v5.h \
-	login.h \
-	plain.h \
-	securid.h \
-	x-gssapi.h \
-	x-ntlm.h
-
-# Images to copy into HTML directory.
-HTML_IMAGES =
-
-# Extra SGML files that are included by $(DOC_MAIN_SGML_FILE).
-content_files =
-
-# Other files to distribute.
-extra_files =
-
-# CFLAGS and LDFLAGS for compiling scan program. Only needed if your app/lib
-# contains GtkObjects/GObjects and you want to document signals and properties.
-GTKDOC_CFLAGS =
-GTKDOC_LIBS =
-
-GTKDOC_CC=$(LIBTOOL) --mode=compile $(CC)
-GTKDOC_LD=$(LIBTOOL) --mode=link $(CC)
-
-# If you need to override some of the declarations, place them in the
-# $(DOC_MODULE)-overrides.txt file and uncomment the second line here.
-DOC_OVERRIDES =
-#DOC_OVERRIDES = $(DOC_MODULE)-overrides.txt
-
-
-
-###########################################################################
-# Everything below here is generic and you shouldn't need to change it.
-###########################################################################
-
-TARGET_DIR=$(HTML_DIR)/$(DOC_MODULE)
-
-EXTRA_DIST = 				\
-	$(content_files)		\
-	$(extra_files)			\
-	$(HTML_IMAGES)			\
-	$(DOC_MAIN_SGML_FILE)		\
-	$(DOC_MODULE).types		\
-	$(DOC_MODULE)-sections.txt	\
-	$(DOC_OVERRIDES)
-
-DOC_STAMPS=scan-build.stamp tmpl-build.stamp sgml-build.stamp html-build.stamp \
-	   $(srcdir)/tmpl.stamp $(srcdir)/sgml.stamp $(srcdir)/html.stamp
-
-SCANOBJ_FILES = 		\
-	$(DOC_MODULE).args 	\
-	$(DOC_MODULE).hierarchy \
-	$(DOC_MODULE).signals
-
-if ENABLE_GTK_DOC
-all-local: html-build.stamp
-
-#### scan ####
-
-scan-build.stamp: $(HFILE_GLOB)
-	@echo '*** Scanning header files ***'
-	if grep -l '^..*$$' $(srcdir)/$(DOC_MODULE).types > /dev/null ; then \
-	    CC="$(GTKDOC_CC)" LD="$(GTKDOC_LD)" CFLAGS="$(GTKDOC_CFLAGS)" LDFLAGS="$(GTKDOC_LIBS)" gtkdoc-scanobj $(SCANOBJ_OPTIONS) --module=$(DOC_MODULE) --output-dir=$(srcdir) ; \
-	else \
-	    cd $(srcdir) ; \
-	    for i in $(SCANOBJ_FILES) ; do \
-               test -f $$i || touch $$i ; \
-	    done \
-	fi
-	cd $(srcdir) && \
-	  gtkdoc-scan --module=$(DOC_MODULE) --source-dir=$(DOC_SOURCE_DIR) --ignore-headers="$(IGNORE_HFILES)" $(SCAN_OPTIONS) $(EXTRA_HFILES)
-	touch scan-build.stamp
-
-$(DOC_MODULE)-decl.txt $(SCANOBJ_FILES): scan-build.stamp
-	@true
-
-#### templates ####
-
-tmpl-build.stamp: $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES) $(DOC_MODULE)-sections.txt $(DOC_OVERRIDES)
-	@echo '*** Rebuilding template files ***'
-	cd $(srcdir) && gtkdoc-mktmpl --module=$(DOC_MODULE)
-	touch tmpl-build.stamp
-
-tmpl.stamp: tmpl-build.stamp
-	@true
-
-#### sgml ####
-
-sgml-build.stamp: tmpl.stamp $(CFILE_GLOB) $(srcdir)/tmpl/*.sgml
-	@echo '*** Building SGML ***'
-	cd $(srcdir) && \
-	gtkdoc-mkdb --module=$(DOC_MODULE) --source-dir=$(DOC_SOURCE_DIR) --main-sgml-file=$(DOC_MAIN_SGML_FILE) $(MKDB_OPTIONS)
-	touch sgml-build.stamp
-
-sgml.stamp: sgml-build.stamp
-	@true
-
-#### html ####
-
-html-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
-	@echo '*** Building HTML ***'
-	test -d $(srcdir)/html || mkdir $(srcdir)/html
-	cd $(srcdir)/html && gtkdoc-mkhtml $(DOC_MODULE) ../$(DOC_MAIN_SGML_FILE)
-	test "x$(HTML_IMAGES)" = "x" || ( cd $(srcdir) && cp $(HTML_IMAGES) html )
-	@echo '-- Fixing Crossreferences' 
-	cd $(srcdir) && gtkdoc-fixxref --module-dir=html --html-dir=$(HTML_DIR) $(FIXXREF_OPTIONS)
-	touch html-build.stamp
-else
-all-local:
-endif
-
-##############
+all: index.html
 
 clean-local:
-	rm -f *~ *.bak $(SCANOBJ_FILES) *-unused.txt $(DOC_STAMPS)
-
-maintainer-clean-local: clean
-	cd $(srcdir) && rm -rf sgml html $(DOC_MODULE)-decl-list.txt $(DOC_MODULE)-decl.txt
-	cd $(srcdir) && rm -f $(DOC_MODULE)-sections.txt $(DOC_MODULE)-undocumented.txt $(DOC_MODULE).types
-	cd $(srcdir) && rm -f tmpl/$(DOC_MODULE)*
-
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(TARGET_DIR)
-	(installfiles=`echo $(srcdir)/html/*.html`; \
-	if test "$$installfiles" = '$(srcdir)/html/*.html'; \
-	then echo '-- Nothing to install' ; \
-	else \
-	  for i in $$installfiles; do \
-	    echo '-- Installing '$$i ; \
-	    $(INSTALL_DATA) $$i $(DESTDIR)$(TARGET_DIR); \
-	  done; \
-	  echo '-- Installing $(srcdir)/html/index.sgml' ; \
-	  $(INSTALL_DATA) $(srcdir)/html/index.sgml $(DESTDIR)$(TARGET_DIR); \
-	fi)
-
-##############
-
-uninstall-local:
-	(uninstallfiles=`cd $(srcdir)/html/; echo *.html`; \
-	if test "$$uninstallfiles" = '*.html'; \
-	then echo '-- Nothing to uninstall' ; \
-	else \
-	  for i in $$uninstallfiles; do \
-	    echo '-- Uninstalling '$$i ; \
-	    rm -f $(DESTDIR)$(TARGET_DIR)/$$i; \
-	  done; \
-	  echo '-- Uninstalling $(srcdir)/html/index.sgml' ; \
-	  rm -f $(DESTDIR)$(TARGET_DIR)/index.sgml; \
-	  echo '-- Uninstalling $(DESTDIR)$(TARGET_DIR)' ; \
-	  test ! -d $(DESTDIR)$(TARGET_DIR) || rmdir $(DESTDIR)$(TARGET_DIR); \
-	fi)
-
-#
-# Require gtk-doc when making dist
-#
-if ENABLE_GTK_DOC
-dist-check-gtkdoc:
-else
-dist-check-gtkdoc:
-	@echo "*** gtk-doc must be installed and enabled in order to make dist"
-	-@false
-endif
-
-dist-hook: dist-check-gtkdoc dist-hook-local
-	mkdir $(distdir)/tmpl
-	mkdir $(distdir)/sgml
-	mkdir $(distdir)/html
-	-cp $(srcdir)/tmpl/*.sgml $(distdir)/tmpl
-	-cp $(srcdir)/sgml/*.sgml $(distdir)/sgml
-	-cp $(srcdir)/html/index.sgml $(distdir)/html
-	-cp $(srcdir)/html/*.html $(srcdir)/html/*.css $(distdir)/html
-
-	images=$(HTML_IMAGES) ;    	      \
-	for i in $$images ; do		      \
-	  cp $(srcdir)/$$i $(distdir)/html ;  \
-	done
-
-.PHONY : dist-hook-local
+	rm -f *.bak scan.stamp tmpl.stamp sgml.stamp *.txt *.sgml \
+		$(PACKAGE)-doc.bottom $(PACKAGE)-doc.top \
+		$(HTML_OBJECTS) $(IMAGES) 
