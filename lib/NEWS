@@ -20,6 +20,8 @@ invalid input better.
 
 ** Improved robustness of callback backwards compatibility.
 
+** Memory leaks fixed.
+
 ** New simple user database API `gsasl_simple_getpass'.
 This replaces gsasl_md5pwd_get_password.
 
