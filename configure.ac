@@ -25,6 +25,7 @@ AC_PREREQ(2.59)
 AM_INIT_AUTOMAKE([1.8 gnits])
 AC_CONFIG_HEADERS(config.h)
 
+# Internationalization.
 AM_GNU_GETTEXT(external)
 AM_GNU_GETTEXT_VERSION(0.14.1)
 
