@@ -625,7 +625,7 @@ main()
          server and read new data from server */
 
       rc = gsasl_client_step_base64 (cctx, input, output, BUFFERSIZE);
-      if (rc != GSASL_NEEDS_MORE)
+      if (rc != GSASL_NEEDS_MORE && rc != GSASL_OK)
         break;
 
       write_to_client(output);
