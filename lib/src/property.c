@@ -112,7 +112,10 @@ gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
     {
       if (*p)
 	free (*p);
-      *p = strdup (data);
+      if (data)
+	*p = strdup (data);
+      else
+	*p = NULL;
     }
 }
 
@@ -144,7 +147,10 @@ gsasl_property_set_global (Gsasl * ctx, Gsasl_property prop, const char *data)
     {
       if (*p)
 	free (*p);
-      *p = strdup (data);
+      if (data)
+	*p = strdup (data);
+      else
+	*p = NULL;
     }
 }
 
