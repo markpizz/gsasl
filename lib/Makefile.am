@@ -20,9 +20,8 @@
 
 lib_LTLIBRARIES = libgsasl.la
 
-INCLUDES = -I$(top_srcdir)/gl \
-	@LIBNTLM_CFLAGS@ @LIBGCRYPT_CFLAGS@ @GSSAPI_CFLAGS@ \
-	@SHISHI_CFLAGS@ @LIBIDN_CFLAGS@ @GSS_CFLAGS@
+INCLUDES = @LIBNTLM_CFLAGS@ @LIBGCRYPT_CFLAGS@ @LIBNTLM_CFLAGS@ \
+	@GSSAPI_CFLAGS@ @GSS_CFLAGS@ @SHISHI_CFLAGS@ @LIBIDN_CFLAGS@
 
 include_HEADERS = gsasl.h
 
@@ -42,8 +41,7 @@ libgsasl_la_SOURCES = init.c done.c error.c version.c callback.c \
 			securid.h securid.c \
 			kerberos_v5.h kerberos_v5.c
 
-libgsasl_la_LIBADD = ../gl/libfoo.la \
-	@LTLIBINTL@ @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ \
+libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ \
 	@GSSAPI_LIBS@ @GSS_LIBS@ @SHISHI_LIBS@ @LIBIDN_LIBS@
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
