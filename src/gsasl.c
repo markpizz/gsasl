@@ -19,43 +19,8 @@
  *
  */
 
-#include <stdio.h>
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-#ifdef HAVE_NETDB_H
-#include <netdb.h>
-#endif
-#ifdef HAVE_STDLIB_H
-#include <stdlib.h>
-#endif
-#ifdef HAVE_LOCALE_H
-#include <locale.h>
-#endif
-#if HAVE_STRING_H
-# if !STDC_HEADERS && HAVE_MEMORY_H
-#  include <memory.h>
-# endif
-# include <string.h>
-#endif
-#if HAVE_STRINGS_H
-# include <strings.h>
-#endif
-#include <argp.h>
-#include <gsasl.h>
-
+#include "internal.h"
 #include "callbacks.h"
-
-#include "gettext.h"
-#ifdef ENABLE_NLS
-extern char *_gsasl_gettext (const char *str);
-#define _(String) _gsasl_gettext (String)
-#define gettext_noop(String) String
-#define N_(String) gettext_noop (String)
-#endif
 
 #define MAX_LINE_LENGTH BUFSIZ
 
@@ -71,7 +36,8 @@ enum
   OPTION_DISABLE_CLEARTEXT_VALIDATE,
   OPTION_QOP,
   OPTION_APPLICATION_DATA,
-  OPTION_NO_CLIENT_FIRST
+  OPTION_NO_CLIENT_FIRST,
+  OPTION_IMAP
 };
 
 const char *argp_program_version = "gsasl (" PACKAGE_STRING ")";
@@ -99,6 +65,7 @@ int maxbuf;
 int qop;
 int application_data;
 int no_client_first;
+int imap;
 
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
@@ -163,6 +130,14 @@ parse_opt (int key, char *arg, struct argp_state *state)
       servicename = strdup (arg);
       break;
 
+    case OPTION_APPLICATION_DATA:
+      application_data = 1;
+      break;
+
+    case OPTION_IMAP:
+      imap = 1;
+      break;
+
     case OPTION_ENABLE_CRAM_MD5_VALIDATE:
       enable_cram_md5_validate = 1;
       break;
@@ -184,10 +159,6 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	qop = GSASL_QOP_AUTH_CONF;
       else
 	argp_error (state, "unknown quality of protection: `%s'", arg);
-      break;
-
-    case OPTION_APPLICATION_DATA:
-      application_data = 1;
       break;
 
     case 'c':
@@ -249,6 +220,9 @@ static struct argp_option options[] = {
    "After authentication, read data from stdin and run it through the "
    "mechanism's security layer and print it base64 encoded to stdout. "
    "The default is to terminate after authentication."},
+
+  {"imap", OPTION_IMAP, 0, 0,
+   "Use a IMAP-like logon procedure (client only)."},
 
   {"no-client-first", OPTION_NO_CLIENT_FIRST, 0, 0,
    "Disallow client to send data first (client only)."},
@@ -402,6 +376,8 @@ main (int argc, char *argv[])
 	  if (!silent)
 	    fprintf (stderr,
 		     _("Input SASL mechanism supported by server:\n"));
+	  if (imap)
+	    printf(". CAPABILITY");
 	  input[0] = '\0';
 	  fgets (input, MAX_LINE_LENGTH, stdin);
 
