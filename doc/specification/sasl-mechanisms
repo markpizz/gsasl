@@ -2,7 +2,7 @@
 SIMPLE AUTHENTICATION AND SECURITY LAYER (SASL) MECHANISMS
 ----------------------------------------------------------
 
-(last updated 2001 August 17)
+(last updated 2004-01-21)
 
 The Simple Authentication and Security Layer (SASL) [RFC2222] is a
 method for adding authentication support to connection-based
@@ -18,51 +18,50 @@ underscores.  SASL mechanism names must be registered with the IANA.
 Procedures for registering new SASL mechanisms are given in the
 section "Registration procedures" of RFC2222.
 
+MECHANISMS           USAGE    REFERENCE   OWNER
+----------           -----    ---------   -----
+KERBEROS_V4          LIMITED  [RFC2222]   IESG <iesg@ietf.org>
 
-MECHANISMS		OWNER                                  REFERENCE
-----------      	-----                                  ---------
+GSSAPI               COMMON   [RFC2222]   IESG <iesg@ietf.org> 
 
-KERBEROS_V4		IESG <iesg@ietf.org>                   [RFC2222]
+SKEY                 OBSOLETE [RFC2444]   IESG <iesg@ietf.org>
 
-GSSAPI			IESG <iesg@ietf.org>                   [RFC2222]   
+EXTERNAL             COMMON   [RFC2222]   IESG <iesg@ietf.org>
 
-SKEY (OBSOLETE)		IESG <iesg@ietf.org>                   [RFC2444]
+CRAM-MD5             LIMITED  [RFC2195]   IESG <iesg@ietf.org> 
+    		
+ANONYMOUS            COMMON   [RFC2245]   IESG <iesg@ietf.org>
 
-EXTERNAL		IESG <iesg@ietf.org>                   [RFC2222]
+OTP                  COMMON   [RFC2444]   IESG <iesg@ietf.org>
 
-CRAM-MD5		IESG <iesg@ietf.org>  		       [RFC2195]
+GSS-SPNEGO           LIMITED  [Leach]     Paul Leach <paulle@microsoft.com>
 
-ANONYMOUS		IESG <iesg@ietf.org>                   [RFC2245]
+PLAIN                COMMON   [RFC2595]   IESG <iesg@ietf.org>
 
-OTP             	IESG <iesg@ietf.org>                   [RFC2444]
+SECURID              COMMON   [RFC2808]   Magnus Nystrom <magnus@rsasecurity.com>
 
-GSS-SPNEGO		Paul Leach <paulle@microsoft.com>        [Leach] 
+NTLM                 LIMITED  [Leach]     Paul Leach <paulle@microsoft.com>
 
-PLAIN           	IESG <iesg@ietf.org>                   [RFC2595]
+NMAS_LOGIN           LIMITED  [Gayman]    Mark G. Gayman <mgayman@novell.com>
 
-SECURID         	Magnus Nystrom <magnus@rsasecurity.com>[RFC2808]
+NMAS_AUTHEN          LIMITED  [Gayman]    Mark G. Gayman <mgayman@novell.com>
 
-NTLM			Paul Leach <paulle@microsoft.com>        [Leach] 
+DIGEST-MD5           COMMON   [RFC2831]   IESG <iesg@ietf.org>
 
-NMAS_LOGIN		Mark G. Gayman <mgayman@novell.com>     [Gayman]
+9798-U-RSA-SHA1-ENC	 COMMON   [RFC3163]   robert.zuccherato@entrust.com
 
-NMAS_AUTHEN		Mark G. Gayman <mgayman@novell.com>     [Gayman]
+9798-M-RSA-SHA1-ENC  COMMON   [RFC3163]   robert.zuccherato@entrust.com
 
-DIGEST-MD5		IESG <iesg@ietf.org>		       [RFC2831]
+9798-U-DSA-SHA1      COMMON   [RFC3163]   robert.zuccherato@entrust.com
 
-9798-U-RSA-SHA1-ENC	robert.zuccherato@entrust.com          [RFC3163]
-                                                       
-9798-M-RSA-SHA1-ENC	robert.zuccherato@entrust.com	       [RFC3163]
-                                  
-9798-U-DSA-SHA1		robert.zuccherato@entrust.com          [RFC3163]
-                                  
-9798-M-DSA-SHA1		robert.zuccherato@entrust.com          [RFC3163]
+9798-M-DSA-SHA1      COMMON   [RFC3163]   robert.zuccherato@entrust.com
 
-9798-U-ECDSA-SHA1	robert.zuccherato@entrust.com          [RFC3163]
-                                  
-9798-M-ECDSA-SHA1	robert.zuccherato@entrust.com          [RFC3163]
+9798-U-ECDSA-SHA1    COMMON   [RFC3163]   robert.zuccherato@entrust.com
 
+9798-M-ECDSA-SHA1    COMMON   [RFC3163]   robert.zuccherato@entrust.com
 
+KERBEROS_V5          COMMON   [Josefsson] Simon Josefsson <simon@josefsson.org>
+ 
 
 References
 ----------
@@ -99,6 +98,8 @@ People
 ------
 
 [Gayman] Mark G. Gayman, <mgayman@novell.com>, September 2000.
+
+[Josefsson] Simon Josefsson, <simon@josefsson.org>, January 2004.
 
 [Leach] Paul Leach, <paulle@microsoft.com>, December 1998, June 2000.
 
