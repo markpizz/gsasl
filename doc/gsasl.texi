@@ -436,10 +436,10 @@ table.
 @item --disable-client
 @itemx --disable-server
 If your target system require a minimal implementation, you may wish
-to disable the client or the server part of the code.  This removes
-symbols from the library, so if you attempt to link an application
-that uses server functions to a libgsasl built with
-@code{--disable-server}, you will get linker errors.
+to disable the client or the server part of the code.  This do not
+remove symbols from the library, so if you attempt to call an
+application that uses server functions in a libgsasl built with
+@code{--disable-server}, the function will return an error code.
 
 @item --disable-anonymous
 @itemx --disable-external
