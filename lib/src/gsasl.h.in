@@ -82,7 +82,6 @@ extern "C"
     GSASL_NO_PIN = 57,
     GSASL_NO_SERVICE = 58,
     GSASL_NO_HOSTNAME = 59,
-    GSASL_CANNOT_VALIDATE = 60,
     /* Mechanism specific errors. */
     GSASL_GSSAPI_RELEASE_BUFFER_ERROR = 37,
     GSASL_GSSAPI_IMPORT_NAME_ERROR = 38,
