@@ -29,6 +29,7 @@ EXTRA_DIST += onceonly_2_57.m4
 EXTRA_DIST += po.m4
 EXTRA_DIST += progtest.m4
 EXTRA_DIST += realloc.m4
+EXTRA_DIST += restrict.m4
 EXTRA_DIST += ssize_t.m4
 EXTRA_DIST += stdint_h.m4
 EXTRA_DIST += strchrnul.m4
