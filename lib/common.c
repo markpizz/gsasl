@@ -32,7 +32,7 @@
 #include "kerberos_v5/kerberos_v5.h"
 
 const char *GSASL_VALID_MECHANISM_CHARACTERS =
-  "ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz0123456789-_";
+  "ABCDEFGHIJKLMNOPQRSTUVXYZ0123456789-_";
 
 _Gsasl_mechanism _gsasl_all_mechanisms[] = {
 #ifdef USE_ANONYMOUS
