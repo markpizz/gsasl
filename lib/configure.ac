@@ -362,6 +362,8 @@ AC_ARG_WITH(stringprep,
 if test "$stringprep" != "no"; then
   sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version, [
     stringprep=yes
+    AC_CHECK_FUNCS(pr29_8z)
+    AC_CHECK_HEADERS(pr29.h)
     AC_DEFINE(WITH_STRINGPREP, 1,
 	[Define to 1 if you want to use string preparation from Libidn.])
   ], [
