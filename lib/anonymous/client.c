@@ -27,7 +27,8 @@
 /* Get specification. */
 #include "anonymous.h"
 
-#include <strdup.h>
+/* Get strdup, strlen. */
+#include <string.h>
 
 int
 _gsasl_anonymous_client_start (Gsasl_session_ctx * sctx, void **mech_data)

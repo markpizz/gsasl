@@ -18,7 +18,7 @@
 # Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA
 
-AM_CPPFLAGS = -I$(srcdir)/../src -I$(builddir)/../src
+AM_CPPFLAGS = -I$(srcdir)/../src -I$(builddir)/../src -I$(srcdir)/../gl
 
 noinst_LTLIBRARIES = libgsasl-anonymous.la
 libgsasl_anonymous_la_SOURCES = anonymous.h

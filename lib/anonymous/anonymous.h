@@ -23,7 +23,7 @@
 #ifndef ANONYMOUS_H
 #define ANONYMOUS_H
 
-#include "internal.h"
+#include <gsasl.h>
 
 #define _GSASL_ANONYMOUS_NAME "ANONYMOUS"
 
