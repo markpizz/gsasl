@@ -21,7 +21,7 @@
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgsasl.pc
 
-SUBDIRS = po 
+SUBDIRS = po gl
 if NETTLE
 SUBDIRS += crypto
 endif
