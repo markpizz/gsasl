@@ -25,9 +25,9 @@ AC_INIT([libgsasl], [0.2.4], [bug-gsasl@gnu.org])
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
-LT_CURRENT=8
-LT_REVISION=1
-LT_AGE=1
+LT_CURRENT=9
+LT_REVISION=0
+LT_AGE=2
 AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
