@@ -23,6 +23,9 @@
 #ifndef DIGEST_H
 # define DIGEST_H
 
+/* Get size_t. */
+#include <stddef.h>
+
 # define CRAM_MD5_DIGEST_LEN 32
 
 /* Compute hex encoded HMAC-MD5 on the CHALLENGELEN long string
