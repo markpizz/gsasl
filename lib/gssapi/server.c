@@ -63,44 +63,29 @@ int
 _gsasl_gssapi_server_start (Gsasl_session * sctx, void **mech_data)
 {
   _Gsasl_gssapi_server_state *state;
-  Gsasl_server_callback_service cb_service;
-  Gsasl *ctx;
   OM_uint32 maj_stat, min_stat;
   gss_name_t server;
   gss_buffer_desc bufdesc;
-  size_t servicelen = 0;
-  size_t hostnamelen = 0;
+  const char *service;
+  const char *hostname;
   int res;
 
-  ctx = gsasl_server_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
+  service = gsasl_property_get (sctx, GSASL_SERVICE);
+  if (!service)
+    return GSASL_NO_SERVICE;
 
-  cb_service = gsasl_server_callback_service_get (ctx);
-  if (cb_service == NULL)
-    return GSASL_NEED_SERVER_SERVICE_CALLBACK;
+  hostname = gsasl_property_get (sctx, GSASL_HOSTNAME);
+  if (!hostname)
+    return GSASL_NO_HOSTNAME;
 
-  if (gsasl_server_callback_gssapi_get (ctx) == NULL)
-    return GSASL_NEED_SERVER_GSSAPI_CALLBACK;
+  /* FIXME: Use asprintf. */
 
-  res = cb_service (sctx, NULL, &servicelen, NULL, &hostnamelen);
-  if (res != GSASL_OK)
-    return res;
-
-  bufdesc.length = servicelen + strlen ("@") + hostnamelen + 1;
+  bufdesc.length = strlen (service) + strlen ("@") + strlen (hostname) + 1;
   bufdesc.value = malloc (bufdesc.length);
   if (bufdesc.value == NULL)
     return GSASL_MALLOC_ERROR;
 
-  res = cb_service (sctx, bufdesc.value, &servicelen,
-		    (char *) bufdesc.value + 1 + servicelen, &hostnamelen);
-  if (res != GSASL_OK)
-    {
-      free (bufdesc.value);
-      return res;
-    }
-  ((char *) bufdesc.value)[servicelen] = '@';
-  ((char *) bufdesc.value)[bufdesc.length - 1] = '\0';
+  sprintf (bufdesc.value, "%s@%s", service, hostname);
 
   state = (_Gsasl_gssapi_server_state *) malloc (sizeof (*state));
   if (state == NULL)
