@@ -44,6 +44,7 @@ getopt.h: getopt_.h
 	mv $@-t $@
 MOSTLYCLEANFILES += getopt.h getopt.h-t
 
+libgl_la_SOURCES += getpass.h
 
 libgl_la_SOURCES += gettext.h
 
