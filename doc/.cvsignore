@@ -1,6 +1,8 @@
 Makefile
 Makefile.gdoc
 Makefile.in
+controlflow.png
+controlflow.eps
 gsasl-api-callback.texi
 gsasl-api-error-labels.texi
 gsasl-api-error.texi
