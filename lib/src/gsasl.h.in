@@ -186,7 +186,7 @@ extern "C"
 					const char *username,
 					char *key, size_t * keylen);
   extern int gsasl_nonce (char *data, size_t datalen);
-  extern int gsasl_randomize (char *data, size_t datalen);
+  extern int gsasl_random (char *data, size_t datalen);
   extern int gsasl_md5 (const char *in, size_t inlen, char *out[16]);
   extern int gsasl_hmac_md5 (const char *key, size_t keylen,
 			     const char *in, size_t inlen, char *outhash[16]);
@@ -408,6 +408,7 @@ extern "C"
   extern void gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
 						 void *application_data);
   extern void *gsasl_server_application_data_get (Gsasl_session_ctx * sctx);
+  extern int gsasl_randomize (int strong, char *data, size_t datalen);
 
 #ifdef __cplusplus
 }
