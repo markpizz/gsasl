@@ -97,14 +97,27 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
   int i;
   int res;
 
-  switch(state->step)
+  switch (state->step)
     {
     case 0:
+      state->step++;
+      if (input_len == 0)
+	{
+	  *output_len = 0;
+	  return GSASL_NEEDS_MORE;
+	}
+      /* fall through */
+
+    case 1:
+      if (input_len == 0)
+	return GSASL_MECHANISM_PARSE_ERROR;
+
       ctx = gsasl_client_ctx_get (cctx);
       if (ctx == NULL)
 	return GSASL_CANNOT_GET_CTX;
 
-      cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
+      cb_authentication_id =
+	gsasl_client_callback_authentication_id_get (ctx);
       if (cb_authentication_id == NULL)
 	return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
 
@@ -112,14 +125,15 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
       if (cb_password == NULL)
 	return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
-      md5h = gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_SECURE|GCRY_MD_FLAG_HMAC);
+      md5h =
+	gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_SECURE | GCRY_MD_FLAG_HMAC);
       if (md5h == NULL)
 	return GSASL_GCRYPT_ERROR;
 
       /* XXX? password stored in callee's output buffer */
       len = *output_len;
       res = cb_password (cctx, output, &len);
-      if (res != GSASL_OK)
+      if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	return res;
       tmp = stringprep_utf8_nfkc_normalize (output, len);
       if (tmp == NULL)
@@ -137,7 +151,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
 
       len = *output_len;
       res = cb_authentication_id (cctx, output, &len);
-      if (res != GSASL_OK)
+      if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	return res;
       tmp = stringprep_utf8_nfkc_normalize (output, len);
       if (tmp == NULL)
@@ -158,7 +172,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
 	  output[len + 2 * i + 0] = HEXCHAR (hash[i] >> 4);
 	}
       *output_len = len + 2 * hash_len;
-      
+
       gcry_md_close (md5h);
 
       state->step++;
@@ -317,7 +331,8 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
       char *normkey;
       int i;
 
-      md5h = gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_SECURE|GCRY_MD_FLAG_HMAC);
+      md5h =
+	gcry_md_open (GCRY_MD_MD5, GCRY_MD_FLAG_SECURE | GCRY_MD_FLAG_HMAC);
       if (md5h == NULL)
 	{
 	  free (username);
