@@ -4,6 +4,11 @@ See the end for copying conditions.
 
 * Changes in 0.0.14 (unreleased)
 
+** Moved all mechanism specific code into sub-directories of lib/.
+Each backend is built into its own library (e.g., libgsasl-plain.so),
+to facilitate future possible use of dlopen to dynamically load
+backends.
+
 * Changes in 0.0.13 (released 2004-01-17)
 
 ** Nettle (the crypto functionality, crypto/) has been updated.
