@@ -2,9 +2,8 @@ GNU SASL README -- important introductory notes
 See the end for copying conditions.
 
 This directory holds GNU SASL which is an implementation of the Simple
-Authentication and Security Layer (SASL).  It contains a runtime
-library `libgsasl' and an application `gsasl' for interfacing with the
-library from the command line.
+Authentication and Security Layer (SASL).  See ANNOUNCE for an
+overview.
 
 Currently there is some support for the following mechanisms:
 
@@ -34,12 +33,13 @@ please let me know so work duplication can be avoided.
   - Improve documentation
   - Port to Cyclone?
 
-The GNU SASL library and application (lib/, src/, and tests/) is
-licensed under the GNU Public License license (see COPYING), and the
-documentation (doc/) is licensed under the GNU Free Documentation
-License (see COPYING.DOC).  The other sub-directories (argp/, and
-libstringprep/) are distributed here for convenience and have their
-own respective licenses.
+The GNU SASL library, application and test suite (lib/, src/, and
+tests/) are licensed under the GNU Public License license (see
+COPYING), and the documentation (doc/) is licensed under the GNU Free
+Documentation License (see COPYING.DOC).  The other sub-directories
+(argp/, and libstringprep/) are distributed here for convenience and
+have their own respective licenses, they are not part of GNU SASL
+proper.
 
 For updates to the project, see <URL:http://josefsson.org/libgsasl/>.
 

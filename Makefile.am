@@ -20,7 +20,7 @@
 
 DISTCHECK_CONFIGURE_FLAGS = --without-included-gettext
 
-EXTRA_DIST = config.h.in config.rpath mkinstalldirs libgsasl.pc.in
+EXTRA_DIST = ANNOUNCE config.h.in config.rpath mkinstalldirs libgsasl.pc.in
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgsasl.pc
