@@ -17,7 +17,7 @@
 # License along with Libgsasl; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-test_programs = unicode simple
+test_programs = simple
 
 check_PROGRAMS = $(test_programs)
 

@@ -47,11 +47,7 @@
 #include <argp.h>
 #include <gsasl.h>
 
-#ifdef HAVE_ICONV_H
-#include <iconv.h>
-#endif
-
-#include "libcharset/libcharset.h"
+#include <stringprep.h>
 
 #define MAX_LINE_LENGTH BUFSIZ
 
@@ -89,65 +85,48 @@ static int
 utf8cpy (char *dst, size_t * dstlen, char *src, size_t srclen)
 {
   int nonasciiflag = 0;
-  int i;
-#ifdef HAVE_ICONV
-  const char *charset;
-  iconv_t cd;
+  char *p;
 
-  charset = _gsasl_locale_charset ();
-  if (charset && strcmp (charset, "UTF-8") == 0)
+  if (srclen != strlen(src))
+    return !GSASL_OK;
+
+  p = stringprep_locale_to_utf8(src);
+  if (p)
     {
+      int len = strlen(p);
+
+      if (len > *dstlen)
+	return GSASL_TOO_SMALL_BUFFER;
+      *dstlen = len;
+      if (dst)
+	strcpy(dst, p);
+    }
+  else
+    {
+      int i;
+
+      fprintf (stderr, " ** failed to convert data from %s to UTF-8\n",
+	       stringprep_locale_charset());
+      fprintf (stderr, " ** check the system locale configuration\n");
+      fprintf (stderr, " ** treating input as ASCII\n");
+
       if (dst && *dstlen < srclen)
 	return GSASL_TOO_SMALL_BUFFER;
 
       *dstlen = srclen;
-      if (dst)
-	memcpy (dst, src, srclen);
-      return GSASL_OK;
-    }
-
-  cd = iconv_open ("UTF-8", charset);
-  if (cd != (iconv_t) - 1)
-    {
-      size_t n;
-
-      n = iconv (cd, &src, &srclen, &dst, dstlen);
-      if (n != (size_t) - 1)
+      for (i = 0; i < srclen; i++)
 	{
-	  iconv_close (cd);
-	  return GSASL_OK;
+	  if (src[i] & 0x80)
+	    nonasciiflag = 1;
+	  dst[i] = src[i] & 0x7F;
 	}
-      fprintf (stderr,
-	       " ** iconv() failed to convert data from %s to UTF-8\n",
-	       charset);
-      fprintf (stderr, " ** check the system locale configuration\n");
-    }
-  else
-    {
-      fprintf (stderr, " ** iconv_open() failed to find wanted conversion\n");
-    }
-  fprintf (stderr, " ** trating input as ASCII\n");
-#else
-  fprintf (stderr, " ** iconv() not present, non-ASCII not supported\n");
-  fprintf (stderr, " ** http://www.gnu.org/software/libiconv/\n");
-#endif
 
-  if (dst && *dstlen < srclen)
-    return GSASL_TOO_SMALL_BUFFER;
-
-  *dstlen = srclen;
-  for (i = 0; i < srclen; i++)
-    {
-      if (src[i] & 0x80)
-	nonasciiflag = 1;
-      dst[i] = src[i] & 0x7F;
-    }
-
-  if (nonasciiflag)
-    {
-      fprintf (stderr, " ** bit 8 stripped from string\n");
-      fprintf (stderr, " ** original string: `%s'\n", src);
-      fprintf (stderr, " ** stripped string: `%s'\n", dst);
+      if (nonasciiflag)
+	{
+	  fprintf (stderr, " ** bit 8 stripped from string\n");
+	  fprintf (stderr, " ** original string: `%s'\n", src);
+	  fprintf (stderr, " ** stripped string: `%s'\n", dst);
+	}
     }
 
   return GSASL_OK;

@@ -110,7 +110,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * cctx,
       res = cb_authorization_id (cctx, tmp, &len);
       if (res != GSASL_OK)
 	return res;
-      tmp2 = gsasl_utf8_nfkc_normalize (tmp, len);
+      tmp2 = stringprep_utf8_nfkc_normalize (tmp, len);
       if (tmp2 == NULL)
 	return GSASL_UNICODE_NORMALIZATION_ERROR;
       if (*output_len <= tmp - output + strlen (tmp2))
@@ -124,7 +124,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * cctx,
       res = cb_authentication_id (cctx, tmp, &len);
       if (res != GSASL_OK)
 	return res;
-      tmp2 = gsasl_utf8_nfkc_normalize (tmp, len);
+      tmp2 = stringprep_utf8_nfkc_normalize (tmp, len);
       if (tmp2 == NULL)
 	return GSASL_UNICODE_NORMALIZATION_ERROR;
       if (*output_len <= tmp - output + strlen (tmp2))
@@ -138,7 +138,7 @@ _gsasl_plain_client_step (Gsasl_session_ctx * cctx,
       res = cb_password (cctx, tmp, &len);
       if (res != GSASL_OK)
 	return res;
-      tmp2 = gsasl_utf8_nfkc_normalize (tmp, len);
+      tmp2 = stringprep_utf8_nfkc_normalize (tmp, len);
       if (tmp2 == NULL)
 	return GSASL_UNICODE_NORMALIZATION_ERROR;
       if (*output_len <= tmp - output + strlen (tmp2))
@@ -296,7 +296,7 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 	      free (key);
 	      return res;
 	    }
-	  normkey = gsasl_utf8_nfkc_normalize (key, keylen);
+	  normkey = stringprep_utf8_nfkc_normalize (key, keylen);
 	  free (key);
 	  if (normkey == NULL)
 	    {

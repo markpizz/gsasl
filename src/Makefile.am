@@ -17,14 +17,12 @@
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-SUBDIRS=libcharset
-
-INCLUDES = -I../lib -I../argp -I../intl
+INCLUDES = -I../lib -I../argp -I../intl @LIBSTRINGPREP_CFLAGS@
 
 bin_PROGRAMS = gsasl
 
 gsasl_SOURCES = gsasl.c callbacks.h callbacks.c gettext.h
-gsasl_LDADD = ../lib/libgsasl.la @LIBINTL@ @LIBARGP@ libcharset/libcharset.la
+gsasl_LDADD = ../lib/libgsasl.la @LIBINTL@ @LIBARGP@ @LIBSTRINGPREP_LIBS@
 
 indent:
 	indent $(gsasl_SOURCES)

@@ -183,6 +183,26 @@ fi
 AC_MSG_CHECKING([if GSSAPI should be used])
 AC_MSG_RESULT($gssapi)
 
+# Check for stringprep
+AC_ARG_WITH(system-stringprep,
+  AC_HELP_STRING([--without-system-stringprep],
+		[don't use the system's libstringprep]))
+if test "$with_system_stringprep" != "no" ; then
+	PKG_CHECK_MODULES(LIBSTRINGPREP, libstringprep >= 0.0.1,
+		with_system_stringprep=yes,
+		with_system_stringprep=no)
+fi
+LIBSTRINGPREP=""
+if test "$with_system_stringprep" = "no"; then
+	LIBSTRINGPREP=libstringprep
+	LIBSTRINGPREP_CFLAGS="-I\$(top_srcdir)/libstringprep"
+	LIBSTRINGPREP_LIBS="\$(top_builddir)/libstringprep/libstringprep.la"
+fi
+AC_SUBST(LIBSTRINGPREP)
+AC_MSG_CHECKING([if system's libstringprep should be used])
+AC_MSG_RESULT($with_system_stringprep)
+AC_CONFIG_SUBDIRS(libstringprep)
+
 # Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS([stdlib.h string.h strings.h sys/socket.h unistd.h])
@@ -198,7 +218,7 @@ AC_HEADER_TIME
 AC_HEADER_STDC
 AC_CHECK_HEADERS(getopt.h unistd.h strings.h netdb.h math.h)
 AC_CHECK_HEADERS(sys/poll.h sys/time.h sys/types.h sys/select.h sys/socket.h)
-AC_CHECK_HEADERS(argp.h netinet/in.h iconv.h)
+AC_CHECK_HEADERS(argp.h netinet/in.h)
 
 # Checks for library functions.
 AC_CHECK_FUNCS(gethostname \
@@ -225,7 +245,6 @@ AC_CONFIG_SUBDIRS(argp)
 
 AC_CONFIG_FILES(Makefile po/Makefile.in m4/Makefile intl/Makefile \
 		doc/Makefile lib/gsasl.h lib/Makefile \
-		libgsasl.pc src/libcharset/Makefile src/Makefile \
-		tests/Makefile)
+		libgsasl.pc src/Makefile tests/Makefile)
 
 AC_OUTPUT

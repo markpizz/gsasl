@@ -142,7 +142,7 @@ main (int argc, char *argv[])
       if (debug)
 	printf ("NFKC entry %d\n", i);
 
-      out = gsasl_utf8_nfkc_normalize (nfkc[i].in, strlen (nfkc[i].in));
+      out = stringprep_utf8_nfkc_normalize (nfkc[i].in, strlen (nfkc[i].in));
       if (out == NULL)
 	{
 	  fail ("gsasl_utf8_nfkc_normalize() entry %d failed fatally\n", i);

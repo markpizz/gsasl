@@ -24,7 +24,6 @@ plain.lo
 securid.lo
 suggest.lo
 supportp.lo
-unicode.lo
 version.lo
 xfinish.lo
 xstart.lo

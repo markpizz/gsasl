@@ -44,7 +44,6 @@ license (see COPYING.LIB), the application (src/) is licensed under
 the GNU Public License (see COPYING), and the documentation (doc/) is
 licensed under the GNU Free Documentation License (see COPYING.DOC).
 
-For mailing list information and archives, and other updates to the
-project, see <URL:http://josefsson.org/libgsasl/>.
+For updates to the project, see <URL:http://josefsson.org/libgsasl/>.
 
 Send all bug reports by electronic mail to bug-libgsasl@josefsson.org.

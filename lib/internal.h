@@ -26,6 +26,8 @@
 #include <ctype.h>
 #include <string.h>
 
+#include <stringprep.h>
+
 #include "config.h"
 #include "gsasl.h"
 #include "gettext.h"

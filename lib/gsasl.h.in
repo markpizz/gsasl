@@ -180,8 +180,6 @@ extern int gsasl_md5pwd_get_password (const char *filename,
 				      const char *username,
 				      char *key,
 				      size_t *keylen);
-extern char *gsasl_utf8_nfkc_normalize (const char *str,
-					int len);
 
 /* Callback prototypes */
 typedef int (*Gsasl_client_callback_anonymous) (Gsasl_session_ctx *ctx, 

@@ -22,7 +22,11 @@ EXTRA_DIST = config.h.in config.rpath mkinstalldirs libgsasl.pc.in
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgsasl.pc
 
-SUBDIRS = m4 intl po argp lib src tests doc
+MOST_SUBDIRS = m4 intl po argp lib src tests doc
+
+DIST_SUBDIRS = libstringprep $(MOST_SUBDIRS)
+
+SUBDIRS = @LIBSTRINGPREP@ $(MOST_SUBDIRS)
 
 ACLOCAL_AMFLAGS = -I m4 -I argp
 
