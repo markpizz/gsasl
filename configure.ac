@@ -270,6 +270,7 @@ fi
 if test "$stringprep" != "no"; then
 	AC_DEFINE(WITH_STRINGPREP, 1, [Define to 1 if you want to use libidn.])
 fi
+AM_CONDITIONAL(STRINGPREP, test x$stringprep = xyes)
 
 # Allow disabling of client or server.
 AC_ARG_ENABLE(client,

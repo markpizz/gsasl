@@ -35,6 +35,12 @@ libgsasl_la_SOURCES = gsasl.h.in internal.h gettext.h \
 	xstart.c xstep.c xfinish.c xcode.c \
 	hexdump.c base64.c md5pwd.c
 
+if STRINGPREP
+libgsasl_la_SOURCES += stringprep.c
+else
+libgsasl_la_SOURCES += stringprep-no.c
+endif
+
 if CLIENT
 libgsasl_la_SOURCES += callback-c.c
 endif

@@ -37,10 +37,6 @@
 /* Get specifications. */
 #include "gsasl.h"
 
-#if WITH_STRINGPREP
-#include <stringprep.h>
-#endif
-
 #include "gettext.h"
 #define _(String) dgettext (PACKAGE, String)
 #define gettext_noop(String) String
@@ -128,5 +124,11 @@ struct Gsasl_session_ctx
   void *application_data;
   void *mech_data;
 };
+
+#ifndef WITH_STRINGPREP
+#define gsasl_stringprep_nfkc _gsasl_no_stringprep_nfkc
+#define gsasl_stringprep_saslprep _gsasl_no_stringprep_saslprep
+#define gsasl_stringprep_trace _gsasl_no_stringprep_trace
+#endif
 
 #endif /* _INTERNAL_H */
