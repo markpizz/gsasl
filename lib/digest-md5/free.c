@@ -55,6 +55,8 @@ digest_md5_free_response (digest_md5_response *r)
   if (r->realm)
     free (r->realm);
   if (r->nonce)
+    free (r->nonce);
+  if (r->cnonce)
     free (r->cnonce);
   if (r->digesturi)
     free (r->digesturi);
