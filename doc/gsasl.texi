@@ -1366,7 +1366,7 @@ authorization name from the client.
 @section The ANONYMOUS mechanism
 
 The ANONYMOUS mechanism is used to ``authenticate'' clients to
-anonymous services; or rather just indicate that the client wishes to
+anonymous services; or rather, just indicate that the client wishes to
 use the service anonymously.  The client sends a token, usually her
 email address, which serve the purpose of some trace information
 suitable for log files.  The token is not permitted to be empty.
