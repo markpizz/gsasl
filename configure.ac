@@ -272,11 +272,11 @@ AC_ARG_ENABLE(kerberos_v5,
 	kerberos_v5=$enableval, kerberos_v5=no)
 if test "$kerberos_v5" != "no" ; then
 	sj_CHECK_HEADERLIB(shishi.h, shishi, shishi_check_version,
-		[kerberos_v5=no
-		AC_MSG_WARN([shishi not found, disabling KERBEROS_V5])],
 		[kerberos_v5=yes
 		AC_DEFINE(USE_KERBEROS_V5, 1,
-                          [Define to 1 if you want KERBEROS_V5.])])
+                          [Define to 1 if you want KERBEROS_V5.])],
+		[kerberos_v5=no
+		AC_MSG_WARN([shishi not found, disabling KERBEROS_V5])])
 fi
 AC_MSG_CHECKING([if KERBEROS_V5 should be used])
 AC_MSG_RESULT($kerberos_v5)
@@ -288,15 +288,12 @@ AC_ARG_WITH(stringprep,
 		[don't use libidn for string processing even if available]),
 	stringprep=$withval, stringprep=yes)
 if test "$stringprep" != "no"; then
-	AC_CHECK_HEADER(stringprep.h,, stringprep=no)
-fi
-if test "$stringprep" != "no"; then
-	AC_CHECK_LIB(idn, stringprep_check_version,,
-		stringprep=no
-		AC_MSG_WARN([Libidn not found.  String process disabled.]))
-fi
-if test "$stringprep" != "no"; then
-	AC_DEFINE(WITH_STRINGPREP, 1, [Define to 1 if you want to use libidn.])
+	sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version,
+		[stringprep=yes
+		AC_DEFINE(WITH_STRINGPREP, 1,
+			[Define to 1 if you want to use libidn.])],
+		[stringprep=no
+		AC_MSG_WARN([Libidn not found.  String process disabled.])])
 fi
 AM_CONDITIONAL(STRINGPREP, test x$stringprep = xyes)
 
