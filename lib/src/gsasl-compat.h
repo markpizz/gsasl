@@ -254,11 +254,11 @@ extern void gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
 extern void *gsasl_server_application_data_get (Gsasl_session_ctx * sctx);
 extern int gsasl_randomize (int strong, char *data, size_t datalen);
 extern Gsasl *gsasl_ctx_get (Gsasl_session * sctx);
-extern int gsasl_encode (Gsasl_session * sctx,
-			 const char *input, size_t input_len,
-			 char *output, size_t * output_len);
-extern int gsasl_decode (Gsasl_session * sctx,
-			 const char *input, size_t input_len,
-			 char *output, size_t * output_len);
+extern int gsasl_encode_inline (Gsasl_session * sctx,
+				const char *input, size_t input_len,
+				char *output, size_t * output_len);
+extern int gsasl_decode_inline (Gsasl_session * sctx,
+				const char *input, size_t input_len,
+				char *output, size_t * output_len);
 
 #endif /* GSASL_COMPAT_H */

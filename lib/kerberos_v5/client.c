@@ -368,14 +368,14 @@ _gsasl_kerberos_v5_client_encode (Gsasl_session_ctx * sctx,
 				  void *mech_data,
 				  const char *input,
 				  size_t input_len,
-				  char *output, size_t * output_len)
+				  char **output, size_t * output_len)
 {
   struct _Gsasl_kerberos_v5_client_state *state = mech_data;
   int res;
 
   if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_CONF)
     {
-      /* XXX */
+      return GSASL_INTEGRITY_ERROR;
     }
   else if (state && state->sessionkey
 	   && state->clientqop & GSASL_QOP_AUTH_INT)
@@ -401,9 +401,10 @@ _gsasl_kerberos_v5_client_encode (Gsasl_session_ctx * sctx,
   else
     {
       *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      return GSASL_OK;
+      *output = malloc (input_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, input, input_len);
     }
 
   return GSASL_OK;
@@ -418,23 +419,22 @@ _gsasl_kerberos_v5_client_decode (Gsasl_session_ctx * sctx,
 {
   struct _Gsasl_kerberos_v5_client_state *state = mech_data;
 
-  puts ("cdecode");
-
   if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_CONF)
     {
-      /* XXX */
+      return GSASL_INTEGRITY_ERROR;
     }
   else if (state && state->sessionkey
 	   && state->clientqop & GSASL_QOP_AUTH_INT)
     {
-      puts ("decode");
+      return GSASL_INTEGRITY_ERROR;
     }
   else
     {
       *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      return GSASL_OK;
+      *output = malloc (input_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, input, input_len);
     }
 
   return GSASL_OK;

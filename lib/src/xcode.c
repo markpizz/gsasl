@@ -25,16 +25,17 @@ static int
 _gsasl_code (Gsasl_session * sctx,
 	     _Gsasl_code_function code,
 	     const char *input, size_t input_len,
-	     char *output, size_t * output_len)
+	     char **output, size_t * output_len)
 {
 
   if (code == NULL)
     {
-      if (*output_len < input_len)
-	return GSASL_TOO_SMALL_BUFFER;
       *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
+      *output = malloc (*output_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+
+      memcpy (*output, input, input_len);
       return GSASL_OK;
     }
 
@@ -42,23 +43,26 @@ _gsasl_code (Gsasl_session * sctx,
 }
 
 /**
- * gsasl_encode_inline:
+ * gsasl_encode:
  * @sctx: libgsasl session handle.
  * @input: input byte array.
  * @input_len: size of input byte array.
- * @output: output byte array.
+ * @output: newly allocated output byte array.
  * @output_len: size of output byte array.
  *
  * Encode data according to negotiated SASL mechanism.  This might mean
  * that data is integrity or privacy protected.
  *
+ * The @output buffer is allocated by this function, and it is the
+ * responsibility of caller to deallocate it by calling free(@output).
+ *
  * Return value: Returns GSASL_OK if encoding was successful, otherwise
  * an error code.
  **/
 int
-gsasl_encode_inline (Gsasl_session * sctx,
-		     const char *input, size_t input_len,
-		     char *output, size_t * output_len)
+gsasl_encode (Gsasl_session * sctx,
+	      const char *input, size_t input_len,
+	      char **output, size_t * output_len)
 {
   _Gsasl_code_function code;
 
@@ -71,23 +75,26 @@ gsasl_encode_inline (Gsasl_session * sctx,
 }
 
 /**
- * gsasl_decode_inline:
+ * gsasl_decode:
  * @sctx: libgsasl session handle.
  * @input: input byte array.
  * @input_len: size of input byte array.
- * @output: output byte array.
+ * @output: newly allocated output byte array.
  * @output_len: size of output byte array.
  *
  * Decode data according to negotiated SASL mechanism.  This might mean
  * that data is integrity or privacy protected.
  *
+ * The @output buffer is allocated by this function, and it is the
+ * responsibility of caller to deallocate it by calling free(@output).
+ *
  * Return value: Returns GSASL_OK if encoding was successful, otherwise
  * an error code.
  **/
 int
-gsasl_decode_inline (Gsasl_session * sctx,
-		     const char *input, size_t input_len,
-		     char *output, size_t * output_len)
+gsasl_decode (Gsasl_session * sctx,
+	      const char *input, size_t input_len,
+	      char **output, size_t * output_len)
 {
   _Gsasl_code_function code;
 

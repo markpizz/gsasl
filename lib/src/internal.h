@@ -47,7 +47,7 @@ typedef int (*_Gsasl_finish_function) (Gsasl_session * sctx, void *mech_data);
 typedef int (*_Gsasl_code_function) (Gsasl_session * sctx,
 				     void *mech_data,
 				     const char *input, size_t input_len,
-				     char *output, size_t * output_len);
+				     char **output, size_t * output_len);
 
 typedef int (*_Gsasl_step_function_a) (Gsasl_session * sctx, void *mech_data,
 				       const char *input, size_t input_len,

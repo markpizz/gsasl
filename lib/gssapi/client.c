@@ -248,7 +248,7 @@ int
 _gsasl_gssapi_client_encode (Gsasl_session_ctx * sctx,
 			     void *mech_data,
 			     const char *input, size_t input_len,
-			     char *output, size_t * output_len)
+			     char **output, size_t * output_len)
 {
   _Gsasl_gssapi_client_state *state = mech_data;
   OM_uint32 min_stat, maj_stat;
@@ -270,19 +270,30 @@ _gsasl_gssapi_client_encode (Gsasl_session_ctx * sctx,
 			   NULL, &output_message_buffer);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_WRAP_ERROR;
-      if (*output_len < output_message_buffer.length)
-	return GSASL_TOO_SMALL_BUFFER;
-      if (output)
-	memcpy (output, output_message_buffer.value,
-		output_message_buffer.length);
       *output_len = output_message_buffer.length;
+      *output = malloc (input_len);
+      if (!*output)
+	{
+	  maj_stat = gss_release_buffer (&min_stat, &output_message_buffer);
+	  return GSASL_MALLOC_ERROR;
+	}
+      memcpy (*output, output_message_buffer.value,
+	      output_message_buffer.length);
+
+      maj_stat = gss_release_buffer (&min_stat, &output_message_buffer);
+      if (GSS_ERROR (maj_stat))
+	{
+	  free (*output);
+	  return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
+	}
     }
   else
     {
       *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      return GSASL_OK;
+      *output = malloc (input_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, input, input_len);
     }
 
   return GSASL_OK;
@@ -292,7 +303,7 @@ int
 _gsasl_gssapi_client_decode (Gsasl_session_ctx * sctx,
 			     void *mech_data,
 			     const char *input, size_t input_len,
-			     char *output, size_t * output_len)
+			     char **output, size_t * output_len)
 {
   _Gsasl_gssapi_client_state *state = mech_data;
   OM_uint32 min_stat, maj_stat;
@@ -312,19 +323,30 @@ _gsasl_gssapi_client_decode (Gsasl_session_ctx * sctx,
 			     &output_message_buffer, NULL, NULL);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_UNWRAP_ERROR;
-      if (*output_len < output_message_buffer.length)
-	return GSASL_TOO_SMALL_BUFFER;
-      if (output)
-	memcpy (output, output_message_buffer.value,
-		output_message_buffer.length);
       *output_len = output_message_buffer.length;
+      *output = malloc (input_len);
+      if (!*output)
+	{
+	  maj_stat = gss_release_buffer (&min_stat, &output_message_buffer);
+	  return GSASL_MALLOC_ERROR;
+	}
+      memcpy (*output, output_message_buffer.value,
+	      output_message_buffer.length);
+
+      maj_stat = gss_release_buffer (&min_stat, &output_message_buffer);
+      if (GSS_ERROR (maj_stat))
+	{
+	  free (*output);
+	  return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
+	}
     }
   else
     {
       *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      return GSASL_OK;
+      *output = malloc (input_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, input, input_len);
     }
 
   return GSASL_OK;

@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef _DIGEST_MD5_H
-#define _DIGEST_MD5_H
+#ifndef DIGEST_MD5_H
+#define DIGEST_MD5_H
 
 #include "internal.h"
 
@@ -40,13 +40,13 @@ extern int _gsasl_digest_md5_client_encode (Gsasl_session_ctx * sctx,
 					    void *mech_data,
 					    const char *input,
 					    size_t input_len,
-					    char *output,
+					    char **output,
 					    size_t * output_len);
 extern int _gsasl_digest_md5_client_decode (Gsasl_session_ctx * sctx,
 					    void *mech_data,
 					    const char *input,
 					    size_t input_len,
-					    char *output,
+					    char **output,
 					    size_t * output_len);
 
 extern int _gsasl_digest_md5_server_start (Gsasl_session_ctx * sctx,
@@ -62,13 +62,13 @@ extern int _gsasl_digest_md5_server_encode (Gsasl_session_ctx * sctx,
 					    void *mech_data,
 					    const char *input,
 					    size_t input_len,
-					    char *output,
+					    char **output,
 					    size_t * output_len);
 extern int _gsasl_digest_md5_server_decode (Gsasl_session_ctx * sctx,
 					    void *mech_data,
 					    const char *input,
 					    size_t input_len,
-					    char *output,
+					    char **output,
 					    size_t * output_len);
 
-#endif /* _DIGEST_MD5_H */
+#endif /* DIGEST_MD5_H */

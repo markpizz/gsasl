@@ -452,7 +452,7 @@ gsasl_ctx_get (Gsasl_session * sctx)
 }
 
 /**
- * gsasl_encode:
+ * gsasl_encode_inline:
  * @sctx: libgsasl session handle.
  * @input: input byte array.
  * @input_len: size of input byte array.
@@ -469,15 +469,29 @@ gsasl_ctx_get (Gsasl_session * sctx)
  * an error code.
  **/
 int
-gsasl_encode (Gsasl_session * sctx,
-	      const char *input, size_t input_len,
-	      char *output, size_t * output_len)
+gsasl_encode_inline (Gsasl_session * sctx,
+		     const char *input, size_t input_len,
+		     char *output, size_t * output_len)
 {
-  return gsasl_encode_inline (sctx, input, input_len, output, output_len);
+  char *tmp;
+  size_t tmplen;
+  int res;
+
+  res = gsasl_encode (sctx, input, input_len, &tmp, &tmplen);
+  if (res == GSASL_OK)
+    {
+      if (*output_len < tmplen)
+	return GSASL_TOO_SMALL_BUFFER;
+      *output_len = tmplen;
+      memcpy (output, tmp, tmplen);
+      free (output);
+    }
+
+  return res;
 }
 
 /**
- * gsasl_decode:
+ * gsasl_decode_inline:
  * @sctx: libgsasl session handle.
  * @input: input byte array.
  * @input_len: size of input byte array.
@@ -494,9 +508,23 @@ gsasl_encode (Gsasl_session * sctx,
  * an error code.
  **/
 int
-gsasl_decode (Gsasl_session * sctx,
-	      const char *input,
-	      size_t input_len, char *output, size_t * output_len)
+gsasl_decode_inline (Gsasl_session * sctx,
+		     const char *input, size_t input_len,
+		     char *output, size_t * output_len)
 {
-  return gsasl_decode_inline (sctx, input, input_len, output, output_len);
+  char *tmp;
+  size_t tmplen;
+  int res;
+
+  res = gsasl_decode (sctx, input, input_len, &tmp, &tmplen);
+  if (res == GSASL_OK)
+    {
+      if (*output_len < tmplen)
+	return GSASL_TOO_SMALL_BUFFER;
+      *output_len = tmplen;
+      memcpy (output, tmp, tmplen);
+      free (output);
+    }
+
+  return res;
 }

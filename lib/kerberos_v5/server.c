@@ -496,7 +496,7 @@ _gsasl_kerberos_v5_server_encode (Gsasl_session_ctx * sctx,
 
   if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_CONF)
     {
-      /* XXX */
+      return GSASL_INTEGRITY_ERROR;
     }
   else if (state && state->sessionkey
 	   && state->clientqop & GSASL_QOP_AUTH_INT)
@@ -522,9 +522,10 @@ _gsasl_kerberos_v5_server_encode (Gsasl_session_ctx * sctx,
   else
     {
       *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      return GSASL_OK;
+      *output = malloc (input_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, input, input_len);
     }
 
   return GSASL_OK;
@@ -542,7 +543,7 @@ _gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
 
   if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_CONF)
     {
-      /* XXX */
+      return GSASL_INTEGRITY_ERROR;
     }
   else if (state && state->sessionkey
 	   && state->clientqop & GSASL_QOP_AUTH_INT)
@@ -554,7 +555,6 @@ _gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
 	return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
       res = shishi_safe_safe_der_set (state->safe, input, input_len);
-      printf ("len %d err %d\n", input_len, res);
       if (res != SHISHI_OK)
 	return GSASL_KERBEROS_V5_INTERNAL_ERROR;
 
@@ -566,15 +566,16 @@ _gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
 				   output, output_len);
       if (res != SHISHI_OK)
 	return GSASL_KERBEROS_V5_INTERNAL_ERROR;
-      printf ("len=%d\n", *output_len);
+
       return GSASL_OK;
     }
   else
     {
       *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      return GSASL_OK;
+      *output = malloc (input_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, input, input_len);
     }
 
 

@@ -38,11 +38,11 @@ extern int _gsasl_gssapi_client_finish (Gsasl_session_ctx * sctx,
 extern int _gsasl_gssapi_client_encode (Gsasl_session_ctx * sctx,
 					void *mech_data,
 					const char *input, size_t input_len,
-					char *output, size_t * output_len);
+					char **output, size_t * output_len);
 extern int _gsasl_gssapi_client_decode (Gsasl_session_ctx * sctx,
 					void *mech_data,
 					const char *input, size_t input_len,
-					char *output, size_t * output_len);
+					char **output, size_t * output_len);
 
 extern int _gsasl_gssapi_server_start (Gsasl_session_ctx * sctx,
 				       void **mech_data);
