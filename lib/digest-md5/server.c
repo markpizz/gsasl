@@ -82,11 +82,8 @@ _gsasl_digest_md5_server_start (Gsasl_session * sctx, void **mech_data)
       return GSASL_MALLOC_ERROR;
     }
 
-  state->challenge.qops = GSASL_QOP_AUTH | GSASL_QOP_AUTH_INT
-    | GSASL_QOP_AUTH_CONF;
-  state->challenge.ciphers = GSASL_CIPHER_DES | GSASL_CIPHER_3DES
-    | GSASL_CIPHER_RC4 | GSASL_CIPHER_RC4_40 | GSASL_CIPHER_RC4_56
-    | GSASL_CIPHER_AES;
+  state->challenge.qops = GSASL_QOP_AUTH | GSASL_QOP_AUTH_INT;
+  state->challenge.ciphers = 0;
 
   state->challenge.nonce = p;
   state->challenge.utf8 = 1;
