@@ -288,5 +288,7 @@ extern void gsasl_application_data_set (Gsasl * ctx, void *appdata);
 extern void *gsasl_application_data_get (Gsasl * ctx);
 extern void gsasl_appinfo_set (Gsasl_session * sctx, void *appdata);
 extern void *gsasl_appinfo_get (Gsasl_session * sctx);
+extern const char *gsasl_server_suggest_mechanism (Gsasl * ctx,
+						   const char *mechlist);
 
 #endif /* GSASL_COMPAT_H */

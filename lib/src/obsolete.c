@@ -608,3 +608,21 @@ gsasl_appinfo_get (Gsasl_session * sctx)
 {
   return sctx->application_data;
 }
+
+/**
+ * gsasl_server_suggest_mechanism:
+ * @ctx: libgsasl handle.
+ * @mechlist: input character array with SASL mechanism names,
+ *   separated by invalid characters (e.g. SPC).
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
+ * Return value: Returns name of "best" SASL mechanism supported by
+ * the libgsasl server which is present in the input string.
+ **/
+const char *
+gsasl_server_suggest_mechanism (Gsasl * ctx, const char *mechlist)
+{
+  return NULL;  /* This function is just silly. */
+}
