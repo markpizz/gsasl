@@ -390,6 +390,10 @@ gl_SYSEXITS
 jm_FUNC_GLIBC_UNLOCKED_IO
 gl_XALLOC
 
+# Checks for library functions.
+AC_SEARCH_LIBS(socket, socket)
+AC_SEARCH_LIBS(gethostbyname, nsl)
+
 # Check for gtk-doc.
 AC_ARG_WITH(html-dir, [  --with-html-dir=PATH path to installed docs ])
 if test "x$with_html_dir" = "x" ; then
