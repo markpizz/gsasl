@@ -1,4 +1,4 @@
-/* gsasl.c	command line interface to libgsasl
+/* gsasl.c --- Command line interface to libgsasl.
  * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -68,11 +68,6 @@ readln (char *buf, size_t maxbuflen)
 }
 
 #define MAX_LINE_LENGTH BUFSIZ
-#define GREETING "Copyright 2002, 2003 Simon Josefsson.\n"		\
-  "GNU SASL comes with NO WARRANTY, to the extent permitted by law.\n" \
-  "You may redistribute copies of GNU SASL under the terms of\n"	\
-  "the GNU General Public License.  For more information\n"	\
-  "about these matters, see the file named COPYING.\n"
 
 int
 main (int argc, char *argv[])
@@ -91,16 +86,14 @@ main (int argc, char *argv[])
   textdomain (PACKAGE);
 
   if (cmdline_parser (argc, argv, &args_info) != 0)
-    exit(1) ;
+    return 1;
 
-  if ((args_info.client_flag ? 1 : 0) +
-      (args_info.server_flag ? 1 : 0) +
-      (args_info.client_mechanisms_flag ? 1 : 0) +
-      (args_info.server_mechanisms_flag ? 1 : 0) != 1)
+  if ((!args_info.client_flag && !args_info.server_flag) ||
+      (!args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag))
     {
       fprintf (stderr, "%s: missing argument\n", argv[0]);
       cmdline_parser_print_help ();
-      printf ("Report bugs to <%s>\n", PACKAGE_BUGREPORT);
+      printf ("\nReport bugs to <%s>\n", PACKAGE_BUGREPORT);
       return 1;
     }
 
