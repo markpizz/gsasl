@@ -26,7 +26,7 @@ GSASL_SHISHI_ERROR: DEPRECATED.  Will be removed in the future.
 gsasl_randomize: ADD.
 gsasl_md5: ADD.
 gsasl_hmac_md5: ADD.
-gsasl_hexdump: REMOVED.
+gsasl_hexdump: REMOVED.  Never intended to be exported.
 
 * Changes in 0.0.8 (released 2003-10-11)
 
