@@ -495,8 +495,8 @@ parse_response (char *response, digest_md5_response *out)
 
       case RESPONSE_AUTHZID:
 	/* This directive may appear at most once; if multiple
-	   instances are present, the client MUST abort the
-	   authentication exchange.  FIXME NOT IN DRAFT */
+	   instances are present, the server MUST abort the
+	   authentication exchange.  <<FIXME NOT IN DRAFT>> */
 	if (out->authzid)
 	  return -1;
 	/*  The authzid MUST NOT be an empty string. */

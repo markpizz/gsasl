@@ -87,7 +87,10 @@ digest_md5_validate_response (digest_md5_response *r)
     return -1;
 
   /* This directive MUST appear exactly once if "auth-conf" is
-     negotiated; if required and not present, authentication fails. */
+     negotiated; if required and not present, authentication fails.
+     If the client recognizes no cipher and the server only advertised
+     "auth-conf" in the qop option, the client MUST abort the
+     authentication exchange.  */
   if (r->qop == DIGEST_MD5_QOP_AUTH_CONF && !r->cipher)
     return -1;
   if (r->qop != DIGEST_MD5_QOP_AUTH_CONF && r->cipher)
