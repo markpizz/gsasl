@@ -479,9 +479,9 @@ application that uses server functions in a library built with
 @itemx --disable-kerberos_v5
 Disable individual mechanisms (@pxref{Mechanisms}).
 
-@item --without-stringprep
-Disable internationalized string processing.  Note that this will
-result in a SASL library that is only compatible with RFC 2222.
+@item --with-included-libidn
+Unconditionally use the internal stripped down copy of Libidn, instead
+of using the system's libidn.
 
 @end table
 
@@ -1649,7 +1649,7 @@ data in your callback by calling @code{gsasl_callback_hook_get}.
 @node Utilities
 @chapter Utilities
 
-@include texi/stringprep.c.texi
+@include texi/saslprep.c.texi
 @include texi/base64.c.texi
 @include texi/md5pwd.c.texi
 @include texi/crypto.c.texi
