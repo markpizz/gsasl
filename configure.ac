@@ -253,12 +253,10 @@ if test "$with_system_idn" != "no" ; then
 		with_system_idn=no)
 fi
 if test "$with_system_idn" = "no"; then
-	AC_MSG_WARN([[
-
-The system's GNU Libidn 0.1.0 or later not used. Using copy
-distributed with GNU SASL instead.
-
-]])
+	echo "*** The system's GNU Libidn 0.1.0 or later not used."
+	echo "*** Using copy distributed with GNU SASL instead."
+	echo "*** See http://josefsson.org/libidn/ to get GNU Libidn."
+	AC_MSG_WARN([libidn not installed on system])
 	LIBIDN_CFLAGS="-I\$(top_srcdir)/libstringprep"
 	LIBIDN_LIBS="\$(top_builddir)/libstringprep/libidn.la"
 	LIBIDN=libstringprep
@@ -272,8 +270,9 @@ AC_CONFIG_SUBDIRS(libstringprep)
 
 # Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(sys/socket.h unistd.h strings.h netdb.h math.h limits.h)
-AC_CHECK_HEADERS(sys/poll.h sys/time.h sys/types.h sys/select.h sys/socket.h)
+AC_CHECK_HEADERS(sys/types.h)
+AC_CHECK_HEADERS(unistd.h strings.h netdb.h math.h limits.h)
+AC_CHECK_HEADERS(sys/poll.h sys/time.h sys/select.h sys/socket.h)
 AC_CHECK_HEADERS(netinet/in.h errno.h)
 
 # Checks for typedefs, structures, and compiler characteristics.
