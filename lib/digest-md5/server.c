@@ -33,6 +33,7 @@
 /* Get specification. */
 #include "digest-md5.h"
 #include "shared.h"
+#include "parser.h"
 
 /* Get digest_md5_encode, digest_md5_decode. */
 #include "session.h"
