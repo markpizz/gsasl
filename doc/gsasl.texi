@@ -1448,7 +1448,7 @@ This is the minimal program which uses the library (including
 internationalization features) without doing anything.
 
 @example
-@include gsasl-example1.c
+@verbatiminclude gsasl-example1.c
 @end example
 
 
