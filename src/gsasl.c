@@ -204,9 +204,7 @@ main (int argc, char *argv[])
   char *in;
 
   set_program_name (argv[0]);
-#ifdef HAVE_LOCALE_H
   setlocale (LC_ALL, "");
-#endif
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
