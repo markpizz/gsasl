@@ -134,6 +134,14 @@
 # define putchar_unlocked(x) putchar (x)
 # endif
 
+#ifdef HAVE_FLOCKFILE
+# define __flockfile flockfile
+# define __funlockfile funlockfile
+#else
+# define __flockfile
+# define __funlockfile
+#endif
+
 #endif /* !_LIBC */
 
 #ifndef __set_errno

@@ -33,18 +33,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <unlocked-io.h>
-
-#ifndef _LIBC
-# ifdef HAVE_FLOCKFILE
-#  define __flockfile flockfile
-#  define __funlockfile funlockfile
-# else
-#  define __flockfile
-#  define __funlockfile
-# endif
-#endif
-
 #ifndef __attribute__
 /* This feature is available in gcc versions 2.5 and later.  */
 # if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
