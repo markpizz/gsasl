@@ -308,10 +308,12 @@ _gsasl_gssapi_client_encode (Gsasl_session_ctx * sctx,
 {
   _Gsasl_gssapi_client_state *state = mech_data;
   OM_uint32 min_stat, maj_stat;
-  int res;
-  gss_buffer_desc foo = { input_len, input };
+  gss_buffer_desc foo;
   gss_buffer_t input_message_buffer = &foo;
   gss_buffer_desc output_message_buffer;
+
+  foo.length = input_len;
+  foo.value = /*XXX*/ input;
 
   if (state && state->step == 3 &&
       state->qop & (GSASL_QOP_AUTH_INT|GSASL_QOP_AUTH_CONF))
@@ -351,10 +353,12 @@ _gsasl_gssapi_client_decode (Gsasl_session_ctx * sctx,
 {
   _Gsasl_gssapi_client_state *state = mech_data;
   OM_uint32 min_stat, maj_stat;
-  int res;
-  gss_buffer_desc foo = { input_len, input };
+  gss_buffer_desc foo;
   gss_buffer_t input_message_buffer = &foo;
   gss_buffer_desc output_message_buffer;
+
+  foo.length = input_len;
+  foo.value = /*XXX*/ input;
 
   if (state && state->step == 3 &&
       state->qop & (GSASL_QOP_AUTH_INT|GSASL_QOP_AUTH_CONF))

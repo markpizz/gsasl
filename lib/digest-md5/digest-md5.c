@@ -252,10 +252,7 @@ const char *cipher_opts[] = {
    suboption.  On exit *OPTIONP is set to the beginning of the next
    token or at the terminating NUL character.  */
 static int
-_gsasl_getsubopt (optionp, tokens, valuep)
-     char **optionp;
-     char *const *tokens;
-     char **valuep;
+_gsasl_getsubopt (char **optionp, char *const *tokens, char **valuep)
 {
   char *endp, *vstart;
   int cnt;
@@ -327,7 +324,8 @@ _gsasl_getsubopt (optionp, tokens, valuep)
 
 static int
 _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
-	       char secret[MD5LEN], char *nonce, uint32_t nc, char *cnonce, int qop, char *authzid, char *digesturi, char *a2string,	/* "AUTHENTICATE:" or ":" */
+	       char secret[MD5LEN], char *nonce, uint32_t nc, char *cnonce, int qop, char *authzid, char *digesturi,
+	       const char *a2string,	/* "AUTHENTICATE:" or ":" */
 	       int cipher,	/* used by kcc and kcs */
 	       char *kic,	/* output client integrity key, may be NULL */
 	       char *kis,	/* output server integrity key, may be NULL */
@@ -1039,7 +1037,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	}
 	/* qop */
 	{
-	  char *qopstr;
+	  const char *qopstr;
 
 	  if (state->qop & GSASL_QOP_AUTH_CONF)
 	    qopstr = QOP_AUTH_CONF;
@@ -1233,7 +1231,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	/* cipher */
 	if (state->qop & GSASL_QOP_AUTH_CONF)
 	  {
-	    char *cipherstr;
+	    const char *cipherstr;
 
 	    if (state->cipher & GSASL_CIPHER_AES)
 	      cipherstr = CIPHER_AES;

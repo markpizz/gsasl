@@ -30,7 +30,7 @@ struct gengetopt_args_info args_info;
 int sockfd;
 
 int
-writeln (char *str)
+writeln (const char *str)
 {
   printf ("%s\n", str);
 
@@ -373,7 +373,6 @@ main (int argc, char *argv[])
       ssize_t b64output_len;
       const char *mech;
       Gsasl_session_ctx *xctx = NULL;
-      int res;
 
       if (!select_mechanism (&in))
 	return 1;

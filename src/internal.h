@@ -78,7 +78,7 @@
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
 
-extern int writeln (char *str);
+extern int writeln (const char *str);
 extern int readln (char **out);
 
 #include "gsasl_cmd.h"
