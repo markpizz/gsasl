@@ -50,5 +50,6 @@ Makefile.gdoc: $(top_builddir)/configure Makefile.am Makefile.gdoci $(GDOC_SRC)
 	  done; \
 	  echo >> Makefile.gdoc; \
 	done
+	$(MAKE) Makefile
 
 include Makefile.gdoc
