@@ -57,8 +57,8 @@ client_callback_passcode (Gsasl_session_ctx * ctx,
 extern Gsasl_qop
 client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops);
 
-extern unsigned long client_callback_maxbuf (Gsasl_session_ctx * ctx,
-					     unsigned long servermaxbuf);
+extern size_t client_callback_maxbuf (Gsasl_session_ctx * ctx,
+				      size_t servermaxbuf);
 
 extern int
 client_callback_realm (Gsasl_session_ctx * ctx, char *out, size_t * outlen);
@@ -74,7 +74,7 @@ server_callback_anonymous (Gsasl_session_ctx * ctx, const char *message);
 
 extern Gsasl_qop server_callback_qop (Gsasl_session_ctx * ctx);
 
-extern unsigned long server_callback_maxbuf (Gsasl_session_ctx * ctx);
+extern size_t server_callback_maxbuf (Gsasl_session_ctx * ctx);
 
 extern int
 server_callback_realm (Gsasl_session_ctx * ctx,

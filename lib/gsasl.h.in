@@ -213,10 +213,8 @@ extern "C"
 						size_t * servicenamelen);
   typedef Gsasl_qop (*Gsasl_client_callback_qop) (Gsasl_session_ctx * sctx,
 						  Gsasl_qop serverqops);
-  typedef unsigned long (*Gsasl_client_callback_maxbuf) (Gsasl_session_ctx *
-							 sctx,
-							 unsigned long
-							 servermaxbuf);
+  typedef size_t (*Gsasl_client_callback_maxbuf) (Gsasl_session_ctx * sctx,
+						  size_t servermaxbuf);
   typedef int (*Gsasl_client_callback_realm) (Gsasl_session_ctx * sctx,
 					      char *out, size_t * outlen);
   typedef int (*Gsasl_server_callback_retrieve) (Gsasl_session_ctx * sctx,
@@ -259,8 +257,7 @@ extern "C"
 					      char *out,
 					      size_t * outlen, size_t nth);
   typedef Gsasl_qop (*Gsasl_server_callback_qop) (Gsasl_session_ctx * sctx);
-  typedef unsigned long (*Gsasl_server_callback_maxbuf) (Gsasl_session_ctx *
-							 sctx);
+  typedef size_t (*Gsasl_server_callback_maxbuf) (Gsasl_session_ctx * sctx);
   typedef Gsasl_cipher (*Gsasl_server_callback_cipher) (Gsasl_session_ctx *
 							sctx);
 

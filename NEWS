@@ -39,10 +39,9 @@ If a too recent version is installed, it will not be used.
 
 ** Bug fixes.
 
-** API and ABI is backwards compatible with the previous version.
-Except for the Gsasl_client_callback_maxbuf and
-Gsasl_server_callback_maxbuf types which now uses 'unsigned long'
-instead of 'int'.
+** API and ABI modifications.
+Gsasl_client_callback_maxbuf: 'int' was replaced with 'size_t'.
+Gsasl_server_callback_maxbuf: Likewise.
 
 * Changes in 0.0.7 (released 2003-06-02)
 
