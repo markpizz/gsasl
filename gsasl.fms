@@ -8,14 +8,10 @@ OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
 BSD-Port-URL: http://www.freshports.org/security/gsasl/
 CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
 Mirror-Site-URL: http://josefsson.org/gsasl/
-Version: 0.2.3
+Version: 0.2.4
 Release-Focus: Major bugfixes
 
-SASLprep related improvements to PLAIN, LOGIN and CRAM-MD5.  The
-DIGEST-MD5 mechanism is disabled by default, pending a rewrite for the
-new API.  LOGIN client now uses authentication identity, not
-authorization identity.  PLAIN client now work when no authorization
-identity is provided.  The NTLM mechanism now support the 'domain'
-field.  Callback backwards compatibility improved.  Disabling
-Libidn/SASLprep should now result in a RFC 2222 compliant library.
-Documentation fixes.  Fix self test bugs.
+This version include a re-written implementation of DIGEST-MD5 for the
+new API, some internationalization improvements in the PLAIN server, a
+small number of fixes in the new (0.2.x) API functions, and a new
+simple user database password lookup function API.
