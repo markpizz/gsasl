@@ -2,6 +2,14 @@ GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
+* Changes in 0.1.4 (unreleased)
+
+** More translations.
+German (by Roland Illig), Basque (by Mikel Olasagasti), French (by
+Michel Robitaille), Irish (by Kevin Patrick Scannell), Dutch (by Elros
+Cyriatan), Polish (by Jakub Bogusz), Romanian (by Laurentiu Buzdugan),
+Serbian (by Aleksandar Jelenak).
+
 * Changes in 0.1.3 (released 2004-08-04)
 
 ** Command line tool support IPv6 (and other protocol families).
