@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -19,7 +19,7 @@ dnl Process this file with autoconf to produce a configure script.
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-AC_INIT([gsasl], [0.2.4], [bug-gsasl@gnu.org])
+AC_INIT([gsasl], [0.2.5], [bug-gsasl@gnu.org])
 
 AC_PREREQ(2.59)
 AM_INIT_AUTOMAKE([1.9 gnits])
