@@ -1889,6 +1889,7 @@ a guide for other implementors that worry about the same issues.
 
 @menu
 * Server-side use of SASLPrep in CRAM-MD5::
+* Use of SASLprep in LOGIN::
 @end menu
 
 @node Server-side use of SASLPrep in CRAM-MD5
@@ -1906,6 +1907,14 @@ password either as a stored string (from a database) or as a query
 
 In the server, GNU SASL apply SASLPrep to the password with the
 AllowUnassigned bit cleared.
+
+@node Use of SASLprep in LOGIN
+@section Use of SASLprep in LOGIN
+
+The non-standard mechanism LOGIN presumably does not support
+non-ASCII.  We suggest that the client should send unprepared UTF-8
+and that the server apply SASLprep with the AllowUnassigned bit
+cleared on the received username and password.
 
 @c **********************************************************
 @c *******************  Old Functions  **********************

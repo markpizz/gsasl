@@ -7,6 +7,10 @@ See the end for copying conditions.
 ** PLAIN client no longer perform NFKC on strings.
 This aligns with draft-ietf-sasl-plain-05.
 
+** LOGIN client no longer perform NFKC on strings.
+There is no specification for LOGIN, but arguable it should use
+SASLprep, but on the server side.
+
 ** If Libidn is not installed on the system, a stripped down version is used.
 If you for some reason wish to use the included copy, instead of the
 system libidn, use --with-included-libidn.  The system libidn should
