@@ -18,7 +18,7 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-# gnulib modules: dummy fatal error strdup getopt progname
+# gnulib modules: dummy error strdup getopt progname
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
@@ -37,9 +37,6 @@ libgl_la_SOURCES += dummy.c
 
 
 libgl_la_SOURCES += exit.h
-
-
-libgl_la_SOURCES += fatal.h fatal.c
 
 BUILT_SOURCES += $(GETOPT_H)
 EXTRA_DIST += getopt_.h getopt_int.h

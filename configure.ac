@@ -53,7 +53,6 @@ AC_CHECK_FUNCS(getaddrinfo)
 
 # For gnulib stuff in gl/.
 gl_ERROR
-gl_FATAL
 gl_GETOPT
 AM_STDBOOL_H
 gl_FUNC_STRDUP
