@@ -30,12 +30,12 @@
  * @out: pointer to newly allocated output byte array
  * @outlen: pointer to size of newly allocated output byte array
  *
- * Encode data as base64.  Converts characters, three at a time,
- * starting at src into four base64 characters in the target area
- * until the entire input buffer is encoded.
+ * Encode data as base64.  The string is zero terminated, and OUTLEN
+ * holds the length excluding the terminating zero.  The OUT buffer
+ * must be deallocated by the caller.
  *
  * Return value: Returns %GSASL_OK on success, or %GSASL_MALLOC_ERROR
- * if memory allocation fail or length overflow occurs.
+ *   if input was too large or memory allocation fail.
  **/
 int
 gsasl_base64_to (const char *in, size_t inlen, char **out, size_t * outlen)
@@ -58,13 +58,12 @@ gsasl_base64_to (const char *in, size_t inlen, char **out, size_t * outlen)
  * @out: pointer to newly allocated output byte array
  * @outlen: pointer to size of newly allocated output byte array
  *
- * Decode Base64 data.  Converts characters, four at a time, starting
- * at (or after) src from Base64 numbers into three 8 bit bytes in the
- * target area.
+ * Decode Base64 data.  The OUT buffer must be deallocated by the
+ * caller.
  *
- * Return value: Returns %GSASL_OK on success, or %GSASL_MALLOC_ERROR
- * on memory allocation errors, integer overflows, and (alas) invalid
- * input.
+ * Return value: Returns %GSASL_OK on success, %GSASL_BASE64_ERROR if
+ *   input was invalid, and %GSASL_MALLOC_ERROR on memory allocation
+ *   errors.
  **/
 int
 gsasl_base64_from (const char *in, size_t inlen, char **out, size_t * outlen)
