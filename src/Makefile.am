@@ -33,4 +33,4 @@ localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 $(BUILT_SOURCES): gsasl.ggo
-	gengetopt --input gsasl.ggo --file-name gsasl_cmd
+	gengetopt --unamed-opts="HOST [PORT]" --input $< --file-name gsasl_cmd
