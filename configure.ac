@@ -326,6 +326,7 @@ AM_CONDITIONAL(SERVER, test x$server = xyes)
 AC_HEADER_STDC
 AC_CHECK_HEADERS(sys/types.h sys/poll.h sys/time.h sys/select.h sys/socket.h)
 AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h errno.h)
+AX_CREATE_STDINT_H(crypto/nettle-types.h, sys/types.h)
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_UID_T
