@@ -78,7 +78,7 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
   {
     gsasl_property_set (sctx, GSASL_AUTHZID, authzidptr);
 
-    /* FIXME: Specificaiton is unclear on whether unassigned code
+    /* FIXME: Specification is unclear on whether unassigned code
        points are allowed or not.  We don't allow them. */
     res = gsasl_saslprep (authidptr, 0, &authidprep, NULL);
     if (res != GSASL_OK)
@@ -95,7 +95,7 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
     memcpy (passwdz, passwordptr, input_len - (passwordptr - input));
     passwdz[input_len - (passwordptr - input)] = '\0';
 
-    /* FIXME: Specificaiton is unclear on whether unassigned code
+    /* FIXME: Specification is unclear on whether unassigned code
        points are allowed or not.  We don't allow them. */
     res = gsasl_saslprep (passwdz, 0, &passprep, NULL);
     free (passwdz);
