@@ -20,6 +20,26 @@
  * from Paul Eggert, Bruno Haible, and Stepan Kasal.
  *
  * See also RFC 3548 <http://www.ietf.org/rfc/rfc3548.txt>.
+ *
+ * Be careful with error checking.  Here is how you would typically
+ * use these functions:
+ *
+ * int ok = base64_decode_alloc (in, inlen, &out, &outlen);
+ * if (!ok)
+ *   FAIL: input was not valid base64
+ * if (outlen == SIZE_MAX)
+ *   FAIL: integer overflow (too large input)
+ * if (out == NULL)
+ *   FAIL: memory allocation error
+ * OK: data in OUT/OUTLEN
+ *
+ * size_t outlen = base64_encode_alloc (in, inlen, &out);
+ * if (outlen == SIZE_MAX)
+ *   FAIL: integer overflow
+ * if (out == NULL)
+ *   FAIL: memory allocation error
+ * OK: data in OUT/LEN.
+ *
  */
 
 #ifdef HAVE_CONFIG_H
@@ -76,11 +96,11 @@ base64_encode (const char *in, size_t inlen, char *out, size_t outlen)
    from array IN of size INLEN, returning BASE64_LENGTH(INLEN), i.e.,
    the length of the encoded data, excluding the terminating zero.  On
    return, the OUT variable will hold a pointer to newly allocated
-   memory that must be deallocated by the caller, or NULL on memory
-   allocation failure.  If output length would overflow, SIZE_MAX is
-   returned and OUT is set to NULL.  If memory allocation fail, OUT is
-   set to NULL, and the return value indicate length of the requested
-   memory block, i.e., BASE64_LENGTH(inlen) + 1. */
+   memory that must be deallocated by the caller.  If output length
+   would overflow, SIZE_MAX is returned and OUT is set to NULL.  If
+   memory allocation fail, OUT is set to NULL, and the return value
+   indicate length of the requested memory block, i.e.,
+   BASE64_LENGTH(inlen) + 1. */
 size_t
 base64_encode_alloc (const char *in, size_t inlen, char **out)
 {
@@ -356,7 +376,8 @@ base64_decode_alloc (const char *in, size_t inlen, char **out,
       return true;
     }
 
-  needlen = 3 * inlen / 4; /* FIXME: May allocate one 1 or 2 bytes too
+  needlen = 3 * inlen / 4; /* FIXME: Rewrite to avoid overflowing.
+			      FIXME: May allocate one 1 or 2 bytes too
 			      much, depending on input. */
 
   *out = malloc (needlen);
