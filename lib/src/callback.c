@@ -144,6 +144,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	  break;
 	res = cb_validate (sctx, sctx->authzid, sctx->authid, sctx->password);
 	return res;
+	break;
 
       case GSASL_PASSWORD:
 	cb_retrieve = gsasl_server_callback_retrieve_get (sctx->ctx);
@@ -155,6 +156,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	  gsasl_property_set (sctx, GSASL_PASSWORD, buf);
 	/* FIXME else if (res == GSASL_TOO_SMALL_BUFFER)...*/
 	return res;
+	break;
 
       default:
 	break;
