@@ -414,9 +414,13 @@ parse_response (char *response, digest_md5_response *out)
 	   be one of the alternatives in qop-options.  */
 	if (out->qop)
 	  return -1;
-	/* FIXME: sub-parse. */
-	out->qop = strdup (value);
-	if (!out->qop)
+	if (strcmp (value, "auth") == 0)
+	  out->qop = DIGEST_MD5_QOP_AUTH;
+	else if (strcmp (value, "auth-int") == 0)
+	  out->qop = DIGEST_MD5_QOP_AUTH_INT;
+	else if (strcmp (value, "auth-conf") == 0)
+	  out->qop = DIGEST_MD5_QOP_AUTH_CONF;
+	else
 	  return -1;
 	break;
 
@@ -467,9 +471,19 @@ parse_response (char *response, digest_md5_response *out)
       case RESPONSE_CIPHER:
 	if (out->cipher)
 	  return -1;
-	/* FIXME: sub-parse. */
-	out->cipher = strdup (value);
-	if (!out->cipher)
+	if (strcmp (value, "3des") == 0)
+	  out->cipher = DIGEST_MD5_CIPHER_3DES;
+	else if (strcmp (value, "des") == 0)
+	  out->cipher = DIGEST_MD5_CIPHER_DES;
+	else if (strcmp (value, "rc4-40") == 0)
+	  out->cipher = DIGEST_MD5_CIPHER_RC4_40;
+	else if (strcmp (value, "rc4") == 0)
+	  out->cipher = DIGEST_MD5_CIPHER_RC4;
+	else if (strcmp (value, "rc4-56") == 0)
+	  out->cipher = DIGEST_MD5_CIPHER_RC4_56;
+	else if (strcmp (value, "aes-cbc") == 0)
+	  out->cipher = DIGEST_MD5_CIPHER_AES_CBC;
+	else
 	  return -1;
 	break;
 
@@ -480,7 +494,7 @@ parse_response (char *response, digest_md5_response *out)
 	if (out->authzid)
 	  return -1;
 	/*  The authzid MUST NOT be an empty string. */
-	if (strcmp (value, "") == 0)
+	if (*value == '\0')
 	  return -1;
 	out->authzid = strdup (value);
 	if (!out->authzid)
@@ -523,6 +537,13 @@ parse_response (char *response, digest_md5_response *out)
   /* This directive is required and MUST be present exactly
      once; otherwise, authentication fails. */
   if (!out->response)
+    return -1;
+
+  /* This directive MUST appear exactly once if "auth-conf" is
+     negotiated; if required and not present, authentication fails. */
+  if (out->qop == DIGEST_MD5_QOP_AUTH_CONF && !out->cipher)
+    return -1;
+  if (out->qop != DIGEST_MD5_QOP_AUTH_CONF && out->cipher)
     return -1;
 
   return 0;
@@ -634,7 +655,14 @@ digest_md5_validate (digest_md5_challenge *c, digest_md5_response *r)
   if (c->utf8 != r->utf8)
     return -1;
 
-  /* FIXME: Check qop.  Check ciphers.  Check more? */
+  if (!((c->qops ? c->qops : DIGEST_MD5_QOP_AUTH) &
+	(r->qop ? r->qop : DIGEST_MD5_QOP_AUTH)))
+    return -1;
+
+  if ((r->qop & DIGEST_MD5_QOP_AUTH) && !(c->ciphers & r->cipher))
+    return -1;
+
+  /* FIXME: Check more? */
 
   return 0;
 }
