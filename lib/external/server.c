@@ -34,8 +34,26 @@ _gsasl_external_server_step (Gsasl_session_ctx * sctx,
 			     const char *input, size_t input_len,
 			     char **output, size_t * output_len)
 {
-  *output = NULL;
-  *output_len = 0;
+  if (input_len > 0)
+    {
+      char *p;
+
+      p = malloc (input_len + 1);
+      if (!p)
+	return GSASL_MALLOC_ERROR;
+      memcpy (p, input, input_len);
+      p[input_len] = '\0';
+
+      /* An authorization identity is a string of zero or more Unicode
+	 [Unicode] coded characters.  The NUL <U+0000> character is not
+	 permitted in authorization identities. */
+      if (input_len != strlen (p))
+	return GSASL_MECHANISM_PARSE_ERROR;
+
+      gsasl_property_set (sctx, GSASL_CLIENT_AUTHZID, p);
+
+      free (p);
+    }
 
   return gsasl_callback (sctx, GSASL_SERVER_EXTERNAL);
 }
