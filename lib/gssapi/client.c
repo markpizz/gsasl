@@ -227,6 +227,7 @@ _gsasl_gssapi_client_step (Gsasl_session * sctx,
 
       maj_stat = gss_wrap (&min_stat, state->context, 0, GSS_C_QOP_DEFAULT,
 			   &bufdesc, &conf_state, &bufdesc2);
+      free (bufdesc.value);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_WRAP_ERROR;
 
