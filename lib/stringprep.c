@@ -86,7 +86,7 @@ gsasl_stringprep_saslprep (const char *in, int *stringprep_rc)
   rc = stringprep_profile (in, &out, "SASLprep", 0);
   if (stringprep_rc)
     *stringprep_rc = rc;
-  if (!rc)
+  if (rc != STRINGPREP_OK)
     out = NULL;
 
   return out;
@@ -115,7 +115,7 @@ gsasl_stringprep_trace (const char *in, int *stringprep_rc)
   rc = stringprep_profile (in, &out, "trace", 0);
   if (stringprep_rc)
     *stringprep_rc = rc;
-  if (!rc)
+  if (rc != STRINGPREP_OK)
     out = NULL;
 
   return out;
