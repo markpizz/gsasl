@@ -16,17 +16,18 @@ Currently there is some support for the following mechanisms:
   - LOGIN (non-standard)
   - NTLM (non-standard, client only, requires libntlm)
 
-You probably need GNU make to build libgsasl (i.e., it sometimes work
-with other make tools but not reliably).  Libgsasl has at some point
-in time built on the following systems, but no guarantees.
+Libgsasl has at some point in time passed the self tests on the
+following systems, but no guarantees.
 
-  - alphaev67-dec-osf5.0 (Tru64 UNIX C, GNU make)
+  - alphaev67-dec-osf5.0 (Compaq Tru64 UNIX C and Tru64 Make)
   - i686-pc-linux-gnu (Debian unstable)
   - i686-pc-linux-gnu (RedHat 7.2)
-  - mips-sgi-irix6.5 (MIPS C compiler, GNU make)
+  - mips-sgi-irix6.5 (MIPS C compiler and IRIX make)
   - rs6000-ibm-aix4.3.2.0 (GCC 2.9-aix43-000718, GNU make)
-  - rs6000-ibm-aix4.3.2.0 (IBM C for AIX compiler, GNU make)
-  - sparc-sun-solaris2.6 (Sun WorkShop Compiler C 5.0, non-GNU make)
+  - rs6000-ibm-aix4.3.2.0 (IBM C for AIX compiler and AIX Make)
+  - sparc-sun-solaris2.6 (Sun WorkShop Compiler C 5.0 and Sun make)
+  - sparc-sun-solaris2.6 (GCC 3.1 and GNU make)
+  - sparc-sun-solaris2.8 (GCC 3.1 and GNU make)
 
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
