@@ -6,5 +6,5 @@ includedir=@includedir@
 Name: Libgsasl
 Description: Simple Authentication and Security Layer (SASL) library
 Version: @VERSION@
-Libs: @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ @GSSAPI_LIBS@ -L${libdir} -lgsasl
-Cflags: @LIBGCRYPT_CFLAGS@ @LIBNTLM_CFLAGS@ @GSSAPI_CFLAGS@ -I${includedir}
+Libs: @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ @GSSAPI_LIBS@ @LIBSTRINGPREP_LIBS@ -L${libdir} -R${libdir} -lgsasl
+Cflags: @LIBGCRYPT_CFLAGS@ @LIBNTLM_CFLAGS@ @GSSAPI_CFLAGS@ @LIBSTRINGPREP_CFLAGS@ -I${includedir}
