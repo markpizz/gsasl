@@ -2,6 +2,14 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson
 See the end for copying conditions.
 
+* Version 0.2.6 (unreleased)
+
+** The SASL PLAIN server now permit unassigned code points in SASLprep.
+This aligns with draft-ietf-sasl-plain-06.txt which is in last call.
+
+** API and ABI modifications.
+No changes since last version.
+
 * Version 0.2.5 (released 2005-02-08)
 
 ** Strings that trigger the Unicode NFKC bug in PR#29 are now rejected.
@@ -12,6 +20,9 @@ This is only enabled if you use Libidn 0.5.0 or later.
 ** EXTERNAL client now return empty data instead of NULL for empty authzid.
 
 ** Typos in gsasl_strerror() messages fixed, thanks to Clytie Siddall.
+
+** API and ABI modifications.
+No changes since last version.
 
 * Version 0.2.4 (released 2005-01-01)
 
