@@ -24,4 +24,4 @@ $ACLOCAL -I m4 -I argp
 $AUTOCONF
 $AUTOMAKE --gnits --add-missing
 $AUTOHEADER
-: 'You can now run CFLAGS="-g -pedantic -Wall" ./configure --enable-maintainer-mode and then make.'
+: 'You can now run CFLAGS="-g -Wall" ./configure --enable-maintainer-mode and then make.'
