@@ -133,21 +133,6 @@
 enum
 {
   /* the order must match the following struct */
-  CHALLENGE_REALM = 0,
-  CHALLENGE_NONCE,
-  CHALLENGE_QOP,
-  CHALLENGE_STALE,
-  CHALLENGE_MAXBUF,
-  CHALLENGE_CHARSET,
-  CHALLENGE_ALGORITHM,
-  CHALLENGE_CIPHER
-};
-
-extern const char *const digest_challenge_opts[];
-
-enum
-{
-  /* the order must match the following struct */
   RESPONSE_USERNAME = 0,
   RESPONSE_REALM,
   RESPONSE_NONCE,
@@ -163,45 +148,5 @@ enum
 };
 
 extern const char *const digest_response_opts[];
-
-enum
-{
-  /* the order must match the following struct */
-  RESPONSEAUTH_RSPAUTH = 0
-};
-
-extern const char *const digest_responseauth_opts[];
-
-enum
-{
-  /* the order must match the following struct */
-  QOP_AUTH_OPTION = 0,
-  QOP_AUTH_INT_OPTION,
-  QOP_AUTH_CONF_OPTION
-};
-
-extern const char *const qop_opts[];
-
-enum
-{
-  /* the order must match the following struct */
-  CIPHER_DES_OPTION = 0,
-  CIPHER_3DES_OPTION,
-  CIPHER_RC4_OPTION,
-  CIPHER_RC4_40_OPTION,
-  CIPHER_RC4_56_OPTION,
-  CIPHER_AES_OPTION
-};
-
-extern const char *const cipher_opts[];
-
-extern int
-_gsasl_getsubopt (char **optionp, const char *const *tokens, char **valuep);
-
-extern int
-_gsasl_digest (char *output,
-	       char secret[MD5LEN], char *nonce, uint32_t nc, char *cnonce,
-	       int qop, char *authzid, char *digesturi, const char *a2string,
-	       int cipher, char *kic, char *kis, char *kcc, char *kcs);
 
 #endif /* SHARED_H */
