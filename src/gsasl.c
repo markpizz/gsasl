@@ -70,7 +70,6 @@ char *connect_hostname;
 char *connect_service;
 struct sockaddr connect_addr;
 int sockfd;
-FILE *sockfh;
 
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
@@ -223,8 +222,6 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	    close (sockfd);
 	    argp_error (state, "connect: %s", strerror (errno));
 	  }
-	sockfh = fdopen (sockfd, "r+");
-	setvbuf (sockfh, NULL, _IONBF, 0);
       }
       if (!hostname)
 	hostname = strdup (connect_hostname);
@@ -359,13 +356,16 @@ writeln (char *str)
 {
   printf ("%s\n", str);
 
-  if (sockfh)
+  if (sockfd)
     {
-      int len;
+      size_t len;
 
-      len = fprintf (sockfh, "%s\r\n", str);
+      len = write (sockfd, str, strlen (str));
+      if (len != strlen (str))
+	return 0;
 
-      if (len != (int) strlen (str) + (int) strlen ("\r\n"))
+      len = write (sockfd, "\r\n", strlen ("\r\n"));
+      if (len != strlen ("\r\n"))
 	return 0;
     }
 
@@ -375,14 +375,23 @@ writeln (char *str)
 static int
 readln (char *buf, size_t maxbuflen)
 {
-  if (!fgets (buf, maxbuflen, sockfh ? sockfh : stdin))
-    return 0;
+  if (sockfd)
+    {
+      ssize_t len;
+      len = recv (sockfd, buf, maxbuflen, 0);
+      if (len <= 0)
+	return 0;
+      buf[len] = '\0';
+    }
+  else
+    if (!fgets (buf, maxbuflen, stdin))
+      return 0;
 
   while (buf[0] && (buf[strlen (buf) - 1] == '\n' ||
 		    buf[strlen (buf) - 1] == '\r'))
     buf[strlen (buf) - 1] = '\0';
 
-  if (sockfh)
+  if (sockfd)
     printf ("%s\n", buf);
 
   return 1;
@@ -569,8 +578,11 @@ main (int argc, char *argv[])
 
 	  if (imap)
 	    {
-	      sprintf (input, "+ %s", output);
-	      if (!writeln (output))
+	      if (mode == 'c')
+		sprintf (input, "%s", output);
+	      else
+		sprintf (input, "+ %s", output);
+	      if (!writeln (input))
 		return 1;
 	    }
 	  else
@@ -606,7 +618,7 @@ main (int argc, char *argv[])
 			     "data (it must begin with '+ '):\n%s\n"), input);
 		  return 1;
 		}
-	      strcpy (&input[0], &input[2]);
+	      memmove (&input[0], &input[2], strlen(input) - 1);
 	    }
 	}
       while (res == GSASL_NEEDS_MORE);
@@ -642,7 +654,7 @@ main (int argc, char *argv[])
 
 	  FD_ZERO (&readfds);
 	  FD_SET (STDIN_FILENO, &readfds);
-	  if (sockfh)
+	  if (sockfd)
 	    FD_SET (sockfd, &readfds);
 
 	  if (!silent)
@@ -690,26 +702,20 @@ main (int argc, char *argv[])
 		      fprintf (stdout, "%s\n", b64output);
 		    }
 
-		  if (sockfh)
+		  if (sockfd)
 		    {
-		      if (fwrite (output, sizeof (output[0]),
-				  output_len, sockfh) != output_len)
+		      if (write (sockfd, output, output_len) != output_len)
 			return 0;
 		    }
 		}
 
 	      if (sockfd && FD_ISSET (sockfd, &readfds))
-		{
-		  input[0] = '\0';
-		  if (fgets (input, MAX_LINE_LENGTH, sockfh) == NULL)
-		    break;
-		  input[strlen (input) - 1] = '\0';
-		  printf ("%s\n", input);
-		}
+		if (!readln (input, MAX_LINE_LENGTH))
+		  break;
 
 	      FD_ZERO (&readfds);
 	      FD_SET (STDIN_FILENO, &readfds);
-	      if (sockfh)
+	      if (sockfd)
 		FD_SET (sockfd, &readfds);
 	    }
 
@@ -738,7 +744,7 @@ main (int argc, char *argv[])
   if (imap && !writeln (". LOGOUT"))
     return 1;
 
-  if (sockfh)
+  if (sockfd)
     {
       /* read "* BYE ..." */
       if (!readln (input, MAX_LINE_LENGTH))
@@ -749,7 +755,7 @@ main (int argc, char *argv[])
 	return 1;
 
       shutdown (sockfd, SHUT_RDWR);
-      fclose (sockfh);
+      close (sockfd);
     }
 
   gsasl_done (ctx);
