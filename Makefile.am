@@ -18,6 +18,8 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+DISTCHECK_CONFIGURE_FLAGS = --disable-gtk-doc
+
 EXTRA_DIST = ANNOUNCE config.h.in config.rpath mkinstalldirs libgsasl.pc.in
 
 pkgconfigdir = $(libdir)/pkgconfig
