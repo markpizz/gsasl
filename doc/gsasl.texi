@@ -148,8 +148,8 @@ It should work on all Unix like operating systems, including Windows.
 @end table
 
 Note that the library do not implement any policy to decide whether a
-certain user is ``authenticated'' or not.  Rather, it uses callbacks
-back into the application to answer these questions.
+certain user is ``authenticated'' or ``authorized'' or not.  Rather,
+it uses callbacks back into the application to answer these questions.
 
 @node SASL Overview
 @section SASL Overview
