@@ -35,6 +35,7 @@ AC_SUBST(LT_AGE)
 
 AM_INIT_AUTOMAKE(gnits)
 AM_CONFIG_HEADER(config.h)
+AC_CONFIG_AUX_DIR(.)
 
 # Checks for programs.
 AM_GNU_GETTEXT(external)
@@ -428,6 +429,7 @@ AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in m4/Makefile \
 		gl/Makefile gl/m4/Makefile crypto/Makefile \
 		doc/Makefile doc/reference/Makefile doc/man/Makefile \
+		doc/doxygen/Doxyfile \
 		lib/Makefile lib/gsasl.h \
 		src/Makefile tests/Makefile)
 AC_OUTPUT
