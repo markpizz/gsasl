@@ -1,5 +1,27 @@
 GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
+Copyright (C) 2002, 2003 Simon Josefsson
 See the end for copying conditions.
+
+* Changes in 0.0.6 (unreleased)
+
+** Gettext not included.
+Due to some conflicts between libtool and gettext, if you want i18n on
+platforms that does not already have a useful gettext implementation,
+you must install GNU gettext before building this package.  If you
+don't care about i18n, this package should work fine (except for i18n,
+of course).
+
+** Rudimentary support for KERBEROS_V5.
+Only enable if you want to write code.  This adds two new API errors;
+GSASL_KERBEROS_V5_INIT_ERROR, GSASL_SHISHI_ERROR.
+
+** Added API function: gsasl_client_callback_realm_set.
+Specifies which realm the client belongs to.
+
+** Bugfixes.
+User visible aspects includes not building the API Reference Manual
+with GTK-DOC by default, if you want it use configure parameter
+--enable-gtk-doc.
 
 * Changes in 0.0.5 (released 2003-01-27)
 
@@ -67,8 +89,6 @@ payload data.
 ** Initial release.
 
 ----------------------------------------------------------------------
-Copyright (C) 2002 Simon Josefsson
-
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
 notice and this notice are preserved.
