@@ -21,7 +21,7 @@
 
 #include "cram-md5.h"
 
-#define MD5_LEN 16
+#define MD5LEN 16
 
 #ifdef USE_CLIENT
 
@@ -134,7 +134,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
       tmp = gsasl_stringprep_nfkc (output, len);
       if (tmp == NULL)
 	return GSASL_UNICODE_NORMALIZATION_ERROR;
-      if (strlen (tmp) + strlen (" ") + 2 * MD5_LEN >= *output_len)
+      if (strlen (tmp) + strlen (" ") + 2 * MD5LEN >= *output_len)
 	{
 	  free (tmp);
 	  return GSASL_TOO_SMALL_BUFFER;
@@ -144,12 +144,12 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
       free (tmp);
       output[len++] = ' ';
 
-      for (i = 0; i < MD5_LEN; i++)
+      for (i = 0; i < MD5LEN; i++)
 	{
 	  output[len + 2 * i + 1] = HEXCHAR (hash[i]);
 	  output[len + 2 * i + 0] = HEXCHAR (hash[i] >> 4);
 	}
-      *output_len = len + 2 * MD5_LEN;
+      *output_len = len + 2 * MD5LEN;
 
       free (hash);
 
@@ -260,10 +260,10 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
       return GSASL_NEEDS_MORE;
     }
 
-  if (input_len <= MD5_LEN * 2)
+  if (input_len <= MD5LEN * 2)
     return GSASL_MECHANISM_PARSE_ERROR;
 
-  if (input[input_len - MD5_LEN * 2 - 1] != ' ')
+  if (input[input_len - MD5LEN * 2 - 1] != ' ')
     return GSASL_MECHANISM_PARSE_ERROR;
 
   ctx = gsasl_server_ctx_get (sctx);
@@ -279,22 +279,22 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
   if (username == NULL)
     return GSASL_MALLOC_ERROR;
 
-  memcpy (username, input, input_len - MD5_LEN * 2);
-  username[input_len - MD5_LEN * 2 - 1] = '\0';
+  memcpy (username, input, input_len - MD5LEN * 2);
+  username[input_len - MD5LEN * 2 - 1] = '\0';
 
   if (cb_cram_md5)
     {
       char *response;
 
-      response = (char *) malloc (MD5_LEN * 2 + 1);
+      response = (char *) malloc (MD5LEN * 2 + 1);
       if (response == NULL)
 	{
 	  res = GSASL_MALLOC_ERROR;
 	  goto done;
 	}
 
-      memcpy (response, input + input_len - MD5_LEN * 2, MD5_LEN * 2);
-      response[MD5_LEN * 2 + 1] = '\0';
+      memcpy (response, input + input_len - MD5LEN * 2, MD5LEN * 2);
+      response[MD5LEN * 2 + 1] = '\0';
 
       res = cb_cram_md5 (sctx, username, challenge, response);
 
@@ -336,9 +336,9 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
 	}
 
       res = GSASL_OK;
-      for (i = 0; i < MD5_LEN; i++)
-	if ((input[input_len - MD5_LEN * 2 + 2 * i + 1] != HEXCHAR (hash[i]))
-	    || (input[input_len - MD5_LEN * 2 + 2 * i + 0] !=
+      for (i = 0; i < MD5LEN; i++)
+	if ((input[input_len - MD5LEN * 2 + 2 * i + 1] != HEXCHAR (hash[i]))
+	    || (input[input_len - MD5LEN * 2 + 2 * i + 0] !=
 		HEXCHAR (hash[i] >> 4)))
 	  res = GSASL_AUTHENTICATION_ERROR;
 
