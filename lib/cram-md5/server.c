@@ -33,7 +33,6 @@ _gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   Gsasl_ctx *ctx;
   char *challenge;
-  int i;
 
   ctx = gsasl_server_ctx_get (sctx);
   if (ctx == NULL)

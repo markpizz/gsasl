@@ -62,7 +62,6 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * sctx,
   /* XXX create callback for domain? Doesn't seem to be needed by servers */
   char *domain = NULL;
   const char *password, *authzid;
-  size_t len;
   int res;
 
   switch (state->step)

@@ -115,6 +115,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_plain_server_step,
     NULL,
     NULL,
+    NULL,
     NULL
 #endif
     }
@@ -143,6 +144,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_login_server_step,
     _gsasl_login_server_finish,
     NULL,
+    NULL,
     NULL
 #endif
     }
@@ -159,6 +161,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_securid_client_step,
     _gsasl_securid_client_finish,
     NULL,
+    NULL,
     NULL
 #endif
     },
@@ -168,6 +171,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     _gsasl_securid_server_start,
     _gsasl_securid_server_step,
+    NULL,
     NULL,
     NULL,
     NULL
@@ -197,6 +201,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     NULL,
+    NULL,
     NULL}
    },
 #endif /* USE_NTLM */
@@ -211,6 +216,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_cram_md5_client_step,
     NULL,
     NULL,
+    NULL,
     NULL
 #endif
     },
@@ -221,6 +227,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_cram_md5_server_start,
     _gsasl_cram_md5_server_step,
     _gsasl_cram_md5_server_finish,
+    NULL,
     NULL,
     NULL
 #endif
@@ -238,7 +245,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_digest_md5_client_step,
     _gsasl_digest_md5_client_finish,
     _gsasl_digest_md5_client_encode,
-    _gsasl_digest_md5_client_decode
+    _gsasl_digest_md5_client_decode,
+    NULL
 #endif
     },
    {
@@ -249,7 +257,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_digest_md5_server_step,
     _gsasl_digest_md5_server_finish,
     _gsasl_digest_md5_server_encode,
-    _gsasl_digest_md5_server_decode
+    _gsasl_digest_md5_server_decode,
+    NULL
 #endif
     }
    },
@@ -265,7 +274,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_kerberos_v5_client_step,
     _gsasl_kerberos_v5_client_finish,
     _gsasl_kerberos_v5_client_encode,
-    _gsasl_kerberos_v5_client_decode
+    _gsasl_kerberos_v5_client_decode,
+    NULL
 #endif
     },
    {
@@ -276,7 +286,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_kerberos_v5_server_step,
     _gsasl_kerberos_v5_server_finish,
     _gsasl_kerberos_v5_server_encode,
-    _gsasl_kerberos_v5_server_decode
+    _gsasl_kerberos_v5_server_decode,
+    NULL
 #endif
     }
    },
@@ -292,7 +303,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_gssapi_client_step,
     _gsasl_gssapi_client_finish,
     _gsasl_gssapi_client_encode,
-    _gsasl_gssapi_client_decode
+    _gsasl_gssapi_client_decode,
+    NULL
 #endif
     },
    {
@@ -302,6 +314,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_gssapi_server_start,
     _gsasl_gssapi_server_step,
     _gsasl_gssapi_server_finish,
+    NULL,
     NULL,
     NULL
 #endif
@@ -316,8 +329,10 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     NULL,
+    NULL,
     NULL},
    {
+    NULL,
     NULL,
     NULL,
     NULL,

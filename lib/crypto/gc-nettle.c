@@ -37,6 +37,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include <string.h>
+
 int
 gc_init (void)
 {
@@ -55,7 +57,7 @@ static int
 randomize (int level, char *data, size_t datalen)
 {
   int fd;
-  char *device;
+  const char *device;
   size_t len = 0;
   int rc;
 
