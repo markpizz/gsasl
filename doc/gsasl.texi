@@ -1,15 +1,8 @@
 \input texinfo                  @c -*- Texinfo -*-
+@c This file is part of the GNU SASL Manual.
 @c Copyright (C) 2002 Simon Josefsson
-@c
-@c This file is part of the GNU SASL
-@c Permission is granted to copy, distribute and/or modify this document
-@c under the terms of the GNU Free Documentation License, Version 1.1
-@c or any later version published by the Free Software Foundation;
-@c with the Invariant Sections being with no Invariant Sections, with the
-@c no Front-Cover Texts, and with the no Back-Cover Texts.
-@c A copy of the license is included in the section entitled ``GNU
-@c Free Documentation License'' in the file 'fdl.texi'.
-@c
+@c See below for copying conditions.
+
 @setfilename gsasl.info
 @include version.texi
 @settitle The GNU SASL Manual
@@ -27,15 +20,15 @@ Copyright @copyright{} 2002 Simon Josefsson.
 @quotation
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.1 or
-any later version published by the Free Software Foundation; with no
-Invariant Sections, with the Front-Cover texts being ``A GNU Manual,''
-and with the Back-Cover Texts as in (a) below.  A copy of the license
-is included in the section entitled ``GNU Free Documentation
-License.''
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being ``A GNU Manual,'' and with the Back-Cover
+Texts as in (a) below.  A copy of the license is included in the
+section entitled "GNU Free Documentation License".
 
-(a) The FSF's Back-Cover Text is: ``You have freedom to copy and
-modify this GNU Manual, like GNU software.  Copies published by the
-Free Software Foundation raise funds for GNU development.''
+(a) The FSF's Back-Cover Text is: ``You are free to copy and modify
+this GNU Manual.  Buying copies from GNU Press supports the FSF in
+developing GNU and protecting and promoting software freedom.''
 @end quotation
 @end copying
 
@@ -47,7 +40,7 @@ Free Software Foundation raise funds for GNU development.''
 @titlepage
 @title The GNU SASL Manual
 @subtitle for version @value{VERSION}, @value{UPDATED}
-@author Simon Josefsson (@email{bug-libgsasl@@josefsson.org})
+@author Simon Josefsson (@email{bug-gsasl@@gnu.org})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -170,7 +163,31 @@ it uses callbacks back into the application to answer these questions.
 
 This section describes SASL from a protocol point of view@footnote{The
 text is a lightly adapted version of the introduction section from RFC
-2222 by John G. Myers, copyright 1997 by The Internet Society.}.
+2222 by John G. Myers, copyright 1997 by The Internet Society with the
+following copying conditions:
+
+This document and translations of it may be copied and furnished to
+others, and derivative works that comment on or otherwise explain it
+or assist in its implmentation may be prepared, copied, published
+andand distributed, in whole or in part, without restriction of any
+kind, provided that the above copyright notice and this paragraph are
+included on all such copies and derivative works.  However, this
+document itself may not be modified in any way, such as by removing
+the copyright notice or references to the Internet Society or other
+Internet organizations, except as needed for the purpose of developing
+Internet standards in which case the procedures for copyrights defined
+in the Internet Standards process must be followed, or as required to
+translate it into languages other than English.
+
+The limited permissions granted above are perpetual and will not be
+revoked by the Internet Society or its successors or assigns.
+
+This document and the information contained herein is provided on an
+"AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT
+NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN
+WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.}.
 
 The Simple Authentication and Security Layer (SASL) is a method for
 adding authentication support to connection-based protocols.  A
@@ -356,7 +373,7 @@ note.
 
 Send your bug report to:
 
-@center @samp{bug-libgsasl@@josefsson.org}
+@center @samp{bug-gsasl@@gnu.org}
 
 
 @c **********************************************************
