@@ -328,6 +328,8 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
       if (res)
 	return GSASL_SHISHI_ERROR;
 
+      /* XXX set realm in AP-REQ and Authenticator */
+
       res = shishi_ap_req_der (state->ap, output, output_len);
       if (res)
 	return GSASL_SHISHI_ERROR;
@@ -376,9 +378,18 @@ struct _Gsasl_kerberos_v5_server_state
 {
   int firststep;
   Shishi *sh;
+  char serverhello[BITMAP_LEN + MAXBUF_LEN + RANDOM_LEN];
   char *random;
   int qop;
+  uint32_t servermaxbuf;
+  int clientqop;
+  int clientmutual;
+  uint32_t clientmaxbuf;
   char *username;
+  char *userrealm;
+  char *serverrealm;
+  char *serverservice;
+  char *serverhostname;
   char *password;
   Shishi_key *userkey; /* user's key derived with string2key */
   Shishi_key *sessionkey; /* shared between client and server */
@@ -425,13 +436,11 @@ _gsasl_kerberos_v5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
   if (err)
     return GSASL_SHISHI_ERROR;
 
-  err = shishi_key_random (state->sh, SHISHI_DES3_CBC_HMAC_SHA1_KD,
+  /* This can be pretty much anything, the client will never have it.
+     Listeners that crack the sessionkey will see cipher text
+     encrypted with this key. */
+  err = shishi_key_random (state->sh, SHISHI_AES256_CTS_HMAC_SHA1_96,
 			   &state->sessionticketkey);
-  if (err)
-    return GSASL_SHISHI_ERROR;
-
-  err = shishi_key_random (state->sh, SHISHI_DES3_CBC_HMAC_SHA1_KD,
-			   &state->sessionkey);
   if (err)
     return GSASL_SHISHI_ERROR;
 
@@ -460,6 +469,9 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
   Gsasl_server_callback_maxbuf cb_maxbuf;
   Gsasl_server_callback_cipher cb_cipher;
   Gsasl_server_callback_retrieve cb_retrieve;
+  Gsasl_server_callback_service cb_service;
+  unsigned char buf[BUFSIZ];
+  size_t buflen;
   Gsasl_ctx *ctx;
   ASN1_TYPE asn1;
   int err;
@@ -472,11 +484,14 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
   cb_qop = gsasl_server_callback_qop_get (ctx);
   cb_maxbuf = gsasl_server_callback_maxbuf_get (ctx);
   cb_retrieve = gsasl_server_callback_retrieve_get (ctx);
+  cb_service = gsasl_server_callback_service_get (ctx);
+  if (cb_service == NULL)
+    return GSASL_NEED_SERVER_SERVICE_CALLBACK;
 
   if (state->firststep)
     {
       uint32_t tmp;
-      int maxbuf;
+      unsigned char *p;
 
       /*
        * The initial server packet should contain one octet containing
@@ -502,35 +517,33 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
       if (output && *output_len < BITMAP_LEN + MAXBUF_LEN + RANDOM_LEN)
 	return GSASL_TOO_SMALL_BUFFER;
 
-      *output_len = BITMAP_LEN + MAXBUF_LEN + RANDOM_LEN;
+      p = &state->serverhello[0];
 
-      if (output)
-	{
-	  unsigned char *p = &output[0];
-
-	  /* XXX cb_qop() here when we support anything other than QOP_AUTH */
-	  *p = 0;
-	  if (state->qop == GSASL_QOP_AUTH)
-	    *p |= GSASL_QOP_AUTH;
-	  else if (state->qop == GSASL_QOP_AUTH_INT)
-	    *p |= GSASL_QOP_AUTH_INT;
-	  else if (state->qop == GSASL_QOP_AUTH_CONF)
-	    *p |= GSASL_QOP_AUTH_CONF;
-	  /* XXX we always require mutual authentication for now */
-	  *p |= MUTUAL;
-	}
+      /* XXX cb_qop() here when we support anything other than QOP_AUTH */
+      *p = 0;
+      if (state->qop == GSASL_QOP_AUTH)
+	*p |= GSASL_QOP_AUTH;
+      else if (state->qop == GSASL_QOP_AUTH_INT)
+	*p |= GSASL_QOP_AUTH_INT;
+      else if (state->qop == GSASL_QOP_AUTH_CONF)
+	*p |= GSASL_QOP_AUTH_CONF;
+      /* XXX we always require mutual authentication for now */
+      *p |= MUTUAL;
 
       if (state->qop != GSASL_QOP_AUTH && cb_maxbuf)
-	maxbuf = cb_maxbuf (sctx);
+	state->servermaxbuf = cb_maxbuf (sctx);
       else
-	maxbuf = state->qop == GSASL_QOP_AUTH ? 0 : MAXBUF_DEFAULT;
+	state->servermaxbuf =
+	  state->qop == GSASL_QOP_AUTH ? 0 : MAXBUF_DEFAULT;
 
-      tmp = htonl (maxbuf);
-      if (output)
-	memcpy (&output[BITMAP_LEN], &tmp, MAXBUF_LEN);
+      tmp = htonl (state->servermaxbuf);
+      memcpy (&state->serverhello[BITMAP_LEN], &tmp, MAXBUF_LEN);
+      memcpy (&state->serverhello[BITMAP_LEN + MAXBUF_LEN],
+	      state->random, RANDOM_LEN);
 
       if (output)
-	memcpy (&output[BITMAP_LEN + MAXBUF_LEN], state->random, RANDOM_LEN);
+	memcpy(output, state->serverhello, SERVER_HELLO_LEN);
+      *output_len = BITMAP_LEN + MAXBUF_LEN + RANDOM_LEN;
 
       state->firststep = 0;
 
@@ -543,193 +556,153 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 
       if (shishi_as_req_der_set(state->as, input, input_len) == SHISHI_OK)
 	{
-	  ASN1_TYPE encticketpart, tkt;
 	  Shishi_ticket *ticket;
-	  unsigned long nonce;
-	  int n;
+	  int etype, i;
 
-#if DEBUG
-	  err = shishi_kdcreq_print (state->sh, stderr,
-				     shishi_as_req(state->as));
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-#endif
-
-	  /* EncTicketPart */
-	  encticketpart = shishi_encticketpart (state->sh);
-	  if (!encticketpart)
-	    return GSASL_SHISHI_ERROR;
-
-	  err = shishi_encticketpart_flags_set (state->sh, encticketpart,
-						SHISHI_TICKETFLAGS_INITIAL);
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-
-	  err = shishi_encticketpart_key_set (state->sh, encticketpart,
-					      state->sessionkey);
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-
-	  err = shishi_encticketpart_crealm_set (state->sh, encticketpart,
-						 "NADA.KTH.SE");
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-
-	  err = shishi_encticketpart_cname_set (state->sh,
-						encticketpart,
-						SHISHI_NT_UNKNOWN, "jas");
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-
-
-	  err = shishi_encticketpart_transited_set (state->sh,
-						    encticketpart,
-						    SHISHI_TR_DOMAIN_X500_COMPRESS,
-						    "", 0);
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-
-
-	  err = shishi_encticketpart_authtime_set (state->sh,
-						   encticketpart,
-						   "20030131030002Z");
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-
-	  err = shishi_encticketpart_endtime_set (state->sh,
-						  encticketpart,
-						  "20030131030003Z");
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-
-#if DEBUG
-	  err = shishi_encticketpart_print (state->sh, stderr, encticketpart);
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-#endif
-
-	  /* Ticket */
-	  ticket = shishi_ticket (state->sh, NULL, NULL, NULL);
+	  ticket = shishi_as_ticket (state->as);
 	  if (!ticket)
 	    return GSASL_SHISHI_ERROR;
 
-	  shishi_ticket_encticketpart_set (ticket, encticketpart);
+	  i = 1;
+	  do {
+	    err = shishi_kdcreq_etype (state->sh,
+				       shishi_as_req(state->as),
+				       &etype, i);
+	    if (err == SHISHI_OK && shishi_cipher_supported_p (etype))
+	      break;
+	  } while (err == SHISHI_OK);
+	  if (err != SHISHI_OK)
+	    return err;
 
-	  tkt = shishi_asn1_ticket (state->sh);
-
-	  err = shishi_kdcreq_srealmserver_set (state->sh, tkt,
-						"NADA.KTH.SE", "server");
+	  /* XXX use the "preferred server kdc etype" from shishi instead? */
+	  err = shishi_key_random (state->sh, etype, &state->sessionkey);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
-	  /* In theory one might set the EncTicketPart to "" since the
-	     client doesn't care about, but it would probably confuse
-	     someone. */
-	  err = shishi_ticket_add_enc_part (state->sh, tkt,
-					    state->sessionticketkey,
-					    encticketpart);
+	  err = shishi_ticket_key_set (ticket, state->sessionkey);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
-#if DEBUG
-	  err = shishi_asn1ticket_print (state->sh, stderr, tkt);
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-#endif
-
-	  /* EncASRepPart */
-	  err = shishi_enckdcreppart_key_set
-	    (state->sh, shishi_as_encasreppart (state->as), state->sessionkey);
+	  err = shishi_ticket_flags_set (ticket, SHISHI_TICKETFLAGS_INITIAL);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
-	  err = shishi_kdc_copy_nonce (state->sh, shishi_as_req(state->as),
-				       shishi_as_encasreppart (state->as));
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
+	  buflen = sizeof (buf) - 1;
+	  err = shishi_kdcreq_cname_get (state->sh,
+					 shishi_as_req(state->as),
+					 buf, &buflen);
+	  if (err != GSASL_OK)
+	    return err;
+	  buf[buflen] = '\0';
+	  state->username = strdup(buf);
 
-	  err = shishi_enckdcreppart_populate_encticketpart
-	    (state->sh, shishi_as_encasreppart (state->as), encticketpart);
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
+	  buflen = sizeof (buf) - 1;
+	  err = shishi_kdcreq_realm_get (state->sh,
+					  shishi_as_req(state->as),
+					  buf, &buflen);
+	  if (err != GSASL_OK)
+	    return err;
+	  buf[buflen] = '\0';
+	  state->userrealm = strdup(buf);
 
-	  err = shishi_enckdcreppart_srealmserver_set
-	    (state->sh, shishi_as_encasreppart (state->as),
-	     "NADA.KTH.SE", "server");
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
+	  buflen = sizeof (buf) - 1;
+	  err = cb_retrieve (sctx, state->username, NULL, state->userrealm,
+			     NULL, &buflen);
+	  if (err != GSASL_OK)
+	    return err;
 
-#if DEBUG
-	  shishi_enckdcreppart_print (state->sh, stderr,
-				      shishi_as_encasreppart (state->as));
-#endif
+	  state->password = malloc (buflen + 1);
+	  if (state->password == NULL)
+	    return GSASL_MALLOC_ERROR;
 
-	  /* AS-REP */
-	  err = shishi_kdcrep_crealmserver_set (state->sh, shishi_as_rep(state->as),
-						"NADA.KTH.SE", "jas");
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
+	  err = cb_retrieve (sctx, state->username, NULL, state->userrealm,
+			     state->password, &buflen);
+	  if (err != GSASL_OK)
+	    return err;
+	  state->password[buflen] = '\0';
 
-	  err = shishi_kdcrep_set_ticket (state->sh, shishi_as_rep(state->as), tkt);
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
-
-	  if (!state->userkey)
+	  buflen = sizeof (buf) - 1;
+	  if (cb_realm)
 	    {
-	      unsigned char salt[BUFSIZ];
-	      size_t userlen, keylen;
-	      int saltlen;
-
-	      userlen = BUFSIZ; /* XXX */
-	      state->username = malloc (userlen + 1);
-	      if (state->username == NULL)
-		return GSASL_MALLOC_ERROR;
-
-	      err = shishi_kdcreq_cname_get (state->sh, shishi_as_req(state->as),
-					     state->username, &userlen);
-	      if (err != GSASL_OK)
-		return err;
-	      state->username[userlen] = '\0';
-
-	      err = cb_retrieve (sctx, state->username,
-				 NULL, NULL, NULL, &keylen);
-	      if (err != GSASL_OK)
-		return err;
-
-	      state->password = malloc (keylen + 1);
-	      if (state->password == NULL)
-		return GSASL_MALLOC_ERROR;
-
-	      err = cb_retrieve (sctx, state->username, NULL, NULL,
-				 state->password, &keylen);
-	      if (err != GSASL_OK)
-		return err;
-	      state->password[keylen] = '\0';
-
-	      saltlen = sizeof (salt);
-	      err = shishi_as_derive_salt (state->sh, shishi_as_req(state->as), shishi_as_rep(state->as),
-					   salt, &saltlen);
-	      if (err != SHISHI_OK)
-		return err;
-
-	      err = shishi_key_from_string (state->sh,
-					    /* XXX use AS-REQ.etype */
-					    SHISHI_DES3_CBC_HMAC_SHA1_KD,
-					    state->password,
-					    strlen(state->password),
-					    salt, saltlen,
-					    NULL, &state->userkey);
+	      err = cb_realm (sctx, buf, &buflen, 0);
 	      if (err != GSASL_OK)
 		return err;
 	    }
+	  else
+	    buflen = 0;
+	  buf[buflen] = '\0';
+	  state->serverrealm = strdup(buf);
 
-	  err = shishi_kdcrep_add_enc_part (state->sh, shishi_as_rep(state->as), state->userkey,
-					    SHISHI_KEYUSAGE_ENCASREPPART,
-					    shishi_as_encasreppart (state->as));
+	  buflen = sizeof (buf) - 1;
+	  err = cb_service (sctx, buf, &buflen, NULL, NULL);
+	  if (err != GSASL_OK)
+	    return err;
+	  buf[buflen] = '\0';
+	  state->serverservice = strdup(buf);
+
+	  buflen = sizeof (buf) - 1;
+	  err = cb_service (sctx, NULL, NULL, buf, &buflen);
+	  if (err != GSASL_OK)
+	    return err;
+	  buf[buflen] = '\0';
+	  state->serverhostname = strdup(buf);
+
+	  /* XXX do some checking on realm and server name?  Right now
+	     we simply doesn't care about what client requested and
+	     return a ticket for this server.  This is bad. */
+
+	  err = shishi_ticket_clientrealm_set (ticket, state->userrealm,
+					       state->username);
+	  if (err)
+	    return GSASL_SHISHI_ERROR;
+
+	  {
+	    char *p;
+	    p = malloc(strlen(state->serverservice) + strlen("/") +
+		       strlen(state->serverhostname) + 1);
+	    if (p == NULL)
+	      return GSASL_MALLOC_ERROR;
+	    sprintf(p, "%s/%s", state->serverservice, state->serverhostname);
+	    err = shishi_ticket_serverrealm_set (ticket,
+						 state->serverrealm, p);
+	    free(p);
+	    if (err)
+	      return GSASL_SHISHI_ERROR;
+	  }
+
+	  buflen = sizeof (buf);
+	  err = shishi_as_derive_salt (state->sh,
+				       shishi_as_req(state->as),
+				       shishi_as_rep(state->as),
+				       buf, &buflen);
+	  if (err != SHISHI_OK)
+	    return err;
+
+	  err = shishi_key_from_string (state->sh,
+					etype,
+					state->password,
+					strlen(state->password),
+					buf, buflen,
+					NULL, &state->userkey);
+	  if (err != GSASL_OK)
+	    return err;
+
+	  err = shishi_ticket_build (ticket, state->sessionticketkey);
+	  if (err)
+	    return GSASL_SHISHI_ERROR;
+
+	  err = shishi_as_rep_build (state->as, state->userkey);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
 #if DEBUG
+	  shishi_kdcreq_print (state->sh, stderr, shishi_as_req(state->as));
+	  shishi_encticketpart_print (state->sh, stderr,
+				      shishi_ticket_encticketpart (ticket));
+	  shishi_asn1ticket_print (state->sh, stderr,
+				   shishi_ticket_ticket (ticket));
+	  shishi_enckdcreppart_print (state->sh, stderr,
+				      shishi_ticket_enckdcreppart (state->as));
 	  shishi_kdcrep_print (state->sh, stderr, shishi_as_rep(state->as));
 #endif
 
@@ -741,6 +714,8 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	}
       else if ((asn1 = shishi_d2a_apreq (state->sh, input, input_len)))
 	{
+	  int adtype;
+
 	  err = shishi_ap (state->sh, &state->ap);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
@@ -760,15 +735,86 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 				     shishi_ap_authenticator (state->ap));
 #endif
 
-	  /* XXX verify authentication application data */
-
-	  err = shishi_ap_rep_build (state->ap);
+	  buflen = sizeof(buf);
+	  err = shishi_authenticator_authorizationdata
+	    (state->sh, shishi_ap_authenticator(state->ap),
+	     &adtype, buf, &buflen, 1);
 	  if (err)
 	    return GSASL_SHISHI_ERROR;
 
-	  err = shishi_ap_rep_der (state->ap, output, output_len);
-	  if (err)
-	    return GSASL_SHISHI_ERROR;
+	  if (adtype != 0xFF /* -1 in one-complements form */ ||
+	      buflen < CLIENT_HELLO_LEN + SERVER_HELLO_LEN)
+	    return GSASL_AUTHENTICATION_ERROR;
+
+	  {
+	    unsigned char clientbitmap;
+
+	    memcpy (&clientbitmap, &buf[0], BITMAP_LEN);
+	    state->clientqop = 0;
+	    if (clientbitmap & GSASL_QOP_AUTH)
+	      state->clientqop |= GSASL_QOP_AUTH;
+	    if (clientbitmap & GSASL_QOP_AUTH_INT)
+	      state->clientqop |= GSASL_QOP_AUTH_INT;
+	    if (clientbitmap & GSASL_QOP_AUTH_CONF)
+	      state->clientqop |= GSASL_QOP_AUTH_CONF;
+	    if (clientbitmap & MUTUAL)
+	      state->clientmutual = 1;
+	  }
+	  memcpy (&state->clientmaxbuf, &input[BITMAP_LEN], MAXBUF_LEN);
+	  state->clientmaxbuf = ntohl (state->clientmaxbuf);
+
+	  /* XXX only QOP_AUTH for now */
+	  if (!(state->clientqop & GSASL_QOP_AUTH))
+	    return GSASL_AUTHENTICATION_ERROR;
+	  /* XXX check clientmaxbuf too */
+
+	  if (memcmp(&buf[CLIENT_HELLO_LEN],
+		     state->serverhello,
+		     SERVER_HELLO_LEN) != 0)
+	    return GSASL_AUTHENTICATION_ERROR;
+
+	  {
+	    char cksum[BUFSIZ];
+	    int cksumlen;
+	    int cksumtype;
+	    Shishi_key *key;
+
+	    key = shishi_ticket_key (shishi_as_ticket(state->as));
+	    cksumtype = shishi_cipher_defaultcksumtype (shishi_key_type (key));
+	    cksumlen = sizeof (cksum);
+	    err = shishi_checksum (state->sh, key,
+				   SHISHI_KEYUSAGE_APREQ_AUTHENTICATOR_CKSUM,
+				   cksumtype, buf, buflen, cksum, &cksumlen);
+	    if (err != SHISHI_OK)
+	      return GSASL_SHISHI_ERROR;
+
+	    buflen = sizeof(buf);
+	    err = shishi_authenticator_cksum
+	      (state->sh,
+	       shishi_ap_authenticator(state->ap),
+	       &cksumtype, buf, &buflen);
+	    if (err != SHISHI_OK)
+	      return GSASL_SHISHI_ERROR;
+
+	    if (buflen != cksumlen ||
+		memcmp(buf, cksum, buflen) != 0)
+	      return GSASL_AUTHENTICATION_ERROR;
+	  }
+
+	  /* XXX use authorization_id */
+
+	  if (state->clientmutual)
+	    {
+	      err = shishi_ap_rep_build (state->ap);
+	      if (err)
+		return GSASL_SHISHI_ERROR;
+
+	      err = shishi_ap_rep_der (state->ap, output, output_len);
+	      if (err)
+		return GSASL_SHISHI_ERROR;
+	    }
+	  else
+	    *output_len = 0;
 
 	  return GSASL_OK;
 	}
