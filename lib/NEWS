@@ -6,6 +6,8 @@ See the end for copying conditions.
 
 ** Fix memory leak in server-side CRAM-MD5.
 
+** Fix read out of bound error in client-side CRAM-MD5.
+
 ** Documentation fixes.
 
 * Version 0.2.1 (released 2004-11-19)
