@@ -20,8 +20,8 @@
  */
 
 /*
- * Note: this file is not used when --disable-stringprep is specified.
- * Refer to stringprep-no.c for dummy declarations used in that case.
+ * Note: this file is only used when --with-stringprep is specified (default).
+ * See also stringprep-no.c.
  */
 
 #include "internal.h"

@@ -20,7 +20,7 @@
  */
 
 /*
- * Note: this file is only used when --disable-stringprep is specified.
+ * Note: this file is only used when --without-stringprep is specified.
  * Refer to stringprep.c for documentation.
  */
 
