@@ -20,18 +20,18 @@
  */
 
 #ifndef GSASL_H
-#define GSASL_H
+# define GSASL_H
 
-#include <stdio.h>		/* FILE */
-#include <stddef.h>		/* size_t */
-#include <unistd.h>		/* ssize_t */
+# include <stdio.h>		/* FILE */
+# include <stddef.h>		/* size_t */
+# include <unistd.h>		/* ssize_t */
 
-#ifdef __cplusplus
+# ifdef __cplusplus
 extern "C"
 {
-#endif
+# endif
 
-#define GSASL_VERSION "@PACKAGE_VERSION@"
+# define GSASL_VERSION "@PACKAGE_VERSION@"
 
 /* Quoting RFC 2222:
    SASL mechanisms are named by strings, from 1 to 20 characters in
@@ -244,10 +244,10 @@ extern "C"
 			     const char *in, size_t inlen, char *outhash[16]);
 
   /* For compatibility with earlier versions. */
-#include <gsasl-compat.h>
+# include <gsasl-compat.h>
 
-#ifdef __cplusplus
+# ifdef __cplusplus
 }
-#endif
+# endif
 
-#endif				/* GSASL_H */
+#endif /* GSASL_H */
