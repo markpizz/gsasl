@@ -528,3 +528,83 @@ gsasl_decode_inline (Gsasl_session * sctx,
 
   return res;
 }
+
+/**
+ * gsasl_application_data_set:
+ * @ctx: libgsasl handle.
+ * @appdata: opaque pointer to application specific data.
+ *
+ * Store application specific data in the libgsasl handle.  The
+ * application data can be later (for instance, inside a callback) be
+ * retrieved by calling gsasl_application_data_get().  It is normally
+ * used by the application to maintain state between the main program
+ * and the callback.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ **/
+void
+gsasl_application_data_set (Gsasl * ctx, void *appdata)
+{
+  ctx->application_hook = appdata;
+}
+
+/**
+ * gsasl_application_data_get:
+ * @ctx: libgsasl handle.
+ *
+ * Retrieve application specific data from libgsasl handle. The
+ * application data is set using gsasl_application_data_set().  It is
+ * normally used by the application to maintain state between the main
+ * program and the callback.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
+ * Return value: Returns the application specific data, or NULL.
+ **/
+void *
+gsasl_application_data_get (Gsasl * ctx)
+{
+  return ctx->application_hook;
+}
+
+/**
+ * gsasl_appinfo_set:
+ * @sctx: libgsasl session handle.
+ * @appdata: opaque pointer to application specific data.
+ *
+ * Store application specific data in the libgsasl session handle.
+ * The application data can be later (for instance, inside a callback)
+ * be retrieved by calling gsasl_appinfo_get().  It is normally used
+ * by the application to maintain state between the main program and
+ * the callback.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ **/
+void
+gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
+{
+  sctx->application_data = appdata;
+}
+
+/**
+ * gsasl_appinfo_get:
+ * @sctx: libgsasl session handle.
+ *
+ * Retrieve application specific data from libgsasl session
+ * handle. The application data is set using gsasl_appinfo_set().  It
+ * is normally used by the application to maintain state between the
+ * main program and the callback.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
+ * Return value: Returns the application specific data, or NULL.
+ **/
+void *
+gsasl_appinfo_get (Gsasl_session * sctx)
+{
+  return sctx->application_data;
+}

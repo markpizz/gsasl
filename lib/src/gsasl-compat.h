@@ -284,5 +284,9 @@ extern int gsasl_encode_inline (Gsasl_session * sctx,
 extern int gsasl_decode_inline (Gsasl_session * sctx,
 				const char *input, size_t input_len,
 				char *output, size_t * output_len);
+extern void gsasl_application_data_set (Gsasl * ctx, void *appdata);
+extern void *gsasl_application_data_get (Gsasl * ctx);
+extern void gsasl_appinfo_set (Gsasl_session * sctx, void *appdata);
+extern void *gsasl_appinfo_get (Gsasl_session * sctx);
 
 #endif /* GSASL_COMPAT_H */

@@ -1379,6 +1379,20 @@ similar to the GSSAPI callback).
 @chapter Callback Functions
 @cindex Callbacks
 
+The callback is used by mechanisms to retrieve information, such as
+username and password, from the application.  In a server, the
+callback is used to decide whether a user is permitted to log in or
+not.  You tell the library of your callback function by calling
+@code{gsasl_callback_set}.
+
+Since your callback may need to access to data from other parts of
+your application, there are hooks to store and retrieve application
+specific pointers.  This avoid the use of global variables in your
+application, which wouldn't be thread safe.  You store a pointer to
+some information (opaque from the point of view of the library) by
+calling @code{gsasl_callback_hook_set} and can later retrieve this
+data in your callback by calling @code{gsasl_callback_hook_get}.
+
 @include texi/callback.c.texi
 
 @c **********************************************************

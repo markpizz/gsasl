@@ -42,9 +42,9 @@ struct Gsasl
   Gsasl_mechanism *client_mechs;
   size_t n_server_mechs;
   Gsasl_mechanism *server_mechs;
-  void *application_data;
   /* Callback. */
   Gsasl_callback_function cb;
+  void *application_hook;
   /* Global properties. */
   char *anonymous_token;
   char *authid;
@@ -53,7 +53,7 @@ struct Gsasl
   char *passcode;
   char *pin;
   char *suggestedpin;
-  /* Obsolete callbacks. */
+  /* Obsolete stuff. */
   Gsasl_client_callback_authorization_id cbc_authorization_id;
   Gsasl_client_callback_authentication_id cbc_authentication_id;
   Gsasl_client_callback_password cbc_password;
@@ -85,7 +85,6 @@ struct Gsasl_session
   Gsasl *ctx;
   int clientp;
   Gsasl_mechanism *mech;
-  void *application_data;
   void *mech_data;
   /* Session specific properties.  If NULL, use corresponding global
    * property. */
@@ -96,6 +95,8 @@ struct Gsasl_session
   char *passcode;
   char *pin;
   char *suggestedpin;
+  /* Obsolete stuff. */
+  void *application_data;
 };
 
 #endif /* INTERNAL_H */

@@ -130,70 +130,35 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 }
 
 /**
- * gsasl_application_data_set:
+ * gsasl_callback_hook_set:
  * @ctx: libgsasl handle.
- * @appdata: opaque pointer to application specific data.
+ * @hook: opaque pointer to application specific data.
  *
  * Store application specific data in the libgsasl handle.  The
  * application data can be later (for instance, inside a callback) be
- * retrieved by calling gsasl_application_data_get().  It is normally
+ * retrieved by calling gsasl_callback_hook_get().  It is normally
  * used by the application to maintain state between the main program
  * and the callback.
  **/
 void
-gsasl_application_data_set (Gsasl * ctx, void *appdata)
+gsasl_callback_hook_set (Gsasl * ctx, void *hook)
 {
-  ctx->application_data = appdata;
+  ctx->application_hook = hook;
 }
 
 /**
- * gsasl_application_data_get:
+ * gsasl_callback_hook_get:
  * @ctx: libgsasl handle.
  *
  * Retrieve application specific data from libgsasl handle. The
- * application data is set using gsasl_appdata_set().  It is
+ * application data is set using gsasl_callback_hook_set().  It is
  * normally used by the application to maintain state between the main
  * program and the callback.
  *
  * Return value: Returns the application specific data, or NULL.
  **/
 void *
-gsasl_application_data_get (Gsasl * ctx)
+gsasl_callback_hook_get (Gsasl * ctx)
 {
-  return ctx->application_data;
-}
-
-/**
- * gsasl_appinfo_set:
- * @sctx: libgsasl session handle.
- * @appdata: opaque pointer to application specific data.
- *
- * Store application specific data in the libgsasl session handle.
- * The application data can be later (for instance, inside a callback)
- * be retrieved by calling gsasl_application_session_data_get().  It
- * is normally used by the application to maintain state between the
- * main program and the callback.
- **/
-void
-gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
-{
-  sctx->application_data = appdata;
-}
-
-/**
- * gsasl_appinfo_get:
- * @sctx: libgsasl session handle.
- *
- * Retrieve application specific data from libgsasl session
- * handle. The application data is set using
- * gsasl_application_session_data_set().  It is normally used by the
- * application to maintain state between the main program and the
- * callback.
- *
- * Return value: Returns the application specific data, or NULL.
- **/
-void *
-gsasl_appinfo_get (Gsasl_session * sctx)
-{
-  return sctx->application_data;
+  return ctx->application_hook;
 }
