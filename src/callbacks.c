@@ -58,12 +58,16 @@ static int
 utf8cpy (char *dst, size_t * dstlen, char *src, size_t srclen)
 {
   int nonasciiflag = 0;
-  char *p;
+  size_t i;
+  char *p = NULL;
 
   if (srclen != strlen (src))
     return !GSASL_OK;
 
+#if WITH_STRINGPREP
   p = stringprep_locale_to_utf8 (src);
+#endif
+
   if (p)
     {
       size_t len = strlen (p);
@@ -73,33 +77,32 @@ utf8cpy (char *dst, size_t * dstlen, char *src, size_t srclen)
       *dstlen = len;
       if (dst)
 	strcpy (dst, p);
+      return GSASL_OK;
     }
-  else
+
+#if WITH_STRINGPREP
+  fprintf (stderr, " ** failed to convert data from %s to UTF-8\n",
+	   stringprep_locale_charset ());
+  fprintf (stderr, " ** check the system locale configuration\n");
+  fprintf (stderr, " ** treating input as ASCII\n");
+#endif
+
+  if (dst && *dstlen < srclen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  *dstlen = srclen;
+  for (i = 0; i < srclen; i++)
     {
-      size_t i;
+      if (src[i] & 0x80)
+	nonasciiflag = 1;
+      dst[i] = src[i] & 0x7F;
+    }
 
-      fprintf (stderr, " ** failed to convert data from %s to UTF-8\n",
-	       stringprep_locale_charset ());
-      fprintf (stderr, " ** check the system locale configuration\n");
-      fprintf (stderr, " ** treating input as ASCII\n");
-
-      if (dst && *dstlen < srclen)
-	return GSASL_TOO_SMALL_BUFFER;
-
-      *dstlen = srclen;
-      for (i = 0; i < srclen; i++)
-	{
-	  if (src[i] & 0x80)
-	    nonasciiflag = 1;
-	  dst[i] = src[i] & 0x7F;
-	}
-
-      if (nonasciiflag)
-	{
-	  fprintf (stderr, " ** bit 8 stripped from string\n");
-	  fprintf (stderr, " ** original string: `%s'\n", src);
-	  fprintf (stderr, " ** stripped string: `%s'\n", dst);
-	}
+  if (nonasciiflag)
+    {
+      fprintf (stderr, " ** bit 8 stripped from string\n");
+      fprintf (stderr, " ** original string: `%s'\n", src);
+      fprintf (stderr, " ** stripped string: `%s'\n", dst);
     }
 
   return GSASL_OK;
