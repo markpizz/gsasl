@@ -1,3 +1,60 @@
+2005-02-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po:
+	Generated.
+
+2005-02-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.5.
+
+2005-02-08  Simon Josefsson <simon@josefsson.org>
+
+	* gl/progname.c: Fix.
+
+2005-01-29  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS, po/vi.po, NEWS: Add.
+
+2005-01-29  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/gai_strerror.c, gl/m4/codeset.m4,
+	gl/m4/error.m4, gl/m4/getaddrinfo.m4, gl/m4/getline.m4,
+	gl/m4/getndelim2.m4, gl/m4/getopt.m4, gl/m4/getpass.m4,
+	gl/m4/glibc21.m4, gl/m4/iconv.m4, gl/m4/inttypes_h.m4,
+	gl/m4/lib-ld.m4, gl/m4/lib-link.m4, gl/m4/lib-prefix.m4,
+	gl/m4/longdouble.m4, gl/m4/longlong.m4, gl/m4/restrict.m4,
+	gl/m4/signed.m4, gl/m4/size_max.m4, gl/m4/sockpfaf.m4,
+	gl/m4/ssize_t.m4, gl/m4/stdbool.m4, gl/m4/stdint_h.m4,
+	gl/m4/strdup.m4, gl/m4/strerror_r.m4, gl/m4/uintmax_t.m4,
+	gl/m4/ulonglong.m4, gl/m4/wchar_t.m4, gl/m4/wint_t.m4,
+	gl/m4/xsize.m4: Update.
+
+2005-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2005-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix typo, reported by Clytie Siddall
+	<clytie@riverland.net.au>.
+
+2005-01-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-01-02  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/external.c: Add external self test.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Add.
+
 2005-01-01  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
