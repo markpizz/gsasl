@@ -234,7 +234,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 
     case 2:
       {
-	char check[DIGEST_MD5_LENGTH];
+	char check[DIGEST_MD5_RESPONSE_LENGTH + 1];
 
 	if (digest_md5_parse_finish (input, input_len, &state->finish) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
