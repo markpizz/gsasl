@@ -339,13 +339,17 @@ AC_CHECK_FUNCS(getopt_long,, [AC_LIBOBJ(getopt) AC_LIBOBJ(getopt1)])
 AC_SEARCH_LIBS(socket, socket)
 AC_SEARCH_LIBS(gethostbyname, nsl)
 
+# For gnulib stuff in gl/.
+gl_GETOPT
+
 # Check for gtk-doc.
 GTK_DOC_CHECK(1.1)
 
 # We are done
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
 		doc/Makefile doc/reference/Makefile doc/doxygen/Doxyfile \
-		crypto/Makefile lib/Makefile lib/gsasl.h \
+		crypto/Makefile gl/Makefile \
+		lib/Makefile lib/gsasl.h \
 		lib/anonymous/Makefile lib/cram-md5/Makefile \
 		lib/digest-md5/Makefile lib/external/Makefile \
 		lib/gssapi/Makefile lib/kerberos_v5/Makefile \
