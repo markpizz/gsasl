@@ -567,7 +567,7 @@ _gsasl_gssapi_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
     gss_delete_sec_context (&min_stat, &state->context, GSS_C_NO_BUFFER);
 
   if (state->cred != GSS_C_NO_CREDENTIAL)
-    gss_release_cred (&min_stat, state->cred);
+    gss_release_cred (&min_stat, &state->cred);
 
   free (state);
 
