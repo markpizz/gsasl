@@ -1,3 +1,154 @@
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/zh_CN.po: Generated.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.4.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Indent.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* po/ro.po: Sync with TP.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/error.c, gl/iconvme.c, gl/Makefile.am, gl/m4/getline.m4,
+	gl/m4/gnulib.m4, gl/m4/strdup.m4: Update.
+
+2004-12-27  Simon Josefsson <simon@josefsson.org>
+
+	* examples/client-callback.c, examples/client-mech.c,
+	examples/client-serverfirst.c, examples/client.c, src/callbacks.c,
+	src/callbacks.h, tests/gssapi.c, tests/simple.c: Indent.
+
+2004-12-26  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Revert.
+
+2004-12-26  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/zh_CN.po: Sync with TP.
+
+2004-12-26  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2004-12-21  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Only set realm if entered.
+
+2004-12-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-21  Simon Josefsson <simon@josefsson.org>
+
+	* src/smtp.c: Fix CRLF.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/md5file.c, tests/old-md5file.c: Replace
+	gsasl_md5pwd_get_password with gsasl_simple_getpass, and update
+	callers.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, tests/Makefile.am: Add --disable-obsolete.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* tests/digest-md5.c: Rewrite using new API.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* tests/old-digest-md5.c: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* tests/digest-md5.c: Work around x86 sparc printf bug.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/iconvme.c, gl/m4/getline.m4, gl/m4/strdup.m4: Update.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Add realm callback.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.ggo: No multiple realms.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Fix callback for service/hostname.
+
+2004-12-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2004-12-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/iconvme.c: Update.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Fix.
+
 2004-12-15  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
