@@ -1,4 +1,4 @@
-# argp vasprintf gethostname memmove memset strdup
+# argp vasprintf gethostname memmove memset strdup minmax
 # s/libfoo_a/libfoo_la/g s/libfoo.a/libfoo.la/g
 SUBDIRS = m4
 
@@ -50,6 +50,8 @@ libfoo_la_SOURCES += gettext.h
 
 libfoo_la_SOURCES += mempcpy.h
 
+
+libfoo_la_SOURCES += minmax.h
 
 
 libfoo_la_SOURCES += strchrnul.h
