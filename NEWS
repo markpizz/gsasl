@@ -3,6 +3,8 @@ See the end for copying conditions.
 
 Please send libgsasl bug reports to bug-libgsasl@josefsson.org.
 
+** Libgsasl is an official GNU project.
+
 * Changes in 0.0.3 (released 2002-12-05)
 
 ** New gsasl arguments --application-data and --no-client-first.
