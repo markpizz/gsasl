@@ -24,7 +24,7 @@ AM_CPPFLAGS = -I$(srcdir)/../gl -I$(srcdir)/.. \
 	-I$(srcdir)/../crypto -I../crypto
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 
-include_HEADERS = gsasl.h gsasl-compat.h
+include_HEADERS = gsasl.h gsasl-mech.h gsasl-compat.h
 
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 libgsasl_la_LIBADD = @LTLIBINTL@ ../gl/libgl.la ../crypto/libgc.la
