@@ -31,7 +31,7 @@ section "Network options"
 option "connect" - "Connect to TCP server and negotiate on stream instead of stdin/stdout. SERVICE is the protocol service, or an integer denoting the port, and defaults to 143 (imap) if not specified. Also sets the --hostname default." string typestr="HOSTNAME[:SERVICE]" no
 
 section "Generic options"
-option "application-data" d "After authentication, read data from stdin and run it through the mechanism's security layer and print it base64 encoded to stdout. The default is to terminate after authentication." flag off
+option "application-data" d "After authentication, read data from stdin and run it through the mechanism's security layer and print it base64 encoded to stdout. The default is to terminate after authentication." flag on
 option "imap" - "Use a IMAP-like logon procedure (client only). Also sets the --service default to 'imap'." flag off
 option "smtp" - "Use a SMTP-like logon procedure (client only). Also sets the --service default to 'smtp'." flag off
 option "mechanism" m "Mechanism to use." string no
