@@ -45,24 +45,24 @@ indent:
 	(cd src && make indent)
 	(cd tests && make indent)
 
+htmldir = ../www-$(PACKAGE)
 tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
-shortname = gsasl
-htmldir = ../www-$(shortname)
 
 release:
 	cvs upd -p -r HEAD NEWS > /dev/null
 	if cvs upd -p -r $(tag) NEWS > /dev/null; then false else true; fi
 	rm -f ChangeLog && cvs upd ChangeLog
 	cvs commit
-	$(MAKE) distcheck
+	rm -f ChangeLog
+	$(MAKE) ChangeLog distcheck
 	cvs commit -m "" ChangeLog
 	rm -f $(distdir).tar.gz.asc
 	gpg -a --sign --detach $(distdir).tar.gz
 	gpg --verify $(distdir).tar.gz.asc
-	scp $(distdir).tar.gz* gnudist.gnu.org:~alpha/gnu/$(shortname)/
-	test -d $(htmldir) && cp -v doc/$(shortname).{ps,pdf,html} $(htmldir)/
+	scp $(distdir).tar.gz* gnudist.gnu.org:~alpha/gnu/$(PACKAGE)/
+	test -d $(htmldir) && cp -v doc/$(PACKAGE).{ps,pdf,html} $(htmldir)/
 	test -d $(htmldir)/reference && \
-		cp -v doc/reference/html/*.html $(htmldir)/reference/
+		cp -v reference/*.html $(htmldir)/reference/
 	test -d $(htmldir) && cd $(htmldir) && cvs commit -m "Update." \
-		$(shortname).{ps,pdf,html} reference/*.html
-	cvs rtag $(tag) $(shortname)
+		$(PACKAGE).{ps,pdf,html} reference/*.html
+	cvs rtag $(tag) $(PACKAGE)
