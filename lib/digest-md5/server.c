@@ -40,6 +40,7 @@
 #include "free.h"
 #include "session.h"
 #include "digesthmac.h"
+#include "validate.h"
 
 /* Get uint32_t. */
 #include <netinet/in.h>
@@ -107,7 +108,6 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 {
   _Gsasl_digest_md5_server_state *state = mech_data;
   int rc, res;
-  int outlen;
 
   *output = NULL;
   *output_len = 0;

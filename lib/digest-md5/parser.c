@@ -33,6 +33,9 @@
 /* Get memcpy, strlen. */
 #include <string.h>
 
+/* Get validator. */
+#include "validate.h"
+
 #define DEFAULT_CHARSET "utf-8"
 #define DEFAULT_ALGORITHM "md5-sess"
 

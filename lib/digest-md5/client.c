@@ -69,7 +69,6 @@ _gsasl_digest_md5_client_start (Gsasl_session * sctx, void **mech_data)
   char nonce[CNONCE_ENTROPY_BYTES];
   char *p;
   int rc;
-  size_t i;
 
   rc = gsasl_nonce (nonce, CNONCE_ENTROPY_BYTES);
   if (rc != GSASL_OK)
@@ -102,10 +101,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 			       char **output, size_t * output_len)
 {
   _Gsasl_digest_md5_client_state *state = mech_data;
-  char *subopts;
-  char *value;
-  int outlen;
-  int rc, res, i;
+  int rc, res;
 
   *output = NULL;
   *output_len = 0;
@@ -219,16 +215,13 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	  return GSASL_CRYPTO_ERROR;
 
 	*output = digest_md5_print_response (&state->response);
-	if (*output)
-	  {
-	    *output_len = strlen (*output);
-	    res = GSASL_NEEDS_MORE;
-	  }
-	else
-	  {
-	    res = GSASL_AUTHENTICATION_ERROR;
-	  }
+	if (!*output)
+	  return GSASL_AUTHENTICATION_ERROR;
+
+	*output_len = strlen (*output);
+
 	state->step++;
+	res = GSASL_NEEDS_MORE;
       }
       break;
 
