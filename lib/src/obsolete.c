@@ -32,10 +32,9 @@
  * the libgsasl client to the output array.  To find out how large the
  * output array must be, call this function with out=NULL.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns GSASL_OK if successful, or error code.
+ *
+ * Deprecated: Use gsasl_client_mechlist() instead.
  **/
 int
 gsasl_client_listmech (Gsasl * ctx, char *out, size_t * outlen)
@@ -75,10 +74,9 @@ gsasl_client_listmech (Gsasl * ctx, char *out, size_t * outlen)
  * the libgsasl server to the output array.  To find out how large the
  * output array must be, call this function with out=NULL.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns GSASL_OK if successful, or error code.
+ *
+ * Deprecated: Use gsasl_server_mechlist() instead.
  **/
 int
 gsasl_server_listmech (Gsasl * ctx, char *out, size_t * outlen)
@@ -152,12 +150,11 @@ _gsasl_step (Gsasl_session * sctx,
  * The contents of the output buffer is unspecified if this functions
  * returns anything other than GSASL_NEEDS_MORE.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns GSASL_OK if authenticated terminated
  * successfully, GSASL_NEEDS_MORE if more data is needed, or error
  * code.
+ *
+ * Deprecated: Use gsasl_step() instead.
  **/
 int
 gsasl_client_step (Gsasl_session * sctx,
@@ -183,12 +180,11 @@ gsasl_client_step (Gsasl_session * sctx,
  * The contents of the output buffer is unspecified if this functions
  * returns anything other than GSASL_NEEDS_MORE.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns GSASL_OK if authenticated terminated
  * successfully, GSASL_NEEDS_MORE if more data is needed, or error
  * code.
+ *
+ * Deprecated: Use gsasl_step() instead.
  **/
 int
 gsasl_server_step (Gsasl_session * sctx,
@@ -234,10 +230,9 @@ _gsasl_step64 (Gsasl_session * sctx,
  * This is a simple wrapper around gsasl_client_step() that base64
  * decodes the input and base64 encodes the output.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: See gsasl_client_step().
+ *
+ * Deprecated: Use gsasl_step64() instead.
  **/
 int
 gsasl_client_step_base64 (Gsasl_session * sctx,
@@ -257,10 +252,9 @@ gsasl_client_step_base64 (Gsasl_session * sctx,
  * This is a simple wrapper around gsasl_server_step() that base64
  * decodes the input and base64 encodes the output.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: See gsasl_server_step().
+ *
+ * Deprecated: Use gsasl_step64() instead.
  **/
 int
 gsasl_server_step_base64 (Gsasl_session * sctx,
@@ -277,8 +271,7 @@ gsasl_server_step_base64 (Gsasl_session * sctx,
  * Destroy a libgsasl client handle.  The handle must not be used with
  * other libgsasl functions after this call.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
+ * Deprecated: Use gsasl_finish() instead.
  **/
 void
 gsasl_client_finish (Gsasl_session * sctx)
@@ -293,8 +286,7 @@ gsasl_client_finish (Gsasl_session * sctx)
  * Destroy a libgsasl server handle.  The handle must not be used with
  * other libgsasl functions after this call.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
+ * Deprecated: Use gsasl_finish() instead.
  **/
 void
 gsasl_server_finish (Gsasl_session * sctx)
@@ -306,10 +298,9 @@ gsasl_server_finish (Gsasl_session * sctx)
  * gsasl_client_ctx_get:
  * @sctx: libgsasl client handle
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns the libgsasl handle given a libgsasl client handle.
+ *
+ * Deprecated: This function is not useful with the new 0.2.0 API.
  **/
 Gsasl *
 gsasl_client_ctx_get (Gsasl_session * sctx)
@@ -328,8 +319,7 @@ gsasl_client_ctx_get (Gsasl_session * sctx)
  * normally used by the application to maintain state between the main
  * program and the callback.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
+ * Deprecated: Use gsasl_callback_hook_set() instead.
  **/
 void
 gsasl_client_application_data_set (Gsasl_session * sctx,
@@ -347,10 +337,9 @@ gsasl_client_application_data_set (Gsasl_session * sctx,
  * It is normally used by the application to maintain state between
  * the main program and the callback.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns the application specific data, or NULL.
+ *
+ * Deprecated: Use gsasl_callback_hook_get() instead.
  **/
 void *
 gsasl_client_application_data_get (Gsasl_session * sctx)
@@ -362,10 +351,9 @@ gsasl_client_application_data_get (Gsasl_session * sctx)
  * gsasl_server_ctx_get:
  * @sctx: libgsasl server handle
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns the libgsasl handle given a libgsasl server handle.
+ *
+ * Deprecated: This function is not useful with the new 0.2.0 API.
  **/
 Gsasl *
 gsasl_server_ctx_get (Gsasl_session * sctx)
@@ -384,8 +372,7 @@ gsasl_server_ctx_get (Gsasl_session * sctx)
  * normally used by the application to maintain state between the main
  * program and the callback.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
+ * Deprecated: Use gsasl_callback_hook_set() instead.
  **/
 void
 gsasl_server_application_data_set (Gsasl_session * sctx,
@@ -403,10 +390,9 @@ gsasl_server_application_data_set (Gsasl_session * sctx,
  * It is normally used by the application to maintain state between
  * the main program and the callback.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns the application specific data, or NULL.
+ *
+ * Deprecated: Use gsasl_callback_hook_get() instead.
  **/
 void *
 gsasl_server_application_data_get (Gsasl_session * sctx)
@@ -423,10 +409,9 @@ gsasl_server_application_data_get (Gsasl_session * sctx)
  * Store cryptographically random data of given size in the provided
  * buffer.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns %GSASL_OK iff successful.
+ *
+ * Deprecated: Use gsasl_random() or gsasl_nonce() instead.
  **/
 int
 gsasl_randomize (int strong, char *data, size_t datalen)
@@ -440,10 +425,9 @@ gsasl_randomize (int strong, char *data, size_t datalen)
  * gsasl_ctx_get:
  * @sctx: libgsasl session handle
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns the libgsasl handle given a libgsasl session handle.
+ *
+ * Deprecated: This function is not useful with the new 0.2.0 API.
  **/
 Gsasl *
 gsasl_ctx_get (Gsasl_session * sctx)
@@ -462,11 +446,10 @@ gsasl_ctx_get (Gsasl_session * sctx)
  * Encode data according to negotiated SASL mechanism.  This might mean
  * that data is integrity or privacy protected.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns GSASL_OK if encoding was successful, otherwise
  * an error code.
+ *
+ * Deprecated: Use gsasl_encode() instead.
  **/
 int
 gsasl_encode_inline (Gsasl_session * sctx,
@@ -501,11 +484,10 @@ gsasl_encode_inline (Gsasl_session * sctx,
  * Decode data according to negotiated SASL mechanism.  This might mean
  * that data is integrity or privacy protected.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns GSASL_OK if encoding was successful, otherwise
  * an error code.
+ *
+ * Deprecated: Use gsasl_decode() instead.
  **/
 int
 gsasl_decode_inline (Gsasl_session * sctx,
@@ -540,8 +522,7 @@ gsasl_decode_inline (Gsasl_session * sctx,
  * used by the application to maintain state between the main program
  * and the callback.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
+ * Deprecated: Use gsasl_callback_hook_set() instead.
  **/
 void
 gsasl_application_data_set (Gsasl * ctx, void *appdata)
@@ -558,10 +539,9 @@ gsasl_application_data_set (Gsasl * ctx, void *appdata)
  * normally used by the application to maintain state between the main
  * program and the callback.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns the application specific data, or NULL.
+ *
+ * Deprecated: Use gsasl_callback_hook_get() instead.
  **/
 void *
 gsasl_application_data_get (Gsasl * ctx)
@@ -580,8 +560,7 @@ gsasl_application_data_get (Gsasl * ctx)
  * by the application to maintain state between the main program and
  * the callback.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
+ * Deprecated: Use gsasl_callback_hook_set() instead.
  **/
 void
 gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
@@ -598,10 +577,9 @@ gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
  * is normally used by the application to maintain state between the
  * main program and the callback.
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns the application specific data, or NULL.
+ *
+ * Deprecated: Use gsasl_callback_hook_get() instead.
  **/
 void *
 gsasl_appinfo_get (Gsasl_session * sctx)
@@ -615,11 +593,11 @@ gsasl_appinfo_get (Gsasl_session * sctx)
  * @mechlist: input character array with SASL mechanism names,
  *   separated by invalid characters (e.g. SPC).
  *
- * Note that this function is obsolete and may be removed in the
- * future.
- *
  * Return value: Returns name of "best" SASL mechanism supported by
  * the libgsasl server which is present in the input string.
+ *
+ * Deprecated: This function was never useful, since it is the client
+ * that chose which mechanism to use.
  **/
 const char *
 gsasl_server_suggest_mechanism (Gsasl * ctx, const char *mechlist)
