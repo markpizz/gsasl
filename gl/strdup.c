@@ -22,7 +22,7 @@
 #endif
 
 #ifndef _LIBC
-/* Get specification. */
+/* Get specification.  */
 #include "strdup.h"
 #endif
 

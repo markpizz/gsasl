@@ -16,14 +16,14 @@
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #ifndef STRDUP_H_
-# define STRDUP_H_
+#define STRDUP_H_
 
-/* Get strdup, if available. */
+/* Get strdup declaration, if available.  */
 #include <string.h>
 
-#if defined HAVE_DECL_STRDUP && !HAVE_DECL_STRDUP && !defined strdup
+#if !HAVE_DECL_STRDUP && !defined strdup
 /* Duplicate S, returning an identical malloc'd string.  */
-char *strdup (const char *s);
+extern char *strdup (const char *s);
 #endif
 
-#endif /* !STRDUP_H_ */
+#endif /* STRDUP_H_ */
