@@ -36,6 +36,8 @@
  *
  * Return value: Returns %GSASL_OK on success, or %GSASL_MALLOC_ERROR
  *   if input was too large or memory allocation fail.
+ *
+ * Since: 0.2.2
  **/
 int
 gsasl_base64_to (const char *in, size_t inlen, char **out, size_t * outlen)
@@ -64,6 +66,8 @@ gsasl_base64_to (const char *in, size_t inlen, char **out, size_t * outlen)
  * Return value: Returns %GSASL_OK on success, %GSASL_BASE64_ERROR if
  *   input was invalid, and %GSASL_MALLOC_ERROR on memory allocation
  *   errors.
+ *
+ * Since: 0.2.2
  **/
 int
 gsasl_base64_from (const char *in, size_t inlen, char **out, size_t * outlen)
