@@ -172,6 +172,23 @@ install-data-local:
 	  $(INSTALL_DATA) $(srcdir)/html/index.sgml $(DESTDIR)$(TARGET_DIR); \
 	fi)
 
+##############
+
+uninstall-local:
+	(uninstallfiles=`cd $(srcdir)/html/; echo *.html`; \
+	if test "$$uninstallfiles" = '*.html'; \
+	then echo '-- Nothing to uninstall' ; \
+	else \
+	  for i in $$uninstallfiles; do \
+	    echo '-- Uninstalling '$$i ; \
+	    rm -f $(DESTDIR)$(TARGET_DIR)/$$i; \
+	  done; \
+	  echo '-- Uninstalling $(srcdir)/html/index.sgml' ; \
+	  rm -f $(DESTDIR)$(TARGET_DIR)/index.sgml; \
+	  echo '-- Uninstalling $(DESTDIR)$(TARGET_DIR)' ; \
+	  test ! -d $(DESTDIR)$(TARGET_DIR) || rmdir $(DESTDIR)$(TARGET_DIR); \
+	fi)
+
 #
 # Require gtk-doc when making dist
 #
@@ -180,7 +197,7 @@ dist-check-gtkdoc:
 else
 dist-check-gtkdoc:
 	@echo "*** gtk-doc must be installed and enabled in order to make dist"
-	@false
+	-@false
 endif
 
 dist-hook: dist-check-gtkdoc dist-hook-local
