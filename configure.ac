@@ -298,10 +298,8 @@ AM_CONDITIONAL(SERVER, test x$server = xyes)
 
 # Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(sys/types.h)
-AC_CHECK_HEADERS(unistd.h strings.h netdb.h limits.h)
-AC_CHECK_HEADERS(sys/poll.h sys/time.h sys/select.h sys/socket.h)
-AC_CHECK_HEADERS(netinet/in.h errno.h)
+AC_CHECK_HEADERS(sys/types.h sys/poll.h sys/time.h sys/select.h sys/socket.h)
+AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h errno.h)
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
