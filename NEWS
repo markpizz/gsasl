@@ -2,7 +2,7 @@ GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
-* Changes in 0.0.13 (unreleased)
+* Changes in 0.0.13 (released 2004-01-17)
 
 ** Nettle (the crypto functionality, crypto/) has been updated.
 This fixes two portability issues, the new code should work on
