@@ -22,15 +22,31 @@
 #ifndef _INTERNAL_H
 #define _INTERNAL_H
 
+#if HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#ifdef STDC_HEADERS
+#include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <ctype.h>
-#include <string.h>
+#endif
+
+#if HAVE_STRING_H
+# if !STDC_HEADERS && HAVE_MEMORY_H
+#  include <memory.h>
+# endif
+# include <string.h>
+#endif
+#if HAVE_STRINGS_H
+# include <strings.h>
+#endif
 
 #include <stringprep.h>
 
-#include "config.h"
-#include "gsasl.h"
 #include "gettext.h"
+#include "gsasl.h"
 
 #ifdef ENABLE_NLS
 extern char *_gsasl_gettext (const char *str);
