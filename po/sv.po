@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU libgsasl 0.0\n"
-"POT-Creation-Date: 2003-02-14 17:13+0100\n"
+"POT-Creation-Date: 2003-03-17 18:51+0100\n"
 "PO-Revision-Date: 2002-10-05 19:32+0200\n"
 "Last-Translator: Simon Josefsson <simon@josefsson.org>\n"
 "Language-Team: Swedish <sv@li.org>\n"
