@@ -87,7 +87,6 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
   return res;
 }
 
-#ifdef USE_CLIENT
 /**
  * gsasl_client_step:
  * @sctx: libgsasl client handle.
@@ -138,9 +137,7 @@ gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
   return _gsasl_session_step_base64 (sctx, b64input, b64output,
 				     b64output_len, 1);
 }
-#endif /* USE_CLIENT */
 
-#ifdef USE_SERVER
 /**
  * gsasl_server_step:
  * @sctx: libgsasl server handle.
@@ -190,4 +187,3 @@ gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
   return _gsasl_session_step_base64 (sctx, b64input, b64output,
 				     b64output_len, 0);
 }
-#endif /* USE_SERVER */

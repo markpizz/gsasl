@@ -21,7 +21,6 @@
 
 #include "internal.h"
 
-#ifdef USE_CLIENT
 /**
  * gsasl_client_listmech:
  * @ctx: libgsasl handle.
@@ -60,9 +59,7 @@ gsasl_client_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
 
   return rc;
 }
-#endif
 
-#ifdef USE_SERVER
 /**
  * gsasl_server_listmech:
  * @ctx: libgsasl handle.
@@ -101,4 +98,3 @@ gsasl_server_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
 
   return rc;
 }
-#endif

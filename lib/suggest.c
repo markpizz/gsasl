@@ -21,7 +21,6 @@
 
 #include "internal.h"
 
-#ifdef USE_CLIENT
 /**
  * gsasl_client_suggest_mechanism:
  * @ctx: libgsasl handle.
@@ -37,9 +36,7 @@ gsasl_client_suggest_mechanism (Gsasl_ctx * ctx, const char *mechlist)
   /* XXX parse mechlist */
   return ctx->client_mechs[0].name;
 }
-#endif
 
-#if USE_SERVER
 /**
  * gsasl_server_suggest_mechanism:
  * @ctx: libgsasl handle.
@@ -55,4 +52,3 @@ gsasl_server_suggest_mechanism (Gsasl_ctx * ctx, const char *mechlist)
   /* XXX parse mechlist */
   return ctx->server_mechs[0].name;
 }
-#endif

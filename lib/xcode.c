@@ -46,15 +46,9 @@ gsasl_encode (Gsasl_session_ctx * sctx,
   if (sctx)
     {
       if (sctx->clientp)
-#ifdef USE_CLIENT
-	code = sctx->mech->client.encode
-#endif
-	  ;
+	code = sctx->mech->client.encode;
       else
-#ifdef USE_SERVER
-	code = sctx->mech->server.encode
-#endif
-	  ;
+	code = sctx->mech->server.encode;
     }
 
   if (code == NULL)
@@ -98,15 +92,9 @@ gsasl_decode (Gsasl_session_ctx * sctx,
   if (sctx)
     {
       if (sctx->clientp)
-#ifdef USE_CLIENT
-	code = sctx->mech->client.decode
-#endif
-	  ;
+	code = sctx->mech->client.decode;
       else
-#ifdef USE_SERVER
-	code = sctx->mech->server.decode
-#endif
-	  ;
+	code = sctx->mech->server.decode;
     }
 
   if (code == NULL)

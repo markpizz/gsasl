@@ -61,7 +61,6 @@ _gsasl_listmech (Gsasl_ctx * ctx,
   return GSASL_OK;
 }
 
-#ifdef USE_CLIENT
 /**
  * gsasl_client_mechlist:
  * @ctx: libgsasl handle.
@@ -79,9 +78,7 @@ gsasl_client_mechlist (Gsasl_ctx * ctx, char **out)
 {
   return _gsasl_listmech (ctx, ctx->client_mechs, ctx->n_client_mechs, out, 1);
 }
-#endif
 
-#ifdef USE_SERVER
 /**
  * gsasl_server_listmech:
  * @ctx: libgsasl handle.
@@ -99,4 +96,3 @@ gsasl_server_mechlist (Gsasl_ctx * ctx, char **out)
 {
   return _gsasl_listmech (ctx, ctx->server_mechs, ctx->n_server_mechs, out, 1);
 }
-#endif

@@ -74,7 +74,6 @@ _gsasl_session_start (Gsasl_ctx * ctx,
   return GSASL_OK;
 }
 
-#ifdef USE_CLIENT
 /**
  * gsasl_client_start:
  * @ctx: libgsasl handle.
@@ -93,9 +92,7 @@ gsasl_client_start (Gsasl_ctx * ctx,
 {
   return _gsasl_session_start (ctx, mech, sctx, 1);
 }
-#endif /* USE_CLIENT */
 
-#ifdef USE_SERVER
 /**
  * gsasl_server_start:
  * @ctx: libgsasl handle.
@@ -114,4 +111,3 @@ gsasl_server_start (Gsasl_ctx * ctx,
 {
   return _gsasl_session_start (ctx, mech, sctx, 0);
 }
-#endif /* USE_SERVER */
