@@ -54,15 +54,6 @@ gsasl_done (Gsasl * ctx)
     free (ctx->server_mechs);
 #endif
 
-  if (ctx->anonymous_token)
-    free (ctx->anonymous_token);
-  if (ctx->authid)
-    free (ctx->authid);
-  if (ctx->authzid)
-    free (ctx->authzid);
-  if (ctx->password)
-    free (ctx->password);
-
   free (ctx);
 
   return;
