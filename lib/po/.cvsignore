@@ -7,7 +7,7 @@ Rules-quot
 boldquot.sed
 en@boldquot.header
 en@quot.header
-gsasl.pot
+libgsasl.pot
 insert-header.sin
 quot.sed
 remove-potcdate.sed
