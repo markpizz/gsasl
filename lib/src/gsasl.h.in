@@ -86,6 +86,7 @@ extern "C"
     GSASL_NO_SERVER_CODE,
     GSASL_NO_CALLBACK,
     GSASL_NO_ANONYMOUS_TOKEN,
+    GSASL_NO_AUTHID,
     GSASL_NO_AUTHZID,
     GSASL_NO_PASSWORD,
     /* Mechanism specific errors. */

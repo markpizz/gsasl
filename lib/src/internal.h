@@ -95,6 +95,7 @@ struct Gsasl
   Gsasl_callback cb;
   /* Global properties. */
   char *anonymous_token;
+  char *authid;
   char *authzid;
   char *password;
   /* Obsolete callbacks. */
@@ -137,6 +138,7 @@ struct Gsasl_session
   /* Session specific properties.  If NULL, use corresponding global
    * property. */
   char *anonymous_token;
+  char *authid;
   char *authzid;
   char *password;
 };
