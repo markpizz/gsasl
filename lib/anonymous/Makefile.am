@@ -30,4 +30,3 @@ endif
 if SERVER
 libgsasl_anonymous_la_SOURCES += server.c
 endif
-
