@@ -58,7 +58,7 @@ extern char *_gsasl_gettext (const char *str);
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 
-typedef int (*_Gsasl_code_function) (Gsasl_session_ctx * cctx,
+typedef int (*_Gsasl_code_function) (Gsasl_session_ctx * sctx,
 				     void *mech_data,
 				     const char *input,
 				     size_t input_len,
@@ -68,12 +68,12 @@ struct _Gsasl_mechanism_functions
 {
   int (*init) (Gsasl_ctx * ctx);
   void (*done) (Gsasl_ctx * ctx);
-  int (*start) (Gsasl_session_ctx * cctx, void **mech_data);
-  int (*step) (Gsasl_session_ctx * cctx,
+  int (*start) (Gsasl_session_ctx * sctx, void **mech_data);
+  int (*step) (Gsasl_session_ctx * sctx,
 	       void *mech_data,
 	       const char *input,
 	       size_t input_len, char *output, size_t * output_len);
-  int (*finish) (Gsasl_session_ctx * cctx, void *mech_data);
+  int (*finish) (Gsasl_session_ctx * sctx, void *mech_data);
   _Gsasl_code_function encode;
   _Gsasl_code_function decode;
 };

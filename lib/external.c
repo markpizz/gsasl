@@ -36,7 +36,7 @@ _gsasl_external_client_done (Gsasl_ctx * ctx)
 }
 
 int
-_gsasl_external_client_start (Gsasl_session_ctx * cctx, void **mech_data)
+_gsasl_external_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   *mech_data = NULL;
 
@@ -44,7 +44,7 @@ _gsasl_external_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 }
 
 int
-_gsasl_external_client_step (Gsasl_session_ctx * cctx,
+_gsasl_external_client_step (Gsasl_session_ctx * sctx,
 			     void *mech_data,
 			     const char *input,
 			     size_t input_len,
@@ -56,7 +56,7 @@ _gsasl_external_client_step (Gsasl_session_ctx * cctx,
 }
 
 int
-_gsasl_external_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
+_gsasl_external_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   return GSASL_OK;
 }

@@ -36,12 +36,12 @@ _gsasl_securid_client_done (Gsasl_ctx * ctx)
 }
 
 int
-_gsasl_securid_client_start (Gsasl_session_ctx * cctx, void **mech_data)
+_gsasl_securid_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   Gsasl_ctx *ctx;
   int *step;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -69,7 +69,7 @@ _gsasl_securid_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 #define PIN "pin"
 
 int
-_gsasl_securid_client_step (Gsasl_session_ctx * cctx,
+_gsasl_securid_client_step (Gsasl_session_ctx * sctx,
 			    void *mech_data,
 			    const char *input,
 			    size_t input_len,
@@ -86,7 +86,7 @@ _gsasl_securid_client_step (Gsasl_session_ctx * cctx,
   int res;
   size_t len;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -131,19 +131,19 @@ _gsasl_securid_client_step (Gsasl_session_ctx * cctx,
     case 0:
       tmp = output;
       len = *output_len - (tmp - output);
-      res = cb_authorization_id (cctx, output, &len);
+      res = cb_authorization_id (sctx, output, &len);
       if (res != GSASL_OK)
 	return res;
       tmp[len] = '\0';
       tmp = tmp + len + 1;
       len = *output_len - (tmp - output);
-      res = cb_authentication_id (cctx, tmp, &len);
+      res = cb_authentication_id (sctx, tmp, &len);
       if (res != GSASL_OK)
 	return res;
       tmp[len] = '\0';
       tmp = tmp + len + 1;
       len = *output_len - (tmp - output);
-      res = cb_passcode (cctx, tmp, &len);
+      res = cb_passcode (sctx, tmp, &len);
       if (res != GSASL_OK)
 	return res;
       tmp[len] = '\0';
@@ -161,11 +161,11 @@ _gsasl_securid_client_step (Gsasl_session_ctx * cctx,
 	      memcpy (zsuggestedpin, &input[strlen (PIN)],
 		      input_len - strlen (PIN));
 	      zsuggestedpin[input_len - strlen (PIN)] = '\0';
-	      res = cb_pin (cctx, zsuggestedpin, tmp, &len);
+	      res = cb_pin (sctx, zsuggestedpin, tmp, &len);
 	      free (zsuggestedpin);
 	    }
 	  else
-	    res = cb_pin (cctx, NULL, tmp, &len);
+	    res = cb_pin (sctx, NULL, tmp, &len);
 	  if (res != GSASL_OK)
 	    return res;
 	  tmp[len] = '\0';
@@ -192,7 +192,7 @@ _gsasl_securid_client_step (Gsasl_session_ctx * cctx,
 }
 
 int
-_gsasl_securid_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
+_gsasl_securid_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   int *step = mech_data;
 

@@ -45,12 +45,12 @@ _gsasl_ntlm_client_done (Gsasl_ctx * ctx)
 }
 
 int
-_gsasl_ntlm_client_start (Gsasl_session_ctx * cctx, void **mech_data)
+_gsasl_ntlm_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   _Gsasl_ntlm_state *state;
   Gsasl_ctx *ctx;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -73,7 +73,7 @@ _gsasl_ntlm_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 }
 
 int
-_gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
+_gsasl_ntlm_client_step (Gsasl_session_ctx * sctx,
 			 void *mech_data,
 			 const char *input,
 			 size_t input_len, char *output, size_t * output_len)
@@ -91,7 +91,7 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
   size_t len;
   int res;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -111,11 +111,11 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
          return GSASL_MECHANISM_PARSE_ERROR; */
 
       len = *output_len;
-      res = cb_authorization_id (cctx, NULL, &len);
+      res = cb_authorization_id (sctx, NULL, &len);
       if (res != GSASL_OK)
 	return res;
       state->username = malloc (len + 1);
-      res = cb_authorization_id (cctx, state->username, &len);
+      res = cb_authorization_id (sctx, state->username, &len);
       if (res != GSASL_OK)
 	return res;
       state->username[len] = '\0';
@@ -144,11 +144,11 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
       memcpy (&challenge, input, input_len);
 
       len = *output_len;
-      res = cb_password (cctx, NULL, &len);
+      res = cb_password (sctx, NULL, &len);
       if (res != GSASL_OK)
 	return res;
       password = malloc (len + 1);
-      res = cb_password (cctx, password, &len);
+      res = cb_password (sctx, password, &len);
       if (res != GSASL_OK)
 	return res;
       password[len] = '\0';
@@ -177,7 +177,7 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * cctx,
 }
 
 int
-_gsasl_ntlm_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
+_gsasl_ntlm_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   _Gsasl_ntlm_state *state = mech_data;
 

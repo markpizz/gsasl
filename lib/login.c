@@ -41,12 +41,12 @@ _gsasl_login_client_done (Gsasl_ctx * ctx)
 }
 
 int
-_gsasl_login_client_start (Gsasl_session_ctx * cctx, void **mech_data)
+_gsasl_login_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   struct _Gsasl_login_client_state *state;
   Gsasl_ctx *ctx;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -68,7 +68,7 @@ _gsasl_login_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 }
 
 int
-_gsasl_login_client_step (Gsasl_session_ctx * cctx,
+_gsasl_login_client_step (Gsasl_session_ctx * sctx,
 			  void *mech_data,
 			  const char *input,
 			  size_t input_len, char *output, size_t * output_len)
@@ -80,7 +80,7 @@ _gsasl_login_client_step (Gsasl_session_ctx * cctx,
   char *tmp;
   int res;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -95,7 +95,7 @@ _gsasl_login_client_step (Gsasl_session_ctx * cctx,
   switch (state->step)
     {
     case 0:
-      res = cb_authorization_id (cctx, output, output_len);
+      res = cb_authorization_id (sctx, output, output_len);
       if (res != GSASL_OK)
 	return res;
       tmp = stringprep_utf8_nfkc_normalize (output, *output_len);
@@ -111,7 +111,7 @@ _gsasl_login_client_step (Gsasl_session_ctx * cctx,
       break;
 
     case 1:
-      res = cb_password (cctx, output, output_len);
+      res = cb_password (sctx, output, output_len);
       if (res != GSASL_OK)
 	return res;
       tmp = stringprep_utf8_nfkc_normalize (output, *output_len);
@@ -135,7 +135,7 @@ _gsasl_login_client_step (Gsasl_session_ctx * cctx,
 }
 
 int
-_gsasl_login_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
+_gsasl_login_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   struct _Gsasl_login_client_state *state = mech_data;
 

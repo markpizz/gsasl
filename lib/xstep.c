@@ -23,7 +23,7 @@
 
 /**
  * gsasl_client_step:
- * @xctx: libgsasl client handle.
+ * @sctx: libgsasl client handle.
  * @input: input byte array.
  * @input_len: size of input byte array.
  * @output: output byte array.
@@ -42,18 +42,18 @@
  * code.
  **/
 int
-gsasl_client_step (Gsasl_session_ctx * xctx,
+gsasl_client_step (Gsasl_session_ctx * sctx,
 		   const char *input,
 		   size_t input_len, char *output, size_t * output_len)
 {
-  return xctx->mech->client.step (xctx, xctx->mech_data,
+  return sctx->mech->client.step (sctx, sctx->mech_data,
 				  input, input_len, output, output_len);
 
 }
 
 /**
  * gsasl_server_step:
- * @xctx: libgsasl server handle.
+ * @sctx: libgsasl server handle.
  * @input: input byte array.
  * @input_len: size of input byte array.
  * @output: output byte array.
@@ -72,16 +72,16 @@ gsasl_client_step (Gsasl_session_ctx * xctx,
  * code.
  **/
 int
-gsasl_server_step (Gsasl_session_ctx * xctx,
+gsasl_server_step (Gsasl_session_ctx * sctx,
 		   const char *input,
 		   size_t input_len, char *output, size_t * output_len)
 {
-  return xctx->mech->server.step (xctx, xctx->mech_data,
+  return sctx->mech->server.step (sctx, sctx->mech_data,
 				  input, input_len, output, output_len);
 }
 
 static int
-_gsasl_session_step_base64 (Gsasl_session_ctx * xctx,
+_gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
 			    const char *b64input,
 			    char *b64output,
 			    size_t b64output_len, int clientp)
@@ -121,9 +121,9 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * xctx,
     }
 
   if (clientp)
-    res = gsasl_client_step (xctx, input, input_len, output, &output_len);
+    res = gsasl_client_step (sctx, input, input_len, output, &output_len);
   else
-    res = gsasl_server_step (xctx, input, input_len, output, &output_len);
+    res = gsasl_server_step (sctx, input, input_len, output, &output_len);
 
   if ((res == GSASL_OK || res == GSASL_NEEDS_MORE) && output
       && output_len > 0)
@@ -148,7 +148,7 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * xctx,
 
 /**
  * gsasl_client_step_base64:
- * @xctx: libgsasl client handle.
+ * @sctx: libgsasl client handle.
  * @b64input: input base64 encoded byte array.
  * @b64output: output base64 encoded byte array.
  * @b64output_len: size of output base64 encoded byte array.
@@ -159,17 +159,17 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * xctx,
  * Return value: See gsasl_client_step().
  **/
 int
-gsasl_client_step_base64 (Gsasl_session_ctx * xctx,
+gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
 			  const char *b64input,
 			  char *b64output, size_t b64output_len)
 {
-  return _gsasl_session_step_base64 (xctx, b64input, b64output,
+  return _gsasl_session_step_base64 (sctx, b64input, b64output,
 				     b64output_len, 1);
 }
 
 /**
  * gsasl_server_step_base64:
- * @xctx: libgsasl server handle.
+ * @sctx: libgsasl server handle.
  * @b64input: input base64 encoded byte array.
  * @b64output: output base64 encoded byte array.
  * @b64output_len: size of output base64 encoded byte array.
@@ -180,10 +180,10 @@ gsasl_client_step_base64 (Gsasl_session_ctx * xctx,
  * Return value: See gsasl_server_step().
  **/
 int
-gsasl_server_step_base64 (Gsasl_session_ctx * xctx,
+gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
 			  const char *b64input,
 			  char *b64output, size_t b64output_len)
 {
-  return _gsasl_session_step_base64 (xctx, b64input, b64output,
+  return _gsasl_session_step_base64 (sctx, b64input, b64output,
 				     b64output_len, 0);
 }

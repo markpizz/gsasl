@@ -567,12 +567,12 @@ _gsasl_digest_md5_client_done (Gsasl_ctx * ctx)
 }
 
 int
-_gsasl_digest_md5_client_start (Gsasl_session_ctx * cctx, void **mech_data)
+_gsasl_digest_md5_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   _Gsasl_digest_md5_client_state *state;
   Gsasl_ctx *ctx;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -602,7 +602,7 @@ _gsasl_digest_md5_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 }
 
 int
-_gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
+_gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 			       void *mech_data,
 			       const char *input,
 			       size_t input_len,
@@ -621,7 +621,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
   int outlen;
   int res, i;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -827,14 +827,14 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	    goto done;
 	  }
 	if (cb_qop)
-	  state->qop = cb_qop (cctx, state->qop);
+	  state->qop = cb_qop (sctx, state->qop);
 	else
 	  state->qop = state->qop;
 	if (cb_authorization_id)
 	  {
 	    size_t authzidlen;
 
-	    res = cb_authorization_id (cctx, NULL, &authzidlen);
+	    res = cb_authorization_id (sctx, NULL, &authzidlen);
 	    if (res != GSASL_OK)
 	      goto done;
 	    state->authzid = (char *) malloc (authzidlen + 1);
@@ -843,7 +843,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 		res = GSASL_MALLOC_ERROR;
 		goto done;
 	      }
-	    res = cb_authorization_id (cctx, state->authzid, &authzidlen);
+	    res = cb_authorization_id (sctx, state->authzid, &authzidlen);
 	    if (res != GSASL_OK)
 	      goto done;
 	    state->authzid[authzidlen] = '\0';
@@ -852,7 +852,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	{
 	  int usernamelen;
 
-	  res = cb_authentication_id (cctx, NULL, &usernamelen);
+	  res = cb_authentication_id (sctx, NULL, &usernamelen);
 	  if (res != GSASL_OK)
 	    goto done;
 
@@ -867,7 +867,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	  strcat (output, USERNAME_PRE);
 	  outlen += strlen (USERNAME_PRE);
 
-	  res = cb_authentication_id (cctx, &output[outlen], &usernamelen);
+	  res = cb_authentication_id (sctx, &output[outlen], &usernamelen);
 	  if (res != GSASL_OK)
 	    goto done;
 	  outlen += usernamelen;
@@ -987,7 +987,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	  size_t servicenamelen = 0;
 	  size_t len;
 
-	  res = cb_service (cctx, NULL, &servicelen,
+	  res = cb_service (sctx, NULL, &servicelen,
 			    NULL, &hostnamelen, NULL, &servicenamelen);
 	  if (res != GSASL_OK)
 	    goto done;
@@ -999,7 +999,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	      res = GSASL_MALLOC_ERROR;
 	      goto done;
 	    }
-	  res = cb_service (cctx, state->digesturi, &servicelen,
+	  res = cb_service (sctx, state->digesturi, &servicelen,
 			    state->digesturi + 1 + servicelen, &hostnamelen,
 			    (servicenamelen > 0 ?
 			     state->digesturi + 1 + servicelen + 1 +
@@ -1051,7 +1051,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	      goto done;
 	    }
 	  len = *output_len - outlen;
-	  res = cb_authentication_id (cctx, output + outlen, &len);
+	  res = cb_authentication_id (sctx, output + outlen, &len);
 	  if (res != GSASL_OK)
 	    goto done;
 
@@ -1063,7 +1063,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 
 	  len = *output_len - outlen;
 	  /* XXX? password stored in callee's output buffer */
-	  res = cb_password (cctx, output + outlen, &len);
+	  res = cb_password (sctx, output + outlen, &len);
 	  if (res != GSASL_OK)
 	    goto done;
 	  tmp = stringprep_utf8_nfkc_normalize (output + outlen, len);
@@ -1106,7 +1106,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 	  outlen += strlen (RESPONSE_POST);
 	}
 	if (cb_maxbuf
-	    && (maxbuf = cb_maxbuf (cctx, maxbuf)) != MAXBUF_DEFAULT)
+	    && (maxbuf = cb_maxbuf (sctx, maxbuf)) != MAXBUF_DEFAULT)
 	  {
 	    if (outlen + strlen (MAXBUF_PRE) +
 		/* XXX don't require -lm, how? */
@@ -1259,7 +1259,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
 }
 
 int
-_gsasl_digest_md5_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
+_gsasl_digest_md5_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   _Gsasl_digest_md5_client_state *state = mech_data;
 
@@ -1275,7 +1275,7 @@ _gsasl_digest_md5_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
 }
 
 int
-_gsasl_digest_md5_client_encode (Gsasl_session_ctx * xctx,
+_gsasl_digest_md5_client_encode (Gsasl_session_ctx * sctx,
 				 void *mech_data,
 				 const char *input,
 				 size_t input_len,
@@ -1349,7 +1349,7 @@ _gsasl_digest_md5_client_encode (Gsasl_session_ctx * xctx,
 }
 
 int
-_gsasl_digest_md5_client_decode (Gsasl_session_ctx * xctx,
+_gsasl_digest_md5_client_decode (Gsasl_session_ctx * sctx,
 				 void *mech_data,
 				 const char *input,
 				 size_t input_len,
@@ -2114,7 +2114,7 @@ _gsasl_digest_md5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 }
 
 int
-_gsasl_digest_md5_server_encode (Gsasl_session_ctx * xctx,
+_gsasl_digest_md5_server_encode (Gsasl_session_ctx * sctx,
 				 void *mech_data,
 				 const char *input,
 				 size_t input_len,
@@ -2188,7 +2188,7 @@ _gsasl_digest_md5_server_encode (Gsasl_session_ctx * xctx,
 }
 
 int
-_gsasl_digest_md5_server_decode (Gsasl_session_ctx * xctx,
+_gsasl_digest_md5_server_decode (Gsasl_session_ctx * sctx,
 				 void *mech_data,
 				 const char *input,
 				 size_t input_len,

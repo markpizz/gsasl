@@ -23,30 +23,30 @@
 
 /**
  * gsasl_client_finish:
- * @xctx: libgsasl client handle.
+ * @sctx: libgsasl client handle.
  *
  * Destroy a libgsasl client handle.  The handle must not be used with
  * other libgsasl functions after this call.
  **/
 void
-gsasl_client_finish (Gsasl_session_ctx * xctx)
+gsasl_client_finish (Gsasl_session_ctx * sctx)
 {
-  xctx->mech->client.finish (xctx, xctx->mech_data);
+  sctx->mech->client.finish (sctx, sctx->mech_data);
 
-  free (xctx);
+  free (sctx);
 }
 
 /**
  * gsasl_server_finish:
- * @xctx: libgsasl server handle.
+ * @sctx: libgsasl server handle.
  *
  * Destroy a libgsasl server handle.  The handle must not be used with
  * other libgsasl functions after this call.
  **/
 void
-gsasl_server_finish (Gsasl_session_ctx * xctx)
+gsasl_server_finish (Gsasl_session_ctx * sctx)
 {
-  xctx->mech->server.finish (xctx, xctx->mech_data);
+  sctx->mech->server.finish (sctx, sctx->mech_data);
 
-  free (xctx);
+  free (sctx);
 }

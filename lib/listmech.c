@@ -26,7 +26,7 @@ _gsasl_listmech (Gsasl_ctx * ctx,
 		 _Gsasl_mechanism * mechs,
 		 size_t n_mechs, char *out, size_t * outlen, int clientp)
 {
-  Gsasl_session_ctx *xctx;
+  Gsasl_session_ctx *sctx;
   int i = 0;
 
   if (out == NULL)
@@ -42,14 +42,14 @@ _gsasl_listmech (Gsasl_ctx * ctx,
   for (i = 0; i < n_mechs; i++)
     {
       if ((clientp &&
-	   gsasl_client_start (ctx, mechs[i].name, &xctx) == GSASL_OK) ||
+	   gsasl_client_start (ctx, mechs[i].name, &sctx) == GSASL_OK) ||
 	  (!clientp &&
-	   gsasl_server_start (ctx, mechs[i].name, &xctx) == GSASL_OK))
+	   gsasl_server_start (ctx, mechs[i].name, &sctx) == GSASL_OK))
 	{
 	  if (clientp)
-	    gsasl_client_finish (xctx);
+	    gsasl_client_finish (sctx);
 	  else
-	    gsasl_server_finish (xctx);
+	    gsasl_server_finish (sctx);
 
 	  if (strlen (out) + strlen (mechs[i].name) + strlen (" ") >= *outlen)
 	    return GSASL_TOO_SMALL_BUFFER;

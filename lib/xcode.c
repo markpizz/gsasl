@@ -23,7 +23,7 @@
 
 /**
  * gsasl_encode:
- * @xctx: libgsasl session handle.
+ * @sctx: libgsasl session handle.
  * @input: input byte array.
  * @input_len: size of input byte array.
  * @output: output byte array.
@@ -36,14 +36,14 @@
  * an error code.
  **/
 int
-gsasl_encode (Gsasl_session_ctx * xctx,
+gsasl_encode (Gsasl_session_ctx * sctx,
 	      const char *input,
 	      size_t input_len, char *output, size_t * output_len)
 {
   int res;
-  _Gsasl_code_function code = xctx ? (xctx->clientp ?
-				      xctx->mech->client.encode :
-				      xctx->mech->server.encode) : NULL;
+  _Gsasl_code_function code = sctx ? (sctx->clientp ?
+				      sctx->mech->client.encode :
+				      sctx->mech->server.encode) : NULL;
 
   if (code == NULL)
     {
@@ -55,7 +55,7 @@ gsasl_encode (Gsasl_session_ctx * xctx,
   else
     {
       res =
-	code (xctx, xctx->mech_data, input, input_len, output, output_len);
+	code (sctx, sctx->mech_data, input, input_len, output, output_len);
     }
 
   return res;
@@ -63,7 +63,7 @@ gsasl_encode (Gsasl_session_ctx * xctx,
 
 /**
  * gsasl_decode:
- * @xctx: libgsasl session handle.
+ * @sctx: libgsasl session handle.
  * @input: input byte array.
  * @input_len: size of input byte array.
  * @output: output byte array.
@@ -76,14 +76,14 @@ gsasl_encode (Gsasl_session_ctx * xctx,
  * an error code.
  **/
 int
-gsasl_decode (Gsasl_session_ctx * xctx,
+gsasl_decode (Gsasl_session_ctx * sctx,
 	      const char *input,
 	      size_t input_len, char *output, size_t * output_len)
 {
   int res;
-  _Gsasl_code_function code = xctx ? (xctx->clientp ?
-				      xctx->mech->client.decode :
-				      xctx->mech->server.decode) : NULL;
+  _Gsasl_code_function code = sctx ? (sctx->clientp ?
+				      sctx->mech->client.decode :
+				      sctx->mech->server.decode) : NULL;
 
   if (code == NULL)
     {
@@ -95,7 +95,7 @@ gsasl_decode (Gsasl_session_ctx * xctx,
   else
     {
       res =
-	code (xctx, xctx->mech_data, input, input_len, output, output_len);
+	code (sctx, sctx->mech_data, input, input_len, output, output_len);
     }
 
   return res;

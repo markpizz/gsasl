@@ -24,16 +24,16 @@
 static int
 _gsasl_session_start (Gsasl_ctx * ctx,
 		      const char *mech,
-		      Gsasl_session_ctx ** xctx, int clientp)
+		      Gsasl_session_ctx ** sctx, int clientp)
 {
   int i = 0;
   int res;
 
-  *xctx = (Gsasl_session_ctx *) malloc (sizeof (**xctx));
-  if (*xctx == NULL)
+  *sctx = (Gsasl_session_ctx *) malloc (sizeof (**sctx));
+  if (*sctx == NULL)
     return GSASL_MALLOC_ERROR;
 
-  memset (*xctx, 0, sizeof (**xctx));
+  memset (*sctx, 0, sizeof (**sctx));
 
   for (i = 0; i < (clientp ? ctx->n_client_mechs : ctx->n_server_mechs); i++)
     {
@@ -42,32 +42,32 @@ _gsasl_session_start (Gsasl_ctx * ctx,
 	      || (!clientp && strcmp (mech, ctx->server_mechs[i].name) == 0)))
 	{
 	  if (clientp)
-	    (*xctx)->mech = &ctx->client_mechs[i];
+	    (*sctx)->mech = &ctx->client_mechs[i];
 	  else
-	    (*xctx)->mech = &ctx->server_mechs[i];
+	    (*sctx)->mech = &ctx->server_mechs[i];
 	  break;
 	}
     }
 
-  if ((*xctx)->mech == NULL)
+  if ((*sctx)->mech == NULL)
     {
-      free (*xctx);
-      *xctx = NULL;
+      free (*sctx);
+      *sctx = NULL;
       return GSASL_UNKNOWN_MECHANISM;
     }
 
-  (*xctx)->ctx = ctx;
-  (*xctx)->clientp = clientp;
-  (*xctx)->mech_data = NULL;
+  (*sctx)->ctx = ctx;
+  (*sctx)->clientp = clientp;
+  (*sctx)->mech_data = NULL;
   if (clientp)
-    res = (*xctx)->mech->client.start (*xctx, &(*xctx)->mech_data);
+    res = (*sctx)->mech->client.start (*sctx, &(*sctx)->mech_data);
   else
-    res = (*xctx)->mech->server.start (*xctx, &(*xctx)->mech_data);
+    res = (*sctx)->mech->server.start (*sctx, &(*sctx)->mech_data);
 
   if (res != GSASL_OK)
     {
-      free (*xctx);
-      *xctx = NULL;
+      free (*sctx);
+      *sctx = NULL;
       return res;
     }
 
@@ -78,36 +78,36 @@ _gsasl_session_start (Gsasl_ctx * ctx,
  * gsasl_client_start:
  * @ctx: libgsasl handle.
  * @mech: name of SASL mechanism.
- * @xctx: pointer to client handle.
- * 
+ * @sctx: pointer to client handle.
+ *
  * This functions initiates a client SASL authentication.  This
  * function must be called before any other gsasl_client_*() function
- * is called.  
- * 
+ * is called.
+ *
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
 gsasl_client_start (Gsasl_ctx * ctx,
-		    const char *mech, Gsasl_session_ctx ** xctx)
+		    const char *mech, Gsasl_session_ctx ** sctx)
 {
-  return _gsasl_session_start (ctx, mech, xctx, 1);
+  return _gsasl_session_start (ctx, mech, sctx, 1);
 }
 
 /**
  * gsasl_server_start:
  * @ctx: libgsasl handle.
  * @mech: name of SASL mechanism.
- * @xctx: pointer to server handle.
- * 
+ * @sctx: pointer to server handle.
+ *
  * This functions initiates a server SASL authentication.  This
  * function must be called before any other gsasl_server_*() function
- * is called.  
- * 
+ * is called.
+ *
  * Return value: Returns GSASL_OK if successful, or error code.
  **/
 int
 gsasl_server_start (Gsasl_ctx * ctx,
-		    const char *mech, Gsasl_session_ctx ** xctx)
+		    const char *mech, Gsasl_session_ctx ** sctx)
 {
-  return _gsasl_session_start (ctx, mech, xctx, 0);
+  return _gsasl_session_start (ctx, mech, sctx, 0);
 }

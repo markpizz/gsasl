@@ -52,12 +52,12 @@ _gsasl_cram_md5_client_done (Gsasl_ctx * ctx)
 }
 
 int
-_gsasl_cram_md5_client_start (Gsasl_session_ctx * cctx, void **mech_data)
+_gsasl_cram_md5_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   struct _Gsasl_cram_md5_client_state *state;
   Gsasl_ctx *ctx;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -79,7 +79,7 @@ _gsasl_cram_md5_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 }
 
 int
-_gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
+_gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
 			     void *mech_data,
 			     const char *input,
 			     size_t input_len,
@@ -112,7 +112,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
       if (input_len == 0)
 	return GSASL_MECHANISM_PARSE_ERROR;
 
-      ctx = gsasl_client_ctx_get (cctx);
+      ctx = gsasl_client_ctx_get (sctx);
       if (ctx == NULL)
 	return GSASL_CANNOT_GET_CTX;
 
@@ -132,7 +132,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
 
       /* XXX? password stored in callee's output buffer */
       len = *output_len;
-      res = cb_password (cctx, output, &len);
+      res = cb_password (sctx, output, &len);
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	return res;
       tmp = stringprep_utf8_nfkc_normalize (output, len);
@@ -150,7 +150,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
 	return GSASL_GCRYPT_ERROR;
 
       len = *output_len;
-      res = cb_authentication_id (cctx, output, &len);
+      res = cb_authentication_id (sctx, output, &len);
       if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	return res;
       tmp = stringprep_utf8_nfkc_normalize (output, len);
@@ -188,7 +188,7 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * cctx,
 }
 
 int
-_gsasl_cram_md5_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
+_gsasl_cram_md5_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   struct _Gsasl_cram_md5_client_state *state = mech_data;
 

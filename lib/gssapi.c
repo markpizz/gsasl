@@ -67,12 +67,12 @@ _gsasl_gssapi_client_done (Gsasl_ctx * ctx)
 }
 
 int
-_gsasl_gssapi_client_start (Gsasl_session_ctx * cctx, void **mech_data)
+_gsasl_gssapi_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   _Gsasl_gssapi_client_state *state;
   Gsasl_ctx *ctx;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -96,7 +96,7 @@ _gsasl_gssapi_client_start (Gsasl_session_ctx * cctx, void **mech_data)
 }
 
 int
-_gsasl_gssapi_client_step (Gsasl_session_ctx * cctx,
+_gsasl_gssapi_client_step (Gsasl_session_ctx * sctx,
 			   void *mech_data,
 			   const char *input,
 			   size_t input_len,
@@ -113,7 +113,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * cctx,
   int conf_state;
   int res;
 
-  ctx = gsasl_client_ctx_get (cctx);
+  ctx = gsasl_client_ctx_get (sctx);
   if (ctx == NULL)
     return GSASL_CANNOT_GET_CTX;
 
@@ -130,7 +130,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * cctx,
       size_t servicelen = 0;
       size_t hostnamelen = 0;
 
-      res = cb_service (cctx, NULL, &servicelen,
+      res = cb_service (sctx, NULL, &servicelen,
 			NULL, &hostnamelen, NULL, NULL);
       if (res != GSASL_OK)
 	return res;
@@ -140,7 +140,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * cctx,
       if (bufdesc.value == NULL)
 	return GSASL_MALLOC_ERROR;
 
-      res = cb_service (cctx, (char *) bufdesc.value, &servicelen,
+      res = cb_service (sctx, (char *) bufdesc.value, &servicelen,
 			(char *) bufdesc.value + 1 + servicelen, &hostnamelen,
 			NULL, NULL);
       if (res != GSASL_OK)
@@ -244,7 +244,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * cctx,
 
       output[0] = GSSAPI_AUTH_NONE;
       bufdesc.length = *output_len - 4;
-      cb_authentication_id (cctx, output + 4, &bufdesc.length);
+      cb_authentication_id (sctx, output + 4, &bufdesc.length);
       bufdesc.length += 4;
       bufdesc.value = output;
       maj_stat = gss_wrap (&min_stat, state->context, 0, GSS_C_QOP_DEFAULT,
@@ -271,7 +271,7 @@ _gsasl_gssapi_client_step (Gsasl_session_ctx * cctx,
 }
 
 int
-_gsasl_gssapi_client_finish (Gsasl_session_ctx * cctx, void *mech_data)
+_gsasl_gssapi_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   _Gsasl_gssapi_client_state *state = mech_data;
   OM_uint32 maj_stat, min_stat;
