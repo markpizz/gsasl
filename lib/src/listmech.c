@@ -31,11 +31,10 @@ _gsasl_listmech (Gsasl * ctx,
   size_t i;
   int rc;
 
-  list = malloc (n_mechs * (GSASL_MAX_MECHANISM_SIZE + 1));
+  list = calloc (n_mechs, GSASL_MAX_MECHANISM_SIZE + 1);
   if (!list)
     return GSASL_MALLOC_ERROR;
 
-  *list = '\0';
   for (i = 0; i < n_mechs; i++)
     {
       if (clientp)
