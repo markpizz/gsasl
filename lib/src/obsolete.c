@@ -608,3 +608,934 @@ gsasl_server_suggest_mechanism (Gsasl * ctx, const char *mechlist)
 {
   return NULL;  /* This function is just silly. */
 }
+
+/**
+ * gsasl_client_callback_authentication_id_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to set the
+ * authentication identity.  The function can be later retrieved using
+ * gsasl_client_callback_authentication_id_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_client_callback_authentication_id_set (Gsasl * ctx,
+					     Gsasl_client_callback_authentication_id
+					     cb)
+{
+  ctx->cbc_authentication_id = cb;
+}
+
+/**
+ * gsasl_client_callback_authentication_id_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_authentication_id_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_client_callback_authentication_id
+gsasl_client_callback_authentication_id_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbc_authentication_id : NULL;
+}
+
+/**
+ * gsasl_client_callback_authorization_id_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to set the
+ * authorization identity.  The function can be later retrieved using
+ * gsasl_client_callback_authorization_id_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_client_callback_authorization_id_set (Gsasl * ctx,
+					    Gsasl_client_callback_authorization_id
+					    cb)
+{
+  ctx->cbc_authorization_id = cb;
+}
+
+/**
+ * gsasl_client_callback_authorization_id_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_authorization_id_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_client_callback_authorization_id
+gsasl_client_callback_authorization_id_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbc_authorization_id : NULL;
+}
+
+/**
+ * gsasl_client_callback_password_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to set the
+ * password.  The function can be later retrieved using
+ * gsasl_client_callback_password_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_client_callback_password_set (Gsasl * ctx,
+				    Gsasl_client_callback_password cb)
+{
+  ctx->cbc_password = cb;
+}
+
+
+/**
+ * gsasl_client_callback_password_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_password_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_client_callback_password
+gsasl_client_callback_password_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbc_password : NULL;
+}
+
+/**
+ * gsasl_client_callback_passcode_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to set the
+ * passcode.  The function can be later retrieved using
+ * gsasl_client_callback_passcode_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_client_callback_passcode_set (Gsasl * ctx,
+				    Gsasl_client_callback_passcode cb)
+{
+  ctx->cbc_passcode = cb;
+}
+
+
+/**
+ * gsasl_client_callback_passcode_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_passcode_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_client_callback_passcode
+gsasl_client_callback_passcode_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbc_passcode : NULL;
+}
+
+/**
+ * gsasl_client_callback_pin_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to chose a new
+ * pin, possibly suggested by the server, for the SECURID mechanism.
+ * This is not normally invoked, but only when the server requests it.
+ * The function can be later retrieved using
+ * gsasl_client_callback_pin_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_client_callback_pin_set (Gsasl * ctx, Gsasl_client_callback_pin cb)
+{
+  ctx->cbc_pin = cb;
+}
+
+
+/**
+ * gsasl_client_callback_pin_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_pin_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_client_callback_pin
+gsasl_client_callback_pin_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbc_pin : NULL;
+}
+
+/**
+ * gsasl_client_callback_service_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to set the name
+ * of the service.  The service buffer should be a registered GSSAPI
+ * host-based service name, hostname the name of the server.
+ * Servicename is used by DIGEST-MD5 and should be the name of generic
+ * server in case of a replicated service. The function can be later
+ * retrieved using gsasl_client_callback_service_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_client_callback_service_set (Gsasl * ctx,
+				   Gsasl_client_callback_service cb)
+{
+  ctx->cbc_service = cb;
+}
+
+/**
+ * gsasl_client_callback_service_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_service_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_client_callback_service
+gsasl_client_callback_service_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbc_service : NULL;
+}
+
+/**
+ * gsasl_client_callback_anonymous_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to set the
+ * anonymous token, which usually is the users email address.  The
+ * function can be later retrieved using
+ * gsasl_client_callback_anonymous_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_client_callback_anonymous_set (Gsasl * ctx,
+				     Gsasl_client_callback_anonymous cb)
+{
+  ctx->cbc_anonymous = cb;
+}
+
+/**
+ * gsasl_client_callback_anonymous_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_anonymous_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_client_callback_anonymous
+gsasl_client_callback_anonymous_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbc_anonymous : NULL;
+}
+
+/**
+ * gsasl_client_callback_qop_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to determine the
+ * qop to use after looking at what the server offered.  The function
+ * can be later retrieved using gsasl_client_callback_qop_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_client_callback_qop_set (Gsasl * ctx, Gsasl_client_callback_qop cb)
+{
+  ctx->cbc_qop = cb;
+}
+
+/**
+ * gsasl_client_callback_qop_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_qop_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_client_callback_qop
+gsasl_client_callback_qop_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbc_qop : NULL;
+}
+
+/**
+ * gsasl_client_callback_maxbuf_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to inform the
+ * server of the largest buffer the client is able to receive when
+ * using the DIGEST-MD5 "auth-int" or "auth-conf" Quality of
+ * Protection (qop). If this directive is missing, the default value
+ * 65536 will be assumed.  The function can be later retrieved using
+ * gsasl_client_callback_maxbuf_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_client_callback_maxbuf_set (Gsasl * ctx,
+				  Gsasl_client_callback_maxbuf cb)
+{
+  ctx->cbc_maxbuf = cb;
+}
+
+/**
+ * gsasl_client_callback_maxbuf_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_maxbuf_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_client_callback_maxbuf
+gsasl_client_callback_maxbuf_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbc_maxbuf : NULL;
+}
+
+/**
+ * gsasl_client_callback_realm_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the client to know which
+ * realm it belongs to.  The realm is used by the server to determine
+ * which username and password to use.  The function can be later
+ * retrieved using gsasl_client_callback_realm_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_client_callback_realm_set (Gsasl * ctx, Gsasl_client_callback_realm cb)
+{
+  ctx->cbc_realm = cb;
+}
+
+/**
+ * gsasl_client_callback_realm_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_client_callback_realm_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_client_callback_realm
+gsasl_client_callback_realm_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbc_realm : NULL;
+}
+
+/**
+ * gsasl_server_callback_validate_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server for deciding if
+ * user is authenticated using authentication identity, authorization
+ * identity and password.  The function can be later retrieved using
+ * gsasl_server_callback_validate_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_validate_set (Gsasl * ctx,
+				    Gsasl_server_callback_validate cb)
+{
+  ctx->cbs_validate = cb;
+}
+
+/**
+ * gsasl_server_callback_validate_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_validate_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_validate
+gsasl_server_callback_validate_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_validate : NULL;
+}
+
+/**
+ * gsasl_server_callback_retrieve_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server for deciding if
+ * user is authenticated using authentication identity, authorization
+ * identity and password.  The function can be later retrieved using
+ * gsasl_server_callback_retrieve_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_retrieve_set (Gsasl * ctx,
+				    Gsasl_server_callback_retrieve cb)
+{
+  ctx->cbs_retrieve = cb;
+}
+
+/**
+ * gsasl_server_callback_retrieve_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_retrieve_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_retrieve
+gsasl_server_callback_retrieve_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_retrieve : NULL;
+}
+
+/**
+ * gsasl_server_callback_cram_md5_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server for deciding if
+ * user is authenticated using CRAM-MD5 challenge and response.  The
+ * function can be later retrieved using
+ * gsasl_server_callback_cram_md5_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_cram_md5_set (Gsasl * ctx,
+				    Gsasl_server_callback_cram_md5 cb)
+{
+  ctx->cbs_cram_md5 = cb;
+}
+
+/**
+ * gsasl_server_callback_cram_md5_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_cram_md5_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_cram_md5
+gsasl_server_callback_cram_md5_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_cram_md5 : NULL;
+}
+
+/**
+ * gsasl_server_callback_digest_md5_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server for retrieving
+ * the secret hash of the username, realm and password for use in the
+ * DIGEST-MD5 mechanism.  The function can be later retrieved using
+ * gsasl_server_callback_digest_md5_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_digest_md5_set (Gsasl * ctx,
+				      Gsasl_server_callback_digest_md5 cb)
+{
+  ctx->cbs_digest_md5 = cb;
+}
+
+/**
+ * gsasl_server_callback_digest_md5_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Return the callback earlier set by calling
+ * gsasl_server_callback_digest_md5_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_digest_md5
+gsasl_server_callback_digest_md5_get (Gsasl * ctx)
+{
+  return ctx->cbs_digest_md5;
+}
+
+/**
+ * gsasl_server_callback_external_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server for deciding if
+ * user is authenticated out of band.  The function can be later
+ * retrieved using gsasl_server_callback_external_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_external_set (Gsasl * ctx,
+				    Gsasl_server_callback_external cb)
+{
+  ctx->cbs_external = cb;
+}
+
+/**
+ * gsasl_server_callback_external_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_external_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_external
+gsasl_server_callback_external_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_external : NULL;
+}
+
+/**
+ * gsasl_server_callback_anonymous_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server for deciding if
+ * user is permitted anonymous access.  The function can be later
+ * retrieved using gsasl_server_callback_anonymous_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_anonymous_set (Gsasl * ctx,
+				     Gsasl_server_callback_anonymous cb)
+{
+  ctx->cbs_anonymous = cb;
+}
+
+/**
+ * gsasl_server_callback_anonymous_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_anonymous_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_anonymous
+gsasl_server_callback_anonymous_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_anonymous : NULL;
+}
+
+/**
+ * gsasl_server_callback_realm_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server to know which
+ * realm it serves.  The realm is used by the user to determine which
+ * username and password to use.  The function can be later retrieved
+ * using gsasl_server_callback_realm_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_realm_set (Gsasl * ctx, Gsasl_server_callback_realm cb)
+{
+  ctx->cbs_realm = cb;
+}
+
+/**
+ * gsasl_server_callback_realm_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_realm_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_realm
+gsasl_server_callback_realm_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_realm : NULL;
+}
+
+/**
+ * gsasl_server_callback_qop_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server to know which
+ * quality of protection it accepts.  The quality of protection
+ * eventually used is selected by the client though.  It is currently
+ * used by the DIGEST-MD5 mechanism. The function can be later
+ * retrieved using gsasl_server_callback_qop_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_qop_set (Gsasl * ctx, Gsasl_server_callback_qop cb)
+{
+  ctx->cbs_qop = cb;
+}
+
+/**
+ * gsasl_server_callback_qop_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_qop_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_qop
+gsasl_server_callback_qop_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_qop : NULL;
+}
+
+/**
+ * gsasl_server_callback_maxbuf_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server to inform the
+ * client of the largest buffer the server is able to receive when
+ * using the DIGEST-MD5 "auth-int" or "auth-conf" Quality of
+ * Protection (qop). If this directive is missing, the default value
+ * 65536 will be assumed.  The function can be later retrieved using
+ * gsasl_server_callback_maxbuf_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_maxbuf_set (Gsasl * ctx,
+				  Gsasl_server_callback_maxbuf cb)
+{
+  ctx->cbs_maxbuf = cb;
+}
+
+/**
+ * gsasl_server_callback_maxbuf_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_maxbuf_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_maxbuf
+gsasl_server_callback_maxbuf_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_maxbuf : NULL;
+}
+
+/**
+ * gsasl_server_callback_cipher_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server to inform the
+ * client of the cipher suites supported.  The DES and 3DES ciphers
+ * must be supported for interoperability.  It is currently used by
+ * the DIGEST-MD5 mechanism.  The function can be later retrieved
+ * using gsasl_server_callback_cipher_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_cipher_set (Gsasl * ctx,
+				  Gsasl_server_callback_cipher cb)
+{
+  ctx->cbs_cipher = cb;
+}
+
+/**
+ * gsasl_server_callback_cipher_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_cipher_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_cipher
+gsasl_server_callback_cipher_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_cipher : NULL;
+}
+
+/**
+ * gsasl_server_callback_securid_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server for validating a
+ * user via the SECURID mechanism.  The function should return
+ * GSASL_OK if user authenticated successfully,
+ * GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE if it wants another
+ * passcode, GSASL_SECURID_SERVER_NEED_NEW_PIN if it wants a PIN
+ * change, or an error.  When (and only when)
+ * GSASL_SECURID_SERVER_NEED_NEW_PIN is returned, suggestpin can be
+ * populated with a PIN code the server suggests, and suggestpinlen
+ * set to the length of the PIN.  The function can be later retrieved
+ * using gsasl_server_callback_securid_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_securid_set (Gsasl * ctx,
+				   Gsasl_server_callback_securid cb)
+{
+  ctx->cbs_securid = cb;
+}
+
+/**
+ * gsasl_server_callback_securid_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_securid_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_securid
+gsasl_server_callback_securid_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_securid : NULL;
+}
+
+/**
+ * gsasl_server_callback_gssapi_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server for checking if
+ * a GSSAPI user is authorized for username (by, e.g., calling
+ * krb5_userok()).  The function should return GSASL_OK if the user
+ * should be permitted access, or an error code such as
+ * GSASL_AUTHENTICATION_ERROR on failure.  The function can be later
+ * retrieved using gsasl_server_callback_gssapi_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_gssapi_set (Gsasl * ctx,
+				  Gsasl_server_callback_gssapi cb)
+{
+  ctx->cbs_gssapi = cb;
+}
+
+/**
+ * gsasl_server_callback_gssapi_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_gssapi_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_gssapi
+gsasl_server_callback_gssapi_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_gssapi : NULL;
+}
+
+/**
+ * gsasl_server_callback_service_set:
+ * @ctx: libgsasl handle.
+ * @cb: callback function
+ *
+ * Specify the callback function to use in the server to set the name
+ * of the service.  The service buffer should be a registered GSSAPI
+ * host-based service name, hostname the name of the server.  The
+ * function can be later retrieved using
+ * gsasl_server_callback_service_get().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+void
+gsasl_server_callback_service_set (Gsasl * ctx,
+				   Gsasl_server_callback_service cb)
+{
+  ctx->cbs_service = cb;
+}
+
+/**
+ * gsasl_server_callback_service_get:
+ * @ctx: libgsasl handle.
+ *
+ * Return value: Returns the callback earlier set by calling
+ * gsasl_server_callback_service_set().
+ *
+ * Deprecated: This function is part of the old callback interface.
+ * The new interface uses gsasl_callback_set() to set the application
+ * callback, and uses gsasl_callback() or gsasl_property() to invoke
+ * the callback for certain properties.
+ **/
+Gsasl_server_callback_service
+gsasl_server_callback_service_get (Gsasl * ctx)
+{
+  return ctx ? ctx->cbs_service : NULL;
+}
