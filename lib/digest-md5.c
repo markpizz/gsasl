@@ -1083,11 +1083,6 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	    }
 	  gcry_md_write (md5h, tmp, strlen (tmp));
 	  free (tmp);
-	  if (res != GCRYERR_SUCCESS)
-	    {
-	      res = GSASL_GCRYPT_ERROR;
-	      goto done;
-	    }
 
 	  tmp = gcry_md_read (md5h, GCRY_MD_MD5);
 	  if (tmp == NULL)
