@@ -338,6 +338,7 @@ AC_SEARCH_LIBS(gethostbyname, nsl)
 
 # For gnulib stuff in gl/.
 gl_GETOPT
+gl_FUNC_STRDUP
 
 # Check for gtk-doc.
 GTK_DOC_CHECK(1.1)
