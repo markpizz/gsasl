@@ -31,7 +31,7 @@
 #include "utils.h"
 
 #define PASSWORD "Open, Sesame"
-#define USERNAME "Ali Baba"
+#define USERNAME "Ali Baba"   /* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
 
 static int
 server_cb_retrieve (Gsasl_session_ctx * xctx,
