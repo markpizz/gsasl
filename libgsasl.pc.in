@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: Libgsasl
+Description: Simple Authentication and Security Layer (SASL) library
+Version: @VERSION@
+Libs: @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ @GSSAPI_LIBS@ -L${libdir} -lgsasl
+Cflags: @LIBGCRYPT_CFLAGS@ @LIBNTLM_CFLAGS@ @GSSAPI_CFLAGS@ -I${includedir}
