@@ -195,7 +195,14 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n", s2len, s2);
+	{
+	  /* Solaris x86 crashes here if s2 is NULL, even when s2len
+	     is 0. */
+	  if (s2len)
+	    printf ("C: %.*s\n", s2len, s2);
+	  else
+	    printf ("C: \n");
+	}
 
       /* Server is done. */
 
