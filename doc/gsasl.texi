@@ -34,7 +34,12 @@ developing GNU and protecting and promoting software freedom.''
 
 @dircategory GNU Libraries
 @direntry
-* libgsasl: (gsasl).    Simple Authentication and Security Layer Library.
+* libgsasl: (gsasl).	Simple Authentication and Security Layer Library.
+@end direntry
+
+@dircategory GNU utilities
+@direntry
+* gsasl: (gsasl)Invoking gsasl.		Command line interface to GNU SASL.
 @end direntry
 
 @titlepage
@@ -66,6 +71,8 @@ developing GNU and protecting and promoting software freedom.''
 * Error Handling::              Error codes and such.
 * Examples::                    Example code.
 * Acknowledgements::            Whom to blame.
+
+* Invoking gsasl::              Command line interface to library.
 
 Appendices
 
@@ -1091,6 +1098,7 @@ internationalization features) without doing anything.
 @include gsasl-example1.c
 @end example
 
+
 @c **********************************************************
 @c *******************  Acknowledgements  *******************
 @c **********************************************************
@@ -1108,6 +1116,119 @@ Werner Koch et al.  The NTLM mechanism uses Libntlm by Grant Edwards
 et al, using code from Samba written by Andrew Tridgell, and now
 maintained by Simon Josefsson.  The GSSAPI mechanism uses libgssapi
 written by the Massachusetts Institute of Technology Kerberos Team.
+
+
+@c **********************************************************
+@c ********************  Invoking gsasl  ********************
+@c **********************************************************
+@node Invoking gsasl
+@chapter Invoking gsasl
+
+@pindex gsasl
+@cindex invoking @command{gsasl}
+@cindex command line
+
+@majorheading Name
+
+GNU SASL (gsasl) -- Command line interface to libgsasl.
+
+@majorheading Description
+@code{gsasl} is the main program of GNU SASL.
+
+This section only lists the commands and options available.
+
+Mandatory or optional arguments to long options are also mandatory or
+optional for any corresponding short options.
+
+@majorheading Commands
+@code{gsasl} recognizes these commands:
+
+@verbatim
+  -c, --client               Act as client.
+      --client-mechanisms    Write name of supported client mechanisms
+                             separated by space to stdout.
+  -s, --server               Act as server.
+      --server-mechanisms    Write name of supported server mechanisms
+                             separated by space to stdout.
+@end verbatim
+
+@majorheading Network Options
+
+Normally the SASL negotiation is performed on the terminal, with
+reading from stdin and writing to stdout.  It is also possible to
+perform the negotiation with a server over a TCP network connection.
+
+@verbatim
+      --connect=HOSTNAME[:SERVICE]
+                             Connect to TCP server and negotiate on stream
+                             instead of stdin/stdout. SERVICE is the protocol
+                             service, or an integer denoting the port, and
+                             defaults to 143 (imap) if not specified. Also sets
+                             the --hostname default.
+@end verbatim
+
+@majorheading Miscellaneous Options:
+
+These parameters affect overall behaviour.
+
+@verbatim
+      --application-data     After authentication, read data from stdin and run
+                             it through the mechanism's security layer and
+                             print it base64 encoded to stdout. The default is
+                             to terminate after authentication.
+      --imap                 Use a IMAP-like logon procedure (client only).
+  -m, --mechanism=STRING     Mechanism to use.
+      --no-client-first      Disallow client to send data first (client only).
+@end verbatim
+
+@majorheading SASL Mechanism Options
+
+These options modify the behaviour of the callbacks (@pxref{Callback
+Functions}) in the library.  The default is the query the user on the
+terminal.
+
+@verbatim
+  -a, --authentication-id=STRING   Identity of credential owner.
+      --disable-cleartext-validate
+                             Disable cleartext validate hook, forcing server to
+                             prompt for password.
+      --enable-cram-md5-validate   Validate CRAM-MD5 challenge and response
+                             interactively.
+      --hostname=STRING      Set the name of the server with the requested
+                             service.
+  -n, --anonymous-token=STRING   Token for anonymous authentication, usually
+                             mail address (ANONYMOUS only).
+  -p, --password=STRING      Password for authentication (insecure for
+                             non-testing purposes).
+      --passcode=NUMBER      Passcode for authentication (SECURID only).
+      --quality-of-protection=<auth | auth-int | auth-conf>
+                             How application payload will be protected.  "auth"
+                             means no protection, "auth-int" means integrity
+                             protection, "auth-conf" means integrity and
+                             confidentialiy protection.  Currently only used by
+                             DIGEST-MD5, where the default is "auth-conf".
+  -r, --realm=STRING         Realm (may be given more than once iff server).
+                             Defaults to hostname.
+      --service=STRING       Set the requested service name (should be a
+                             registered GSSAPI host based service name).
+      --service-name=STRING  Set the generic server name in case of a
+                             replicated server (DIGEST-MD5 only).
+  -x, --maxbuf=NUMBER        Indicate maximum buffer size (DIGEST-MD5 only).
+  -z, --authorization-id=STRING   Identity to request service for.
+@end verbatim
+
+@majorheading Other Options
+
+These are some standard parameters.
+
+@verbatim
+  -q, --quiet, --silent      Don't produce any diagnostic output.
+  -v, --verbose              Produce verbose output.
+
+  -?, --help                 Give this help list
+      --usage                Give a short usage message
+  -V, --version              Print program version
+@end verbatim
 
 @c **********************************************************
 @c *******************  Appendices  *************************
