@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.3 (unreleased)
 
+** DIGEST-MD5 is disabled by default, pending a rewrite for the new API.
+
 * Version 0.2.2 (released 2004-11-29)
 
 ** Update of gnulib files.

@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.3 (unreleased)
 
+** DIGEST-MD5 is disabled by default, pending a rewrite for the new API.
+
 ** LOGIN client now uses authentication identity, not authorization identity,
 reported by Martin Lambers.
 
