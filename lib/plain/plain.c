@@ -314,6 +314,7 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 	  else
 	    res = GSASL_AUTHENTICATION_ERROR;
 	  free (normkey);
+	  free (password);
 	}
       state->step++;
       break;

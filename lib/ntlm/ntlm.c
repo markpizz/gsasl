@@ -150,11 +150,15 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * sctx,
       password = malloc (len + 1);
       res = cb_password (sctx, password, &len);
       if (res != GSASL_OK)
-	return res;
+	{
+	  free (password);
+	  return res;
+	}
       password[len] = '\0';
 
       buildSmbNtlmAuthResponse (&challenge, &response, state->username,
 				password);
+      free (password);
 
       if (*output_len < SmbLength (&response))
 	return GSASL_TOO_SMALL_BUFFER;
