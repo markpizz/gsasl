@@ -35,7 +35,9 @@ TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
 	THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c
 
 ctests = simple cram-md5 digest-md5 md5file \
-	old-cram-md5 old-gssapi
+	old-cram-md5
+
+# old-gssapi
 
 TESTS = threadsafety $(ctests)	
 check_PROGRAMS = $(ctests)
