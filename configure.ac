@@ -24,13 +24,14 @@ AC_INIT([gsasl], [0.1.2], [bug-gsasl@gnu.org])
 AC_PREREQ(2.59)
 AM_INIT_AUTOMAKE([1.8 gnits])
 
-# Checks for programs.
 AM_GNU_GETTEXT(external)
 AM_GNU_GETTEXT_VERSION(0.14.1)
+
+# Checks for programs.
 AC_PROG_CC
+AC_PROG_LIBTOOL
 AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
-AC_PROG_LIBTOOL
 
 # Checks for header files.
 AC_CHECK_HEADERS(sys/types.h sys/poll.h sys/time.h sys/select.h sys/socket.h)
