@@ -23,6 +23,8 @@
 #include "callbacks.h"
 #include "gsasl_cmd.h"
 
+#define MAX_LINE_LENGTH BUFSIZ
+
 struct gengetopt_args_info args_info;
 int sockfd;
 
@@ -46,28 +48,6 @@ writeln (char *str)
 
   return 1;
 }
-
-static int
-readln (char *buf, size_t maxbuflen)
-{
-  if (sockfd)
-    {
-      ssize_t len;
-      len = recv (sockfd, buf, maxbuflen, 0);
-      if (len <= 0)
-	return 0;
-      buf[len] = '\0';
-    }
-  else if (!fgets (buf, maxbuflen, stdin))
-    return 0;
-
-  if (sockfd)
-    printf ("%s", buf);
-
-  return 1;
-}
-
-#define MAX_LINE_LENGTH BUFSIZ
 
 static int
 readln1 (char **out)
