@@ -82,6 +82,7 @@ libgsasl_la_LIBADD += digest-md5/libgsasl-digest_md5.la
 endif
 
 if NTLM
+SUBDIRS += ntlm
 libgsasl_la_SOURCES += ntlm/x-ntlm.h ntlm/ntlm.c
 endif
 
