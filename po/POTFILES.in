@@ -3,4 +3,4 @@
 
 lib/error.c
 src/gsasl.c
-src/callback.c
+src/callbacks.c
