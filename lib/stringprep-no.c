@@ -28,9 +28,12 @@ _gsasl_no_stringprep_nfkc (const char *in, ssize_t len)
 
   if (len > 0)
     {
-      out = malloc (len);
+      out = malloc (len + 1);
       if (out)
-	memcpy (out, in, len);
+	{
+	  memcpy (out, in, len);
+	  out[len] = '\0';
+	}
     }
   else
     out = NULL;
