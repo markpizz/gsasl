@@ -60,8 +60,7 @@ client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops);
 extern int client_callback_maxbuf (Gsasl_session_ctx * ctx, int servermaxbuf);
 
 extern int
-client_callback_realm (Gsasl_session_ctx * ctx,
-		       char *out, size_t * outlen);
+client_callback_realm (Gsasl_session_ctx * ctx, char *out, size_t * outlen);
 
 /* Server callbacks */
 

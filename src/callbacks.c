@@ -275,7 +275,7 @@ client_callback_realm (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
   if (nrealms == 0)
     {
       realms = malloc (sizeof (*realms));
-      memset(realms, 0, sizeof(*realms));
+      memset (realms, 0, sizeof (*realms));
     }
 
   if (realms[0] == NULL)

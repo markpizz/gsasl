@@ -37,7 +37,7 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
       input = (char *) malloc (input_len);
 
       input_len = gsasl_base64_decode (b64input, input, input_len);
-      if ((int)input_len == -1)
+      if ((int) input_len == -1)
 	{
 	  free (input);
 	  return GSASL_BASE64_ERROR;
@@ -71,7 +71,7 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * sctx,
     {
       output_len = gsasl_base64_encode (output, output_len,
 					b64output, b64output_len);
-      if ((int)output_len == -1)
+      if ((int) output_len == -1)
 	{
 	  free (output);
 	  free (input);

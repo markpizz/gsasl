@@ -366,7 +366,7 @@ writeln (char *str)
 
       len = fprintf (sockfh, "%s\r\n", str);
 
-      if (len != (int) strlen (str) + (int)strlen ("\r\n"))
+      if (len != (int) strlen (str) + (int) strlen ("\r\n"))
 	return 0;
     }
 

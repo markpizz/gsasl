@@ -51,7 +51,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_anonymous_server_step,
     _gsasl_anonymous_server_finish}
 #endif
-  },
+   },
 #endif /* USE_ANONYMOUS */
 
 #ifdef USE_EXTERNAL
@@ -70,7 +70,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_external_server_step,
     _gsasl_external_server_finish}
 #endif
-  },
+   },
 #endif /* USE_EXTERNAL */
 
 #ifdef USE_PLAIN
@@ -89,7 +89,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_plain_server_step,
     _gsasl_plain_server_finish}
 #endif
-  },
+   },
 #endif /* USE_PLAIN */
 
 #ifdef USE_LOGIN
@@ -108,7 +108,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_login_server_step,
     _gsasl_login_server_finish}
 #endif
-  },
+   },
 #endif /* USE_LOGIN */
 
 #ifdef USE_SECURID
@@ -127,7 +127,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_securid_server_step,
     _gsasl_securid_server_finish}
 #endif
-  },
+   },
 #endif /* USE_SECURID */
 
 #ifdef USE_NTLM
@@ -139,7 +139,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_ntlm_client_step,
     _gsasl_ntlm_client_finish},
 #endif
-  },
+   },
 #endif /* USE_NTLM */
 
 #ifdef USE_CRAM_MD5
@@ -158,7 +158,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_cram_md5_server_step,
     _gsasl_cram_md5_server_finish}
 #endif
-  },
+   },
 #endif /* USE_CRAM_MD5 */
 
 #ifdef USE_DIGEST_MD5
@@ -181,7 +181,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_digest_md5_server_encode,
     _gsasl_digest_md5_server_decode},
 #endif
-  },
+   },
 #endif /* USE_DIGEST_MD5 */
 
 #if USE_KERBEROS_V5
@@ -204,7 +204,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_kerberos_v5_server_encode,
     _gsasl_kerberos_v5_server_decode},
 #endif
-  },
+   },
 #endif /* USE_KERBEROS_V5 */
 
 #if USE_GSSAPI
@@ -223,7 +223,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_gssapi_server_step,
     _gsasl_gssapi_server_finish}
 #endif
-  },
+   },
 #endif /* USE_GSSAPI */
 
   {0}

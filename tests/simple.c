@@ -617,13 +617,13 @@ main (int argc, char *argv[])
 	    }
 	}
 
-      if ((int)j != -1 && res == GSASL_OK && sasltv[i].step[j + 2])
+      if ((int) j != -1 && res == GSASL_OK && sasltv[i].step[j + 2])
 	fail ("SASL entry %d mechanism %s step %d code ended prematurely\n",
 	      i, sasltv[i].mech, j);
-      else if ((int)j != -1 && res == GSASL_NEEDS_MORE)
+      else if ((int) j != -1 && res == GSASL_NEEDS_MORE)
 	fail ("SASL entry %d mechanism %s step %d table ended prematurely\n",
 	      i, sasltv[i].mech, j, res, gsasl_strerror (res));
-      else if ((int)j != -1 && res != GSASL_OK)
+      else if ((int) j != -1 && res != GSASL_OK)
 	fail ("SASL entry %d mechanism %s step %d failed (%d):\n%s\n",
 	      i, sasltv[i].mech, j, res, gsasl_strerror (res));
       else
