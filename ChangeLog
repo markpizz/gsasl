@@ -1,3 +1,191 @@
+2004-01-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.0.14.
+
+2004-01-22  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Update.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Fix NTLM.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/strdup.h, gl/m4/strdup.m4: Fix.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Add fdl.texi.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/fdl.texi: Add.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/Makefile.am, lib/kerberos_v5/Makefile.am: Fix
+	-I's.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/Makefile.am, lib/kerberos_v5/Makefile.am: Fix
+	-Igl.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add FDL.  Remove final TOCs.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Use FDL 1.2.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, doc/fdl.texi, doc/gpl.texi, doc/gsasl.texi:
+	Remove gpl.texi and fdl.texi for now.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Include strdup.h.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/strdup.h: Add.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Add strdup.h.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/kerberos_v5/Makefile.am, lib/digest-md5/Makefile.am: Need
+	-lgl.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/kerberos_v5/kerberos_v5.c, lib/digest-md5/digest-md5.c:
+	Include strdup.h.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Fix ignore.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Fix HIGNORE.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/strdup.c, gl/m4/strdup.m4: Add.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Add strdup.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/getopt.c, src/getopt.h, src/getopt1.c: Moved to ../gl/.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/gettext.h: Use -Igl instead of gettext.h.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Add -Igl, for gettext.h.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Replace getopt with -lgl from ../gl/.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Aclocal -I gl/m4.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getopt.c, gl/getopt.h, gl/getopt1.c,
+	gl/gettext.h, gl/m4/getopt.m4: Add.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Remove old getopt test.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Add gl/.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use getopt from gnulib.  Add gl/.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c, src/imap.c: Indent.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/init.c: Move _gsasl_crypto_init prototype to crypto.h.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/nettle.c: Include crypto.h.  Fix warnings.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libgcrypt.c: Fix warnings.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libgcrypt.c: Include crypto.h.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/crypto.h: Add crypto.h.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/digest-md5.c: Use nettle-types.h for uint32_t etc.
+	Fix warning.
+
+2004-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/Makefile.am: Add.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, lib/Makefile.am, lib/anonymous/Makefile.am,
+	lib/cram-md5/Makefile.am, lib/digest-md5/Makefile.am,
+	lib/external/Makefile.am, lib/gssapi/Makefile.am,
+	lib/kerberos_v5/Makefile.am, lib/login/Makefile.am,
+	lib/ntlm/Makefile.am, lib/plain/Makefile.am,
+	lib/securid/Makefile.am: Build helper libraries for each mechanism.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
 2004-01-17  Simon Josefsson <simon@josefsson.org>
 
 	* doc/gsasl.texi: Fix title.
@@ -467,9 +655,33 @@
 
 2003-11-20  Simon Josefsson <simon@josefsson.org>
 
-	* lib/Makefile.am, src/Makefile.am, src/callbacks.c, src/getopt.c,
+	* gl/Makefile.am, gl/alloca.c, gl/alloca_.h, gl/argp-ba.c,
+	gl/argp-eexst.c, gl/argp-fmtstream.c, gl/argp-fmtstream.h,
+	gl/argp-fs-xinl.c, gl/argp-help.c, gl/argp-namefrob.h,
+	gl/argp-parse.c, gl/argp-pv.c, gl/argp-pvh.c, gl/argp-xinl.c,
+	lib/Makefile.am, src/Makefile.am, src/callbacks.c, src/getopt.c,
 	src/getopt.h, src/getopt1.c, src/gsasl.c, src/gsasl.ggo,
-	src/internal.h: Use getopt instead of argp.  Remove gnulib (gl/).
+	src/internal.h, gl/argp.h, gl/error.c, gl/error.h, gl/exit.h,
+	gl/exitfail.c, gl/exitfail.h, gl/getopt.c, gl/getopt.h,
+	gl/getopt1.c, gl/gettext.h, gl/malloc.c, gl/mempcpy.c,
+	gl/mempcpy.h, gl/realloc.c, gl/stdbool_.h, gl/strcase.h,
+	gl/strcasecmp.c, gl/strchrnul.c, gl/strchrnul.h, gl/strncasecmp.c,
+	gl/strndup.c, gl/strndup.h, gl/strnlen.c, gl/sysexit_.h,
+	gl/unlocked-io.h, gl/xalloc.h, gl/xmalloc.c, gl/xstrdup.c,
+	gl/m4/alloca.m4, gl/m4/argp.m4, gl/m4/codeset.m4, gl/m4/error.m4,
+	gl/m4/exitfail.m4, gl/m4/extensions.m4, gl/m4/getopt.m4,
+	gl/m4/gettext.m4, gl/m4/glibc21.m4, gl/m4/iconv.m4,
+	gl/m4/intdiv0.m4, gl/m4/inttypes-pri.m4, gl/m4/inttypes.m4,
+	gl/m4/inttypes_h.m4, gl/m4/isc-posix.m4, gl/m4/lcmessage.m4,
+	gl/m4/lib-ld.m4, gl/m4/lib-link.m4, gl/m4/lib-prefix.m4,
+	gl/m4/malloc.m4, gl/m4/mempcpy.m4, gl/m4/nls.m4,
+	gl/m4/onceonly_2_57.m4, gl/m4/po.m4, gl/m4/progtest.m4,
+	gl/m4/realloc.m4, gl/m4/restrict.m4, gl/m4/stdbool.m4,
+	gl/m4/stdint_h.m4, gl/m4/strcase.m4, gl/m4/strchrnul.m4,
+	gl/m4/strerror_r.m4, gl/m4/strndup.m4, gl/m4/strnlen.m4,
+	gl/m4/sysexits.m4, gl/m4/uintmax_t.m4, gl/m4/ulonglong.m4,
+	gl/m4/unlocked-io.m4, gl/m4/xalloc.m4: Use getopt instead of argp.
+	Remove gnulib (gl/).
 
 2003-11-20  Simon Josefsson <simon@josefsson.org>
 
@@ -1111,6 +1323,17 @@
 
 2003-11-09  Simon Josefsson <simon@josefsson.org>
 
+	* gl/Makefile.am, gl/alloca.c, gl/getline.c, gl/getline.h,
+	gl/getndelim2.c, gl/getndelim2.h, gl/stdbool_.h, gl/strncasecmp.c,
+	gl/xalloc.h, gl/xmalloc.c, gl/xstrdup.c: Update.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/argp.m4, gl/m4/getline.m4, gl/m4/getndelim2.m4,
+	gl/m4/ssize_t.m4, gl/m4/stdbool.m4, gl/m4/xalloc.m4: Update.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
 	* doc/Makefile.am: Remove unused ps_TEXINFOS pdf_TEXINFOS.
 
 2003-11-09  Simon Josefsson <simon@josefsson.org>
@@ -1120,7 +1343,8 @@
 
 2003-11-09  Simon Josefsson <simon@josefsson.org>
 
-	* m4/Makefile.am: Remove (not needed by modern automake).
+	* gl/m4/Makefile.am, m4/Makefile.am: Remove (not needed by modern
+	automake).
 
 2003-11-09  Simon Josefsson <simon@josefsson.org>
 
@@ -1130,6 +1354,10 @@
 2003-11-09  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Don't descend into m4.  Move gl/ after lib/.
+
+2003-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Don't descend into m4/.
 
 2003-11-09  Simon Josefsson <simon@josefsson.org>
 
@@ -1381,7 +1609,23 @@
 
 2003-10-10  Simon Josefsson <simon@josefsson.org>
 
+	* gl/argp-help.c, gl/argp-namefrob.h, gl/argp-parse.c, gl/argp.h,
+	gl/m4/argp.m4: Fix for Solaris Forte 7 CC, based on report from
+	Lars Engebretsen <enge@nada.kth.se>.
+
+2003-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/strcase.h, gl/strcasecmp.c, gl/m4/strcase.m4,
+	gl/m4/Makefile.am: Add.
+
+2003-10-10  Simon Josefsson <simon@josefsson.org>
+
 	* configure.ac: Gnulib fix.
+
+2003-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/unlocked-io.h, gl/m4/Makefile.am,
+	gl/m4/restrict.m4: Update.
 
 2003-10-09  Simon Josefsson <simon@josefsson.org>
 
@@ -1461,6 +1705,16 @@
 2003-10-09  Simon Josefsson <simon@josefsson.org>
 
 	* configure.ac: Add getline.
+
+2003-10-09  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/argp-ba.c, gl/argp-eexst.c,
+	gl/argp-fmtstream.c, gl/argp-fmtstream.h, gl/argp-fs-xinl.c,
+	gl/argp-help.c, gl/argp-namefrob.h, gl/argp-parse.c, gl/argp-pv.c,
+	gl/argp-pvh.c, gl/argp-xinl.c, gl/argp.h, gl/getline.c,
+	gl/getline.h, gl/getndelim2.c, gl/getndelim2.h, gl/m4/Makefile.am,
+	gl/m4/getline.m4, gl/m4/getndelim2.m4, gl/m4/ssize_t.m4: Add
+	getline.  Update argp from gnulib.
 
 2003-10-07  Simon Josefsson <simon@josefsson.org>
 
@@ -1565,6 +1819,13 @@
 
 	* configure.ac, lib/Makefile.am, lib/internal.h,
 	lib/stringprep-no.c, lib/stringprep.c: Make libstringprep optional.
+
+2003-10-03  Simon Josefsson <simon@josefsson.org>
+
+	* gl/argp-ba.c, gl/argp-eexst.c, gl/argp-fmtstream.c,
+	gl/argp-fs-xinl.c, gl/argp-help.c, gl/argp-namefrob.h,
+	gl/argp-parse.c, gl/argp-pv.c, gl/argp-pvh.c, gl/argp-xinl.c: Sync
+	with my proposed glibc patches.
 
 2003-10-02  Simon Josefsson <simon@josefsson.org>
 
@@ -1684,7 +1945,13 @@
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* configure.ac: Remove minmax.
+	* configure.ac, gl/Makefile.am, gl/minmax.h: Remove minmax.
+
+2003-10-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/gethostname.c, gl/memmove.c, gl/memset.c,
+	gl/strdup.c, gl/m4/Makefile.am, gl/m4/gethostname.m4,
+	gl/m4/memmove.m4, gl/m4/memset.m4, gl/m4/strdup.m4: We assume C89.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
@@ -1692,7 +1959,16 @@
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* configure.ac, lib/gettext.h: GNULib sync.
+	* configure.ac, gl/Makefile.am, gl/argp-ba.c, gl/argp-eexst.c,
+	gl/argp-fmtstream.c, gl/argp-fmtstream.h, gl/argp-fs-xinl.c,
+	gl/argp-help.c, gl/argp-namefrob.h, gl/argp-parse.c, gl/argp-pv.c,
+	gl/argp-pvh.c, gl/argp-xinl.c, gl/argp.h, gl/asnprintf.c,
+	gl/asprintf.c, gl/printf-args.c, gl/printf-args.h,
+	gl/printf-parse.c, gl/printf-parse.h, gl/vasnprintf.c,
+	gl/vasnprintf.h, gl/vasprintf.c, gl/vasprintf.h, gl/m4/Makefile.am,
+	gl/m4/intmax_t.m4, gl/m4/longdouble.m4, gl/m4/longlong.m4,
+	gl/m4/signed.m4, gl/m4/vasnprintf.m4, gl/m4/vasprintf.m4,
+	gl/m4/wchar_t.m4, gl/m4/wint_t.m4, lib/gettext.h: GNULib sync.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
@@ -1704,11 +1980,31 @@
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
+	* gl/Makefile.am, gl/minmax.h: Add minmax.
+
+2003-10-01  Simon Josefsson <simon@josefsson.org>
+
 	* configure.ac: Refuse to disable both client and server.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* configure.ac: GNULib sync.
+	* configure.ac, gl/Makefile.am, gl/alloca.c, gl/alloca_.h,
+	gl/argp-ba.c, gl/argp-eexst.c, gl/argp-fmtstream.c,
+	gl/argp-fmtstream.h, gl/argp-fs-xinl.c, gl/argp-help.c,
+	gl/argp-namefrob.h, gl/argp-parse.c, gl/argp-pv.c, gl/argp-pvh.c,
+	gl/argp-xinl.c, gl/argp.h, gl/error.c, gl/error.h, gl/exit.h,
+	gl/exitfail.c, gl/gethostname.c, gl/getopt.c, gl/getopt.h,
+	gl/getopt1.c, gl/malloc.c, gl/memmove.c, gl/mempcpy.c,
+	gl/mempcpy.h, gl/memset.c, gl/realloc.c, gl/strchrnul.c,
+	gl/strdup.c, gl/strerror.c, gl/strndup.c, gl/strndup.h,
+	gl/strnlen.c, gl/vasnprintf.c, gl/xmalloc.c, gl/xstrdup.c,
+	gl/m4/Makefile.am, gl/m4/alloca.m4, gl/m4/argp.m4, gl/m4/error.m4,
+	gl/m4/exitfail.m4, gl/m4/extensions.m4, gl/m4/getopt.m4,
+	gl/m4/lib-ld.m4, gl/m4/lib-link.m4, gl/m4/lib-prefix.m4,
+	gl/m4/mempcpy.m4, gl/m4/strchrnul.m4, gl/m4/strdup.m4,
+	gl/m4/strerror.m4, gl/m4/strndup.m4, gl/m4/strnlen.m4,
+	gl/m4/unlocked-io.m4, gl/m4/vasnprintf.m4, gl/m4/xalloc.m4: GNULib
+	sync.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
@@ -1757,6 +2053,10 @@
 
 	* configure.ac: Fix libidn CFLAGS.
 
+2003-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Use libtool.
+
 2003-08-05  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Fix.
@@ -1791,6 +2091,17 @@
 
 	* lib/Makefile.am: Remove -lm.
 
+2003-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/asnprintf.c, gl/asprintf.c, gl/exitfail.c,
+	gl/exitfail.h, gl/gettext.h, gl/printf-args.c, gl/printf-args.h,
+	gl/printf-parse.c, gl/printf-parse.h, gl/unlocked-io.h,
+	gl/vasnprintf.c, gl/vasnprintf.h, gl/vasprintf.c, gl/vasprintf.h,
+	gl/xalloc.h, gl/xmalloc.c, gl/m4/Makefile.am, gl/m4/exitfail.m4,
+	gl/m4/intmax_t.m4, gl/m4/longdouble.m4, gl/m4/longlong.m4,
+	gl/m4/signed.m4, gl/m4/vasnprintf.m4, gl/m4/vasprintf.m4,
+	gl/m4/wchar_t.m4, gl/m4/wint_t.m4: Add.
+
 2003-07-31  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Replace gnudist with gnuftp.
@@ -1808,6 +2119,21 @@
 	* doc/gsasl.texi: Update documentation to new API exit codes,
 	suggested by Andorz Nilsson.
 
+2003-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* gl/argp-ba.c, gl/argp-eexst.c, gl/argp-fmtstream.c,
+	gl/argp-fmtstream.h, gl/argp-fs-xinl.c, gl/argp-help.c,
+	gl/argp-namefrob.h, gl/argp-parse.c, gl/argp-pv.c, gl/argp-pvh.c,
+	gl/argp-xinl.c, gl/argp.h: Sync.
+
+2003-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* gl/argp-fmtstream.h, gl/argp-namefrob.h: Cleanup.
+
+2003-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* gl/argp-fmtstream.c, gl/argp-help.c, gl/argp-parse.c: Sync.
+
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
 	* configure.ac: Check for sys/types.h earlier.  Improve libidn
@@ -1819,6 +2145,27 @@
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
+	* gl/argp-namefrob.h: Be safer when config.h doesn't define
+	_UNLOCKED stuff.
+
+2003-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/argp-namefrob.h, gl/m4/Makefile.am: Add.
+
+2003-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/argp-help.c: Move namespace fixes to argp-namefrob.h.
+
+2003-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/argp-fmtstream.c, gl/argp-fmtstream.h,
+	gl/argp-help.c, gl/argp-namefrob.h, gl/argp-parse.c,
+	gl/argp-xinl.c, gl/argp.h, gl/mempcpy.c, gl/mempcpy.h,
+	gl/strndup.c, gl/strnlen.c, gl/m4/argp.m4, gl/m4/mempcpy.m4,
+	gl/m4/strndup.m4, gl/m4/strnlen.m4: Portability fixes.
+
+2003-07-10  Simon Josefsson <simon@josefsson.org>
+
 	* configure.ac: More gnulib tests.
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
@@ -1827,7 +2174,16 @@
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
+	* gl/Makefile.am: Add deps.
+
+2003-07-10  Simon Josefsson <simon@josefsson.org>
+
 	* configure.ac: Warn about too recent libgcrypt.
+
+2003-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/argp.h, gl/argp-fmtstream.h, gl/argp-help.c: Sent to
+	libc-alpha.
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
@@ -1895,6 +2251,30 @@
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am, src/Makefile.am: Replace argp with gl.
+
+2003-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/alloca.c, gl/alloca_.h, gl/argp-ba.c,
+	gl/argp-eexst.c, gl/argp-fmtstream.c, gl/argp-fmtstream.h,
+	gl/argp-fs-xinl.c, gl/argp-help.c, gl/argp-namefrob.h,
+	gl/argp-parse.c, gl/argp-pv.c, gl/argp-pvh.c, gl/argp-xinl.c,
+	gl/argp.h, gl/error.c, gl/error.h, gl/gethostname.c, gl/getopt.c,
+	gl/getopt.h, gl/getopt1.c, gl/gettext.h, gl/malloc.c, gl/memmove.c,
+	gl/memset.c, gl/realloc.c, gl/strchrnul.c, gl/strchrnul.h,
+	gl/strdup.c, gl/strerror.c, gl/sysexit_.h, gl/unlocked-io.h,
+	gl/xalloc.h, gl/xmalloc.c, gl/xstrdup.c, gl/m4/Makefile.am,
+	gl/m4/alloca.m4, gl/m4/argp.m4, gl/m4/codeset.m4, gl/m4/error.m4,
+	gl/m4/gethostname.m4, gl/m4/getopt.m4, gl/m4/gettext.m4,
+	gl/m4/glibc21.m4, gl/m4/iconv.m4, gl/m4/intdiv0.m4,
+	gl/m4/inttypes-pri.m4, gl/m4/inttypes.m4, gl/m4/inttypes_h.m4,
+	gl/m4/isc-posix.m4, gl/m4/lcmessage.m4, gl/m4/lib-ld.m4,
+	gl/m4/lib-link.m4, gl/m4/lib-prefix.m4, gl/m4/malloc.m4,
+	gl/m4/memmove.m4, gl/m4/memset.m4, gl/m4/nls.m4,
+	gl/m4/onceonly_2_57.m4, gl/m4/po.m4, gl/m4/progtest.m4,
+	gl/m4/realloc.m4, gl/m4/stdint_h.m4, gl/m4/strchrnul.m4,
+	gl/m4/strdup.m4, gl/m4/strerror.m4, gl/m4/strerror_r.m4,
+	gl/m4/sysexits.m4, gl/m4/uintmax_t.m4, gl/m4/ulonglong.m4,
+	gl/m4/unlocked-io.m4, gl/m4/xalloc.m4: Add.
 
 2003-07-10  Simon Josefsson <simon@josefsson.org>
 
