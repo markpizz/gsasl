@@ -36,11 +36,7 @@ AC_PROG_LIBTOOL
 # Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(sys/types.h sys/poll.h sys/time.h sys/select.h sys/socket.h)
-AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h errno.h)
-
-# Checks for typedefs, structures, and compiler characteristics.
-AC_TYPE_UID_T
-AC_CHECK_DECLS(errno)
+AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h)
 
 # Checks for library functions.
 AC_SEARCH_LIBS(socket, socket)
