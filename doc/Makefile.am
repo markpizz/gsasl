@@ -47,7 +47,6 @@ DISTCLEANFILES = $(dist_man_MANS)
 gsasl.1: $(top_srcdir)/src/gsasl.c $(top_builddir)/src/gsasl
 	$(HELP2MAN) \
 		--name="SASL library command line interface" \
-		--help-option="--program-name gsasl --help" \
 		--output=$@ $(top_builddir)/src/gsasl
 
 GDOC_SRC = $(top_srcdir)/lib/*.c
