@@ -91,6 +91,11 @@ struct Gsasl
   size_t n_server_mechs;
   _Gsasl_mechanism *server_mechs;
   void *application_data;
+  /* Global callback. */
+  Gsasl_callback cb;
+  /* Global properties. */
+  char *anonymous_token;
+  /* Obsolete callbacks. */
   Gsasl_client_callback_authorization_id cbc_authorization_id;
   Gsasl_client_callback_authentication_id cbc_authentication_id;
   Gsasl_client_callback_password cbc_password;
@@ -124,6 +129,12 @@ struct Gsasl_session
   _Gsasl_mechanism *mech;
   void *application_data;
   void *mech_data;
+  /* Session specific callback.  If NULL, use global callback in
+   * ctx->cb.  */
+  Gsasl_callback cb;
+  /* Session specific properties.  If NULL, use corresponding global
+   * property. */
+  char *anonymous_token;
 };
 
 #endif /* _INTERNAL_H */

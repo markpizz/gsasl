@@ -19,8 +19,8 @@
  *
  */
 
-#ifndef _GSASL_H
-#define _GSASL_H
+#ifndef GSASL_H
+#define GSASL_H
 
 #include <stdio.h>		/* FILE */
 #include <stddef.h>		/* size_t */
@@ -84,6 +84,8 @@ extern "C"
     GSASL_NO_MORE_REALMS,
     GSASL_NO_CLIENT_CODE,
     GSASL_NO_SERVER_CODE,
+    GSASL_NO_CALLBACK,
+    GSASL_NO_ANONYMOUS_TOKEN,
     /* Mechanism specific errors. */
     GSASL_GSSAPI_RELEASE_BUFFER_ERROR,
     GSASL_GSSAPI_IMPORT_NAME_ERROR,
@@ -125,6 +127,34 @@ extern "C"
   typedef struct Gsasl Gsasl;
   typedef struct Gsasl_session Gsasl_session;
 
+  /* Callback/property types. */
+  enum Gsasl_property
+  {
+    GSASL_CLIENT_ANONYMOUS,
+    GSASL_CLIENT_SIMPLE,
+    GSASL_CLIENT_PASSCODE,
+    GSASL_CLIENT_PIN,
+    GSASL_CLIENT_SERVICE,
+    GSASL_CLIENT_QOP,
+    GSASL_CLIENT_MAXBUF,
+    GSASL_SERVER_VALIDATE,
+    GSASL_SERVER_RETRIEVE,
+    GSASL_SERVER_USEROK,
+    GSASL_SERVER_SECURID,
+    GSASL_SERVER_CRAM_MD5,
+    GSASL_SERVER_DIGEST_MD5,
+    GSASL_SERVER_SERVICE,
+    GSASL_SERVER_EXTERNAL,
+    GSASL_SERVER_ANONYMOUS,
+    GSASL_SERVER_REALM,
+    GSASL_SERVER_QOP,
+    GSASL_SERVER_MAXBUF,
+    GSASL_SERVER_CIPHER
+  };
+  typedef enum Gsasl_property Gsasl_property;
+  typedef int (*Gsasl_callback) (Gsasl * ctx, Gsasl_session * sctx,
+				 Gsasl_property prop);
+
 /* Library entry and exit points: version.c, init.c, done.c */
   extern int gsasl_init (Gsasl ** ctx);
   extern void gsasl_done (Gsasl * ctx);
@@ -141,6 +171,24 @@ extern "C"
   extern void *gsasl_application_data_get (Gsasl * ctx);
   extern void gsasl_appinfo_set (Gsasl_session * sctx, void *appdata);
   extern void *gsasl_appinfo_get (Gsasl_session * sctx);
+  extern void gsasl_callback_set (Gsasl_session * sctx, Gsasl_callback cb);
+  extern void gsasl_callback_set_global (Gsasl * ctx, Gsasl_callback cb);
+  extern int gsasl_callback (Gsasl_session * sctx, Gsasl_property prop);
+  extern int gsasl_callback_global (Gsasl * ctx, Gsasl_property prop);
+
+  /* Property handling: property.c */
+  extern void gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
+				  const char *data);
+  extern void gsasl_property_set_global (Gsasl * ctx, Gsasl_property prop,
+					 const char *data);
+  extern const char *gsasl_property_get (Gsasl_session * sctx,
+					 Gsasl_property prop);
+  extern const char *gsasl_property_get_global (Gsasl * ctx,
+						Gsasl_property prop);
+  extern const char *gsasl_property_fast (Gsasl_session * sctx,
+					  Gsasl_property prop);
+  extern const char *gsasl_property_fast_global (Gsasl * ctx,
+						 Gsasl_property prop);
 
 /* Mechanism handling: listmech.c, supportp.c, suggest.c */
   extern int gsasl_client_mechlist (Gsasl * ctx, char **out);
@@ -177,8 +225,7 @@ extern "C"
   extern const char *gsasl_strerror (int err);
 
 /* Utilities: base64.c, md5pwd.c, crypto.c */
-  extern int gsasl_base64_encode (char const *src,
-				  size_t srclength,
+  extern int gsasl_base64_encode (char const *src, size_t srclength,
 				  char *target, size_t targsize);
   extern int gsasl_base64_decode (char const *src,
 				  char *target, size_t targsize);
@@ -191,227 +238,11 @@ extern "C"
   extern int gsasl_hmac_md5 (const char *key, size_t keylen,
 			     const char *in, size_t inlen, char *outhash[16]);
 
-/* Callback prototypes */
-  typedef int (*Gsasl_client_callback_anonymous) (Gsasl_session * sctx,
-						  char *out, size_t * outlen);
-  typedef int (*Gsasl_client_callback_authentication_id) (Gsasl_session *
-							  sctx, char *out,
-							  size_t * outlen);
-  typedef int (*Gsasl_client_callback_authorization_id) (Gsasl_session *
-							 sctx, char *out,
-							 size_t * outlen);
-  typedef int (*Gsasl_client_callback_password) (Gsasl_session * sctx,
-						 char *out, size_t * outlen);
-  typedef int (*Gsasl_client_callback_passcode) (Gsasl_session * sctx,
-						 char *out, size_t * outlen);
-  typedef int (*Gsasl_client_callback_pin) (Gsasl_session * sctx,
-					    char *suggestion, char *out,
-					    size_t * outlen);
-  typedef int (*Gsasl_client_callback_service) (Gsasl_session * sctx,
-						char *service,
-						size_t * servicelen,
-						char *hostname,
-						size_t * hostnamelen,
-						char *servicename,
-						size_t * servicenamelen);
-  typedef Gsasl_qop (*Gsasl_client_callback_qop) (Gsasl_session * sctx,
-						  Gsasl_qop serverqops);
-  typedef size_t (*Gsasl_client_callback_maxbuf) (Gsasl_session * sctx,
-						  size_t servermaxbuf);
-  typedef int (*Gsasl_client_callback_realm) (Gsasl_session * sctx,
-					      char *out, size_t * outlen);
-  typedef int (*Gsasl_server_callback_retrieve) (Gsasl_session * sctx,
-						 const char
-						 *authentication_id,
-						 const char *authorization_id,
-						 const char *realm, char *key,
-						 size_t * keylen);
-  typedef int (*Gsasl_server_callback_validate) (Gsasl_session * sctx,
-						 const char *authorization_id,
-						 const char
-						 *authentication_id,
-						 const char *password);
-  typedef int (*Gsasl_server_callback_gssapi) (Gsasl_session * sctx,
-					       const char *clientname,
-					       const char *authentication_id);
-  typedef int (*Gsasl_server_callback_securid) (Gsasl_session * sctx,
-						const char *authentication_id,
-						const char *authorization_id,
-						const char *passcode,
-						char *pin, char *suggestpin,
-						size_t * suggestpinlen);
-  typedef int (*Gsasl_server_callback_cram_md5) (Gsasl_session * sctx,
-						 char *username,
-						 char *challenge,
-						 char *response);
-  typedef int (*Gsasl_server_callback_digest_md5) (Gsasl_session * sctx,
-						   char *username,
-						   char *realm,
-						   char *secrethash);
-  typedef int (*Gsasl_server_callback_service) (Gsasl_session * sctx,
-						char *service,
-						size_t * servicelen,
-						char *hostname,
-						size_t * hostnamelen);
-  typedef int (*Gsasl_server_callback_external) (Gsasl_session * sctx);
-  typedef int (*Gsasl_server_callback_anonymous) (Gsasl_session * sctx,
-						  const char *token);
-  typedef int (*Gsasl_server_callback_realm) (Gsasl_session * sctx,
-					      char *out,
-					      size_t * outlen, size_t nth);
-  typedef Gsasl_qop (*Gsasl_server_callback_qop) (Gsasl_session * sctx);
-  typedef size_t (*Gsasl_server_callback_maxbuf) (Gsasl_session * sctx);
-  typedef Gsasl_cipher (*Gsasl_server_callback_cipher) (Gsasl_session * sctx);
-
-/* Client callbacks: callback-c.c */
-  extern void gsasl_client_callback_authorization_id_set (Gsasl * ctx,
-							  Gsasl_client_callback_authorization_id cb);
-  extern Gsasl_client_callback_authorization_id
-    gsasl_client_callback_authorization_id_get (Gsasl * ctx);
-
-  extern void gsasl_client_callback_authentication_id_set (Gsasl * ctx,
-							   Gsasl_client_callback_authentication_id cb);
-  extern Gsasl_client_callback_authentication_id
-    gsasl_client_callback_authentication_id_get (Gsasl * ctx);
-
-  extern void gsasl_client_callback_anonymous_set (Gsasl * ctx,
-						   Gsasl_client_callback_anonymous cb);
-  extern Gsasl_client_callback_anonymous
-    gsasl_client_callback_anonymous_get (Gsasl * ctx);
-
-  extern void gsasl_client_callback_password_set (Gsasl * ctx,
-						  Gsasl_client_callback_password cb);
-  extern Gsasl_client_callback_password
-    gsasl_client_callback_password_get (Gsasl * ctx);
-
-  extern void gsasl_client_callback_passcode_set (Gsasl * ctx,
-						  Gsasl_client_callback_passcode cb);
-  extern Gsasl_client_callback_passcode
-    gsasl_client_callback_passcode_get (Gsasl * ctx);
-
-  extern void gsasl_client_callback_pin_set (Gsasl * ctx,
-					     Gsasl_client_callback_pin cb);
-  extern Gsasl_client_callback_pin
-    gsasl_client_callback_pin_get (Gsasl * ctx);
-
-  extern void gsasl_client_callback_service_set (Gsasl * ctx,
-						 Gsasl_client_callback_service cb);
-  extern Gsasl_client_callback_service
-    gsasl_client_callback_service_get (Gsasl * ctx);
-
-  extern void gsasl_client_callback_qop_set (Gsasl * ctx,
-					     Gsasl_client_callback_qop cb);
-  extern Gsasl_client_callback_qop
-    gsasl_client_callback_qop_get (Gsasl * ctx);
-
-  extern void gsasl_client_callback_maxbuf_set (Gsasl * ctx,
-						Gsasl_client_callback_maxbuf cb);
-  extern Gsasl_client_callback_maxbuf
-    gsasl_client_callback_maxbuf_get (Gsasl * ctx);
-  extern void gsasl_client_callback_realm_set (Gsasl * ctx,
-					       Gsasl_client_callback_realm cb);
-  extern Gsasl_client_callback_realm
-    gsasl_client_callback_realm_get (Gsasl * ctx);
-
-/* Server callbacks: callback-s.c */
-  extern void gsasl_server_callback_validate_set (Gsasl * ctx,
-						  Gsasl_server_callback_validate cb);
-  extern Gsasl_server_callback_validate
-    gsasl_server_callback_validate_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_retrieve_set (Gsasl * ctx,
-						  Gsasl_server_callback_retrieve cb);
-  extern Gsasl_server_callback_retrieve
-    gsasl_server_callback_retrieve_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_cram_md5_set (Gsasl * ctx,
-						  Gsasl_server_callback_cram_md5 cb);
-  extern Gsasl_server_callback_cram_md5
-    gsasl_server_callback_cram_md5_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_digest_md5_set (Gsasl * ctx,
-						    Gsasl_server_callback_digest_md5 cb);
-  extern Gsasl_server_callback_digest_md5
-    gsasl_server_callback_digest_md5_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_external_set (Gsasl * ctx,
-						  Gsasl_server_callback_external cb);
-  extern Gsasl_server_callback_external
-    gsasl_server_callback_external_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_anonymous_set (Gsasl * ctx,
-						   Gsasl_server_callback_anonymous cb);
-  extern Gsasl_server_callback_anonymous
-    gsasl_server_callback_anonymous_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_realm_set (Gsasl * ctx,
-					       Gsasl_server_callback_realm cb);
-  extern Gsasl_server_callback_realm
-    gsasl_server_callback_realm_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_qop_set (Gsasl * ctx,
-					     Gsasl_server_callback_qop cb);
-  extern Gsasl_server_callback_qop
-    gsasl_server_callback_qop_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_maxbuf_set (Gsasl * ctx,
-						Gsasl_server_callback_maxbuf cb);
-  extern Gsasl_server_callback_maxbuf
-    gsasl_server_callback_maxbuf_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_cipher_set (Gsasl * ctx,
-						Gsasl_server_callback_cipher cb);
-  extern Gsasl_server_callback_cipher
-    gsasl_server_callback_cipher_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_securid_set (Gsasl * ctx,
-						 Gsasl_server_callback_securid cb);
-  extern Gsasl_server_callback_securid
-    gsasl_server_callback_securid_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_gssapi_set (Gsasl * ctx,
-						Gsasl_server_callback_gssapi cb);
-  extern Gsasl_server_callback_gssapi
-    gsasl_server_callback_gssapi_get (Gsasl * ctx);
-
-  extern void gsasl_server_callback_service_set (Gsasl * ctx,
-						 Gsasl_server_callback_service cb);
-  extern Gsasl_server_callback_service
-    gsasl_server_callback_service_get (Gsasl * ctx);
-
-  /* Obsolete functions. */
-#define Gsasl_ctx Gsasl
-#define Gsasl_session_ctx Gsasl_session
-  extern int gsasl_client_listmech (Gsasl_ctx * ctx, char *out,
-				    size_t * outlen);
-  extern int gsasl_server_listmech (Gsasl_ctx * ctx, char *out,
-				    size_t * outlen);
-  extern int gsasl_client_step (Gsasl_session_ctx * sctx,
-				const char *input, size_t input_len,
-				char *output, size_t * output_len);
-  extern int gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
-				       const char *b64input,
-				       char *b64output, size_t b64output_len);
-  extern int gsasl_server_step (Gsasl_session_ctx * sctx,
-				const char *input, size_t input_len,
-				char *output, size_t * output_len);
-  extern int gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
-				       const char *b64input,
-				       char *b64output, size_t b64output_len);
-  extern void gsasl_client_finish (Gsasl_session_ctx * sctx);
-  extern void gsasl_server_finish (Gsasl_session_ctx * sctx);
-  extern Gsasl_ctx *gsasl_client_ctx_get (Gsasl_session_ctx * sctx);
-  extern Gsasl_ctx *gsasl_server_ctx_get (Gsasl_session_ctx * sctx);
-  extern void gsasl_client_application_data_set (Gsasl_session_ctx * sctx,
-						 void *application_data);
-  extern void *gsasl_client_application_data_get (Gsasl_session_ctx * sctx);
-  extern void gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
-						 void *application_data);
-  extern void *gsasl_server_application_data_get (Gsasl_session_ctx * sctx);
-  extern int gsasl_randomize (int strong, char *data, size_t datalen);
+  /* For compatibility with earlier versions. */
+#include <gsasl-compat.h>
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif				/* _GSASL_H */
+#endif				/* GSASL_H */

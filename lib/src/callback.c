@@ -22,6 +22,153 @@
 #include "internal.h"
 
 /**
+ * gsasl_callback_set:
+ * @sctx: session handle.
+ * @cb: pointer to function implemented by application.
+ *
+ * Store the pointer to the application provided callback in the
+ * session specific handle.  The callback will be used, via
+ * gsasl_callback(), by mechanisms to discover various parameters
+ * (such as username and passwords).  The callback function will be
+ * called with a Gsasl_property value indicating the requested
+ * behaviour.  For example, for GSASL_CLIENT_ANONYMOUS, the function
+ * is expected to invoke gsasl_property_set(SCTX,
+ * GSASL_CLIENT_ANONYMOUS, "token") where "token" is the anonymous
+ * token the application wishes the SASL mechanism to use.  See the
+ * manual for the meaning of all parameters.
+ *
+ * It is valid, but may be confusing at first, to set different
+ * callbacks using gsasl_callback_set() and
+ * gsasl_callback_set_global().  Normally the session specific
+ * callback (i.e., the one set by gsasl_callback_set()) will be used
+ * by mechanisms, with a fall back to the global callback if a session
+ * specific callback has not been set.  You can use this to set a
+ * general global callback handler that apply to most sessions, but
+ * for some specific sessions you can override the callback with a
+ * different function.
+ **/
+void
+gsasl_callback_set (Gsasl_session * sctx, Gsasl_callback cb)
+{
+  sctx->cb = cb;
+}
+
+/**
+ * gsasl_callback_set_global:
+ * @ctx: handle received from gsasl_init().
+ * @cb: pointer to function implemented by application.
+ *
+ * Store the pointer to the application provided callback in the
+ * library handle.  The callback will be used, via gsasl_callback()
+ * and gsasl_callback_global(), by mechanisms to discover various
+ * parameters (such as username and passwords).  The callback function
+ * will be called with a Gsasl_property value indicating the requested
+ * behaviour.  For example, for GSASL_CLIENT_ANONYMOUS, the function
+ * is expected to invoke gsasl_property_set_global(CTX,
+ * GSASL_CLIENT_ANONYMOUS, "token") where "token" is the anonymous
+ * token the application wishes the SASL mechanism to use.  See the
+ * manual for the meaning of all parameters.
+ *
+ * It is valid, but may be confusing at first, to set different
+ * callbacks using gsasl_callback_set() and
+ * gsasl_callback_set_global().  Normally the session specific
+ * callback (i.e., the one set by gsasl_callback_set()) will be used
+ * by mechanisms, with a fall back to the global callback if a session
+ * specific callback has not been set.  You can use this to set a
+ * general global callback handler that apply to most sessions, but
+ * for some specific sessions you can override the callback with a
+ * different function.
+ **/
+void
+gsasl_callback_set_global (Gsasl * ctx, Gsasl_callback cb)
+{
+  ctx->cb = cb;
+}
+
+/**
+ * gsasl_callback:
+ * @sctx: session handle.
+ * @prop: enumerated value of Gsasl_property type.
+ *
+ * Invoke the session specific application callback, with a fall back
+ * to the global callback.  The @prop value indicate what the callback
+ * is expected to do.  For example, for GSASL_CLIENT_ANONYMOUS, the
+ * function is expected to invoke gsasl_property_set(SCTX,
+ * GSASL_CLIENT_ANONYMOUS, "token") where "token" is the anonymous
+ * token the application wishes the SASL mechanism to use.  See the
+ * manual for the meaning of all parameters.
+ *
+ * Note that if no callback has been set by the application, but the
+ * obsolete callback interface has been used, this function will
+ * translate the old callback interface into the new.  This interface
+ * should be sufficient to invoke all callbacks, both new and old.
+ *
+ * Return value: Returns whatever the application callback return, or
+ *   GSASL_NO_CALLBACK if no application was known.
+ **/
+int
+gsasl_callback (Gsasl_session * sctx, Gsasl_property prop)
+{
+  if (sctx->cb)
+    return sctx->cb (sctx->ctx, sctx, prop);
+
+  if (sctx->ctx->cb)
+    return gsasl_callback_global (sctx->ctx, prop);
+
+  {
+    /* Call obsolete callbacks.  Remove this when the obsolete
+     * callbacks are no longer supported.  This is done here, not in
+     * gsasl_callback_global, since all obsolete callbacks were
+     * session specific.  */
+    Gsasl_server_callback_anonymous cb_anonymous;
+    int res;
+
+    switch (prop)
+      {
+      case GSASL_SERVER_ANONYMOUS:
+	if (!sctx->anonymous_token)
+	  break;
+	cb_anonymous = gsasl_server_callback_anonymous_get (sctx->ctx);
+	if (!cb_anonymous)
+	  break;
+	res = cb_anonymous (sctx, sctx->anonymous_token);
+	return res;
+	break;
+
+      default:
+	break;
+      }
+  }
+
+  return GSASL_NO_CALLBACK;
+}
+
+/**
+ * gsasl_callback_global:
+ * @ctx: handle received from gsasl_init().
+ * @prop: enumerated value of Gsasl_property type.
+ *
+ * Invoke the handle global application callback.  The @prop value
+ * indicate what the callback is expected to do.  For example, for
+ * GSASL_CLIENT_ANONYMOUS, the function is expected to invoke
+ * gsasl_property_set(SCTX, GSASL_CLIENT_ANONYMOUS, "token") where
+ * "token" is the anonymous token the application wishes the SASL
+ * mechanism to use.  See the manual for the meaning of all
+ * parameters.
+ *
+ * Return value: Returns whatever the application callback return, or
+ *   GSASL_NO_CALLBACK if no application was known.
+ **/
+int
+gsasl_callback_global (Gsasl * ctx, Gsasl_property prop)
+{
+  if (ctx->cb)
+    return ctx->cb (ctx, NULL, prop);
+
+  return GSASL_NO_CALLBACK;
+}
+
+/**
  * gsasl_ctx_get:
  * @sctx: libgsasl session handle
  *
@@ -86,7 +233,7 @@ gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
 
 /**
  * gsasl_appinfo_get:
- * @sctx: libgsasl client handle.
+ * @sctx: libgsasl session handle.
  *
  * Retrieve application specific data from libgsasl session
  * handle. The application data is set using

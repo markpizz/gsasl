@@ -54,6 +54,9 @@ gsasl_done (Gsasl * ctx)
     free (ctx->server_mechs);
 #endif
 
+  if (ctx->anonymous_token)
+    free (ctx->anonymous_token);
+
   free (ctx);
 
   return;

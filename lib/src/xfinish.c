@@ -37,5 +37,8 @@ gsasl_finish (Gsasl_session * sctx)
     sctx->mech->server.finish (sctx, sctx->mech_data);
   /* XXX return value? */
 
+  if (sctx->anonymous_token)
+    free (sctx->anonymous_token);
+
   free (sctx);
 }

@@ -306,6 +306,14 @@ gsasl_strerror (int err)
       p = _("The provided library handle was invalid (application error)");
       break;
 
+    case GSASL_NO_CALLBACK:
+      p = _("No callback specified by caller (application error).");
+      break;
+
+    case GSASL_NO_ANONYMOUS_TOKEN:
+      p = _("Authentication failed because no anonymous token was provided.");
+      break;
+
     default:
       p = _("Libgsasl unknown error");
       break;
