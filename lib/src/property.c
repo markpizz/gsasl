@@ -67,6 +67,10 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->suggestedpin;
       break;
 
+    case GSASL_GSSAPI_DISPLAY_NAME:
+      p = &sctx->gssapi_display_name;
+      break;
+
     default:
       break;
     }
