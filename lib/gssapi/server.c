@@ -150,7 +150,7 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
       /* fall through */
 
     case 1:
-      bufdesc1.value = /*XXX*/ (char *) input;
+      bufdesc1.value = (void *) input;
       bufdesc1.length = input_len;
       if (state->client)
 	{
@@ -210,7 +210,7 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
       break;
 
     case 3:
-      bufdesc1.value = /*XXX*/ (char *) input;
+      bufdesc1.value = (void *) input;
       bufdesc1.length = input_len;
       maj_stat = gss_unwrap (&min_stat, state->context, &bufdesc1,
 			     &bufdesc2, NULL, NULL);
