@@ -271,7 +271,7 @@ _gsasl_digest_md5_server_encode (Gsasl_session * sctx,
   if (res)
     return res == -2 ? GSASL_NEEDS_MORE : GSASL_INTEGRITY_ERROR;
 
-  if (state->sendseqnum == 4294967295)
+  if (state->sendseqnum == 4294967295UL)
     state->sendseqnum = 0;
   else
     state->sendseqnum++;
@@ -294,7 +294,7 @@ _gsasl_digest_md5_server_decode (Gsasl_session * sctx,
   if (res)
     return res == -2 ? GSASL_NEEDS_MORE : GSASL_INTEGRITY_ERROR;
 
-  if (state->readseqnum == 4294967295)
+  if (state->readseqnum == 4294967295UL)
     state->readseqnum = 0;
   else
     state->readseqnum++;
