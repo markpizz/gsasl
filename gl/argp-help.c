@@ -49,7 +49,6 @@ char *alloca ();
 #include <string.h>
 #include <assert.h>
 #include <stdarg.h>
-#include <malloc.h>
 #include <ctype.h>
 #ifdef USE_IN_LIBIO
 # include <wchar.h>
@@ -66,6 +65,24 @@ char *alloca ();
 #  endif
 # else
 #  define dgettext(domain, msgid) (msgid)
+# endif
+#endif
+
+#ifndef __attribute
+# define __attribute(xyz)     /* Ignore */
+#endif
+
+#ifndef __strchrnul
+# define __strchrnul strchrnul
+#endif
+
+#ifndef __strndup
+# define __strndup strndup
+#endif
+
+#ifndef _LIBC
+# if !HAVE_DECL_STRERROR
+char *strerror ();
 # endif
 #endif
 
@@ -1811,14 +1828,22 @@ __argp_failure (const struct argp_state *state, int status, int errnum,
 
 #ifdef USE_IN_LIBIO
 	      if (_IO_fwide (stream, 0) > 0)
+#if defined _LIBC
 		__fwprintf (stream, L": %s",
 			    __strerror_r (errnum, buf, sizeof (buf)));
+#else
+		__fwprintf (stream, L": %s", strerror (errnum));
+#endif
 	      else
 #endif
 		{
 		  putc_unlocked (':', stream);
 		  putc_unlocked (' ', stream);
+#if defined _LIBC
 		  fputs (__strerror_r (errnum, buf, sizeof (buf)), stream);
+#else
+		  fputs (strerror (errnum), stream);
+#endif
 		}
 	    }
 
