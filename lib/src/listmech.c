@@ -46,9 +46,9 @@ _gsasl_listmech (Gsasl * ctx,
       if (rc == GSASL_OK)
 	{
 	  if (clientp)
-	    gsasl_client_finish (sctx);
+	    gsasl_finish (sctx);
 	  else
-	    gsasl_server_finish (sctx);
+	    gsasl_finish (sctx);
 
 	  strcat (list, mechs[i].name);
 	  if (i < n_mechs - 1)
