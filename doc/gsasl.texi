@@ -1073,10 +1073,11 @@ have been studying mathematics.
 The makefiles, manuals, etc borrowed much from Libgcrypt written by
 Werner Koch.
 
-Cryptographic functions for some SASL mechanisms uses Libgcrypt
-written by Werner Koch.  The NTLM mechanism uses Libntlm written by
-Grant Edwards and uses code from Samba written by Andrew Tridgell.
-The GSSAPI mechanism uses Kerberos written by MIT.
+Cryptographic functions for some SASL mechanisms uses Libgcrypt by
+Werner Koch et al.  The NTLM mechanism uses Libntlm by Grant Edwards
+et al, using code from Samba written by Andrew Tridgell, and now
+maintained by Simon Josefsson.  The GSSAPI mechanism uses libgssapi
+written by the Massachusetts Institute of Technology Kerberos Team.
 
 @c **********************************************************
 @c *******************  Appendices  *************************
