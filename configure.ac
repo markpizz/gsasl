@@ -111,7 +111,7 @@ AC_ARG_ENABLE(ntlm,
   ntlm=$enableval)
 if test "$ntlm" != "no" ; then
 	PKG_CHECK_MODULES(LIBNTLM, libntlm >= 0.3.1, [ntlm=yes], [ntlm=no])
-	if test "ntlm" != "yes" ; then
+	if test "$ntlm" != "yes" ; then
 		ntlm=no
 		AC_MSG_WARN([libntlm not found, disabling NTLM])
 	else
@@ -192,6 +192,26 @@ if test "$gssapi" != "no" ; then
 fi
 AC_MSG_CHECKING([if GSSAPI should be used])
 AC_MSG_RESULT($gssapi)
+
+# KERBEROS_V5
+AC_ARG_ENABLE(kerberos_v5,
+	AC_HELP_STRING([--disable-kerberos_v5],
+                       [don't use the KERBEROS_V5 mechanism]),
+	kerberos_v5=$enableval)
+if test "$kerberos_v5" != "no" ; then
+	PKG_CHECK_MODULES(SHISHI, shishi >= 0.0.0, [kerberos_v5=yes],
+                                                   [kerberos_v5=no])
+	if test "$kerberos_v5" != "yes" ; then
+		kerberos_v5=no
+		AC_MSG_WARN([shishi not found, disabling KERBEROS_V5])
+	else
+		kerberos_v5=yes
+		AC_DEFINE(USE_KERBEROS_V5, 1,
+                          [Define to 1 if you want KERBEROS_V5.])
+	fi
+fi
+AC_MSG_CHECKING([if KERBEROS_V5 should be used])
+AC_MSG_RESULT($kerberos_v5)
 
 # Check for idn
 AC_ARG_WITH(system-idn,
