@@ -27,6 +27,7 @@ libgsasl_digest_md5_la_SOURCES = digest-md5.h mechinfo.c \
 	session.h session.c \
 	getsubopt.c \
 	tokens.h \
+	digesthmac.h digesthmac.c \
 	validate.h validate.c \
 	parser.h parser.c \
 	printer.h printer.c \
@@ -40,5 +41,5 @@ if SERVER
 libgsasl_digest_md5_la_SOURCES += server.c
 endif
 
-LDADD = libgsasl-digest_md5.la
+LDADD = libgsasl-digest_md5.la ../crypto/libgc.la
 check_PROGRAMS = test-parser

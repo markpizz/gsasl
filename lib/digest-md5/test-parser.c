@@ -26,6 +26,7 @@
 
 #include "parser.h"
 #include "printer.h"
+#include "digesthmac.h"
 
 int
 main (int argc, char *argv[])
@@ -33,6 +34,8 @@ main (int argc, char *argv[])
   digest_md5_challenge c;
   digest_md5_response r;
   digest_md5_finish f;
+  char buf32[33];
+  char buf16[16];
   int rc;
   char *tmp;
 
@@ -169,6 +172,18 @@ main (int argc, char *argv[])
       abort ();
     printf ("invalid? PASS\n", token);
   }
+
+  memset (buf16, 'Q', 16);
+
+  rc = digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce", DIGEST_MD5_QOP_AUTH,
+			"authzid", "digesturi", ":", 0,
+			NULL, NULL, NULL, NULL);
+  if (rc != 0)
+    abort ();
+  buf32[32] = '\0';
+  if (strcmp (buf32, "6a204da26b9888ee40bb3052ff056a67") != 0)
+    abort ();
+  printf ("digest: `%s': PASS\n", buf32);
 
   return 0;
 }
