@@ -106,13 +106,13 @@ gsasl_step64 (Gsasl_session * sctx, const char *b64input, char **b64output)
 
   if (res == GSASL_OK || res == GSASL_NEEDS_MORE)
     {
-      res = gsasl_base64_to (output, output_len, b64output, NULL);
+      int tmpres = gsasl_base64_to (output, output_len, b64output, NULL);
 
       if (output != NULL)
 	free (output);
 
-      if (res != GSASL_OK)
-	return res;
+      if (tmpres != GSASL_OK)
+	return tmpres;
     }
 
   return res;
