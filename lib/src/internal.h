@@ -96,6 +96,9 @@ struct Gsasl
   char *authid;
   char *authzid;
   char *password;
+  char *passcode;
+  char *pin;
+  char *suggestedpin;
   /* Obsolete callbacks. */
   Gsasl_client_callback_authorization_id cbc_authorization_id;
   Gsasl_client_callback_authentication_id cbc_authentication_id;
@@ -139,6 +142,9 @@ struct Gsasl_session
   char *authid;
   char *authzid;
   char *password;
+  char *passcode;
+  char *pin;
+  char *suggestedpin;
 };
 
 #endif /* INTERNAL_H */

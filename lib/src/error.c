@@ -330,6 +330,16 @@ gsasl_strerror (int err)
 	    "password was not provided.");
       break;
 
+    case GSASL_NO_PASSCODE:
+      p = _("Authentication failed because the "
+	    "passcode was not provided.");
+      break;
+
+    case GSASL_NO_PIN:
+      p = _("Authentication failed because the "
+	    "pin code was not provided.");
+      break;
+
     case GSASL_NO_SERVICE:
       p = _("Authentication failed because the "
 	    "service name was not provided.");

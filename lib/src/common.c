@@ -158,11 +158,11 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     _gsasl_securid_client_start,
-    _gsasl_securid_client_step,
+    NULL,
     _gsasl_securid_client_finish,
     NULL,
     NULL,
-    NULL
+    _gsasl_securid_client_step
 #endif
     },
    {

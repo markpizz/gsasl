@@ -45,6 +45,18 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->password;
       break;
 
+    case GSASL_PASSCODE:
+      p = &sctx->passcode;
+      break;
+
+    case GSASL_PIN:
+      p = &sctx->pin;
+      break;
+
+    case GSASL_SUGGESTED_PIN:
+      p = &sctx->suggestedpin;
+      break;
+
     default:
       break;
     }
@@ -74,6 +86,18 @@ map_global (Gsasl * ctx, Gsasl_property prop)
 
     case GSASL_PASSWORD:
       p = &ctx->password;
+      break;
+
+    case GSASL_PASSCODE:
+      p = &ctx->passcode;
+      break;
+
+    case GSASL_PIN:
+      p = &ctx->pin;
+      break;
+
+    case GSASL_SUGGESTED_PIN:
+      p = &ctx->suggestedpin;
       break;
 
     default:
@@ -246,6 +270,8 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
       Gsasl_client_callback_authorization_id cb_authorization_id;
       Gsasl_client_callback_authentication_id cb_authentication_id;
       Gsasl_client_callback_password cb_password;
+      Gsasl_client_callback_passcode cb_passcode;
+      Gsasl_client_callback_pin cb_pin;
       char buf[BUFSIZ];
       size_t buflen = BUFSIZ - 1;
       int res;
@@ -295,6 +321,28 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 	  if (!cb_password)
 	    break;
 	  res = cb_password (sctx, buf, &buflen);
+	  if (res != GSASL_OK)
+	    break;
+	  buf[buflen] = '\0';
+	  gsasl_property_set (sctx, prop, buf);
+	  break;
+
+	case GSASL_PASSCODE:
+	  cb_passcode = gsasl_client_callback_passcode_get (sctx->ctx);
+	  if (!cb_passcode)
+	    break;
+	  res = cb_passcode (sctx, buf, &buflen);
+	  if (res != GSASL_OK)
+	    break;
+	  buf[buflen] = '\0';
+	  gsasl_property_set (sctx, prop, buf);
+	  break;
+
+	case GSASL_PIN:
+	  cb_pin = gsasl_client_callback_pin_get (sctx->ctx);
+	  if (!cb_pin)
+	    break;
+	  res = cb_pin (sctx, sctx->suggestedpin, buf, &buflen);
 	  if (res != GSASL_OK)
 	    break;
 	  buf[buflen] = '\0';
