@@ -69,6 +69,67 @@ readln (char *buf, size_t maxbuflen)
 
 #define MAX_LINE_LENGTH BUFSIZ
 
+static int
+readln1 (char **out)
+{
+  char input[MAX_LINE_LENGTH];
+
+  if (sockfd)
+    {
+      ssize_t len;
+      len = recv (sockfd, input, MAX_LINE_LENGTH, 0);
+      if (len <= 0)
+	return 0;
+      input[len] = '\0';
+    }
+  else if (!fgets (input, MAX_LINE_LENGTH, stdin))
+    return 0;
+
+  if (sockfd)
+    printf ("%s", input);
+
+  *out = strdup (input);
+
+  return 1;
+}
+
+int
+greeting (void)
+{
+  char *in;
+
+  if (args_info.imap_flag && !readln1 (&in))
+    return 0;
+
+  return 1;
+}
+
+int
+logout (void)
+{
+  char *in;
+
+  if (args_info.imap_flag)
+    {
+      if (!writeln (". LOGOUT"))
+	return 1;
+
+      /* read "* BYE ..." */
+      if (!readln1 (&in))
+	return 1;
+
+      free (in);
+
+      /* read ". OK ..." */
+      if (!readln1 (&in))
+	return 1;
+
+      free (in);
+    }
+
+  return 0;
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -88,8 +149,10 @@ main (int argc, char *argv[])
   if (cmdline_parser (argc, argv, &args_info) != 0)
     return 1;
 
-  if ((!args_info.client_flag && !args_info.server_flag) ||
-      (!args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag))
+  if (!args_info.client_flag &&
+      !args_info.server_flag &&
+      !args_info.client_mechanisms_flag &&
+      !args_info.server_mechanisms_flag)
     {
       fprintf (stderr, "%s: missing argument\n", argv[0]);
       cmdline_parser_print_help ();
@@ -225,9 +288,6 @@ main (int argc, char *argv[])
       free (mechs);
     }
 
-  if (args_info.imap_flag && !readln (input, MAX_LINE_LENGTH))
-    return 1;
-
   if (args_info.client_flag || args_info.server_flag)
     {
       char output[MAX_LINE_LENGTH];
@@ -237,6 +297,9 @@ main (int argc, char *argv[])
       const char *mech;
       Gsasl_session_ctx *xctx = NULL;
       int res;
+
+      if (!greeting ())
+	return 1;
 
       /* Decide mechanism to use */
 
@@ -472,32 +535,16 @@ main (int argc, char *argv[])
 	}
 
       if (!args_info.quiet_given)
-	{
-	  if (args_info.client_flag)
-	    fprintf (stderr, _("Client finished...\n"));
-	  else
-	    fprintf (stderr, _("Server finished...\n"));
-	}
+	fprintf (stderr, _("Session finished...\n"));
 
-      if (args_info.client_flag)
-	gsasl_client_finish (xctx);
-      else
-	gsasl_server_finish (xctx);
+      gsasl_finish (xctx);
     }
 
-  if (args_info.imap_flag && !writeln (". LOGOUT"))
+  if (!logout ())
     return 1;
 
   if (sockfd)
     {
-      /* read "* BYE ..." */
-      if (!readln (input, MAX_LINE_LENGTH))
-	return 1;
-
-      /* read ". OK ..." */
-      if (!readln (input, MAX_LINE_LENGTH))
-	return 1;
-
       shutdown (sockfd, SHUT_RDWR);
       close (sockfd);
     }
