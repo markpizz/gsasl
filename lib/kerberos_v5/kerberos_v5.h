@@ -31,7 +31,6 @@
 #define _GSASL_KERBEROS_V5_NAME "KERBEROS_V5"
 
 extern int _gsasl_kerberos_v5_client_init (Gsasl_ctx * ctx);
-extern void _gsasl_kerberos_v5_client_done (Gsasl_ctx * ctx);
 extern int _gsasl_kerberos_v5_client_start (Gsasl_session_ctx * sctx,
 					    void **mech_data);
 extern int _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
@@ -55,7 +54,6 @@ extern int _gsasl_kerberos_v5_client_finish (Gsasl_session_ctx * sctx,
 					     void *mech_data);
 
 extern int _gsasl_kerberos_v5_server_init (Gsasl_ctx * ctx);
-extern void _gsasl_kerberos_v5_server_done (Gsasl_ctx * ctx);
 extern int _gsasl_kerberos_v5_server_start (Gsasl_session_ctx * sctx,
 					    void **mech_data);
 extern int _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,

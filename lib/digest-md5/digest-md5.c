@@ -618,18 +618,6 @@ struct _Gsasl_digest_md5_client_state
 typedef struct _Gsasl_digest_md5_client_state _Gsasl_digest_md5_client_state;
 
 int
-_gsasl_digest_md5_client_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_digest_md5_client_done (Gsasl_ctx * ctx)
-{
-  return;
-}
-
-int
 _gsasl_digest_md5_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   _Gsasl_digest_md5_client_state *state;
@@ -1553,18 +1541,6 @@ struct _Gsasl_digest_md5_server_state
   char kcs[MD5LEN];
 };
 typedef struct _Gsasl_digest_md5_server_state _Gsasl_digest_md5_server_state;
-
-int
-_gsasl_digest_md5_server_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_digest_md5_server_done (Gsasl_ctx * ctx)
-{
-  return;
-}
 
 int
 _gsasl_digest_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)

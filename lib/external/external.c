@@ -25,18 +25,6 @@
 #ifdef USE_CLIENT
 
 int
-_gsasl_external_client_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_external_client_done (Gsasl_ctx * ctx)
-{
-  return;
-}
-
-int
 _gsasl_external_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   *mech_data = NULL;
@@ -67,18 +55,6 @@ _gsasl_external_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 /* Server */
 
 #ifdef USE_SERVER
-
-int
-_gsasl_external_server_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_external_server_done (Gsasl_ctx * ctx)
-{
-  return;
-}
 
 int
 _gsasl_external_server_start (Gsasl_session_ctx * sctx, void **mech_data)

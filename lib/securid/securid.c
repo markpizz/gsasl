@@ -28,18 +28,6 @@
 #ifdef USE_CLIENT
 
 int
-_gsasl_securid_client_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_securid_client_done (Gsasl_ctx * ctx)
-{
-  return;
-}
-
-int
 _gsasl_securid_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   Gsasl_ctx *ctx;
@@ -213,18 +201,6 @@ _gsasl_securid_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 /* Server */
 
 #if USE_SERVER
-
-int
-_gsasl_securid_server_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_securid_server_done (Gsasl_ctx * ctx)
-{
-  return;
-}
 
 int
 _gsasl_securid_server_start (Gsasl_session_ctx * sctx, void **mech_data)

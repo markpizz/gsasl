@@ -53,18 +53,6 @@ struct _Gsasl_gssapi_client_state
 typedef struct _Gsasl_gssapi_client_state _Gsasl_gssapi_client_state;
 
 int
-_gsasl_gssapi_client_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_gssapi_client_done (Gsasl_ctx * ctx)
-{
-  return;
-}
-
-int
 _gsasl_gssapi_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   _Gsasl_gssapi_client_state *state;
@@ -401,18 +389,6 @@ struct _Gsasl_gssapi_server_state
   gss_ctx_id_t context;
 };
 typedef struct _Gsasl_gssapi_server_state _Gsasl_gssapi_server_state;
-
-int
-_gsasl_gssapi_server_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_gssapi_server_done (Gsasl_ctx * ctx)
-{
-  return;
-}
 
 int
 _gsasl_gssapi_server_start (Gsasl_session_ctx * sctx, void **mech_data)

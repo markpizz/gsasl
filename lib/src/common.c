@@ -39,8 +39,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
   {_GSASL_ANONYMOUS_NAME,
    {
 #ifdef USE_CLIENT
-    _gsasl_anonymous_client_init,
-    _gsasl_anonymous_client_done,
+    NULL,
+    NULL,
     _gsasl_anonymous_client_start,
     _gsasl_anonymous_client_step,
     _gsasl_anonymous_client_finish,
@@ -50,8 +50,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     },
    {
 #ifdef USE_SERVER
-    _gsasl_anonymous_server_init,
-    _gsasl_anonymous_server_done,
+    NULL,
+    NULL,
     _gsasl_anonymous_server_start,
     _gsasl_anonymous_server_step,
     _gsasl_anonymous_server_finish,
@@ -66,8 +66,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
   {_GSASL_EXTERNAL_NAME,
    {
 #ifdef USE_CLIENT
-    _gsasl_external_client_init,
-    _gsasl_external_client_done,
+    NULL,
+    NULL,
     _gsasl_external_client_start,
     _gsasl_external_client_step,
     _gsasl_external_client_finish,
@@ -77,8 +77,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     },
    {
 #ifdef USE_SERVER
-    _gsasl_external_server_init,
-    _gsasl_external_server_done,
+    NULL,
+    NULL,
     _gsasl_external_server_start,
     _gsasl_external_server_step,
     _gsasl_external_server_finish,
@@ -93,8 +93,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
   {_GSASL_PLAIN_NAME,
    {
 #ifdef USE_CLIENT
-    _gsasl_plain_client_init,
-    _gsasl_plain_client_done,
+    NULL,
+    NULL,
     _gsasl_plain_client_start,
     _gsasl_plain_client_step,
     _gsasl_plain_client_finish,
@@ -104,8 +104,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     },
    {
 #ifdef USE_SERVER
-    _gsasl_plain_server_init,
-    _gsasl_plain_server_done,
+    NULL,
+    NULL,
     _gsasl_plain_server_start,
     _gsasl_plain_server_step,
     _gsasl_plain_server_finish,
@@ -120,8 +120,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
   {_GSASL_LOGIN_NAME,
    {
 #ifdef USE_CLIENT
-    _gsasl_login_client_init,
-    _gsasl_login_client_done,
+    NULL,
+    NULL,
     _gsasl_login_client_start,
     _gsasl_login_client_step,
     _gsasl_login_client_finish,
@@ -131,8 +131,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     },
    {
 #ifdef USE_SERVER
-    _gsasl_login_server_init,
-    _gsasl_login_server_done,
+    NULL,
+    NULL,
     _gsasl_login_server_start,
     _gsasl_login_server_step,
     _gsasl_login_server_finish,
@@ -147,8 +147,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
   {_GSASL_SECURID_NAME,
    {
 #ifdef USE_CLIENT
-    _gsasl_securid_client_init,
-    _gsasl_securid_client_done,
+    NULL,
+    NULL,
     _gsasl_securid_client_start,
     _gsasl_securid_client_step,
     _gsasl_securid_client_finish,
@@ -158,8 +158,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     },
    {
 #ifdef USE_SERVER
-    _gsasl_securid_server_init,
-    _gsasl_securid_server_done,
+    NULL,
+    NULL,
     _gsasl_securid_server_start,
     _gsasl_securid_server_step,
     _gsasl_securid_server_finish,
@@ -174,8 +174,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
   {_GSASL_NTLM_NAME,
    {
 #ifdef USE_CLIENT
-    _gsasl_ntlm_client_init,
-    _gsasl_ntlm_client_done,
+    NULL,
+    NULL,
     _gsasl_ntlm_client_start,
     _gsasl_ntlm_client_step,
     _gsasl_ntlm_client_finish,
@@ -198,24 +198,24 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
   {_GSASL_CRAM_MD5_NAME,
    {
 #ifdef USE_CLIENT
-     NULL,
-     NULL,
-     _gsasl_cram_md5_client_start,
-     _gsasl_cram_md5_client_step,
-     _gsasl_cram_md5_client_finish,
-     NULL,
-     NULL
+    NULL,
+    NULL,
+    _gsasl_cram_md5_client_start,
+    _gsasl_cram_md5_client_step,
+    _gsasl_cram_md5_client_finish,
+    NULL,
+    NULL
 #endif
     },
    {
 #ifdef USE_SERVER
-     NULL,
-     NULL,
-     _gsasl_cram_md5_server_start,
-     _gsasl_cram_md5_server_step,
-     _gsasl_cram_md5_server_finish,
-     NULL,
-     NULL
+    NULL,
+    NULL,
+    _gsasl_cram_md5_server_start,
+    _gsasl_cram_md5_server_step,
+    _gsasl_cram_md5_server_finish,
+    NULL,
+    NULL
 #endif
     }
    },
@@ -225,8 +225,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
   {_GSASL_DIGEST_MD5_NAME,
    {
 #ifdef USE_CLIENT
-    _gsasl_digest_md5_client_init,
-    _gsasl_digest_md5_client_done,
+    NULL,
+    NULL,
     _gsasl_digest_md5_client_start,
     _gsasl_digest_md5_client_step,
     _gsasl_digest_md5_client_finish,
@@ -236,8 +236,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     },
    {
 #ifdef USE_SERVER
-    _gsasl_digest_md5_server_init,
-    _gsasl_digest_md5_server_done,
+    NULL,
+    NULL,
     _gsasl_digest_md5_server_start,
     _gsasl_digest_md5_server_step,
     _gsasl_digest_md5_server_finish,
@@ -253,7 +253,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
    {
 #ifdef USE_CLIENT
     _gsasl_kerberos_v5_client_init,
-    _gsasl_kerberos_v5_client_done,
+    NULL,
     _gsasl_kerberos_v5_client_start,
     _gsasl_kerberos_v5_client_step,
     _gsasl_kerberos_v5_client_finish,
@@ -264,7 +264,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
    {
 #ifdef USE_SERVER
     _gsasl_kerberos_v5_server_init,
-    _gsasl_kerberos_v5_server_done,
+    NULL,
     _gsasl_kerberos_v5_server_start,
     _gsasl_kerberos_v5_server_step,
     _gsasl_kerberos_v5_server_finish,
@@ -279,8 +279,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
   {_GSASL_GSSAPI_NAME,
    {
 #ifdef USE_CLIENT
-    _gsasl_gssapi_client_init,
-    _gsasl_gssapi_client_done,
+    NULL,
+    NULL,
     _gsasl_gssapi_client_start,
     _gsasl_gssapi_client_step,
     _gsasl_gssapi_client_finish,
@@ -290,8 +290,8 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     },
    {
 #ifdef USE_SERVER
-    _gsasl_gssapi_server_init,
-    _gsasl_gssapi_server_done,
+    NULL,
+    NULL,
     _gsasl_gssapi_server_start,
     _gsasl_gssapi_server_step,
     _gsasl_gssapi_server_finish,

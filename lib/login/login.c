@@ -30,18 +30,6 @@ struct _Gsasl_login_client_state
 };
 
 int
-_gsasl_login_client_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_login_client_done (Gsasl_ctx * ctx)
-{
-  return;
-}
-
-int
 _gsasl_login_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   struct _Gsasl_login_client_state *state;
@@ -158,18 +146,6 @@ struct _Gsasl_login_server_state
 
 #define CHALLENGE_USERNAME "User Name"
 #define CHALLENGE_PASSWORD "Password"
-
-int
-_gsasl_login_server_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_login_server_done (Gsasl_ctx * ctx)
-{
-  return;
-}
 
 int
 _gsasl_login_server_start (Gsasl_session_ctx * sctx, void **mech_data)

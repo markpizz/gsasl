@@ -77,12 +77,6 @@ _gsasl_kerberos_v5_client_init (Gsasl_ctx * ctx)
   return GSASL_OK;
 }
 
-void
-_gsasl_kerberos_v5_client_done (Gsasl_ctx * ctx)
-{
-  return;
-}
-
 int
 _gsasl_kerberos_v5_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
@@ -519,12 +513,6 @@ _gsasl_kerberos_v5_server_init (Gsasl_ctx * ctx)
     return GSASL_UNKNOWN_MECHANISM;
 
   return GSASL_OK;
-}
-
-void
-_gsasl_kerberos_v5_server_done (Gsasl_ctx * ctx)
-{
-  return;
 }
 
 int

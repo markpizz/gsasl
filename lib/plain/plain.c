@@ -30,18 +30,6 @@ struct _Gsasl_plain_client_state
 };
 
 int
-_gsasl_plain_client_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_plain_client_done (Gsasl_ctx * ctx)
-{
-  return;
-}
-
-int
 _gsasl_plain_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   struct _Gsasl_plain_client_state *state;
@@ -183,18 +171,6 @@ struct _Gsasl_plain_server_state
 {
   int step;
 };
-
-int
-_gsasl_plain_server_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_plain_server_done (Gsasl_ctx * ctx)
-{
-  return;
-}
 
 int
 _gsasl_plain_server_start (Gsasl_session_ctx * sctx, void **mech_data)

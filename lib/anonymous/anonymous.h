@@ -27,8 +27,6 @@
 
 #define _GSASL_ANONYMOUS_NAME "ANONYMOUS"
 
-extern int _gsasl_anonymous_client_init (Gsasl_ctx * ctx);
-extern void _gsasl_anonymous_client_done (Gsasl_ctx * ctx);
 extern int _gsasl_anonymous_client_start (Gsasl_session_ctx * sctx,
 					  void **mech_data);
 extern int _gsasl_anonymous_client_step (Gsasl_session_ctx * sctx,
@@ -39,8 +37,6 @@ extern int _gsasl_anonymous_client_step (Gsasl_session_ctx * sctx,
 extern int _gsasl_anonymous_client_finish (Gsasl_session_ctx * sctx,
 					   void *mech_data);
 
-extern int _gsasl_anonymous_server_init (Gsasl_ctx * ctx);
-extern void _gsasl_anonymous_server_done (Gsasl_ctx * ctx);
 extern int _gsasl_anonymous_server_start (Gsasl_session_ctx * sctx,
 					  void **mech_data);
 extern int _gsasl_anonymous_server_step (Gsasl_session_ctx * sctx,

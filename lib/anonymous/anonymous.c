@@ -25,18 +25,6 @@
 #ifdef USE_CLIENT
 
 int
-_gsasl_anonymous_client_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_anonymous_client_done (Gsasl_ctx * ctx)
-{
-  return;
-}
-
-int
 _gsasl_anonymous_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   Gsasl_ctx *ctx;
@@ -112,18 +100,6 @@ struct _Gsasl_anonymous_server_state
 {
   int step;
 };
-
-int
-_gsasl_anonymous_server_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_anonymous_server_done (Gsasl_ctx * ctx)
-{
-  return;
-}
 
 int
 _gsasl_anonymous_server_start (Gsasl_session_ctx * sctx, void **mech_data)
