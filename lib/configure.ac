@@ -317,6 +317,9 @@ AM_CONDITIONAL(CLIENT, test x$client = xyes)
 AM_CONDITIONAL(SERVER, test x$server = xyes)
 
 # For gnulib stuff in gl/.
+gl_SOURCE_BASE(gl)
+gl_M4_BASE(gl/m4)
+gl_MODULES(dummy strdup)
 gl_INIT
 
 # We need uint8_t etc.
