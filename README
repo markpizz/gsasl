@@ -49,9 +49,9 @@ please let me know so work duplication can be avoided.
   - Port to Cyclone? CCured?
 
 The GNU SASL library, command-line application and test suite (lib/,
-src/, and tests/) are licensed under the GNU Public License license
-(see COPYING), and the documentation (doc/) is licensed under the GNU
-Free Documentation License (see COPYING.DOC).
+src/, and tests/) are licensed under the GNU General Public License
+license (see COPYING), and the documentation (doc/) is licensed under
+the GNU Free Documentation License (see COPYING.DOC).
 
 For updates to the project, see <http://www.gnu.org/software/gsasl/>.
 
