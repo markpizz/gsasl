@@ -30,9 +30,9 @@ MD5 and HMAC-MD5 is needed, making a dependence on libgcrypt overkill.
 ** Listing supported server mechanisms with gsasl_server_mechlist work.
 
 ** API and ABI modifications.
-GSASL_CRYPTO_ERROR: ADD, alias for GSASL_LIBGCRYPT_ERROR.
+GSASL_CRYPTO_ERROR: ADD, replaces deprecated GSASL_LIBGCRYPT_ERROR.
 GSASL_LIBGCRYPT_ERROR: DEPRECATED.  Will be removed in the future.
-GSASL_KERBEROS_V5_INTERNAL_ERROR: ADD, alias for GSASL_SHISHI_ERROR.
+GSASL_KERBEROS_V5_INTERNAL_ERROR: ADD, replaces deprecated GSASL_SHISHI_ERROR.
 GSASL_SHISHI_ERROR: DEPRECATED.  Will be removed in the future.
 gsasl_randomize: ADD.
 gsasl_md5: ADD.
