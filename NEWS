@@ -1,8 +1,13 @@
 Libgsasl NEWS -- history of user-visible changes.               -*- outline -*-
-Copyright (C) 2002 Simon Josefsson
 See the end for copying conditions.
 
 Please send libgsasl bug reports to bug-libgsasl@josefsson.org.
+
+* Changes in 0.0.3 (released 2002-12-05)
+
+** New gsasl arguments --application-data and --no-client-first.
+
+** Bug fixes (client sends first, memory leaks, compiler warnings, more).
 
 * Changes in 0.0.2 (released 2002-11-07)
 
@@ -48,6 +53,3 @@ Copyright (C) 2002 Simon Josefsson
    of this document, or of portions of it,
    under the above conditions, provided also that they
    carry prominent notices stating who last changed them.
-
-
-----------------------------------------------------------------------
