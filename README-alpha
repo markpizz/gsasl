@@ -13,8 +13,9 @@ is made.  Volunteers needed.
 
 It will not become stable without help.  Donate time or money.
 
-To compile from CVS, you need perl, texinfo, GTK-DOC, autoconf 2.5+,
-and automake 1.7+.  Bootstrap the build environment with:
+To compile from CVS, you may need fairly recent versions of perl,
+texinfo, GTK-DOC, libtool, autoconf, and automake.  Bootstrap the
+build environment with:
 
   $ ./autogen.sh
 
