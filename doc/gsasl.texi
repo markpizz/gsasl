@@ -1324,6 +1324,7 @@ similar to the GSSAPI callback).
 @include texi/listmech.c.texi
 @include texi/supportp.c.texi
 @include texi/suggest.c.texi
+@include texi/register.c.texi
 
 
 @c **********************************************************
