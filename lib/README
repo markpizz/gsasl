@@ -3,8 +3,14 @@ Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
 This directory holds the GNU SASL library which is an implementation
-of the Simple Authentication and Security Layer (SASL), licensed under
-the GNU Lesser General Public License (LGPL).
+of the Simple Authentication and Security Layer (SASL).
+
+The GNU SASL library is licensed under the GNU Lesser General Public
+License (LGPL).  The GNU project typically uses the GNU General Public
+License (GPL)for libraries, and not the LGPL, but for this project we
+decided that we would get more help from the community if we used the
+LGPL.  The main reason for this is that other free implementations
+exists.  See also <http://www.gnu.org/licenses/why-not-lgpl.html>.
 
 Currently there is some support for the following mechanisms:
 
