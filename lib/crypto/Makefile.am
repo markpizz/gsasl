@@ -26,7 +26,7 @@ DISTCLEANFILES = nettle-types.h
 noinst_LTLIBRARIES = libnettle.la
 
 libnettle_la_LIBADD = $(ALLOCA)
-libnettle_la_SOURCES = macros.h nettle-meta.h nettle-internal.h \
+libnettle_la_SOURCES = macros.h nettle-meta.h nettle-internal.h cbc.h \
 	memxor.c memxor.h \
 	md5.h md5.c md5-meta.c \
 	hmac.c hmac.h hmac-md5.c
