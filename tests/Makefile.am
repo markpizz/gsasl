@@ -33,7 +33,7 @@ TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
 	SHISHI_CONFIG=ignore-this-warning \
 	SHISHI_HOME=ignore-this-warning \
 	SHISHI_USER=ignore-this-warning \
-	THREADSAFETY_FILES=`ls $(top_srcdir)/lib/*/*.c | grep -v libidn` \
+	THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c \
 	MD5FILE=$(srcdir)/cram-md5.pwd
 
 ctests = simple cram-md5 digest-md5 md5file \
