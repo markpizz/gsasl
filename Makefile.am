@@ -26,9 +26,9 @@ ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
 .PHONY: ChangeLog
 ChangeLog:
-	cvs2cl --fsf --FSF --usermap ../.cvsusers -I ChangeLog -I .cvs \
+	cvs2cl --fsf --FSF --usermap .cvsusers -I ChangeLog -I .cvs \
 		-I autogen.sh -I doc/specification -I lib/
-	cat ../.cvscopying >> ChangeLog
+	cat .cvscopying >> ChangeLog
 
 htmldir = ../www-$(PACKAGE)
 tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
