@@ -648,6 +648,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	      memcpy (p, COLON, strlen (COLON));
 	      p += strlen (COLON);
 	      memcpy (p, normkey, strlen (normkey));
+	      free (normkey);
 	      p += strlen (normkey);
 
 	      res = gsasl_md5 (hin, hinlen, (char **) &tmp);

@@ -623,6 +623,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	  free (tmp);
 
 	  res = gsasl_md5 (secret, secretlen, (char **) &tmp);
+	  free (secret);
 	  if (res != GSASL_OK)
 	    goto done;
 	  memcpy (state->secret, tmp, MD5LEN);
