@@ -14,7 +14,7 @@ AC_DEFUN([gl_FUNC_STRDUP],
   fi
 ])
 
-# Prerequisites of lib/strdup.c.
+# Prerequisites of lib/strdup.h and lib/strdup.c.
 AC_DEFUN([gl_PREREQ_STRDUP], [
   AC_CHECK_DECLS(strdup)
 ])

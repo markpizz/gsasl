@@ -18,10 +18,6 @@
 #ifndef STRDUP_H_
 # define STRDUP_H_
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
-
 /* Get strdup, if available. */
 #include <string.h>
 
