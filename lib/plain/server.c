@@ -1,5 +1,5 @@
 /* server.c --- SASL mechanism PLAIN as defined in RFC 2595, server side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -73,21 +73,23 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
       return GSASL_MECHANISM_PARSE_ERROR;
   }
 
-  /* Remember authzid, authid, and password.  Authid and password need
-     to be prepared.  */
-  {
-    gsasl_property_set (sctx, GSASL_AUTHZID, authzidptr);
+  /* Store authzid. */
+  gsasl_property_set (sctx, GSASL_AUTHZID, authzidptr);
 
-    /* FIXME: Specification is unclear on whether unassigned code
-       points are allowed or not.  We don't allow them. */
-    res = gsasl_saslprep (authidptr, 0, &authidprep, NULL);
+  /* Store authid, after preparing it... */
+  {
+    res = gsasl_saslprep (authidptr, GSASL_ALLOW_UNASSIGNED,
+			  &authidprep, NULL);
     if (res != GSASL_OK)
       return res;
 
     gsasl_property_set (sctx, GSASL_AUTHID, authidprep);
 
     free (authidprep);
+  }
 
+  /* Store passwd, after preparing it... */
+  {
     /* Need to zero terminate password... */
     passwdz = malloc (input_len - (passwordptr - input) + 1);
     if (passwdz == NULL)
@@ -95,9 +97,8 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
     memcpy (passwdz, passwordptr, input_len - (passwordptr - input));
     passwdz[input_len - (passwordptr - input)] = '\0';
 
-    /* FIXME: Specification is unclear on whether unassigned code
-       points are allowed or not.  We don't allow them. */
-    res = gsasl_saslprep (passwdz, 0, &passprep, NULL);
+    res = gsasl_saslprep (passwdz, GSASL_ALLOW_UNASSIGNED,
+			  &passprep, NULL);
     free (passwdz);
     if (res != GSASL_OK)
       return res;
@@ -121,8 +122,7 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
 	  return GSASL_NO_PASSWORD;
 	}
 
-      /* FIXME: Specification is unclear on whether unassigned code
-         points are allowed or not.  We don't allow them. */
+      /* Unassigned code points are not permitted. */
       res = gsasl_saslprep (key, 0, &normkey, NULL);
       if (res != GSASL_OK)
 	{
