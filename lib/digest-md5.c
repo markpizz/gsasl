@@ -655,6 +655,15 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
   switch (state->step)
     {
     case 0:
+      state->step++;
+      if (input_len == 0)
+	{
+	  *output_len = 0;
+	  return GSASL_NEEDS_MORE;
+	}
+      /* fall through */
+
+    case 1:
       {
 	char **realm = NULL;
 	size_t nrealm = 0;
@@ -1189,7 +1198,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * cctx,
       state->step++;
       break;
 
-    case 1:
+    case 2:
       {
 	char *zinput = NULL;
 
