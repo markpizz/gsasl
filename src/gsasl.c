@@ -215,12 +215,9 @@ main (int argc, char *argv[])
 
   if (!args_info.client_flag && !args_info.server_flag &&
       !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
-    {
-      error (0, 0, "missing argument");
-      cmdline_parser_print_help ();
-      printf ("\nReport bugs to <%s>\n", PACKAGE_BUGREPORT);
-      return 1;
-    }
+    error (EXIT_FAILURE, 0,
+	   "missing argument\nTry `%s --help' for more information.",
+	   program_name);
 
   if (args_info.smtp_flag && args_info.imap_flag)
     args_info.imap_flag = 0;
