@@ -9,6 +9,8 @@ This is only enabled if you use Libidn 0.5.0 or later.
 
 ** ANONYMOUS server reject empty and overlong tokens.
 
+** EXTERNAL client now return empty data instead of NULL for empty authzid.
+
 ** Typos in gsasl_strerror() messages fixed, thanks to Clytie Siddall.
 
 * Version 0.2.4 (released 2005-01-01)
