@@ -26,6 +26,7 @@ struct _Gsasl_login_server_state
 {
   int step;
   char *username;
+  char *password;
 };
 
 #define CHALLENGE_USERNAME "User Name"
@@ -35,22 +36,10 @@ int
 _gsasl_login_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   struct _Gsasl_login_server_state *state;
-  Gsasl_ctx *ctx;
 
-  ctx = gsasl_server_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  if (gsasl_server_callback_validate_get (ctx) == NULL &&
-      gsasl_server_callback_retrieve_get (ctx) == NULL)
-    return GSASL_NEED_SERVER_VALIDATE_CALLBACK;
-
-  state = malloc (sizeof (*state));
+  state = calloc (1, sizeof (*state));
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
-
-  state->step = 0;
-  state->username = NULL;
 
   *mech_data = state;
 
@@ -61,31 +50,17 @@ int
 _gsasl_login_server_step (Gsasl_session_ctx * sctx,
 			  void *mech_data,
 			  const char *input, size_t input_len,
-			  char *output, size_t * output_len)
+			  char **output, size_t * output_len)
 {
   struct _Gsasl_login_server_state *state = mech_data;
-  Gsasl_server_callback_validate cb_validate;
-  Gsasl_server_callback_retrieve cb_retrieve;
-  Gsasl_ctx *ctx;
-  char *password;
   int res;
-
-  ctx = gsasl_server_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  cb_validate = gsasl_server_callback_validate_get (ctx);
-  cb_retrieve = gsasl_server_callback_retrieve_get (ctx);
-  if (cb_validate == NULL && cb_retrieve == NULL)
-    return GSASL_NEED_SERVER_VALIDATE_CALLBACK;
 
   switch (state->step)
     {
     case 0:
-      if (*output_len < strlen (CHALLENGE_USERNAME))
-	return GSASL_TOO_SMALL_BUFFER;
-
-      memcpy (output, CHALLENGE_USERNAME, strlen (CHALLENGE_USERNAME));
+      *output = strdup (CHALLENGE_USERNAME);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
       *output_len = strlen (CHALLENGE_USERNAME);
 
       state->step++;
@@ -96,9 +71,6 @@ _gsasl_login_server_step (Gsasl_session_ctx * sctx,
       if (input_len == 0)
 	return GSASL_MECHANISM_PARSE_ERROR;
 
-      if (*output_len < strlen (CHALLENGE_PASSWORD))
-	return GSASL_TOO_SMALL_BUFFER;
-
       state->username = malloc (input_len + 1);
       if (state->username == NULL)
 	return GSASL_MALLOC_ERROR;
@@ -106,7 +78,9 @@ _gsasl_login_server_step (Gsasl_session_ctx * sctx,
       memcpy (state->username, input, input_len);
       state->username[input_len] = '\0';
 
-      memcpy (output, CHALLENGE_PASSWORD, strlen (CHALLENGE_PASSWORD));
+      *output = strdup (CHALLENGE_PASSWORD);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
       *output_len = strlen (CHALLENGE_PASSWORD);
 
       state->step++;
@@ -117,51 +91,38 @@ _gsasl_login_server_step (Gsasl_session_ctx * sctx,
       if (input_len == 0)
 	return GSASL_MECHANISM_PARSE_ERROR;
 
-      password = malloc (input_len + 1);
-      if (password == NULL)
+      state->password = malloc (input_len + 1);
+      if (state->password == NULL)
 	return GSASL_MALLOC_ERROR;
 
-      memcpy (password, input, input_len);
-      password[input_len] = '\0';
+      memcpy (state->password, input, input_len);
+      state->password[input_len] = '\0';
 
-      if (cb_validate)
-	{
-	  res = cb_validate (sctx, state->username, NULL, password);
-	}
-      else
-	{
-	  size_t keylen;
-	  char *key;
-	  char *normkey;
+      if (input_len != strlen (state->password))
+	return GSASL_MECHANISM_PARSE_ERROR;
 
-	  res =
-	    cb_retrieve (sctx, state->username, NULL, NULL, NULL, &keylen);
-	  if (res != GSASL_OK)
-	    return res;
-	  key = malloc (keylen);
-	  if (key == NULL)
-	    return GSASL_MALLOC_ERROR;
-	  res = cb_retrieve (sctx, state->username, NULL, NULL, key, &keylen);
-	  if (res != GSASL_OK)
-	    {
-	      free (key);
-	      return res;
-	    }
-	  normkey = gsasl_stringprep_nfkc (key, keylen);
-	  free (key);
-	  if (normkey == NULL)
-	    return GSASL_UNICODE_NORMALIZATION_ERROR;
-	  if (strlen (password) == strlen (normkey) &&
-	      memcmp (normkey, password, strlen (normkey)) == 0)
+      gsasl_property_set (sctx, GSASL_AUTHID, state->username);
+      gsasl_property_set (sctx, GSASL_PASSWORD, state->password);
+
+      res = gsasl_callback (sctx, GSASL_SERVER_VALIDATE);
+      if (res != GSASL_CANNOT_VALIDATE)
+	{
+	  const char *key;
+
+	  gsasl_property_set (sctx, GSASL_AUTHZID, NULL);
+	  gsasl_property_set (sctx, GSASL_PASSWORD, NULL);
+
+	  key = gsasl_property_get (sctx, GSASL_PASSWORD);
+
+	  if (key && strlen (state->password) == strlen (key) &&
+	      strcmp (state->password, key) == 0)
 	    res = GSASL_OK;
 	  else
 	    res = GSASL_AUTHENTICATION_ERROR;
-	  free (normkey);
 	}
 
-      free (password);
-
       *output_len = 0;
+      *output = NULL;
       state->step++;
       break;
 
@@ -180,6 +141,8 @@ _gsasl_login_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 
   if (state->username)
     free (state->username);
+  if (state->password)
+    free (state->password);
   free (state);
 
   return GSASL_OK;

@@ -141,11 +141,11 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     _gsasl_login_server_start,
-    _gsasl_login_server_step,
+    NULL,
     _gsasl_login_server_finish,
     NULL,
     NULL,
-    NULL
+    _gsasl_login_server_step
 #endif
     }
    },
