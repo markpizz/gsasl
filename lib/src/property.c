@@ -202,7 +202,7 @@ gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
 
 /**
  * gsasl_property_get:
- * @ctx: library handle.
+ * @sctx: session handle.
  * @prop: enumerated value of Gsasl_property type, indicating the
  *        type of data in @data.
  *

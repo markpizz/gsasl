@@ -92,7 +92,7 @@ struct Gsasl
   _Gsasl_mechanism *server_mechs;
   void *application_data;
   /* Global callback. */
-  Gsasl_callback cb;
+  Gsasl_callback_function cb;
   /* Global properties. */
   char *anonymous_token;
   char *authid;
@@ -134,7 +134,7 @@ struct Gsasl_session
   void *mech_data;
   /* Session specific callback.  If NULL, use global callback in
    * ctx->cb.  */
-  Gsasl_callback cb;
+  Gsasl_callback_function cb;
   /* Session specific properties.  If NULL, use corresponding global
    * property. */
   char *anonymous_token;

@@ -48,7 +48,7 @@
  * different function.
  **/
 void
-gsasl_callback_set (Gsasl_session * sctx, Gsasl_callback cb)
+gsasl_callback_set (Gsasl_session * sctx, Gsasl_callback_function cb)
 {
   sctx->cb = cb;
 }
@@ -80,7 +80,7 @@ gsasl_callback_set (Gsasl_session * sctx, Gsasl_callback cb)
  * different function.
  **/
 void
-gsasl_callback_set_global (Gsasl * ctx, Gsasl_callback cb)
+gsasl_callback_set_global (Gsasl * ctx, Gsasl_callback_function cb)
 {
   ctx->cb = cb;
 }
@@ -257,3 +257,18 @@ gsasl_appinfo_get (Gsasl_session * sctx)
 {
   return sctx->application_data;
 }
+
+/**
+ * Gsasl_callback_function:
+ * @ctx: libgsasl handle.
+ * @sctx: session handle, may be NULL.
+ * @prop: enumerated value of Gsasl_property type.
+ *
+ * Prototype of function that the application should implement.
+ *
+ * It is called by the SASL library when it need some information from
+ * the application.
+ *
+ * Return value: Any valid return code, the interpretation of which
+ *   depend on the @prop value.
+ **/
