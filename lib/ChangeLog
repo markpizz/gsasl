@@ -1,3 +1,552 @@
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/Makefile.am: Fix distcheck.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po: Generated.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.4.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* src/init.c: Prefer CRAM-MD5 over DIGEST-MD5.  Decision based on
+	available public analysis that MD5 is broken, but HMAC-MD5 still
+	likely secure, and the lack of public analysis of the consequences
+	of the MD5 break for DIGEST-MD5.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* po/ro.po: Sync with TP.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/lgetdelim.c: Update.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/lgetdelim.c, gl/lgetdelim.h, gl/lgetline.c, gl/lgetline.h:
+	Update.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/lgetdelim.m4, gl/m4/lgetline.m4: Update.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/base64.c, gl/base64.h, gl/Makefile.am, gl/lgetdelim.c,
+	gl/lgetdelim.h, gl/lgetline.c, gl/lgetline.h, gl/m4/gnulib.m4,
+	gl/m4/lgetdelim.m4, gl/m4/lgetline.m4, gl/m4/strdup.m4: Update.
+
+2005-01-01  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Need lgetline.
+
+2004-12-27  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/server.c: Use correct constants.
+
+2004-12-27  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/server.c: Disable qop auth-conf, and ciphers, for now.
+
+2004-12-27  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c, digest-md5/server.c, digest-md5/session.c,
+	digest-md5/tokens.h: Fix warnings.
+
+2004-12-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in: Add gsasl_simple_getpass.  Remove
+	gsasl_md5pwd_get_password.
+
+2004-12-27  Simon Josefsson <simon@josefsson.org>
+
+	* anonymous/mechinfo.c, cram-md5/mechinfo.c, digest-md5/client.c,
+	digest-md5/digesthmac.c, digest-md5/digesthmac.h,
+	digest-md5/free.c, digest-md5/free.h, digest-md5/getsubopt.c,
+	digest-md5/mechinfo.c, digest-md5/parser.c, digest-md5/parser.h,
+	digest-md5/printer.c, digest-md5/printer.h, digest-md5/server.c,
+	digest-md5/session.c, digest-md5/test-parser.c,
+	digest-md5/tokens.h, digest-md5/validate.c, digest-md5/validate.h,
+	external/mechinfo.c, external/server.c, gssapi/client.c,
+	gssapi/mechinfo.c, gssapi/server.c, login/login.h,
+	login/mechinfo.c, ntlm/mechinfo.c, ntlm/x-ntlm.h, plain/mechinfo.c,
+	plain/server.c, securid/mechinfo.c, src/callback.c, src/gsasl.h.in,
+	src/md5pwd.c: Indent.
+
+2004-12-27  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c: Fix comment.
+
+2004-12-27  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/Makefile.am: Dist README.
+
+2004-12-26  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump versions.
+
+2004-12-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-12-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-26  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in, src/internal.h, src/property.c, src/xfinish.c:
+	Revert and remove qop, maxbuf until we need them.
+
+2004-12-26  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po: Sync with TP.
+
+2004-12-22  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/server.c: Fix comment.
+
+2004-12-22  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/server.c: Remove debug code.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c, digest-md5/validate.c: Doc fix.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c, digest-md5/validate.c: Doc fix.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/README: Fix.F
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: Simplify.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: Fix mem leak.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: Typo.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: Fix logic.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: Typo.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: Reject invalid input.  More SASLprep.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: SASLprep client string too.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/property.c: Handle malloc==NULL.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, src/error.c, src/gsasl-compat.h, src/gsasl.h.in: Deprecate
+	GSASL_INVALID_HANDLE.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/xstep.c: Assume sctx.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, src/error.c, src/gsasl-compat.h, src/gsasl.h.in,
+	src/md5pwd.c, src/obsolete.c: Replace gsasl_md5pwd_get_password
+	with gsasl_simple_getpass, and update callers.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, src/Makefile.am: Add --disable-obsolete.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: Fix parse check.
+
+2004-12-20  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: Use new API.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/validate.c: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c: Add FIXME.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c: Use auth qop.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/session.c: Don't use uint32_t nor htonl.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c, digest-md5/server.c: Fix warning.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c, digest-md5/server.c, digest-md5/session.c:
+	Fix uint32_t uses.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/Makefile.am: Need libgl.la.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Re-enable DIGEST-MD5.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c, digest-md5/parser.c, digest-md5/server.c:
+	Fix warnings.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/digesthmac.h: Add doc.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c, digest-md5/README: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/free.c, digest-md5/parser.c, digest-md5/tokens.h: Use
+	static buffer for response->rspauth.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/Makefile.am, digest-md5/shared.c, digest-md5/shared.h:
+	Remove.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/server.c: Rewrite, unfinished, but still probably an
+	improvement.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/validate.c: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c: Simplify.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/digesthmac.c: Zero terminate.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c, digest-md5/server.c, digest-md5/session.c,
+	digest-md5/session.h: Modularize session.*.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/digesthmac.h, digest-md5/tokens.h: Move.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/test-parser.c: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/shared.h: Remove.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c, digest-md5/digesthmac.c,
+	digest-md5/digesthmac.h, digest-md5/server.c: Fix API.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c: Rewrite, unfinished but probably still an
+	improvement.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/shared.c, digest-md5/shared.h: Remove.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/server.c: Use new API (temporarily).
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/Makefile.am, digest-md5/digesthmac.c,
+	digest-md5/digesthmac.h, digest-md5/test-parser.c: Modularize
+	digest computation into digesthmac.*.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/README: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/property.c: Clear buffer before calling obsolete callbacks,
+	for buggy callbacks.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/xfinish.c: Free more.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/alloca_.h: Update.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/free.c: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c, digest-md5/parser.h,
+	digest-md5/test-parser.c: Use string length indicator in parser
+	API.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/printer.c: Typo.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Typo.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in, src/internal.h, src/property.c: Add qop property.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/printer.c: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/test-parser.c: fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/printer.c: Validate input.  Fix printf call.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/Makefile.am, digest-md5/free.c, digest-md5/free.h: Add
+	functions to deallocate DIGEST-MD5 token structures.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c, digest-md5/validate.c,
+	digest-md5/validate.h: Move more validation logic from parser.c to
+	validate.*.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/tokens.h: Make response->response array.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/test-parser.c: Test more.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/Makefile.am, digest-md5/printer.c,
+	digest-md5/printer.h: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/alloca_.h, gl/asnprintf.c, gl/asprintf.c,
+	gl/printf-args.c, gl/printf-args.h, gl/printf-parse.c,
+	gl/printf-parse.h, gl/vasnprintf.c, gl/vasnprintf.h,
+	gl/vasprintf.c, gl/vasprintf.h, gl/xsize.h, gl/m4/alloca.m4,
+	gl/m4/codeset.m4, gl/m4/eoverflow.m4, gl/m4/gettext.m4,
+	gl/m4/glibc21.m4, gl/m4/gnulib.m4, gl/m4/iconv.m4,
+	gl/m4/intdiv0.m4, gl/m4/intmax.m4, gl/m4/intmax_t.m4,
+	gl/m4/inttypes-pri.m4, gl/m4/inttypes.m4, gl/m4/inttypes_h.m4,
+	gl/m4/isc-posix.m4, gl/m4/lcmessage.m4, gl/m4/lib-ld.m4,
+	gl/m4/lib-link.m4, gl/m4/lib-prefix.m4, gl/m4/longdouble.m4,
+	gl/m4/longlong.m4, gl/m4/nls.m4, gl/m4/po.m4,
+	gl/m4/printf-posix.m4, gl/m4/progtest.m4, gl/m4/signed.m4,
+	gl/m4/stdint_h.m4, gl/m4/strdup.m4, gl/m4/uintmax_t.m4,
+	gl/m4/ulonglong.m4, gl/m4/vasnprintf.m4, gl/m4/vasprintf.m4,
+	gl/m4/wchar_t.m4, gl/m4/wint_t.m4, gl/m4/xsize.m4: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Add vasprintf module, because DIGEST-MD5 need
+	asprintf.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/printer.h: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/Makefile.am, digest-md5/parser.c,
+	digest-md5/validate.c, digest-md5/parser.h: Move validate functions
+	to separate file.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/tokens.h: Fix qop/cipher types.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/validate.h: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c: Parse qop/cipher in response.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/README: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c: Handle qop/cipher in challenge.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/test-parser.c: Test more.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/test-parser.c: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/tokens.h: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/client.c, digest-md5/server.c: Use new API.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/getsubopt.c: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c: Use 'static'.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c: Remove getsubopt (in getsubopt.c now).
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/Makefile.am: Add tokens.h.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/getsubopt.c: Rename, and use prototype from parser.h.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.h: Use tokens.h.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/tokens.h: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.h, digest-md5/parser.c: Add.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/README: Fix.
+
+2004-12-19  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/README: Add.
+
+2004-12-18  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c, digest-md5/parser.h,
+	digest-md5/test-parser.c, digest-md5/Makefile.am: Add.
+
+2004-12-18  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/README: Add.
+
+2004-12-17  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/parser.c, digest-md5/parser.h,
+	digest-md5/test-parser.c: Add, unfinished.
+
+2004-12-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2004-12-15  Simon Josefsson <simon@josefsson.org>
 
 	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
