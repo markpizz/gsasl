@@ -1,5 +1,5 @@
 /* error.c --- Error handling functionality.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -51,7 +51,7 @@ gsasl_strerror (int err)
       break;
 
     case GSASL_NEEDS_MORE:
-      p = _("SASL mechanisms needs more data");
+      p = _("SASL mechanism needs more data");
       break;
 
     case GSASL_UNKNOWN_MECHANISM:
@@ -135,7 +135,7 @@ gsasl_strerror (int err)
 	_
 	("GSSAPI error creating a display name denoting the client in "
 	 "gss_display_name() in SASL library.  This is probably because "
-	 "the client suplied bad data.");
+	 "the client supplied bad data.");
       break;
 
     case GSASL_GSSAPI_UNSUPPORTED_PROTECTION_ERROR:
@@ -150,7 +150,7 @@ gsasl_strerror (int err)
       break;
 
     case GSASL_AUTHENTICATION_ERROR:
-      p = _("Error authentication user");
+      p = _("Error authenticating user");
       break;
 
     case GSASL_INTEGRITY_ERROR:
@@ -217,7 +217,7 @@ gsasl_strerror (int err)
 
 #ifndef GSASL_NO_OBSOLETE
     case GSASL_TOO_SMALL_BUFFER:
-      p = _("SASL function need larger buffer (internal error)");
+      p = _("SASL function needs larger buffer (internal error)");
       break;
 
     case GSASL_FOPEN_ERROR:
