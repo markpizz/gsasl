@@ -33,7 +33,7 @@ AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
 AC_PREREQ(2.59)
-AM_INIT_AUTOMAKE([1.7 gnits])
+AM_INIT_AUTOMAKE([1.8 gnits])
 AC_CONFIG_HEADERS(config.h)
 
 # Checks for programs.

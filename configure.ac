@@ -21,13 +21,13 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT([gsasl], [0.0.15], [bug-gsasl@gnu.org])
 
-AC_PREREQ(2.57)
-AM_INIT_AUTOMAKE([1.7 gnits])
+AC_PREREQ(2.59)
+AM_INIT_AUTOMAKE([1.8 gnits])
 AC_CONFIG_HEADERS(config.h)
 
 # Checks for programs.
 AM_GNU_GETTEXT(external)
-AM_GNU_GETTEXT_VERSION(0.12.1)
+AM_GNU_GETTEXT_VERSION(0.14.1)
 AC_PROG_CC
 AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
