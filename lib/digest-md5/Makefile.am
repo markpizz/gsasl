@@ -26,7 +26,7 @@ libgsasl_digest_md5_la_SOURCES = digest-md5.h mechinfo.c \
 	shared.h shared.c \
 	session.h session.c \
 	getsubopt.c \
-	parser.h parser.c
+	tokens.h parser.h parser.c
 
 if CLIENT
 libgsasl_digest_md5_la_SOURCES += client.c
