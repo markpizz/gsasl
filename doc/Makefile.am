@@ -18,7 +18,7 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-SUBDIRS = reference man
+SUBDIRS = reference
 
 gsasl_texi_auto_deps = gsasl-api-version.texi gsasl-api-global.texi \
 	gsasl-api-session.texi gsasl-api-callback.texi gsasl-api-utils.texi \
@@ -33,7 +33,7 @@ EXTRA_DIST = gdoc gdoc-error gsasl-example1.c \
 info_TEXINFOS = gsasl.texi
 ps_TEXINFOS = gsasl.texi
 pdf_TEXINFOS = gsasl.texi
-gsasl_TEXINFOS = gpl.texi fdl.texi $(gsasl_texi_auto_deps) \
+gsasl_TEXINFOS = gpl.texi fdl.texi $(gsasl_texi_auto_deps) $(gdoc_TEXINFOS) \
 	gsasl-callback-password.texi gsasl-callback-authorization.texi \
 	gsasl-callback-authentication.texi gsasl-callback-validate.texi \
 	gsasl-callback-retrieve.texi gsasl-callback-cram-md5.texi \
@@ -91,6 +91,23 @@ gsasl-api-error-labels.texi: $(gsasl_api_error_label_deps)
 gsasl.html: gsasl.texi
 	$(MAKEINFO) --html --no-split --number-sections $<
 #	$(TEXI2HTML) -nosec_nav $<
+
+dist_man_MANS = gsasl.1 $(gdoc_MANS)
+DISTCLEANFILES = $(dist_man_MANS)
+
+gsasl.1: $(top_srcdir)/src/gsasl.c $(top_builddir)/src/gsasl
+	$(HELP2MAN) \
+		--name="SASL library command line interface" \
+		--help-option="--program-name gsasl --help" \
+		--output=$@ $(top_builddir)/src/gsasl
+
+GDOC_SRC = $(top_srcdir)/lib/*.c
+GDOC_TEXI_PREFIX = texi/
+GDOC_MAN_PREFIX = man/
+GDOC_MAN_EXTRA_ARGS = -module $(PACKAGE) -sourceversion $(VERSION) \
+	-bugsto $(PACKAGE_BUGREPORT) -includefuncprefix -seeinfo $(PACKAGE) \
+	-copyright "2002, 2003 Simon Josefsson" -verbatimcopying
+include $(srcdir)/Makefile.gdoci
 
 # Docbook:
 
