@@ -1,6 +1,6 @@
 \input texinfo                  @c -*- Texinfo -*-
 @c Copyright (C) 2002 Simon Josefsson
-@c 
+@c
 @c This file is part of the libgsasl
 @c Permission is granted to copy, distribute and/or modify this document
 @c under the terms of the GNU Free Documentation License, Version 1.1
@@ -22,9 +22,9 @@
 This is @cite{The Libgsasl Reference Manual}, last updated
 @value{UPDATED}, for Version @value{VERSION} of the @acronym{Libgsasl}
 library.
-     
+
 Copyright @copyright{} 2002 Simon Josefsson.
-     
+
 @quotation
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.1 or
@@ -33,7 +33,7 @@ Invariant Sections, with the Front-Cover texts being ``A GNU Manual,''
 and with the Back-Cover Texts as in (a) below.  A copy of the license
 is included in the section entitled ``GNU Free Documentation
 License.''
-     
+
 (a) The FSF's Back-Cover Text is: ``You have freedom to copy and
 modify this GNU Manual, like GNU software.  Copies published by the
 Free Software Foundation raise funds for GNU development.''
@@ -53,7 +53,7 @@ Free Software Foundation raise funds for GNU development.''
 @vskip 0pt plus 1filll
 @insertcopying
 @end titlepage
-     
+
 @contents
 
 @ifnottex
@@ -98,9 +98,11 @@ Security Layer (SASL) interface for applications.  Included are also a
 set of well known SASL mechanisms.
 
 @menu
-* Getting Started::             
-* Features::                    
-* SASL Overview::                    
+* Getting Started::
+* Features::
+* SASL Overview::
+* Supported Platforms::
+* Bug Reports::
 @end menu
 
 @node Getting Started
@@ -150,7 +152,7 @@ certain user is ``authenticated'' or not.  Rather, it uses callbacks
 back into the application to answer these questions.
 
 @node SASL Overview
-@section SASL Overview 
+@section SASL Overview
 
 This section describes SASL from a protocol point of view@footnote{The
 text is a lightly adapted version of the introduction section from RFC
@@ -212,6 +214,104 @@ order that represents the length of the following buffer.  The length
 of the cipher-text buffer must be no larger than the maximum size
 that was defined or negotiated by the other side.
 
+@node Supported Platforms
+@section Supported Platforms
+
+Libgsasl has at some point in time been tested on the following
+platforms.
+
+@enumerate
+
+@item Tru64 UNIX
+@cindex Tru64
+
+alphaev68-dec-osf5.1, Tru64 UNIX C compiler, Tru64 Make.
+
+@item Debian 3.0r0 (Woody)
+@cindex Debian
+
+i686-pc-linux-gnu, GCC 2.95.4, GNU Make. This is the main development
+host.
+
+@item RedHat 8.0
+@cindex RedHat
+
+i686-pc-linux-gnu, GCC 3.2, GNU Make.
+
+@c @item IRIX 6.5
+@c @cindex IRIX
+@c
+@c mips-sgi-irix6.5, MIPS C compiler, IRIX Make.
+@c
+@c @item AIX 4.3.2
+@c @cindex AIX
+@c
+@c rs6000-ibm-aix4.3.2.0, IBM C for AIX compiler, AIX Make.
+
+@item HP-UX 11.11
+@cindex HP-UX
+
+hppa2.0w-hp-hpux11.11, HP-UX C compiler, HP Make.
+
+@item Solaris 2.8
+@cindex Solaris
+
+sparc-sun-solaris2.8, Sun WorkShop Compiler C 6.0, SUN Make.
+
+@item NetBSD 1.6
+@cindex NetBSD
+
+alpha-unknown-netbsd1.6, GCC 2.95.3, GNU Make.
+
+@end enumerate
+
+If you use Libgsasl on, or port Libgsasl to, a new platform please
+report it to the author.  In particular, if someone has access to a
+machine running Microsoft Windows, a port to it and/or a Libgsasl
+maintainer for the platform would be gratefully accepted.
+
+@node Bug Reports
+@section Bug Reports
+@cindex Reporting Bugs
+
+If you think you have found a bug in Libgsasl, please investigate it
+and report it.
+
+@itemize @bullet
+
+@item Please make sure that the bug is really in Libgsasl, and
+preferably also check that it hasn't already been fixed in the latest
+version.
+
+@item You have to send us a test case that makes it possible for us to
+reproduce the bug.
+
+@item You also have to explain what is wrong; if you get a crash, or
+if the results printed are not good and in that case, in what way.
+Make sure that the bug report includes all information you would need
+to fix this kind of bug for someone else.
+
+@end itemize
+
+Please make an effort to produce a self-contained report, with
+something definite that can be tested or debugged.  Vague queries or
+piecemeal messages are difficult to act on and don't help the
+development effort.
+
+If your bug report is good, we will do our best to help you to get a
+corrected version of the software; if the bug report is poor, we won't
+do anything about it (apart from asking you to send better bug
+reports).
+
+If you think something in this manual is unclear, or downright
+incorrect, or if the language needs to be improved, please also send a
+note.
+
+Send your bug report to:
+
+@center @samp{bug-libgsasl@@josefsson.org}
+
+
 @c **********************************************************
 @c *******************  Preparation  ************************
 @c **********************************************************
@@ -229,10 +329,10 @@ A faster way to find out how to adapt your application for use with
 (@pxref{Examples}).
 
 @menu
-* Header::                      
-* Initialization::               
-* Version Check::               
-* Building the source::         
+* Header::
+* Initialization::
+* Version Check::
+* Building the source::
 @end menu
 
 @node Header
@@ -411,7 +511,7 @@ username, following the prototype for
 
 @example
 int
-callback_username (Gsasl_session_ctx *ctx, 
+callback_username (Gsasl_session_ctx *ctx,
                    char *out,
                    size_t *outlen)
 @{
@@ -436,7 +536,7 @@ follows the @code{Gsasl_client_callback_password} prototype:
 
 @example
 int
-callback_password (Gsasl_session_ctx *ctx, 
+callback_password (Gsasl_session_ctx *ctx,
                    char *out,
                    size_t *outlen)
 @{
@@ -608,7 +708,7 @@ the caller to allocate the proper buffer size.
 @var{ctx}:  output array with client token.
 
 @var{ctx}:  on input the maximum size of the output array, on output
-contains the actual size of the output array.  If OUT is 
+contains the actual size of the output array.  If OUT is
 
 Type of callback function the application implements.  It should
 return @code{GSASL_OK} if user should be permitted anonymous access,
@@ -653,7 +753,7 @@ password from the application and perform the validation internally,
 or by calling the application with authorization identity and password
 and let it decide.  If both the validating and the retrieving
 callbacks are specified by the application, the validating one will be
-used. 
+used.
 
 This mechanism is only enabled in the client and server if you
 implement the respectively callbacks below and set them in the library
@@ -862,7 +962,9 @@ as it improves readability.  Possible values are:
 @table @code
 @item GSASL_OK
 This value indicates success.  The value of this error is guaranteed
-to always be @code{0}.
+to always be @code{0} so you may use it in boolean constructs.
+
+@include gsasl-api-error-labels.texi
 
 @end table
 
