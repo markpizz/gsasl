@@ -21,6 +21,24 @@
 
 #include "internal.h"
 
+static int
+_gsasl_code (Gsasl_session_ctx * sctx,
+	     _Gsasl_code_function code,
+	     const char *input, size_t input_len,
+	     char *output, size_t * output_len)
+{
+
+  if (code == NULL)
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
+
+  return code (sctx, sctx->mech_data, input, input_len, output, output_len);
+}
+
 /**
  * gsasl_encode:
  * @sctx: libgsasl session handle.
@@ -40,31 +58,14 @@ gsasl_encode (Gsasl_session_ctx * sctx,
 	      const char *input,
 	      size_t input_len, char *output, size_t * output_len)
 {
-  int res;
-  _Gsasl_code_function code = NULL;
+  _Gsasl_code_function code;
 
-  if (sctx)
-    {
-      if (sctx->clientp)
-	code = sctx->mech->client.encode;
-      else
-	code = sctx->mech->server.encode;
-    }
-
-  if (code == NULL)
-    {
-      *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      res = GSASL_OK;
-    }
+  if (sctx->clientp)
+    code = sctx->mech->client.encode;
   else
-    {
-      res =
-	code (sctx, sctx->mech_data, input, input_len, output, output_len);
-    }
+    code = sctx->mech->server.encode;
 
-  return res;
+  return _gsasl_code (sctx, code, input, input_len, output, output_len);
 }
 
 /**
@@ -86,29 +87,12 @@ gsasl_decode (Gsasl_session_ctx * sctx,
 	      const char *input,
 	      size_t input_len, char *output, size_t * output_len)
 {
-  int res;
-  _Gsasl_code_function code = NULL;
+  _Gsasl_code_function code;
 
-  if (sctx)
-    {
-      if (sctx->clientp)
-	code = sctx->mech->client.decode;
-      else
-	code = sctx->mech->server.decode;
-    }
-
-  if (code == NULL)
-    {
-      *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      res = GSASL_OK;
-    }
+  if (sctx->clientp)
+    code = sctx->mech->client.decode;
   else
-    {
-      res =
-	code (sctx, sctx->mech_data, input, input_len, output, output_len);
-    }
+    code = sctx->mech->server.decode;
 
-  return res;
+  return _gsasl_code (sctx, code, input, input_len, output, output_len);
 }
