@@ -24,7 +24,6 @@ ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
 # Maintainer targets
 
-.PHONY: ChangeLog
 ChangeLog:
 	cvs2cl --fsf --FSF --usermap .cvsusers -I ChangeLog -I .cvs \
 		-I autogen.sh -I doc/specification -I lib/
