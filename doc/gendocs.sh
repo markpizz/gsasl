@@ -3,7 +3,7 @@
 #   mentioned in maintain.texi.  See the help message below for usage details.
 # $Id$
 # 
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -58,6 +58,7 @@ See the GNU Maintainers document for a more extensive discussion:
 Options:
   -o OUTDIR   write files into OUTDIR, instead of manual/.
   --docbook   convert to DocBook too (xml, txt, html, pdf and ps).
+  --html ARG  pass indicated ARG to makeinfo for HTML targets.
   --help      display this help and exit successfully.
   --version   display version information and exit successfully.
 
@@ -98,6 +99,7 @@ calcsize()
 }
 
 outdir=manual
+html=
 PACKAGE=
 MANUAL_TITLE=
 
@@ -107,6 +109,7 @@ while test $# -gt 0; do
     --version) echo "$version"; exit 0;;
     -o) shift; outdir=$1;;
     --docbook) docbook=yes;;
+    --html) shift; html=$1;;
     -*)
       echo "$0: Unknown or ambiguous option \`$1'." >&2
       echo "$0: Try \`--help' for more information." >&2
@@ -180,14 +183,14 @@ mv $PACKAGE.txt $outdir/
 
 echo Generating monolithic html...
 rm -rf $PACKAGE.html  # in case a directory is left over
-${MAKEINFO} --no-split --html $srcfile
+${MAKEINFO} --no-split --html $html $srcfile
 html_mono_size="`calcsize $PACKAGE.html`"
 gzip -f -9 -c $PACKAGE.html >$outdir/$PACKAGE.html.gz
 html_mono_gz_size="`calcsize $outdir/$PACKAGE.html.gz`"
 mv $PACKAGE.html $outdir/
 
 echo Generating html by node...
-${MAKEINFO} --html $srcfile
+${MAKEINFO} --html $html $srcfile
 if test -d $PACKAGE; then
   split_html_dir=$PACKAGE
 elif test -d $PACKAGE.html; then
