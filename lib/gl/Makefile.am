@@ -54,13 +54,17 @@ libgl_la_SOURCES += gettext.h
 
 ## begin gnulib module lgetdelim
 
-libgl_la_SOURCES += lgetdelim.h
+if !HAVE_GETDELIM
+libgl_la_SOURCES += lgetdelim.h lgetdelim.c
+endif
 
 ## end   gnulib module lgetdelim
 
 ## begin gnulib module lgetline
 
-libgl_la_SOURCES += lgetline.h
+if !HAVE_GETLINE
+libgl_la_SOURCES += lgetline.h lgetline.c
+endif
 
 ## end   gnulib module lgetline
 

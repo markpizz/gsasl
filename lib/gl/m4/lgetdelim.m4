@@ -10,7 +10,8 @@ AC_DEFUN([lgl_FUNC_GETDELIM],
 [
   dnl Persuade glibc <stdio.h> to declare getdelim.
   AC_REQUIRE([AC_GNU_SOURCE])
-  AC_REPLACE_FUNCS(getdelim)
+  AC_CHECK_FUNC(getdelim)
+  AM_CONDITIONAL(HAVE_GETDELIM, test $ac_cv_func_getdelim = yes)
   lgl_PREREQ_GETDELIM
 ])
 
