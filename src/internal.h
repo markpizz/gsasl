@@ -58,10 +58,6 @@
 # include <netinet/in.h>
 #endif
 
-#ifdef WITH_STRINGPREP
-# include <stringprep.h>
-#endif
-
 #include <gsasl.h>
 
 /* Gnulib. */
