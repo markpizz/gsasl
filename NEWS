@@ -25,7 +25,7 @@ The previous libgcrypt API is no longer supported.
 ** CRAM-MD5 and DIGEST-MD5 no longer require libgcrypt (but can still use it).
 If libgcrypt 1.1.42 or later is not found, it uses a minimalistic
 cryptographic library based on Nettle, from crypto/.  Currently only
-MD5 and HMAC-MD5 is needed, making libgcrypt rather overkill.
+MD5 and HMAC-MD5 is needed, making a dependence on libgcrypt overkill.
 
 ** Listing supported server mechanisms with gsasl_server_mechlist work.
 
