@@ -1,9 +1,28 @@
 GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
 See the end for copying conditions.
 
-* Changes in 0.0.5
+* Changes in 0.0.5 (released 2003-01-27)
 
-** Libstringprep replaced by GNU Libidn.
+** Command line application "gsasl" now supports --imap and --connect.
+The --imap parameter makes it use a IMAP-like negotiation on
+stdin/stdout.  The --connect parameter makes it connect to a host over
+TCP, and talk to it instead of stdin/stdout.  This allows it to be
+used as a simple test tool to connect to IMAP servers.  Currently
+integrity and confidentiality is not working properly, so if you use
+DIGEST-MD5 you currently have to specify --quality-of-protection=auth.
+
+** Texinfo documentation added for command line tool.
+
+** Libgcrypt initialization no longer causes a warning to be printed.
+
+** Added API reference manual in HTML format, generated using GTK-DOC.
+See doc/reference/, in particular doc/reference/html/index.html.
+
+** GNU Libidn replaces Libstringprep.
+Although it is still stored in the libstringprep/ directory for CVS
+reasons.
+
+** Bug fixes for DIGEST-MD5 and GSSAPI.
 
 * Changes in 0.0.4 (released 2002-12-13)
 
