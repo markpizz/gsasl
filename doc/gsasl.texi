@@ -23,7 +23,7 @@ under the terms of the GNU Free Documentation License, Version 1.2 or
 any later version published by the Free Software Foundation; with the
 Invariant Sections being "Commercial Support", no Front-Cover Texts,
 and no Back-Cover Texts.  A copy of the license is included in the
-file COPYING.DOC.
+section entitled "GNU Free Documentation License".
 @end quotation
 @end copying
 
@@ -73,7 +73,6 @@ file COPYING.DOC.
 
 Appendices
 
-* Copying::                     How you can copy and share GNU SASL.
 * Copying This Manual::         How you can copy and share this manual.
 
 Indices
@@ -157,7 +156,7 @@ a similar job.
 @table @asis
 @item It's Free Software
 Anybody can use, modify, and redistribute it under the terms of the
-GNU General Public License (@pxref{Copying}).
+GNU General Public License.
 
 @item It's thread-safe
 No global variables are used and multiple library handles and session
@@ -1578,6 +1577,15 @@ These are some standard parameters.
 @c *******************  Appendices  *************************
 @c **********************************************************
 
+@node Copying This Manual
+@appendix Copying This Manual
+
+@menu
+* GNU Free Documentation License::  License for copying this manual.
+@end menu
+
+@include fdl.texi
+
 @node Concept Index
 @unnumbered Concept Index
 
@@ -1588,6 +1596,4 @@ These are some standard parameters.
 
 @printindex fn
 
-@summarycontents
-@contents
 @bye
