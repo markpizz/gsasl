@@ -16,6 +16,7 @@ Currently there is some support for the following mechanisms:
   - DIGEST-MD5 (RFC 2831, requires libgcrypt)
   - LOGIN (non-standard)
   - NTLM (non-standard, client only, requires libntlm)
+  - KERBEROS_V5 (experimental, requires shishi)
 
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
