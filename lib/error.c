@@ -26,9 +26,8 @@
  * @err: libgsasl error code
  *
  * Return value: Returns a pointer to a statically allocated string
- * containing a description of the error with the error value
- * @var{err}.  This string can be used to output a diagnostic message
- * to the user.
+ * containing a description of the error with the error value @err.
+ * This string can be used to output a diagnostic message to the user.
  **/
 const char *
 gsasl_strerror (int err)
