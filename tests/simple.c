@@ -1,5 +1,5 @@
 /* simple.c --- Test the simple SASL mechanisms.
- * Copyright (C) 2002, 2003  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -477,7 +477,7 @@ main (int argc, char *argv[])
     fail ("gsasl_server_listmech() failed (%d):\n%s\n",
 	  res, gsasl_strerror (res));
 
-  for (i = 0; i < sizeof (sasltv) / sizeof (sasltv[0]) - 1; i++)
+  for (i = 0; i < sizeof (sasltv) / sizeof (sasltv[0]); i++)
     {
       gsasl_application_data_set (ctx, &i);
 
