@@ -1,5 +1,5 @@
 /* nettle.c   crypto wrappers around nettle.
- * Copyright (C) 2002, 2003  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -23,10 +23,15 @@
 
 #include "internal.h"
 
+/* For randomize. */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 
+/* Get _gsasl_crypto_init. */
+#include "crypto.h"
+
+/* Get Nettle API. */
 #include <hmac.h>
 
 int
@@ -100,11 +105,11 @@ gsasl_md5 (const char *in, size_t inlen, char *out[MD5_DIGEST_SIZE])
   struct md5_ctx md5;
 
   md5_init (&md5);
-  md5_update (&md5, inlen, in);
+  md5_update (&md5, inlen, (uint8_t *) in);
   *out = malloc (MD5_DIGEST_SIZE);
   if (!*out)
     return GSASL_MALLOC_ERROR;
-  md5_digest (&md5, MD5_DIGEST_SIZE, *out);
+  md5_digest (&md5, MD5_DIGEST_SIZE, (uint8_t *) * out);
 
   return GSASL_OK;
 }
@@ -128,12 +133,12 @@ gsasl_hmac_md5 (const char *key, size_t keylen,
 {
   struct hmac_md5_ctx ctx;
 
-  hmac_md5_set_key (&ctx, keylen, key);
-  hmac_md5_update (&ctx, inlen, in);
+  hmac_md5_set_key (&ctx, keylen, (uint8_t *) key);
+  hmac_md5_update (&ctx, inlen, (uint8_t *) in);
   *outhash = malloc (MD5_DIGEST_SIZE);
   if (!*outhash)
     return GSASL_MALLOC_ERROR;
-  hmac_md5_digest (&ctx, MD5_DIGEST_SIZE, *outhash);
+  hmac_md5_digest (&ctx, MD5_DIGEST_SIZE, (uint8_t *) * outhash);
 
   return GSASL_OK;
 }
