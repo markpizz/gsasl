@@ -25,9 +25,6 @@
 #ifdef USE_DIGEST_MD5
 
 #include <gcrypt.h>
-#ifdef HAVE_MATH_H
-#include <math.h>
-#endif
 #ifdef HAVE_LIMITS_H
 #include <limits.h>
 #endif
@@ -1654,20 +1651,28 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
       /* maxbuf */
       if (cb_maxbuf && (maxbuf = cb_maxbuf (sctx)) != MAXBUF_DEFAULT)
 	{
-	  if (outlen + strlen (MAXBUF_PRE) +
-	      /* XXX don't require -lm, how? */
-	      1 + floor (log10 (INT_MAX)) +
+	  char *tmp;
+
+	  asprintf (&tmp, "%d", maxbuf);
+
+	  if (outlen + strlen (MAXBUF_PRE) + strlen (tmp) +
 	      strlen (MAXBUF_POST) >= *output_len)
-	    return GSASL_TOO_SMALL_BUFFER;
+	    {
+	      free (tmp);
+	      res = GSASL_TOO_SMALL_BUFFER;
+	      goto done;
+	    }
 
 	  strcat (output, MAXBUF_PRE);
 	  outlen += strlen (MAXBUF_PRE);
 
-	  sprintf (&output[outlen], "%d", maxbuf);
+	  strcat (output, tmp);
 	  outlen += strlen (&output[outlen]);
 
 	  strcat (output, MAXBUF_POST);
 	  outlen += strlen (MAXBUF_POST);
+
+	  free (tmp);
 	}
       /* charset */
       {
