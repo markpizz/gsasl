@@ -1,0 +1,9 @@
+.deps
+.libs
+Makefile
+Makefile.in
+charset.alias
+libcharset.la
+localcharset.lo
+ref-add.sed
+ref-del.sed
