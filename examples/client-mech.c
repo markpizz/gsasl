@@ -73,7 +73,7 @@ client_mechanism (Gsasl *ctx)
 
   printf ("Enter list of mechanism that server support, separate by SPC:\n");
   fgets (mechlist, sizeof (mechlist) - 1, stdin);
-  
+
   suggestion = gsasl_client_suggest_mechanism (ctx, mechlist);
   if (suggestion)
     printf ("Library suggest use of `%s'.\n", suggestion);
