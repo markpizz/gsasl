@@ -299,7 +299,7 @@ main (int argc, char *argv[])
   res = gsasl_init (&ctx);
   if (res != GSASL_OK)
     {
-      fprintf (stderr, _("GSASL error (%d): %s\n"), res,
+      fprintf (stderr, _("Libgsasl error (%d): %s\n"), res,
 	       gsasl_strerror (res));
       return 1;
     }
@@ -344,15 +344,20 @@ main (int argc, char *argv[])
 
       if (res != GSASL_OK)
 	{
-	  fprintf (stderr, _("GSASL error (%d): %s\n"), res,
+	  fprintf (stderr, _("Libgsasl error (%d): %s\n"), res,
 		   gsasl_strerror (res));
 	  return 1;
 	}
 
       if (!args_info.quiet_given)
-	fprintf (stderr, _("This %s supports the following mechanisms:\n"),
-		 args_info.
-		 client_mechanisms_flag ? _("client") : _("server"));
+	{
+	  if (args_info.client_mechanisms_flag)
+	    fprintf (stderr,
+		     _("This client supports the following mechanisms:\n"));
+	  else
+	    fprintf (stderr,
+		     _("This server supports the following mechanisms:\n"));
+	}
 
       fprintf (stdout, "%s\n", mechs);
 
