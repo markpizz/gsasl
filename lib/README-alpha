@@ -13,8 +13,8 @@ is made.  Volunteers needed.
 
 It will not become stable without help.  Donate time or money.
 
-To compile from CVS, you need libtool (>= 1.5.2), autoconf (>= 2.59),
-and automake (>= 1.8).  Bootstrap the build environment with:
+To compile from CVS, you need autoconf (2.59), automake (1.8), libtool
+(1.5.2), and gettext (0.14.1).  Bootstrap the build environment with:
 
   $ ./autogen.sh
 
