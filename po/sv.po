@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU libgsasl 0.0\n"
-"POT-Creation-Date: 2002-10-05 05:58+0200\n"
+"POT-Creation-Date: 2002-10-12 07:28+0200\n"
 "PO-Revision-Date: 2002-10-05 19:32+0200\n"
 "Last-Translator: Simon Josefsson <simon@josefsson.org>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -237,10 +237,14 @@ msgid "Cannot get internal library handle (library error)"
 msgstr "Kan inte hämta internt bibliotekskontext (biblioteksfel)"
 
 #: lib/error.c:193
-msgid "No more realms available (non-fatal)"
+msgid "Integrity error in application payload"
 msgstr ""
 
 #: lib/error.c:197
+msgid "No more realms available (non-fatal)"
+msgstr ""
+
+#: lib/error.c:201
 msgid "Libgsasl unknown error"
 msgstr "Okänt fel i libgsasl"
 

@@ -1,3 +1,208 @@
-2002-10-07  Simon Josefsson  <jas@extundo.com>
+2002-10-12 07:34  jas <simon@josefsson.org>
 
-	* Version 0.0.0 released.
+	* po/: libgsasl.pot, sv.po: [no log message] 
+
+2002-10-12 07:23  jas <simon@josefsson.org>
+
+	* lib/.cvsignore, .cvsusers: [no log message] 
+
+2002-10-12 07:23  jas <simon@josefsson.org>
+
+	* lib/xcode.c: Implementation of gsasl_encode() and gsasl_decode()
+	APIs.  
+
+2002-10-12 06:45  jas <simon@josefsson.org>
+
+	* configure.ac: Version 0.0.1 released.  
+
+2002-10-12 06:44  jas <simon@josefsson.org>
+
+	* NEWS, README: [no log message] 
+
+2002-10-12 06:43  jas <simon@josefsson.org>
+
+	* doc/Makefile.am: Add xcode.c to the session API documentation.  
+
+2002-10-12 06:42  jas <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix title.  
+
+2002-10-12 06:15  jas <simon@josefsson.org>
+
+	* src/gsasl.c: Improve QOP.  Allow user to send/receive application
+	payload after authentication.  
+
+2002-10-12 06:14  jas <simon@josefsson.org>
+
+	* src/callbacks.c: Improve QOP callback.  
+
+2002-10-12 06:14  jas <simon@josefsson.org>
+
+	* lib/error.c: Add GSASL_INTEGRITY_ERROR.  
+
+2002-10-12 06:14  jas <simon@josefsson.org>
+
+	* lib/gsasl.h.in: Add GSASL_INTEGRITY_ERROR.  Add gsasl_encode()
+	and gsasl_decode().  
+
+2002-10-12 06:13  jas <simon@josefsson.org>
+
+	* lib/xstart.c: Set clientp variable.  
+
+2002-10-12 06:13  jas <simon@josefsson.org>
+
+	* lib/xstep.c: Only free if data was allocated by us.  
+
+2002-10-12 06:12  jas <simon@josefsson.org>
+
+	* lib/internal.h: Add encode/decode functions.  Add clientp
+	variable.  
+
+2002-10-12 06:12  jas <simon@josefsson.org>
+
+	* lib/digest-md5.c: Support integrity mode.  
+
+2002-10-12 06:10  jas <simon@josefsson.org>
+
+	* lib/digest-md5.h: Add encode and decode functions.  
+
+2002-10-12 06:09  jas <simon@josefsson.org>
+
+	* lib/common.c: Add encode and decode functions for DIGEST-MD5.  
+
+2002-10-12 06:09  jas <simon@josefsson.org>
+
+	* lib/Makefile.am: Add xcode.c.  
+
+2002-10-12 06:07  jas <simon@josefsson.org>
+
+	* lib/hexdump.c: Data is unsigned.  
+
+2002-10-12 06:05  jas <simon@josefsson.org>
+
+	* autogen.sh: [no log message] 
+
+2002-10-11 20:01  jas <simon@josefsson.org>
+
+	* doc/specification/: draft-burdis-cat-srp-sasl-04.txt,
+	draft-burdis-cat-srp-sasl-05.txt, draft-leach-cifs-v1-spec-02.txt,
+	draft-leach-digest-sasl-01.txt, draft-leach-digest-sasl-02.txt,
+	draft-leach-digest-sasl-03.txt, draft-leach-digest-sasl-05.txt,
+	draft-myers-saslrev-01.txt, draft-nerenberg-sasl-crammd5-00.txt,
+	draft-newman-sasl-anon-00.txt, rfc2095.txt: More specs.  
+
+2002-10-07 03:07  jas <simon@josefsson.org>
+
+	* m4/libgcrypt.m4: forgot to add it 
+
+2002-10-07 03:07  jas <simon@josefsson.org>
+
+	* .cvsignore, argp/.cvsignore, doc/.cvsignore, intl/.cvsignore,
+	lib/.cvsignore, m4/.cvsignore, po/.cvsignore, src/.cvsignore,
+	tests/.cvsignore, src/libcharset/.cvsignore, ChangeLog: [no log
+	message] 
+
+2002-10-07 03:06  jas <simon@josefsson.org>
+
+	* doc/gsasl.texi: ack mit kerberos team for gssapi 
+
+2002-10-07 03:06  jas <simon@josefsson.org>
+
+	* README: gssapi works in server mode 
+
+2002-10-07 02:11  jas <simon@josefsson.org>
+
+	* AUTHORS, COPYING, COPYING.DOC, COPYING.LIB, ChangeLog,
+	Makefile.am, NEWS, README, THANKS, autogen.sh, configure.ac,
+	argp/Makefile.am, argp/Versions, argp/acinclude.m4,
+	argp/aclocal.m4, argp/argp-ba.c, argp/argp-eexst.c,
+	argp/argp-fmtstream.c, argp/argp-fmtstream.h, argp/argp-fs-xinl.c,
+	argp/argp-help.c, argp/argp-namefrob.h, argp/argp-parse.c,
+	argp/argp-pv.c, argp/argp-pvh.c, argp/argp-test.c,
+	argp/argp-xinl.c, argp/argp.h, argp/config.h.in, argp/configure,
+	argp/configure.ac, argp/depcomp, argp/install-sh, argp/libargp.m4,
+	argp/mempcpy.c, argp/missing, argp/mkinstalldirs, argp/strchrnul.c,
+	argp/strndup.c, doc/Makefile.am, doc/fdl.texi, doc/gdoc,
+	doc/gpl.texi, doc/gsasl-callback-authentication.texi,
+	doc/gsasl-callback-authorization.texi,
+	doc/gsasl-callback-client-service.texi,
+	doc/gsasl-callback-cram-md5.texi,
+	doc/gsasl-callback-digest-md5.texi, doc/gsasl-callback-gssapi.texi,
+	doc/gsasl-callback-passcode.texi, doc/gsasl-callback-password.texi,
+	doc/gsasl-callback-retrieve.texi, doc/gsasl-callback-securid.texi,
+	doc/gsasl-callback-server-service.texi,
+	doc/gsasl-callback-validate.texi, doc/gsasl-example1.c,
+	doc/gsasl.texi, doc/lgpl.texi,
+	doc/specification/draft-burdis-cat-srp-sasl-06.txt,
+	doc/specification/draft-burdis-cat-srp-sasl-07.txt,
+	doc/specification/draft-ietf-cat-sasl-gssapi-05.txt,
+	doc/specification/draft-ietf-ldapext-x509-sasl-03.txt,
+	doc/specification/draft-melnikov-rfc2831bis-00.txt,
+	doc/specification/draft-melnikov-rfc2831bis-01.txt,
+	doc/specification/draft-melnikov-sasl-digest-aes-00.txt,
+	doc/specification/draft-myers-saslrev-02.txt,
+	doc/specification/draft-naffah-cat-sasl-sm2-02.txt,
+	doc/specification/draft-nerenberg-sasl-crammd5-01.txt,
+	doc/specification/draft-nerenberg-sasl-crammd5-02.txt,
+	doc/specification/draft-newman-auth-scram-03.txt,
+	doc/specification/draft-newman-sasl-passdss-01.txt,
+	doc/specification/draft-newman-telnet-sasl-01.txt,
+	doc/specification/draft-overell-roaming-elgamal-sasl-00.txt,
+	doc/specification/draft-sasl-login.txt,
+	doc/specification/draft-weltman-java-sasl-05.txt,
+	doc/specification/draft-zeilenga-sasl-anon-00.txt,
+	doc/specification/draft-zeilenga-sasl-plain-00.txt,
+	doc/specification/md5.txt, doc/specification/rfc1321.txt,
+	doc/specification/rfc1939.txt, doc/specification/rfc2104.txt,
+	doc/specification/rfc2195.txt, doc/specification/rfc2222.txt,
+	doc/specification/rfc2243.txt, doc/specification/rfc2245.txt,
+	doc/specification/rfc2289.txt, doc/specification/rfc2444.txt,
+	doc/specification/rfc2595.txt, doc/specification/rfc2808.txt,
+	doc/specification/rfc2831.txt, doc/specification/rfc2945.txt,
+	doc/specification/rfc3163.txt, doc/specification/rfc3174.txt,
+	doc/specification/sasl-mechanisms, intl/ChangeLog,
+	intl/Makefile.in, intl/VERSION, intl/bindtextdom.c,
+	intl/config.charset, intl/dcgettext.c, intl/dcigettext.c,
+	intl/dcngettext.c, intl/dgettext.c, intl/dngettext.c,
+	intl/eval-plural.h, intl/explodename.c, intl/finddomain.c,
+	intl/gettext.c, intl/gettextP.h, intl/gmo.h, intl/hash-string.h,
+	intl/intl-compat.c, intl/l10nflist.c, intl/libgnuintl.h,
+	intl/loadinfo.h, intl/loadmsgcat.c, intl/localcharset.c,
+	intl/locale.alias, intl/localealias.c, intl/localename.c,
+	intl/ngettext.c, intl/os2compat.c, intl/os2compat.h, intl/osdep.c,
+	intl/plural-exp.c, intl/plural-exp.h, intl/plural.y,
+	intl/ref-add.sin, intl/ref-del.sin, intl/textdomain.c,
+	lib/CaseFolding-3.2.0.txt, lib/CompositionExclusions-3.2.0.txt,
+	lib/LineBreak-3.2.0.txt, lib/Makefile.am,
+	lib/SpecialCasing-3.2.0.txt, lib/UnicodeData-3.2.0.txt,
+	lib/anonymous.c, lib/anonymous.h, lib/base64.c, lib/callback.c,
+	lib/common.c, lib/cram-md5.c, lib/cram-md5.h, lib/digest-md5.c,
+	lib/digest-md5.h, lib/done.c, lib/error.c, lib/external.c,
+	lib/external.h, lib/gen-unicode-tables.pl, lib/gettext.h,
+	lib/gsasl.h.in, lib/gssapi.c, lib/gunibreak.h, lib/gunicomp.h,
+	lib/gunidecomp.h, lib/hexdump.c, lib/init.c, lib/internal.h,
+	lib/listmech.c, lib/login.c, lib/login.h, 
+	lib/md5pwd.c, lib/ntlm.c, lib/plain.c, lib/plain.h, lib/securid.c,
+	lib/securid.h, lib/suggest.c, lib/supportp.c, lib/unicode.c,
+	lib/version.c, lib/x-gssapi.h, lib/x-ntlm.h, lib/xfinish.c,
+	lib/xstart.c, lib/xstep.c, m4/ChangeLog, m4/Makefile.am,
+	m4/codeset.m4, m4/gettext.m4, m4/glibc21.m4, m4/iconv.m4,
+	m4/intdiv0.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
+	m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
+	m4/lib-link.m4, m4/lib-prefix.m4, m4/libntlm.m4, m4/progtest.m4,
+	m4/stdint_h.m4, m4/uintmax_t.m4, m4/ulonglong.m4, po/ChangeLog,
+	po/LINGUAS, po/Makefile.in.in, po/Makevars, po/Makevars.template,
+	po/POTFILES.in, po/Rules-quot, po/boldquot.sed,
+	po/en@boldquot.header, po/en@quot.header, po/insert-header.sin,
+	po/libgsasl.pot, po/quot.sed, po/remove-potcdate.sin, po/sv.po,
+	src/Makefile.am, src/callbacks.c, src/callbacks.h, src/gettext.h,
+	src/gsasl.c, src/libgsasl-config.in, src/libgsasl.m4,
+	src/libcharset/Makefile.am, src/libcharset/README,
+	src/libcharset/config.charset,
+	src/libcharset/libcharset-gsasl.patch, src/libcharset/libcharset.h,
+	src/libcharset/localcharset.c, src/libcharset/localcharset.c.orig,
+	src/libcharset/make-patch.sh, src/libcharset/ref-add.sin,
+	src/libcharset/ref-del.sin, src/libcharset/update.sh,
+	tests/Makefile.am, tests/plain-client.sh, tests/unicode.c: Initial
+	release, version 0.0.0.  
+
