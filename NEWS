@@ -2,6 +2,10 @@ GNU SASL NEWS -- History of user-visible changes.               -*- outline -*-
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
+Note that changes to the GNU SASL Library is documented in lib/NEWS.
+This file track changes to the remaining, non-library, parts of GNU
+SASL.  That include the manual, the command line tool, and self tests.
+
 * Changes in 0.2.0 (unreleased)
 
 ** Added new directory examples/ with complete examples for new API.
