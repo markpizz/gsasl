@@ -4,6 +4,17 @@ See the end for copying conditions.
 
 * Changes in 0.0.9 (unreleased)
 
+** Final (non-bugfix) release of the 0.0.x branch.
+The 0.1.x branch will be started after this release.  Only necessary
+bugfix releases will be made for the 0.0.x branch.  The goals with
+0.1.x is to clean up the API, especially regarding callbacks.  Some of
+the cleanups (e.g., replacing gsasl_*_step_* with gsasl_step and
+gsasl_step64 that return heap allocated strings) are initiated in this
+release, but the old API entry points are still valid (and the
+self-test suite and command-line application still use the old API).
+The old API entry points will continue to be valid until at least
+0.2.x.
+
 ** DocBook manuals in XML, PDF, PostScript, ASCII and HTML formats included.
 
 ** Token parser in DIGEST-MD5 fixed, improve interoperability of DIGEST-MD5.
@@ -27,6 +38,12 @@ gsasl_randomize: ADD.
 gsasl_md5: ADD.
 gsasl_hmac_md5: ADD.
 gsasl_hexdump: REMOVED.  Never intended to be exported.
+gsasl_client_step: DEPRECATED: use gsasl_step instead.
+gsasl_server_step: DEPRECATED: use gsasl_step instead.
+gsasl_client_step_base64: DEPRECATED: use gsasl_step64 instead.
+gsasl_server_step_base64: DEPRECATED: use gsasl_step64 instead.
+gsasl_client_finish: DEPRECATED: use gsasl_finish instead.
+gsasl_server_finish: DEPRECATED: use gsasl_finish instead.
 
 * Changes in 0.0.8 (released 2003-10-11)
 
@@ -76,12 +93,6 @@ gsasl_server_listmech: DEPRECATED: use gsasl_server_mechlist instead.
 gsasl_stringprep_nfkc: NEW.
 gsasl_stringprep_saslprep: NEW.
 gsasl_stringprep_trace: NEW.
-gsasl_client_step: DEPRECATED: use gsasl_step instead.
-gsasl_server_step: DEPRECATED: use gsasl_step instead.
-gsasl_client_step_base64: DEPRECATED: use gsasl_step64 instead.
-gsasl_server_step_base64: DEPRECATED: use gsasl_step64 instead.
-gsasl_client_finish: DEPRECATED: use gsasl_finish instead.
-gsasl_server_finish: DEPRECATED: use gsasl_finish instead.
 
 * Changes in 0.0.7 (released 2003-06-02)
 
