@@ -64,4 +64,14 @@ Free Documentation License (see COPYING.DOC).
     <xi:include href="xml/gsasl-mech.xml"/>
     <xi:include href="xml/gsasl-compat.xml"/>
   </chapter>
+
+  <index>
+    <title>Index</title>
+  </index>
+  <index role="deprecated">
+    <title>Index of deprecated symbols</title>
+  </index>
+  <index role="0.2.0">
+    <title>Index of new symbols in 0.2.0</title>
+  </index>
 </book>
