@@ -57,7 +57,10 @@ hmac_set_key(void *outer, void *inner, void *state,
       /* Reduce key to the algorithm's hash size. Use the area pointed
        * to by state for the temporary state. */
 
-      uint8_t *digest = alloca(hash->digest_size);
+      uint8_t digest[MAX_SIZE];
+
+      if (MAX_SIZE <= hash->digest_size)
+	abort();
 
       hash->init(state);
       hash->update(state, key_length, key);
