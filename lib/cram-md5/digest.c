@@ -64,7 +64,8 @@ cram_md5_digest (const char *challenge,
   size_t i;
 
   gc_hmac_md5 (secret, secretlen ? secretlen : strlen (secret),
-	       challenge, strlen (challenge), hash);
+	       challenge, challengelen ? challengelen : strlen (challenge),
+	       hash);
 
   for (i = 0; i < GC_MD5_LEN; i++)
     {
