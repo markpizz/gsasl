@@ -332,9 +332,6 @@ AX_CREATE_STDINT_H(crypto/nettle-types.h, sys/types.h)
 AC_TYPE_UID_T
 AC_CHECK_DECLS(errno)
 
-# Need getopt.
-AC_CHECK_FUNCS(getopt_long,, [AC_LIBOBJ(getopt) AC_LIBOBJ(getopt1)])
-
 # Checks for library functions.
 AC_SEARCH_LIBS(socket, socket)
 AC_SEARCH_LIBS(gethostbyname, nsl)
