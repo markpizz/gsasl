@@ -10,7 +10,7 @@ Currently there is some support for the following mechanisms:
 
   - CRAM-MD5 (RFC 2195, requires libgcrypt)
   - EXTERNAL (RFC 2222)
-  - GSSAPI (RFC 2222, requires GSS or MIT Kerberos 5 GSSAPI library)
+  - GSSAPI (RFC 2222, requires GSS, Heimdal or MIT Kerberos library)
   - ANONYMOUS (RFC 2245)
   - PLAIN (RFC 2595)
   - SECURID (RFC 2808)
