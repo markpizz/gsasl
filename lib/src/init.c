@@ -33,7 +33,8 @@ extern Gsasl_mechanism *_gsasl_all_mechanisms[];
  *
  * This functions initializes libgsasl.  The handle pointed to by ctx
  * is valid for use with other libgsasl functions iff this function is
- * successful.
+ * successful.  It also register all builtin SASL mechanisms, using
+ * gsasl_register().
  *
  * Return value: GSASL_OK iff successful, otherwise GSASL_MALLOC_ERROR.
  **/
