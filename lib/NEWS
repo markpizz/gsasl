@@ -2,6 +2,8 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
+* Changes in 0.2.2 (unreleased)
+
 * Changes in 0.2.1 (released 2004-11-19)
 
 ** Fix DIGEST-MD5 application data encode/decode functions.
