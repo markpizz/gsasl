@@ -108,15 +108,12 @@ AM_CONDITIONAL(SECURID, test x$securid = xyes)
 AC_ARG_ENABLE(ntlm,
   AS_HELP_STRING([--disable-ntlm], [don't use the NTLM mechanism]),
   ntlm=$enableval)
-if test "$ntlm" != "no" ; then
-	PKG_CHECK_MODULES(LIBNTLM, libntlm >= 0.3.1, [ntlm=yes], [ntlm=no])
-	if test "$ntlm" != "yes" ; then
-		ntlm=no
-		AC_MSG_WARN([libntlm not found, disabling NTLM])
-	else
-		ntlm=yes
-		AC_DEFINE(USE_NTLM, 1, [Define to 1 if you want NTLM.])
-	fi
+if test "$ntlm" != "no"; then
+	sj_CHECK_HEADERLIB(ntlm.h, ntlm, buildSmbNtlmAuthRequest,
+		[ntlm=yes
+		AC_DEFINE(USE_NTLM, 1, [Define to 1 if you want NTLM.])],
+		[ntlm=no
+		AC_MSG_WARN([Libntlm not found, disabling NTLM.])])
 fi
 AC_MSG_CHECKING([if NTLM should be used])
 AC_MSG_RESULT($ntlm)
@@ -176,11 +173,11 @@ AC_ARG_ENABLE(gssapi,
 AC_MSG_NOTICE([checking for GSS implementation])
 if test "$gssapi" = "gss"; then
 	AC_MSG_NOTICE([trying GSS])
-	PKG_CHECK_MODULES(GSS, gss >= 0.0.0, [gss=yes], [gss=no])
-	if test "$gss" = "yes" ; then
-		AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])
-		gssapi=yes
-	fi
+	sj_CHECK_HEADERLIB(gss.h, gss, gss_check_version,
+		[gssapi=yes
+		AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])],
+		[gssapi=no
+		AC_MSG_WARN([Libgss not found.])])
 elif test "$gssapi" = "mit"; then
 	AC_MSG_NOTICE([trying MIT])
 	AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
@@ -230,7 +227,7 @@ elif test "$gssapi" != "no" ; then
 	AC_MSG_NOTICE([auto-detecing GSS/MIT/Heimdal])
 	AC_MSG_NOTICE([use --enable-gssapi=IMPL to override])
 	AC_MSG_NOTICE([where IMPL is `gss', `mit', or `heimdal'])
-	PKG_CHECK_MODULES(GSS, gss >= 0.0.0, [gss=yes], [gss=no])
+	sj_CHECK_HEADERLIB(gss.h, gss, gss_check_version, gss=yes, gss=no)
 	if test "$gss" = "yes" ; then
 		AC_MSG_NOTICE([GSS found])
 		AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])
@@ -289,16 +286,12 @@ AC_ARG_ENABLE(kerberos_v5,
                        [don't use the KERBEROS_V5 mechanism]),
 	kerberos_v5=$enableval, kerberos_v5=no)
 if test "$kerberos_v5" != "no" ; then
-	PKG_CHECK_MODULES(SHISHI, shishi >= 0.0.0, [kerberos_v5=yes],
-                                                   [kerberos_v5=no])
-	if test "$kerberos_v5" != "yes" ; then
-		kerberos_v5=no
-		AC_MSG_WARN([shishi not found, disabling KERBEROS_V5])
-	else
-		kerberos_v5=yes
+	sj_CHECK_HEADERLIB(shishi.h, shishi, shishi_check_version,
+		[kerberos_v5=no
+		AC_MSG_WARN([shishi not found, disabling KERBEROS_V5])],
+		[kerberos_v5=yes
 		AC_DEFINE(USE_KERBEROS_V5, 1,
-                          [Define to 1 if you want KERBEROS_V5.])
-	fi
+                          [Define to 1 if you want KERBEROS_V5.])])
 fi
 AC_MSG_CHECKING([if KERBEROS_V5 should be used])
 AC_MSG_RESULT($kerberos_v5)
