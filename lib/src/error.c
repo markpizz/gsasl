@@ -330,6 +330,11 @@ gsasl_strerror (int err)
 	    "password was not provided.");
       break;
 
+    case GSASL_NO_SERVICE:
+      p = _("Authentication failed because the "
+	    "service name was not provided.");
+      break;
+
     case GSASL_UNICODE_NORMALIZATION_ERROR:
       p = _("Failed to perform Unicode Normalization on string.");
       break;
