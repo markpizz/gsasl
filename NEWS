@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Changes in 0.0.10 (unreleased)
 
+** The CRAM-MD5 server now reject invalid passwords.
+The logic flaw was introduced in 0.0.9, after blindly making code
+changes to shut up valgrind.
+
 ** Various build improvements.
 Pkg-config is no longer needed.  GTK-DOC is only used if present.
 
