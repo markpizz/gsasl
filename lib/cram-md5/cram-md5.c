@@ -37,18 +37,6 @@ struct _Gsasl_cram_md5_client_state
 };
 
 int
-_gsasl_cram_md5_client_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_cram_md5_client_done (Gsasl_ctx * ctx)
-{
-  return;
-}
-
-int
 _gsasl_cram_md5_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   struct _Gsasl_cram_md5_client_state *state;
@@ -188,18 +176,6 @@ _gsasl_cram_md5_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 /* Server */
 
 #ifdef USE_SERVER
-
-int
-_gsasl_cram_md5_server_init (Gsasl_ctx * ctx)
-{
-  return GSASL_OK;
-}
-
-void
-_gsasl_cram_md5_server_done (Gsasl_ctx * ctx)
-{
-  return;
-}
 
 int
 _gsasl_cram_md5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
