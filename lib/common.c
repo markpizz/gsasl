@@ -19,9 +19,6 @@
  *
  */
 
-static const char *GSASL_VALID_MECHANISM_CHARACTERS =
-  "ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz0123456789-_";
-
 #include "internal.h"
 
 #include "cram-md5.h"		/* RFC 2195 */
@@ -34,6 +31,9 @@ static const char *GSASL_VALID_MECHANISM_CHARACTERS =
 
 #include "login.h"		/* non-standard */
 #include "x-ntlm.h"		/* non-standard */
+
+const char *GSASL_VALID_MECHANISM_CHARACTERS =
+  "ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz0123456789-_";
 
 _Gsasl_mechanism _gsasl_all_mechanisms[] = {
 #ifdef USE_ANONYMOUS
