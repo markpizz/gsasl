@@ -51,6 +51,8 @@ libfoo_la_SOURCES += mempcpy.h
 
 
 
+libfoo_la_SOURCES += strcase.h
+
 libfoo_la_SOURCES += strchrnul.h
 
 libfoo_la_SOURCES += strndup.h

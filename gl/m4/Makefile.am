@@ -32,6 +32,7 @@ EXTRA_DIST += realloc.m4
 EXTRA_DIST += restrict.m4
 EXTRA_DIST += ssize_t.m4
 EXTRA_DIST += stdint_h.m4
+EXTRA_DIST += strcase.m4
 EXTRA_DIST += strchrnul.m4
 EXTRA_DIST += strerror_r.m4
 EXTRA_DIST += strndup.m4
