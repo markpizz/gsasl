@@ -142,7 +142,10 @@ client_callback_authentication_id (Gsasl_session_ctx * ctx,
       pw = getpwuid (uid);
 
       if (pw)
-	args_info.authentication_id_arg = strdup (pw->pw_name);
+	{
+	  printf ("Using system username `%s' as authentication identity.\n"));
+	  args_info.authentication_id_arg = strdup (pw->pw_name);
+	}
       else
 	args_info.authentication_id_arg =
 	  strdup (readline ("Enter authentication ID: "));
