@@ -39,7 +39,7 @@ imap_select_mechanism (char **mechlist)
 	return 0;
       *mechlist = in;
     }
-  else /* if (args_info.client_flag) */
+  else				/* if (args_info.client_flag) */
     {
       if (!writeln (". CAPABILITY"))
 	return 0;

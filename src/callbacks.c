@@ -125,12 +125,15 @@ client_callback_authorization_id (Gsasl_session_ctx * ctx,
   int rc;
 
   if (args_info.authorization_id_arg == NULL)
-    args_info.authorization_id_arg = strdup (readline ("Enter authorization ID: "));
+    args_info.authorization_id_arg =
+      strdup (readline ("Enter authorization ID: "));
 
   if (args_info.authorization_id_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, args_info.authorization_id_arg, strlen (args_info.authorization_id_arg));
+  rc =
+    utf8cpy (out, outlen, args_info.authorization_id_arg,
+	     strlen (args_info.authorization_id_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -144,12 +147,15 @@ client_callback_authentication_id (Gsasl_session_ctx * ctx,
   int rc;
 
   if (args_info.authentication_id_arg == NULL)
-    args_info.authentication_id_arg = strdup (readline ("Enter authentication ID: "));
+    args_info.authentication_id_arg =
+      strdup (readline ("Enter authentication ID: "));
 
   if (args_info.authentication_id_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, args_info.authentication_id_arg, strlen (args_info.authentication_id_arg));
+  rc =
+    utf8cpy (out, outlen, args_info.authentication_id_arg,
+	     strlen (args_info.authentication_id_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -167,7 +173,9 @@ client_callback_password (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
   if (args_info.password_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, args_info.password_arg, strlen (args_info.password_arg));
+  rc =
+    utf8cpy (out, outlen, args_info.password_arg,
+	     strlen (args_info.password_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -208,13 +216,17 @@ client_callback_service (Gsasl_session_ctx * ctx,
   if (rc != GSASL_OK)
     return rc;
 
-  rc = utf8cpy (host, hostlen, args_info.hostname_arg, strlen (args_info.hostname_arg));
+  rc =
+    utf8cpy (host, hostlen, args_info.hostname_arg,
+	     strlen (args_info.hostname_arg));
   if (rc != GSASL_OK)
     return rc;
 
   if (srvnamelen)
     {
-      rc = utf8cpy (srvname, srvnamelen, args_info.service_name_arg, strlen (args_info.service_name_arg));
+      rc =
+	utf8cpy (srvname, srvnamelen, args_info.service_name_arg,
+		 strlen (args_info.service_name_arg));
       if (rc != GSASL_OK)
 	return rc;
     }
@@ -233,7 +245,9 @@ client_callback_passcode (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
   if (args_info.passcode_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, args_info.passcode_arg, strlen (args_info.passcode_arg));
+  rc =
+    utf8cpy (out, outlen, args_info.passcode_arg,
+	     strlen (args_info.passcode_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -285,7 +299,9 @@ client_callback_realm (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
   if (args_info.realm_arg[0] == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, args_info.realm_arg[0], strlen (args_info.realm_arg[0]));
+  rc =
+    utf8cpy (out, outlen, args_info.realm_arg[0],
+	     strlen (args_info.realm_arg[0]));
   if (rc != GSASL_OK)
     return rc;
 
@@ -367,7 +383,9 @@ server_callback_realm (Gsasl_session_ctx * ctx,
   if (nth >= args_info.realm_given)
     return GSASL_NO_MORE_REALMS;
 
-  rc = utf8cpy (out, outlen, args_info.realm_arg[nth], strlen (args_info.realm_arg[nth]));
+  rc =
+    utf8cpy (out, outlen, args_info.realm_arg[nth],
+	     strlen (args_info.realm_arg[nth]));
   if (rc != GSASL_OK)
     return rc;
 
@@ -448,7 +466,9 @@ server_callback_retrieve (Gsasl_session_ctx * ctx,
   if (args_info.password_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (key, keylen, args_info.password_arg, strlen (args_info.password_arg));
+  rc =
+    utf8cpy (key, keylen, args_info.password_arg,
+	     strlen (args_info.password_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -480,7 +500,9 @@ server_callback_service (Gsasl_session_ctx * ctx,
   if (rc != GSASL_OK)
     return rc;
 
-  rc = utf8cpy (host, hostlen, args_info.hostname_arg, strlen (args_info.hostname_arg));
+  rc =
+    utf8cpy (host, hostlen, args_info.hostname_arg,
+	     strlen (args_info.hostname_arg));
   if (rc != GSASL_OK)
     return rc;
 

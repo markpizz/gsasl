@@ -182,17 +182,16 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL
 #endif
-   },
+    },
    {
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     NULL
-   }
-  },
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL}
+   },
 #endif /* USE_NTLM */
 
 #ifdef USE_CRAM_MD5
@@ -304,22 +303,20 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
 #endif /* USE_GSSAPI */
   {NULL,
    {
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     NULL
-   },
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL},
    {
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     NULL,
-     NULL
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL}
    }
-  }
 };

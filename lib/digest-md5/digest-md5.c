@@ -1050,7 +1050,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	    qopstr = QOP_AUTH_CONF;
 	  else if (state->qop & GSASL_QOP_AUTH_INT)
 	    qopstr = QOP_AUTH_INT;
-	  else /* if (state->qop & GSASL_QOP_AUTH) */
+	  else			/* if (state->qop & GSASL_QOP_AUTH) */
 	    qopstr = QOP_AUTH;
 
 	  if (outlen +
@@ -1250,7 +1250,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	      cipherstr = CIPHER_RC4_56;
 	    else if (state->cipher & GSASL_CIPHER_RC4_40)
 	      cipherstr = CIPHER_RC4_40;
-	    else /* if (state->cipher & GSASL_CIPHER_RC4) */
+	    else		/* if (state->cipher & GSASL_CIPHER_RC4) */
 	      cipherstr = CIPHER_RC4;
 
 	    if (outlen +

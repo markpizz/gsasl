@@ -92,7 +92,7 @@ select_mechanism (char **mechlist)
 	return 0;
       *mechlist = in;
     }
-  else /* if (args_info.client_flag) */
+  else				/* if (args_info.client_flag) */
     {
       if (!args_info.quiet_given)
 	fprintf (stderr, _("Input SASL mechanism supported by server:\n"));
@@ -196,8 +196,7 @@ main (int argc, char *argv[])
 
   if (!args_info.client_flag &&
       !args_info.server_flag &&
-      !args_info.client_mechanisms_flag &&
-      !args_info.server_mechanisms_flag)
+      !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
     {
       fprintf (stderr, "%s: missing argument\n", argv[0]);
       cmdline_parser_print_help ();
@@ -221,8 +220,7 @@ main (int argc, char *argv[])
     {
       struct servent *se;
       struct hostent *he;
-      struct sockaddr_in *sinaddr_inp =
-	(struct sockaddr_in *) &connect_addr;
+      struct sockaddr_in *sinaddr_inp = (struct sockaddr_in *) &connect_addr;
       char *connect_hostname;
       char *connect_service;
 
@@ -244,8 +242,7 @@ main (int argc, char *argv[])
       he = gethostbyname (connect_hostname);
       if (!he || he->h_addr_list[0] == NULL || he->h_addrtype != AF_INET)
 	{
-	  fprintf (stderr, "%s: unknown host: %s", argv[0],
-		   connect_hostname);
+	  fprintf (stderr, "%s: unknown host: %s", argv[0], connect_hostname);
 	  return 1;
 	}
       memset (&connect_addr, 0, sizeof (connect_addr));
@@ -337,7 +334,8 @@ main (int argc, char *argv[])
 
       if (!args_info.quiet_given)
 	fprintf (stderr, _("This %s supports the following mechanisms:\n"),
-		 args_info.client_mechanisms_flag ? _("client") : _("server"));
+		 args_info.
+		 client_mechanisms_flag ? _("client") : _("server"));
 
       fprintf (stdout, "%s\n", mechs);
 
