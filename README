@@ -6,6 +6,18 @@ This directory holds GNU SASL which is an implementation of the Simple
 Authentication and Security Layer (SASL).  See doc/gsasl.{info,ps,pdf}
 for the manual.
 
+The GNU SASL library is licensed under the GNU Lesser General Public
+License (LGPL).  The GNU project typically uses the GNU General Public
+License (GPL) for libraries, and not the LGPL, but for this project we
+decided that we would get more help from the community if we used the
+LGPL.  The main reason for this is that other free implementations
+exists.  See also <http://www.gnu.org/licenses/why-not-lgpl.html>.
+
+However, the command-line application and test suite (src/, and
+tests/) are licensed under the GNU General Public License license (see
+COPYING), and the documentation (doc/) is licensed under the GNU Free
+Documentation License (see COPYING.DOC).
+
 Currently there is some support for the following mechanisms:
 
   - CRAM-MD5 (RFC 2195)
@@ -47,12 +59,6 @@ please let me know so work duplication can be avoided.
   - Privacy separation (authenticate in one process, pass state to another).
   - Improve documentation
   - Port to Cyclone? CCured?
-
-The GNU SASL library (lib/) is licensed under the GNU Lesser General
-Public License (see lib/COPYING), the command-line application and
-test suite (src/, and tests/) are licensed under the GNU General
-Public License license (see COPYING), and the documentation (doc/) is
-licensed under the GNU Free Documentation License (see COPYING.DOC).
 
 For updates to the project, see <http://www.gnu.org/software/gsasl/>.
 
