@@ -432,3 +432,77 @@ gsasl_randomize (int strong, char *data, size_t datalen)
     return gsasl_random (data, datalen);
   return gsasl_nonce (data, datalen);
 }
+
+/**
+ * gsasl_nonce:
+ * @data: output array to be filled with unpredictable random data.
+ * @datalen: size of output array.
+ *
+ * Store unpredictable data of given size in the provided buffer.
+ *
+ * Return value: Returns %GSASL_OK iff successful.
+ **/
+int
+gsasl_nonce (char *data, size_t datalen)
+{
+  return gc_nonce (data, datalen);
+}
+
+/**
+ * gsasl_random:
+ * @data: output array to be filled with strong random data.
+ * @datalen: size of output array.
+ *
+ * Store cryptographically strong random data of given size in the
+ * provided buffer.
+ *
+ * Return value: Returns %GSASL_OK iff successful.
+ **/
+int
+gsasl_random (char *data, size_t datalen)
+{
+  return gc_random (data, datalen);
+}
+
+/**
+ * gsasl_md5:
+ * @in: input character array of data to hash.
+ * @inlen: length of input character array of data to hash.
+ * @out: newly allocated character array with hash of data.
+ *
+ * Compute hash of data using MD5.  The @out buffer must be
+ * deallocated by the caller.
+ *
+ * Return value: Returns %GSASL_OK iff successful.
+ **/
+int
+gsasl_md5 (const char *in, size_t inlen, char *out[16])
+{
+  *out = malloc (16);
+  if (!*out)
+    return GSASL_MALLOC_ERROR;
+  return gc_md5 (in, inlen, *out);
+}
+
+/**
+ * gsasl_hmac_md5:
+ * @key: input character array with key to use.
+ * @keylen: length of input character array with key to use.
+ * @in: input character array of data to hash.
+ * @inlen: length of input character array of data to hash.
+ * @outhash: newly allocated character array with keyed hash of data.
+ *
+ * Compute keyed checksum of data using HMAC-MD5.  The @outhash buffer
+ * must be deallocated by the caller.
+ *
+ * Return value: Returns %GSASL_OK iff successful.
+ **/
+int
+gsasl_hmac_md5 (const char *key, size_t keylen,
+		const char *in, size_t inlen, char *outhash[16])
+{
+  *outhash = malloc (16);
+  if (!*outhash)
+    return GSASL_MALLOC_ERROR;
+  return gc_hmac_md5 (key, keylen, in, inlen, *outhash);
+}

@@ -23,11 +23,7 @@ ACLOCAL_AMFLAGS = -I m4
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgsasl.pc
 
-SUBDIRS = po gl
-
-if NETTLE
-SUBDIRS += crypto
-endif
+SUBDIRS = po gl crypto
 
 # Plugins:
 if EXTERNAL

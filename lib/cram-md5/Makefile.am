@@ -18,8 +18,8 @@
 # Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA
 
-AM_CPPFLAGS = -I$(srcdir)/../src -I../src
+AM_CPPFLAGS = -I$(srcdir)/../src -I$(srcdir)/../crypto -I../src
 
 noinst_LTLIBRARIES = libgsasl-cram_md5.la
 libgsasl_cram_md5_la_SOURCES = cram-md5.h cram-md5.c \
-	challenge.h challenge.c
+	challenge.h challenge.c digest.h digest.c

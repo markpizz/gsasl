@@ -20,10 +20,13 @@
  *
  */
 
+/* Get size_t. */
+#include <stddef.h>
+
 #include "challenge.h"
 
-/* Get gsasl_nonce. */
-#include "gsasl.h"
+/* Get gc_nonce. */
+#include <gc.h>
 
 #define DECCHAR(c) ((c & 0x0F) > 9 ? '0' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
 
@@ -51,7 +54,7 @@ cram_md5_challenge (char challenge[32])
 
   strcpy (challenge, "<XXXXXXXXXXXXXXXXXXXX.0@example>");
 
-  gsasl_nonce (&challenge[1], 10);
+  gc_nonce (&challenge[1], 10);
 
   for (i = 0; i < 10; i++)
     {

@@ -3,5 +3,5 @@ Makefile.in
 .deps
 .libs
 *.lo
-libnettle.la
+libgc.la
 nettle-types.h

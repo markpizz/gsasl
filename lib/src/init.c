@@ -21,8 +21,8 @@
 
 #include "internal.h"
 
-/* Get _gsasl_crypto_init. */
-#include "crypto.h"
+/* Get gc_init. */
+#include <gc.h>
 
 /* See common.c. */
 extern _Gsasl_mechanism _gsasl_all_mechanisms[];
@@ -42,7 +42,7 @@ gsasl_init (Gsasl ** ctx)
 {
   int i;
 
-  if (_gsasl_crypto_init () != GSASL_OK)
+  if (gc_init () != GC_OK)
     return GSASL_CRYPTO_ERROR;
 
   *ctx = (Gsasl *) malloc (sizeof (**ctx));

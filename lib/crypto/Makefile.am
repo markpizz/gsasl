@@ -20,12 +20,24 @@
 
 EXTRA_DIST = README
 
+AM_CPPFLAGS = @LIBGCRYPT_CFLAGS@ @NETTLE_CFLAGS@
+
 BUILT_SOURCES = nettle-types.h
 DISTCLEANFILES = nettle-types.h
 
-noinst_LTLIBRARIES = libnettle.la
+noinst_LTLIBRARIES = libgc.la
 
-libnettle_la_SOURCES = macros.h nettle-meta.h nettle-internal.h cbc.h \
+libgc_la_SOURCES = gc.h
+libgc_la_LIBADD = @LIBGCRYPT_LIBS@ @NETTLE_LIBS@
+
+if NETTLE
+libgc_la_SOURCES += gc-nettle.c \
+	macros.h nettle-meta.h nettle-internal.h cbc.h \
 	memxor.c memxor.h \
 	md5.h md5.c md5-meta.c \
 	hmac.c hmac.h hmac-md5.c
+endif
+
+if LIBGCRYPT
+libgc_la_SOURCES += gc-libgcrypt.c
+endif
