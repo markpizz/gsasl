@@ -5,7 +5,16 @@ See the end for copying conditions.
 * Version 0.2.3 (unreleased)
 
 ** LOGIN client now uses authentication identity, not authorization identity,
-** reported by Martin Lambers.
+reported by Martin Lambers.
+
+** PLAIN client now work when no authorization identity is provided,
+reported by Martin Lambers.
+
+** The shared library version was incremented to reflect that the base64 APIs
+were added, this was forgotten in the last release.
+
+** API and ABI modifications.
+No changes since last version.
 
 * Version 0.2.2 (released 2004-11-29)
 
