@@ -153,7 +153,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	res = cb_retrieve (sctx, sctx->authid, sctx->authzid,
 			   sctx->hostname, &buf, &buflen);
 	if (res == GSASL_OK)
-	  gsasl_property_set (sctx, GSASL_PASSWORD, buf);
+	  gsasl_property_set_raw (sctx, GSASL_PASSWORD, buf, buflen);
 	/* FIXME else if (res == GSASL_TOO_SMALL_BUFFER)...*/
 	return res;
 	break;
