@@ -37,13 +37,31 @@ MD5 and HMAC-MD5 is needed, making a dependence on libgcrypt overkill.
 gsasl_randomize: ADD.
 gsasl_md5: ADD.
 gsasl_hmac_md5: ADD.
+
 gsasl_hexdump: REMOVED.  Never intended to be exported.
+
+gsasl_step: ADD.
+gsasl_step64: ADD.
 gsasl_client_step: DEPRECATED: use gsasl_step instead.
 gsasl_server_step: DEPRECATED: use gsasl_step instead.
 gsasl_client_step_base64: DEPRECATED: use gsasl_step64 instead.
 gsasl_server_step_base64: DEPRECATED: use gsasl_step64 instead.
+
+gsasl_finish: ADD.
 gsasl_client_finish: DEPRECATED: use gsasl_finish instead.
 gsasl_server_finish: DEPRECATED: use gsasl_finish instead.
+
+gsasl_ctx_get: ADD.
+gsasl_client_ctx_get: DEPRECATED: use gsasl_ctx_get instead.
+gsasl_server_ctx_get: DEPRECATED: use gsasl_ctx_get instead.
+
+gsasl_appinfo_get: ADD.
+gsasl_appinfo_set: ADD.
+gsasl_client_application_data_get: DEPRECATED: use gsasl_appinfo_get instead.
+gsasl_client_application_data_set: DEPRECATED: use gsasl_appinfo_set instead.
+gsasl_server_application_data_get: DEPRECATED: use gsasl_appinfo_get instead.
+gsasl_server_application_data_set: DEPRECATED: use gsasl_appinfo_set instead.
+
 GSASL_CRYPTO_ERROR: ADD, replaces deprecated GSASL_LIBGCRYPT_ERROR.
 GSASL_LIBGCRYPT_ERROR: DEPRECATED.  Will be removed in the future.
 GSASL_KERBEROS_V5_INTERNAL_ERROR: ADD, replaces deprecated GSASL_SHISHI_ERROR.
