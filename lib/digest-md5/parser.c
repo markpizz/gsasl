@@ -49,7 +49,7 @@ enum
     CHALLENGE_CIPHER
   };
 
-const char *const digest_challenge_opts[] = {
+static const char *const digest_challenge_opts[] = {
   /* the order must match the previous enum */
   "realm",
   "nonce",
@@ -208,7 +208,7 @@ enum
     RESPONSE_AUTHZID
   };
 
-const char *const digest_response_opts[] = {
+static const char *const digest_response_opts[] = {
   /* the order must match the previous enum */
   "username",
   "realm",
@@ -418,7 +418,7 @@ enum
     RESPONSEAUTH_RSPAUTH = 0
   };
 
-const char *const digest_responseauth_opts[] = {
+static const char *const digest_responseauth_opts[] = {
   /* the order must match the previous enum */
   "rspauth",
   NULL
