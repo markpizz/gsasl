@@ -282,3 +282,97 @@ gsasl_server_finish (Gsasl_session_ctx * sctx)
 {
   gsasl_finish (sctx);
 }
+
+/**
+ * gsasl_client_ctx_get:
+ * @sctx: libgsasl client handle
+ *
+ * Return value: Returns the libgsasl handle given a libgsasl client handle.
+ **/
+Gsasl_ctx *
+gsasl_client_ctx_get (Gsasl_session_ctx * sctx)
+{
+  return gsasl_ctx_get (sctx);
+}
+
+/**
+ * gsasl_client_application_data_set:
+ * @sctx: libgsasl client handle.
+ * @application_data: opaque pointer to application specific data.
+ *
+ * Store application specific data in the libgsasl client handle.  The
+ * application data can be later (for instance, inside a callback) be
+ * retrieved by calling gsasl_client_application_data_get().  It is
+ * normally used by the application to maintain state between the main
+ * program and the callback.
+ **/
+void
+gsasl_client_application_data_set (Gsasl_session_ctx * sctx,
+				   void *application_data)
+{
+  return gsasl_appinfo_set (sctx, application_data);
+}
+
+/**
+ * gsasl_client_application_data_get:
+ * @sctx: libgsasl client handle.
+ *
+ * Retrieve application specific data from libgsasl client handle. The
+ * application data is set using gsasl_client_application_data_set().
+ * It is normally used by the application to maintain state between
+ * the main program and the callback.
+ *
+ * Return value: Returns the application specific data, or NULL.
+ **/
+void *
+gsasl_client_application_data_get (Gsasl_session_ctx * sctx)
+{
+  return gsasl_appinfo_get (sctx);
+}
+
+/**
+ * gsasl_server_ctx_get:
+ * @sctx: libgsasl server handle
+ *
+ * Return value: Returns the libgsasl handle given a libgsasl server handle.
+ **/
+Gsasl_ctx *
+gsasl_server_ctx_get (Gsasl_session_ctx * sctx)
+{
+  return gsasl_ctx_get (sctx);
+}
+
+/**
+ * gsasl_server_application_data_set:
+ * @sctx: libgsasl server handle.
+ * @application_data: opaque pointer to application specific data.
+ *
+ * Store application specific data in the libgsasl server handle.  The
+ * application data can be later (for instance, inside a callback) be
+ * retrieved by calling gsasl_server_application_data_get().  It is
+ * normally used by the application to maintain state between the main
+ * program and the callback.
+ **/
+void
+gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
+				   void *application_data)
+{
+  return gsasl_appinfo_set (sctx, application_data);
+}
+
+/**
+ * gsasl_server_application_data_get:
+ * @sctx: libgsasl server handle.
+ *
+ * Retrieve application specific data from libgsasl server handle. The
+ * application data is set using gsasl_server_application_data_set().
+ * It is normally used by the application to maintain state between
+ * the main program and the callback.
+ *
+ * Return value: Returns the application specific data, or NULL.
+ **/
+void *
+gsasl_server_application_data_get (Gsasl_session_ctx * sctx)
+{
+  return gsasl_appinfo_get (sctx);
+}
