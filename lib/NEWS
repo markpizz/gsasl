@@ -11,6 +11,9 @@ See the end for copying conditions.
 ** Translation fixes.
 
 ** API and ABI modifications.
+gsasl_encode, gsasl_decode: MODIFIED.  Now allocate the output parameter.
+gsasl_encode_inline, gsasl_decode_inline: ADD, DEPRECATED.
+  Same as the old gsasl_encode and gsasl_decode, to simplify conversion.
 gsasl_callback_set, gsasl_callback_set_global: ADD.  New functions.
 gsasl_callback, gsasl_callback_global: ADD.  New functions.
 GSASL_NO_CALLBACK, GSASL_NO_ANONYMOUS_TOKEN: ADD.  New error codes.
@@ -46,9 +49,6 @@ gsasl_client_callback_*,
 gsasl_server_callback_*: DEPRECATED.  Old callback set/get interface.
 gsasl_ctx_get: DEPRECATED.  Not useful, application callback now get both
   library and session context.
-gsasl_encode, gsasl_decode: MODIFIED.  Now allocate the output parameter.
-gsasl_encode_inline, gsasl_decode_inline: ADD, DEPRECATED.
-  Same as the old gsasl_encode and gsasl_decode, to simplify conversion.
 
 * Changes in 0.1.4 (released 2004-08-08)
 
