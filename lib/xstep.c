@@ -53,7 +53,7 @@ gsasl_step (Gsasl_session * sctx,
   _Gsasl_step_function step;
   int res;
 
-  if (!VALID_SESSION_HANDLE(sctx))
+  if (sctx == NULL)
     return GSASL_INVALID_HANDLE;
 
   *output_len = 1000;  /* XXX will go away once backend interface is fixed. */
