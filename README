@@ -20,6 +20,12 @@ Currently there is some support for the following mechanisms:
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
 
+  * Bug: If gsasl_decode is handed a string longer than one SASL token,
+    the remaining data will be discarded.  This means if the sender
+    packed two SASL tokens in one network packet, only the first will be
+    seen.  To fix this the best way, and the same time also improve
+    string handling (security), the entire SASL step API probably
+    should change.
   + Authentication infrastructure implementing the callbacks for
     PAM, Kerberos, SQL, etc.  Separate project?  GNU Mailutils has
     some starting points for this, but the API is inflexible.
@@ -44,7 +50,7 @@ proper.
 For updates to the project, see <http://www.gnu.org/software/gsasl/>.
 
 ----------------------------------------------------------------------
-Copyright (C) 2002 Simon Josefsson
+Copyright (C) 2002, 2003 Simon Josefsson
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
