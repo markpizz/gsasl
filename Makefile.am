@@ -24,14 +24,14 @@ ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
 # Maintainer targets
 
-POURL = ftp://tiger.informatik.hu-berlin.de/pub/po/maint/$(PACKAGE)
+POURL = ftp://ftp.unex.es/pub/gnu-i18n/po/maint/$(PACKAGE)
 update-po:
 	cd po && \
 	wget --non-verbose --timestamping --retr-symlinks $(POURL)/??.po && \
 	cvs add ??.po || true && \
 	echo en@boldquot en@quot > LINGUAS && \
 	ls ??.po | sed 's/.po//' >> LINGUAS && \
-	cvs commit -m "Sync with TP." LINGUAS ??.po
+	echo cvs commit -m "Sync with TP." po/LINGUAS po/??.po
 
 ChangeLog:
 	cvs2cl --fsf --FSF --usermap .cvsusers -I ChangeLog -I .cvs \
