@@ -74,8 +74,8 @@ SUBDIRS += src
 
 # Maintainer targets
 
+.PHONY: ChangeLog
 ChangeLog:
-	test ! -f ../.cvsusers || \
-	(cvs2cl --fsf --FSF --usermap ../.cvsusers \
-	-I "ChangeLog|.cvs|autogen.sh|doc/specification|libstringprep" && \
-	cat ../.cvscopying >> ChangeLog)
+	cvs2cl --fsf --FSF --usermap ../.cvsusers -I ChangeLog -I .cvs \
+		-I autogen.sh
+	cat ../.cvscopying >> ChangeLog
