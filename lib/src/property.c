@@ -121,7 +121,7 @@ gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
  **/
 void
 gsasl_property_set_raw (Gsasl_session * sctx, Gsasl_property prop,
-		     const char *data, size_t len)
+			const char *data, size_t len)
 {
   char **p = map (sctx, prop);
 

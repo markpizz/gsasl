@@ -41,7 +41,7 @@
  * if memory allocation fail or length overflow occurs.
  **/
 int
-gsasl_base64_to (const char *in, size_t inlen, char **out, size_t *outlen)
+gsasl_base64_to (const char *in, size_t inlen, char **out, size_t * outlen)
 {
   size_t len = base64_encode_alloc (in, inlen, out);
 
@@ -70,10 +70,8 @@ gsasl_base64_to (const char *in, size_t inlen, char **out, size_t *outlen)
  * input.
  **/
 int
-gsasl_base64_from (const char *in, size_t inlen,
-		   char **out, size_t * outlen)
+gsasl_base64_from (const char *in, size_t inlen, char **out, size_t * outlen)
 {
   return base64_decode_alloc (in, inlen, out, outlen)
-    ? GSASL_OK
-    : GSASL_MALLOC_ERROR;
+    ? GSASL_OK : GSASL_MALLOC_ERROR;
 }

@@ -608,7 +608,7 @@ gsasl_appinfo_get (Gsasl_session * sctx)
 const char *
 gsasl_server_suggest_mechanism (Gsasl * ctx, const char *mechlist)
 {
-  return NULL;  /* This function is just silly. */
+  return NULL;			/* This function is just silly. */
 }
 
 /**
