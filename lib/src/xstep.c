@@ -51,25 +51,45 @@ gsasl_step (Gsasl_session * sctx,
 	    char **output, size_t * output_len)
 {
   _Gsasl_step_function step;
+  _Gsasl_step_function_a astep;
   int res;
 
   if (sctx == NULL)
     return GSASL_INVALID_HANDLE;
 
-  *output_len = 1000;		/* XXX will go away once backend interface is fixed. */
-  *output = malloc (*output_len);
-  if (*output == NULL)
-    return GSASL_MALLOC_ERROR;
-
   if (sctx->clientp)
-    step = sctx->mech->client.step;
+    {
+      step = sctx->mech->client.step;
+      astep = sctx->mech->client.astep;
+    }
   else
-    step = sctx->mech->server.step;
+    {
+      step = sctx->mech->server.step;
+      astep = sctx->mech->server.astep;
+    }
 
-  res = step (sctx, sctx->mech_data, input, input_len, *output, output_len);
+  if (astep)
+    {
+      res = astep (sctx, sctx->mech_data,
+		   input, input_len,
+		   output, output_len);
+    }
+  else
+    {
+      /* XXX once all mechanisms uses the "astep" interface, this will
+	 go away. */
+      *output_len = 1000;
+      *output = malloc (*output_len);
+      if (*output == NULL)
+	return GSASL_MALLOC_ERROR;
 
-  if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
-    free (*output);
+      res = step (sctx, sctx->mech_data,
+		  input, input_len,
+		  *output, output_len);
+
+      if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
+	free (*output);
+    }
 
   return res;
 }
