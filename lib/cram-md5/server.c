@@ -59,7 +59,6 @@ _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
   char *username = NULL;
   int res = GSASL_OK;
   char *normkey;
-  int i;
 
   if (input_len == 0)
     {
