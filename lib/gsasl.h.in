@@ -99,7 +99,7 @@ extern "C"
     GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE,
     GSASL_SECURID_SERVER_NEED_NEW_PIN,
     GSASL_INVALID_HANDLE
- } Gsasl_rc;
+  } Gsasl_rc;
 
 /* Quality of Protection types, used by DIGEST-MD5 */
   typedef enum
@@ -259,8 +259,7 @@ extern "C"
 					      size_t * outlen, size_t nth);
   typedef Gsasl_qop (*Gsasl_server_callback_qop) (Gsasl_session * sctx);
   typedef size_t (*Gsasl_server_callback_maxbuf) (Gsasl_session * sctx);
-  typedef Gsasl_cipher (*Gsasl_server_callback_cipher) (Gsasl_session *
-							sctx);
+  typedef Gsasl_cipher (*Gsasl_server_callback_cipher) (Gsasl_session * sctx);
 
 /* Client callbacks: callback-c.c */
   extern void gsasl_client_callback_authorization_id_set (Gsasl * ctx,

@@ -383,9 +383,8 @@ readln (char *buf, size_t maxbuflen)
 	return 0;
       buf[len] = '\0';
     }
-  else
-    if (!fgets (buf, maxbuflen, stdin))
-      return 0;
+  else if (!fgets (buf, maxbuflen, stdin))
+    return 0;
 
   if (sockfd)
     printf ("%s", buf);
@@ -614,7 +613,7 @@ main (int argc, char *argv[])
 			     "data (it must begin with '+ '):\n%s\n"), input);
 		  return 1;
 		}
-	      memmove (&input[0], &input[2], strlen(input) - 1);
+	      memmove (&input[0], &input[2], strlen (input) - 1);
 	    }
 	}
       while (res == GSASL_NEEDS_MORE);

@@ -124,8 +124,7 @@ gsasl_md5 (const char *in, size_t inlen, char *out[MD5_DIGEST_SIZE])
  **/
 int
 gsasl_hmac_md5 (const char *key, size_t keylen,
-		 const char *in, size_t inlen,
-		 char *outhash[MD5_DIGEST_SIZE])
+		const char *in, size_t inlen, char *outhash[MD5_DIGEST_SIZE])
 {
   struct hmac_md5_ctx ctx;
 

@@ -1,4 +1,4 @@
-/* internal.h	internal header file for libgsasl
+/* internal.h --- Internal header with hidden library handle structures.
  * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -20,33 +20,31 @@
  */
 
 #ifndef _INTERNAL_H
-#define _INTERNAL_H
+# define _INTERNAL_H
 
-#if HAVE_CONFIG_H
-#include "config.h"
-#endif
+# if HAVE_CONFIG_H
+# include "config.h"
+# endif
 
-#ifdef STDC_HEADERS
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <ctype.h>
-#include <string.h>
-#endif
+# ifdef STDC_HEADERS
+#  include <stdio.h>
+#  include <stdlib.h>
+#  include <stdarg.h>
+#  include <ctype.h>
+#  include <string.h>
+# endif
 
 /* Get specifications. */
-#include "gsasl.h"
+# include "gsasl.h"
 
 typedef int (*_Gsasl_init_function) (Gsasl * ctx);
 typedef void (*_Gsasl_done_function) (Gsasl * ctx);
-typedef int (*_Gsasl_start_function) (Gsasl_session * sctx,
-				      void **mech_data);
+typedef int (*_Gsasl_start_function) (Gsasl_session * sctx, void **mech_data);
 typedef int (*_Gsasl_step_function) (Gsasl_session * sctx,
 				     void *mech_data,
 				     const char *input, size_t input_len,
 				     char *output, size_t * output_len);
-typedef int (*_Gsasl_finish_function) (Gsasl_session * sctx,
-				       void *mech_data);
+typedef int (*_Gsasl_finish_function) (Gsasl_session * sctx, void *mech_data);
 typedef int (*_Gsasl_code_function) (Gsasl_session * sctx,
 				     void *mech_data,
 				     const char *input, size_t input_len,

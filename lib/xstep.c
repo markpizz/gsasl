@@ -56,7 +56,7 @@ gsasl_step (Gsasl_session * sctx,
   if (sctx == NULL)
     return GSASL_INVALID_HANDLE;
 
-  *output_len = 1000;  /* XXX will go away once backend interface is fixed. */
+  *output_len = 1000;		/* XXX will go away once backend interface is fixed. */
   *output = malloc (*output_len);
   if (*output == NULL)
     return GSASL_MALLOC_ERROR;
@@ -95,9 +95,7 @@ gsasl_step (Gsasl_session * sctx,
  *   code.
  **/
 int
-gsasl_step64 (Gsasl_session * sctx,
-	      const char *b64input,
-	      char **b64output)
+gsasl_step64 (Gsasl_session * sctx, const char *b64input, char **b64output)
 {
   size_t input_len, output_len;
   char *input, *output;
@@ -130,7 +128,7 @@ gsasl_step64 (Gsasl_session * sctx,
 
   if (res == GSASL_OK || res == GSASL_NEEDS_MORE)
     {
-      size_t allen = output_len * 4 / 3 + 4; /* XXX ? */
+      size_t allen = output_len * 4 / 3 + 4;	/* XXX ? */
       int len;
 
       *b64output = malloc (allen);

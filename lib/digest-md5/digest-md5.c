@@ -1215,8 +1215,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	if (cb_maxbuf)
 	  maxbuf = cb_maxbuf (sctx, maxbuf);
 	if (maxbuf >= MAXBUF_MIN &&
-	    maxbuf != MAXBUF_DEFAULT &&
-	    maxbuf <= MAXBUF_MAX)
+	    maxbuf != MAXBUF_DEFAULT && maxbuf <= MAXBUF_MAX)
 	  {
 	    char tmp[MAXBUF_MAX_DECIMAL_SIZE + 1];
 
@@ -1756,8 +1755,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
       if (cb_maxbuf)
 	maxbuf = cb_maxbuf (sctx);
       if (maxbuf >= MAXBUF_MIN &&
-	  maxbuf != MAXBUF_DEFAULT &&
-	  maxbuf <= MAXBUF_MAX)
+	  maxbuf != MAXBUF_DEFAULT && maxbuf <= MAXBUF_MAX)
 	{
 	  char tmp[MAXBUF_MAX_DECIMAL_SIZE + 1];
 

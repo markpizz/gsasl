@@ -210,8 +210,7 @@ gsasl_server_callback_anonymous_get (Gsasl * ctx)
  * using gsasl_server_callback_realm_get().
  **/
 void
-gsasl_server_callback_realm_set (Gsasl * ctx,
-				 Gsasl_server_callback_realm cb)
+gsasl_server_callback_realm_set (Gsasl * ctx, Gsasl_server_callback_realm cb)
 {
   ctx->cbs_realm = cb;
 }

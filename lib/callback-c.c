@@ -305,8 +305,7 @@ gsasl_client_callback_maxbuf_get (Gsasl * ctx)
  * retrieved using gsasl_client_callback_realm_get().
  **/
 void
-gsasl_client_callback_realm_set (Gsasl * ctx,
-				 Gsasl_client_callback_realm cb)
+gsasl_client_callback_realm_set (Gsasl * ctx, Gsasl_client_callback_realm cb)
 {
   ctx->cbc_realm = cb;
 }

@@ -199,8 +199,7 @@ gsasl_server_step (Gsasl_session_ctx * sctx,
 
 static int
 _gsasl_step64 (Gsasl_session_ctx * sctx,
-	       const char *b64input,
-	       char *b64output, size_t b64output_len)
+	       const char *b64input, char *b64output, size_t b64output_len)
 {
   char *tmp;
   int rc;
