@@ -88,9 +88,8 @@ gsasl_client_callback_*,
 gsasl_server_callback_*: DEPRECATED.  Old callback set/get interface.
 
 Gsasl_property, GSASL_CLIENT_*, GSASL_SERVER_*: ADD.  New enumerated type.
-gsasl_property_set, gsasl_property_set_global, gsasl_property_set_raw,
-gsasl_property_get, gsasl_property_get_global,
-gsasl_property_fast, gsasl_property_fast_global: ADD.  New functions.
+gsasl_property_set, gsasl_property_set_raw,
+gsasl_property_get, gsasl_property_fast: ADD.  New functions.
 
 gsasl_application_data_get, gsasl_application_data_set: DEPRECATED.
 gsasl_appinfo_get, gsasl_appinfo_set: DEPRECATED.
