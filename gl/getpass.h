@@ -22,9 +22,9 @@
 /* Get getpass declaration, if available.  */
 #include <unistd.h>
 
-#if defined HAVE_DECL_GETPASS && !HAVE_DECL_GETPASS && !defined getpass
+#if defined HAVE_DECL_GETPASS && !HAVE_DECL_GETPASS
 /* Read a password of arbitrary length from /dev/tty or stdin.  */
-extern char *getpass (const char *prompt)
+char *getpass (const char *prompt);
 
 #endif
 
