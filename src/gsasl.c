@@ -50,7 +50,7 @@ writeln (char *str)
 }
 
 static int
-readln1 (char **out)
+readln (char **out)
 {
   char input[MAX_LINE_LENGTH];
 
@@ -80,7 +80,7 @@ select_mechanism (char **mechlist)
 
   if (args_info.imap_flag)
     {
-      if (!readln1 (&in))
+      if (!readln (&in))
 	return 0;
     }
 
@@ -88,7 +88,7 @@ select_mechanism (char **mechlist)
     {
       if (!args_info.quiet_given)
 	fprintf (stderr, _("Chose SASL mechanisms:\n"));
-      if (!readln1 (&in))
+      if (!readln (&in))
 	return 0;
       *mechlist = in;
     }
@@ -100,7 +100,7 @@ select_mechanism (char **mechlist)
       if (!args_info.quiet_given && !args_info.imap_flag)
 	fprintf (stderr,
 		 _("Input SASL mechanism supported by server:\n"));
-      if (!readln1 (&in))
+      if (!readln (&in))
 	return 0;
 
       /* XXX parse IMAP capability line */
@@ -164,7 +164,7 @@ step_send (const char *data)
 static int
 step_recv (char **data)
 {
-  if (!readln1 (data))
+  if (!readln (data))
     return 0;
 
   if (args_info.imap_flag)
@@ -190,7 +190,7 @@ auth_finish (void)
   char *in;
 
   /* wait for possibly last round trip */
-  if (args_info.imap_flag && !readln1 (&in))
+  if (args_info.imap_flag && !readln (&in))
     return 0;
 
   return 1;
@@ -207,13 +207,13 @@ logout (void)
 	return 1;
 
       /* read "* BYE ..." */
-      if (!readln1 (&in))
+      if (!readln (&in))
 	return 1;
 
       free (in);
 
       /* read ". OK ..." */
-      if (!readln1 (&in))
+      if (!readln (&in))
 	return 1;
 
       free (in);
@@ -537,7 +537,7 @@ main (int argc, char *argv[])
 
 	      if (sockfd && FD_ISSET (sockfd, &readfds))
 		{
-		  if (!readln1 (&in))
+		  if (!readln (&in))
 		    break;
 		  free (in);
 		}
