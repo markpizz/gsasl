@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU libgsasl 0.0\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2003-11-20 17:32+0100\n"
+"POT-Creation-Date: 2003-11-21 08:01+0100\n"
 "PO-Revision-Date: 2002-10-05 19:32+0200\n"
 "Last-Translator: Simon Josefsson <simon@josefsson.org>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -294,55 +294,55 @@ msgstr ""
 msgid "Output from server:\n"
 msgstr ""
 
-#: src/gsasl.c:288 src/gsasl.c:333
+#: src/gsasl.c:285 src/gsasl.c:330
 #, fuzzy, c-format
 msgid "GSASL error (%d): %s\n"
 msgstr "Okänt fel i libgsasl"
 
-#: src/gsasl.c:339
+#: src/gsasl.c:336
 #, c-format
 msgid "This %s supports the following mechanisms:\n"
 msgstr ""
 
-#: src/gsasl.c:340 src/gsasl.c:413
+#: src/gsasl.c:338 src/gsasl.c:411
 msgid "client"
 msgstr ""
 
-#: src/gsasl.c:340 src/gsasl.c:413
+#: src/gsasl.c:338 src/gsasl.c:411
 msgid "server"
 msgstr ""
 
-#: src/gsasl.c:364
+#: src/gsasl.c:362
 msgid "Cannot find mechanism...\n"
 msgstr ""
 
-#: src/gsasl.c:382 src/gsasl.c:422 src/gsasl.c:517
+#: src/gsasl.c:380 src/gsasl.c:420 src/gsasl.c:515
 #, fuzzy, c-format
 msgid "Libgsasl error (%d): %s\n"
 msgstr "Okänt fel i libgsasl"
 
-#: src/gsasl.c:411
+#: src/gsasl.c:409
 #, c-format
 msgid "Enter base64 authentication data from %s (press RET if none):\n"
 msgstr ""
 
-#: src/gsasl.c:433
+#: src/gsasl.c:431
 msgid "Client authentication finished (server trusted)...\n"
 msgstr ""
 
-#: src/gsasl.c:436
+#: src/gsasl.c:434
 msgid "Server authentication finished (client trusted)...\n"
 msgstr ""
 
-#: src/gsasl.c:451
+#: src/gsasl.c:449
 msgid "Enter application data (EOF to finish):\n"
 msgstr ""
 
-#: src/gsasl.c:490
+#: src/gsasl.c:488
 msgid "Base64 encoded application data to send:\n"
 msgstr ""
 
-#: src/gsasl.c:524
+#: src/gsasl.c:522
 msgid "Session finished...\n"
 msgstr ""
 
