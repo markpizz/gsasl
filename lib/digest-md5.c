@@ -2141,7 +2141,8 @@ _gsasl_digest_md5_server_encode (Gsasl_session_ctx * sctx,
       char *hash;
       uint32_t tmp;
 
-      if (MAC_DATA_LEN + input_len + MAC_HMAC_LEN +
+      if (output &&
+	  MAC_DATA_LEN + input_len + MAC_HMAC_LEN +
 	  MAC_MSG_TYPE_LEN + MAC_SEQNUM_LEN > *output_len)
 	return GSASL_TOO_SMALL_BUFFER;
 
