@@ -18,11 +18,21 @@
 /* Portions adapted from GNU MailUtils, by Simon Josefsson.  For more
    information, see RFC 3548 <http://www.ietf.org/rfc/rfc3548.txt>. */
 
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
+
 /* Get malloc. */
 #include <stdlib.h>
 
+/* Get size_overflow_p etc. */
+#include "xsize.h"
+
 /* Get prototype. */
 #include "base64.h"
+
+/* C89 compliant way to cast 'const char *' to 'const unsigned char *'. */
+static inline const unsigned char *to_cucharp (const char *ch) { return ch; }
 
 /* Base64 encode IN array of size INLEN into OUT array of size OUTLEN.
    If OUTLEN is less than BASE64_LENGTH(INLEN), write as many bytes as
@@ -31,24 +41,25 @@
 void
 base64_encode (const char *in, size_t inlen, char *out, size_t outlen)
 {
-  const char *b64 =
+  const char b64[64] =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-  const unsigned char *iptr = (const unsigned char *) in;
-  unsigned char *optr = (unsigned char *) out;
+  const unsigned char *iptr = to_cucharp (in);
 
   while (inlen && outlen)
     {
-      *optr++ = b64[iptr[0] >> 2];
+      *out++ = b64[iptr[0] >> 2];
       if (!--outlen)
 	break;
-      *optr++ = b64[((iptr[0] << 4) + (--inlen ? (iptr[1] >> 4) : 0)) & 0x3f];
+      *out++ = b64[((iptr[0] << 4) + (--inlen ? (iptr[1] >> 4) : 0)) & 0x3f];
       if (!--outlen)
 	break;
-      *optr++ = inlen ? b64[((iptr[1] << 2) +
-			     (--inlen ? (iptr[2] >> 6) : 0)) & 0x3f] : '=';
+      *out++ =
+	(inlen
+	 ? b64[((iptr[1] << 2) + (--inlen ? (iptr[2] >> 6) : 0)) & 0x3f]
+	 : '=');
       if (!--outlen)
 	break;
-      *optr++ = inlen ? b64[iptr[2] & 0x3f] : '=';
+      *out++ = inlen ? b64[iptr[2] & 0x3f] : '=';
       if (!--outlen)
 	break;
       if (inlen)
@@ -57,7 +68,7 @@ base64_encode (const char *in, size_t inlen, char *out, size_t outlen)
     }
 
   if (outlen)
-    *optr = '\0';
+    *out = '\0';
 }
 
 /* Allocate a buffer and store zero terminated base64 encoded data
@@ -65,21 +76,25 @@ base64_encode (const char *in, size_t inlen, char *out, size_t outlen)
    the length of the encoded data, excluding the terminating zero.  On
    return, the OUT variable will hold a pointer to newly allocated
    memory that must be deallocated by the caller, or NULL on memory
-   allocation failure.  */
+   allocation failure.  If output length would overflow, SIZE_MAX is
+   returned and OUT is undefined.  */
 size_t
 base64_encode_alloc (const char *in, size_t inlen, char **out)
 {
-  size_t outlen;
+  size_t outlen = xsum (1, xtimes (xmax (inlen, inlen + 2) / 3, 4));
 
-  outlen = BASE64_LENGTH (inlen);
-  *out = malloc (outlen + 1);
-  if (!*out)
-    return outlen;
+  if (size_overflow_p (outlen))
+    return SIZE_MAX;
 
-  base64_encode (in, inlen, *out, outlen + 1);
+  *out = malloc (outlen);
+  if (*out)
+    base64_encode (in, inlen, *out, outlen);
 
-  return outlen;
+  return outlen - 1;
 }
+
+/* C89 compliant way to cast 'char *' to 'unsigned char *'. */
+static inline unsigned char *to_ucharp (char *ch) { return ch; }
 
 /* Decode base64 encoded input array IN of length INLEN to output
    array OUT that can hold *OUTLEN bytes.  Return true if decoding was
@@ -109,8 +124,8 @@ base64_decode (const char *in, size_t inlen, char *out, size_t * outlen)
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
   };
-  const unsigned char *iptr = (const unsigned char *) in;
-  unsigned char *optr = (unsigned char *) out;
+  const unsigned char *iptr = to_cucharp (in);
+  unsigned char *optr = to_ucharp (out);
   size_t len = *outlen;
 
   *outlen = 0;
@@ -182,16 +197,24 @@ base64_decode (const char *in, size_t inlen, char *out, size_t * outlen)
 /* Allocate an output buffer OUT, and decode the base64 encoded data
    stored in IN of size INLEN.  On return, the actual size of the
    decoded data is stored in *OUTLEN.  The function return true if
-   decoding was successful, or false on memory allocation or decoding
-   errors.  */
+   decoding was successful, or false on memory allocation, integer
+   overflow or decoding errors.  */
 bool
 base64_decode_alloc (const char *in, size_t inlen, char **out,
 		     size_t * outlen)
 {
-  *outlen = 3 * inlen / 4;	/* FIXME: May allocate one 1 or 2 bytes too
-				   much, depending on input. */
+
+  size_t len = xtimes (inlen, 3);
+
+  if (size_overflow_p (len))
+    return false;
+
+  *outlen = len / 4;	/* FIXME: May allocate one 1 or 2 bytes too
+			   much, depending on input. */
+
   *out = malloc (*outlen);
   if (!*out)
     return false;
+
   return base64_decode (in, inlen, *out, outlen);
 }
