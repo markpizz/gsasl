@@ -233,13 +233,13 @@ extern "C"
 			     char **out, int *stringpreprc);
 
   /* Utilities: base64.c, md5pwd.c, crypto.c */
+  extern int gsasl_simple_getpass (const char *filename,
+				   const char *username,
+				   char **key);
   extern int gsasl_base64_to (const char *in, size_t inlen,
 			      char **out, size_t * outlen);
   extern int gsasl_base64_from (const char *in, size_t inlen,
 				char **out, size_t * outlen);
-  extern int gsasl_md5pwd_get_password (const char *filename,
-					const char *username,
-					char *key, size_t * keylen);
   extern int gsasl_nonce (char *data, size_t datalen);
   extern int gsasl_random (char *data, size_t datalen);
   extern int gsasl_md5 (const char *in, size_t inlen, char *out[16]);
