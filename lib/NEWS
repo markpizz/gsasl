@@ -8,9 +8,7 @@ See the end for copying conditions.
 Earlier they were not implemented at all.
 
 ** API and ABI modifications.
-gsasl_random: ADD.
-gsasl_nonce: ADD.
-gsasl_randomize: DEPRECATED.  Use either gsasl_random or gsasl_nonce.
+gsasl_randomize: DEPRECATED.
 
 * Changes in 0.1.0 (released 2004-04-16)
 
