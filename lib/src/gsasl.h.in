@@ -227,6 +227,7 @@ extern "C"
   extern const char *gsasl_strerror (int err);
 
   /* Internationalized string processing: stringprep.c */
+  extern int gsasl_saslprep (const char *in, int allowunassigned, char **out);
   extern char *gsasl_stringprep_nfkc (const char *in, ssize_t len);
   extern char *gsasl_stringprep_saslprep (const char *in, int *stringprep_rc);
   extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc);
