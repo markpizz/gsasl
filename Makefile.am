@@ -18,7 +18,7 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-EXTRA_DIST = ANNOUNCE libgsasl.pc.in
+EXTRA_DIST = ANNOUNCE
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgsasl.pc
