@@ -31,8 +31,8 @@ _gsasl_plain_server_start (Gsasl_session_ctx * sctx, void **mech_data)
 int
 _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 			  void *mech_data,
-			  const char *input,
-			  size_t input_len, char *output, size_t * output_len)
+			  const char *input, size_t input_len,
+			  char **output, size_t * output_len)
 {
   Gsasl_server_callback_validate cb_validate;
   Gsasl_server_callback_retrieve cb_retrieve;
@@ -44,6 +44,7 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
   int res;
 
   *output_len = 0;
+  *output = NULL;
 
   if (input_len == 0)
     return GSASL_NEEDS_MORE;

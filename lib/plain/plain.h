@@ -38,8 +38,7 @@ extern int _gsasl_plain_server_start (Gsasl_session_ctx * sctx,
 				      void **mech_data);
 extern int _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 				     void *mech_data,
-				     const char *input,
-				     size_t input_len,
-				     char *output, size_t * output_len);
+				     const char *input, size_t input_len,
+				     char **output, size_t * output_len);
 
 #endif /* PLAIN_H */

@@ -112,11 +112,11 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     _gsasl_plain_server_start,
-    _gsasl_plain_server_step,
     NULL,
     NULL,
     NULL,
-    NULL
+    NULL,
+    _gsasl_plain_server_step
 #endif
     }
    },
