@@ -72,8 +72,6 @@ struct _Gsasl_mechanism
 };
 typedef struct _Gsasl_mechanism _Gsasl_mechanism;
 
-extern _Gsasl_mechanism _gsasl_all_mechanisms[];
-
 struct Gsasl
 {
   size_t n_client_mechs;
