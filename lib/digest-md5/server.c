@@ -683,6 +683,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	if (res != GSASL_OK)
 	  goto done;
 	outlen += RSPAUTH_LENGTH;
+	output[outlen] = '\0';
 
 	strcat (output, RSPAUTH_POST);
 	outlen += strlen (RSPAUTH_POST);

@@ -374,6 +374,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	  if (res != GSASL_OK)
 	    goto done;
 	  outlen += usernamelen;
+	  output[outlen] = '\0';
 
 	  strcat (output, USERNAME_POST);
 	  outlen += strlen (USERNAME_POST);
