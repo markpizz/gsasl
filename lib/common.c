@@ -19,17 +19,17 @@
  *
  */
 
-#include "cram-md5.h"		/* RFC 2195 */
-#include "external.h"		/* RFC 2222 */
-#include "x-gssapi.h"		/* RFC 2222 */
-#include "anonymous.h"		/* RFC 2245 */
-#include "plain.h"		/* RFC 2595 */
-#include "securid.h"		/* RFC 2808 */
-#include "digest-md5.h"		/* RFC 2831 */
+#include "cram-md5/cram-md5.h"		/* RFC 2195 */
+#include "external/external.h"		/* RFC 2222 */
+#include "gssapi/x-gssapi.h"		/* RFC 2222 */
+#include "anonymous/anonymous.h"	/* RFC 2245 */
+#include "plain/plain.h"		/* RFC 2595 */
+#include "securid/securid.h"		/* RFC 2808 */
+#include "digest-md5/digest-md5.h"	/* RFC 2831 */
 
-#include "login.h"		/* non-standard */
-#include "x-ntlm.h"		/* non-standard */
-#include "kerberos_v5.h"	/* non-standard */
+#include "login/login.h"		/* non-standard */
+#include "ntlm/x-ntlm.h"		/* non-standard */
+#include "kerberos_v5/kerberos_v5.h"	/* non-standard */
 
 const char *GSASL_VALID_MECHANISM_CHARACTERS =
   "ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz0123456789-_";

@@ -59,43 +59,43 @@ endif
 # Plugins:
 
 if EXTERNAL
-libgsasl_la_SOURCES += external.h external.c
+libgsasl_la_SOURCES += external/external.h external/external.c
 endif
 
 if ANONYMOUS
-libgsasl_la_SOURCES += anonymous.h anonymous.c
+libgsasl_la_SOURCES += anonymous/anonymous.h anonymous/anonymous.c
 endif
 
 if PLAIN
-libgsasl_la_SOURCES += plain.h plain.c
+libgsasl_la_SOURCES += plain/plain.h plain/plain.c
 endif
 
 if LOGIN
-libgsasl_la_SOURCES += login.h login.c
+libgsasl_la_SOURCES += login/login.h login/login.c
 endif
 
 if CRAM_MD5
-libgsasl_la_SOURCES += cram-md5.h cram-md5.c
+libgsasl_la_SOURCES += cram-md5/cram-md5.h cram-md5/cram-md5.c
 endif
 
 if DIGEST_MD5
-libgsasl_la_SOURCES += digest-md5.h digest-md5.c
+libgsasl_la_SOURCES += digest-md5/digest-md5.h digest-md5/digest-md5.c
 endif
 
 if NTLM
-libgsasl_la_SOURCES += x-ntlm.h ntlm.c
+libgsasl_la_SOURCES += ntlm/ntlm.h ntlm/ntlm.c
 endif
 
 if GSSAPI
-libgsasl_la_SOURCES += x-gssapi.h gssapi.c
+libgsasl_la_SOURCES += gssapi/gssapi.h gssapi/gssapi.c
 endif			
 
 if SECURID
-libgsasl_la_SOURCES += securid.h securid.c
+libgsasl_la_SOURCES += securid/securid.h securid/securid.c
 endif			
 
 if KERBEROS_V5
-libgsasl_la_SOURCES += kerberos_v5.h kerberos_v5.c
+libgsasl_la_SOURCES += kerberos/kerberos_v5.h kerberos/kerberos_v5.c
 endif
 
 indent:
