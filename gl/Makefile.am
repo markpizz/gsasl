@@ -1,5 +1,4 @@
-# argp gethostname memmove memset strdup minmax
-# s/libfoo_a/libfoo_la/g s/libfoo.a/libfoo.la/g
+# argp minmax
 SUBDIRS = m4
 
 ## Process this file with automake to produce Makefile.in.
@@ -41,21 +40,17 @@ libfoo_la_SOURCES += exit.h
 libfoo_la_SOURCES += exitfail.h exitfail.c
 
 
-
 libfoo_la_SOURCES += getopt.h getopt.c getopt1.c
 
 libfoo_la_SOURCES += gettext.h
 
 
-
 libfoo_la_SOURCES += mempcpy.h
-
 
 libfoo_la_SOURCES += minmax.h
 
 
 libfoo_la_SOURCES += strchrnul.h
-
 
 libfoo_la_SOURCES += strndup.h
 
