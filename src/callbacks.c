@@ -22,21 +22,11 @@
 #include "internal.h"
 #include "callbacks.h"
 
-#define MAX_LINE_LENGTH BUFSIZ
-
-static char *
-readline (const char *prompt)
-{
-  static char line[MAX_LINE_LENGTH];
-
-  printf ("%s", prompt);
-
-  line[0] = '\0';
-  fgets (line, MAX_LINE_LENGTH, stdin);
-  line[strlen (line) - 1] = '\0';
-
-  return line;
-}
+#ifdef HAVE_READLINE_READLINE_H
+# include <readline/readline.h>
+#else
+extern char *readline (const char *prompt);
+#endif
 
 static int
 utf8cpy (char *dst, size_t * dstlen, char *src, size_t srclen)
