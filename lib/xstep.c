@@ -1,4 +1,4 @@
-/* Xstep.c	perform one SASL authentication step in the X
+/* xstep.c	perform one SASL authentication step
  * Copyright (C) 2002  Simon Josefsson
  *
  * This file is part of libgsasl.
@@ -144,8 +144,10 @@ _gsasl_session_step_base64 (Gsasl_session_ctx *xctx,
 	}
     }
 
-  free(output);
-  free(input);
+  if (output != NULL)
+    free(output);
+  if (input != NULL)
+    free(input);
 
   return res;
 }
