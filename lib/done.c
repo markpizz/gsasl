@@ -1,5 +1,5 @@
 /* done.c	exit point for libgsasl
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -31,7 +31,7 @@
 void
 gsasl_done (Gsasl_ctx * ctx)
 {
-  int i;
+  size_t i;
 
   if (ctx == NULL)
     return;
