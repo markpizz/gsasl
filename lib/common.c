@@ -160,12 +160,16 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_kerberos_v5_client_done,
     _gsasl_kerberos_v5_client_start,
     _gsasl_kerberos_v5_client_step,
-    _gsasl_kerberos_v5_client_finish},
+    _gsasl_kerberos_v5_client_finish,
+    _gsasl_kerberos_v5_client_encode,
+    _gsasl_kerberos_v5_client_decode},
    {_gsasl_kerberos_v5_server_init,
     _gsasl_kerberos_v5_server_done,
     _gsasl_kerberos_v5_server_start,
     _gsasl_kerberos_v5_server_step,
-    _gsasl_kerberos_v5_server_finish}
+    _gsasl_kerberos_v5_server_finish,
+    _gsasl_kerberos_v5_server_encode,
+    _gsasl_kerberos_v5_server_decode},
    },
 #endif /* USE_KERBEROS_V5 */
 

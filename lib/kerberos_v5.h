@@ -37,6 +37,18 @@ extern int _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 					   const char *input,
 					   size_t input_len,
 					   char *output, size_t * output_len);
+extern int _gsasl_kerberos_v5_client_encode (Gsasl_session_ctx * sctx,
+					     void *mech_data,
+					     const char *input,
+					     size_t input_len,
+					     char *output,
+					     size_t * output_len);
+extern int _gsasl_kerberos_v5_client_decode (Gsasl_session_ctx * sctx,
+					     void *mech_data,
+					     const char *input,
+					     size_t input_len,
+					     char *output,
+					     size_t * output_len);
 extern int _gsasl_kerberos_v5_client_finish (Gsasl_session_ctx * sctx,
 					     void *mech_data);
 
@@ -49,6 +61,18 @@ extern int _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 					   const char *input,
 					   size_t input_len,
 					   char *output, size_t * output_len);
+extern int _gsasl_kerberos_v5_server_encode (Gsasl_session_ctx * sctx,
+					     void *mech_data,
+					     const char *input,
+					     size_t input_len,
+					     char *output,
+					     size_t * output_len);
+extern int _gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
+					     void *mech_data,
+					     const char *input,
+					     size_t input_len,
+					     char *output,
+					     size_t * output_len);
 extern int _gsasl_kerberos_v5_server_finish (Gsasl_session_ctx * sctx,
 					     void *mech_data);
 

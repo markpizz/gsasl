@@ -46,13 +46,17 @@ struct _Gsasl_kerberos_v5_client_state
 {
   int step;
   char serverhello[BITMAP_LEN + MAXBUF_LEN + RANDOM_LEN];
-  int serverqop;
+  int serverqops;
+  int clientqop;
   int servermutual;
   uint32_t servermaxbuf;
+  uint32_t clientmaxbuf;
   Shishi *sh;
   Shishi_tkt *tkt;
   Shishi_as *as;
   Shishi_ap *ap;
+  Shishi_key *sessionkey;
+  Shishi_safe *safe;
 };
 
 int
@@ -88,6 +92,7 @@ _gsasl_kerberos_v5_client_start (Gsasl_session_ctx * sctx, void **mech_data)
     return GSASL_KERBEROS_V5_INIT_ERROR;
 
   state->step = 0;
+  state->clientqop = GSASL_QOP_AUTH_INT;
 
   *mech_data = state;
 
@@ -111,9 +116,11 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
   struct _Gsasl_kerberos_v5_client_state *state = mech_data;
   Gsasl_client_callback_authentication_id cb_authentication_id;
   Gsasl_client_callback_authorization_id cb_authorization_id;
+  Gsasl_client_callback_qop cb_qop;
   Gsasl_client_callback_realm cb_realm;
   Gsasl_client_callback_password cb_password;
   Gsasl_client_callback_service cb_service;
+  Gsasl_client_callback_maxbuf cb_maxbuf;
   Gsasl_ctx *ctx;
   int res;
   int len;
@@ -127,6 +134,8 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
   cb_service = gsasl_client_callback_service_get (ctx);
   cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
   cb_authorization_id = gsasl_client_callback_authorization_id_get (ctx);
+  cb_qop = gsasl_client_callback_qop_get (ctx);
+  cb_maxbuf = gsasl_client_callback_maxbuf_get (ctx);
 
   /* Only optionally needed in infrastructure mode */
   cb_password = gsasl_client_callback_password_get (ctx);
@@ -156,20 +165,24 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 	unsigned char serverbitmap;
 
 	memcpy (&serverbitmap, input, BITMAP_LEN);
-	state->serverqop = 0;
+	state->serverqops = 0;
 	if (serverbitmap & GSASL_QOP_AUTH)
-	  state->serverqop |= GSASL_QOP_AUTH;
+	  state->serverqops |= GSASL_QOP_AUTH;
 	if (serverbitmap & GSASL_QOP_AUTH_INT)
-	  state->serverqop |= GSASL_QOP_AUTH_INT;
+	  state->serverqops |= GSASL_QOP_AUTH_INT;
 	if (serverbitmap & GSASL_QOP_AUTH_CONF)
-	  state->serverqop |= GSASL_QOP_AUTH_CONF;
+	  state->serverqops |= GSASL_QOP_AUTH_CONF;
 	if (serverbitmap & MUTUAL)
 	  state->servermutual = 1;
       }
       memcpy (&state->servermaxbuf, &input[BITMAP_LEN], MAXBUF_LEN);
       state->servermaxbuf = ntohl (state->servermaxbuf);
 
-      if (!(state->serverqop & GSASL_QOP_AUTH))
+      if (cb_qop)
+	state->clientqop = cb_qop (sctx, state->serverqops);
+
+      if (!(state->serverqops & state->clientqop &
+	    (GSASL_QOP_AUTH|GSASL_QOP_AUTH_INT|GSASL_QOP_AUTH_CONF)))
 	return GSASL_AUTHENTICATION_ERROR;
 
       /* XXX for now we require server authentication */
@@ -295,9 +308,21 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
       if (*output_len <= CLIENT_HELLO_LEN + SERVER_HELLO_LEN)
 	return GSASL_TOO_SMALL_BUFFER;
 
+      if (!(state->clientqop & ~GSASL_QOP_AUTH))
+	state->clientmaxbuf = 0;
+      else if (cb_maxbuf)
+	state->clientmaxbuf = cb_maxbuf (sctx, state->servermaxbuf);
+      else
+	state->clientmaxbuf = MAXBUF_DEFAULT;
+
       /* XXX for now we require server authentication */
-      output[0] = GSASL_QOP_AUTH|MUTUAL; /* XXX only auth for now */
-      memset(&output[BITMAP_LEN], 0, MAXBUF_LEN); /* XXX maxbuf=0 for now */
+      output[0] = state->clientqop|MUTUAL;
+      {
+	uint32_t tmp;
+
+	tmp = ntohl (state->clientmaxbuf);
+	memcpy(&output[BITMAP_LEN], &tmp, MAXBUF_LEN);
+      }
       memcpy(&output[CLIENT_HELLO_LEN], state->serverhello, SERVER_HELLO_LEN);
 
       if (cb_authorization_id)
@@ -345,6 +370,9 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
 
       state->step = STEP_SUCCESS;
 
+      /* XXX support AP session keys */
+      state->sessionkey = shishi_tkt_key (shishi_as_tkt (state->as));
+
       *output_len = 0;
       res = GSASL_OK;
       break;
@@ -355,6 +383,81 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
     }
 
   return res;
+}
+
+int
+_gsasl_kerberos_v5_client_encode (Gsasl_session_ctx * sctx,
+				  void *mech_data,
+				  const char *input,
+				  size_t input_len,
+				  char *output, size_t * output_len)
+{
+  struct _Gsasl_kerberos_v5_client_state *state = mech_data;
+  int res;
+
+  if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_CONF)
+    {
+      /* XXX */
+    }
+  else if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_INT)
+    {
+      res = shishi_safe (state->sh, &state->safe);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+
+      res = shishi_safe_set_user_data (state->sh,
+				       shishi_safe_safe (state->safe),
+				       input, input_len);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+
+      res = shishi_safe_build (state->safe, state->sessionkey);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+
+      res = shishi_safe_safe_der (state->safe, output, output_len);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+    }
+  else
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
+
+  return GSASL_OK;
+}
+
+int
+_gsasl_kerberos_v5_client_decode (Gsasl_session_ctx * sctx,
+				  void *mech_data,
+				  const char *input,
+				  size_t input_len,
+				  char *output, size_t * output_len)
+{
+  struct _Gsasl_kerberos_v5_client_state *state = mech_data;
+
+  puts("cdecode");
+
+  if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_CONF)
+    {
+      /* XXX */
+    }
+  else if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_INT)
+    {
+      puts("decode");
+    }
+  else
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
+
+  return GSASL_OK;
 }
 
 int
@@ -376,7 +479,7 @@ struct _Gsasl_kerberos_v5_server_state
   Shishi *sh;
   char serverhello[BITMAP_LEN + MAXBUF_LEN + RANDOM_LEN];
   char *random;
-  int qop;
+  int serverqops;
   uint32_t servermaxbuf;
   int clientqop;
   int clientmutual;
@@ -392,6 +495,7 @@ struct _Gsasl_kerberos_v5_server_state
   Shishi_key *sessiontktkey; /* known only by server */
   Shishi_ap *ap;
   Shishi_as *as;
+  Shishi_safe *safe;
 };
 
 int
@@ -443,7 +547,7 @@ _gsasl_kerberos_v5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
     return GSASL_SHISHI_ERROR;
 
   state->firststep = 1;
-  state->qop = GSASL_QOP_AUTH;
+  state->serverqops = GSASL_QOP_AUTH | GSASL_QOP_AUTH_INT;
 
   *mech_data = state;
 
@@ -513,22 +617,24 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 
       p = &state->serverhello[0];
 
-      /* XXX cb_qop() here when we support anything other than QOP_AUTH */
+      if (cb_qop)
+	state->serverqops = cb_qop (sctx);
       *p = 0;
-      if (state->qop == GSASL_QOP_AUTH)
+      if (state->serverqops & GSASL_QOP_AUTH)
 	*p |= GSASL_QOP_AUTH;
-      else if (state->qop == GSASL_QOP_AUTH_INT)
+      if (state->serverqops & GSASL_QOP_AUTH_INT)
 	*p |= GSASL_QOP_AUTH_INT;
-      else if (state->qop == GSASL_QOP_AUTH_CONF)
+      if (state->serverqops & GSASL_QOP_AUTH_CONF)
 	*p |= GSASL_QOP_AUTH_CONF;
       /* XXX we always require mutual authentication for now */
       *p |= MUTUAL;
 
-      if (state->qop != GSASL_QOP_AUTH && cb_maxbuf)
+      if (!(state->serverqops & ~GSASL_QOP_AUTH))
+	state->servermaxbuf = 0;
+      else if (cb_maxbuf)
 	state->servermaxbuf = cb_maxbuf (sctx);
       else
-	state->servermaxbuf =
-	  state->qop == GSASL_QOP_AUTH ? 0 : MAXBUF_DEFAULT;
+	state->servermaxbuf = MAXBUF_DEFAULT;
 
       tmp = htonl (state->servermaxbuf);
       memcpy (&state->serverhello[BITMAP_LEN], &tmp, MAXBUF_LEN);
@@ -547,6 +653,9 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
   if (cb_retrieve)
     {
       /* Non-infrastructure mode */
+
+      if (*output_len < 2048)
+	return GSASL_TOO_SMALL_BUFFER;
 
       if (shishi_as_req_der_set(state->as, input, input_len) == SHISHI_OK)
 	{
@@ -751,9 +860,9 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 	  memcpy (&state->clientmaxbuf, &input[BITMAP_LEN], MAXBUF_LEN);
 	  state->clientmaxbuf = ntohl (state->clientmaxbuf);
 
-	  /* XXX only QOP_AUTH for now */
-	  if (!(state->clientqop & GSASL_QOP_AUTH))
+	  if (!(state->clientqop & state->serverqops))
 	    return GSASL_AUTHENTICATION_ERROR;
+
 	  /* XXX check clientmaxbuf too */
 
 	  if (memcmp(&buf[CLIENT_HELLO_LEN],
@@ -827,6 +936,101 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 
   *output_len = 0;
   return GSASL_NEEDS_MORE;
+}
+
+int
+_gsasl_kerberos_v5_server_encode (Gsasl_session_ctx * sctx,
+				  void *mech_data,
+				  const char *input,
+				  size_t input_len,
+				  char *output, size_t * output_len)
+{
+  struct _Gsasl_kerberos_v5_server_state *state = mech_data;
+  int res;
+
+  if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_CONF)
+    {
+      /* XXX */
+    }
+  else if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_INT)
+    {
+      res = shishi_safe (state->sh, &state->safe);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+
+      res = shishi_safe_set_user_data (state->sh,
+				       shishi_safe_safe (state->safe),
+				       input, input_len);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+
+      res = shishi_safe_build (state->safe, state->sessionkey);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+
+      res = shishi_safe_safe_der (state->safe, output, output_len);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+    }
+  else
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
+
+  return GSASL_OK;
+}
+
+int
+_gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
+				  void *mech_data,
+				  const char *input,
+				  size_t input_len,
+				  char *output, size_t * output_len)
+{
+  struct _Gsasl_kerberos_v5_server_state *state = mech_data;
+  int res;
+
+  if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_CONF)
+    {
+      /* XXX */
+    }
+  else if (state && state->sessionkey && state->clientqop & GSASL_QOP_AUTH_INT)
+    {
+      Shishi_asn1 asn1safe;
+
+      res = shishi_safe (state->sh, &state->safe);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+
+      res = shishi_safe_safe_der_set (state->safe, input, input_len);
+      printf("len %d err %d\n", input_len, res);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+
+      res = shishi_safe_verify (state->safe, state->sessionkey);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+
+      res = shishi_safe_user_data (state->sh, shishi_safe_safe (state->safe),
+				   output, output_len);
+      if (res != SHISHI_OK)
+	return GSASL_SHISHI_ERROR;
+      printf("len=%d\n", *output_len);
+      return GSASL_OK;
+    }
+  else
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
+
+
+  return GSASL_OK;
 }
 
 int
