@@ -51,30 +51,22 @@ gsasl_step (Gsasl_session * sctx,
 	    char **output, size_t * output_len)
 {
   _Gsasl_step_function step;
-  char *tmp = NULL;
-  size_t tmplen = 1000;
   int res;
+
+  *output_len = 1000;
+  *output = malloc (*output_len);
+  if (*output == NULL)
+    return GSASL_MALLOC_ERROR;
 
   if (sctx->clientp)
     step = sctx->mech->client.step;
   else
     step = sctx->mech->server.step;
 
-  do
-    {
-      tmp = realloc (tmp, tmplen);
-      if (tmp == NULL)
-	return GSASL_MALLOC_ERROR;
+  res = step (sctx, sctx->mech_data, input, input_len, *output, output_len);
 
-      *output_len = tmplen;
-
-      res = step (sctx, sctx->mech_data, input, input_len, tmp, output_len);
-
-      tmplen++;
-    }
-  while (res == GSASL_TOO_SMALL_BUFFER);
-
-  *output = tmp;
+  if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
+    free (*output);
 
   return res;
 }
