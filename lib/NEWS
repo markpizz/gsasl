@@ -42,6 +42,8 @@ Gsasl_server_callback_maxbuf,
 Gsasl_server_callback_cipher: DEPRECATED.  Old callback function prototypes.
 gsasl_client_callback_*,
 gsasl_server_callback_*: DEPRECATED.  Old callback set/get interface.
+gsasl_ctx_get: DEPRECATED.  Not useful, application callback now get both
+               library and session context.
 
 * Changes in 0.1.4 (released 2004-08-08)
 
