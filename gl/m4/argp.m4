@@ -10,4 +10,5 @@ AC_DEFUN([gl_ARGP],
 [
   AC_CHECK_HEADERS([argp.h linewrap.h])
   AC_CHECK_FUNCS(argp_parse)
+  AC_REQUIRE([AC_C_INLINE])
 ])
