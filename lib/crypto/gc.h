@@ -29,12 +29,12 @@
 /* Get uint8_t. */
 #include <nettle-types.h> /* XXX */
 
-typedef enum gc_rc {
+enum Gc_rc {
   GC_OK = 0,
   GC_INIT_ERROR,
   GC_RANDOM_ERROR,
   GC_MD5_ERROR
-} Gc_rc;
+};
 
 #define GC_MD5_LEN 16
 
