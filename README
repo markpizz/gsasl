@@ -41,7 +41,7 @@ Documentation License (see COPYING.DOC).  The other sub-directories
 have their own respective licenses, they are not part of GNU SASL
 proper.
 
-For updates to the project, see <URL:http://josefsson.org/libgsasl/>.
+For updates to the project, see <http://www.gnu.org/software/gsasl/>.
 
 ----------------------------------------------------------------------
 Copyright (C) 2002 Simon Josefsson
