@@ -20,7 +20,7 @@
 
 # -Igl is for strdup.
 # -Icrypto is for nettle-types.h, all other crypto API goes via GSASL.
-AM_CPPFLAGS = -I$(top_builddir)/gl -I$(top_srcdir)/crypto \
+AM_CPPFLAGS = -I$(top_srcdir)/gl -I$(top_builddir)/crypto \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 
 noinst_LTLIBRARIES = libgsasl-digest_md5.la
