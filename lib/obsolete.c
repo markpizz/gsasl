@@ -98,3 +98,171 @@ gsasl_server_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
 
   return rc;
 }
+
+static int
+_gsasl_step (Gsasl_session_ctx * sctx,
+	     const char *input, size_t input_len,
+	     char *output, size_t * output_len)
+{
+  char *tmp;
+  size_t tmplen;
+  int rc;
+
+  rc = gsasl_step (sctx, input, input_len, &tmp, &tmplen);
+
+  if (rc == GSASL_OK || rc == GSASL_NEEDS_MORE)
+    {
+      if (tmplen >= *output_len)
+	return GSASL_TOO_SMALL_BUFFER;
+
+      if (output)
+	memcpy (output, tmp, tmplen);
+      *output_len = tmplen;
+    }
+
+  return rc;
+}
+
+/**
+ * gsasl_client_step:
+ * @sctx: libgsasl client handle.
+ * @input: input byte array.
+ * @input_len: size of input byte array.
+ * @output: output byte array.
+ * @output_len: size of output byte array.
+ *
+ * Perform one step of SASL authentication in client.  This reads data
+ * from server (specified with input and input_len), processes it
+ * (potentially invoking callbacks to the application), and writes
+ * data to server (into variables output and output_len).
+ *
+ * The contents of the output buffer is unspecified if this functions
+ * returns anything other than GSASL_NEEDS_MORE.
+ *
+ * Return value: Returns GSASL_OK if authenticated terminated
+ * successfully, GSASL_NEEDS_MORE if more data is needed, or error
+ * code.
+ **/
+int
+gsasl_client_step (Gsasl_session_ctx * sctx,
+		   const char *input,
+		   size_t input_len, char *output, size_t * output_len)
+{
+  return _gsasl_step (sctx, input, input_len, output, output_len);
+}
+
+/**
+ * gsasl_server_step:
+ * @sctx: libgsasl server handle.
+ * @input: input byte array.
+ * @input_len: size of input byte array.
+ * @output: output byte array.
+ * @output_len: size of output byte array.
+ *
+ * Perform one step of SASL authentication in server.  This reads data
+ * from client (specified with input and input_len), processes it
+ * (potentially invoking callbacks to the application), and writes
+ * data to client (into variables output and output_len).
+ *
+ * The contents of the output buffer is unspecified if this functions
+ * returns anything other than GSASL_NEEDS_MORE.
+ *
+ * Return value: Returns GSASL_OK if authenticated terminated
+ * successfully, GSASL_NEEDS_MORE if more data is needed, or error
+ * code.
+ **/
+int
+gsasl_server_step (Gsasl_session_ctx * sctx,
+		   const char *input,
+		   size_t input_len, char *output, size_t * output_len)
+{
+  return _gsasl_step (sctx, input, input_len, output, output_len);
+}
+
+static int
+_gsasl_step64 (Gsasl_session_ctx * sctx,
+	       const char *b64input,
+	       char *b64output, size_t b64output_len)
+{
+  char *tmp;
+  int rc;
+
+  rc = gsasl_step64 (sctx, b64input, &tmp);
+
+  if (rc == GSASL_OK || rc == GSASL_NEEDS_MORE)
+    {
+      if (b64output_len <= strlen (tmp))
+	return GSASL_TOO_SMALL_BUFFER;
+
+      if (b64output)
+	strcpy (b64output, tmp);
+    }
+
+  return rc;
+}
+
+/**
+ * gsasl_client_step_base64:
+ * @sctx: libgsasl client handle.
+ * @b64input: input base64 encoded byte array.
+ * @b64output: output base64 encoded byte array.
+ * @b64output_len: size of output base64 encoded byte array.
+ *
+ * This is a simple wrapper around gsasl_client_step() that base64
+ * decodes the input and base64 encodes the output.
+ *
+ * Return value: See gsasl_client_step().
+ **/
+int
+gsasl_client_step_base64 (Gsasl_session_ctx * sctx,
+			  const char *b64input,
+			  char *b64output, size_t b64output_len)
+{
+  return _gsasl_step64 (sctx, b64input, b64output, b64output_len);
+}
+
+/**
+ * gsasl_server_step_base64:
+ * @sctx: libgsasl server handle.
+ * @b64input: input base64 encoded byte array.
+ * @b64output: output base64 encoded byte array.
+ * @b64output_len: size of output base64 encoded byte array.
+ *
+ * This is a simple wrapper around gsasl_server_step() that base64
+ * decodes the input and base64 encodes the output.
+ *
+ * Return value: See gsasl_server_step().
+ **/
+int
+gsasl_server_step_base64 (Gsasl_session_ctx * sctx,
+			  const char *b64input,
+			  char *b64output, size_t b64output_len)
+{
+  return _gsasl_step64 (sctx, b64input, b64output, b64output_len);
+}
+
+/**
+ * gsasl_client_finish:
+ * @sctx: libgsasl client handle.
+ *
+ * Destroy a libgsasl client handle.  The handle must not be used with
+ * other libgsasl functions after this call.
+ **/
+void
+gsasl_client_finish (Gsasl_session_ctx * sctx)
+{
+  gsasl_finish (sctx);
+}
+
+/**
+ * gsasl_server_finish:
+ * @sctx: libgsasl server handle.
+ *
+ * Destroy a libgsasl server handle.  The handle must not be used with
+ * other libgsasl functions after this call.
+ **/
+void
+gsasl_server_finish (Gsasl_session_ctx * sctx)
+{
+  gsasl_finish (sctx);
+}
