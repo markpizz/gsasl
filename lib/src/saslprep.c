@@ -24,10 +24,11 @@
 #include <stringprep.h>
 
 /**
- * gsasl_saslprep:
+ * gsasl_saslprep - prepare internationalized string
  * @in: a UTF-8 encoded string.
- * @allowunassigned: whether to allow unassigned code points in the output.
+ * @flags: any SASLprep flag, e.g., %GSASL_ALLOW_UNASSIGNED.
  * @out: on exit, contains newly allocated output string.
+ * @stringpreprc: if non-NULL, will hold precise stringprep return code.
  *
  * Prepare string using SASLprep.  On success, the @out variable must
  * be deallocated by the caller.
@@ -38,12 +39,18 @@
  * Since: 0.2.3
  **/
 int
-gsasl_saslprep (const char *in, int allowunassigned, char **out)
+gsasl_saslprep (const char *in, Gsasl_saslprep_flags flags,
+		char **out, int *stringpreprc)
 {
   int rc;
 
   rc = stringprep_profile (in, out, "SASLprep",
-			   allowunassigned ? STRINGPREP_NO_UNASSIGNED : 0);
+			   (flags & GSASL_ALLOW_UNASSIGNED)
+			   ? STRINGPREP_NO_UNASSIGNED : 0);
+
+  if (stringpreprc)
+    *stringpreprc = rc;
+
   if (rc != STRINGPREP_OK)
     {
       *out = NULL;
