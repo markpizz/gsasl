@@ -1,3 +1,91 @@
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.0.10.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gsasl.h.in: Whitespace fixes to help GTK-DOC parser.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Fix indent target.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cram-md5/cram-md5.c:
+	(_gsasl_cram_md5_server_step): Don't always return GSASL_OK.  Tiny
+	patch from Sergey Poznyakoff <gray@Mirddin.farlep.net>.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* m4/pkg.m4: Remove (not used any more).
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS, NEWS: Add.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Only descend into reference/ if ENABLE_GTK_DOC.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use sj_CHECK_HEADERLIB for libidn.  Fix
+	sj_CHECK_HEADERLIB logic for KERBEROS_V5.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* m4/check_headerlib.m4: Add to $LIBS.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Rename subst CRYPTO_* to NETTLE_*.  Remove subst
+	GSSAPI_*.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Remove unneeded @@'s.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Replace PKG_CHECK_MODULES with sj_CHECK_HEADERLIB.
+
+2003-11-22  Simon Josefsson <simon@josefsson.org>
+
+	* m4/check_headerlib.m4: Add.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* ANNOUNCE: Fix.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Cleanup EXTRA_DIST.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* lib/xstep.c: Doc fix.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template: Fix last commit.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template: Fix doxygen links.
+
+2003-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2003-11-21  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.0.9.
