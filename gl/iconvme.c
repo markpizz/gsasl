@@ -101,16 +101,17 @@ again:
 	case E2BIG:
 	  {
 	    size_t used = outp - dest;
+	    size_t newsize = outbuf_size * 2;
 	    char *newdest;
 
-	    outbuf_size *= 2;
-	    newdest = realloc (dest, outbuf_size);
-	    if (newdest == NULL)
+	    if (newsize <= outbuf_size ||
+		!(newdest = realloc (dest, newsize)))
 	      {
 		have_error = 1;
 		goto out;
 	      }
 	    dest = newdest;
+	    outbuf_size = newsize;
 
 	    outp = dest + used;
 	    outbytes_remaining = outbuf_size - used - 1;	/* -1 for NUL */
