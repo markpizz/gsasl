@@ -230,7 +230,7 @@ AM_CONDITIONAL(CRAM_MD5, test x$cram_md5 = xyes)
 # DIGEST-MD5
 AC_ARG_ENABLE(digest-md5,
   AS_HELP_STRING([--disable-digest-md5], [don't use the DIGEST-MD5 mechanism]),
-  digest_md5=$enableval, digest_md5=no)
+  digest_md5=$enableval)
 if test "$digest_md5" != "no" ; then
 	digest_md5=yes
 	AC_DEFINE(USE_DIGEST_MD5, 1, [Define to 1 if you want DIGEST-MD5.])
