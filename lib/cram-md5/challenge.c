@@ -30,8 +30,10 @@
 /* Get gc_nonce. */
 #include <gc.h>
 
-#define HEXCHAR(c) (((c) & 0x0F) > 9 ?		\
-		    'a' + ((c) & 0x0F) - 10 :	\
+/* The probabilities for each digit are skewed (0-6 more likely
+   than 7-9), but it is just used as a nonce anyway. */
+#define DIGIT(c) (((c) & 0x0F) > 9 ?		\
+		    '0' + ((c) & 0x0F) - 10 :	\
 		    '0' + ((c) & 0x0F))
 
 void
@@ -46,6 +48,8 @@ cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN])
    *   The data encoded in the challenge contains a presumptively
    *   arbitrary string of random digits, a time-stamp, and the
    *   fully-qualified primary host name of the server.
+   *...
+   *   challenge  = "<" 1*DIGIT "." 1*DIGIT "@" hostname ">"
    *
    * This implementation avoid the information leakage by always using
    * 0 as the time stamp and a fixed host name.  This is
@@ -65,7 +69,7 @@ cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN])
 
   for (i = 0; i < sizeof (nonce); i++)
     {
-      challenge[1 + i] = HEXCHAR (nonce[i]);
-      challenge[11 + i] = HEXCHAR (nonce[i] >> 4);
+      challenge[1 + i] = DIGIT (nonce[i]);
+      challenge[11 + i] = DIGIT (nonce[i] >> 4);
     }
 }
