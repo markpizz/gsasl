@@ -21,9 +21,7 @@
 
 #include "internal.h"
 
-#if WITH_STRINGPREP
-# include <stringprep.h>
-#endif
+#include <stringprep.h>
 
 /**
  * gsasl_saslprep:
@@ -42,7 +40,6 @@
 int
 gsasl_saslprep (const char *in, int allowunassigned, char **out)
 {
-#if WITH_STRINGPREP
   int rc;
 
   rc = stringprep_profile (in, out, "SASLprep",
@@ -54,7 +51,4 @@ gsasl_saslprep (const char *in, int allowunassigned, char **out)
     }
 
   return GSASL_OK;
-#else
-  return GSASL_SASLPREP_ERROR;
-#endif
 }

@@ -356,19 +356,18 @@ AC_MSG_RESULT($kerberos_v5)
 AM_CONDITIONAL(KERBEROS_V5, test x$kerberos_v5 = xyes)
 
 # Check for idn
-AC_ARG_WITH(stringprep,
-  AS_HELP_STRING([--without-stringprep],
-		[don't use libidn for string processing even if available]),
-	stringprep=$withval, stringprep=yes)
-if test "$stringprep" != "no"; then
-	sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version,
-		[stringprep=yes
-		AC_DEFINE(WITH_STRINGPREP, 1,
-			[Define to 1 if you want to use libidn.])],
-		[stringprep=no
-		AC_MSG_WARN([Libidn not found.  String process disabled.])])
+AC_ARG_WITH(included-libidn,
+	AS_HELP_STRING([--with-included-libidn],
+		[unconditionally use the included libidn]),
+		minilibidn_enabled=$enableval, minilibidn_enabled=no)
+if test "$minilibidn_enabled" = "no"; then
+	sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version,,
+		minilibidn_enabled=yes
+		AC_MSG_WARN([[Libidn not found.  Using the included copy.]]))
 fi
-AM_CONDITIONAL(STRINGPREP, test x$stringprep = xyes)
+AC_MSG_CHECKING([whether to use the included libidn])
+AC_MSG_RESULT($minilibidn_enabled)
+AM_CONDITIONAL(MINILIBIDN, test "$minilibidn_enabled" = "yes")
 
 # Allow disabling of client or server.
 AC_ARG_ENABLE(client,
@@ -407,7 +406,8 @@ gl_INIT
 AX_CREATE_STDINT_H(crypto/nettle-types.h, sys/types.h)
 
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
-		gl/Makefile crypto/Makefile src/gsasl.h src/Makefile \
+		gl/Makefile crypto/Makefile libidn/Makefile \
+		src/gsasl.h src/Makefile \
 		anonymous/Makefile cram-md5/Makefile \
 		digest-md5/Makefile external/Makefile \
 		gssapi/Makefile kerberos_v5/Makefile \

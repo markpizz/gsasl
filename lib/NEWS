@@ -4,6 +4,11 @@ See the end for copying conditions.
 
 * Version 0.2.3 (unreleased)
 
+** If Libidn is not installed on the system, a stripped down version is used.
+If you for some reason wish to use the included copy, instead of the
+system libidn, use --with-included-libidn.  The system libidn should
+be detected automatically, if present.
+
 ** DIGEST-MD5 is disabled by default, pending a rewrite for the new API.
 
 ** LOGIN client now uses authentication identity, not authorization identity,

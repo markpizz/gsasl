@@ -19,11 +19,6 @@
  *
  */
 
-/*
- * Note: this file is only used when --with-stringprep is specified (default).
- * See also stringprep-no.c.
- */
-
 #include "internal.h"
 
 #include <stringprep.h>
