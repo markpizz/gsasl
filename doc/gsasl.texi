@@ -1312,10 +1312,9 @@ Different SASL mechanisms have different requirements on the
 application using it.  To handle these differences the library can use
 a callback function into your application in several different ways.
 Some mechanisms, such as @samp{PLAIN}, are simple to explain and use.
-The client callback for these mechanisms should query the user for a
-username and password.  The server callback hand the username and
-password into any local policy deciding authentication system (such as
-@file{/etc/passwd} via PAM).
+The client callback query the user for a username and password.  The
+server callback hand the username and password into any local policy
+deciding authentication system (such as @file{/etc/passwd} via PAM).
 
 Mechanism such as @samp{CRAM-MD5} and @samp{DIGEST-MD5} uses hashed
 passwords.  The client callback are the same as for PLAIN.  However,
