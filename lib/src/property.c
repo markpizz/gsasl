@@ -26,6 +26,9 @@ map (Gsasl_session * sctx, Gsasl_property prop)
 {
   char **p = NULL;
 
+  if (!sctx)
+    return NULL;
+
   switch (prop)
     {
     case GSASL_CLIENT_ANONYMOUS:
@@ -68,6 +71,9 @@ static char **
 map_global (Gsasl * ctx, Gsasl_property prop)
 {
   char **p = NULL;
+
+  if (!ctx)
+    return NULL;
 
   switch (prop)
     {
@@ -198,7 +204,7 @@ gsasl_property_fast_global (Gsasl * ctx, Gsasl_property prop)
 {
   char **p = map_global (ctx, prop);
 
-  if (p)
+  if (p && *p)
     return *p;
 
   return NULL;
@@ -224,7 +230,7 @@ gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
 {
   char **p = map (sctx, prop);
 
-  if (p)
+  if (p && *p)
     return *p;
 
   return gsasl_property_fast_global (sctx->ctx, prop);
