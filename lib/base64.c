@@ -133,7 +133,7 @@ static const char Pad64 = '=';
  * target, or -1 on error.
  **/
 int
-gsasl_base64_encode (unsigned char const *src,
+gsasl_base64_encode (char const *src,
 		     size_t srclength, char *target, size_t targsize)
 {
   size_t datalength = 0;
@@ -210,7 +210,7 @@ gsasl_base64_encode (unsigned char const *src,
  * target, or -1 on error.
  **/
 int
-gsasl_base64_decode (char const *src, unsigned char *target, size_t targsize)
+gsasl_base64_decode (char const *src, char *target, size_t targsize)
 {
   int tarindex, state, ch;
   char *pos;
