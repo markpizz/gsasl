@@ -308,7 +308,7 @@ elif test "$gssapi" != "no" ; then
 				AC_MSG_WARN([Both Heimdal and MIT GSSAPI header files found.  Will use Heimdal.])
 				AC_MSG_WARN([Use --enable-gssapi=mit to override.])
 			fi
-			if test -n "$ac_cv_header_gssapi_h"; then
+			if test "$ac_cv_header_gssapi_h" != "no"; then
 				AC_MSG_NOTICE([Heimdal found])
 			else
 				AC_MSG_NOTICE([MIT found])
