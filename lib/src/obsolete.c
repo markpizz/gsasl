@@ -413,3 +413,22 @@ gsasl_server_application_data_get (Gsasl_session_ctx * sctx)
 {
   return gsasl_appinfo_get (sctx);
 }
+
+/**
+ * gsasl_randomize:
+ * @strong: 0 iff operation should not block, non-0 for very strong randomness.
+ * @data: output array to be filled with random data.
+ * @datalen: size of output array.
+ *
+ * Store cryptographically random data of given size in the provided
+ * buffer.
+ *
+ * Return value: Returns %GSASL_OK iff successful.
+ **/
+int
+gsasl_randomize (int strong, char *data, size_t datalen)
+{
+  if (strong)
+    return gsasl_random (data, datalen);
+  return gsasl_nonce (data, datalen);
+}
