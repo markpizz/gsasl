@@ -329,6 +329,11 @@ main (int argc, char *argv[])
       if (!args_info.hostname_arg)
 	args_info.hostname_arg = strdup (connect_hostname);
     }
+  else
+    {
+      cmdline_parser_print_help ();
+      return EXIT_SUCCESS;
+    }
 
   res = gsasl_init (&ctx);
   if (res != GSASL_OK)
