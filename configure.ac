@@ -227,7 +227,7 @@ AC_MSG_RESULT($gssapi)
 AC_ARG_ENABLE(kerberos_v5,
 	AC_HELP_STRING([--disable-kerberos_v5],
                        [don't use the KERBEROS_V5 mechanism]),
-	kerberos_v5=$enableval)
+	kerberos_v5=$enableval, kerberos_v5=no)
 if test "$kerberos_v5" != "no" ; then
 	PKG_CHECK_MODULES(SHISHI, shishi >= 0.0.0, [kerberos_v5=yes],
                                                    [kerberos_v5=no])
