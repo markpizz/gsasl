@@ -8,6 +8,41 @@ See the end for copying conditions.
 
 ** Translation fixes.
 
+** API and ABI modifications.
+gsasl_callback_set, gsasl_callback_set_global: ADD.  New functions.
+gsasl_callback, gsasl_callback_global: ADD.  New functions.
+GSASL_NO_CALLBACK, GSASL_NO_ANONYMOUS_TOKEN: ADD.  New error codes.
+Gsasl_property, GSASL_CLIENT_*, GSASL_SERVER_*: ADD.  New enumerated type.
+Gsasl_callback: ADD.  New function prototype.
+gsasl_property_set, gsasl_property_set_global,
+gsasl_property_get, gsasl_property_get_global,
+gsasl_property_fast, gsasl_property_fast_global: ADD.  New functions.
+Gsasl_client_callback_anonymous,
+Gsasl_client_callback_authentication_id,
+Gsasl_client_callback_authorization_id,
+Gsasl_client_callback_password,
+Gsasl_client_callback_passcode,
+Gsasl_client_callback_pin,
+Gsasl_client_callback_service,
+Gsasl_client_callback_qop,
+Gsasl_client_callback_maxbuf,
+Gsasl_client_callback_realm,
+Gsasl_server_callback_retrieve,
+Gsasl_server_callback_validate,
+Gsasl_server_callback_gssapi,
+Gsasl_server_callback_securid,
+Gsasl_server_callback_cram_md5,
+Gsasl_server_callback_digest_md5,
+Gsasl_server_callback_service,
+Gsasl_server_callback_external,
+Gsasl_server_callback_anonymous,
+Gsasl_server_callback_realm,
+Gsasl_server_callback_qop,
+Gsasl_server_callback_maxbuf,
+Gsasl_server_callback_cipher: DEPRECATED.  Old callback function prototypes.
+gsasl_client_callback_*,
+gsasl_server_callback_*: DEPRECATED.  Old callback set/get interface.
+
 * Changes in 0.1.4 (released 2004-08-08)
 
 ** Fix various compile time warnings.
