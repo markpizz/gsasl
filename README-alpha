@@ -1,0 +1,4 @@
+Libgsasl is unstable and in its early steps of development.  You
+should expect it to not work as well as having security problems.  The
+API will likely change. Let me repeat that, LIBGSASL IS MOST LIKELY
+INSECURE. DO NOT USE IN A PRODUCTION ENVIRONMENT!
