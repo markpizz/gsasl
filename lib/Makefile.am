@@ -71,3 +71,11 @@ SUBDIRS += kerberos_v5
 endif
 
 SUBDIRS += src
+
+# Maintainer targets
+
+ChangeLog:
+	test ! -f ../.cvsusers || \
+	(cvs2cl --fsf --FSF --usermap ../.cvsusers \
+	-I "ChangeLog|.cvs|autogen.sh|doc/specification|libstringprep" && \
+	cat ../.cvscopying >> ChangeLog)
