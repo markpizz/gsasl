@@ -70,6 +70,7 @@ Software Foundation raise funds for GNU development.''
 * Global Functions::            Functions to use in global context.
 * Callback Functions::          Functions to set and get callbacks.
 * Session Functions::           Functions used during a SASL session.
+* Old Functions::               Descriptions of old API functions.
 * Utilities::                   Functions for various odd things.
 * Error Handling::              Error codes and such.
 * Examples::                    Example code.
@@ -1337,6 +1338,23 @@ similar to the GSSAPI callback).
 @include texi/xstep.c.texi
 @include texi/xfinish.c.texi
 @include texi/xcode.c.texi
+
+
+
+@c **********************************************************
+@c *******************  Old Functions  **********************
+@c **********************************************************
+@node Old Functions
+@chapter Old Functions
+@cindex Deprecated functions
+@cindex Obsolete functions
+
+As GNU SASL is still under heavy development, some API functions have
+been found to be less useful.  Those old API functions will be
+supported during a transition period.  Refer to the NEWS file to find
+out since when a function has been deprecated.
+
+@include texi/obsolete.c.texi
 
 
 
