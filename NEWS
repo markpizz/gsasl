@@ -31,6 +31,8 @@ MD5 and HMAC-MD5 is needed, making a dependence on libgcrypt overkill.
 
 ** Autoconf 2.59, Automake 1.8 beta, Libtool CVS used.
 
+** Source code for each SASL mechanism moved to its own sub-directory in lib/.
+
 ** API and ABI modifications.
 gsasl_randomize: ADD.
 gsasl_md5: ADD.
