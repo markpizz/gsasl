@@ -4,7 +4,7 @@ See the end for copying conditions.
 
 * Changes in 0.0.9 (unreleased)
 
-** Token parser bug in DIGEST-MD5 fixed, improve interoperability of DIGEST-MD5.
+** Token parser in DIGEST-MD5 fixed, improve interoperability of DIGEST-MD5.
 
 ** Libgcrypt 1.1.42 or later is used if available.
 The previous libgcrypt API is no longer supported.
