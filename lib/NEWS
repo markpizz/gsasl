@@ -1,5 +1,5 @@
 GNU SASL LIBRARY NEWS -- History of user-visible changes.
-Copyright (C) 2002, 2003, 2004 Simon Josefsson
+Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson
 See the end for copying conditions.
 
 * Version 0.2.4 (unreleased)
@@ -23,8 +23,8 @@ This replaces gsasl_md5pwd_get_password.  The functionality is the
 same, only the API changed (to remove fixed size buffer restrictions).
 
 ** New configure option --disable-obsolete to remove backwards compatibility.
-This is mostly intended to be used when cross compiling to platforms
-with limited memory.
+This is mostly intended to be used when compiling for platforms with
+constrained memory/space resources.
 
 ** Gnulib files were updated.
 
