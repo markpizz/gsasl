@@ -346,5 +346,10 @@ GTK_DOC_CHECK(1.1)
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
 		doc/Makefile doc/reference/Makefile doc/doxygen/Doxyfile \
 		crypto/Makefile lib/Makefile lib/gsasl.h \
+		lib/anonymous/Makefile lib/cram-md5/Makefile \
+		lib/digest-md5/Makefile lib/external/Makefile \
+		lib/gssapi/Makefile lib/kerberos_v5/Makefile \
+		lib/login/Makefile lib/ntlm/Makefile lib/plain/Makefile \
+		lib/securid/Makefile \
 		src/Makefile tests/Makefile)
 AC_OUTPUT

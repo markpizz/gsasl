@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -49,28 +49,36 @@ endif
 
 # Plugins:
 
+SUBDIRS =
+
 if EXTERNAL
-libgsasl_la_SOURCES += external/external.h external/external.c
+SUBDIRS += external
+libgsasl_la_LIBADD += external/libgsasl-external.la
 endif
 
 if ANONYMOUS
-libgsasl_la_SOURCES += anonymous/anonymous.h anonymous/anonymous.c
+SUBDIRS += anonymous
+libgsasl_la_LIBADD += anonymous/libgsasl-anonymous.la
 endif
 
 if PLAIN
-libgsasl_la_SOURCES += plain/plain.h plain/plain.c
+SUBDIRS += plain
+libgsasl_la_LIBADD += plain/libgsasl-plain.la
 endif
 
 if LOGIN
-libgsasl_la_SOURCES += login/login.h login/login.c
+SUBDIRS += login
+libgsasl_la_LIBADD += login/libgsasl-login.la
 endif
 
 if CRAM_MD5
-libgsasl_la_SOURCES += cram-md5/cram-md5.h cram-md5/cram-md5.c
+SUBDIRS += cram-md5
+libgsasl_la_LIBADD += cram-md5/libgsasl-cram_md5.la
 endif
 
 if DIGEST_MD5
-libgsasl_la_SOURCES += digest-md5/digest-md5.h digest-md5/digest-md5.c
+SUBDIRS += digest-md5
+libgsasl_la_LIBADD += digest-md5/libgsasl-digest_md5.la
 endif
 
 if NTLM
@@ -78,15 +86,18 @@ libgsasl_la_SOURCES += ntlm/x-ntlm.h ntlm/ntlm.c
 endif
 
 if GSSAPI
-libgsasl_la_SOURCES += gssapi/x-gssapi.h gssapi/gssapi.c
+SUBDIRS += gssapi
+libgsasl_la_LIBADD += gssapi/libgsasl-gssapi.la
 endif			
 
 if SECURID
-libgsasl_la_SOURCES += securid/securid.h securid/securid.c
+SUBDIRS += securid
+libgsasl_la_LIBADD += securid/libgsasl-securid.la
 endif			
 
 if KERBEROS_V5
-libgsasl_la_SOURCES += kerberos_v5/kerberos_v5.h kerberos_v5/kerberos_v5.c
+SUBDIRS += kerberos_v5
+libgsasl_la_LIBADD += kerberos_v5/libgsasl-kerberos_v5.la
 endif
 
 indent:
