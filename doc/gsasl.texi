@@ -456,8 +456,7 @@ Disable individual mechanisms (@pxref{Mechanisms}).
 
 @item --without-stringprep
 Disable internationalized string processing.  Note that this will
-result in a SASL library that is only compatible with RFC 2222.  This
-removes the symbols related to string processing from the library.
+result in a SASL library that is only compatible with RFC 2222.
 
 @end table
 
