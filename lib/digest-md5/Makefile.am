@@ -24,7 +24,6 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src \
 
 noinst_LTLIBRARIES = libgsasl-digest_md5.la
 libgsasl_digest_md5_la_SOURCES = digest-md5.h shared.h shared.c getsubopt.c
-libgsasl_digest_md5_la_LIBADD = $(top_builddir)/gl/libgl.la
 
 if CLIENT
 libgsasl_digest_md5_la_SOURCES += client.c
