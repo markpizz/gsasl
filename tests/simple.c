@@ -273,6 +273,13 @@ client_callback_service (Gsasl_session_ctx * ctx,
 			 char *host,
 			 size_t * hostlen, char *srvname, size_t * srvnamelen)
 {
+  if (srvlen)
+    *srvlen = 0;
+  if (hostlen)
+    *hostlen = 0;
+  if (srvnamelen)
+    *srvnamelen = 0;
+
   return GSASL_OK;
 }
 
