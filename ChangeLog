@@ -1,3 +1,85 @@
+2004-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.0.12.
+
+2004-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* po/gsasl.pot, po/sv.po: Generated.
+
+2004-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+	(release): Use binary PGP.  Add ftp-upload.gnu.org stuff.  Use CSS.
+
+2004-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs.sh: Upstream sync.
+
+2004-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/imap.c:
+	(imap_step_recv): Remove \r\n from SASL base64 tokens.
+
+2004-01-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-01-14  Simon Josefsson <simon@josefsson.org>
+
+	* src/imap.c:
+	(imap_select_mechanism): Read capability line and capability command
+	response in two separate calls.
+
+2004-01-14  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c:
+	(readln): For sockets, just read one line at a time.
+
+2004-01-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/obsolete.c:
+	(gsasl_client_listmech, gsasl_server_listmech): Make room for \0.
+
+2004-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix messages.
+
+2004-01-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Maintainerclean man pages.
+
+2004-01-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix gsasl.1 depends.
+
+2004-01-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Dist texinfo.css.
+
+2004-01-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs.sh: Sync with texinfo.
+
+2004-01-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template: Remove DocBook.
+
+2004-01-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix title.  Use @finalout.
+
+2004-01-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Use CSS for HTML.
+
+2004-01-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/texinfo.css: Add.
+
+2004-01-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2004-01-06  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.0.11.
