@@ -92,4 +92,4 @@ libgsasl_la_SOURCES += kerberos_v5/kerberos_v5.h kerberos_v5/kerberos_v5.c
 endif
 
 indent:
-	indent $(libgsasl_la_SOURCES)
+	indent $(am__libgsasl_la_SOURCES_DIST)
