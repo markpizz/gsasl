@@ -509,6 +509,9 @@ doit (void)
 	      j = -1;
 	      break;
 	    }
+
+	  if (strcmp (sasltv[i].mech, "SECURID") != 0 && res == GSASL_OK)
+	    break;
 	}
 
       if ((int) j != -1 && res == GSASL_OK && sasltv[i].step[j + 2])
