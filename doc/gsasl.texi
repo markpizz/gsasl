@@ -1089,7 +1089,8 @@ and a password.  But some mechanism require more information, such as
 an authorization identity, a special PIN or passcode, a realm, a
 hostname, a service name, or an anonymous identifier.  Querying the
 user for all that information, without knowing exactly which of it is
-really needed is bad user design.
+really needed will result in a poor user interface.  The user should
+not have to input private information, if it isn't required.
 
 The approach is a bad idea for another reason.  What if the server
 abort the authentication process?  Then your application have already
