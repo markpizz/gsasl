@@ -36,9 +36,13 @@
 # include <iconv.h>
 #endif
 
+/* Convert a zero-terminated string from one code set to another.  The
+   returned string is allocated using malloc, and must be dellocated
+   by the caller using free.  On failure, NULL is returned and errno
+   holds the error reason.  Note that this function does not handle
+   embedded zero's in the output well.  */
 char *
 iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
-
 {
   char *dest = NULL;
 #if HAVE_ICONV
@@ -80,7 +84,7 @@ iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
     goto out;
   outbytes_remaining = outbuf_size - 1;	/* -1 for NUL */
 
- again:
+again:
 
   err = iconv (cd, (ICONV_CONST char **) &p, &inbytes_remaining,
 	       &outp, &outbytes_remaining);
@@ -129,7 +133,7 @@ iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
   if (*p != '\0')
     have_error = 1;
 
- out:
+out:
   iconv_close (cd);
 
   if (have_error)
@@ -137,6 +141,8 @@ iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
       free (dest);
       dest = NULL;
     }
+#else
+  errno = ENOSYS;
 #endif
 
   return dest;
