@@ -1,10 +1,8 @@
-\input texinfo                  @c -*- Texinfo -*-
-@c Copyright (C) 2002, 2003 Simon Josefsson
+\input texinfo   @c -*- mode: texinfo; coding: us-ascii; -*-
 @c This file is part of GNU SASL.
-@c See below for copying conditions.
+@c See below for copyright and license.
 
 @setfilename gsasl.info
-@documentencoding ISO-8859-1
 @include version.texi
 @settitle GNU SASL
 
@@ -16,7 +14,7 @@
 This manual is last updated @value{UPDATED} for version
 @value{VERSION} of GNU SASL.
 
-Copyright @copyright{} 2002, 2003 Simon Josefsson.
+Copyright @copyright{} 2002, 2003, 2004 Simon Josefsson.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
