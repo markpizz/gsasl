@@ -1,3 +1,247 @@
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/Makefile.am, src/Makefile.am: Fix -I's.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Generated.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Default libgcrypt off.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, crypto/Makefile.am:
+	(NETTLE_CFLAGS, NETTLE_LIBS): Remove.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/gc-nettle.c: Fix.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/gc.h: Fix (for GTK-DOC).
+
+2004-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-06-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Remove crypto.h.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* kerberos_v5/Makefile.am, ntlm/Makefile.am: Fix.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.c: Doc fix.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/digest.c: Add doc.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/digest.c: Cleanup.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.c: Doc fix.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.c: Cleanup.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.c: Doc fix.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.c: Fix.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.h, cram-md5/challenge.c: Fix.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am, src/crypto.c, src/obsolete.c: De-deprecate
+	crypto API (may be need by applications that use callbacks to verify
+	HMAC-MD5 cookies).
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in: Revert.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Revert.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/obsolete.c, src/gsasl.h.in:
+	(gsasl_nonce, gsasl_random): Remove.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in: Move obsolete functions around.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, cram-md5/Makefile.am, cram-md5/challenge.c,
+	crypto/Makefile.am, crypto/gc-libgcrypt.c, crypto/gc-nettle.c,
+	crypto/gc.h, src/Makefile.am, src/crypto.h, src/init.c,
+	src/libgcrypt.c, src/nettle.c, src/obsolete.c: Initiate creation of
+	GC ("generic crypto") as non-GSASL specific Nettle/Libgcrypt
+	wrapper.  Obsolete gsasl_nonce, gsasl_random, gsasl_md5,
+	gsasl_hmac_md5.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/digest.c: Add.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/digest.h: Fix.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/digest.h: Add.
+
+2004-06-18  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.c: Doc fix.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.h: Doc fix.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.h: Doc fix.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.c: Doc fix.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/nettle.c: Doc fix.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/nettle.c, src/libgcrypt.c:
+	(gsasl_randomize): Rename to gsasl_random.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/obsolete.c:
+	(gsasl_randomize): Add.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in:
+	(gsasl_random): Add.
+	(gsasl_randomize): Make backwards compatible.  Now an obsolete
+	function.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/digest-md5.c: Use gsasl_nonce.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/cram-md5.c: Use challenge.h interface.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/Makefile.am, cram-md5/challenge.c, cram-md5/challenge.h:
+	challenge.h, challenge.c: Add.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/nettle.c:
+	(gsasl_randomize): Don't take "strong" parameter.
+	(gsasl_nonce, randomize): Add.
+
+2004-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h.in, src/libgcrypt.c:
+	(gsasl_randomize): Don't take "strong" parameter.
+	(gsasl_nonce): Add.
+
+2004-06-06  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS, NEWS: Add.
+
+2004-06-06  Simon Josefsson <simon@josefsson.org>
+
+	* src/suggest.c: Indent.
+
+2004-06-06  Simon Josefsson <simon@josefsson.org>
+
+	* src/suggest.c:
+	(gsasl_client_suggest_mechanism, gsasl_server_suggest_mechanism):
+	Implement them, patch from Dirk Dierckx <dirk.dierckx@solidity.org>.
+
+2004-04-30  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/digest-md5.c, gssapi/gssapi.c: Fix warnings.
+
+2004-04-24  Simon Josefsson <simon@josefsson.org>
+
+	* kerberos_v5/Makefile.am, ntlm/Makefile.am: Fix license.
+
+2004-04-24  Simon Josefsson <simon@josefsson.org>
+
+	* kerberos_v5/kerberos_v5.h, kerberos_v5/kerberos_v5.c,
+	ntlm/ntlm.c, ntlm/x-ntlm.h: Fix license.
+
+2004-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* src/common.c: Add GSSAPI client encode/decode.
+
+2004-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* gssapi/x-gssapi.h: Add.
+
+2004-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* gssapi/gssapi.c: Initial client-side integrity/confidentiality
+	layer support.
+
+2004-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* gssapi/gssapi.c: Use GSS_ERROR.
+
+2004-04-18  Simon Josefsson <simon@josefsson.org>
+
+	* libgsasl.pc.in: Drop -R libs flag.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
 	* po/sv.po: Generated.
