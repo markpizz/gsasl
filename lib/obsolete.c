@@ -50,11 +50,15 @@ gsasl_client_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
       size_t tmplen = strlen (tmp);
 
       if (tmplen >= *outlen)
-	return GSASL_TOO_SMALL_BUFFER;
+	{
+	  free (tmp);
+	  return GSASL_TOO_SMALL_BUFFER;
+	}
 
       if (out)
 	strcpy (out, tmp);
       *outlen = tmplen;
+      free (tmp);
     }
 
   return rc;
@@ -89,11 +93,15 @@ gsasl_server_listmech (Gsasl_ctx * ctx, char *out, size_t * outlen)
       size_t tmplen = strlen (tmp);
 
       if (tmplen >= *outlen)
-	return GSASL_TOO_SMALL_BUFFER;
+	{
+	  free (tmp);
+	  return GSASL_TOO_SMALL_BUFFER;
+	}
 
       if (out)
 	strcpy (out, tmp);
       *outlen = tmplen;
+      free (tmp);
     }
 
   return rc;
@@ -113,11 +121,15 @@ _gsasl_step (Gsasl_session_ctx * sctx,
   if (rc == GSASL_OK || rc == GSASL_NEEDS_MORE)
     {
       if (tmplen >= *output_len)
-	return GSASL_TOO_SMALL_BUFFER;
+	{
+	  free (tmp);
+	  return GSASL_TOO_SMALL_BUFFER;
+	}
 
       if (output)
 	memcpy (output, tmp, tmplen);
       *output_len = tmplen;
+      free (tmp);
     }
 
   return rc;
@@ -192,10 +204,14 @@ _gsasl_step64 (Gsasl_session_ctx * sctx,
   if (rc == GSASL_OK || rc == GSASL_NEEDS_MORE)
     {
       if (b64output_len <= strlen (tmp))
-	return GSASL_TOO_SMALL_BUFFER;
+	{
+	  free (tmp);
+	  return GSASL_TOO_SMALL_BUFFER;
+	}
 
       if (b64output)
 	strcpy (b64output, tmp);
+      free (tmp);
     }
 
   return rc;
