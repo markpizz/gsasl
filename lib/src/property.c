@@ -140,8 +140,11 @@ gsasl_property_set_raw (Gsasl_session * sctx, Gsasl_property prop,
       if (data)
 	{
 	  *p = malloc (len + 1);
-	  memcpy (*p, data, len);
-	  (*p)[len] = '\0';
+	  if (*p)
+	    {
+	      memcpy (*p, data, len);
+	      (*p)[len] = '\0';
+	    }
 	}
       else
 	*p = NULL;
