@@ -2,12 +2,13 @@
 .libs
 Makefile
 Makefile.in
-unicode
-simple
 cram-md5
 digest-md5
+gssapi
 md5file
 old-cram-md5
 old-gssapi
+simple
+unicode
 *.la
 *.lo
