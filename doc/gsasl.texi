@@ -362,6 +362,13 @@ GCC 2.95.3 and GNU Make. @code{alpha-unknown-openbsd3.1},
 GCC 2.95.4 and GNU Make. @code{alpha-unknown-freebsd4.7},
 @code{i386-unknown-freebsd4.7}.
 
+@item Cross compiled to uClinux/uClibc on Motorola Coldfire.
+@cindex Motorola Coldfire
+@cindex uClinux
+@cindex uClibc
+
+GCC 3.4 and GNU Make @code{m68k-uclinux-elf}.  (Only the library.)
+
 @end enumerate
 
 If you use Libgsasl on, or port Libgsasl to, a new platform please
