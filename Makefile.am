@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -53,12 +53,15 @@ release:
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
 	cvs commit -m "" ChangeLog
-	rm -f $(distdir).tar.gz.asc
-	gpg -a --sign --detach $(distdir).tar.gz
-	gpg --verify $(distdir).tar.gz.asc
 	cvs rtag $(tag) $(PACKAGE)
+	gpg -b $(distdir).tar.gz
+	gpg --verify $(distdir).tar.gz.sig
+	echo "directory: $(PACKAGE)" > $(distdir).tar.gz.directive
+	gpg --clearsign $(distdir).tar.gz.directive
+	ncftpput ftp-upload.gnu.org /incoming/alpha \
+		$(distdir).tar.gz{,.sig,.directive.asc}
+	cd doc && ./gendocs.sh --html "--css-include=texinfo.css" \
+		-o ../$(htmldir)/manual/ $(PACKAGE) "GNU SASL"
+	cp -v doc/reference/*.{html,png} $(htmldir)/reference/
 	-cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make ps pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf && cp doc/doxygen/latex/refman.ps $(htmldir)/doxygen/$(PACKAGE).ps
-	-cp -v doc/reference/*.{html,png} $(htmldir)/reference/
-	-cd doc && ./gendocs.sh -o ../$(htmldir)/manual/ $(PACKAGE) "GNU SASL"
-	-cd $(htmldir) && \
-		cvs commit -m "Update." manual/ reference/ doxygen/
+	cd $(htmldir) && cvs commit -m "Update." manual/ reference/ doxygen/
