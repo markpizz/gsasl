@@ -49,6 +49,21 @@
 #ifdef HAVE_NETDB_H
 #include <netdb.h>
 #endif
+#ifdef HAVE_SYS_SOCKET_H
+#include <sys/socket.h>        /* for AF_INET */
+#endif
+#ifdef HAVE_SYS_TYPES_H
+#include <sys/types.h>        /* select() */
+#endif
+#ifdef HAVE_SYS_TIME_H
+#include <sys/time.h>        /* select() */
+#endif
+#ifdef HAVE_ERRNO_H
+#include <errno.h> /* strerror */
+#endif
+#if defined HAVE_DECL_ERRNO && !HAVE_DECL_ERRNO
+extern int errno;
+#endif
 
 #ifdef HAVE_LOCALE_H
 #include <locale.h>
