@@ -187,11 +187,6 @@ extern "C"
   extern void gsasl_done (Gsasl * ctx);
   extern const char *gsasl_check_version (const char *req_version);
 
-/* Internationalized string processing: stringprep.c */
-  extern char *gsasl_stringprep_nfkc (const char *in, ssize_t len);
-  extern char *gsasl_stringprep_saslprep (const char *in, int *stringprep_rc);
-  extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc);
-
 /* Callback handling: callback.c */
   extern void gsasl_application_data_set (Gsasl * ctx, void *appdata);
   extern void *gsasl_application_data_get (Gsasl * ctx);
@@ -251,6 +246,11 @@ extern "C"
 
 /* Error handling: error.c */
   extern const char *gsasl_strerror (int err);
+
+  /* Internationalized string processing: stringprep.c */
+  extern char *gsasl_stringprep_nfkc (const char *in, ssize_t len);
+  extern char *gsasl_stringprep_saslprep (const char *in, int *stringprep_rc);
+  extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc);
 
 /* Utilities: base64.c, md5pwd.c, crypto.c */
   extern int gsasl_base64_encode (char const *src, size_t srclength,
