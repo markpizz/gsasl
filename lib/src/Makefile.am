@@ -20,7 +20,8 @@
 
 lib_LTLIBRARIES = libgsasl.la
 
-AM_CPPFLAGS = -I$(top_srcdir)/gl @LIBGCRYPT_CFLAGS@ @NETTLE_CFLAGS@
+AM_CPPFLAGS = -I$(srcdir)/../gl -I$(srcdir)/.. \
+	@LIBGCRYPT_CFLAGS@ @NETTLE_CFLAGS@
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 
 include_HEADERS = gsasl.h
