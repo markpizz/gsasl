@@ -52,8 +52,8 @@ _gsasl_anonymous_server_step (Gsasl_session_ctx * sctx,
     return GSASL_MALLOC_ERROR;
   memcpy (token, input, input_len);
   token[input_len] = '\0';
-  gsasl_property_set (sctx, GSASL_SERVER_ANONYMOUS, token);
+  gsasl_property_set (sctx, GSASL_ANONYMOUS_TOKEN, token);
   free (token);
 
-  return gsasl_callback (NULL, sctx, GSASL_SERVER_ANONYMOUS);
+  return gsasl_callback (NULL, sctx, GSASL_VALIDATE_ANONYMOUS);
 }

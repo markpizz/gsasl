@@ -31,8 +31,8 @@
  * by mechanisms to discover various parameters (such as username and
  * passwords).  The callback function will be called with a
  * Gsasl_property value indicating the requested behaviour.  For
- * example, for GSASL_CLIENT_ANONYMOUS, the function is expected to
- * invoke gsasl_property_set_global(CTX, GSASL_CLIENT_ANONYMOUS,
+ * example, for GSASL_ANONYMOUS_TOKEN, the function is expected to
+ * invoke gsasl_property_set_global(CTX, GSASL_ANONYMOUS_TOKEN,
  * "token") where "token" is the anonymous token the application
  * wishes the SASL mechanism to use.  See the manual for the meaning
  * of all parameters.
@@ -52,8 +52,8 @@ gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb)
  *
  * Invoke the application callback.  The @prop value indicate what the
  * callback is expected to do.  For example, for
- * GSASL_CLIENT_ANONYMOUS, the function is expected to invoke
- * gsasl_property_set(SCTX, GSASL_CLIENT_ANONYMOUS, "token") where
+ * GSASL_ANONYMOUS_TOKEN, the function is expected to invoke
+ * gsasl_property_set(SCTX, GSASL_ANONYMOUS_TOKEN, "token") where
  * "token" is the anonymous token the application wishes the SASL
  * mechanism to use.  See the manual for the meaning of all
  * parameters.
@@ -92,7 +92,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
     switch (prop)
       {
-      case GSASL_SERVER_ANONYMOUS:
+      case GSASL_VALIDATE_ANONYMOUS:
 	if (!sctx->anonymous_token)
 	  break;
 	cb_anonymous = gsasl_server_callback_anonymous_get (sctx->ctx);
@@ -102,7 +102,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	return res;
 	break;
 
-      case GSASL_SERVER_EXTERNAL:
+      case GSASL_VALIDATE_EXTERNAL:
 	cb_external = gsasl_server_callback_external_get (sctx->ctx);
 	if (!cb_external)
 	  break;
@@ -110,7 +110,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	return res;
 	break;
 
-      case GSASL_SERVER_SECURID:
+      case GSASL_VALIDATE_SECURID:
 	cb_securid = gsasl_server_callback_securid_get (sctx->ctx);
 	if (!cb_securid)
 	  break;

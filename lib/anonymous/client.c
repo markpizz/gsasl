@@ -38,7 +38,7 @@ _gsasl_anonymous_client_step (Gsasl_session_ctx * sctx,
 {
   const char *p;
 
-  p = gsasl_property_get (sctx, GSASL_CLIENT_ANONYMOUS);
+  p = gsasl_property_get (sctx, GSASL_ANONYMOUS_TOKEN);
   if (!p)
     return GSASL_NO_ANONYMOUS_TOKEN;
 

@@ -31,8 +31,7 @@ map (Gsasl_session * sctx, Gsasl_property prop)
 
   switch (prop)
     {
-    case GSASL_CLIENT_ANONYMOUS:
-    case GSASL_SERVER_ANONYMOUS:
+    case GSASL_ANONYMOUS_TOKEN:
       p = &sctx->anonymous_token;
       break;
 
@@ -77,8 +76,7 @@ map_global (Gsasl * ctx, Gsasl_property prop)
 
   switch (prop)
     {
-    case GSASL_CLIENT_ANONYMOUS:
-    case GSASL_SERVER_ANONYMOUS:
+    case GSASL_ANONYMOUS_TOKEN:
       p = &ctx->anonymous_token;
       break;
 
@@ -287,7 +285,7 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 
       switch (prop)
 	{
-	case GSASL_CLIENT_ANONYMOUS:
+	case GSASL_ANONYMOUS_TOKEN:
 	  cb_anonymous = gsasl_client_callback_anonymous_get (sctx->ctx);
 	  if (!cb_anonymous)
 	    break;
