@@ -21,7 +21,9 @@ reported by Martin Lambers.
 were added, this was forgotten in the last release.
 
 ** API and ABI modifications.
-No changes since last version.
+gsasl_stringprep_nfkc, gsasl_stringprep_saslprep,
+gsasl_stringprep_trace: DEPRECATED.  Use gsasl_saslprep() instead.
+gsasl_saslprep: ADD.
 
 * Version 0.2.2 (released 2004-11-29)
 

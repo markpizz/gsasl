@@ -41,7 +41,7 @@ libgsasl_la_SOURCES = gsasl.h.in internal.h \
 	supportp.c suggest.c listmech.c \
 	xstart.c xstep.c xfinish.c xcode.c \
 	base64.c md5pwd.c crypto.c obsolete.c \
-	stringprep.c saslprep.c
+	saslprep.c
 
 # Plugins:
 if EXTERNAL

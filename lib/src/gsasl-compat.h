@@ -126,6 +126,13 @@ extern int gsasl_base64_decode (char const *src,
 				char *target, size_t targsize)
   __attribute__ ((deprecated));
 
+extern char *gsasl_stringprep_nfkc (const char *in, ssize_t len)
+  __attribute__ ((deprecated));
+extern char *gsasl_stringprep_saslprep (const char *in, int *stringprep_rc)
+  __attribute__ ((deprecated));
+extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc)
+  __attribute__ ((deprecated));
+
 /* Callback prototypes */
 typedef int (*Gsasl_client_callback_anonymous) (Gsasl_session * sctx,
 						char *out, size_t * outlen);

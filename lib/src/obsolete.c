@@ -1542,6 +1542,110 @@ gsasl_server_callback_service_get (Gsasl * ctx)
   return ctx ? ctx->cbs_service : NULL;
 }
 
+#include <stringprep.h>
+
+/**
+ * gsasl_stringprep_nfkc:
+ * @in: a UTF-8 encoded string.
+ * @len: length of @str, in bytes, or -1 if @str is nul-terminated.
+ *
+ * Converts a string into canonical form, standardizing such issues as
+ * whether a character with an accent is represented as a base
+ * character and combining accent or as a single precomposed
+ * character.
+ *
+ * The normalization mode is NFKC (ALL COMPOSE).  It standardizes
+ * differences that do not affect the text content, such as the
+ * above-mentioned accent representation. It standardizes the
+ * "compatibility" characters in Unicode, such as SUPERSCRIPT THREE to
+ * the standard forms (in this case DIGIT THREE). Formatting
+ * information may be lost but for most text operations such
+ * characters should be considered the same. It returns a result with
+ * composed forms rather than a maximally decomposed form.
+ *
+ * Return value: Return a newly allocated string, that is the NFKC
+ *   normalized form of @str, o %NULL on error.
+ *
+ * Deprecated: No replacement functionality in GNU SASL, use GNU
+ * Libidn instead.  Note that in SASL, you most likely want to use
+ * SASLprep and not bare NFKC, see gsasl_saslprep().
+ **/
+char *
+gsasl_stringprep_nfkc (const char *in, ssize_t len)
+{
+  char *out;
+
+  out = stringprep_utf8_nfkc_normalize (in, len);
+
+  return out;
+}
+
+/**
+ * gsasl_stringprep_saslprep:
+ * @in: input ASCII or UTF-8 string with data to prepare according to SASLprep.
+ * @stringprep_rc: pointer to output variable with stringprep error code,
+ *   or %NULL to indicate that you don't care about it.
+ *
+ * Process a Unicode string for comparison, according to the
+ * "SASLprep" stringprep profile.  This function is intended to be
+ * used by Simple Authentication and Security Layer (SASL) mechanisms
+ * (such as PLAIN, CRAM-MD5, and DIGEST-MD5) as well as other
+ * protocols exchanging user names and/or passwords.
+ *
+ * Return value: Return a newly allocated string that is the
+ *   "SASLprep" processed form of the input string, or %NULL on error,
+ *   in which case @stringprep_rc contain the stringprep library error
+ *   code.
+ *
+ * Deprecated: Use gsasl_saslprep() instead.
+ **/
+char *
+gsasl_stringprep_saslprep (const char *in, int *stringprep_rc)
+{
+  char *out;
+  int rc;
+
+  rc = stringprep_profile (in, &out, "SASLprep", 0);
+  if (stringprep_rc)
+    *stringprep_rc = rc;
+  if (rc != STRINGPREP_OK)
+    out = NULL;
+
+  return out;
+}
+
+/**
+ * gsasl_stringprep_trace:
+ * @in: input ASCII or UTF-8 string with data to prepare according to "trace".
+ * @stringprep_rc: pointer to output variable with stringprep error code,
+ *   or %NULL to indicate that you don't care about it.
+ *
+ * Process a Unicode string for use as trace information, according to
+ * the "trace" stringprep profile.  The profile is designed for use
+ * with the SASL ANONYMOUS Mechanism.
+ *
+ * Return value: Return a newly allocated string that is the "trace"
+ *   processed form of the input string, or %NULL on error, in which
+ *   case @stringprep_rc contain the stringprep library error code.
+ *
+ * Deprecated: No replacement functionality in GNU SASL, use GNU
+ * Libidn instead.
+ **/
+char *
+gsasl_stringprep_trace (const char *in, int *stringprep_rc)
+{
+  char *out;
+  int rc;
+
+  rc = stringprep_profile (in, &out, "trace", 0);
+  if (stringprep_rc)
+    *stringprep_rc = rc;
+  if (rc != STRINGPREP_OK)
+    out = NULL;
+
+  return out;
+}
+
 /*
  * Copyright (c) 1996-1999 by Internet Software Consortium.
  *

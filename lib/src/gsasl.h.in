@@ -119,6 +119,12 @@ extern "C"
     GSASL_CIPHER_AES = 32
   } Gsasl_cipher;
 
+  /* SASLprep flags, see gsasl_saslprep(). */
+  typedef enum
+    {
+      GSASL_ALLOW_UNASSIGNED = 1
+    } Gsasl_saslprep_flags;
+
   /* Library handles */
   typedef struct Gsasl Gsasl;
   typedef struct Gsasl_session Gsasl_session;
@@ -227,10 +233,8 @@ extern "C"
   extern const char *gsasl_strerror (int err);
 
   /* Internationalized string processing: stringprep.c */
-  extern int gsasl_saslprep (const char *in, int allowunassigned, char **out);
-  extern char *gsasl_stringprep_nfkc (const char *in, ssize_t len);
-  extern char *gsasl_stringprep_saslprep (const char *in, int *stringprep_rc);
-  extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc);
+  extern int gsasl_saslprep (const char *in, Gsasl_saslprep_flags flags,
+			     char **out, int *stringpreprc);
 
   /* Utilities: base64.c, md5pwd.c, crypto.c */
   extern int gsasl_base64_to (const char *in, size_t inlen,
