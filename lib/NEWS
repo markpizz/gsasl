@@ -10,7 +10,7 @@ See the end for copying conditions.
 This was done to get rid of all fixed size buffers, and to clean up
 the callback interface.  Now, all functions that return data of
 non-fixed size will allocate the output, and the caller is responsible
-for deallcating the data.  Further, the callback interface has been
+for deallocating the data.  Further, the callback interface has been
 simplified, from having one callback function per data item, there is
 now only one callback function, that receive an enumerated integer
 type indicating the requested operation.
