@@ -23,7 +23,7 @@ SUBDIRS = reference
 endif
 
 EXTRA_DIST = gdoc gdoc-error gsasl-example1.c \
-	gsasl.html gsasl.ps gsasl.pdf \
+	gsasl.html gsasl.ps gsasl.pdf texinfo.css \
 	doxygen/Doxyfile.in doxygen/gdoc2doxygen
 
 info_TEXINFOS = gsasl.texi
