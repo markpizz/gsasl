@@ -35,6 +35,7 @@ libgc_la_SOURCES += gc-nettle.c \
 	macros.h nettle-meta.h nettle-internal.h cbc.h \
 	memxor.c memxor.h \
 	md5.h md5.c md5-meta.c \
+	sha.h \
 	hmac.c hmac.h hmac-md5.c
 endif
 
