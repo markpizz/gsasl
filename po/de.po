@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.0\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-01-01 19:36+0100\n"
+"POT-Creation-Date: 2005-02-08 12:37+0100\n"
 "PO-Revision-Date: 2004-04-25 03:15+0100\n"
 "Last-Translator: Roland Illig <roland.illig@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, c-format
-msgid "Chose SASL mechanism:\n"
+#, fuzzy, c-format
+msgid "Choose SASL mechanism:\n"
 msgstr "SASL-Mechanismus auswählen:\n"
 
 #, c-format

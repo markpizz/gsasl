@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-01-01 19:36+0100\n"
+"POT-Creation-Date: 2005-02-08 12:37+0100\n"
 "PO-Revision-Date: 2004-08-26 20:45-0400\n"
 "Last-Translator: Aleksandar Jelenak <jelenak@netlinkplus.net>\n"
 "Language-Team: Serbian <gnu@prevod.org>\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, c-format
-msgid "Chose SASL mechanism:\n"
+#, fuzzy, c-format
+msgid "Choose SASL mechanism:\n"
 msgstr "Изаберите SASL метод:\n"
 
 #, c-format
