@@ -86,9 +86,10 @@ map (Gsasl_session * sctx, Gsasl_property prop)
  * @data: zero terminated character string to store.
  *
  * Make a copy of @data and store it in the session handle for the
- * indicated property @prop.  You can immediately deallocate @data
- * after calling this function, without affecting the data stored in
- * the session handle.
+ * indicated property @prop.
+ *
+ * You can immediately deallocate @data after calling this function,
+ * without affecting the data stored in the session handle.
  *
  * Since: 0.2.0
  **/
@@ -108,8 +109,9 @@ gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
  * @len: length of character string to store.
  *
  * Make a copy of @len sized @data and store a zero terminated version
- * of it in the session handle for the indicated property @prop.  You
- * can immediately deallocate @data after calling this function,
+ * of it in the session handle for the indicated property @prop.
+ *
+ * You can immediately deallocate @data after calling this function,
  * without affecting the data stored in the session handle.
  *
  * Except for the length indicator, this function is identical to
@@ -145,13 +147,15 @@ gsasl_property_set_raw (Gsasl_session * sctx, Gsasl_property prop,
  *        type of data in @data.
  *
  * Retrieve the data stored in the session handle for given property
- * @prop.  The pointer is to live data, and must not be deallocated or
+ * @prop.
+ *
+ * The pointer is to live data, and must not be deallocated or
  * modified in any way.
  *
- * This function will not invoke the application callback if a value
- * is not already known.
+ * This function will not invoke the application callback.
  *
- * Return value: Return data for property, or NULL if no value known.
+ * Return value: Return property value, if known, or %NULL if no value
+ *   known.
  *
  * Since: 0.2.0
  **/
@@ -174,18 +178,19 @@ gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
  *
  * Retrieve the data stored in the session handle for given property
  * @prop, possibly invoking the application callback to get the value.
+ *
  * The pointer is to live data, and must not be deallocated or
  * modified in any way.
  *
  * This function will invoke the application callback, using
- * gsasl_callback(), if a value is not already known.
+ * gsasl_callback(), when a property value is not known.
  *
  * If no value is known, and no callback is specified or if the
- * callback fail to return data, and if the obsolete callback
- * interface has been used by the application, this function will
- * translate the old callback interface into the new.  This interface
- * should be sufficient to get data from all callbacks, both new and
- * old.
+ * callback fail to return data, and if any obsolete callback
+ * functions has been set by the application, this function will try
+ * to call these obsolete callbacks, and store the returned data as
+ * the corresponding property.  This behaviour of this function will
+ * be removed when the obsolete callback interfaces are removed.
  *
  * Return value: Return data for property, or NULL if no value known.
  *
