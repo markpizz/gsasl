@@ -106,12 +106,12 @@ AC_MSG_CHECKING([if SECURID should be used])
 AC_MSG_RESULT($securid)
 
 # NTLM
-PKG_CHECK_MODULES(LIBNTLM, libntlm >= 0.3.1, [have_ntlm=yes], [:])
 AC_ARG_ENABLE(ntlm,
   AC_HELP_STRING([--disable-ntlm], [don't use the NTLM mechanism]),
   ntlm=$enableval)
 if test "$ntlm" != "no" ; then
-	if test "$have_ntlm" != "yes" ; then
+	PKG_CHECK_MODULES(LIBNTLM, libntlm >= 0.3.1, [ntlm=yes], [ntlm=no])
+	if test "ntlm" != "yes" ; then
 		ntlm=no
 		AC_MSG_WARN([libntlm not found, disabling NTLM])
 	else
@@ -122,11 +122,13 @@ fi
 AC_MSG_CHECKING([if NTLM should be used])
 AC_MSG_RESULT($ntlm)
 
+# Libgcrypt
+AM_PATH_LIBGCRYPT(1.1.7, [have_gcrypt=yes], [have_gcrypt=no])
+
 # CRAM-MD5
 AC_ARG_ENABLE(cram-md5,
   AC_HELP_STRING([--disable-cram-md5], [don't use the CRAM-MD5 mechanism]),
   cram_md5=$enableval)
-AM_PATH_LIBGCRYPT(1.1.7, [have_gcrypt=yes])
 if test "$cram_md5" != "no" ; then
 	if test "$have_gcrypt" != "yes" ; then
 		cram_md5=no
@@ -155,21 +157,11 @@ fi
 AC_MSG_CHECKING([if DIGEST-MD5 should be used])
 AC_MSG_RESULT($digest_md5)
 
-# SRP
-#AC_ARG_ENABLE(srp,
-#  AC_HELP_STRING([--disable-srp], [don't use the SRP mechanism]),
-#  srp=$enableval)
-#if test "$srp" != "no" ; then
-#	if test "$have_gcrypt" != "yes" ; then
-#		srp=no
-#		AC_MSG_WARN([libgcrypt not found, disabling SRP])
-#	else
-#		srp=yes
-#		AC_DEFINE(USE_SRP, 1, [Define to 1 if you want SRP.])
-#	fi
-#fi
-#AC_MSG_CHECKING([if SRP should be used])
-#AC_MSG_RESULT($srp)
+# Disable libgcrypt unless we need.
+if test "$digest_md5" != "yes" && test "$cram_md5" != "yes"; then
+    LIBGCRYPT_CFLAGS=""
+    LIBGCRYPT_LIBS=""
+fi
 
 # GSSAPI (tests partially stolen from mailutils and fetchmail)
 AC_ARG_ENABLE(gssapi,
@@ -232,13 +224,14 @@ AC_CONFIG_SUBDIRS(libstringprep)
 AC_HEADER_STDC
 AC_CHECK_HEADERS(sys/socket.h unistd.h strings.h netdb.h math.h limits.h)
 AC_CHECK_HEADERS(sys/poll.h sys/time.h sys/types.h sys/select.h sys/socket.h)
-AC_CHECK_HEADERS(netinet/in.h)
+AC_CHECK_HEADERS(netinet/in.h errno.h)
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 AC_TYPE_SIZE_T
 AC_TYPE_UID_T
 AC_HEADER_TIME
+AC_CHECK_DECLS(errno)
 
 # Checks for library functions.
 AC_REPLACE_FUNCS(gethostname strdup strerror memmove memset)
@@ -294,19 +287,6 @@ if test x$enable_gtk_doc = xauto ; then
   fi
 fi
 AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
-
-# Libgnet
-AC_ARG_WITH(gnet,
-  AC_HELP_STRING([--without-gnet],
-		[don't use libgnet even if available]))
-if test "$with_gnet" != "no" ; then
-	AM_PATH_GNET(1.1.2, with_gnet=yes, with_gnet=no)
-fi
-if test "$with_gnet" != "no" ; then
-	AC_DEFINE(USE_GNET, 1, [Define to 1 if you want to use libgnet.])
-fi
-AC_MSG_CHECKING([if libgnet should be used])
-AC_MSG_RESULT($with_gnet)
 
 AC_CONFIG_FILES(Makefile po/Makefile.in m4/Makefile intl/Makefile \
 		doc/Makefile doc/reference/Makefile lib/gsasl.h lib/Makefile \
