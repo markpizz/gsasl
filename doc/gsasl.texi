@@ -1100,7 +1100,6 @@ const char *client_mechanism (Gsasl *ctx)
 When running this example code, it might look like in the following
 output.
 
-@cartouche
 @example
 Enter list of mechanism that server support, separate by SPC:
 CRAM-MD5 DIGEST-MD5 GSSAPI FOO BAR
@@ -1114,7 +1113,6 @@ amFzIDkyY2U1NWE5MTM2ZTY4NzEyMTUyZTFjYmFmNjVkZjgx
 
 If server accepted us, we're done.
 @end example
-@end cartouche
 
 @section Using a callback
 
