@@ -278,7 +278,7 @@ client_callback_passcode (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
 Gsasl_qop
 client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops)
 {
-  if (serverqops & qop == 0)
+  if (!(serverqops & qop))
     fprintf (stderr,
 	     "Warning: Server QOPs %d does not include client QOP %d.\n",
 	     serverqops, qop);
