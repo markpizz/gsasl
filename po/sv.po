@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU libgsasl 0.0\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2003-11-14 04:48+0100\n"
+"POT-Creation-Date: 2003-11-20 17:32+0100\n"
 "PO-Revision-Date: 2002-10-05 19:32+0200\n"
 "Last-Translator: Simon Josefsson <simon@josefsson.org>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -16,257 +16,335 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/error.c:40
+#: lib/error.c:48
 msgid "Libgsasl success"
 msgstr "Libgsasl lyckades"
 
-#: lib/error.c:44
+#: lib/error.c:52
 #, fuzzy
 msgid "SASL mechanisms needs more data"
 msgstr "SASL mekanismen behöver mer data"
 
-#: lib/error.c:48
+#: lib/error.c:56
 #, fuzzy
 msgid "Unknown SASL mechanism"
 msgstr "Okänd SASL mekanism"
 
-#: lib/error.c:52
+#: lib/error.c:60
 #, fuzzy
 msgid "SASL mechanism called too many times"
 msgstr "SASL mekanism anropad för många gånger"
 
-#: lib/error.c:56
+#: lib/error.c:64
 #, fuzzy
 msgid "SASL function need larger buffer (internal error)"
 msgstr "SASL funktion behöver större buffer (internt fel)"
 
-#: lib/error.c:60
+#: lib/error.c:68
 #, fuzzy
 msgid "Could not open file in SASL library"
 msgstr "Minnesallokeringsfel i SASL-biblioteket"
 
-#: lib/error.c:64
+#: lib/error.c:72
 #, fuzzy
 msgid "Could not close file in SASL library"
 msgstr "Minnesallokeringsfel i SASL-biblioteket"
 
-#: lib/error.c:68
+#: lib/error.c:76
 msgid "Memory allocation error in SASL library"
 msgstr "Minnesallokeringsfel i SASL-biblioteket"
 
-#: lib/error.c:72
+#: lib/error.c:80
 msgid "Base 64 coding error in SASL library"
 msgstr "Bas 64 kodningsfel i SASL-biblioteket"
 
-#: lib/error.c:76
+#: lib/error.c:84
 msgid "Gcrypt error in SASL library"
 msgstr "Fel från gcrypt i SASL-biblioteket"
 
-#: lib/error.c:82
+#: lib/error.c:90
 msgid ""
 "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL "
 "library.  This is a serious internal error."
 msgstr ""
 
-#: lib/error.c:90
+#: lib/error.c:98
 msgid ""
 "GSSAPI library could not understand a peer name in gss_import_name() in SASL "
 "library.  This may be due to incorrect user supplied data."
 msgstr ""
 
-#: lib/error.c:98
+#: lib/error.c:106
 msgid ""
 "GSSAPI error in client while negotiating security context in "
 "gss_init_sec_context() in SASL library.  This is most likely due "
 "insufficient credentials or malicious interactions."
 msgstr ""
 
-#: lib/error.c:106
+#: lib/error.c:114
 msgid ""
 "GSSAPI error in server while negotiating security context in "
 "gss_init_sec_context() in SASL library.  This is most likely due "
 "insufficient credentials or malicious interactions."
 msgstr ""
 
-#: lib/error.c:114
+#: lib/error.c:122
 msgid ""
 "GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL "
 "library.  This is most likely due to data corruption."
 msgstr ""
 
-#: lib/error.c:122
+#: lib/error.c:130
 msgid ""
 "GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
 msgstr ""
 
-#: lib/error.c:129
+#: lib/error.c:137
 msgid ""
 "GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  "
 "This is most likely due to not having the proper Kerberos key available in /"
 "etc/krb5.keytab on the server."
 msgstr ""
 
-#: lib/error.c:138
+#: lib/error.c:146
 msgid ""
 "GSSAPI error creating a display name denoting the client in gss_display_name"
 "() in SASL library.  This is probably because the client suplied bad data."
 msgstr ""
 
-#: lib/error.c:146
+#: lib/error.c:154
 msgid ""
 "Other entity requested integrity or confidentiality protection in GSSAPI "
 "mechanism but this is currently not implemented."
 msgstr ""
 
-#: lib/error.c:153
+#: lib/error.c:161
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_client_callback_anonymous() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:160
+#: lib/error.c:168
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_client_callback_password() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:167
+#: lib/error.c:175
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_client_callback_passcode() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:174
+#: lib/error.c:182
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:181
+#: lib/error.c:189
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_client_callback_authorization_id() callback "
 "(application error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:188
+#: lib/error.c:196
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_client_callback_authentication_id() callback "
 "(application error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:195
+#: lib/error.c:203
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_client_callback_service() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:202
+#: lib/error.c:210
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_server_callback_validate() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:209
+#: lib/error.c:217
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_server_callback_cram_md5() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:216
+#: lib/error.c:224
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_server_callback_digest_md5() callback "
 "(application error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:223
+#: lib/error.c:231
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_server_callback_anonymous() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:230
+#: lib/error.c:238
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_server_callback_external() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:237
+#: lib/error.c:245
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_server_callback_realm() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:244
+#: lib/error.c:252
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_server_callback_securid() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:251
+#: lib/error.c:259
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_server_callback_service() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:258
+#: lib/error.c:266
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_server_callback_gssapi() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:263
+#: lib/error.c:271
 #, fuzzy
 msgid ""
 "SASL mechanism needs gsasl_server_callback_retrieve() callback (application "
 "error)"
 msgstr "SASL mekanismen behöver mer data (applikationsfel)"
 
-#: lib/error.c:268
+#: lib/error.c:276
 msgid "SASL mechanism could not parse input"
 msgstr "SASL mekanism kunde inte tolka indata"
 
-#: lib/error.c:272
+#: lib/error.c:280
 msgid "Error authentication user"
 msgstr "Fel vid autentisering av användare"
 
-#: lib/error.c:276
+#: lib/error.c:284
 msgid "Cannot get internal library handle (library error)"
 msgstr "Kan inte hämta internt bibliotekskontext (biblioteksfel)"
 
-#: lib/error.c:280
+#: lib/error.c:288
 msgid "Integrity error in application payload"
 msgstr ""
 
-#: lib/error.c:284
+#: lib/error.c:292
 msgid "No more realms available (non-fatal)"
 msgstr ""
 
-#: lib/error.c:288
+#: lib/error.c:296
 msgid "Client-side functionality not available in library (application error)"
 msgstr ""
 
-#: lib/error.c:293
+#: lib/error.c:301
 msgid "Server-side functionality not available in library (application error)"
 msgstr ""
 
-#: lib/error.c:298
+#: lib/error.c:306
+msgid "The provided library handle was invalid (application error)"
+msgstr ""
+
+#: lib/error.c:310
 msgid "Libgsasl unknown error"
 msgstr "Okänt fel i libgsasl"
+
+#: src/gsasl.c:90
+#, fuzzy
+msgid "Chose SASL mechanisms:\n"
+msgstr "Okänd SASL mekanism"
+
+#: src/gsasl.c:98
+msgid "Input SASL mechanism supported by server:\n"
+msgstr ""
+
+#: src/gsasl.c:117
+#, fuzzy
+msgid "Using mechanism:\n"
+msgstr "Okänd SASL mekanism"
+
+#: src/gsasl.c:134
+msgid "Output from client:\n"
+msgstr ""
+
+#: src/gsasl.c:136
+msgid "Output from server:\n"
+msgstr ""
+
+#: src/gsasl.c:288 src/gsasl.c:333
+#, fuzzy, c-format
+msgid "GSASL error (%d): %s\n"
+msgstr "Okänt fel i libgsasl"
+
+#: src/gsasl.c:339
+#, c-format
+msgid "This %s supports the following mechanisms:\n"
+msgstr ""
+
+#: src/gsasl.c:340 src/gsasl.c:413
+msgid "client"
+msgstr ""
+
+#: src/gsasl.c:340 src/gsasl.c:413
+msgid "server"
+msgstr ""
+
+#: src/gsasl.c:364
+msgid "Cannot find mechanism...\n"
+msgstr ""
+
+#: src/gsasl.c:382 src/gsasl.c:422 src/gsasl.c:517
+#, fuzzy, c-format
+msgid "Libgsasl error (%d): %s\n"
+msgstr "Okänt fel i libgsasl"
+
+#: src/gsasl.c:411
+#, c-format
+msgid "Enter base64 authentication data from %s (press RET if none):\n"
+msgstr ""
+
+#: src/gsasl.c:433
+msgid "Client authentication finished (server trusted)...\n"
+msgstr ""
+
+#: src/gsasl.c:436
+msgid "Server authentication finished (client trusted)...\n"
+msgstr ""
+
+#: src/gsasl.c:451
+msgid "Enter application data (EOF to finish):\n"
+msgstr ""
+
+#: src/gsasl.c:490
+msgid "Base64 encoded application data to send:\n"
+msgstr ""
+
+#: src/gsasl.c:524
+msgid "Session finished...\n"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Password for authentication."
@@ -275,10 +353,6 @@ msgstr "Okänt fel i libgsasl"
 #, fuzzy
 #~ msgid "Libgsasl wants to use:\n"
 #~ msgstr "Libgsasl lyckades"
-
-#, fuzzy
-#~ msgid "Libgsasl error (%d): %s\n"
-#~ msgstr "Okänt fel i libgsasl"
 
 #, fuzzy
 #~ msgid "GSSAPI error in SASL library"
