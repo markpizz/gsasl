@@ -358,7 +358,7 @@ AM_CONDITIONAL(KERBEROS_V5, test x$kerberos_v5 = xyes)
 # Check for libidn
 AC_ARG_WITH(saslprep,
   AS_HELP_STRING([--without-saslprep], [disable non-ASCII support]),
-	stringprep=$withval, stringprep=yes)
+	saslprep=$withval, saslprep=yes)
 if test "$saslprep" != "no"; then
   sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version, [
     saslprep=yes
