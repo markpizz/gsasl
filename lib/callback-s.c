@@ -22,53 +22,6 @@
 #include "internal.h"
 
 /**
- * gsasl_server_ctx_get:
- * @sctx: libgsasl server handle
- *
- * Return value: Returns the libgsasl handle given a libgsasl server handle.
- **/
-Gsasl_ctx *
-gsasl_server_ctx_get (Gsasl_session_ctx * sctx)
-{
-  return sctx->ctx;
-}
-
-/**
- * gsasl_server_application_data_set:
- * @sctx: libgsasl server handle.
- * @application_data: opaque pointer to application specific data.
- *
- * Store application specific data in the libgsasl server handle.  The
- * application data can be later (for instance, inside a callback) be
- * retrieved by calling gsasl_server_application_data_get().  It is
- * normally used by the application to maintain state between the main
- * program and the callback.
- **/
-void
-gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
-				   void *application_data)
-{
-  sctx->application_data = application_data;
-}
-
-/**
- * gsasl_server_application_data_get:
- * @sctx: libgsasl server handle.
- *
- * Retrieve application specific data from libgsasl server handle. The
- * application data is set using gsasl_server_application_data_set().
- * It is normally used by the application to maintain state between
- * the main program and the callback.
- *
- * Return value: Returns the application specific data, or NULL.
- **/
-void *
-gsasl_server_application_data_get (Gsasl_session_ctx * sctx)
-{
-  return sctx->application_data;
-}
-
-/**
  * gsasl_server_callback_validate_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
