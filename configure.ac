@@ -23,7 +23,6 @@ AC_INIT([gsasl], [0.1.2], [bug-gsasl@gnu.org])
 
 AC_PREREQ(2.59)
 AM_INIT_AUTOMAKE([1.8 gnits])
-AC_CONFIG_HEADERS(config.h)
 
 # Checks for programs.
 AM_GNU_GETTEXT(external)
