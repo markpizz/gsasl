@@ -450,3 +450,53 @@ gsasl_ctx_get (Gsasl_session * sctx)
 {
   return sctx->ctx;
 }
+
+/**
+ * gsasl_encode:
+ * @sctx: libgsasl session handle.
+ * @input: input byte array.
+ * @input_len: size of input byte array.
+ * @output: output byte array.
+ * @output_len: size of output byte array.
+ *
+ * Encode data according to negotiated SASL mechanism.  This might mean
+ * that data is integrity or privacy protected.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
+ * Return value: Returns GSASL_OK if encoding was successful, otherwise
+ * an error code.
+ **/
+int
+gsasl_encode (Gsasl_session * sctx,
+	      const char *input, size_t input_len,
+	      char *output, size_t * output_len)
+{
+  return gsasl_encode_inline (sctx, input, input_len, output, output_len);
+}
+
+/**
+ * gsasl_decode:
+ * @sctx: libgsasl session handle.
+ * @input: input byte array.
+ * @input_len: size of input byte array.
+ * @output: output byte array.
+ * @output_len: size of output byte array.
+ *
+ * Decode data according to negotiated SASL mechanism.  This might mean
+ * that data is integrity or privacy protected.
+ *
+ * Note that this function is obsolete and may be removed in the
+ * future.
+ *
+ * Return value: Returns GSASL_OK if encoding was successful, otherwise
+ * an error code.
+ **/
+int
+gsasl_decode (Gsasl_session * sctx,
+	      const char *input,
+	      size_t input_len, char *output, size_t * output_len)
+{
+  return gsasl_decode_inline (sctx, input, input_len, output, output_len);
+}

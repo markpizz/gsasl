@@ -42,7 +42,7 @@ _gsasl_code (Gsasl_session * sctx,
 }
 
 /**
- * gsasl_encode:
+ * gsasl_encode_inline:
  * @sctx: libgsasl session handle.
  * @input: input byte array.
  * @input_len: size of input byte array.
@@ -56,9 +56,9 @@ _gsasl_code (Gsasl_session * sctx,
  * an error code.
  **/
 int
-gsasl_encode (Gsasl_session * sctx,
-	      const char *input,
-	      size_t input_len, char *output, size_t * output_len)
+gsasl_encode_inline (Gsasl_session * sctx,
+		     const char *input, size_t input_len,
+		     char *output, size_t * output_len)
 {
   _Gsasl_code_function code;
 
@@ -71,7 +71,7 @@ gsasl_encode (Gsasl_session * sctx,
 }
 
 /**
- * gsasl_decode:
+ * gsasl_decode_inline:
  * @sctx: libgsasl session handle.
  * @input: input byte array.
  * @input_len: size of input byte array.
@@ -85,9 +85,9 @@ gsasl_encode (Gsasl_session * sctx,
  * an error code.
  **/
 int
-gsasl_decode (Gsasl_session * sctx,
-	      const char *input,
-	      size_t input_len, char *output, size_t * output_len)
+gsasl_decode_inline (Gsasl_session * sctx,
+		     const char *input, size_t input_len,
+		     char *output, size_t * output_len)
 {
   _Gsasl_code_function code;
 

@@ -237,12 +237,12 @@ extern "C"
   extern void gsasl_finish (Gsasl_session * sctx);
 
 /* Session functions: xcode.c */
-  extern int gsasl_encode (Gsasl_session * sctx,
-			   const char *input, size_t input_len,
-			   char *output, size_t * output_len);
-  extern int gsasl_decode (Gsasl_session * sctx,
-			   const char *input, size_t input_len,
-			   char *output, size_t * output_len);
+  extern int gsasl_encode_inline (Gsasl_session * sctx,
+				  const char *input, size_t input_len,
+				  char *output, size_t * output_len);
+  extern int gsasl_decode_inline (Gsasl_session * sctx,
+				  const char *input, size_t input_len,
+				  char *output, size_t * output_len);
 
 /* Error handling: error.c */
   extern const char *gsasl_strerror (int err);
