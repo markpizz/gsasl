@@ -37,13 +37,18 @@
 #define IPAD 0x36
 #define OPAD 0x5c
 
+#define MAX_SIZE 20
+
 void
 hmac_set_key(void *outer, void *inner, void *state,
 	     const struct nettle_hash *hash,
 	     unsigned key_length, const uint8_t *key)
 {
-  uint8_t *pad = alloca(hash->block_size);
-  
+  uint8_t pad[MAX_SIZE];
+
+  if (MAX_SIZE <= hash->block_size)
+    abort();
+
   hash->init(outer);
   hash->init(inner);
 
@@ -90,7 +95,10 @@ hmac_digest(const void *outer, const void *inner, void *state,
 	    const struct nettle_hash *hash, 	    
 	    unsigned length, uint8_t *dst)
 {
-  uint8_t *digest = alloca(hash->digest_size);
+  uint8_t digest[MAX_SIZE];
+
+  if (MAX_SIZE <= hash->digest_size)
+    abort();
 
   hash->digest(state, hash->digest_size, digest);
 
