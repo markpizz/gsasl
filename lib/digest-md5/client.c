@@ -132,7 +132,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	/* Create response token. */
 	state->response.utf8 = 1;
 
-	state->response.qop = 2;
+	state->response.qop = 1;
 
 	state->response.nonce = strdup (state->challenge.nonce);
 	if (!state->response.nonce)
