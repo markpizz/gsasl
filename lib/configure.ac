@@ -399,7 +399,7 @@ AM_CONDITIONAL(SERVER, test x$server = xyes)
 gl_SOURCE_BASE(gl)
 gl_M4_BASE(gl/m4)
 gl_LIB(libgl)
-gl_MODULES(dummy strdup)
+gl_MODULES(dummy strdup gettext)
 gl_LGPL
 gl_INIT
 
