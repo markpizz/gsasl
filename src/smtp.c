@@ -41,7 +41,7 @@ smtp_select_mechanism (char **mechlist)
     }
   else				/* if (args_info.client_flag) */
     {
-      if (!writeln ("EHLO foo"))
+      if (!writeln ("EHLO [127.0.0.1]"))
 	return 0;
 
       do
