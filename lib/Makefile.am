@@ -74,6 +74,7 @@ update-po:
 	cd po && \
 	wget --timestamping --retr-symlinks \
 		ftp://ftp.unex.es/pub/gnu-i18n/po/maint/$(PACKAGE)/??.po && \
+	cvs add ??.po || true && \
 	cvs commit -m "Sync with TP." ??.po
 
 ChangeLog:
