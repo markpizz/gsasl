@@ -21,4 +21,12 @@
 AM_CPPFLAGS = -I$(srcdir)/../src -I../src
 
 noinst_LTLIBRARIES = libgsasl-login.la
-libgsasl_login_la_SOURCES = login.h login.c
+libgsasl_login_la_SOURCES = login.h
+
+if CLIENT
+libgsasl_login_la_SOURCES += client.c
+endif
+
+if SERVER
+libgsasl_login_la_SOURCES += server.c
+endif
