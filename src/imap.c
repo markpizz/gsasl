@@ -50,6 +50,9 @@ imap_select_mechanism (char **mechlist)
       /* XXX parse IMAP capability line */
 
       *mechlist = in;
+
+      if (!readln (&in))
+	return 0;
     }
 
   return 1;
