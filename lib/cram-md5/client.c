@@ -31,31 +31,16 @@
 int
 _gsasl_cram_md5_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
-  Gsasl_ctx *ctx;
-
-  ctx = gsasl_client_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  if (gsasl_client_callback_authentication_id_get (ctx) == NULL)
-    return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
-
-  if (gsasl_client_callback_password_get (ctx) == NULL)
-    return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
-
   return GSASL_OK;
 }
 
 int
 _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
 			     void *mech_data,
-			     const char *input,
-			     size_t input_len,
-			     char *output, size_t * output_len)
+			     const char *input, size_t input_len,
+			     char **output, size_t * output_len)
 {
-  Gsasl_ctx *ctx;
-  Gsasl_client_callback_authentication_id cb_authentication_id;
-  Gsasl_client_callback_password cb_password;
+  const char *p;
   char *hash;
   size_t len;
   char *tmp;
@@ -65,57 +50,58 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
   if (input_len == 0)
     {
       *output_len = 0;
+      *output = NULL;
       return GSASL_NEEDS_MORE;
     }
 
-  ctx = gsasl_client_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
+  p = gsasl_property_get (sctx, GSASL_PASSWORD);
+  if (!p)
+    return GSASL_NO_PASSWORD;
 
-  cb_authentication_id = gsasl_client_callback_authentication_id_get (ctx);
-  if (cb_authentication_id == NULL)
-    return GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK;
-
-  cb_password = gsasl_client_callback_password_get (ctx);
-  if (cb_password == NULL)
-    return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
-
-  /* XXX? password stored in callee's output buffer */
-  len = *output_len - 1;
-  res = cb_password (sctx, output, &len);
-  if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
-    return res;
-  output[len] = '\0';
-  tmp = gsasl_stringprep_saslprep (output, NULL);
+  tmp = gsasl_stringprep_saslprep (p, NULL);
   if (tmp == NULL)
     return GSASL_SASLPREP_ERROR;
   res = gsasl_hmac_md5 (tmp, strlen (tmp), input, input_len, &hash);
   free (tmp);
   if (res != GSASL_OK)
-    return GSASL_CRYPTO_ERROR;
+    {
+      free (hash);
+      return GSASL_CRYPTO_ERROR;
+    }
 
-  len = *output_len - 1;
-  res = cb_authentication_id (sctx, output, &len);
-  if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
-    return res;
-  output[len] = '\0';
-  tmp = gsasl_stringprep_saslprep (output, NULL);
+  p = gsasl_property_get (sctx, GSASL_AUTHID);
+  if (!p)
+    {
+      free (hash);
+      return GSASL_NO_AUTHID;
+    }
+
+  tmp = gsasl_stringprep_saslprep (p, NULL);
   if (tmp == NULL)
-    return GSASL_SASLPREP_ERROR;
-  if (strlen (tmp) + strlen (" ") + 2 * MD5LEN >= *output_len)
+    {
+      free (hash);
+      return GSASL_SASLPREP_ERROR;
+    }
+
+  len = strlen (tmp);
+
+  *output_len = len + strlen (" ") + 2 * MD5LEN;
+  *output = malloc (*output_len);
+  if (!*output)
     {
       free (tmp);
-      return GSASL_TOO_SMALL_BUFFER;
+      free (hash);
+      return GSASL_MALLOC_ERROR;
     }
-  len = strlen (tmp);
-  memcpy (output, tmp, len);
+
+  memcpy (*output, tmp, len);
   free (tmp);
-  output[len++] = ' ';
+  (*output)[len++] = ' ';
 
   for (i = 0; i < MD5LEN; i++)
     {
-      output[len + 2 * i + 1] = HEXCHAR (hash[i]);
-      output[len + 2 * i + 0] = HEXCHAR (hash[i] >> 4);
+      (*output)[len + 2 * i + 1] = HEXCHAR (hash[i]);
+      (*output)[len + 2 * i + 0] = HEXCHAR (hash[i] >> 4);
     }
   *output_len = len + 2 * MD5LEN;
 
