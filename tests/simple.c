@@ -23,7 +23,11 @@
 # include "config.h"
 #endif
 
-/* We need the library config.h too. */
+/* FIXME. We need the library config.h too. */
+#undef PACKAGE
+#undef PACKAGE_NAME
+#undef PACKAGE_STRING
+#undef PACKAGE_TARNAME
 #include "lib/config.h"
 
 #include <stdio.h>
