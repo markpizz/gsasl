@@ -1,5 +1,12 @@
 Libgsasl NEWS -- history of user-visible changes.
 
+* Changes in 0.0.1 (released 2002-10-12)
+
+** APIs for integrity and confidentiality protection of application
+   payload data.
+
+** DIGEST-MD5 support for integrity protection.
+
 * Changes in 0.0.0 (released 2002-10-07)
 
 ** Initial release.

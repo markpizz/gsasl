@@ -31,7 +31,6 @@ in time built on the following systems, but no guarantees.
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
 
-  * Encryption/integrity layers (gsasl_encode() and gsasl_decode())
   * Authentication infrastructure implementing the callbacks for
 	 PAM, Kerberos, SQL, etc.  Separate project?
   + Port applications to use libgsasl
