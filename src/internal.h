@@ -68,6 +68,7 @@
 #include "strdup.h"
 #include "progname.h"
 #include "error.h"
+#include "getpassword.h"
 
 /* Get i18n. */
 #ifdef HAVE_LOCALE_H
