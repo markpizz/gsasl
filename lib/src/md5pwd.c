@@ -22,15 +22,14 @@
 #include "internal.h"
 
 /**
- * gsasl_md5pwd_get_password:
+ * gsasl_simple_getpass:
  * @filename: filename of file containing passwords.
  * @username: username string.
- * @key: output character array.
- * @keylen: input maximum size of output character array, on output
- * contains actual length of output array.
+ * @key: newly allocated output character array.
  *
- * Retrieve password for user from specified file.  To find out how
- * large the output array must be, call this function with out=NULL.
+ * Retrieve password for user from specified file.  The buffer @key
+ * contain the password if this function is successful.  The caller is
+ * responsible for deallocating it.
  *
  * The file should be on the UoW "MD5 Based Authentication" format,
  * which means it is in text format with comments denoted by # first
@@ -38,59 +37,51 @@
  * function removes \r and \n at the end of lines before processing.
  *
  * Return value: Return GSASL_OK if output buffer contains the
- * password, GSASL_AUTHENTICATION_ERROR if the user could not be
- * found, or other error code.
+ *   password, GSASL_AUTHENTICATION_ERROR if the user could not be
+ *   found, or other error code.
  **/
 int
-gsasl_md5pwd_get_password (const char *filename,
-			   const char *username, char *key, size_t * keylen)
+gsasl_simple_getpass (const char *filename,
+		      const char *username,
+		      char **key)
 {
-  char matchbuf[BUFSIZ];
-  char line[BUFSIZ];
+  size_t userlen = strlen (username);
+  char *line = NULL;
+  size_t n = 0;
   FILE *fh;
 
   fh = fopen (filename, "r");
-  if (fh == NULL)
-    return GSASL_FOPEN_ERROR;
-
-  sprintf (matchbuf, "%s\t", username);
-
-  while (!feof (fh))
+  if (fh)
     {
-      if (fgets (line, BUFSIZ, fh) == NULL)
-	break;
-
-      if (line[0] == '#')
-	continue;
-
-      while (strlen (line) > 0 && (line[strlen (line) - 1] == '\n' ||
-				   line[strlen (line) - 1] == '\r'))
-	line[strlen (line) - 1] = '\0';
-
-      if (strlen (line) <= strlen (matchbuf))
-	continue;
-
-      if (strncmp (matchbuf, line, strlen (matchbuf)) == 0)
+      while (!feof (fh))
 	{
-	  if (*keylen < strlen (line) - strlen (matchbuf))
+	  if (getline (&line, &n, fh) < 0)
+	    break;
+
+	  if (line[0] == '#')
+	    continue;
+
+	  if (line[strlen (line) - 1] == '\r')
+	    line[strlen (line) - 1] = '\0';
+	  if (line[strlen (line) - 1] == '\n')
+	    line[strlen (line) - 1] = '\0';
+
+	  if (strncmp (line, username, userlen) == 0 && line[userlen] == '\t')
 	    {
+	      *key = malloc (strlen (line) - userlen);
+	      if (!*key)
+		return GSASL_MALLOC_ERROR;
+
+	      strcpy (*key, line + userlen + 1);
+
 	      fclose (fh);
-	      return GSASL_TOO_SMALL_BUFFER;
+
+	      return GSASL_OK;
 	    }
-
-	  *keylen = strlen (line) - strlen (matchbuf);
-
-	  if (key)
-	    memcpy (key, &line[strlen (matchbuf)], *keylen);
-
-	  fclose (fh);
-
-	  return GSASL_OK;
 	}
-    }
 
-  if (fclose (fh) != 0)
-    return GSASL_FCLOSE_ERROR;
+      fclose (fh);
+    }
 
   return GSASL_AUTHENTICATION_ERROR;
 }

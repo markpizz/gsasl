@@ -33,6 +33,8 @@
 enum
 {
   GSASL_TOO_SMALL_BUFFER = 4,
+  GSASL_FOPEN_ERROR = 5,
+  GSASL_FCLOSE_ERROR = 6,
   GSASL_GCRYPT_ERROR = GSASL_CRYPTO_ERROR,
   GSASL_CANNOT_GET_CTX = 32,
   GSASL_NEED_CLIENT_ANONYMOUS_CALLBACK = 11,
@@ -52,7 +54,8 @@ enum
   GSASL_NEED_SERVER_SERVICE_CALLBACK = 25,
   GSASL_NEED_SERVER_GSSAPI_CALLBACK = 26,
   GSASL_NEED_SERVER_RETRIEVE_CALLBACK = 27,
-  GSASL_UNICODE_NORMALIZATION_ERROR = 28
+  GSASL_UNICODE_NORMALIZATION_ERROR = 28,
+  GSASL_NO_MORE_REALMS = 34
 } __attribute__ ((deprecated));
 
 typedef Gsasl Gsasl_ctx __attribute__ ((deprecated));
@@ -132,6 +135,11 @@ extern char *gsasl_stringprep_nfkc (const char *in, ssize_t len)
 extern char *gsasl_stringprep_saslprep (const char *in, int *stringprep_rc)
   __attribute__ ((deprecated));
 extern char *gsasl_stringprep_trace (const char *in, int *stringprep_rc)
+  __attribute__ ((deprecated));
+
+extern int gsasl_md5pwd_get_password (const char *filename,
+				      const char *username,
+				      char *key, size_t * keylen)
   __attribute__ ((deprecated));
 
 /* Callback prototypes */

@@ -11,6 +11,16 @@ for MD5 and HMAC-MD5.  For more information, see digest-md5/README.
 
 ** Improved robustness of callback backwards compatibility.
 
+** New simple user database API `gsasl_simple_getpass'.
+This replaces gsasl_md5pwd_get_password.
+
+** API and ABI modifications.
+gsasl_md5pwd_get_password: DEPRECATED.  Use gsasl_simple_getpass() instead.
+gsasl_simple_getpass: ADD.  No buffer length restriction.
+GSASL_FOPEN_ERROR: DEPRECATED.  Not used any more.
+GSASL_FCLOSE_ERROR: DEPRECATED.  Not used any more.
+GSASL_NO_MORE_REALMS: DEPRECATED.  Not used any more.
+
 * Version 0.2.3 (released 2004-12-15)
 
 ** NTLM now set the 'domain' field to the GSASL_REALM property value.

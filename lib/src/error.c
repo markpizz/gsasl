@@ -62,14 +62,6 @@ gsasl_strerror (int err)
       p = _("SASL mechanism called too many times");
       break;
 
-    case GSASL_FOPEN_ERROR:
-      p = _("Could not open file in SASL library");
-      break;
-
-    case GSASL_FCLOSE_ERROR:
-      p = _("Could not close file in SASL library");
-      break;
-
     case GSASL_MALLOC_ERROR:
       p = _("Memory allocation error in SASL library");
       break;
@@ -165,10 +157,6 @@ gsasl_strerror (int err)
       p = _("Integrity error in application payload");
       break;
 
-    case GSASL_NO_MORE_REALMS:
-      p = _("No more realms available (non-fatal)");
-      break;
-
     case GSASL_NO_CLIENT_CODE:
       p = _("Client-side functionality not available in library "
 	    "(application error)");
@@ -234,6 +222,14 @@ gsasl_strerror (int err)
 #ifndef GSASL_NO_OBSOLETE
     case GSASL_TOO_SMALL_BUFFER:
       p = _("SASL function need larger buffer (internal error)");
+      break;
+
+    case GSASL_FOPEN_ERROR:
+      p = _("Could not open file in SASL library");
+      break;
+
+    case GSASL_FCLOSE_ERROR:
+      p = _("Could not close file in SASL library");
       break;
 
     case GSASL_CANNOT_GET_CTX:
@@ -359,6 +355,10 @@ gsasl_strerror (int err)
 
     case GSASL_UNICODE_NORMALIZATION_ERROR:
       p = _("Failed to perform Unicode Normalization on string.");
+      break;
+
+    case GSASL_NO_MORE_REALMS:
+      p = _("No more realms available (non-fatal)");
       break;
 #endif
 
