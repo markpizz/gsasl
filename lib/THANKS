@@ -6,20 +6,9 @@ GNU SASL uses libntlm by Grant Edwards maintained by Simon Josefsson;
 libgssapi by MIT/Heimdal; libgcrypt by Werner Koch; GSS, Libidn, and
 Shishi by Simon Josefsson.
 
-Bug reports, patches and/or suggestions were also received from:
-
-Jakub Bogusz
-Lars Engebretsen
-Dirk Dierckx
-Darian Lanx
-Alexey Melnikov
-Marc Mutz
-Andorz Nilsson
-Tomas Ogren
-Wojciech Polak
-Sergey Poznyakoff
-Peter Prohaska
-Paul Romero
+Bug reports, patches and/or suggestions were also received from or
+written by several people.  See the GNU SASL package for the
+(hopefully) complete list.
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
