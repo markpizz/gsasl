@@ -44,12 +44,33 @@ gsasl_finish (Gsasl_session * sctx)
 
   if (sctx->anonymous_token)
     free (sctx->anonymous_token);
+
   if (sctx->authid)
     free (sctx->authid);
+
   if (sctx->authzid)
     free (sctx->authzid);
+
   if (sctx->password)
     free (sctx->password);
+
+  if (sctx->passcode)
+    free (sctx->passcode);
+
+  if (sctx->pin)
+    free (sctx->pin);
+
+  if (sctx->suggestedpin)
+    free (sctx->suggestedpin);
+
+  if (sctx->service)
+    free (sctx->service);
+
+  if (sctx->hostname)
+    free (sctx->hostname);
+
+  if (sctx->gssapi_display_name)
+    free (sctx->gssapi_display_name);
 
   free (sctx);
 }
