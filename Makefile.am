@@ -33,7 +33,6 @@ ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
 # Maintainer targets
 
-.PHONY: ChangeLog
 ChangeLog:
 	test ! -f .cvsusers || \
 	(cvs2cl --FSF --usermap .cvsusers \
