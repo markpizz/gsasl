@@ -1,5 +1,5 @@
 /* server.c --- EXTERNAL mechanism as defined in RFC 2222, server side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -27,10 +27,7 @@
 /* Get specification. */
 #include "external.h"
 
-/* Get malloc, free. */
-#include <stdlib.h>
-
-/* Get memcpy, strlen. */
+/* Get memchr. */
 #include <string.h>
 
 int
@@ -42,26 +39,17 @@ _gsasl_external_server_step (Gsasl_session * sctx,
   *output_len = 0;
   *output = NULL;
 
+  /* Quoting rfc2222bis-09:
+   * extern-resp       = *( UTF8-char-no-nul )
+   * UTF8-char-no-nul  = UTF8-1-no-nul / UTF8-2 / UTF8-3 / UTF8-4
+   * UTF8-1-no-nul     = %x01-7F */
+  if (memchr (input, '\0', input_len))
+    return GSASL_MECHANISM_PARSE_ERROR;
+
+  /* FIXME: Validate that input is UTF-8. */
+
   if (input_len > 0)
-    {
-      char *p;
-
-      p = malloc (input_len + 1);
-      if (!p)
-	return GSASL_MALLOC_ERROR;
-      memcpy (p, input, input_len);
-      p[input_len] = '\0';
-
-      /* An authorization identity is a string of zero or more Unicode
-         [Unicode] coded characters.  The NUL <U+0000> character is not
-         permitted in authorization identities. */
-      if (input_len != strlen (p))
-	return GSASL_MECHANISM_PARSE_ERROR;
-
-      gsasl_property_set (sctx, GSASL_AUTHZID, p);
-
-      free (p);
-    }
+    gsasl_property_set_raw (sctx, GSASL_AUTHZID, input, input_len);
   else
     gsasl_property_set (sctx, GSASL_AUTHZID, NULL);
 
