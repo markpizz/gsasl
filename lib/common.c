@@ -43,7 +43,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_anonymous_client_done,
     _gsasl_anonymous_client_start,
     _gsasl_anonymous_client_step,
-    _gsasl_anonymous_client_finish
+    _gsasl_anonymous_client_finish,
+    NULL,
+    NULL
 #endif
     },
    {
@@ -52,7 +54,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_anonymous_server_done,
     _gsasl_anonymous_server_start,
     _gsasl_anonymous_server_step,
-    _gsasl_anonymous_server_finish
+    _gsasl_anonymous_server_finish,
+    NULL,
+    NULL
 #endif
     }
    },
@@ -66,7 +70,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_external_client_done,
     _gsasl_external_client_start,
     _gsasl_external_client_step,
-    _gsasl_external_client_finish
+    _gsasl_external_client_finish,
+    NULL,
+    NULL
 #endif
     },
    {
@@ -75,7 +81,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_external_server_done,
     _gsasl_external_server_start,
     _gsasl_external_server_step,
-    _gsasl_external_server_finish
+    _gsasl_external_server_finish,
+    NULL,
+    NULL
 #endif
     }
    },
@@ -89,7 +97,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_plain_client_done,
     _gsasl_plain_client_start,
     _gsasl_plain_client_step,
-    _gsasl_plain_client_finish
+    _gsasl_plain_client_finish,
+    NULL,
+    NULL
 #endif
     },
    {
@@ -98,7 +108,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_plain_server_done,
     _gsasl_plain_server_start,
     _gsasl_plain_server_step,
-    _gsasl_plain_server_finish
+    _gsasl_plain_server_finish,
+    NULL,
+    NULL
 #endif
     }
    },
@@ -112,7 +124,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_login_client_done,
     _gsasl_login_client_start,
     _gsasl_login_client_step,
-    _gsasl_login_client_finish
+    _gsasl_login_client_finish,
+    NULL,
+    NULL
 #endif
     },
    {
@@ -121,7 +135,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_login_server_done,
     _gsasl_login_server_start,
     _gsasl_login_server_step,
-    _gsasl_login_server_finish
+    _gsasl_login_server_finish,
+    NULL,
+    NULL
 #endif
     }
    },
@@ -135,7 +151,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_securid_client_done,
     _gsasl_securid_client_start,
     _gsasl_securid_client_step,
-    _gsasl_securid_client_finish
+    _gsasl_securid_client_finish,
+    NULL,
+    NULL
 #endif
     },
    {
@@ -144,7 +162,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_securid_server_done,
     _gsasl_securid_server_start,
     _gsasl_securid_server_step,
-    _gsasl_securid_server_finish
+    _gsasl_securid_server_finish,
+    NULL,
+    NULL
 #endif
     }
    },
@@ -158,10 +178,21 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_ntlm_client_done,
     _gsasl_ntlm_client_start,
     _gsasl_ntlm_client_step,
-    _gsasl_ntlm_client_finish
+    _gsasl_ntlm_client_finish,
+    NULL,
+    NULL
 #endif
-    }
    },
+   {
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     NULL
+   }
+  },
 #endif /* USE_NTLM */
 
 #ifdef USE_CRAM_MD5
@@ -172,7 +203,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_cram_md5_client_done,
     _gsasl_cram_md5_client_start,
     _gsasl_cram_md5_client_step,
-    _gsasl_cram_md5_client_finish
+    _gsasl_cram_md5_client_finish,
+    NULL,
+    NULL
 #endif
     },
    {
@@ -181,7 +214,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_cram_md5_server_done,
     _gsasl_cram_md5_server_start,
     _gsasl_cram_md5_server_step,
-    _gsasl_cram_md5_server_finish
+    _gsasl_cram_md5_server_finish,
+    NULL,
+    NULL
 #endif
     }
    },
@@ -249,7 +284,9 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_gssapi_client_done,
     _gsasl_gssapi_client_start,
     _gsasl_gssapi_client_step,
-    _gsasl_gssapi_client_finish
+    _gsasl_gssapi_client_finish,
+    NULL,
+    NULL
 #endif
     },
    {
@@ -258,11 +295,31 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     _gsasl_gssapi_server_done,
     _gsasl_gssapi_server_start,
     _gsasl_gssapi_server_step,
-    _gsasl_gssapi_server_finish
+    _gsasl_gssapi_server_finish,
+    NULL,
+    NULL
 #endif
     }
    },
 #endif /* USE_GSSAPI */
-
-  {0}
+  {NULL,
+   {
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     NULL
+   },
+   {
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     NULL
+   }
+  }
 };
