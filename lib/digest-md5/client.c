@@ -34,18 +34,16 @@
 #include <string.h>
 
 /* Get tools. */
-#include "shared.h"
-
 #include "tokens.h"
 #include "parser.h"
-#include "validate.h"
 #include "printer.h"
 #include "free.h"
-
-/* Get digest_md5_encode, digest_md5_decode. */
 #include "session.h"
 
-#define CNONCE_ENTROPY_BYTES (CNONCE_ENTROPY_BITS / 8)
+/* Get uint32_t. */
+#include <netinet/in.h>
+
+#define CNONCE_ENTROPY_BYTES 16
 
 struct _Gsasl_digest_md5_client_state
 {
@@ -53,12 +51,12 @@ struct _Gsasl_digest_md5_client_state
   digest_md5_challenge challenge;
   digest_md5_response response;
   digest_md5_finish finish;
-  char secret[MD5LEN];
+  char secret[DIGEST_MD5_LENGTH];
   uint32_t readseqnum, sendseqnum;
-  char kic[MD5LEN];
-  char kcc[MD5LEN];
-  char kis[MD5LEN];
-  char kcs[MD5LEN];
+  char kic[DIGEST_MD5_LENGTH];
+  char kcc[DIGEST_MD5_LENGTH];
+  char kis[DIGEST_MD5_LENGTH];
+  char kcs[DIGEST_MD5_LENGTH];
 
 };
 typedef struct _Gsasl_digest_md5_client_state _Gsasl_digest_md5_client_state;
@@ -200,7 +198,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	  free (tmp);
 	  if (rc != GSASL_OK)
 	    return rc;
-	  memcpy (state->secret, tmp2, MD5LEN);
+	  memcpy (state->secret, tmp2, DIGEST_MD5_LENGTH);
 	  free (tmp2);
 	}
 
@@ -237,7 +235,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 
     case 2:
       {
-	char check[MD5LEN];
+	char check[DIGEST_MD5_LENGTH];
 
 	if (digest_md5_parse_finish (input, input_len, &state->finish) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
@@ -251,7 +249,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	if (res != GSASL_OK)
 	  break;
 
-	if (memcmp (state->finish.rspauth, check, RESPONSE_LENGTH) == 0)
+	if (strcmp (state->finish.rspauth, check) == 0)
 	  res = GSASL_OK;
 	else
 	  res = GSASL_AUTHENTICATION_ERROR;
