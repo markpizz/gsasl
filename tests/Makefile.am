@@ -19,6 +19,7 @@
 # Boston, MA 02111-1307, USA.
 
 AM_CPPFLAGS = -I$(top_srcdir)/lib/src
+AM_LDFLAGS = -no-install
 LDADD = ../lib/src/libgsasl.la
 
 TESTS = simple
