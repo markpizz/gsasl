@@ -27,9 +27,9 @@ SUBDIRS = po
 if NETTLE
 SUBDIRS += crypto
 endif
-SUBDIRS += lib gl src tests doc
+SUBDIRS += lib src tests doc
 
-ACLOCAL_AMFLAGS = -I m4 -I gl/m4
+ACLOCAL_AMFLAGS = -I m4
 
 # Maintainer targets
 

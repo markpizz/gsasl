@@ -43,7 +43,6 @@ AC_PROG_CC
 AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 AC_GNU_SOURCE
-gl_USE_SYSTEM_EXTENSIONS
 AC_PROG_LIBTOOL
 
 # ANONYMOUS
@@ -361,24 +360,8 @@ AC_TYPE_UID_T
 AC_HEADER_TIME
 AC_CHECK_DECLS(errno)
 
-# For gnulib stuff in gl/.
-gl_FUNC_ALLOCA
-gl_ARGP
-gl_ERROR
-gl_EXITFAIL
-gl_GETOPT
-jm_FUNC_MALLOC
-gl_FUNC_MEMPCPY
-jm_FUNC_REALLOC
-gl_C_RESTRICT
-AM_STDBOOL_H
-gl_STRCASE
-gl_FUNC_STRCHRNUL
-gl_FUNC_STRNDUP
-gl_FUNC_STRNLEN
-gl_SYSEXITS
-jm_FUNC_GLIBC_UNLOCKED_IO
-gl_XALLOC
+# Need getopt.
+AC_CHECK_FUNCS(getopt_long,, [AC_LIBOBJ(getopt) AC_LIBOBJ(getopt1)])
 
 # Checks for library functions.
 AC_SEARCH_LIBS(socket, socket)
@@ -395,8 +378,7 @@ AM_MISSING_PROG(DOCBOOK2PDF, docbook2pdf, $missing_dir)
 
 # We are done
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
-		gl/Makefile crypto/Makefile \
 		doc/Makefile doc/reference/Makefile doc/doxygen/Doxyfile \
-		lib/Makefile lib/gsasl.h \
+		crypto/Makefile lib/Makefile lib/gsasl.h \
 		src/Makefile tests/Makefile)
 AC_OUTPUT
