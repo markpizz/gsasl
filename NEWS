@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.3 (unreleased)
 
+** Fix example code to handle base64 encoded data properly.
+
 ** DIGEST-MD5 is disabled by default, pending a rewrite for the new API.
 
 ** Server mode in the command line tool does not work currently.
