@@ -1597,8 +1597,8 @@ argued that in this situation the server can treat the external
 password either as a stored string (from a database) or as a query
 (the server uses the string as a query into the fixed HMAC-MD5 hash).
 
-GNU SASL apply SASLPrep to the password with the AllowUnassigned bit
-cleared.
+In the server, GNU SASL apply SASLPrep to the password with the
+AllowUnassigned bit cleared.
 
 @node Copying This Manual
 @appendix Copying This Manual

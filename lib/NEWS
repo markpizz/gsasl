@@ -9,7 +9,7 @@ Earlier they were not implemented at all.
 
 ** GSS-API now support data integrity and privacy options (experimental!).
 
-** Internal crypto framework re-hashed.
+** Internal crypto framework rehashed.
 Now the selection between Nettle/Libgcrypt happens inside crypto/, and
 gc.h is the generic header that is used by the rest of the package.
 
