@@ -3,19 +3,20 @@
    This file is part of the GNU C Library.
    Written by Miles Bader <miles@gnu.ai.mit.edu>.
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
+   The GNU C Library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Lesser General Public
+   License as published by the Free Software Foundation; either
+   version 2.1 of the License, or (at your option) any later version.
 
-   This program is distributed in the hope that it will be useful,
+   The GNU C Library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Lesser General Public License for more details.
 
-   You should have received a copy of the GNU General Public License along
-   with this program; if not, write to the Free Software Foundation,
-   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
+   You should have received a copy of the GNU Lesser General Public
+   License along with the GNU C Library; if not, write to the Free
+   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+   02111-1307 USA.  */
 
 #ifndef _GNU_SOURCE
 # define _GNU_SOURCE	1
@@ -49,7 +50,6 @@ char *alloca ();
 #include <string.h>
 #include <assert.h>
 #include <stdarg.h>
-#include <malloc.h>
 #include <ctype.h>
 #ifdef USE_IN_LIBIO
 # include <wchar.h>
@@ -66,6 +66,18 @@ char *alloca ();
 #  endif
 # else
 #  define dgettext(domain, msgid) (msgid)
+# endif
+#endif
+
+#ifndef _LIBC
+# if HAVE_STRERROR_R
+#  if !HAVE_DECL_STRERROR_R
+char *strerror_r (int errnum, char *buf, size_t buflen);
+#  endif
+# else
+#  if !HAVE_DECL_STRERROR
+char *strerror (int errnum);
+#  endif
 # endif
 #endif
 
@@ -551,7 +563,7 @@ hol_entry_short_iterate (const struct hol_entry *entry,
 }
 
 static inline int
-__attribute ((always_inline))
+__attribute__ ((always_inline))
 hol_entry_long_iterate (const struct hol_entry *entry,
 			int (*func)(const struct argp_option *opt,
 				    const struct argp_option *real,
@@ -1537,7 +1549,9 @@ _help (const struct argp *argp, const struct argp_state *state, FILE *stream,
   if (! stream)
     return;
 
+#if _LIBC || (HAVE_FLOCKFILE && HAVE_FUNLOCKFILE)
   __flockfile (stream);
+#endif
 
   if (! uparams.valid)
     fill_in_uparams (state);
@@ -1545,7 +1559,9 @@ _help (const struct argp *argp, const struct argp_state *state, FILE *stream,
   fs = __argp_make_fmtstream (stream, 0, uparams.rmargin, 0);
   if (! fs)
     {
+#if _LIBC || (HAVE_FLOCKFILE && HAVE_FUNLOCKFILE)
       __funlockfile (stream);
+#endif
       return;
     }
 
@@ -1653,7 +1669,9 @@ Try `%s --help' or `%s --usage' for more information.\n"),
       anything = 1;
     }
 
+#if _LIBC || (HAVE_FLOCKFILE && HAVE_FUNLOCKFILE)
   __funlockfile (stream);
+#endif
 
   if (hol)
     hol_free (hol);
@@ -1672,6 +1690,32 @@ void __argp_help (const struct argp *argp, FILE *stream,
 weak_alias (__argp_help, argp_help)
 #endif
 
+#ifndef _LIBC
+char *__argp_basename (char *name)
+{
+  char *short_name = strrchr (name, '/');
+  return short_name ? short_name + 1 : name;
+}
+#endif
+
+char *
+__argp_short_program_name (void)
+{
+#if defined _LIBC || HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME
+  return program_invocation_short_name;
+#elif HAVE_DECL_PROGRAM_INVOCATION_NAME
+  return __argp_basename (program_invocation_name);
+#else
+  /* FIXME: What now? Miles suggests that it is better to use NULL,
+     but currently the value is passed on directly to fputs_unlocked,
+     so that requires more changes. */
+#if __GNUC__
+# warning No reasonable value to return
+#endif /* __GNUC__ */
+  return "";
+#endif
+}
+
 /* Output, if appropriate, a usage message for STATE to STREAM.  FLAGS are
    from the set ARGP_HELP_*.  */
 void
@@ -1683,7 +1727,7 @@ __argp_state_help (const struct argp_state *state, FILE *stream, unsigned flags)
 	flags |= ARGP_HELP_LONG_ONLY;
 
       _help (state ? state->root_argp : 0, state, stream, flags,
-	     state ? state->name : program_invocation_short_name);
+	     state ? state->name : __argp_short_program_name ());
 
       if (!state || ! (state->flags & ARGP_NO_EXIT))
 	{
@@ -1712,7 +1756,9 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 	{
 	  va_list ap;
 
+#if _LIBC || (HAVE_FLOCKFILE && HAVE_FUNLOCKFILE)
 	  __flockfile (stream);
+#endif
 
 	  va_start (ap, fmt);
 
@@ -1724,7 +1770,7 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 	      __asprintf (&buf, fmt, ap);
 
 	      __fwprintf (stream, L"%s: %s\n",
-			  state ? state->name : program_invocation_short_name,
+			  state ? state->name : __argp_short_program_name (),
 			  buf);
 
 	      free (buf);
@@ -1733,7 +1779,7 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 #endif
 	    {
 	      fputs_unlocked (state
-			      ? state->name : program_invocation_short_name,
+			      ? state->name : __argp_short_program_name (),
 			      stream);
 	      putc_unlocked (':', stream);
 	      putc_unlocked (' ', stream);
@@ -1747,7 +1793,9 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 
 	  va_end (ap);
 
+#if _LIBC || (HAVE_FLOCKFILE && HAVE_FUNLOCKFILE)
 	  __funlockfile (stream);
+#endif
 	}
     }
 }
@@ -1773,16 +1821,18 @@ __argp_failure (const struct argp_state *state, int status, int errnum,
 
       if (stream)
 	{
+#if _LIBC || (HAVE_FLOCKFILE && HAVE_FUNLOCKFILE)
 	  __flockfile (stream);
+#endif
 
 #ifdef USE_IN_LIBIO
 	  if (_IO_fwide (stream, 0) > 0)
 	    __fwprintf (stream, L"%s",
-			state ? state->name : program_invocation_short_name);
+			state ? state->name : __argp_short_program_name ());
 	  else
 #endif
 	    fputs_unlocked (state
-			    ? state->name : program_invocation_short_name,
+			    ? state->name : __argp_short_program_name (),
 			    stream);
 
 	  if (fmt)
@@ -1826,7 +1876,11 @@ __argp_failure (const struct argp_state *state, int status, int errnum,
 		{
 		  putc_unlocked (':', stream);
 		  putc_unlocked (' ', stream);
+#if defined _LIBC || defined HAVE_STRERROR_R
 		  fputs (__strerror_r (errnum, buf, sizeof (buf)), stream);
+#else
+		  fputs (strerror (errnum), stream);
+#endif
 		}
 	    }
 
@@ -1837,7 +1891,9 @@ __argp_failure (const struct argp_state *state, int status, int errnum,
 #endif
 	    putc_unlocked ('\n', stream);
 
+#if _LIBC || (HAVE_FLOCKFILE && HAVE_FUNLOCKFILE)
 	  __funlockfile (stream);
+#endif
 
 	  if (status && (!state || !(state->flags & ARGP_NO_EXIT)))
 	    exit (status);

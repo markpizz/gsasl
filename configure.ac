@@ -306,9 +306,6 @@ AC_TYPE_UID_T
 AC_HEADER_TIME
 AC_CHECK_DECLS(errno)
 
-# Checks for library functions.
-AC_SEARCH_LIBS(gethostbyname, xnet)
-
 # For gnulib stuff in gl/.
 gl_FUNC_ALLOCA
 gl_ARGP
@@ -327,8 +324,6 @@ gl_FUNC_STRNDUP
 gl_FUNC_STRNLEN
 gl_SYSEXITS
 jm_FUNC_GLIBC_UNLOCKED_IO
-gl_FUNC_VASNPRINTF
-gl_FUNC_VASPRINTF
 gl_XALLOC
 
 # Check for gtk-doc.

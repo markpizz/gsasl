@@ -1,4 +1,4 @@
-# argp vasprintf gethostname memmove memset strdup minmax
+# argp gethostname memmove memset strdup minmax
 # s/libfoo_a/libfoo_la/g s/libfoo.a/libfoo.la/g
 SUBDIRS = m4
 
@@ -71,10 +71,6 @@ sysexits.h: sysexit_.h
 MOSTLYCLEANFILES += sysexits.h sysexits.h-t
 
 libfoo_la_SOURCES += unlocked-io.h
-
-libfoo_la_SOURCES += printf-args.h printf-parse.h vasnprintf.h
-
-libfoo_la_SOURCES += vasprintf.h
 
 libfoo_la_SOURCES += xalloc.h xmalloc.c xstrdup.c
 
