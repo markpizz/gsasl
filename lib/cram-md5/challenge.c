@@ -20,19 +20,24 @@
  *
  */
 
-/* Get size_t. */
 #include <stddef.h>
+#include <stdio.h>
+#include <assert.h>
 
+/* Get prototype. */
 #include "challenge.h"
 
 /* Get gc_nonce. */
 #include <gc.h>
 
-#define DECCHAR(c) ((c & 0x0F) > 9 ? '0' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
+#define HEXCHAR(c) (((c) & 0x0F) > 9 ?		\
+		    'a' + ((c) & 0x0F) - 10 :	\
+		    '0' + ((c) & 0x0F))
 
 void
 cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN])
 {
+  char nonce[10];
   size_t i;
 
   /*
@@ -52,16 +57,15 @@ cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN])
    *
    */
 
-  memcpy (challenge, "<XXXXXXXXXXXXXXXXXXXX.0@localhost>",
-	  CRAM_MD5_CHALLENGE_LEN);
+#define TEMPLATE "<XXXXXXXXXXXXXXXXXXXX.0@localhost>"
+  assert (strlen (TEMPLATE) == CRAM_MD5_CHALLENGE_LEN - 1);
+  memcpy (challenge, TEMPLATE, CRAM_MD5_CHALLENGE_LEN);
 
-  gc_nonce (&challenge[1], 10);
+  gc_nonce (nonce, sizeof (nonce));
 
-  for (i = 0; i < 10; i++)
+  for (i = 0; i < sizeof (nonce); i++)
     {
-      /* The probabilities for each digit are skewed (0-6 more likely
-	 than 7-9), but it is just used as a nonce anyway. */
-      challenge[11 + i] = DECCHAR (challenge[1 + i]);
-      challenge[ 1 + i] = DECCHAR (challenge[1 + i] >> 4);
+      challenge[1 + i] = HEXCHAR (nonce[i]);
+      challenge[11 + i] = HEXCHAR (nonce[i] >> 4);
     }
 }
