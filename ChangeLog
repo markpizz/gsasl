@@ -1,3 +1,47 @@
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix title.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/Makefile.am: Add nettle-types.h to BUILT_SOURCES and
+	DISTCLEANFILES.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* crypto/Makefile.am: Dist nettle-internal.h.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.0.13.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Generated.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, crypto/hmac.c, crypto/hmac.h, crypto/md5.h,
+	crypto/memxor.h, crypto/nettle-internal.h, crypto/nettle-meta.h,
+	m4/ax_create_stdint_h.m4: Update Nettle files.  Use
+	ax_create_stdint_h, for Nettle.
+
+2004-01-16  Simon Josefsson <simon@josefsson.org>
+
+	* po/gsasl.pot: Remove.
+
+2004-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2004-01-15  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.0.12.
