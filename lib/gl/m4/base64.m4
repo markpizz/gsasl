@@ -14,5 +14,5 @@ AC_DEFUN([gl_FUNC_BASE64],
 # Prerequisites of lib/base64.c.
 AC_DEFUN([gl_PREREQ_BASE64], [
   AC_REQUIRE([AC_C_INLINE])
-  AC_REQUIRE([gl_SIZE_MAX])
+  AC_REQUIRE([gl_C_RESTRICT])
 ])
