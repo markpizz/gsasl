@@ -255,29 +255,21 @@ AC_MSG_RESULT($kerberos_v5)
 AM_CONDITIONAL(KERBEROS_V5, test x$kerberos_v5 = xyes)
 
 # Check for idn
-AC_ARG_WITH(system-idn,
-  AC_HELP_STRING([--without-system-idn],
-		[don't use the system's libidn]))
-if test "$with_system_idn" != "no" ; then
-	PKG_CHECK_MODULES(LIBIDN, libidn >= 0.1.0,
-		with_system_idn=yes,
-		with_system_idn=no)
+AC_ARG_WITH(stringprep,
+  AC_HELP_STRING([--without-stringprep],
+		[don't use libidn for string processing even if available]),
+	stringprep=$withval, stringprep=yes)
+if test "$stringprep" != "no"; then
+	AC_CHECK_HEADER(stringprep.h,, stringprep=no)
 fi
-if test "$with_system_idn" = "no"; then
-	echo "*** The system's GNU Libidn 0.1.0 or later not used."
-	echo "*** Using copy distributed with GNU SASL instead."
-	echo "*** See http://josefsson.org/libidn/ to get GNU Libidn."
-	AC_MSG_WARN([libidn not installed on system])
-	LIBIDN_CFLAGS="-I\$(top_srcdir)/libstringprep/lib -I\$(top_builddir)/libstringprep/lib"
-	LIBIDN_LIBS="\$(top_builddir)/libstringprep/lib/libidn.la"
-	LIBIDN=libstringprep
+if test "$stringprep" != "no"; then
+	AC_CHECK_LIB(idn, stringprep_check_version,,
+		stringprep=no
+		AC_MSG_WARN([Libidn not found.  String process disabled.]))
 fi
-AC_SUBST(LIBIDN)
-AC_SUBST(LIBIDN_CFLAGS)
-AC_SUBST(LIBIDN_LIBS)
-AC_MSG_CHECKING([if system's libidn should be used])
-AC_MSG_RESULT($with_system_idn)
-AC_CONFIG_SUBDIRS(libstringprep)
+if test "$stringprep" != "no"; then
+	AC_DEFINE(WITH_STRINGPREP, 1, [Define to 1 if you want to use libidn.])
+fi
 
 # Allow disabling of client or server.
 AC_ARG_ENABLE(client,
