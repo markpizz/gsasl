@@ -377,7 +377,7 @@ main (int argc, char *argv[])
 	    fprintf (stderr,
 		     _("Input SASL mechanism supported by server:\n"));
 	  if (imap)
-	    printf(". CAPABILITY");
+	    printf (". CAPABILITY");
 	  input[0] = '\0';
 	  fgets (input, MAX_LINE_LENGTH, stdin);
 

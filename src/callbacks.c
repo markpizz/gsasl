@@ -363,8 +363,7 @@ server_callback_external (Gsasl_session_ctx * ctx)
 int
 server_callback_validate (Gsasl_session_ctx * ctx,
 			  const char *authorization_id,
-			  const char *authentication_id,
-			  const char *password)
+			  const char *authentication_id, const char *password)
 {
   char *data;
 
@@ -395,8 +394,7 @@ int
 server_callback_retrieve (Gsasl_session_ctx * ctx,
 			  const char *authentication_id,
 			  const char *authorization_id,
-			  const char *realm,
-			  char *key, size_t * keylen)
+			  const char *realm, char *key, size_t * keylen)
 {
   int rc;
 

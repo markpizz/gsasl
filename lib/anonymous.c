@@ -175,7 +175,7 @@ _gsasl_anonymous_server_step (Gsasl_session_ctx * sctx,
 	return GSASL_NEEDS_MORE;
       /* fall through */
 
-    case 1: 
+    case 1:
       if (input_len == 0)
 	return GSASL_MECHANISM_PARSE_ERROR;
 

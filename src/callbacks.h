@@ -22,7 +22,7 @@
 #ifndef _CALLBACKS_H
 #define _CALLBACKS_H
 
-#include <gsasl.h> /* Gsasl_session_ctx */
+#include <gsasl.h>		/* Gsasl_session_ctx */
 
 /* Client callbacks */
 

@@ -302,8 +302,7 @@ client_callback_password (Gsasl_session_ctx * xctx, char *out,
 int
 server_callback_validate (Gsasl_session_ctx * xctx,
 			  const char *authorization_id,
-			  const char *authentication_id, 
-			  const char *password)
+			  const char *authentication_id, const char *password)
 {
   Gsasl_ctx *ctx = gsasl_server_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
@@ -330,8 +329,7 @@ int
 server_callback_retrieve (Gsasl_session_ctx * xctx,
 			  const char *authentication_id,
 			  const char *authorization_id,
-			  const char *realm,
-			  char *key, size_t * keylen)
+			  const char *realm, char *key, size_t * keylen)
 {
   Gsasl_ctx *ctx = gsasl_server_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
