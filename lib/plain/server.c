@@ -34,13 +34,10 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 			  const char *input, size_t input_len,
 			  char **output, size_t * output_len)
 {
-  Gsasl_server_callback_validate cb_validate;
-  Gsasl_server_callback_retrieve cb_retrieve;
   const char *authorization_id = NULL;
   char *authentication_id = NULL;
   char *passwordptr = NULL;
   char *password = NULL;
-  Gsasl_ctx *ctx;
   int res;
 
   *output_len = 0;
@@ -63,57 +60,40 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
   if (passwordptr == NULL)
     return GSASL_MECHANISM_PARSE_ERROR;
 
-  ctx = gsasl_server_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  cb_validate = gsasl_server_callback_validate_get (ctx);
-  cb_retrieve = gsasl_server_callback_retrieve_get (ctx);
-  if (cb_validate == NULL && cb_retrieve == NULL)
-    return GSASL_NEED_SERVER_VALIDATE_CALLBACK;
-
   password = malloc (input_len - (passwordptr - input) + 1);
   if (password == NULL)
     return GSASL_MALLOC_ERROR;
   memcpy (password, passwordptr, input_len - (passwordptr - input));
   password[input_len - (passwordptr - input)] = '\0';
 
-  if (cb_validate)
+  if (input_len - (passwordptr - input) != strlen (password))
     {
-      res = cb_validate (sctx, authorization_id, authentication_id, password);
+      free (password);
+      return GSASL_MECHANISM_PARSE_ERROR;
     }
-  else
+
+  gsasl_property_set (sctx, GSASL_AUTHID, authentication_id);
+  gsasl_property_set (sctx, GSASL_AUTHZID, authorization_id);
+  gsasl_property_set (sctx, GSASL_PASSWORD, password);
+
+  res = gsasl_callback (sctx, GSASL_SERVER_VALIDATE);
+  if (res != GSASL_CANNOT_VALIDATE)
     {
-      size_t keylen;
-      char *key;
+      const char *key;
       char *normkey;
 
-      res = cb_retrieve (sctx, authentication_id, authorization_id, NULL,
-			 NULL, &keylen);
-      if (res != GSASL_OK)
+      gsasl_property_set (sctx, GSASL_PASSWORD, NULL);
+
+      key = gsasl_property_get (sctx, GSASL_PASSWORD);
+      if (!key)
 	{
 	  free (password);
-	  return res;
+	  return GSASL_NO_PASSWORD;
 	}
-      key = malloc (keylen);
-      if (key == NULL)
-	{
-	  free (password);
-	  return GSASL_MALLOC_ERROR;
-	}
-      res = cb_retrieve (sctx, authentication_id, authorization_id, NULL,
-			 key, &keylen);
-      if (res != GSASL_OK)
-	{
-	  free (key);
-	  free (password);
-	  return res;
-	}
-      normkey = gsasl_stringprep_nfkc (key, keylen);
-      free (key);
+
+      normkey = gsasl_stringprep_saslprep (key, NULL);
       if (normkey == NULL)
 	{
-	  free (normkey);
 	  free (password);
 	  return GSASL_UNICODE_NORMALIZATION_ERROR;
 	}
