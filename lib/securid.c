@@ -267,7 +267,7 @@ _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
 	  if (pin)
 	    {
 	      pin++;
-	      if (pin && strlen (pin) == 0)
+	      if (pin && !*pin)
 		pin = NULL;
 	    }
 	}
