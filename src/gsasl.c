@@ -20,6 +20,7 @@
  */
 
 #include <progname.h>
+#include <error.h>
 
 #include "internal.h"
 #include "callbacks.h"
@@ -212,11 +213,10 @@ main (int argc, char *argv[])
   if (cmdline_parser (argc, argv, &args_info) != 0)
     return 1;
 
-  if (!args_info.client_flag &&
-      !args_info.server_flag &&
+  if (!args_info.client_flag && !args_info.server_flag &&
       !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
     {
-      fprintf (stderr, "%s: missing argument\n", argv[0]);
+      error (0, 0, "missing argument");
       cmdline_parser_print_help ();
       printf ("\nReport bugs to <%s>\n", PACKAGE_BUGREPORT);
       return 1;
@@ -247,7 +247,6 @@ main (int argc, char *argv[])
 #if HAVE_GETADDRINFO
       struct addrinfo hints;
       struct addrinfo *ai;
-      int gairc;
 #else
       struct servent *se;
       struct hostent *he;
@@ -285,24 +284,18 @@ main (int argc, char *argv[])
 #if HAVE_GETADDRINFO
       memset (&hints, 0, sizeof (hints));
       hints.ai_socktype = SOCK_STREAM;
-      gairc = getaddrinfo (connect_hostname, connect_service, &hints, &ai);
-      if (gairc != 0)
-	{
-	  fprintf (stderr, "%s: getaddrinfo (%s, %s): %s\n", argv[0],
-		   connect_hostname, connect_service, gai_strerror(gairc));
-	  return 1;
-	}
+      res = getaddrinfo (connect_hostname, connect_service, &hints, &ai);
+      if (res != 0)
+	error (EXIT_FAILURE, 0, "%s: %s", connect_hostname,
+	       gai_strerror (res));
       saddr = ai->ai_addr;
       saddrlen = ai->ai_addrlen;
 #else
       memset (&connect_addr, 0, sizeof (connect_addr));
       he = gethostbyname (connect_hostname);
       if (!he || he->h_addr_list[0] == NULL)
-	{
-	  fprintf (stderr, "%s: unknown host: %s\n", argv[0],
-		   connect_hostname);
-	  return 1;
-	}
+	error (EXIT_FAILURE, 0, "%s: %s", connect_hostname,
+	       hstrerror (h_errno));
       saddr->sa_family = he->h_addrtype;
       if (he->h_addrtype == AF_INET)
 	{
@@ -312,36 +305,24 @@ main (int argc, char *argv[])
 	  if (se)
 	    saddrin->sin_port = se->s_port;
 	  else if (atoi (connect_service) == 0)
-	    {
-	      fprintf (stderr, "%s: unknown service: %s\n", argv[0],
-		       connect_service);
-	      return 1;
-	    }
+	    error (EXIT_FAILURE, 0, "unknown service: %s", connect_service);
 	  else
 	    saddrin->sin_port = htons (atoi (connect_service));
 	}
       else
-	{
-	  fprintf (stderr, "%s: unsupported address type: %d\n",
-		   argv[0], he->h_addrtype);
-	  return 1;
-	}
+	error (EXIT_FAILURE, 0, "unsupported address type: %d",
+	       he->h_addrtype);
 #endif
 
       sockfd = socket (saddr->sa_family, SOCK_STREAM, 0);
       if (sockfd < 0)
-	{
-	  fprintf (stderr, "%s: ", argv[0]);
-	  perror ("socket");
-	  return 1;
-	}
+	error (EXIT_FAILURE, errno, "socket");
 
       if (connect (sockfd, saddr, saddrlen) < 0)
 	{
-	  fprintf (stderr, "%s: ", argv[0]);
-	  perror ("connect");
+	  int save_errno = errno;
 	  close (sockfd);
-	  return 1;
+	  error (EXIT_FAILURE, save_errno, "connect");
 	}
 
 #if HAVE_GETADDRINFO
@@ -354,11 +335,8 @@ main (int argc, char *argv[])
 
   res = gsasl_init (&ctx);
   if (res != GSASL_OK)
-    {
-      fprintf (stderr, _("Libgsasl error (%d): %s\n"), res,
-	       gsasl_strerror (res));
-      return 1;
-    }
+    error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
+	   gsasl_strerror (res));
 
   /* Set callbacks */
   if (args_info.maxbuf_arg != 0)
@@ -399,11 +377,8 @@ main (int argc, char *argv[])
 	res = gsasl_server_mechlist (ctx, &mechs);
 
       if (res != GSASL_OK)
-	{
-	  fprintf (stderr, _("Libgsasl error (%d): %s\n"), res,
-		   gsasl_strerror (res));
-	  return 1;
-	}
+	error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
+	       gsasl_strerror (res));
 
       if (!args_info.quiet_given)
 	{
@@ -453,11 +428,8 @@ main (int argc, char *argv[])
       else
 	res = gsasl_server_start (ctx, mech, &xctx);
       if (res != GSASL_OK)
-	{
-	  fprintf (stderr, _("Libgsasl error (%d): %s\n"),
-		   res, gsasl_strerror (res));
-	  return 1;
-	}
+	error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
+	       gsasl_strerror (res));
 
       in = NULL;
       out = NULL;
@@ -498,11 +470,8 @@ main (int argc, char *argv[])
       while (res == GSASL_NEEDS_MORE);
 
       if (res != GSASL_OK)
-	{
-	  fprintf (stderr, _("Libgsasl error (%d): %s\n"),
-		   res, gsasl_strerror (res));
-	  return 1;
-	}
+	error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
+	       gsasl_strerror (res));
 
       if (!auth_finish ())
 	return 1;
@@ -593,11 +562,8 @@ main (int argc, char *argv[])
 	    }
 
 	  if (res != GSASL_OK)
-	    {
-	      fprintf (stderr, _("Libgsasl error (%d): %s\n"),
-		       res, gsasl_strerror (res));
-	      return 1;
-	    }
+	    error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
+		   gsasl_strerror (res));
 	}
 
       if (!args_info.quiet_given)
