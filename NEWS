@@ -76,6 +76,10 @@ gsasl_server_listmech: DEPRECATED: use gsasl_server_mechlist instead.
 gsasl_stringprep_nfkc: NEW.
 gsasl_stringprep_saslprep: NEW.
 gsasl_stringprep_trace: NEW.
+gsasl_client_step: DEPRECATED: use gsasl_step instead.
+gsasl_server_step: DEPRECATED: use gsasl_step instead.
+gsasl_client_step_base64: DEPRECATED: use gsasl_step64 instead.
+gsasl_server_step_base64: DEPRECATED: use gsasl_step64 instead.
 
 * Changes in 0.0.7 (released 2003-06-02)
 
