@@ -38,7 +38,7 @@ AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 
 # Checks for header files.
 AC_CHECK_HEADERS(sys/types.h sys/poll.h sys/time.h sys/select.h sys/socket.h)
-AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h)
+AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h pwd.h)
 
 # Checks for library functions.
 AC_SEARCH_LIBS(socket, socket)
