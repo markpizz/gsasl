@@ -4,17 +4,6 @@ See the end for copying conditions.
 
 * Changes in 0.0.9 (unreleased)
 
-** Final (non-bugfix) release of the 0.0.x branch.
-The 0.1.x branch will be started after this release.  Only necessary
-bugfix releases will be made for the 0.0.x branch.  The goals with
-0.1.x is to clean up the API, especially regarding callbacks.  Some of
-the API cleanups (e.g., replacing gsasl_*_step_* with gsasl_step and
-gsasl_step64, the latter return heap allocated strings instead of
-using fixed size buffer from caller) are initiated in this release,
-but the old API entry points are still valid (and the self-test suite
-and command-line application still use the old API).  The old API
-entry points will be valid and supported throughout 0.1.x.
-
 ** DocBook manuals in XML, PDF, PostScript, ASCII and HTML formats included.
 
 ** Token parser in DIGEST-MD5 fixed, improve interoperability of DIGEST-MD5.
