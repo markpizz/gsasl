@@ -62,6 +62,8 @@ release:
 		$(distdir).tar.gz{,.sig,.directive.asc}
 	cd doc && ./gendocs.sh --html "--css-include=texinfo.css" \
 		-o ../$(htmldir)/manual/ $(PACKAGE) "GNU SASL"
+	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/
 	cp -v doc/reference/*.{html,png} $(htmldir)/reference/
-	-cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make ps pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf && cp doc/doxygen/latex/refman.ps $(htmldir)/doxygen/$(PACKAGE).ps
-	cd $(htmldir) && cvs commit -m "Update." manual/ reference/ doxygen/
+	cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make ps pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf && cp doc/doxygen/latex/refman.ps $(htmldir)/doxygen/$(PACKAGE).ps
+	cd $(htmldir) && cvs add -kb releases/$(distdir).tar.gz{,.sig} && \
+		cvs commit -m "Update." manual/ reference/ doxygen/
