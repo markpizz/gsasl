@@ -1210,25 +1210,48 @@ Shared client and server properties:
 
 @itemize
 
-@item GSASL_AUTHID
+@item @code{GSASL_AUTHID}
+
 The authentication identity.
 
-@item GSASL_AUTHZID
+@item @code{GSASL_AUTHZID}
+
 The authorization identity.
 
-@item GSASL_PASSWORD
+@item @code{GSASL_PASSWORD}
+
 The password of the authentication identity.
 
-@item GSASL_ANONYMOUS_TOKEN
+@item @code{GSASL_ANONYMOUS_TOKEN}
+
 The anonymous token.  This is typically the email address of the user.
 
-@item GSASL_PASSCODE
+@item @code{GSASL_SERVICE}
+
+The registered GSSAPI service name of the application service,
+e.g. ``imap''.  While the names are registered for GSSAPI, other
+mechanisms such as DIGEST-MD5 may also use this.
+
+@item @code{GSASL_HOSTNAME}
+
+Should be the local host name of the machine.
+
+@item @code{GSASL_GSSAPI_DISPLAY_NAME}
+
+Contain the GSSAPI ``display name'', set by the server GSSAPI
+mechanism.  Typically you retrieve this property in your callback,
+when invoked for @code{GSASL_VALIDATE_GSSAPI}.
+
+@item @code{GSASL_PASSCODE}
+
 The SecurID passcode.
 
-@item GSASL_PIN
+@item @code{GSASL_PIN}
+
 The SecurID personal identification number (PIN).
 
-@item GSASL_SUGGESTED_PIN
+@item @code{GSASL_SUGGESTED_PIN}
+
 A SecurID personal identification number (PIN) suggested by the server.
 
 @end itemize
@@ -1237,16 +1260,31 @@ Server specific properties, used to validate client:
 
 @itemize
 
-@item GSASL_VALIDATE_EXTERNAL
+@item @code{GSASL_VALIDATE_SIMPLE}
+
+You may retrieve GSASL_AUTHID, GSASL_AUTHZID and GSASL_PASSWORD and
+use them to make an authentication and authorization decision.
+
+@item @code{GSASL_VALIDATE_EXTERNAL}
+
 Used by EXTERNAL mechanism on the server side to validate the client.
 The GSASL_AUTHID will contain the authorization identity of the
 client.
 
-@item GSASL_VALIDATE_ANONYMOUS
+@item @code{GSASL_VALIDATE_ANONYMOUS}
+
 Used by ANONYMOUS mechanism on the server side to validate the client.
 The GSASL_ANONYMOUS_TOKEN will contain token that identity the client.
 
-@item GSASL_VALIDATE_SECURID
+@item @code{GSASL_VALIDATE_GSSAPI}
+
+Used by the GSSAPI mechanism on the server side, to validate the
+client.  You may retrieve the authorization identity from
+GSASL_AUTHZID and the GSS-API display name from
+GSASL_GSSAPI_DISPLAY_NAME.
+
+@item @code{GSASL_VALIDATE_SECURID}
+
 Used by SECURID mechanism on the server side to validate client.  The
 GSASL_AUTHID, GSASL_AUTHZID, GSASL_PASSCODE, and GSASL_PIN will be
 set.  It can return GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE to
@@ -1692,7 +1730,7 @@ value.  Applications are encouraged to use the constants even for OK
 as it improves readability.  Possible values are:
 
 @table @code
-@item GSASL_OK
+@item @code{GSASL_OK}
 This value indicates success.  The value of this error is guaranteed
 to always be @code{0} so you may use it in boolean constructs.
 
