@@ -21,6 +21,8 @@
 
 #include "internal.h"
 
+extern int _gsasl_crypto_init (void);
+
 /**
  * gsasl_init:
  * @ctx: pointer to libgsasl handle.
@@ -37,6 +39,9 @@ gsasl_init (Gsasl ** ctx)
   int i;
 
   bindtextdomain (PACKAGE, LOCALEDIR);
+
+  if (_gsasl_crypto_init () != GSASL_OK)
+    return GSASL_CRYPTO_ERROR;
 
   *ctx = (Gsasl *) malloc (sizeof (**ctx));
   if (*ctx == NULL)
