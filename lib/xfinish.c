@@ -22,32 +22,19 @@
 #include "internal.h"
 
 /**
- * gsasl_client_finish:
- * @sctx: libgsasl client handle.
+ * gsasl_finish:
+ * @sctx: libgsasl session handle.
  *
- * Destroy a libgsasl client handle.  The handle must not be used with
- * other libgsasl functions after this call.
+ * Destroy a libgsasl client or server handle.  The handle must not be
+ * used with other libgsasl functions after this call.
  **/
 void
-gsasl_client_finish (Gsasl_session_ctx * sctx)
+gsasl_finish (Gsasl_session_ctx * sctx)
 {
-  sctx->mech->client.finish (sctx, sctx->mech_data);
-  /* XXX return value? */
-
-  free (sctx);
-}
-
-/**
- * gsasl_server_finish:
- * @sctx: libgsasl server handle.
- *
- * Destroy a libgsasl server handle.  The handle must not be used with
- * other libgsasl functions after this call.
- **/
-void
-gsasl_server_finish (Gsasl_session_ctx * sctx)
-{
-  sctx->mech->server.finish (sctx, sctx->mech_data);
+  if (sctx->clientp)
+    sctx->mech->client.finish (sctx, sctx->mech_data);
+  else
+    sctx->mech->server.finish (sctx, sctx->mech_data);
   /* XXX return value? */
 
   free (sctx);
