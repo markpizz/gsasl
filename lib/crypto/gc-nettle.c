@@ -44,7 +44,7 @@ gc_init (void)
   return GC_OK;
 }
 
-static void
+static int
 randomize (int strong, uint8_t *data, size_t datalen)
 {
   int fd;
