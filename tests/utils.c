@@ -28,7 +28,7 @@
 
 #include "utils.h"
 
-int debug = 0;
+int debug = 1;
 int error_count = 0;
 int break_on_error = 0;
 

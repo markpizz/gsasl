@@ -1,4 +1,4 @@
-/* cram-md5.c --- Test the CRAM-MD5 mechanism.
+/* cram-md5.c --- Test the CRAM-MD5 mechanism, using old callback API.
  * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -35,32 +35,53 @@
 /* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
 /* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
 
+static int
+server_cb_retrieve (Gsasl_session_ctx * xctx,
+		    const char *authentication_id,
+		    const char *authorization_id,
+		    const char *realm, char *key, size_t * keylen)
+{
+  size_t needlen = strlen (PASSWORD);
+
+  if (key && *keylen < needlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  *keylen = needlen;
+  if (key)
+    memcpy (key, PASSWORD, *keylen);
+
+  return GSASL_OK;
+}
 
 static int
-callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
+client_cb_authentication_id (Gsasl_session_ctx * xctx,
+			     char *out, size_t * outlen)
 {
-  int rc = GSASL_NO_CALLBACK;
+  size_t needlen = strlen (USERNAME);
 
-  /* Get user info from user. */
+  if (out && *outlen < needlen)
+    return GSASL_TOO_SMALL_BUFFER;
 
-  switch (prop)
-    {
-    case GSASL_PASSWORD:
-      gsasl_property_set (sctx, GSASL_PASSWORD, PASSWORD);
-      rc = GSASL_OK;
-      break;
+  *outlen = needlen;
+  if (out)
+    memcpy (out, USERNAME, *outlen);
 
-    case GSASL_AUTHID:
-      gsasl_property_set (sctx, GSASL_AUTHID, USERNAME);
-      rc = GSASL_OK;
-      break;
+  return GSASL_OK;
+}
 
-    default:
-      fail ("Unknown callback property %d\n", prop);
-      break;
-    }
+static int
+client_cb_password (Gsasl_session_ctx * xctx, char *out, size_t * outlen)
+{
+  size_t needlen = strlen (PASSWORD);
 
-  return rc;
+  if (out && *outlen < needlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  *outlen = needlen;
+  if (out)
+    memcpy (out, PASSWORD, *outlen);
+
+  return GSASL_OK;
 }
 
 void
@@ -80,7 +101,12 @@ doit (void)
       return;
     }
 
-  gsasl_callback_set (ctx, callback);
+  gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);
+
+  gsasl_client_callback_authentication_id_set (ctx,
+					       client_cb_authentication_id);
+  gsasl_client_callback_password_set (ctx, client_cb_password);
+
 
   for (i = 0; i < 5; i++)
     {
