@@ -22,7 +22,7 @@ Security Layer.  Currently IMAP and SMTP servers are supported.  This
 is a command line interface for the GNU SASL library."
 
 section "Commands"
-option "client" c "Act as client." flag off
+option "client" c "Act as client." flag on
 option "server" s "Act as server." flag off
 option "client-mechanisms" - "Write name of supported client mechanisms separated by space to stdout." flag off
 option "server-mechanisms" - "Write name of supported server mechanisms separated by space to stdout." flag off
@@ -32,7 +32,7 @@ option "connect" - "Connect to TCP server and negotiate on stream instead of std
 
 section "Generic options"
 option "application-data" d "After authentication, read data from stdin and run it through the mechanism's security layer and print it base64 encoded to stdout. The default is to terminate after authentication." flag on
-option "imap" - "Use a IMAP-like logon procedure (client only). Also sets the --service default to 'imap'." flag off
+option "imap" - "Use a IMAP-like logon procedure (client only). Also sets the --service default to 'imap'." flag on
 option "smtp" - "Use a SMTP-like logon procedure (client only). Also sets the --service default to 'smtp'." flag off
 option "mechanism" m "Mechanism to use." string no
 option "no-client-first" - "Disallow client to send data first (client only)." flag off
