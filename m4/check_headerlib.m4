@@ -24,6 +24,7 @@ AC_DEFUN([sj_CHECK_HEADERLIB], [
 	AC_CHECK_HEADER([$1], h=yes, l=no)
 	AC_CHECK_LIB([$2], [$3], l=yes, l=no, [$6])
 	if test "$h" = yes -a "$l" = yes; then
+		LIBS="$LIBS -l$2"
 		ifelse([$4], , :, [$4])
 	else
 		ifelse([$5], , :, [$5])
