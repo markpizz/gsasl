@@ -63,7 +63,7 @@ digest_md5_print_challenge (digest_md5_challenge *c)
     }
 
   if (c->servermaxbuf)
-    if (asprintf (&maxbuf, "maxbuf=\"%lu\"", c->servermaxbuf) < 0)
+    if (asprintf (&maxbuf, "maxbuf=%lu", c->servermaxbuf) < 0)
       goto end;
 
   if (asprintf (&out, "%s, nonce=\"%s\", %s%s%s%s%s, %s, "
@@ -121,7 +121,7 @@ digest_md5_print_response (digest_md5_response *r)
     qop = "";
 
   if (r->clientmaxbuf)
-    if (asprintf (&maxbuf, "maxbuf=\"%lu\"", r->clientmaxbuf) < 0)
+    if (asprintf (&maxbuf, "maxbuf=%lu", r->clientmaxbuf) < 0)
       goto end;
 
   if (r->cipher & DIGEST_MD5_CIPHER_3DES)
