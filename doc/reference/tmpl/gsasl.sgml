@@ -15,12 +15,10 @@ GNU SASL contains a library (`libgsasl'), a command line utility
 (`gsasl') to access the library from the shell, and a manual.
 </para>
 
-
 <!-- ##### SECTION See_Also ##### -->
 <para>
 
 </para>
-
 
 <!-- ##### MACRO GSASL_VERSION ##### -->
 <para>
