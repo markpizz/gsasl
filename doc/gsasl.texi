@@ -429,8 +429,8 @@ table.
 @itemx --disable-server
 If your target system require a minimal implementation, you may wish
 to disable the client or the server part of the code.  This removes
-symbols from he library, so if you attempt to link an application that
-uses server functions to a libgsasl built with
+symbols from the library, so if you attempt to link an application
+that uses server functions to a libgsasl built with
 @code{--disable-server}, you will get linker errors.
 
 @item --disable-anonymous
@@ -444,6 +444,11 @@ uses server functions to a libgsasl built with
 @itemx --disable-gssapi
 @itemx --disable-kerberos_v5
 Disable individual mechanisms (@pxref{Mechanisms}).
+
+@item --without-stringprep
+Disable internationalized string processing.  Note that this will
+result in a SASL library that is only compatible with RFC 2222.  This
+removes the symbols related to string processing from the library.
 
 @end table
 

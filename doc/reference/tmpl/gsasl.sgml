@@ -80,6 +80,36 @@ GNU SASL contains a library (`libgsasl'), a command line utility
 @Returns: 
 
 
+<!-- ##### FUNCTION gsasl_stringprep_nfkc ##### -->
+<para>
+
+</para>
+
+@in: 
+@len: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_stringprep_saslprep ##### -->
+<para>
+
+</para>
+
+@in: 
+@stringprep_rc: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_stringprep_trace ##### -->
+<para>
+
+</para>
+
+@in: 
+@stringprep_rc: 
+@Returns: 
+
+
 <!-- ##### FUNCTION gsasl_application_data_set ##### -->
 <para>
 
