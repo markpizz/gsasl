@@ -11,7 +11,7 @@ MIT/Heimdal.  In that case, you can --enable-gssapi=mit or
 --enable-gssapi=heimdal.
 
 ** GNU SASL contain APIs for internationalized string processing via SASLprep.
-You no longer have to use Libidn directly for this.
+You no longer have to use Libidn directly.
 
 ** Man pages for all public functions are included.
 
@@ -36,6 +36,8 @@ be disabled by --without-stringprep.
 ** Libgcrypt from CVS (1.1.42) is not supported.
 Recent libgcrypt is API incompatible with earlier released versions.
 If a too recent version is installed, it will not be used.
+
+** Fix command line tool '--connect --imap' on Solaris.
 
 ** Bug fixes.
 
