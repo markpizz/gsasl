@@ -24,3 +24,5 @@ ltmain.sh
 missing
 mkinstalldirs
 stamp-h*
+mdate-sh
+texinfo.tex
