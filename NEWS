@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.2 (unreleased)
 
+** Update of gnulib files.
+
 * Version 0.2.1 (released 2004-11-19)
 
 ** Documentation fixes; the old callback API functions are marked as obsolete.
