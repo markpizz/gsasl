@@ -56,7 +56,7 @@ gsasl_step (Gsasl_session * sctx,
   if (!VALID_SESSION_HANDLE(sctx))
     return GSASL_INVALID_HANDLE;
 
-  *output_len = 1000;
+  *output_len = 1000;  /* XXX will go away once backend interface is fixed. */
   *output = malloc (*output_len);
   if (*output == NULL)
     return GSASL_MALLOC_ERROR;
