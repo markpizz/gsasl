@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef _GSSAPI_H
-#define _GSSAPI_H
+#ifndef GSSAPI_H
+#define GSSAPI_H
 
 #include "internal.h"
 
@@ -54,4 +54,4 @@ extern int _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
 extern int _gsasl_gssapi_server_finish (Gsasl_session_ctx * sctx,
 					void *mech_data);
 
-#endif /* _GSSAPI_H */
+#endif /* GSSAPI_H */
