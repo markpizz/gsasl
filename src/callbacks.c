@@ -154,9 +154,11 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
     case GSASL_REALM:
       if (args_info.realm_arg == NULL)
-	args_info.realm_arg = readutf8line ("Enter realm of server: ");
+	args_info.realm_arg =
+	  readutf8line ("Enter realm of server (optional): ");
 
-      gsasl_property_set (sctx, GSASL_REALM, args_info.realm_arg);
+      if (args_info.realm_arg && *args_info.realm_arg)
+	gsasl_property_set (sctx, GSASL_REALM, args_info.realm_arg);
 
       rc = GSASL_OK;
       break;
