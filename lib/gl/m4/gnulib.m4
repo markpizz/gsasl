@@ -28,4 +28,7 @@ AC_DEFUN([gl_SOURCE_BASE], [])
 dnl Usage: gl_M4_BASE(DIR)
 AC_DEFUN([gl_M4_BASE], [])
 
+dnl Usage: gl_LIB(LIBNAME)
+AC_DEFUN([gl_LIB], [])
+
 # gnulib.m4 ends here
