@@ -46,6 +46,7 @@ _gsasl_cram_md5_client_step (Gsasl_session * sctx,
   const char *p;
   size_t len;
   char *tmp;
+  char *authid;
   int rc;
 
   if (input_len == 0)
@@ -55,43 +56,49 @@ _gsasl_cram_md5_client_step (Gsasl_session * sctx,
       return GSASL_NEEDS_MORE;
     }
 
-  p = gsasl_property_get (sctx, GSASL_PASSWORD);
-  if (!p)
-    return GSASL_NO_PASSWORD;
-
-  /* XXX Use query strings here?  Specification is unclear. */
-  rc = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED, &tmp, NULL);
-  if (rc != GSASL_OK)
-    return rc;
-
-  cram_md5_digest (input, input_len, tmp, strlen (tmp), response);
-
-  free (tmp);
-
   p = gsasl_property_get (sctx, GSASL_AUTHID);
   if (!p)
     return GSASL_NO_AUTHID;
 
   /* XXX Use query strings here?  Specification is unclear. */
-  rc = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED, &tmp, NULL);
+  rc = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED, &authid, NULL);
   if (rc != GSASL_OK)
     return rc;
 
-  len = strlen (tmp);
+  p = gsasl_property_get (sctx, GSASL_PASSWORD);
+  if (!p)
+    {
+      free (authid);
+      return GSASL_NO_PASSWORD;
+    }
+
+  /* XXX Use query strings here?  Specification is unclear. */
+  rc = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED, &tmp, NULL);
+  if (rc != GSASL_OK)
+    {
+      free (authid);
+      return rc;
+    }
+
+  cram_md5_digest (input, input_len, tmp, strlen (tmp), response);
+
+  free (tmp);
+
+  len = strlen (authid);
 
   *output_len = len + strlen (" ") + CRAM_MD5_DIGEST_LEN;
   *output = malloc (*output_len);
   if (!*output)
     {
-      free (tmp);
+      free (authid);
       return GSASL_MALLOC_ERROR;
     }
 
-  memcpy (*output, tmp, len);
+  memcpy (*output, authid, len);
   (*output)[len++] = ' ';
   memcpy (*output + len, response, CRAM_MD5_DIGEST_LEN);
 
-  free (tmp);
+  free (authid);
 
   return GSASL_OK;
 }
