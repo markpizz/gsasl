@@ -36,8 +36,11 @@ _gsasl_anonymous_server_step (Gsasl_session * sctx,
   *output = NULL;
   *output_len = 0;
 
+  /* token       = 1*255TCHAR */
   if (input_len == 0)
     return GSASL_NEEDS_MORE;
+
+  /* FIXME: Validate that input is UTF-8. */
 
   gsasl_property_set_raw (sctx, GSASL_ANONYMOUS_TOKEN, input, input_len);
 
