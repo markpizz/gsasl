@@ -267,10 +267,14 @@ client_callback_authorization_id (Gsasl_session_ctx * xctx,
 {
   Gsasl_ctx *ctx = gsasl_client_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
+  size_t needlen = strlen (sasltv[i].authzid);
 
-  *outlen = strlen (sasltv[i].authzid);
+  if (*outlen < needlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  *outlen = needlen;
   if (out)
-    memcpy (out, sasltv[i].authzid, strlen (sasltv[i].authzid));
+    memcpy (out, sasltv[i].authzid, needlen);
 
   return GSASL_OK;
 }
@@ -281,10 +285,14 @@ client_callback_authentication_id (Gsasl_session_ctx * xctx,
 {
   Gsasl_ctx *ctx = gsasl_client_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
+  size_t needlen = strlen (sasltv[i].authid);
 
-  *outlen = strlen (sasltv[i].authid);
+  if (*outlen < needlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  *outlen = needlen;
   if (out)
-    memcpy (out, sasltv[i].authid, strlen (sasltv[i].authid));
+    memcpy (out, sasltv[i].authid, needlen);
 
   return GSASL_OK;
 }
@@ -295,10 +303,14 @@ client_callback_password (Gsasl_session_ctx * xctx, char *out,
 {
   Gsasl_ctx *ctx = gsasl_client_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
+  size_t needlen = strlen (sasltv[i].password);
 
-  *outlen = strlen (sasltv[i].password);
+  if (*outlen < needlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  *outlen = needlen;
   if (out)
-    memcpy (out, sasltv[i].password, strlen (sasltv[i].password));
+    memcpy (out, sasltv[i].password, needlen);
 
   return GSASL_OK;
 }
@@ -337,10 +349,14 @@ server_callback_retrieve (Gsasl_session_ctx * xctx,
 {
   Gsasl_ctx *ctx = gsasl_server_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
+  size_t needlen = strlen (sasltv[i].password);
+
+  if (*keylen < needlen)
+    return GSASL_TOO_SMALL_BUFFER;
 
   *keylen = strlen (sasltv[i].password);
   if (key)
-    memcpy (key, sasltv[i].password, strlen (sasltv[i].password));
+    memcpy (key, sasltv[i].password, needlen);
 
   return GSASL_OK;
 }
@@ -361,8 +377,12 @@ client_callback_anonymous (Gsasl_session_ctx * xctx, char *out,
 {
   Gsasl_ctx *ctx = gsasl_client_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
+  size_t needlen = strlen (sasltv[i].anonymous);
 
-  *outlen = strlen (sasltv[i].anonymous);
+  if (*outlen < needlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  *outlen = needlen;
   if (out)
     memcpy (out, sasltv[i].anonymous, strlen (sasltv[i].anonymous));
 
@@ -391,10 +411,14 @@ client_callback_passcode (Gsasl_session_ctx * xctx, char *out,
 {
   Gsasl_ctx *ctx = gsasl_client_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
+  size_t needlen = strlen (sasltv[i].passcode);
 
-  *outlen = strlen (sasltv[i].passcode);
+  if (*outlen < needlen)
+    return GSASL_TOO_SMALL_BUFFER;
+
+  *outlen = needlen;
   if (out)
-    memcpy (out, sasltv[i].passcode, strlen (sasltv[i].passcode));
+    memcpy (out, sasltv[i].passcode, needlen);
 
   return GSASL_OK;
 }
@@ -405,6 +429,7 @@ client_callback_pin (Gsasl_session_ctx * xctx, char *suggestion,
 {
   Gsasl_ctx *ctx = gsasl_client_ctx_get (xctx);
   int i = *(int *) gsasl_application_data_get (ctx);
+  size_t needlen = strlen (sasltv[i].pin);
 
   if (suggestion && sasltv[i].suggestpin &&
       strcmp (suggestion, sasltv[i].suggestpin) != 0)
@@ -414,12 +439,12 @@ client_callback_pin (Gsasl_session_ctx * xctx, char *suggestion,
       (suggestion != NULL && sasltv[i].suggestpin == NULL))
     return GSASL_AUTHENTICATION_ERROR;
 
-  if (*outlen < strlen (sasltv[i].pin))
+  if (*outlen < needlen)
     return GSASL_TOO_SMALL_BUFFER;
 
-  *outlen = strlen (sasltv[i].pin);
+  *outlen = needlen;
   if (out)
-    memcpy (out, sasltv[i].pin, strlen (sasltv[i].pin));
+    memcpy (out, sasltv[i].pin, needlen);
 
   return GSASL_OK;
 }
