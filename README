@@ -25,6 +25,7 @@ application currently requires POSIX for network communication.
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
 
+  * Security layer improvements (e.g., DES and AES in DIGEST-MD5).
   * Bug: If gsasl_decode is handed a string longer than one SASL token,
     the remaining data will be discarded.  This means if the sender
     packed two SASL tokens in one network packet, only the first will be
@@ -39,13 +40,11 @@ please let me know so work duplication can be avoided.
     some starting points for this, but the API is inflexible.
   + Provide standard callbacks for tty, GTK, gpg-agent etc.  Probably
     should be a separate library.
-  + Hide explicit data array handling in a string API
   + Port applications to use libgsasl
   + More SASL mechanisms
-  + Security layer improvements, including support for privacy
-    separation (authenticate in one process, pass state to another).
   + Cleanup code, possibly by using some string abstraction library.
     (lib/digest-md5.c most problematic)
+  - Privacy separation (authenticate in one process, pass state to another).
   - Improve documentation
   - Port to Cyclone? CCured?
 
