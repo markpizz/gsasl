@@ -23,8 +23,10 @@
 # define GSASL_COMPAT_H
 
 #ifndef __attribute__
-/* This feature is available in gcc versions 2.5 and later.  */
-# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
+/* This feature is supposedly available in gcc versions 2.5 and later,
+ * but it behave badly in gcc 3.0.x (the compiler generate one warning
+ * for each use).  Let's test for 3.1 or later. */
+# if __GNUC__ == 3 && __GNUC_MINOR__ > 0
 #  define __attribute__(Spec)	/* empty */
 # endif
 #endif
