@@ -432,7 +432,6 @@ _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
       char *hash2;
       int n;
       char tmp[MD5LEN + DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN];
-      size_t tmplen;
 
       if (cipher == GSASL_CIPHER_RC4_40)
 	n = 5;
@@ -463,7 +462,6 @@ _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
       char *hash2;
       int n;
       char tmp[MD5LEN + DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING_LEN];
-      size_t tmplen;
 
       if (cipher == GSASL_CIPHER_RC4_40)
 	n = 5;
@@ -1052,7 +1050,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	    qopstr = QOP_AUTH_CONF;
 	  else if (state->qop & GSASL_QOP_AUTH_INT)
 	    qopstr = QOP_AUTH_INT;
-	  else if (state->qop & GSASL_QOP_AUTH)
+	  else /* if (state->qop & GSASL_QOP_AUTH) */
 	    qopstr = QOP_AUTH;
 
 	  if (outlen +
@@ -1248,12 +1246,12 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	      cipherstr = CIPHER_3DES;
 	    else if (state->cipher & GSASL_CIPHER_DES)
 	      cipherstr = CIPHER_DES;
-	    else if (state->cipher & GSASL_CIPHER_RC4)
-	      cipherstr = CIPHER_RC4;
 	    else if (state->cipher & GSASL_CIPHER_RC4_56)
 	      cipherstr = CIPHER_RC4_56;
 	    else if (state->cipher & GSASL_CIPHER_RC4_40)
 	      cipherstr = CIPHER_RC4_40;
+	    else /* if (state->cipher & GSASL_CIPHER_RC4) */
+	      cipherstr = CIPHER_RC4;
 
 	    if (outlen +
 		strlen (CIPHER_PRE) +
@@ -1623,7 +1621,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
   Gsasl_ctx *ctx;
   int res;
   int outlen;
-  unsigned long maxbuf;
+  unsigned long maxbuf = MAXBUF_DEFAULT;
 
   ctx = gsasl_server_ctx_get (sctx);
   if (ctx == NULL)
