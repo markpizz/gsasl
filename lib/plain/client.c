@@ -40,7 +40,7 @@ _gsasl_plain_client_step (Gsasl_session * sctx,
 			  char **output, size_t * output_len)
 {
   char *authzid = NULL, *authid = NULL, *password = NULL;
-  size_t authzidlen, authidlen, passwordlen;
+  size_t authzidlen = 0, authidlen = 0, passwordlen = 0;
   const char *p;
   int res;
 
