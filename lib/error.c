@@ -284,6 +284,16 @@ gsasl_strerror (int err)
       p = _("No more realms available (non-fatal)");
       break;
 
+    case GSASL_NO_CLIENT_CODE:
+      p = _("Client-side functionality not available in library "
+	    "(application error)");
+      break;
+
+    case GSASL_NO_SERVER_CODE:
+      p = _("Server-side functionality not available in library "
+	    "(application error)");
+      break;
+
     default:
       p = _("Libgsasl unknown error");
       break;
