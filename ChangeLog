@@ -1,3 +1,125 @@
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sr.po, po/sv.po: Generated.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.1.4.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Fix.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump version.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Update.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h, src/callbacks.c: Fix.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getline.c, gl/getline.h, gl/getndelim2.c,
+	gl/getndelim2.h, gl/getpass.c, gl/getpass.h, gl/getpassword.c,
+	gl/getpassword.h, gl/stdbool_.h, gl/m4/getline.m4,
+	gl/m4/getndelim2.m4, gl/m4/getpass.m4, gl/m4/gnulib.m4,
+	gl/m4/ssize_t.m4, gl/m4/stdbool.m4: Update.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use new gnulib-tool stuff.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib.m4: Fix.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib.m4, gl/Makefile.am: Update.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use new gnulib-tool stuff.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/codeset.m4, gl/m4/gettext.m4, gl/m4/glibc21.m4,
+	gl/m4/gnulib.m4, gl/m4/iconv.m4, gl/m4/intdiv0.m4, gl/m4/intmax.m4,
+	gl/m4/inttypes-pri.m4, gl/m4/inttypes.m4, gl/m4/inttypes_h.m4,
+	gl/m4/isc-posix.m4, gl/m4/lcmessage.m4, gl/m4/lib-ld.m4,
+	gl/m4/lib-link.m4, gl/m4/lib-prefix.m4, gl/m4/longdouble.m4,
+	gl/m4/longlong.m4, gl/m4/nls.m4, gl/m4/po.m4,
+	gl/m4/printf-posix.m4, gl/m4/progtest.m4, gl/m4/signed.m4,
+	gl/m4/size_max.m4, gl/m4/stdint_h.m4, gl/m4/uintmax_t.m4,
+	gl/m4/ulonglong.m4, gl/m4/wchar_t.m4, gl/m4/wint_t.m4,
+	gl/m4/xsize.m4: Add.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Generated.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/error.c, gl/stdbool_.h, gl/m4/fatal.m4, gl/m4/stdbool.m4:
+	Update.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/strdup.c, gl/m4/strdup.m4: Update.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS: Sync with TP.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+	(update-po): Add.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sr.po, po/sv.po: Sync with TP.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* gl/progname.lo: Remove.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS, po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po,
+	po/pl.po, po/ro.po, po/sr.po: Add.
+
 2004-08-04  Simon Josefsson <simon@josefsson.org>
 
 	* po/sv.po: Generated.

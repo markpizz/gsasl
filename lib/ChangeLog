@@ -1,3 +1,102 @@
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/nl.po, po/pl.po, po/ro.po, po/sv.po: Generated.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.1.4.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump versions.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib.m4: Update.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix aclocal -I's.
+
+2004-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use new gnulib-tool stuff.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib.m4: Fix.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Generated.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib.m4, gl/m4/onceonly_2_57.m4: Add.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: For gnulib.
+
+2004-08-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/strdup.c, gl/strdup.h, gl/m4/strdup.m4: Update.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS: Sync with TP.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Sync with TP.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+	(update-po): Add.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS, po/fr.po, po/nl.po, po/pl.po, po/ro.po: Add.
+
+2004-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/digest-md5.c: Fix, reported by Dimitri
+	Papadopoulos-Orfanos <papadopo@shfj.cea.fr>.
+
+2004-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/challenge.c, crypto/gc-nettle.c, src/crypto.c: Fix,
+	reported by Dimitri Papadopoulos-Orfanos <papadopo@shfj.cea.fr>.
+
+2004-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* gl/dummy.c: Update.
+
 2004-08-04  Simon Josefsson <simon@josefsson.org>
 
 	* po/sv.po: Generated.
