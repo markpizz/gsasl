@@ -25,7 +25,9 @@
 
 #include <gsasl.h>
 
-#define _GSASL_PLAIN_NAME "PLAIN"
+#define GSASL_PLAIN_NAME "PLAIN"
+
+extern Gsasl_mechanism gsasl_plain_mechanism;
 
 extern int _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
 				     void *mech_data,

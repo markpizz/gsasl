@@ -21,7 +21,7 @@
 AM_CPPFLAGS = -I$(srcdir)/../src -I../src
 
 noinst_LTLIBRARIES = libgsasl-securid.la
-libgsasl_securid_la_SOURCES = securid.h
+libgsasl_securid_la_SOURCES = securid.h mechinfo.c
 
 if CLIENT
 libgsasl_securid_la_SOURCES += client.c

@@ -34,291 +34,42 @@
 const char *GSASL_VALID_MECHANISM_CHARACTERS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 
-Gsasl_mechanism _gsasl_all_mechanisms[] = {
+Gsasl_mechanism *_gsasl_all_mechanisms[] = {
 #ifdef USE_ANONYMOUS
-  {_GSASL_ANONYMOUS_NAME,
-   {
-#ifdef USE_CLIENT
-    NULL,
-    NULL,
-    NULL,
-    _gsasl_anonymous_client_step,
-    NULL,
-    NULL,
-    NULL
-#endif
-    },
-   {
-#ifdef USE_SERVER
-    NULL,
-    NULL,
-    NULL,
-    _gsasl_anonymous_server_step,
-    NULL,
-    NULL,
-    NULL
-#endif
-    }
-   },
+  &gsasl_anonymous_mechanism,
 #endif /* USE_ANONYMOUS */
 
 #ifdef USE_EXTERNAL
-  {_GSASL_EXTERNAL_NAME,
-   {
-#ifdef USE_CLIENT
-    NULL,
-    NULL,
-    NULL,
-    _gsasl_external_client_step,
-    NULL,
-    NULL,
-    NULL
-#endif
-    },
-   {
-#ifdef USE_SERVER
-    NULL,
-    NULL,
-    NULL,
-    _gsasl_external_server_step,
-    NULL,
-    NULL,
-    NULL
-#endif
-    }
-   },
+  &gsasl_external_mechanism,
 #endif /* USE_EXTERNAL */
 
 #ifdef USE_PLAIN
-  {_GSASL_PLAIN_NAME,
-   {
-#ifdef USE_CLIENT
-    NULL,
-    NULL,
-    NULL,
-    _gsasl_plain_client_step,
-    NULL,
-    NULL,
-    NULL
-#endif
-    },
-   {
-#ifdef USE_SERVER
-    NULL,
-    NULL,
-    NULL,
-    _gsasl_plain_server_step,
-    NULL,
-    NULL,
-    NULL
-#endif
-    }
-   },
+  &gsasl_plain_mechanism,
 #endif /* USE_PLAIN */
 
 #ifdef USE_LOGIN
-  {_GSASL_LOGIN_NAME,
-   {
-#ifdef USE_CLIENT
-    NULL,
-    NULL,
-    _gsasl_login_client_start,
-    _gsasl_login_client_step,
-    _gsasl_login_client_finish,
-    NULL,
-    NULL
-#endif
-    },
-   {
-#ifdef USE_SERVER
-    NULL,
-    NULL,
-    _gsasl_login_server_start,
-    _gsasl_login_server_step,
-    _gsasl_login_server_finish,
-    NULL,
-    NULL
-#endif
-    }
-   },
+  &gsasl_login_mechanism,
 #endif /* USE_LOGIN */
 
 #ifdef USE_SECURID
-  {_GSASL_SECURID_NAME,
-   {
-#ifdef USE_CLIENT
-    NULL,
-    NULL,
-    _gsasl_securid_client_start,
-    _gsasl_securid_client_step,
-    _gsasl_securid_client_finish,
-    NULL,
-    NULL
-#endif
-    },
-   {
-#ifdef USE_SERVER
-    NULL,
-    NULL,
-    NULL,
-    _gsasl_securid_server_step,
-    NULL,
-    NULL,
-    NULL
-#endif
-    }
-   },
+  &gsasl_securid_mechanism,
 #endif /* USE_SECURID */
 
 #ifdef USE_NTLM
-  {_GSASL_NTLM_NAME,
-   {
-#ifdef USE_CLIENT
-    NULL,
-    NULL,
-    _gsasl_ntlm_client_start,
-    _gsasl_ntlm_client_step,
-    _gsasl_ntlm_client_finish,
-    NULL,
-    NULL
-#endif
-    },
-   {
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL}
-   },
+  &gsasl_ntlm_mechanism,
 #endif /* USE_NTLM */
 
 #ifdef USE_CRAM_MD5
-  {_GSASL_CRAM_MD5_NAME,
-   {
-#ifdef USE_CLIENT
-    NULL,
-    NULL,
-    NULL,
-    _gsasl_cram_md5_client_step,
-    NULL,
-    NULL,
-    NULL
-#endif
-    },
-   {
-#ifdef USE_SERVER
-    NULL,
-    NULL,
-    _gsasl_cram_md5_server_start,
-    _gsasl_cram_md5_server_step,
-    _gsasl_cram_md5_server_finish,
-    NULL,
-    NULL
-#endif
-    }
-   },
+  &gsasl_cram_md5_mechanism,
 #endif /* USE_CRAM_MD5 */
 
 #ifdef USE_DIGEST_MD5
-  {_GSASL_DIGEST_MD5_NAME,
-   {
-#ifdef USE_CLIENT
-    NULL,
-    NULL,
-    _gsasl_digest_md5_client_start,
-    _gsasl_digest_md5_client_step,
-    _gsasl_digest_md5_client_finish,
-    _gsasl_digest_md5_client_encode,
-    _gsasl_digest_md5_client_decode
-#endif
-    },
-   {
-#ifdef USE_SERVER
-    NULL,
-    NULL,
-    _gsasl_digest_md5_server_start,
-    _gsasl_digest_md5_server_step,
-    _gsasl_digest_md5_server_finish,
-    _gsasl_digest_md5_server_encode,
-    _gsasl_digest_md5_server_decode
-#endif
-    }
-   },
+  &gsasl_digest_md5_mechanism,
 #endif /* USE_DIGEST_MD5 */
 
-#if 0				/* USE_KERBEROS_V5 */
-  {_GSASL_KERBEROS_V5_NAME,
-   {
-#ifdef USE_CLIENT
-    _gsasl_kerberos_v5_client_init,
-    NULL,
-    _gsasl_kerberos_v5_client_start,
-    _gsasl_kerberos_v5_client_step,
-    _gsasl_kerberos_v5_client_finish,
-    _gsasl_kerberos_v5_client_encode,
-    _gsasl_kerberos_v5_client_decode,
-    NULL
-#endif
-    },
-   {
-#ifdef USE_SERVER
-    _gsasl_kerberos_v5_server_init,
-    NULL,
-    _gsasl_kerberos_v5_server_start,
-    _gsasl_kerberos_v5_server_step,
-    _gsasl_kerberos_v5_server_finish,
-    _gsasl_kerberos_v5_server_encode,
-    _gsasl_kerberos_v5_server_decode,
-    NULL
-#endif
-    }
-   },
-#endif /* USE_KERBEROS_V5 */
-
-#if USE_GSSAPI
-  {_GSASL_GSSAPI_NAME,
-   {
-#ifdef USE_CLIENT
-    NULL,
-    NULL,
-    _gsasl_gssapi_client_start,
-    _gsasl_gssapi_client_step,
-    _gsasl_gssapi_client_finish,
-    _gsasl_gssapi_client_encode,
-    _gsasl_gssapi_client_decode,
-#endif
-    },
-   {
-#ifdef USE_SERVER
-    NULL,
-    NULL,
-    _gsasl_gssapi_server_start,
-    _gsasl_gssapi_server_step,
-    _gsasl_gssapi_server_finish,
-    NULL,
-    NULL,
-#endif
-    }
-   },
+#ifdef USE_GSSAPI
+  &gsasl_gssapi_mechanism,
 #endif /* USE_GSSAPI */
-  {NULL,
-   {
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL},
-   {
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL}
-   }
+
+  NULL
 };

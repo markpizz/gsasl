@@ -25,7 +25,9 @@
 
 #include <gsasl.h>
 
-#define _GSASL_ANONYMOUS_NAME "ANONYMOUS"
+#define GSASL_ANONYMOUS_NAME "ANONYMOUS"
+
+extern Gsasl_mechanism gsasl_anonymous_mechanism;
 
 extern int _gsasl_anonymous_client_step (Gsasl_session_ctx * sctx,
 					 void *mech_data,

@@ -22,7 +22,7 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src \
 	-I$(srcdir)/../crypto -I../crypto
 
 noinst_LTLIBRARIES = libgsasl-cram_md5.la
-libgsasl_cram_md5_la_SOURCES = cram-md5.h \
+libgsasl_cram_md5_la_SOURCES = cram-md5.h mechinfo.c \
 	challenge.h challenge.c digest.h digest.c
 
 if CLIENT

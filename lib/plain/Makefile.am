@@ -21,7 +21,7 @@
 AM_CPPFLAGS = -I$(srcdir)/../src -I../src
 
 noinst_LTLIBRARIES = libgsasl-plain.la
-libgsasl_plain_la_SOURCES = plain.h
+libgsasl_plain_la_SOURCES = plain.h mechinfo.c
 
 if CLIENT
 libgsasl_plain_la_SOURCES += client.c

@@ -25,7 +25,9 @@
 
 #include "internal.h"
 
-#define _GSASL_LOGIN_NAME "LOGIN"
+#define GSASL_LOGIN_NAME "LOGIN"
+
+extern Gsasl_mechanism gsasl_login_mechanism;
 
 extern int _gsasl_login_client_start (Gsasl_session_ctx * sctx,
 				      void **mech_data);

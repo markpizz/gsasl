@@ -25,7 +25,9 @@
 
 #include "internal.h"
 
-#define _GSASL_CRAM_MD5_NAME "CRAM-MD5"
+#define GSASL_CRAM_MD5_NAME "CRAM-MD5"
+
+extern Gsasl_mechanism gsasl_cram_md5_mechanism;
 
 extern int _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
 					void *mech_data,

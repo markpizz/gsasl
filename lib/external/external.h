@@ -25,7 +25,9 @@
 
 #include <gsasl.h>
 
-#define _GSASL_EXTERNAL_NAME "EXTERNAL"
+#define GSASL_EXTERNAL_NAME "EXTERNAL"
+
+extern Gsasl_mechanism gsasl_external_mechanism;
 
 extern int _gsasl_external_client_step (Gsasl_session_ctx * sctx,
 					void *mech_data,

@@ -25,7 +25,9 @@
 
 #include "internal.h"
 
-#define _GSASL_NTLM_NAME "NTLM"
+#define GSASL_NTLM_NAME "NTLM"
+
+extern Gsasl_mechanism gsasl_ntlm_mechanism;
 
 extern int _gsasl_ntlm_client_start (Gsasl_session_ctx * sctx,
 				     void **mech_data);

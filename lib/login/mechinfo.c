@@ -1,4 +1,4 @@
-/* securid.h --- Prototypes for SASL mechanism SECURID as defined in RFC 2808.
+/* mechinfo.c --- Definition of LOGIN mechanism.
  * Copyright (C) 2002, 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
@@ -20,27 +20,55 @@
  *
  */
 
-#ifndef SECURID_H
-#define SECURID_H
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
 
-#include <gsasl.h>
+/* Get specification. */
+#include "login.h"
 
-#define GSASL_SECURID_NAME "SECURID"
-
-extern Gsasl_mechanism gsasl_securid_mechanism;
-
-extern int _gsasl_securid_client_start (Gsasl_session_ctx * sctx,
-					void **mech_data);
-extern int _gsasl_securid_client_step (Gsasl_session_ctx * sctx,
-				       void *mech_data,
-				       const char *input, size_t input_len,
-				       char **output, size_t * output_len);
-extern int _gsasl_securid_client_finish (Gsasl_session_ctx * sctx,
-					 void *mech_data);
-
-extern int _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
-				       void *mech_data,
-				       const char *input, size_t input_len,
-				       char **output, size_t * output_len);
-
-#endif /* SECURID_H */
+Gsasl_mechanism gsasl_login_mechanism = {
+  GSASL_LOGIN_NAME,
+  {
+    NULL,
+    NULL,
+#ifdef USE_CLIENT
+    _gsasl_login_client_start,
+#else
+    NULL,
+#endif
+#ifdef USE_CLIENT
+    _gsasl_login_client_step,
+#else
+    NULL,
+#endif
+#ifdef USE_CLIENT
+    _gsasl_login_client_finish,
+#else
+    NULL,
+#endif
+    NULL,
+    NULL
+  },
+  {
+    NULL,
+    NULL,
+#ifdef USE_SERVER
+    _gsasl_login_server_start,
+#else
+    NULL,
+#endif
+#ifdef USE_SERVER
+    _gsasl_login_server_step,
+#else
+    NULL,
+#endif
+#ifdef USE_SERVER
+    _gsasl_login_server_finish,
+#else
+    NULL,
+#endif
+    NULL,
+    NULL
+  }
+};

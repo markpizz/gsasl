@@ -21,7 +21,7 @@
 AM_CPPFLAGS = -I$(srcdir)/../src -I$(builddir)/../src -I$(srcdir)/../gl
 
 noinst_LTLIBRARIES = libgsasl-anonymous.la
-libgsasl_anonymous_la_SOURCES = anonymous.h
+libgsasl_anonymous_la_SOURCES = anonymous.h mechinfo.c
 
 if CLIENT
 libgsasl_anonymous_la_SOURCES += client.c

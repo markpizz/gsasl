@@ -25,7 +25,7 @@
 #include <gc.h>
 
 /* See common.c. */
-extern Gsasl_mechanism _gsasl_all_mechanisms[];
+extern Gsasl_mechanism *_gsasl_all_mechanisms[];
 
 /**
  * gsasl_init:
@@ -50,9 +50,9 @@ gsasl_init (Gsasl ** ctx)
   if (*ctx == NULL)
     return GSASL_MALLOC_ERROR;
 
-  for (i = 0; _gsasl_all_mechanisms[i].name; i++)
+  for (i = 0; _gsasl_all_mechanisms[i]; i++)
     {
-      rc = gsasl_register (*ctx, &_gsasl_all_mechanisms[i]);
+      rc = gsasl_register (*ctx, _gsasl_all_mechanisms[i]);
       if (rc != GSASL_OK)
 	{
 	  gsasl_done (*ctx);
