@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Changes in 0.0.9 (unreleased)
 
+** Token parser bug in DIGEST-MD5 fixed, improve interoperability of DIGEST-MD5.
+
 * Changes in 0.0.8 (released 2003-10-11)
 
 ** Improved GSSAPI implementation detection.
