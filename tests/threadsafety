@@ -35,6 +35,6 @@ while test "$1"; do
     cmd="${cmd}|$1"
     shift
 done
-cmd="${cmd})[^_0-9a-z]"
+cmd="${cmd})[^_0-9a-z]*\("
 
 ! egrep $cmd $FILES
