@@ -32,7 +32,6 @@
 struct _Gsasl_ntlm_state
 {
   int step;
-  char *username;
 };
 typedef struct _Gsasl_ntlm_state _Gsasl_ntlm_state;
 
@@ -40,24 +39,12 @@ int
 _gsasl_ntlm_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
   _Gsasl_ntlm_state *state;
-  Gsasl_ctx *ctx;
-
-  ctx = gsasl_client_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  if (gsasl_client_callback_authorization_id_get (ctx) == NULL)
-    return GSASL_NEED_CLIENT_AUTHORIZATION_ID_CALLBACK;
-
-  if (gsasl_client_callback_password_get (ctx) == NULL)
-    return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
   state = (_Gsasl_ntlm_state *) malloc (sizeof (*state));
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
   state->step = 0;
-  state->username = NULL;
 
   *mech_data = state;
 
@@ -67,33 +54,18 @@ _gsasl_ntlm_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 int
 _gsasl_ntlm_client_step (Gsasl_session_ctx * sctx,
 			 void *mech_data,
-			 const char *input,
-			 size_t input_len, char *output, size_t * output_len)
+			 const char *input, size_t input_len,
+			 char **output, size_t * output_len)
 {
   _Gsasl_ntlm_state *state = mech_data;
   tSmbNtlmAuthRequest request;
   tSmbNtlmAuthChallenge challenge;
   tSmbNtlmAuthResponse response;
-  Gsasl_client_callback_authorization_id cb_authorization_id;
-  Gsasl_client_callback_password cb_password;
-  Gsasl_ctx *ctx;
   /* XXX create callback for domain? Doesn't seem to be needed by servers */
   char *domain = NULL;
-  char *password;
+  const char *password, *authzid;
   size_t len;
   int res;
-
-  ctx = gsasl_client_ctx_get (sctx);
-  if (ctx == NULL)
-    return GSASL_CANNOT_GET_CTX;
-
-  cb_authorization_id = gsasl_client_callback_authorization_id_get (ctx);
-  if (cb_authorization_id == NULL)
-    return GSASL_NEED_CLIENT_AUTHORIZATION_ID_CALLBACK;
-
-  cb_password = gsasl_client_callback_password_get (ctx);
-  if (cb_password == NULL)
-    return GSASL_NEED_CLIENT_PASSWORD_CALLBACK;
 
   switch (state->step)
     {
@@ -102,23 +74,17 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * sctx,
          if (input_len != 1 && *input != '+')
          return GSASL_MECHANISM_PARSE_ERROR; */
 
-      len = *output_len;
-      res = cb_authorization_id (sctx, NULL, &len);
-      if (res != GSASL_OK)
-	return res;
-      state->username = malloc (len + 1);
-      res = cb_authorization_id (sctx, state->username, &len);
-      if (res != GSASL_OK)
-	return res;
-      state->username[len] = '\0';
+      authzid = gsasl_property_get (sctx, GSASL_CLIENT_AUTHZID);
+      if (!authzid)
+	return GSASL_NO_AUTHZID;
 
-      buildSmbNtlmAuthRequest (&request, state->username, domain);
-
-      if (*output_len < SmbLength (&request))
-	return GSASL_TOO_SMALL_BUFFER;
+      buildSmbNtlmAuthRequest (&request, authzid, domain);
 
       *output_len = SmbLength (&request);
-      memcpy (output, &request, *output_len);
+      *output = malloc (*output_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, &request, *output_len);
 
       /* dumpSmbNtlmAuthRequest(stdout, &request); */
 
@@ -135,28 +101,21 @@ _gsasl_ntlm_client_step (Gsasl_session_ctx * sctx,
 
       memcpy (&challenge, input, input_len);
 
-      len = *output_len;
-      res = cb_password (sctx, NULL, &len);
-      if (res != GSASL_OK)
-	return res;
-      password = malloc (len + 1);
-      res = cb_password (sctx, password, &len);
-      if (res != GSASL_OK)
-	{
-	  free (password);
-	  return res;
-	}
-      password[len] = '\0';
+      password = gsasl_property_get (sctx, GSASL_CLIENT_PASSWORD);
+      if (!password)
+	return GSASL_NO_PASSWORD;
 
-      buildSmbNtlmAuthResponse (&challenge, &response, state->username,
-				password);
-      free (password);
+      authzid = gsasl_property_get (sctx, GSASL_CLIENT_AUTHZID);
+      if (!authzid)
+	return GSASL_NO_AUTHZID;
 
-      if (*output_len < SmbLength (&response))
-	return GSASL_TOO_SMALL_BUFFER;
+      buildSmbNtlmAuthResponse (&challenge, &response, authzid, password);
 
       *output_len = SmbLength (&response);
-      memcpy (output, &response, *output_len);
+      *output = malloc (*output_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, &response, *output_len);
 
       /* dumpSmbNtlmAuthResponse(stdout, &response); */
 
@@ -176,9 +135,6 @@ int
 _gsasl_ntlm_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 {
   _Gsasl_ntlm_state *state = mech_data;
-
-  if (state->username)
-    free (state->username);
 
   free (state);
 
