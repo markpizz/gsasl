@@ -6,19 +6,34 @@ See the end for copying conditions.
 
 ** The EXTERNAL mechanism now support authorization identities.
 
+** Major internal overhaul.
+This was done to get rid of all fixed size buffers, and to clean up
+the callback interface.  Now, all functions that return data of
+non-fixed size will allocate the output, and the caller is responsible
+for deallcating the data.  Further, the callback interface has been
+simplified, from having one callback function per data item, there is
+now only one callback function, that receive an enumerated integer
+type indicating the requested operation.
+
+The only externally visible (i.e., in the API/ABI-sense) effect of
+this is that gsasl_encode and gsasl_decode have been renamed to,
+respectively, gsasl_encode_inline and gsasl_decode_inline, and that
+the original functions have been modified to allocate the output
+buffer.  The gsasl_??code_inline functions were added to simplify
+upgrading existing applications.  We regret breaking backwards
+compatibility, but we felt it was necessary to fix this.
+
 ** Update of generic crypto layer.
 
-** Major internal overhaul, to get rid of all fixed size buffers.
-
-** Now possible to write and register a new SASL mechanism externally.
+** Now possible to add a new SASL mechanism during run-time.
 Implement the Gsasl_*_function interfaces, populate a Gsasl_mechanism
-struct with name of SASL mechanism and the function pointers, and
-call gsasl_register to register your new mechanism.
+struct with name of SASL mechanism and the function pointers, and call
+gsasl_register to register your new mechanism.  The library will now
+offer and use your mechanism.  The internal mechanisms use the same
+interface.  This is the first step toward a completely dl_open()
+dynamic approach.
 
-** Now using Lesser GNULib for portability code.
-This means the code now use strdup, which improve readability.
-
-** A few memory leaks removed.
+** A few memory leaks fixed.
 
 ** Translation fixes.
 
@@ -32,7 +47,7 @@ The only non-backwards compatible change is for gsasl_encode and
 gsasl_decode.  The library is both source and binary backwards
 compatible otherwise.  As gsasl_encode and gsasl_decode has not been
 very stable so far, hopefully they are not yet widely used, which
-warranted this otherwise bad change.  The details follow.
+warranted this otherwise major change.  The details follow.
 
 gsasl_encode, gsasl_decode: MODIFIED.  Now allocate the output parameter.
 gsasl_encode_inline, gsasl_decode_inline: ADD, DEPRECATED.
