@@ -60,7 +60,7 @@ release:
 	cd doc && ./gendocs.sh --html "--css-include=texinfo.css" \
 		-o ../$(htmldir)/manual/ $(PACKAGE) "GNU SASL"
 	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/
-	cp -v doc/reference/*.{html,png} $(htmldir)/reference/
+	cp -v doc/reference/html/*.{html,png} $(htmldir)/reference/
 	cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make refman.pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf
 	cd $(htmldir) && cvs add -kb releases/$(distdir).tar.gz{,.sig} && \
 		cvs commit -m "Update." manual/ reference/ doxygen/ releases/
