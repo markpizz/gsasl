@@ -1250,6 +1250,11 @@ Contain the GSSAPI ``display name'', set by the server GSSAPI
 mechanism.  Typically you retrieve this property in your callback,
 when invoked for @code{GSASL_VALIDATE_GSSAPI}.
 
+@item @code{GSASL_REALM}
+
+The name of the authentication domain.  This is used by several
+mechanisms, including DIGEST-MD5, GSS-API, KERBEROS_V5 and NTLM.
+
 @item @code{GSASL_PASSCODE}
 
 The SecurID passcode.
@@ -1500,7 +1505,10 @@ applications, and do not expect it to be secure.  Currently only the
 client side is supported.
 
 In the client, this mechanism is always enabled, and require the
-@code{GSASL_AUTHID} and @code{GSASL_PASSWORD} properties.
+@code{GSASL_AUTHID} and @code{GSASL_PASSWORD} properties.  It will set
+the @samp{domain} field in the NTLM request to the value of
+@code{GSASL_REALM}.  Some servers reportedly need non-empty but
+arbitrary values in that field.
 
 @node SECURID
 @section The SECURID mechanism
