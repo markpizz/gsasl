@@ -1,3 +1,3 @@
 #!/bin/sh -x
 touch doc/Makefile.gdoc
-autoreconf --install --force --verbose
+autoreconf --install --force --verbose --warnings=all
