@@ -31,15 +31,18 @@
 /* Get errno. */
 #include <errno.h>
 
+#if HAVE_ICONV
 /* Get iconv etc. */
-#include <iconv.h>
+# include <iconv.h>
+#endif
 
 char *
 iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
 
 {
+  char *dest = NULL;
+#if HAVE_ICONV
   iconv_t cd;
-  char *dest;
   char *outp;
   ICONV_CONST char *p;
   size_t inbytes_remaining;
@@ -47,6 +50,7 @@ iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
   size_t err;
   size_t outbuf_size;
   int have_error = 0;
+#endif
 
   if (strcmp (to_codeset, from_codeset) == 0)
     {
@@ -59,6 +63,7 @@ iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
       return strcpy (q, str);
     }
 
+#if HAVE_ICONV
   cd = iconv_open (to_codeset, from_codeset);
 
   if (cd == (iconv_t) - 1)
@@ -132,6 +137,7 @@ iconv_z (const char *to_codeset, const char *from_codeset, const char *str)
       free (dest);
       dest = NULL;
     }
+#endif
 
   return dest;
 }

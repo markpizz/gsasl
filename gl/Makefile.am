@@ -80,6 +80,7 @@ libgl_la_SOURCES += gettext.h
 ## begin gnulib module iconvme
 
 libgl_la_SOURCES += iconvme.h iconvme.c
+lib_LIBADD += $(LTLIBICONV)
 
 ## end   gnulib module iconvme
 
