@@ -261,12 +261,6 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
       if (passwordptr == NULL)
 	return GSASL_MECHANISM_PARSE_ERROR;
 
-      password = malloc (input_len - (passwordptr - input) + 1);
-      if (password == NULL)
-	return GSASL_MALLOC_ERROR;
-      memcpy (password, passwordptr, input_len - (passwordptr - input));
-      password[input_len - (passwordptr - input)] = '\0';
-
       ctx = gsasl_server_ctx_get (sctx);
       if (ctx == NULL)
 	return GSASL_CANNOT_GET_CTX;
@@ -275,6 +269,12 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
       cb_retrieve = gsasl_server_callback_retrieve_get (ctx);
       if (cb_validate == NULL && cb_retrieve == NULL)
 	return GSASL_NEED_SERVER_VALIDATE_CALLBACK;
+
+      password = malloc (input_len - (passwordptr - input) + 1);
+      if (password == NULL)
+	return GSASL_MALLOC_ERROR;
+      memcpy (password, passwordptr, input_len - (passwordptr - input));
+      password[input_len - (passwordptr - input)] = '\0';
 
       if (cb_validate)
 	{
@@ -290,15 +290,22 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 	  res = cb_retrieve (sctx, authentication_id, authorization_id, NULL,
 			     NULL, &keylen);
 	  if (res != GSASL_OK)
-	    return res;
+	    {
+	      free (password);
+	      return res;
+	    }
 	  key = malloc (keylen);
 	  if (key == NULL)
-	    return GSASL_MALLOC_ERROR;
+	    {
+	      free (password);
+	      return GSASL_MALLOC_ERROR;
+	    }
 	  res = cb_retrieve (sctx, authentication_id, authorization_id, NULL,
 			     key, &keylen);
 	  if (res != GSASL_OK)
 	    {
 	      free (key);
+	      free (password);
 	      return res;
 	    }
 	  normkey = gsasl_stringprep_nfkc (key, keylen);
@@ -306,6 +313,7 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 	  if (normkey == NULL)
 	    {
 	      free (normkey);
+	      free (password);
 	      return GSASL_UNICODE_NORMALIZATION_ERROR;
 	    }
 	  if (strlen (password) == strlen (normkey) &&
@@ -314,8 +322,8 @@ _gsasl_plain_server_step (Gsasl_session_ctx * sctx,
 	  else
 	    res = GSASL_AUTHENTICATION_ERROR;
 	  free (normkey);
-	  free (password);
 	}
+      free (password);
       state->step++;
       break;
 
