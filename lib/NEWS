@@ -24,8 +24,8 @@ This means the code now use strdup, which improve readability.
 gsasl_encode, gsasl_decode: MODIFIED.  Now allocate the output parameter.
 gsasl_encode_inline, gsasl_decode_inline: ADD, DEPRECATED.
   Same as the old gsasl_encode and gsasl_decode, to simplify conversion.
-gsasl_callback_set, gsasl_callback_set_global: ADD.  New functions.
-gsasl_callback, gsasl_callback_global: ADD.  New functions.
+gsasl_callback_set: ADD.  New functions.
+gsasl_callback: ADD.  New functions.
 GSASL_NO_CALLBACK, GSASL_NO_ANONYMOUS_TOKEN: ADD.  New error codes.
 Gsasl_property, GSASL_CLIENT_*, GSASL_SERVER_*: ADD.  New enumerated type.
 Gsasl_callback: ADD.  New function prototype.
