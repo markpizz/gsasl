@@ -62,6 +62,8 @@ _gsasl_external_server_step (Gsasl_session_ctx * sctx,
 
       free (p);
     }
+  else
+    gsasl_property_set (sctx, GSASL_AUTHZID, NULL);
 
-  return gsasl_callback (NULL, sctx, GSASL_SERVER_EXTERNAL);
+  return gsasl_callback (NULL, sctx, GSASL_VALIDATE_EXTERNAL);
 }
