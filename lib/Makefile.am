@@ -88,7 +88,7 @@ libgsasl_la_SOURCES += securid/securid.h securid/securid.c
 endif			
 
 if KERBEROS_V5
-libgsasl_la_SOURCES += kerberos/kerberos_v5.h kerberos/kerberos_v5.c
+libgsasl_la_SOURCES += kerberos_v5/kerberos_v5.h kerberos_v5/kerberos_v5.c
 endif
 
 indent:
