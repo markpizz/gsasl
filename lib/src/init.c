@@ -24,8 +24,83 @@
 /* Get gc_init. */
 #include <gc.h>
 
-/* See common.c. */
-extern Gsasl_mechanism *_gsasl_all_mechanisms[];
+/* Get mechanism headers. */
+#include "cram-md5/cram-md5.h"
+#include "external/external.h"
+#include "gssapi/x-gssapi.h"
+#include "anonymous/anonymous.h"
+#include "plain/plain.h"
+#include "securid/securid.h"
+#include "digest-md5/digest-md5.h"
+
+#include "login/login.h"
+#include "ntlm/x-ntlm.h"
+#include "kerberos_v5/kerberos_v5.h"
+
+const char *GSASL_VALID_MECHANISM_CHARACTERS =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
+
+static int
+register_builtin_mechs (Gsasl * ctx)
+{
+  int rc;
+
+#ifdef USE_ANONYMOUS
+  rc = gsasl_register (ctx, &gsasl_anonymous_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_ANONYMOUS */
+
+#ifdef USE_EXTERNAL
+  rc = gsasl_register (ctx, &gsasl_external_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_EXTERNAL */
+
+#ifdef USE_PLAIN
+  rc = gsasl_register (ctx, &gsasl_plain_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_PLAIN */
+
+#ifdef USE_LOGIN
+  rc = gsasl_register (ctx, &gsasl_login_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_LOGIN */
+
+#ifdef USE_SECURID
+  rc = gsasl_register (ctx, &gsasl_securid_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_SECURID */
+
+#ifdef USE_NTLM
+  rc = gsasl_register (ctx, &gsasl_ntlm_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_NTLM */
+
+#ifdef USE_CRAM_MD5
+  rc = gsasl_register (ctx, &gsasl_cram_md5_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_CRAM_MD5 */
+
+#ifdef USE_DIGEST_MD5
+  rc = gsasl_register (ctx, &gsasl_digest_md5_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_DIGEST_MD5 */
+
+#ifdef USE_GSSAPI
+  rc = gsasl_register (ctx, &gsasl_gssapi_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_GSSAPI */
+
+  return GSASL_OK;
+}
 
 /**
  * gsasl_init:
@@ -51,14 +126,11 @@ gsasl_init (Gsasl ** ctx)
   if (*ctx == NULL)
     return GSASL_MALLOC_ERROR;
 
-  for (i = 0; _gsasl_all_mechanisms[i]; i++)
+  rc = register_builtin_mechs (*ctx);
+  if (rc != GSASL_OK)
     {
-      rc = gsasl_register (*ctx, _gsasl_all_mechanisms[i]);
-      if (rc != GSASL_OK)
-	{
-	  gsasl_done (*ctx);
-	  return rc;
-	}
+      gsasl_done (*ctx);
+      return rc;
     }
 
   return GSASL_OK;

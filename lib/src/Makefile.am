@@ -30,7 +30,7 @@ libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
 	-export-symbols-regex '^(gsasl|GSASL).*'
 libgsasl_la_LIBADD = @LTLIBINTL@ ../gl/libgl.la ../crypto/libgc.la
 libgsasl_la_SOURCES = gsasl.h.in internal.h \
-	init.c done.c register.c error.c version.c common.c \
+	init.c done.c register.c error.c version.c \
 	callback.c property.c \
 	supportp.c suggest.c listmech.c \
 	xstart.c xstep.c xfinish.c xcode.c \
