@@ -64,7 +64,7 @@
   "Digest H(A1) to server-to-client sealing key magic constant"
 #define DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING_LEN 59
 
-/* Compute in 32 bytes large array OUTPUT the DIGEST-MD5 response
+/* Compute in 33 bytes large array OUTPUT the DIGEST-MD5 response
    value.  SECRET holds the 16 bytes MD5 hash SS, i.e.,
    H(username:realm:passwd).  NONCE is a zero terminated string with
    the server nonce.  NC is the nonce-count, typically 1 for initial
@@ -310,6 +310,7 @@ digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
       output[2 * i + 1] = HEXCHAR (hash[i]);
       output[2 * i + 0] = HEXCHAR (hash[i] >> 4);
     }
+  output[32] = '\0';
 
   return 0;
 }
