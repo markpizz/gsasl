@@ -24,7 +24,7 @@
 
 #define MAX_LINE_LENGTH BUFSIZ
 
-static char *
+char *
 readline (const char *prompt)
 {
   char line[MAX_LINE_LENGTH];
