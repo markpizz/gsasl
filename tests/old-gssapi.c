@@ -47,7 +47,7 @@ server_cb_gssapi (Gsasl_session_ctx * ctx,
     printf ("GSSAPI user: %s\n", client_name);
 
   if (authentication_id)
-    printf ("Authentication ID: %s\n", authentication_id);
+    printf ("Authorization ID: %s\n", authentication_id);
 
   if (strcmp (client_name, GSSAPI_USER) == 0 &&
       strcmp (authentication_id, USERNAME[i]) == 0)
