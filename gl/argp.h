@@ -530,6 +530,13 @@ extern void *_argp_input (__const struct argp *__restrict __argp,
 extern void *__argp_input (__const struct argp *__restrict __argp,
 			   __const struct argp_state *__restrict __state)
      __THROW;
+/* Used for extracting the program name from argv[0] */
+extern char *_argp_basename(char *name) __THROW;
+extern char *__argp_basename(char *name) __THROW;
+
+/* Getting the program name given an argp state */
+extern char *_argp_short_program_name(const struct argp_state *state) __THROW;
+extern char *__argp_short_program_name(const struct argp_state *state) __THROW;
 
 #ifdef __USE_EXTERN_INLINES
 

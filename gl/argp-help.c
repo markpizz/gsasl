@@ -76,6 +76,10 @@ char *alloca ();
 # define __strchrnul strchrnul
 #endif
 
+#ifndef __mempcpy
+# define __mempcpy mempcpy
+#endif
+
 #ifndef __strndup
 # define __strndup strndup
 #endif
@@ -1670,6 +1674,9 @@ Try `%s --help' or `%s --usage' for more information.\n"),
   __argp_fmtstream_free (fs);
 }
 
+#ifndef weak_alias
+# define __argp_help argp_help
+#endif
 /* Output a usage message for ARGP to STREAM.  FLAGS are from the set
    ARGP_HELP_*.  NAME is what to use wherever a `program name' is needed. */
 void __argp_help (const struct argp *argp, FILE *stream,
@@ -1681,6 +1688,35 @@ void __argp_help (const struct argp *argp, FILE *stream,
 weak_alias (__argp_help, argp_help)
 #endif
 
+char *__argp_basename(char *name)
+{
+  char *short_name = strrchr(name, '/');
+  return short_name ? short_name + 1 : name;
+}
+
+char *
+__argp_short_program_name(const struct argp_state *state)
+{
+  if (state)
+    return state->name;
+#if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME || defined _LIBC
+  return program_invocation_short_name;
+#elif HAVE_DECL_PROGRAM_INVOCATION_NAME
+  return __argp_basename(program_invocation_name);
+#else
+  /* FIXME: What now? Miles suggests that it is better to use NULL,
+     but currently the value is passed on directly to fputs_unlocked,
+     so that requires more changes. */
+#if __GNUC__
+# warning No reasonable value to return
+#endif /* __GNUC__ */
+  return "";
+#endif
+}
+
+#ifndef weak_alias
+# define __argp_state_help argp_state_help
+#endif
 /* Output, if appropriate, a usage message for STATE to STREAM.  FLAGS are
    from the set ARGP_HELP_*.  */
 void
@@ -1692,7 +1728,7 @@ __argp_state_help (const struct argp_state *state, FILE *stream, unsigned flags)
 	flags |= ARGP_HELP_LONG_ONLY;
 
       _help (state ? state->root_argp : 0, state, stream, flags,
-	     state ? state->name : program_invocation_short_name);
+	     state ? state->name : __argp_short_program_name (state));
 
       if (!state || ! (state->flags & ARGP_NO_EXIT))
 	{
@@ -1707,6 +1743,9 @@ __argp_state_help (const struct argp_state *state, FILE *stream, unsigned flags)
 weak_alias (__argp_state_help, argp_state_help)
 #endif
 
+#ifndef weak_alias
+# define __argp_error argp_error
+#endif
 /* If appropriate, print the printf string FMT and following args, preceded
    by the program name and `:', to stderr, and followed by a `Try ... --help'
    message, then exit (1).  */
@@ -1733,7 +1772,8 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 	      __asprintf (&buf, fmt, ap);
 
 	      __fwprintf (stream, L"%s: %s\n",
-			  state ? state->name : program_invocation_short_name,
+			  state ? state->name :
+			  __argp_short_program_name (state),
 			  buf);
 
 	      free (buf);
@@ -1742,7 +1782,8 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 #endif
 	    {
 	      fputs_unlocked (state
-			      ? state->name : program_invocation_short_name,
+			      ? state->name :
+			      __argp_short_program_name (state),
 			      stream);
 	      putc_unlocked (':', stream);
 	      putc_unlocked (' ', stream);
@@ -1764,6 +1805,9 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 weak_alias (__argp_error, argp_error)
 #endif
 
+#ifndef weak_alias
+# define __argp_failure argp_failure
+#endif
 /* Similar to the standard gnu error-reporting function error(), but will
    respect the ARGP_NO_EXIT and ARGP_NO_ERRS flags in STATE, and will print
    to STATE->err_stream.  This is useful for argument parsing code that is
@@ -1787,11 +1831,12 @@ __argp_failure (const struct argp_state *state, int status, int errnum,
 #ifdef USE_IN_LIBIO
 	  if (_IO_fwide (stream, 0) > 0)
 	    __fwprintf (stream, L"%s",
-			state ? state->name : program_invocation_short_name);
+			state ? state->name :
+			__argp_short_program_name (state));
 	  else
 #endif
 	    fputs_unlocked (state
-			    ? state->name : program_invocation_short_name,
+			    ? state->name : __argp_short_program_name (state),
 			    stream);
 
 	  if (fmt)
