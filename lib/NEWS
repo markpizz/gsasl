@@ -4,10 +4,6 @@ See the end for copying conditions.
 
 * Version 0.2.4 (unreleased)
 
-** New configure option --disable-obsolete to remove backwards compatibility.
-This is mostly intended to be used when cross compiling to platforms
-with limited memory.
-
 ** The DIGEST-MD5 mechanism is rewritten and enabled by default.
 The implementation is written so it can be used separately from GNU
 SASL in your own product, it only uses C89 and two external symbols
@@ -23,7 +19,12 @@ invalid input better.
 ** Memory leaks fixed.
 
 ** New simple user database API `gsasl_simple_getpass'.
-This replaces gsasl_md5pwd_get_password.
+This replaces gsasl_md5pwd_get_password.  The functionality is the
+same, only the API changed (to remove fixed size buffer restrictions).
+
+** New configure option --disable-obsolete to remove backwards compatibility.
+This is mostly intended to be used when cross compiling to platforms
+with limited memory.
 
 ** API and ABI modifications.
 gsasl_md5pwd_get_password: DEPRECATED.  Use gsasl_simple_getpass() instead.
