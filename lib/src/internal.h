@@ -19,8 +19,8 @@
  *
  */
 
-#ifndef _INTERNAL_H
-# define _INTERNAL_H
+#ifndef INTERNAL_H
+# define INTERNAL_H
 
 # if HAVE_CONFIG_H
 # include "config.h"
@@ -143,4 +143,4 @@ struct Gsasl_session
   char *password;
 };
 
-#endif /* _INTERNAL_H */
+#endif /* INTERNAL_H */
