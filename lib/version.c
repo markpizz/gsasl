@@ -2,20 +2,20 @@
  * Copyright (C) 1998, 1999, 2000, 2001, 2002 Free Software Foundation, Inc.
  * Copyright (C) 2002  Simon Josefsson
  *
- * This file is part of libgsasl.
+ * This file is part of GNU SASL.
  *
- * Libgsasl is free software; you can redistribute it and/or
+ * GNU SASL is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
  *
- * Libgsasl is distributed in the hope that it will be useful,
+ * GNU SASL is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with libgsasl; if not, write to the Free Software
+ * License along with GNU SASL; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
@@ -62,7 +62,7 @@ _gsasl_parse_version_string (const char *s, int *major, int *minor,
 /**
  * gsasl_check_version:
  * @req_version: version string to compare with, or NULL
- * 
+ *
  * Check that the the version of the library is at minimum the one
  * given as a string in @var{req_version} and return the actual
  * version string of the library; return NULL if the condition is not

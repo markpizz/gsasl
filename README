@@ -1,4 +1,4 @@
-Libgsasl README -- important introductory notes
+GNU SASL README -- important introductory notes
 See the end for copying conditions.
 
 This directory holds GNU SASL which is an implemention of the Simple
@@ -35,9 +35,8 @@ please let me know so work duplication can be avoided.
   - Port to Cyclone?
 
 The library (lib/) is licensed under the GNU Lesser Public License
-license (see COPYING.LIB), the application (src/) is licensed under
-the GNU Public License (see COPYING), and the documentation (doc/) is
-licensed under the GNU Free Documentation License (see COPYING.DOC).
+license (see COPYING.LIB), and the documentation (doc/) is licensed
+under the GNU Free Documentation License (see COPYING.DOC).
 
 The reason the LGPL is used for this library is that other
 implementations of SASL exists, Cyrus SASL, but parts of it relies on
@@ -49,16 +48,8 @@ use this library under the GPL license, you are encouraged to do so.
 For updates to the project, see <URL:http://josefsson.org/libgsasl/>.
 
 ----------------------------------------------------------------------
-Copyright information:
-
 Copyright (C) 2002 Simon Josefsson
 
-   Permission is granted to anyone to make or distribute verbatim copies
-   of this document as received, in any medium, provided that the
-   copyright notice and this permission notice are preserved,
-   thus giving the recipient permission to redistribute in turn.
-
-   Permission is granted to distribute modified versions
-   of this document, or of portions of it,
-   under the above conditions, provided also that they
-   carry prominent notices stating who last changed them.
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.

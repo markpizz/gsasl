@@ -1,20 +1,20 @@
 /* callback.c	callback handling
  * Copyright (C) 2002  Simon Josefsson
  *
- * This file is part of libgsasl.
+ * This file is part of GNU SASL.
  *
- * Libgsasl is free software; you can redistribute it and/or
+ * GNU SASL is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
  *
- * Libgsasl is distributed in the hope that it will be useful,
+ * GNU SASL is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with libgsasl; if not, write to the Free Software
+ * License along with GNU SASL; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
@@ -24,7 +24,7 @@
 /**
  * gsasl_client_ctx_get:
  * @cctx: libgsasl client handle
- * 
+ *
  * Return value: Returns the libgsasl handle given a libgsasl client handle.
  **/
 Gsasl_ctx *
@@ -36,7 +36,7 @@ gsasl_client_ctx_get (Gsasl_session_ctx * cctx)
 /**
  * gsasl_server_ctx_get:
  * @cctx: libgsasl server handle
- * 
+ *
  * Return value: Returns the libgsasl handle given a libgsasl server handle.
  **/
 Gsasl_ctx *
@@ -49,7 +49,7 @@ gsasl_server_ctx_get (Gsasl_session_ctx * sctx)
  * gsasl_application_data_set:
  * @ctx: libgsasl handle.
  * @application_data: opaque pointer to application specific data.
- * 
+ *
  * Store application specific data in the libgsasl handle.  The
  * application data can be later (for instance, inside a callback) be
  * retrieved by calling gsasl_application_data_get().  It is normally
@@ -65,12 +65,12 @@ gsasl_application_data_set (Gsasl_ctx * ctx, void *application_data)
 /**
  * gsasl_application_data_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Retrieve application specific data from libgsasl handle. The
  * application data is set using gsasl_application_data_set().  It is
  * normally used by the application to maintain state between the main
  * program and the callback.
- * 
+ *
  * Return value: Returns the application specific data, or NULL.
  **/
 void *
@@ -83,7 +83,7 @@ gsasl_application_data_get (Gsasl_ctx * ctx)
  * gsasl_client_application_data_set:
  * @xctx: libgsasl client handle.
  * @application_data: opaque pointer to application specific data.
- * 
+ *
  * Store application specific data in the libgsasl client handle.  The
  * application data can be later (for instance, inside a callback) be
  * retrieved by calling gsasl_client_application_data_get().  It is
@@ -100,12 +100,12 @@ gsasl_client_application_data_set (Gsasl_session_ctx * cctx,
 /**
  * gsasl_client_application_data_get:
  * @xctx: libgsasl client handle.
- * 
+ *
  * Retrieve application specific data from libgsasl client handle. The
  * application data is set using gsasl_client_application_data_set().
  * It is normally used by the application to maintain state between
  * the main program and the callback.
- * 
+ *
  * Return value: Returns the application specific data, or NULL.
  **/
 void *
@@ -118,7 +118,7 @@ gsasl_client_application_data_get (Gsasl_session_ctx * cctx)
  * gsasl_server_application_data_set:
  * @xctx: libgsasl server handle.
  * @application_data: opaque pointer to application specific data.
- * 
+ *
  * Store application specific data in the libgsasl server handle.  The
  * application data can be later (for instance, inside a callback) be
  * retrieved by calling gsasl_server_application_data_get().  It is
@@ -135,12 +135,12 @@ gsasl_server_application_data_set (Gsasl_session_ctx * sctx,
 /**
  * gsasl_server_application_data_get:
  * @xctx: libgsasl server handle.
- * 
+ *
  * Retrieve application specific data from libgsasl server handle. The
  * application data is set using gsasl_server_application_data_set().
  * It is normally used by the application to maintain state between
  * the main program and the callback.
- * 
+ *
  * Return value: Returns the application specific data, or NULL.
  **/
 void *
@@ -150,7 +150,7 @@ gsasl_server_application_data_get (Gsasl_session_ctx * sctx)
 }
 
 
-/* 
+/*
  *
  ************************* Client Callbacks
  *
@@ -161,7 +161,7 @@ gsasl_server_application_data_get (Gsasl_session_ctx * sctx)
  * gsasl_client_callback_authentication_id_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the client to set the
  * authentication identity.  The function can be later retrieved using
  * gsasl_client_callback_authentication_id_get().
@@ -177,7 +177,7 @@ gsasl_client_callback_authentication_id_set (Gsasl_ctx * ctx,
 /**
  * gsasl_client_callback_authentication_id_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_client_callback_authentication_id_set().
  **/
@@ -191,7 +191,7 @@ gsasl_client_callback_authentication_id_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_authorization_id_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the client to set the
  * authorization identity.  The function can be later retrieved using
  * gsasl_client_callback_authorization_id_get().
@@ -207,7 +207,7 @@ gsasl_client_callback_authorization_id_set (Gsasl_ctx * ctx,
 /**
  * gsasl_client_callback_authorization_id_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_client_callback_authorization_id_set().
  **/
@@ -221,7 +221,7 @@ gsasl_client_callback_authorization_id_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_password_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the client to set the
  * password.  The function can be later retrieved using
  * gsasl_client_callback_password_get().
@@ -237,7 +237,7 @@ gsasl_client_callback_password_set (Gsasl_ctx * ctx,
 /**
  * gsasl_client_callback_password_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_client_callback_password_set().
  **/
@@ -251,7 +251,7 @@ gsasl_client_callback_password_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_passcode_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the client to set the
  * passcode.  The function can be later retrieved using
  * gsasl_client_callback_passcode_get().
@@ -267,7 +267,7 @@ gsasl_client_callback_passcode_set (Gsasl_ctx * ctx,
 /**
  * gsasl_client_callback_passcode_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_client_callback_passcode_set().
  **/
@@ -281,7 +281,7 @@ gsasl_client_callback_passcode_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_pin_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the client to chose a new
  * pin, possibly suggested by the server, for the SECURID mechanism.
  * This is not normally invoked, but only when the server requests it.
@@ -298,7 +298,7 @@ gsasl_client_callback_pin_set (Gsasl_ctx * ctx, Gsasl_client_callback_pin cb)
 /**
  * gsasl_client_callback_pin_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_client_callback_pin_set().
  **/
@@ -312,7 +312,7 @@ gsasl_client_callback_pin_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_service_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the client to set the name
  * of the service.  The service buffer should be a registered GSSAPI
  * host-based service name, hostname the name of the server.
@@ -330,7 +330,7 @@ gsasl_client_callback_service_set (Gsasl_ctx * ctx,
 /**
  * gsasl_client_callback_service_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_client_callback_service_set().
  **/
@@ -344,7 +344,7 @@ gsasl_client_callback_service_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_anonymous_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the client to set the
  * anonymous token, which usually is the users email address.  The
  * function can be later retrieved using
@@ -360,7 +360,7 @@ gsasl_client_callback_anonymous_set (Gsasl_ctx * ctx,
 /**
  * gsasl_client_callback_anonymous_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_client_callback_anonymous_set().
  **/
@@ -374,7 +374,7 @@ gsasl_client_callback_anonymous_get (Gsasl_ctx * ctx)
  * gsasl_client_callback_qop_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the client to determine the
  * qop to use after looking at what the server offered.  The function
  * can be later retrieved using gsasl_client_callback_qop_get().
@@ -388,7 +388,7 @@ gsasl_client_callback_qop_set (Gsasl_ctx * ctx, Gsasl_client_callback_qop cb)
 /**
  * gsasl_client_callback_qop_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_client_callback_qop_set().
  **/
@@ -420,7 +420,7 @@ gsasl_client_callback_maxbuf_set (Gsasl_ctx * ctx,
 /**
  * gsasl_client_callback_maxbuf_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_client_callback_maxbuf_set().
  **/
@@ -431,7 +431,7 @@ gsasl_client_callback_maxbuf_get (Gsasl_ctx * ctx)
 }
 
 
-/* 
+/*
  *
  ************************* Server Callbacks
  *
@@ -442,7 +442,7 @@ gsasl_client_callback_maxbuf_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_validate_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the server for deciding if
  * user is authenticated using authentication identity, authorization
  * identity and password.  The function can be later retrieved using
@@ -458,7 +458,7 @@ gsasl_server_callback_validate_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_validate_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_validate_set().
  **/
@@ -472,7 +472,7 @@ gsasl_server_callback_validate_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_retrieve_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the server for deciding if
  * user is authenticated using authentication identity, authorization
  * identity and password.  The function can be later retrieved using
@@ -488,7 +488,7 @@ gsasl_server_callback_retrieve_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_retrieve_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_retrieve_set().
  **/
@@ -502,7 +502,7 @@ gsasl_server_callback_retrieve_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_cram_md5_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the server for deciding if
  * user is authenticated using CRAM-MD5 challenge and response.  The
  * function can be later retrieved using
@@ -518,7 +518,7 @@ gsasl_server_callback_cram_md5_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_cram_md5_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_cram_md5_set().
  **/
@@ -548,7 +548,7 @@ gsasl_server_callback_digest_md5_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_digest_md5_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_digest_md5_set().
  **/
@@ -562,7 +562,7 @@ gsasl_server_callback_digest_md5_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_external_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the server for deciding if
  * user is authenticated out of band.  The function can be later
  * retrieved using gsasl_server_callback_external_get().
@@ -577,7 +577,7 @@ gsasl_server_callback_external_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_external_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_external_set().
  **/
@@ -591,7 +591,7 @@ gsasl_server_callback_external_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_anonymous_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the server for deciding if
  * user is permitted anonymous access.  The function can be later
  * retrieved using gsasl_server_callback_anonymous_get().
@@ -606,7 +606,7 @@ gsasl_server_callback_anonymous_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_anonymous_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_anonymous_set().
  **/
@@ -636,7 +636,7 @@ gsasl_server_callback_realm_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_realm_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_realm_set().
  **/
@@ -666,7 +666,7 @@ gsasl_server_callback_qop_set (Gsasl_ctx * ctx, Gsasl_server_callback_qop cb)
 /**
  * gsasl_server_callback_qop_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_qop_set().
  **/
@@ -698,7 +698,7 @@ gsasl_server_callback_maxbuf_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_maxbuf_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_maxbuf_set().
  **/
@@ -729,7 +729,7 @@ gsasl_server_callback_cipher_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_cipher_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_cipher_set().
  **/
@@ -743,7 +743,7 @@ gsasl_server_callback_cipher_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_securid_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the server for validating a
  * user via the SECURID mechanism.  The function should return
  * GSASL_OK if user authenticated successfully,
@@ -765,7 +765,7 @@ gsasl_server_callback_securid_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_securid_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_securid_set().
  **/
@@ -779,7 +779,7 @@ gsasl_server_callback_securid_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_gssapi_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the server for checking if
  * a GSSAPI user is authorized for username (by, e.g., calling
  * krb5_userok()).  The function should return GSASL_OK if the user
@@ -797,7 +797,7 @@ gsasl_server_callback_gssapi_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_gssapi_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_gssapi_set().
  **/
@@ -811,7 +811,7 @@ gsasl_server_callback_gssapi_get (Gsasl_ctx * ctx)
  * gsasl_server_callback_service_set:
  * @ctx: libgsasl handle.
  * @cb: callback function
- * 
+ *
  * Specify the callback function to use in the server to set the name
  * of the service.  The service buffer should be a registered GSSAPI
  * host-based service name, hostname the name of the server.  The
@@ -828,7 +828,7 @@ gsasl_server_callback_service_set (Gsasl_ctx * ctx,
 /**
  * gsasl_server_callback_service_get:
  * @ctx: libgsasl handle.
- * 
+ *
  * Return the callback earlier set by calling
  * gsasl_server_callback_service_set().
  **/

@@ -1,20 +1,20 @@
-/* md5pwd.c	find passwords in UoW imapd MD5 type password files 
+/* md5pwd.c	find passwords in UoW imapd MD5 type password files
  * Copyright (C) 2002  Simon Josefsson
  *
- * This file is part of libgsasl.
+ * This file is part of GNU SASL.
  *
- * Libgsasl is free software; you can redistribute it and/or
+ * GNU SASL is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
  *
- * Libgsasl is distributed in the hope that it will be useful,
+ * GNU SASL is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with libgsasl; if not, write to the Free Software
+ * License along with GNU SASL; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
@@ -28,10 +28,10 @@
  * @key: output character array.
  * @keylen: input maximum size of output character array, on output
  * contains actual length of output array.
- * 
+ *
  * Retrieve password for user from specified file.  To find out how
  * large the output array must be, call this function with out=NULL.
- * 
+ *
  * The file should be on the UoW "MD5 Based Authentication" format,
  * which means it is in text format with comments denoted by # first
  * on the line, with user entries looking as username\tpassword.  This

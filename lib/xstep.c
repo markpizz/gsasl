@@ -1,20 +1,20 @@
 /* xstep.c	perform one SASL authentication step
  * Copyright (C) 2002  Simon Josefsson
  *
- * This file is part of libgsasl.
+ * This file is part of GNU SASL.
  *
- * Libgsasl is free software; you can redistribute it and/or
+ * GNU SASL is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
  *
- * Libgsasl is distributed in the hope that it will be useful,
+ * GNU SASL is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with libgsasl; if not, write to the Free Software
+ * License along with GNU SASL; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
@@ -28,7 +28,7 @@
  * @input_len: size of input byte array.
  * @output: output byte array.
  * @output_len: size of output byte array.
- * 
+ *
  * Perform one step of SASL authentication in client.  This reads data
  * from server (specified with input and input_len), processes it
  * (potentially invoking callbacks to the application), and writes
@@ -36,7 +36,7 @@
  *
  * The contents of the output buffer is unspecified if this functions
  * returns anything other than GSASL_NEEDS_MORE.
- * 
+ *
  * Return value: Returns GSASL_OK if authenticated terminated
  * successfully, GSASL_NEEDS_MORE if more data is needed, or error
  * code.
@@ -58,7 +58,7 @@ gsasl_client_step (Gsasl_session_ctx * xctx,
  * @input_len: size of input byte array.
  * @output: output byte array.
  * @output_len: size of output byte array.
- * 
+ *
  * Perform one step of SASL authentication in server.  This reads data
  * from client (specified with input and input_len), processes it
  * (potentially invoking callbacks to the application), and writes
@@ -66,7 +66,7 @@ gsasl_client_step (Gsasl_session_ctx * xctx,
  *
  * The contents of the output buffer is unspecified if this functions
  * returns anything other than GSASL_NEEDS_MORE.
- * 
+ *
  * Return value: Returns GSASL_OK if authenticated terminated
  * successfully, GSASL_NEEDS_MORE if more data is needed, or error
  * code.
@@ -152,10 +152,10 @@ _gsasl_session_step_base64 (Gsasl_session_ctx * xctx,
  * @b64input: input base64 encoded byte array.
  * @b64output: output base64 encoded byte array.
  * @b64output_len: size of output base64 encoded byte array.
- * 
+ *
  * This is a simple wrapper around gsasl_client_step() that base64
  * decodes the input and base64 encodes the output.
- * 
+ *
  * Return value: See gsasl_client_step().
  **/
 int
@@ -173,10 +173,10 @@ gsasl_client_step_base64 (Gsasl_session_ctx * xctx,
  * @b64input: input base64 encoded byte array.
  * @b64output: output base64 encoded byte array.
  * @b64output_len: size of output base64 encoded byte array.
- * 
+ *
  * This is a simple wrapper around gsasl_server_step() that base64
  * decodes the input and base64 encodes the output.
- * 
+ *
  * Return value: See gsasl_server_step().
  **/
 int
