@@ -113,10 +113,10 @@ imap_step_recv (char **data)
 
   memmove (&p[0], &p[2], strlen (p) - 1);
 
-  if (p[strlen(p)-1] == '\n')
-    p[strlen(p)-1] = '\0';
-  if (p[strlen(p)-1] == '\r')
-    p[strlen(p)-1] = '\0';
+  if (p[strlen (p) - 1] == '\n')
+    p[strlen (p) - 1] = '\0';
+  if (p[strlen (p) - 1] == '\r')
+    p[strlen (p) - 1] = '\0';
 
   return 1;
 }

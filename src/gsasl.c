@@ -65,11 +65,11 @@ readln (char **out)
       do
 	{
 	  j++;
-	  len = recv (sockfd, &input[j-1], 1, 0);
+	  len = recv (sockfd, &input[j - 1], 1, 0);
 	  if (len <= 0)
 	    return 0;
 	}
-      while (input[j-1] != '\n' && j < MAX_LINE_LENGTH);
+      while (input[j - 1] != '\n' && j < MAX_LINE_LENGTH);
       input[j] = '\0';
     }
   else
