@@ -73,6 +73,7 @@ section entitled "GNU Free Documentation License".
 
 Appendices
 
+* Protocol Clarifications::     Our notes on the SASL protocol.
 * Copying This Manual::         How you can copy and share this manual.
 
 Indices
@@ -1580,6 +1581,24 @@ These are some standard parameters.
 @c **********************************************************
 @c *******************  Appendices  *************************
 @c **********************************************************
+
+@node Protocol Clarifications
+@appendix Protocol Clarifications
+
+@section Server-side use of SASLPrep in CRAM-MD5
+
+The specification, as of draft-ietf-sasl-crammd5-02, is silent on
+whether a SASL server implementation applying SASLPrep on a password
+received from an external, non-SASL specific database (i.e., the
+passwords are not stored in SASLPrep form in the database), should set
+or clear the AllowUnassigned bit.  The motivation for the AU-bit in
+StringPrep/SASLPrep is for stored vs query strings.  It could be
+argued that in this situation the server can treat the external
+password either as a stored string (from a database) or as a query
+(the server uses the string as a query into the fixed HMAC-MD5 hash).
+
+GNU SASL apply SASLPrep to the password with the AllowUnassigned bit
+cleared.
 
 @node Copying This Manual
 @appendix Copying This Manual
