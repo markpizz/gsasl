@@ -105,6 +105,8 @@ _gsasl_cram_md5_server_step (Gsasl_session * sctx,
   cram_md5_digest (challenge, strlen (challenge),
 		   normkey, strlen (normkey), hash);
 
+  free (normkey);
+
   if (memcmp (&input[input_len - MD5LEN * 2], hash, 2 * MD5LEN) == 0)
     res = GSASL_OK;
   else
