@@ -1,5 +1,17 @@
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
+	* po/sv.po: Generated.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Add ChangeLog target.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS: Remove.
 
 2004-04-16  Simon Josefsson <simon@josefsson.org>

@@ -1,5 +1,29 @@
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
+	* lib/po/sv.po: Generated.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Fix.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Typo.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Fix HIGNORE.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog, lib/ChangeLog: Generated.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Add ChangeLog target.
+
+2004-04-16  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS, lib/NEWS: Remove.
 
 2004-04-16  Simon Josefsson <simon@josefsson.org>
