@@ -149,7 +149,7 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
   OM_uint32 maj_stat, min_stat;
   gss_buffer_desc client_name;
   gss_OID mech_type;
-  Gsasl_ctx *ctx;
+  Gsasl *ctx;
   char *username;
   int res;
   /* FIXME: Remove fixed size buffer. */
@@ -182,6 +182,12 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
     case 1:
       bufdesc1.value = /*XXX*/ (char *) input;
       bufdesc1.length = input_len;
+      if (state->client)
+	{
+	  gss_release_name (&min_stat, &state->client);
+	  state->client = GSS_C_NO_NAME;
+	}
+
       maj_stat = gss_accept_sec_context (&min_stat,
 					 &state->context,
 					 state->cred,
@@ -295,6 +301,7 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
 	}
 
       res = cb_gssapi (sctx, client_name.value, username);
+
       free (username);
 
       *output_len = 0;
@@ -329,6 +336,9 @@ _gsasl_gssapi_server_finish (Gsasl_session * sctx, void *mech_data)
 
   if (state->cred != GSS_C_NO_CREDENTIAL)
     gss_release_cred (&min_stat, &state->cred);
+
+  if (state->client != GSS_C_NO_NAME)
+    gss_release_name (&min_stat, &state->client);
 
   free (state);
 }
