@@ -142,6 +142,8 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
     case OPTION_IMAP:
       imap = 1;
+      if (!service)
+	service = strdup ("imap");
       /* fall through */
 
     case OPTION_NO_CLIENT_FIRST:
@@ -224,6 +226,8 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	sockfh = fdopen (sockfd, "r+");
 	setvbuf(sockfh, NULL, _IONBF, 0);
       }
+      if (!hostname)
+	hostname = strdup (connect_hostname);
       break;
 
     case ARGP_KEY_ARG:
@@ -275,7 +279,8 @@ static struct argp_option options[] = {
    "The default is to terminate after authentication."},
 
   {"imap", OPTION_IMAP, 0, 0,
-   "Use a IMAP-like logon procedure (client only)."},
+   "Use a IMAP-like logon procedure (client only). "
+   "Also sets the --service default to \"imap\"."},
 
   {"mechanism", 'm', "STRING", 0,
    "Mechanism to use."},
@@ -606,9 +611,6 @@ main (int argc, char *argv[])
       if (imap && !readln(input, MAX_LINE_LENGTH))
 	return 1;
 
-      if (imap)
-	/* XXX check server outcome (NO vs OK vs still waiting) */;
-
       if (!silent)
 	{
 	  if (mode == 'c')
@@ -618,6 +620,9 @@ main (int argc, char *argv[])
 	    fprintf (stderr, _("Server authentication "
 			       "finished (client trusted)...\n"));
 	}
+
+      if (imap)
+	/* XXX check server outcome (NO vs OK vs still waiting) */;
 
       /* Transfer application payload */
       if (application_data)
