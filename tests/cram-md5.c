@@ -41,12 +41,12 @@ server_cb_retrieve (Gsasl_session_ctx * xctx,
 		    const char *authorization_id,
 		    const char *realm, char *key, size_t * keylen)
 {
-  if (!key)
-    *keylen = strlen (PASSWORD);
+  size_t needlen = strlen (PASSWORD);
 
-  if (*keylen < strlen (PASSWORD))
+  if (key && *keylen < needlen)
     return GSASL_TOO_SMALL_BUFFER;
 
+  *keylen = needlen;
   if (key)
     memcpy (key, PASSWORD, *keylen);
 
@@ -57,12 +57,12 @@ static int
 client_cb_authentication_id (Gsasl_session_ctx * xctx,
 			     char *out, size_t * outlen)
 {
-  if (!out)
-    *outlen = strlen (USERNAME);
+  size_t needlen = strlen (USERNAME);
 
-  if (*outlen < strlen (USERNAME))
+  if (out && *outlen < needlen)
     return GSASL_TOO_SMALL_BUFFER;
 
+  *outlen = needlen;
   if (out)
     memcpy (out, USERNAME, *outlen);
 
@@ -72,12 +72,12 @@ client_cb_authentication_id (Gsasl_session_ctx * xctx,
 static int
 client_cb_password (Gsasl_session_ctx * xctx, char *out, size_t * outlen)
 {
-  if (!out)
-    *outlen = strlen (PASSWORD);
+  size_t needlen = strlen (PASSWORD);
 
-  if (*outlen < strlen (PASSWORD))
+  if (out && *outlen < needlen)
     return GSASL_TOO_SMALL_BUFFER;
 
+  *outlen = needlen;
   if (out)
     memcpy (out, PASSWORD, *outlen);
 
