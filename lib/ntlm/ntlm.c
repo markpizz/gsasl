@@ -18,9 +18,6 @@
  * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307 USA
  *
- * NB!  The NTLM library is licensed under GPL, so linking GSASL with
- * it require that you follow the GPL for GSASL as well.
- *
  */
 
 #include "x-ntlm.h"

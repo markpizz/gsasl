@@ -1229,9 +1229,6 @@ This mechanism is only enabled in the client if you implement the
 callbacks below and set them in the library (@pxref{Callback
 Functions}).
 
-Note: Libntlm uses @code{assert} in some places, it may thus crash
-your client if it is given bad input.
-
 @include gsasl-callback-authorization.texi
 
 @include gsasl-callback-password.texi

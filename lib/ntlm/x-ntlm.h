@@ -18,13 +18,10 @@
  * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307 USA
  *
- * NB!  The NTLM library is licensed under GPL, so linking GSASL with
- * it require that you follow the GPL for GSASL as well.
- *
  */
 
-#ifndef _SASL_NTLM_H
-#define _SASL_NTLM_H
+#ifndef X_NTLM_H
+#define X_NTLM_H
 
 #include "internal.h"
 
@@ -39,4 +36,4 @@ extern int _gsasl_ntlm_client_step (Gsasl_session_ctx * sctx,
 extern int _gsasl_ntlm_client_finish (Gsasl_session_ctx * sctx,
 				      void *mech_data);
 
-#endif /* _SASL_NTLM_H */
+#endif /* X_NTLM_H */
