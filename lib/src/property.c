@@ -75,6 +75,10 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->realm;
       break;
 
+    case GSASL_QOP:
+      p = &sctx->qop;
+      break;
+
     default:
       break;
     }
