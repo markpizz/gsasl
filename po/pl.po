@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.0\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-04-16 21:12+0200\n"
+"POT-Creation-Date: 2004-08-26 16:53+0200\n"
 "PO-Revision-Date: 2004-04-18 00:20+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -40,58 +40,58 @@ msgstr "Wyj¶cie klienta:\n"
 msgid "Output from server:\n"
 msgstr "Wyj¶cie serwera:\n"
 
-#: src/gsasl.c:302 src/gsasl.c:347 src/gsasl.c:402 src/gsasl.c:447
-#: src/gsasl.c:542
-#, c-format
-msgid "Libgsasl error (%d): %s\n"
+#: src/gsasl.c:335 src/gsasl.c:377 src/gsasl.c:428 src/gsasl.c:470
+#: src/gsasl.c:562
+#, fuzzy, c-format
+msgid "Libgsasl error (%d): %s"
 msgstr "B³±d libgsasl (%d): %s\n"
 
-#: src/gsasl.c:356
+#: src/gsasl.c:384
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Mechanizmy obs³ugiwane przez tego klienta:\n"
 
-#: src/gsasl.c:359
+#: src/gsasl.c:387
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Mechanizmy obs³ugiwane przez ten serwer:\n"
 
-#: src/gsasl.c:384
+#: src/gsasl.c:411
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Nie znaleziono mechanizmu...\n"
 
-#: src/gsasl.c:433
+#: src/gsasl.c:457
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
 msgstr "Dane uwierzytelniaj±ce base64 od serwera (RET je¶li ¿adne):\n"
 
-#: src/gsasl.c:436
+#: src/gsasl.c:460
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
 msgstr "Dana uwierzytelniaj±ce base64 od klienta (RET je¶li ¿adne):\n"
 
-#: src/gsasl.c:458
+#: src/gsasl.c:479
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Uwierzytelnienie klienta zakoñczone (serwer zaufa³)...\n"
 
-#: src/gsasl.c:461
+#: src/gsasl.c:482
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Uwierzytelnienie serwera zakoñczone (klient zaufa³)...\n"
 
-#: src/gsasl.c:476
+#: src/gsasl.c:497
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Dane aplikacji (EOF aby zakoñczyæ):\n"
 
-#: src/gsasl.c:515
+#: src/gsasl.c:536
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Zakodowane base64 dane aplikacji do wys³ania:\n"
 
-#: src/gsasl.c:549
+#: src/gsasl.c:567
 #, c-format
 msgid "Session finished...\n"
 msgstr "Sesja zakoñczona...\n"
