@@ -1,4 +1,4 @@
-/* parser.h --- DIGEST-MD5 parser.
+/* validate.c --- Validate consistency of DIGEST-MD5 tokens.
  * Copyright (C) 2004  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
@@ -20,23 +20,36 @@
  *
  */
 
-#ifndef DIGEST_MD5_PARSER_H
-# define DIGEST_MD5_PARSER_H
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
 
-/* Get token types. */
-#include "tokens.h"
+/* Get prototypes. */
+#include "validate.h"
 
-extern int digest_md5_getsubopt (char **optionp,
-				 const char *const *tokens,
-				 char **valuep);
+int
+digest_md5_validate (digest_md5_challenge *c, digest_md5_response *r)
+{
+  if (!c->nonce || r->nonce)
+    return -1;
 
-extern int digest_md5_parse_challenge (const char *challenge,
-				       digest_md5_challenge *out);
+  if (strcmp (c->nonce, r->nonce) != 0)
+    return -1;
 
-extern int digest_md5_parse_response (const char *response,
-				      digest_md5_response *out);
+  if (r->nc != 1)
+    return -1;
 
-extern int digest_md5_parse_finish (const char *finish,
-				    digest_md5_finish *out);
+  if (c->utf8 != r->utf8)
+    return -1;
 
-#endif /* DIGEST_MD5_PARSER_H */
+  if (!((c->qops ? c->qops : DIGEST_MD5_QOP_AUTH) &
+	(r->qop ? r->qop : DIGEST_MD5_QOP_AUTH)))
+    return -1;
+
+  if ((r->qop & DIGEST_MD5_QOP_AUTH) && !(c->ciphers & r->cipher))
+    return -1;
+
+  /* FIXME: Check more? */
+
+  return 0;
+}

@@ -639,30 +639,3 @@ digest_md5_parse_finish (const char *finish, digest_md5_finish *out)
 
   return rc;
 }
-
-int
-digest_md5_validate (digest_md5_challenge *c, digest_md5_response *r)
-{
-  if (!c->nonce || r->nonce)
-    return -1;
-
-  if (strcmp (c->nonce, r->nonce) != 0)
-    return -1;
-
-  if (r->nc != 1)
-    return -1;
-
-  if (c->utf8 != r->utf8)
-    return -1;
-
-  if (!((c->qops ? c->qops : DIGEST_MD5_QOP_AUTH) &
-	(r->qop ? r->qop : DIGEST_MD5_QOP_AUTH)))
-    return -1;
-
-  if ((r->qop & DIGEST_MD5_QOP_AUTH) && !(c->ciphers & r->cipher))
-    return -1;
-
-  /* FIXME: Check more? */
-
-  return 0;
-}
