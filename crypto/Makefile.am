@@ -22,6 +22,7 @@ EXTRA_DIST = README
 
 noinst_LTLIBRARIES = libnettle.la
 
+libnettle_la_LIBADD = $(ALLOCA)
 libnettle_la_SOURCES = macros.h nettle-meta.h \
 	memxor.c memxor.h \
 	md5.h md5.c md5-meta.c \
