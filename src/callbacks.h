@@ -19,89 +19,12 @@
  *
  */
 
-#ifndef _CALLBACKS_H
-#define _CALLBACKS_H
+#ifndef CALLBACKS_H
+#define CALLBACKS_H
 
 #include <gsasl.h>		/* Gsasl_session_ctx */
 
-/* Client callbacks */
-
 extern int
-client_callback_anonymous (Gsasl_session_ctx * ctx,
-			   char *out, size_t * outlen);
+callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop);
 
-extern int
-client_callback_authorization_id (Gsasl_session_ctx * ctx,
-				  char *out, size_t * outlen);
-
-extern int
-client_callback_authentication_id (Gsasl_session_ctx * ctx,
-				   char *out, size_t * outlen);
-
-extern int
-client_callback_password (Gsasl_session_ctx * ctx,
-			  char *out, size_t * outlen);
-
-extern int
-client_callback_service (Gsasl_session_ctx * ctx,
-			 char *srv,
-			 size_t * srvlen,
-			 char *host,
-			 size_t * hostlen,
-			 char *srvname, size_t * srvnamelen);
-
-extern int
-client_callback_passcode (Gsasl_session_ctx * ctx,
-			  char *out, size_t * outlen);
-
-extern Gsasl_qop
-client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops);
-
-extern size_t client_callback_maxbuf (Gsasl_session_ctx * ctx,
-				      size_t servermaxbuf);
-
-extern int
-client_callback_realm (Gsasl_session_ctx * ctx, char *out, size_t * outlen);
-
-/* Server callbacks */
-
-extern int
-server_callback_cram_md5 (Gsasl_session_ctx * ctx,
-			  char *username, char *challenge, char *response);
-
-extern int
-server_callback_anonymous (Gsasl_session_ctx * ctx, const char *message);
-
-extern Gsasl_qop server_callback_qop (Gsasl_session_ctx * ctx);
-
-extern size_t server_callback_maxbuf (Gsasl_session_ctx * ctx);
-
-extern int
-server_callback_realm (Gsasl_session_ctx * ctx,
-		       char *out, size_t * outlen, size_t nth);
-
-extern int server_callback_external (Gsasl_session_ctx * ctx);
-
-extern int
-server_callback_validate (Gsasl_session_ctx * ctx,
-			  const char *authorization_id,
-			  const char *authentication_id,
-			  const char *password);
-
-extern int
-server_callback_retrieve (Gsasl_session_ctx * ctx,
-			  const char *authentication_id,
-			  const char *authorization_id,
-			  const char *realm, char *key, size_t * keylen);
-
-extern int
-server_callback_service (Gsasl_session_ctx * ctx,
-			 char *srv,
-			 size_t * srvlen, char *host, size_t * hostlen);
-
-int
-server_callback_gssapi (Gsasl_session_ctx * ctx,
-			const char *clientname,
-			const char *authentication_id);
-
-#endif /* _CALLBACKS_H */
+#endif /* CALLBACKS_H */

@@ -195,7 +195,7 @@ logout (void)
 int
 main (int argc, char *argv[])
 {
-  Gsasl_ctx *ctx = NULL;
+  Gsasl *ctx = NULL;
   int res;
   char input[MAX_LINE_LENGTH];
   char *in;
@@ -293,7 +293,8 @@ main (int argc, char *argv[])
       if (!args_info.hostname_arg)
 	args_info.hostname_arg = strdup (connect_hostname);
     }
-  else
+  else if (!args_info.client_mechanisms_flag &&
+	   !args_info.server_mechanisms_flag)
     {
       cmdline_parser_print_help ();
       return EXIT_SUCCESS;
@@ -304,34 +305,7 @@ main (int argc, char *argv[])
     error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
 	   gsasl_strerror (res));
 
-  /* Set callbacks */
-  if (args_info.maxbuf_arg != 0)
-    gsasl_client_callback_maxbuf_set (ctx, client_callback_maxbuf);
-  if (args_info.quality_of_protection_arg != 0)
-    gsasl_client_callback_qop_set (ctx, client_callback_qop);
-  gsasl_client_callback_anonymous_set (ctx, client_callback_anonymous);
-  gsasl_client_callback_authentication_id_set
-    (ctx, client_callback_authentication_id);
-  gsasl_client_callback_authorization_id_set
-    (ctx, client_callback_authorization_id);
-  gsasl_client_callback_password_set (ctx, client_callback_password);
-  gsasl_client_callback_passcode_set (ctx, client_callback_passcode);
-  gsasl_client_callback_service_set (ctx, client_callback_service);
-  gsasl_client_callback_realm_set (ctx, client_callback_realm);
-
-  gsasl_server_callback_realm_set (ctx, server_callback_realm);
-  gsasl_server_callback_qop_set (ctx, server_callback_qop);
-  if (args_info.maxbuf_arg != 0)
-    gsasl_server_callback_maxbuf_set (ctx, server_callback_maxbuf);
-  if (args_info.enable_cram_md5_validate_flag)
-    gsasl_server_callback_cram_md5_set (ctx, server_callback_cram_md5);
-  if (!args_info.disable_cleartext_validate_flag)
-    gsasl_server_callback_validate_set (ctx, server_callback_validate);
-  gsasl_server_callback_retrieve_set (ctx, server_callback_retrieve);
-  gsasl_server_callback_anonymous_set (ctx, server_callback_anonymous);
-  gsasl_server_callback_external_set (ctx, server_callback_external);
-  gsasl_server_callback_service_set (ctx, server_callback_service);
-  gsasl_server_callback_gssapi_set (ctx, server_callback_gssapi);
+  gsasl_callback_set (ctx, callback);
 
   if (args_info.client_mechanisms_flag || args_info.server_mechanisms_flag)
     {
@@ -359,17 +333,19 @@ main (int argc, char *argv[])
       fprintf (stdout, "%s\n", mechs);
 
       free (mechs);
+
+      return EXIT_SUCCESS;
     }
 
   if (args_info.client_flag || args_info.server_flag)
     {
       char output[MAX_LINE_LENGTH];
       char *out;
-      char b64output[MAX_LINE_LENGTH];
+      char *b64output;
       size_t output_len;
-      ssize_t b64output_len;
+      size_t b64output_len;
       const char *mech;
-      Gsasl_session_ctx *xctx = NULL;
+      Gsasl_session *xctx = NULL;
 
       if (!select_mechanism (&in))
 	return 1;
@@ -496,20 +472,17 @@ main (int argc, char *argv[])
 		  else if (!(strlen (input) == output_len &&
 			     memcmp (input, out, output_len) == 0))
 		    {
-		      b64output_len = sizeof (b64output);
-		      b64output_len = gsasl_base64_encode (out, output_len,
-							   b64output,
-							   b64output_len);
-		      if (b64output_len == -1)
-			{
-			  res = GSASL_BASE64_ERROR;
-			  break;
-			}
+		      res = gsasl_base64_to (out, output_len,
+					     &b64output, &b64output_len);
+		      if (res != GSASL_OK)
+			break;
 
 		      if (!args_info.quiet_given)
 			fprintf (stderr, _("Base64 encoded application "
 					   "data to send:\n"));
 		      fprintf (stdout, "%s\n", b64output);
+
+		      free (b64output);
 		    }
 
 		  free (out);
