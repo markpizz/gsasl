@@ -131,7 +131,7 @@ main (int argc, char *argv[])
 
   {
     char *token = "username=jas, nonce=42, cnonce=4711, nc=00000001, "
-      "digest-uri=foo, response=apa";
+      "digest-uri=foo, response=01234567890123456789012345678901";
 
     printf ("response `%s': ", token);
     rc = digest_md5_parse_response (token, &r);
