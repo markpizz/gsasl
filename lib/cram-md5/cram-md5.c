@@ -22,6 +22,7 @@
 #include "cram-md5.h"
 
 #define MD5LEN 16
+#define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
 
 #ifdef USE_CLIENT
 
@@ -33,7 +34,7 @@ struct _Gsasl_cram_md5_client_state
 int
 _gsasl_cram_md5_client_init (Gsasl_ctx * ctx)
 {
-  return _gsasl_crypto_init ();
+  return GSASL_OK;
 }
 
 void
@@ -184,7 +185,7 @@ _gsasl_cram_md5_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 int
 _gsasl_cram_md5_server_init (Gsasl_ctx * ctx)
 {
-  return _gsasl_crypto_init ();
+  return GSASL_OK;
 }
 
 void

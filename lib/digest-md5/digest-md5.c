@@ -36,6 +36,8 @@
 #include <netinet/in.h>
 #endif
 
+#define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
+
 #define NONCE_ENTROPY_BITS  64
 #define CNONCE_ENTROPY_BITS  64
 
@@ -624,7 +626,7 @@ typedef struct _Gsasl_digest_md5_client_state _Gsasl_digest_md5_client_state;
 int
 _gsasl_digest_md5_client_init (Gsasl_ctx * ctx)
 {
-  return _gsasl_crypto_init ();
+  return GSASL_OK;
 }
 
 void
@@ -1560,7 +1562,7 @@ typedef struct _Gsasl_digest_md5_server_state _Gsasl_digest_md5_server_state;
 int
 _gsasl_digest_md5_server_init (Gsasl_ctx * ctx)
 {
-  return _gsasl_crypto_init ();
+  return GSASL_OK;
 }
 
 void
