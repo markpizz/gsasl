@@ -26,8 +26,6 @@
 /* Get token types. */
 #include "tokens.h"
 
-#define DIGEST_MD5_LENGTH 16
-
 extern int digest_md5_hmac (char *output, char secret[DIGEST_MD5_LENGTH],
 			    char *nonce, unsigned long nc, char *cnonce,
 			    digest_md5_qop qop, char *authzid, char *digesturi,

@@ -26,6 +26,9 @@
 /* Get size_t. */
 #include <stddef.h>
 
+/* Length of MD5 output. */
+#define DIGEST_MD5_LENGTH 16
+
 /* Quality of Protection types. */
 enum digest_md5_qop
   {
