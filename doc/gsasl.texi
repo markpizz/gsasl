@@ -479,9 +479,9 @@ application that uses server functions in a library built with
 @itemx --disable-kerberos_v5
 Disable or enable individual mechanisms (@pxref{Mechanisms}).
 
-@item --without-saslprep
-Disable preparation of internationalized strings.  If you specify
-this, essentially you will only support ASCII strings a'la RFC 2222.
+@item --without-stringprep
+Disable internationalized string processing.  Note that this will
+result in a SASL library that is only compatible with RFC 2222.
 
 @end table
 
