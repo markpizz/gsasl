@@ -25,7 +25,8 @@ noinst_LTLIBRARIES = libgsasl-digest_md5.la
 libgsasl_digest_md5_la_SOURCES = digest-md5.h mechinfo.c \
 	shared.h shared.c \
 	session.h session.c \
-	getsubopt.c
+	getsubopt.c \
+	parser.h parser.c
 
 if CLIENT
 libgsasl_digest_md5_la_SOURCES += client.c
@@ -34,3 +35,6 @@ endif
 if SERVER
 libgsasl_digest_md5_la_SOURCES += server.c
 endif
+
+LDADD = libgsasl-digest_md5.la
+check_PROGRAMS = test-parser

@@ -27,6 +27,10 @@ Random notes follow.
   wish to explore this way, because the current parser is too
   permissive, but don't have time now.
 
+* It intentionally do not implement sub-sequent authentication.  If
+  you are believe saving one round-trip make up for added code
+  complexity, hire me to implement the missing pieces.
+
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright

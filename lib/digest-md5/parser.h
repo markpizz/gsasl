@@ -98,13 +98,13 @@ struct digest_md5_response {
   char *realm;
   char *nonce;
   char *cnonce;
-  unsigned long noncecount;
+  unsigned long nc;
   char *qop;
   char *digesturi;
   char *response;
   unsigned long clientmaxbuf;
   int utf8;
-  int cipher;
+  char *cipher;
   char *authzid;
 };
 typedef struct digest_md5_response digest_md5_response;

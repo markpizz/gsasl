@@ -118,8 +118,6 @@ digest_md5_getsubopt (char **optionp,
 
   return -1;
 }
-#define MAXBUF_MIN 17
-#define MAXBUF_MAX 16777215
 #define DEFAULT_CHARSET "utf-8"
 #define DEFAULT_ALGORITHM "md5-sess"
 
@@ -157,6 +155,10 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 
   memset (out, 0, sizeof (*out));
 
+  /* The size of a digest-challenge MUST be less than 2048 bytes. */
+  if (strlen (challenge) >= 2048)
+    return -1;
+
   while (*challenge != '\0')
     switch (digest_md5_getsubopt (&challenge, digest_challenge_opts, &value))
       {
@@ -175,6 +177,9 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 	break;
 
       case CHALLENGE_NONCE:
+	/* This directive is required and MUST appear exactly once; if
+	   not present, or if multiple instances are present, the
+	   client should abort the authentication exchange. */
 	if (out->nonce)
 	  return -1;
 	out->nonce = strdup (value);
@@ -183,36 +188,56 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 	break;
 
       case CHALLENGE_QOP:
-	/* FIXME: sub-parse. */
+	/* The client MUST ignore unrecognized options; if the client
+	   recognizes no option, it MUST abort the authentication
+	   exchange. */
 	if (out->qop)
 	  return -1;
+	/* FIXME: sub-parse. */
 	out->qop = strdup (value);
 	if (!out->qop)
 	  return -1;
 	break;
 
       case CHALLENGE_STALE:
+	/* This directive may appear at most once; if multiple
+	   instances are present, the client MUST abort the
+	   authentication exchange. */
 	if (out->stale)
 	  return -1;
 	out->stale = 1;
 	break;
 
       case CHALLENGE_MAXBUF:
+	/* This directive may appear at most once; if multiple
+	   instances are present, or the value is out of range the
+	   client MUST abort the authentication exchange. */
 	if (out->servermaxbuf)
 	  return -1;
 	out->servermaxbuf = strtoul (value, NULL, 10);
-	if (out->servermaxbuf < MAXBUF_MIN
-	    || out->servermaxbuf > MAXBUF_MAX)
+	/* FIXME: error handling. */
+	/* The value MUST be bigger than 16 (32 for Confidentiality
+	   protection with the "aes-cbc" cipher) and smaller or equal
+	   to 16777215 (i.e. 2**24-1). */
+	if (out->servermaxbuf <= 16 || out->servermaxbuf > 16777215)
 	  return -1;
 	break;
 
       case CHALLENGE_CHARSET:
+	/* This directive may appear at most once; if multiple
+	   instances are present, the client MUST abort the
+	   authentication exchange. */
+	if (out->utf8)
+	  return -1;
 	if (strcmp (DEFAULT_CHARSET, value) != 0)
 	  return -1;
 	out->utf8 = 1;
 	break;
 
       case CHALLENGE_ALGORITHM:
+	/* This directive is required and MUST appear exactly once; if
+	   not present, or if multiple instances are present, the
+	   client SHOULD abort the authentication exchange. */
 	if (done_algorithm)
 	  return -1;
 	if (strcmp (DEFAULT_ALGORITHM, value) != 0)
@@ -221,18 +246,32 @@ parse_challenge (char *challenge, digest_md5_challenge *out)
 	break;
 
       case CHALLENGE_CIPHER:
-	/* FIXME: sub-parse. */
 	if (out->ciphers)
 	  return -1;
+	/* FIXME: sub-parse. */
 	out->ciphers = strdup (value);
 	if (!out->ciphers)
 	  return -1;
 	break;
 
       default:
-	/* Unknown suboption, we MUST ignore it. */
+	/* The client MUST ignore any unrecognized directives. */
 	break;
       }
+
+  /* Validate that we have the mandatory fields. */
+
+  /* This directive is required and MUST appear exactly once; if
+     not present, or if multiple instances are present, the
+     client should abort the authentication exchange. */
+  if (!out->nonce)
+    return -1;
+
+  /* This directive is required and MUST appear exactly once; if
+     not present, or if multiple instances are present, the
+     client SHOULD abort the authentication exchange. */
+  if (!done_algorithm)
+    return -1;
 
   return 0;
 }
@@ -278,16 +317,182 @@ parse_response (char *response, digest_md5_response *out)
 
   memset (out, 0, sizeof (*out));
 
+  /* The size of a digest-response MUST be less than 4096 bytes. */
+  if (strlen (response) >= 4096)
+    return -1;
+
   while (*response != '\0')
     switch (digest_md5_getsubopt (&response, digest_response_opts, &value))
       {
+      case RESPONSE_USERNAME:
+	/* This directive is required and MUST be present exactly
+	   once; otherwise, authentication fails. */
+	if (out->username)
+	  return -1;
+	out->username = strdup (value);
+	if (!out->username)
+	  return -1;
+	break;
+
+      case RESPONSE_REALM:
+	/* This directive is required if the server provided any
+	   realms in the "digest-challenge", in which case it may
+	   appear exactly once and its value SHOULD be one of those
+	   realms. */
+	if (out->realm)
+	  return -1;
+	out->realm = strdup (value);
+	if (!out->realm)
+	  return -1;
+	break;
+
+      case RESPONSE_NONCE:
+	/* This directive is required and MUST be present exactly
+	   once; otherwise, authentication fails. */
+	if (out->nonce)
+	  return -1;
+	out->nonce = strdup (value);
+	if (!out->nonce)
+	  return -1;
+	break;
+
+      case RESPONSE_CNONCE:
+	/* This directive is required and MUST be present exactly once;
+	   otherwise, authentication fails. */
+	if (out->cnonce)
+	  return -1;
+	out->cnonce = strdup (value);
+	if (!out->cnonce)
+	  return -1;
+	break;
+
+      case RESPONSE_NC:
+	/* This directive is required and MUST be present exactly
+	   once; otherwise, authentication fails. */
+	if (out->nc)
+	  return -1;
+	/* nc-value = 8LHEX */
+	if (strlen (value) != 8)
+	  return -1;
+	out->nc = strtoul (value, NULL, 16);
+	/* FIXME: error handling. */
+	break;
+
+      case RESPONSE_QOP:
+	/* If present, it may appear exactly once and its value MUST
+	   be one of the alternatives in qop-options.  */
+	if (out->qop)
+	  return -1;
+	/* FIXME: sub-parse. */
+	out->qop = strdup (value);
+	if (!out->qop)
+	  return -1;
+	break;
+
+      case RESPONSE_DIGEST_URI:
+	/* This directive is required and MUST be present exactly
+	   once; if multiple instances are present, the client MUST
+	   abort the authentication exchange. */
+	if (out->digesturi)
+	  return -1;
+	/* FIXME: sub-parse. */
+	out->digesturi = strdup (value);
+	if (!out->digesturi)
+	  return -1;
+	break;
+
+      case RESPONSE_RESPONSE:
+	/* This directive is required and MUST be present exactly
+	   once; otherwise, authentication fails. */
+	if (out->response)
+	  return -1;
+	/* FIXME: sub-parse. */
+	out->response = strdup (value);
+	if (!out->response)
+	  return -1;
+	break;
+
+      case RESPONSE_MAXBUF:
+	/* This directive may appear at most once; if multiple
+	   instances are present, the server MUST abort the
+	   authentication exchange. */
+	if (out->clientmaxbuf)
+	  return -1;
+	out->clientmaxbuf = strtoul (value, NULL, 10);
+	/* FIXME: error handling. */
+	/* If the value is less or equal to 16 (<<32 for aes-cbc>>) or
+	   bigger than 16777215 (i.e. 2**24-1), the server MUST abort
+	   the authentication exchange. */
+	if (out->clientmaxbuf <= 16 || out->clientmaxbuf > 16777215)
+	  return -1;
+	break;
+
+      case RESPONSE_CHARSET:
+	if (strcmp (DEFAULT_CHARSET, value) != 0)
+	  return -1;
+	out->utf8 = 1;
+	break;
+
+      case RESPONSE_CIPHER:
+	if (out->cipher)
+	  return -1;
+	/* FIXME: sub-parse. */
+	out->cipher = strdup (value);
+	if (!out->cipher)
+	  return -1;
+	break;
+
+      case RESPONSE_AUTHZID:
+	/* This directive may appear at most once; if multiple
+	   instances are present, the client MUST abort the
+	   authentication exchange.  FIXME NOT IN DRAFT */
+	if (out->authzid)
+	  return -1;
+	/*  The authzid MUST NOT be an empty string. */
+	if (strcmp (value, "") == 0)
+	  return -1;
+	out->authzid = strdup (value);
+	if (!out->authzid)
+	  return -1;
+	break;
 
       default:
-	/* Unknown suboption.  Not clear if this should be ignored or
-	   treated as a failure.  We do the latter for now.  */
-	return -1;
+	/* The client MUST ignore any unrecognized directives. */
 	break;
       }
+
+  /* Validate that we have the mandatory fields. */
+
+  /* This directive is required and MUST be present exactly
+     once; otherwise, authentication fails. */
+  if (!out->username)
+    return -1;
+
+  /* This directive is required and MUST be present exactly
+     once; otherwise, authentication fails. */
+  if (!out->nonce)
+    return -1;
+
+  /* This directive is required and MUST be present exactly once;
+     otherwise, authentication fails. */
+  if (!out->cnonce)
+    return -1;
+
+  /* This directive is required and MUST be present exactly once;
+     otherwise, authentication fails. */
+  if (!out->nc)
+    return -1;
+
+  /* This directive is required and MUST be present exactly
+     once; if multiple instances are present, the client MUST
+     abort the authentication exchange. */
+  if (!out->digesturi)
+    return -1;
+
+  /* This directive is required and MUST be present exactly
+     once; otherwise, authentication fails. */
+  if (!out->response)
+    return -1;
 
   return 0;
 }
@@ -309,7 +514,11 @@ parse_finish (char *finish, digest_md5_finish *out)
 {
   char *value;
 
-  out->rspauth = NULL;
+  memset (out, 0, sizeof (*out));
+
+  /* The size of a response-auth MUST be less than 2048 bytes. */
+  if (strlen (finish) >= 2048)
+    return -1;
 
   while (*finish != '\0')
     switch (digest_md5_getsubopt (&finish, digest_responseauth_opts, &value))
@@ -321,11 +530,12 @@ parse_finish (char *finish, digest_md5_finish *out)
 	break;
 
       default:
-	/* Unknown suboption.  Not clear if this should be ignored or
-	   treated as a failure.  We do the latter for now.  */
-	return -1;
+	/* The client MUST ignore any unrecognized directives. */
 	break;
       }
+
+  if (!out->rspauth)
+    return -1;
 
   return 0;
 }
