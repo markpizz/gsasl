@@ -45,7 +45,7 @@ extern "C"
   extern const char *GSASL_VALID_MECHANISM_CHARACTERS;
 
 /* Error codes */
-  enum
+  typedef enum
   {
     GSASL_OK = 0,
     GSASL_NEEDS_MORE,
@@ -93,8 +93,10 @@ extern "C"
     GSASL_AUTHENTICATION_ERROR,
     GSASL_CANNOT_GET_CTX,
     GSASL_INTEGRITY_ERROR,
-    GSASL_NO_MORE_REALMS
-  };
+    GSASL_NO_MORE_REALMS,
+    GSASL_NO_CLIENT_CODE,
+    GSASL_NO_SERVER_CODE
+  } Gsasl_rc;
 
 /* Quality of Protection types, used by DIGEST-MD5 */
   typedef enum
