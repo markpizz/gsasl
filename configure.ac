@@ -168,27 +168,35 @@ AC_ARG_ENABLE(gssapi,
   AC_HELP_STRING([--disable-gssapi], [don't use the GSSAPI mechanism]),
   gssapi=$enableval)
 if test "$gssapi" != "no" ; then
-	AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
-	if test "$KRB5_CONFIG" != "no" ; then
-		GSSAPI_CFLAGS=`$KRB5_CONFIG --cflags`
-		GSSAPI_LIBS=`$KRB5_CONFIG --libs gssapi`
-		save_CPPFLAGS=$CPPFLAGS
-		CPPFLAGS=$GSSAPI_CFLAGS
-		AC_CHECK_HEADERS(gssapi.h gssapi/gssapi.h gssapi/gssapi_generic.h)
-		CPPFLAGS=$save_CPPFLAGS
-		if test "$ac_cv_header_gssapi_h" = "yes"; then
-			AC_EGREP_HEADER(GSS_C_NT_HOSTBASED_SERVICE, gssapi.h, AC_DEFINE(HAVE_GSS_C_NT_HOSTBASED_SERVICE, 1, [Define to 1 if you have GSS_C_NT_HOSTBASED_SERVICE.]))
-		else
-			AC_EGREP_HEADER(GSS_C_NT_HOSTBASED_SERVICE, gssapi/gssapi.h, AC_DEFINE(HAVE_GSS_C_NT_HOSTBASED_SERVICE, 1, [Define to 1 if you have GSS_C_NT_HOSTBASED_SERVICE.]))
-		fi
-		AC_SUBST(GSSAPI_CFLAGS)
-		AC_SUBST(GSSAPI_LIBS)
+	PKG_CHECK_MODULES(GSS, gss >= 0.0.0, [gss=yes], [gss=no])
+	if test "$gss" == "yes" ; then
+		AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])
 		gssapi=yes
-		AC_DEFINE(USE_GSSAPI, 1, [Define to 1 if you want GSSAPI.])
 	else
-		gssapi=no
-		AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
+		AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
+		if test "$KRB5_CONFIG" != "no" ; then
+			GSSAPI_CFLAGS=`$KRB5_CONFIG --cflags`
+			GSSAPI_LIBS=`$KRB5_CONFIG --libs gssapi`
+			save_CPPFLAGS=$CPPFLAGS
+			CPPFLAGS=$GSSAPI_CFLAGS
+			AC_CHECK_HEADERS(gssapi.h gssapi/gssapi.h gssapi/gssapi_generic.h)
+			CPPFLAGS=$save_CPPFLAGS
+			if test "$ac_cv_header_gssapi_h" = "yes"; then
+				AC_EGREP_HEADER(GSS_C_NT_HOSTBASED_SERVICE, gssapi.h, AC_DEFINE(HAVE_GSS_C_NT_HOSTBASED_SERVICE, 1, [Define to 1 if you have GSS_C_NT_HOSTBASED_SERVICE.]))
+			else
+				AC_EGREP_HEADER(GSS_C_NT_HOSTBASED_SERVICE, gssapi/gssapi.h, AC_DEFINE(HAVE_GSS_C_NT_HOSTBASED_SERVICE, 1, [Define to 1 if you have GSS_C_NT_HOSTBASED_SERVICE.]))
+			fi
+			AC_SUBST(GSSAPI_CFLAGS)
+			AC_SUBST(GSSAPI_LIBS)
+			gssapi=yes
+		else
+			AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
+			gssapi=no
+		fi
 	fi
+fi
+if test "$gssapi" == "yes"; then
+	AC_DEFINE(USE_GSSAPI, 1, [Define to 1 if you want GSSAPI.])
 fi
 AC_MSG_CHECKING([if GSSAPI should be used])
 AC_MSG_RESULT($gssapi)
