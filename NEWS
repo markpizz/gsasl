@@ -8,6 +8,10 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.4 (unreleased)
 
+** Command line tool now query for realm, hostname and service name properly.
+
+** Update of gnulib files.
+
 * Version 0.2.3 (released 2004-12-15)
 
 ** Fix example code to handle base64 encoded data properly.

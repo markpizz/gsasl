@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.4 (unreleased)
 
+** Improved robustness of callback backwards compatibility.
+
 * Version 0.2.3 (released 2004-12-15)
 
 ** NTLM now set the 'domain' field to the GSASL_REALM property value.
