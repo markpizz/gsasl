@@ -65,17 +65,17 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
   if (passwordptr == NULL)
     return GSASL_MECHANISM_PARSE_ERROR;
 
+  /* As the NUL (U+0000) character is used as a deliminator, the NUL
+     (U+0000) character MUST NOT appear in authzid, authcid, or passwd
+     productions. */
+  if (memchr (passwordptr, 0, input_len - (passwordptr - input)))
+    return GSASL_MECHANISM_PARSE_ERROR;
+
   password = malloc (input_len - (passwordptr - input) + 1);
   if (password == NULL)
     return GSASL_MALLOC_ERROR;
   memcpy (password, passwordptr, input_len - (passwordptr - input));
   password[input_len - (passwordptr - input)] = '\0';
-
-  if (input_len - (passwordptr - input) != strlen (password))
-    {
-      free (password);
-      return GSASL_MECHANISM_PARSE_ERROR;
-    }
 
   gsasl_property_set (sctx, GSASL_AUTHID, authentication_id);
   gsasl_property_set (sctx, GSASL_AUTHZID, authorization_id);
