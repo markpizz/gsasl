@@ -6,6 +6,19 @@ See the end for copying conditions.
 
 ** Token parser bug in DIGEST-MD5 fixed, improve interoperability of DIGEST-MD5.
 
+** Libgcrypt 1.1.42 or later is used if available.
+The previous libgcrypt API is no longer supported.
+
+** CRAM-MD5 and DIGEST-MD5 no longer require libgcrypt (but can still use it).
+If libgcrypt 1.1.42 or later is not found, it uses a minimalistic
+cryptographic library based on Nettle, from crypto/.
+
+** API and ABI modifications.
+GSASL_CRYPTO_ERROR: ADD, alias for GSASL_LIBGCRYPT_ERROR.
+gsasl_randomize: ADD.
+gsasl_md5: ADD.
+gsasl_hmac_md5: ADD.
+
 * Changes in 0.0.8 (released 2003-10-11)
 
 ** Improved GSSAPI implementation detection.

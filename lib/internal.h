@@ -130,4 +130,10 @@ extern char *_gsasl_no_stringprep (const char *in, int *stringprep_rc);
 #define gsasl_stringprep_trace _gsasl_no_stringprep
 #endif
 
+extern int _gsasl_crypto_init (void);
+extern int gsasl_randomize (int strong, char *data, size_t datalen);
+extern int gsasl_md5 (const char *in, size_t inlen, char *out[16]);
+extern int gsasl_hmac_md5 (const char *key, size_t keylen,
+			   const char *in, size_t inlen, char *outhash[16]);
+
 #endif /* _INTERNAL_H */

@@ -130,32 +130,38 @@ AC_MSG_CHECKING([if NTLM should be used])
 AC_MSG_RESULT($ntlm)
 AM_CONDITIONAL(NTLM, test x$ntlm = xyes)
 
-# Libgcrypt
-AM_PATH_LIBGCRYPT(1.1.7, [have_gcrypt=yes], [have_gcrypt=no])
-if test "$have_gcrypt" = "yes"; then
-  save_LIBS=$LIBS
-  LIBS="$LIBS $LIBGCRYPT_LIBS"
-  # libgcrypt in CVS has a very different API that we don't support,
-  # and it defines this function.
-  AC_CHECK_FUNC(gcry_md_is_secure, [have_gcrypt=no])
-  LIBS=$save_LIBS
-  if test "$have_gcrypt" = "no"; then
-    AC_MSG_WARN([[Too recent libgcrypt found, not using it]])
-  fi
+# Check for libgcrypt
+AC_ARG_WITH(libgcrypt,
+  AC_HELP_STRING([--with-libgcrypt], [use libgcrypt for low-level crypto]),
+  libgcrypt=$withval, libgcrypt=yes)
+if test "$libgcrypt" != "no" ; then
+	AM_PATH_LIBGCRYPT(1.1.42, :, [
+		libgcrypt=no
+		AC_MSG_WARN([Libgcrypt >= 1.1.42 not found.])
+	])
 fi
+AC_MSG_CHECKING([whether to use libgcrypt])
+AC_MSG_RESULT($libgcrypt)
+if test "$libgcrypt" != "no" ; then
+	AC_DEFINE(USE_GCRYPT, 1, [Define to 1 if you want to use libgcrypt.])
+else
+	CRYPTO=crypto
+	CRYPTO_CFLAGS="-I\$(top_srcdir)/crypto"
+	CRYPTO_LIBS="\$(top_builddir)/crypto/libnettle.la"
+fi
+AM_CONDITIONAL(LIBGCRYPT, test "$libgcrypt" != "no")
+AM_CONDITIONAL(NETTLE, test "$libgcrypt" = "no")
+AC_SUBST(CRYPTO)
+AC_SUBST(CRYPTO_CFLAGS)
+AC_SUBST(CRYPTO_LIBS)
 
 # CRAM-MD5
 AC_ARG_ENABLE(cram-md5,
   AC_HELP_STRING([--disable-cram-md5], [don't use the CRAM-MD5 mechanism]),
   cram_md5=$enableval)
 if test "$cram_md5" != "no" ; then
-	if test "$have_gcrypt" != "yes" ; then
-		cram_md5=no
-		AC_MSG_WARN([libgcrypt not found, disabling CRAM-MD5])
-	else
-		cram_md5=yes
-		AC_DEFINE(USE_CRAM_MD5, 1, [Define to 1 if you want CRAM-MD5.])
-	fi
+	cram_md5=yes
+	AC_DEFINE(USE_CRAM_MD5, 1, [Define to 1 if you want CRAM-MD5.])
 fi
 AC_MSG_CHECKING([if CRAM-MD5 should be used])
 AC_MSG_RESULT($cram_md5)
@@ -166,23 +172,12 @@ AC_ARG_ENABLE(digest-md5,
   AC_HELP_STRING([--disable-digest-md5], [don't use the DIGEST-MD5 mechanism]),
   digest_md5=$enableval)
 if test "$digest_md5" != "no" ; then
-	if test "$have_gcrypt" != "yes" ; then
-		digest_md5=no
-		AC_MSG_WARN([libgcrypt not found, disabling DIGEST-MD5])
-	else
-		digest_md5=yes
-		AC_DEFINE(USE_DIGEST_MD5, 1, [Define to 1 if you want DIGEST-MD5.])
-	fi
+	digest_md5=yes
+	AC_DEFINE(USE_DIGEST_MD5, 1, [Define to 1 if you want DIGEST-MD5.])
 fi
 AC_MSG_CHECKING([if DIGEST-MD5 should be used])
 AC_MSG_RESULT($digest_md5)
 AM_CONDITIONAL(DIGEST_MD5, test x$digest_md5 = xyes)
-
-# Disable libgcrypt unless we need.
-if test "$digest_md5" != "yes" && test "$cram_md5" != "yes"; then
-    LIBGCRYPT_CFLAGS=""
-    LIBGCRYPT_LIBS=""
-fi
 
 # GSSAPI.
 AC_ARG_ENABLE(gssapi,
@@ -433,7 +428,7 @@ AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 
 # We are done
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in m4/Makefile \
-		gl/Makefile gl/m4/Makefile \
+		gl/Makefile gl/m4/Makefile crypto/Makefile \
 		doc/Makefile doc/reference/Makefile doc/man/Makefile \
 		lib/Makefile lib/gsasl.h \
 		src/Makefile tests/Makefile)

@@ -21,19 +21,26 @@
 lib_LTLIBRARIES = libgsasl.la
 
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
-INCLUDES = @LIBNTLM_CFLAGS@ @LIBGCRYPT_CFLAGS@ @LIBNTLM_CFLAGS@ \
+INCLUDES = @LIBNTLM_CFLAGS@ @LIBGCRYPT_CFLAGS@ @CRYPTO_CFLAGS@ @LIBNTLM_CFLAGS@ \
 	@GSSAPI_CFLAGS@ @GSS_CFLAGS@ @SHISHI_CFLAGS@
 
 include_HEADERS = gsasl.h
 
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
-libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ \
+libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @CRYPTO_LIBS@ @LIBNTLM_LIBS@ \
 	@GSSAPI_LIBS@ @GSS_LIBS@ @SHISHI_LIBS@
 libgsasl_la_SOURCES = gsasl.h.in internal.h gettext.h \
 	init.c done.c error.c version.c callback.c common.c \
 	supportp.c suggest.c listmech.c \
 	xstart.c xstep.c xfinish.c xcode.c \
 	hexdump.c base64.c md5pwd.c obsolete.c
+
+if NETTLE
+libgsasl_la_SOURCES += nettle.c
+endif
+if LIBGCRYPT
+libgsasl_la_SOURCES += libgcrypt.c
+endif
 
 if STRINGPREP
 libgsasl_la_SOURCES += stringprep.c
