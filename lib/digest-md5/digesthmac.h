@@ -26,6 +26,19 @@
 /* Get token types. */
 #include "tokens.h"
 
+/* Compute in 33 bytes large array OUTPUT the DIGEST-MD5 response
+   value.  SECRET holds the 16 bytes MD5 hash SS, i.e.,
+   H(username:realm:passwd).  NONCE is a zero terminated string with
+   the server nonce.  NC is the nonce-count, typically 1 for initial
+   authentication.  CNONCE is a zero terminated string with the client
+   nonce.  QOP is the quality of protection to use.  AUTHZID is a zero
+   terminated string with the authorization identity.  DIGESTURI is a
+   zero terminated string with the server principal (e.g.,
+   imap/mail.example.org).  RSPAUTH is a boolean which indicate
+   whether to compute a value for the RSPAUTH response or the "real"
+   authentication.  CIPHER is the cipher to use.  KIC, KIS, KCC, KCS
+   are either NULL, or points to 16 byte arrays that will hold the
+   computed keys on output.  Returns 0 on success. */
 extern int digest_md5_hmac (char *output, char secret[DIGEST_MD5_LENGTH],
 			    char *nonce, unsigned long nc, char *cnonce,
 			    digest_md5_qop qop, char *authzid, char *digesturi,
