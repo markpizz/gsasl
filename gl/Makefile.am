@@ -20,7 +20,10 @@
 
 noinst_LTLIBRARIES = libgl.la
 
-libgl_la_SOURCES = getopt.h getopt_int.h getopt.c getopt1.c gettext.h strdup.h
+libgl_la_SOURCES = gettext.h \
+	getopt.h getopt_int.h getopt.c getopt1.c \
+	strdup.h \
+	getpassword.h getpassword.c
 if !READLINE
 libgl_la_SOURCES += readline.c
 endif
