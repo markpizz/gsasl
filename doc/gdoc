@@ -1,9 +1,11 @@
 #!/usr/bin/perl
 
-## Copyright (c) 2003 Simon Josefsson                            ##
+## Copyright (c) 2002, 2003 Simon Josefsson                      ##
+##                    added -texinfo, -listfunc                  ##
+##                    man page revamp                            ##
+##                    various improvements                       ##
 ## Copyright (c) 1998 Michael Zucchi, All Rights Reserved        ##
 ##                    hacked to allow -tex option --nmav         ##
-##                    hacked to allow -texinfo option --jas      ##
 ##                                                               ##
 ## This software falls under the GNU Public License. Please read ##
 ##              the COPYING file for more information            ##
@@ -15,21 +17,45 @@
 # This program is modified by Nikos Mavroyanopoulos, for the gnutls
 # project.
 
-# This program is modified by Simon Josefsson, for the Libidn and
-# Shishi project.
-
 # Note: This only supports 'c'.
 
 # usage:
 # gdoc [ -docbook | -html | -text | -man | -tex | -texinfo | -listfunc ]
+#      [ -sourceversion verno ] [ -includefuncprefix ] [ -bugsto address ]
+#      [ -seeinfo infonode ] [ -copyright notice ] [ -verbatimcopying ]
 #      [ -function funcname [ -function funcname ...] ] c file(s)s > outputfile
 #
-#  Set output format using one of -docbook -html -text -man -tex or
-#  -texinfo.  Default is man.
+#  Set output format using one of -docbook, -html, -text, -man, -tex,
+#  -texinfo, or -listfunc.  Default is man.
+#
+#  -sourceversion
+#       Version number for source code, e.g. '1.0.4'.  Used in 'man' headers.
+#       Defaults to using current date.
+#
+#  -includefuncprefix
+#       For man pages, generate a #include <FILE.h> based on the function
+#       prefix.  For example, a function gss_init_sec_context will generate
+#       an include statement of #include <gss.h>.
+#
+#  -bugsto address
+#       For man pages, include a section about reporting bugs and mention
+#       the given e-mail address, e.g 'bug-libidn@gnu.org'.
+#
+#  -seeinfo infonode
+#       For man pages, include a section that point to an info manual
+#       for more information.
+#
+#  -copyright notice
+#       For man pages, include a copyright section with the given
+#       notice after a preamble.  Use, e.g., '2002, 2003 Simon Josefsson'.
+#
+#  -verbatimcopying
+#       For man pages, and when the -copyright parameter is used,
+#       add a licensing statement that say verbatim copying is permitted.
 #
 #  -function funcname
-#	If set, then only generate documentation for the given
-#	function(s).  All other functions are ignored.
+#	If set, then only generate documentation for the given function(s).  All
+#	other functions are ignored.
 #
 #  c files - list of 'c' files to process
 #
@@ -44,7 +70,7 @@
 # (* @parameterx: (description of parameter x)?)*
 # (* a blank line)?
 #  * (Description:)? (Description of function)?
-#  * (section header: (section description)? )*
+#  * (Section header: (section description)? )*
 #  (*)?*/
 #
 # So .. the trivial example would be:
@@ -94,6 +120,7 @@ use POSIX qw(strftime);
 # match expressions used to find embedded type information
 $type_constant = "\\\%(\\w+)";
 $type_func = "(\\w+\\(\\))";
+#$type_func = "((\\w|\\\\)+\\(\\))";
 #$type_func = "(\\(w||\\\\)+\\(\\))";
 $type_param = "\\\@(\\w+)";
 $type_struct = "\\\&(\\w+)";
@@ -110,18 +137,17 @@ $type_env = "(\\\$\\w+)";
 		     $type_param, "<tt><b>\$1</b></tt>" );
 $blankline_html = "<p>";
 
-$at = '@';
-%highlights_texinfo = ( $type_constant, "CMDvar{\$1}",
-			$type_func, "CMDcode{\$1}",
-			$type_struct, "CMDcode{\$1}",
-			$type_param, "CMDcode\{\$1\}" );
+%highlights_texinfo = ( $type_constant, "\\\@var{\$1}",
+			$type_func, "\\\@code{\$1}",
+			$type_struct, "\\\@code{\$1}",
+			$type_param, "\\\@code{\$1}" );
 $blankline_texinfo = "";
 
 %highlights_tex = ( $type_constant, "{\\\\it \$1}",
 		     $type_func, "{\\\\bf \$1}",
 		     $type_struct, "{\\\\it \$1}",
 		     $type_param, "{\\\\bf \$1}" );
-$blankline_tex = "\\par";
+$blankline_tex = "\\";
 
 # sgml, docbook format
 %highlights_sgml = ( $type_constant, "<replaceable class=\"option\">\$1</replaceable>",
@@ -147,8 +173,10 @@ $blankline_text = "";
 
 
 sub usage {
-    print "Usage: $0 [ -v ] [ -docbook | -html | -text | -man |\n";
-    print "                   -tex | -texinfo | -listfunc ]\n";
+    print "Usage: $0 [ -v ] [ -docbook | -html | -text | -man | -tex | -texinfo  -listfunc ]\n";
+    print "         [ -sourceversion verno ] [ -includefuncprefix ]\n";
+    print "         [ -bugsto address ] [ -seeinfo infonode ] [ -copyright notice]\n";
+    print "         [ -verbatimcopying ]\n";
     print "         [ -function funcname [ -function funcname ...] ]\n";
     print "         c source file(s) > outputfile\n";
     exit 1;
@@ -164,7 +192,7 @@ $output_mode = "man";
 %highlights = %highlights_man;
 $blankline = $blankline_man;
 $modulename = "API Documentation";
-$version = strftime "%Y-%m-%d", localtime;
+$sourceversion = strftime "%Y-%m-%d", localtime;
 $function_only = 0;
 while ($ARGV[0] =~ m/^-(.*)/) {
     $cmd = shift @ARGV;
@@ -196,8 +224,18 @@ while ($ARGV[0] =~ m/^-(.*)/) {
 	$output_mode = "listfunc";
     } elsif ($cmd eq "-module") { # not needed for sgml, inherits from calling document
 	$modulename = shift @ARGV;
-    } elsif ($cmd eq "-version") {
-	$version = shift @ARGV;
+    } elsif ($cmd eq "-sourceversion") {
+	$sourceversion = shift @ARGV;
+    } elsif ($cmd eq "-includefuncprefix") {
+	$includefuncprefix = 1;
+    } elsif ($cmd eq "-bugsto") {
+	$bugsto = shift @ARGV;
+    } elsif ($cmd eq "-copyright") {
+	$copyright = shift @ARGV;
+    } elsif ($cmd eq "-verbatimcopying") {
+	$verbatimcopying = 1;
+    } elsif ($cmd eq "-seeinfo") {
+	$seeinfo = shift @ARGV;
     } elsif ($cmd eq "-function") { # to only output specific functions
 	$function_only = 1;
 	$function = shift @ARGV;
@@ -207,15 +245,6 @@ while ($ARGV[0] =~ m/^-(.*)/) {
     } elsif (($cmd eq "-h") || ($cmd eq "--help")) {
 	usage();
     }
-}
-
-
-# generate a sequence of code that will splice in highlighting information
-# using the s// operator.
-$dohighlight = "";
-foreach $pattern (keys %highlights) {
-#    print STDERR "scanning pattern $pattern ($highlights{$pattern})\n";
-    $dohighlight .=  "\$contents =~ s:$pattern:$highlights{$pattern}:gs;\n";
 }
 
 ##
@@ -251,18 +280,35 @@ sub dump_section {
 #  sections => %descriont descriptions
 #  
 
+sub repstr {
+    $pattern = shift;
+    $repl = shift;
+    $match1 = shift;
+    $match2 = shift;
+    $match3 = shift;
+    $match4 = shift;
+
+    $output = $repl;
+    $output =~ s,\$1,$match1,g;
+    $output =~ s,\$2,$match2,g;
+    $output =~ s,\$3,$match3,g;
+    $output =~ s,\$4,$match4,g;
+
+    eval "\$return = qq/$output/";
+
+#    print "pattern $pattern matched 1=$match1 2=$match2 3=$match3 4=$match4 replace $repl yielded $output interpolated $return\n";
+
+    $return;
+}
+
 sub output_highlight {
     my $contents = join "\n", @_;
     my $line;
 
-    if (substr($contents, 0, 1) eq " ") {
-	$contents = substr($contents, 1);
+    foreach $pattern (keys %highlights) {
+#	print "scanning pattern $pattern ($highlights{$pattern})\n";
+	$contents =~ s:$pattern:repstr($pattern, $highlights{$pattern}, $1, $2, $3, $4):gse;
     }
-
-    $contents =~ s:{:\@{:gs if ($output_mode eq "texinfo");
-    $contents =~ s:}:\@}:gs if ($output_mode eq "texinfo");
-    eval $dohighlight;
-    $contents =~ s:CMD:@:gs if ($output_mode eq "texinfo");
     foreach $line (split "\n", $contents) {
 	if ($line eq ""){
 	    print $lineprefix, $blankline;
@@ -279,9 +325,8 @@ sub output_texinfo {
     my ($parameter, $section);
     my $count;
 
-    print "\@deftypefun {";
-    print $args{'functiontype'};
-    print "} ".$args{'function'}." ";
+    print "\@deftypefun {" . $args{'functiontype'} . "} ";
+    print "{".$args{'function'}."} ";
     print "(";
     $count = 0;
     foreach $parameter (@{$args{'parameterlist'}}) {
@@ -291,7 +336,7 @@ sub output_texinfo {
 	    print ", ";
 	}
     }
-    print ")\n\n";
+    print ")\n";
     foreach $parameter (@{$args{'parameterlist'}}) {
 	if ($args{'parameters'}{$parameter}) {
 	    print "\@var{".$parameter."}: ";
@@ -300,8 +345,9 @@ sub output_texinfo {
 	}
     }
     foreach $section (@{$args{'sectionlist'}}) {
+	print "\n\@strong{$section:} " if $section ne $section_default;
+	$args{'sections'}{$section} =~ s:([{}]):\@\1:gs;
 	output_highlight($args{'sections'}{$section});
-	print "\n";
     }
     print "\@end deftypefun\n\n";
 }
@@ -519,14 +565,15 @@ sub output_man {
     my ($parameter, $section);
     my $count;
 
-    print ".TH \"$args{'function'}\" 3 \"$args{'version'}\" \"GNU\" \"". uc($args{'module'}) . "\"\n";
+    print ".TH \"$args{'function'}\" 3 \"$args{'sourceversion'}\" \"". $args{'module'} . "\" \"". $args{'module'} . "\"\n";
 
     print ".SH NAME\n";
 
     print $args{'function'}."\n";
 
     print ".SH SYNOPSIS\n";
-    print ".B #include <". lc($args{'module'}) . ".h>\n";
+    print ".B #include <". lc((split /_/, $args{'function'})[0]) . ".h>\n"
+	if $args{'includefuncprefix'};
     print ".sp\n";
     print ".BI \"".$args{'functiontype'}." ".$args{'function'}."(";
     $count = 0;
@@ -548,26 +595,37 @@ sub output_man {
 	print ".SH \"" . uc($section) . "\"\n";
 	output_highlight($args{'sections'}{$section});
     }
-    print ".SH \"REPORTING BUGS\"\n";
-    print "Report bugs to <bug-". lc($args{'module'}) . "\@josefsson.org>.\n";
-    print ".SH COPYRIGHT\n";
-    print "Copyright \\(co 2002, 2003 Simon Josefsson.\n";
-    print ".br\n";
-    print "Permission is granted to copy, distribute and/or modify this document\n";
-    print "under the terms of the GNU Free Documentation License, Version 1.1\n";
-    print "or any later version published by the Free Software Foundation.\n";
-    print ".SH \"SEE ALSO\"\n";
-    print "The full documentation for\n";
-    print ".B " . ucfirst($args{'module'}) . "\n";
-    print "is maintained as a Texinfo manual.  If the\n";
-    print ".B info\n";
-    print "and\n";
-    print ".B " . lc($args{'module'}) . "\n";
-    print "programs are properly installed at your site, the command\n";
-    print ".IP\n";
-    print ".B info " . lc($args{'module'}) . "\n";
-    print ".PP\n";
-    print "should give you access to the complete manual.\n";
+
+    if ($args{'bugsto'}) {
+	print ".SH \"REPORTING BUGS\"\n";
+	print "Report bugs to <". $args{'bugsto'} . ">.\n";
+    }
+
+    if ($args{'copyright'}) {
+	print ".SH COPYRIGHT\n";
+	print "Copyright \\(co ". $args{'copyright'} . ".\n";
+	if ($args{'verbatimcopying'}) {
+	    print ".br\n";
+	    print "Permission is granted to make and distribute verbatim copies of this\n";
+	    print "manual provided the copyright notice and this permission notice are\n";
+	    print "preserved on all copies.\n";
+	}
+    }
+
+    if ($args{'seeinfo'}) {
+	print ".SH \"SEE ALSO\"\n";
+	print "The full documentation for\n";
+	print ".B " . $args{'module'} . "\n";
+	print "is maintained as a Texinfo manual.  If the\n";
+	print ".B info\n";
+	print "and\n";
+	print ".B " . $args{'module'} . "\n";
+	print "programs are properly installed at your site, the command\n";
+	print ".IP\n";
+	print ".B info " . $args{'seeinfo'} . "\n";
+	print ".PP\n";
+	print "should give you access to the complete manual.\n";
+    }
 }
 
 sub output_listfunc {
@@ -634,6 +692,11 @@ sub dump_function {
 		$param = $2;
 		push @args, $1;
 	    }
+	    if ($param =~ m/^(.*)(\[\])$/) {
+		$param = $1;
+		push @args, $2;
+	    }
+#	    print STDERR " :> @args\n";
 	    $type = join " ", @args;
 
 	    if ($parameters{$param} eq "" && $param != "void") {
@@ -654,7 +717,12 @@ sub dump_function {
     if ($function_only==0 || defined($function_table{$function_name})) {
 	output_function({'function' => $function_name,
 			 'module' => $modulename,
-			 'version' => $version,
+			 'sourceversion' => $sourceversion,
+			 'includefuncprefix' => $includefuncprefix,
+			 'bugsto' => $bugsto,
+			 'copyright' => $copyright,
+			 'verbatimcopying' => $verbatimcopying,
+			 'seeinfo' => $seeinfo,
 			 'functiontype' => $return_type,
 			 'parameterlist' => \@parameterlist,
 			 'parameters' => \%parameters,
@@ -682,7 +750,7 @@ $doc_start = "^/\\*\\*\$";
 $doc_end = "\\*/";
 $doc_com = "\\s*\\*\\s*";
 $doc_func = $doc_com."(\\w+):?";
-$doc_sect = $doc_com."([".$doc_special."]?[\\w ]+):(.*)";
+$doc_sect = $doc_com."([".$doc_special."[:upper:]][\\w ]+):(.*)";
 $doc_content = $doc_com."(.*)";
 
 %constants = ();
