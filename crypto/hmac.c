@@ -37,7 +37,7 @@
 #define IPAD 0x36
 #define OPAD 0x5c
 
-#define MAX_SIZE 20
+#define MAX_SIZE 65
 
 void
 hmac_set_key(void *outer, void *inner, void *state,
@@ -46,8 +46,7 @@ hmac_set_key(void *outer, void *inner, void *state,
 {
   uint8_t pad[MAX_SIZE];
 
-  if (MAX_SIZE <= hash->block_size)
-    abort();
+  assert (hash->block_size < MAX_SIZE);
 
   hash->init(outer);
   hash->init(inner);
@@ -59,8 +58,7 @@ hmac_set_key(void *outer, void *inner, void *state,
 
       uint8_t digest[MAX_SIZE];
 
-      if (MAX_SIZE <= hash->digest_size)
-	abort();
+      assert (hash->digest_size < MAX_SIZE);
 
       hash->init(state);
       hash->update(state, key_length, key);
@@ -100,8 +98,7 @@ hmac_digest(const void *outer, const void *inner, void *state,
 {
   uint8_t digest[MAX_SIZE];
 
-  if (MAX_SIZE <= hash->digest_size)
-    abort();
+  assert (hash->digest_size < MAX_SIZE);
 
   hash->digest(state, hash->digest_size, digest);
 
