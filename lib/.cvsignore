@@ -29,3 +29,4 @@ version.lo
 xfinish.lo
 xstart.lo
 xstep.lo
+xcode.lo
