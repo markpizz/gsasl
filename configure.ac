@@ -52,7 +52,7 @@ AC_CHECK_FUNCS(getaddrinfo)
 gl_SOURCE_BASE(gl)
 gl_M4_BASE(gl/m4)
 gl_LIB(libgl)
-gl_MODULES(getopt progname strdup dummy exit error getpass-gnu getaddrinfo iconvme)
+gl_MODULES(getopt progname strdup exit error getpass-gnu getaddrinfo iconvme)
 gl_INIT
 
 # Try to find readline.
