@@ -21,12 +21,6 @@
 
 #include "internal.h"
 
-/* This interface should be made public once the plugin API, and all
- * mechanisms, have been changed to use an allocating API.  Before
- * that, I don't want to introduce this since it would only be
- * backwards incompatible later on.  For now, only init.c calls it.
- */
-
 /*
  * gsasl_register:
  * @ctx: pointer to libgsasl handle.
