@@ -1,0 +1,14 @@
+GNU SASL crypto/README -- Information about the crypto library.
+Copyright (C) 2003 Simon Josefsson
+See the end for copying conditions.
+
+This directory contains a copy of some of the files in the crypto
+library called "Nettle" from GNU lsh.
+
+If you notice any discrepencies between the copy in GNU SASL and the
+upstream version, please let me know, it is most likely an oversight.
+
+----------------------------------------------------------------------
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
