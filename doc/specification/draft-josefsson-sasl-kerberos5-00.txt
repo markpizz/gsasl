@@ -1,0 +1,616 @@
+
+
+Network Working Group                                       S. Josefsson
+Internet-Draft                                             November 2002
+Expires: May 2, 2003
+
+
+                      A Kerberos 5 SASL Mechanism
+                   draft-josefsson-sasl-kerberos5-00
+
+Status of this Memo
+
+   This document is an Internet-Draft and is in full conformance with
+   all provisions of Section 10 of RFC2026.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF), its areas, and its working groups.  Note that
+   other groups may also distribute working documents as
+   Internet-Drafts.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   The list of current Internet-Drafts can be accessed at http://
+   www.ietf.org/ietf/1id-abstracts.txt.
+
+   The list of Internet-Draft Shadow Directories can be accessed at
+   http://www.ietf.org/shadow.html.
+
+   This Internet-Draft will expire on May 2, 2003.
+
+Copyright Notice
+
+   Copyright (C) The Internet Society (2002).  All Rights Reserved.
+
+Abstract
+
+   This document specifies a Simple Authentication and Security Layer
+   (SASL) [3] mechanism for Kerberos 5 Client/Server Authentication [1],
+   with optional initial Authentication Service (AS) and/or
+   Ticket-Granting-Service (TGS) exchanges.
+
+
+
+
+
+
+
+
+
+
+
+Josefsson                 Expires May 2, 2003                   [Page 1]
+
+Internet-Draft        A Kerberos 5 SASL Mechanism          November 2002
+
+
+Table of Contents
+
+   1.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  3
+   2.  Kerberos version 5 mechanism . . . . . . . . . . . . . . . . .  3
+   3.  Theory of operation  . . . . . . . . . . . . . . . . . . . . .  5
+   3.1 Separate SASL and Kerberos 5 server  . . . . . . . . . . . . .  5
+   3.2 Combined SASL and Kerberos 5 server  . . . . . . . . . . . . .  6
+   4.  Example  . . . . . . . . . . . . . . . . . . . . . . . . . . .  7
+   5.  Security Considerations  . . . . . . . . . . . . . . . . . . .  7
+       Normative References . . . . . . . . . . . . . . . . . . . . .  9
+       Informative References . . . . . . . . . . . . . . . . . . . .  9
+       Author's Address . . . . . . . . . . . . . . . . . . . . . . .  9
+       Intellectual Property and Copyright Statements . . . . . . . . 10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Josefsson                 Expires May 2, 2003                   [Page 2]
+
+Internet-Draft        A Kerberos 5 SASL Mechanism          November 2002
+
+
+1. Introduction
+
+   Kerberos 5 provides client and optional server authentication,
+   usually employing symmetric encryption and a trusted (symmetric) key
+   distribution center.  Specifying Kerberos 5 authentication for each
+   network protocol where there is a need to use Kerberos 5 is a tedious
+   task.  However, as many protocols already specify support for the
+   SASL framework, by specifying a Kerberos 5 SASL mechanism, support
+   for Kerberos 5 in many protocols is accomplished.  Even for protocols
+   that do not support SASL, specifying SASL support (and thereby
+   implicitely Kerberos 5) is often advantageous over specifying
+   Kerberos 5 support directly.  The advantages include better
+   flexibility if or when new Kerberos versions are released, and
+   perhaps more commonly, when circumstances demand that other
+   authentication methods (supported by SASL) should be used.
+
+   It should be mentioned that Kerberos 5 authentication via SASL is
+   already possible, by using the Generic Security Service Application
+   Program Interface [6] framework.  However, GSSAPI adds some amount of
+   overhead, both in terms of code complexity, code size and additional
+   network round trips.  More importantly, GSSAPI do not support the
+   authentication steps (AS and TGS).  These are some of the motivation
+   behind this "slimmer" Kerberos 5 SASL mechanism.
+
+2. Kerberos version 5 mechanism
+
+   The mechanism name associated with Kerberos version 5 is
+   "KERBEROS_V5".  The exchange consists of one initial server packet
+   (containing some parameters and a challenge, described below), and
+   then an unfixed number of messages containing Kerberos 5 packets,
+   with the last exchange being an AP-REQ, and optional AP-REP, for the
+   desired SASL service on a format described below.
+
+   The normal packet exchange, after the required initial server packet,
+   are one optional AS-REQ and AS-REP exchange, one optional TGS-REQ and
+   TGS-REP exchange and then the AP-REQ packet and optional AP-REP
+   reply.  The only steps that are required by this SASL mechanism is
+   the initial server packet and the final AP-REQ and optional AP-REP
+   exchange.  The AP-REP is sent when and only when mutual
+   authentication is required.  The AP-REQ is for the SASL service that
+   is requested.  The AP-REQ must contain authenticated application data
+   on a format described below.  The AS and TGS exchanges is usually
+   used by clients to aquire the proper tickets required for the AP
+   phase.  It is not expected that any other Kerberos 5 packets will be
+   exchanged, but this mechanism do not disallow such packets in order
+   to make it possible to use this SASL mechanism with future Kerberos
+   extensions.
+
+
+
+
+Josefsson                 Expires May 2, 2003                   [Page 3]
+
+Internet-Draft        A Kerberos 5 SASL Mechanism          November 2002
+
+
+   As discussed above, the client is allowed to send any valid Kerberos
+   5 message and the server should handle any message, subject to local
+   policy restrictions.  If the server do not understand the meaning of
+   a packet or do not wish to respond to it (e.g., it cannot proxy a
+   TGS-REQ), it SHOULD respond with a empty response and await further
+   packets.  Reasons for aborting the authentication phase instead of
+   sending an empty response includes if the number of received packets
+   exceeds a pre-defined limit.  AS-REQ and TGS-REQ packets destined for
+   non-local Kerberos Key Distribution Centers (KDCs) is proxied to the
+   correct server by the SASL server.  No provisions are made in the
+   protocol to allow the client to specify the addresses of the KDCs,
+   instead the SASL server is required to discover this information
+   (usually by static configuration or by using DNS).  It is legitimate
+   for the SASL server to abort the authentication phase with an error
+   saying that the indicated realm was not found or is restricted by
+   policy (i.e., a policy that only permits local KDC requests is
+   permitted).
+
+   Since it is expected that clients may not yet have IP addresses when
+   they invoke this SASL mechanism (invoking this mechanism may be one
+   step in aquiring an IP address), clients commonly leave the address
+   fields in the AS-REQ empty.
+
+   The initial server packet should contain one octet containing a bit
+   mask of supported security layers, four octets indicating the maximum
+   cipher-text buffer size the server is able to receive (or 0 if no
+   security layers are supported) in network byte order, and then 16
+   octets containing random data (see [4] on how random data might be
+   generated).
+
+   The last exchange must be an AP-REQ for the desired SASL service,
+   optionaly followed by an AP-REP.  The SASL service is translated into
+   a Kerberos principal and realm as follows: The first element of the
+   principal is the service name specified in the protocol that uses
+   SASL.  The second element is the address of the SASL server, usually
+   expressed as a hostname.  The realm should be the Kerberos realm of
+   the SASL server.  The checksum field in the Authenticator of the
+   AP-REQ must be on a string where the first octet indicate the desired
+   security layer requested by the client (a bitmask with one bit set,
+   which must also be set in the server offered security layer bitmask),
+   the next four octets indicate the maximum cipher-text buffer size the
+   client is able to receive in network byte order (or 0 if a security
+   layer is not indicated by the first octet), followed by the entire
+   initial server packet, in turn followed by the desired authorization
+   identity (which can be empty to indicate that the authorization
+   identity should be the same as the authentication identity provided
+   by the Kerberos ticket in the AP-REQ).
+
+
+
+
+Josefsson                 Expires May 2, 2003                   [Page 4]
+
+Internet-Draft        A Kerberos 5 SASL Mechanism          November 2002
+
+
+   Upon decrypting and verifying the ticket and authenticator (i.e.,
+   standard AP-REQ processing), the server verifies that the contained
+   security layer bit mask, server maximum cipher-text buffer size, and
+   the random data equals the data provided in the original server
+   challenge.  The server also verify that the client selected security
+   level matches one of the offered security levels.  Should the
+   verification be successful, the server must verify that the principal
+   identified in the Kerberos ticket is authorized to connect to the
+   service as the authorization identity specified by the client (or, if
+   absent, the Kerberos ticket principal).  Unless the client requested
+   mutual authentication, the authentication process is complete.
+
+   If the client requested mutual authentication, the server constructs
+   an AP-REP according to Kerberos 5.  The checksum field in the
+   Authenticator of the AP-REP must contain one octet with the desired
+   security level (must be equal to what the client requested) followed
+   by the application the client provided in the AP-REQ Authenticator
+   checksum.
+
+   The security layers and their corresponding bit-masks are as follows:
+
+         Bit 0 No security layer
+         Bit 1 Integrity (KRB-SAFE) protection
+         Bit 2 Privacy (KRB-PRIV) protection
+         Bit 3 Mutual authentication is required (AP option MUTUAL-
+               REQUIRED must also be present).
+
+   Other bit-masks may be defined in the future; bits which are not
+   understood must be negotiated off.
+
+3. Theory of operation
+
+   This section describes, for illustrion only, two scenarios where this
+   mechanism can be used.
+
+3.1 Separate SASL and Kerberos 5 server
+
+   Normally a SASL server is an application server such as a mail
+   system.  The server is configured to belong to at least one Kerberos
+   5 realm, and the server shares a symmetric key with the Kerberos 5
+   Key Distribution Center in that realm.  The server cannot perform the
+   initial Kerberos AS and TGS operation itself but rather acts as a
+   proxy, and once the user acquired credentials the server it is able
+   to carry out the AP-REQ/AP-REP phase using its symmetric key.  The
+   steps are as follows:
+
+
+
+
+
+
+Josefsson                 Expires May 2, 2003                   [Page 5]
+
+Internet-Draft        A Kerberos 5 SASL Mechanism          November 2002
+
+
+   0) Server sends initial token.
+
+   1) Client constructs AS-REQ using username and realm supplied by user,
+      in order to acquire a ticket granting ticket.
+
+   2) Server finds address of KDC and forwards the AS-REQ to and waits
+      for the AS-REP response which it forwards back to the client.
+
+   3) Client parses AS-REP and constructs a TGS-REQ using the ticket
+      granting ticket encryption key, in order to acquire a ticket for
+      the server.
+
+   4) Server finds address of KDC and forwards the TGS-REQ to and waits
+      for the TGS-REP response which it forwards back to the client.
+
+   5) Client parses TGS-REP and generates the AP-REQ using the session
+      encryption key.
+
+   4) Server parses AP-REQ and generates the AP-REP if requested.
+
+   5) Client optionally parses AP-REP.
+
+
+3.2 Combined SASL and Kerberos 5 server
+
+   Kerberos 5 is usually a distributed security system, but we wish to
+   point out that this Kerberos 5 SASL mechanism may be used in a
+   standalone SASL server to provide the security advantages that the
+   Kerberos 5 Authentication Service (AS) provides over other methods.
+
+   Specifically, the SASL server may use a legacy password database such
+   as a CRAM-MD5 clear text password file to generate Kerberos 5
+   principals "on the fly".  Authentication may thus proceed as follows:
+
+   0) Server sends initial token.
+
+   1) Client constructs AS-REQ using username supplied by user, in order to
+      acquire a ticket for the server directly.
+
+   2) Server parses AS-REQ and generates AS-REP based on password in database.
+
+   3) Client parses AS-REP and construct a ticket and the AP-REQ using
+      the session encryption key.
+
+   4) Server parses AP-REQ and generates the AP-REP if requested.
+
+   5) Client optionally parses AP-REP.
+
+
+
+
+Josefsson                 Expires May 2, 2003                   [Page 6]
+
+Internet-Draft        A Kerberos 5 SASL Mechanism          November 2002
+
+
+   This may be extended further, i.e.  by using the password and
+   Kerberos 5 pre-authentication in step 1.
+
+4. Example
+
+   The following is one Kerberos version 5 login scenarios to the IMAP4
+   protocol (note that the line breaks in the sample authenticators are
+   for editorial clarity and are not in real authenticators).
+
+        S: * OK IMAP4rev1 server
+        C: . AUTHENTICATE KERBEROS_V5
+        S: + AAAAAAB2ZXJ5IHJhbmRvbSBkYXRh
+        C: aoGNMIGKoQMCAQWiAwIBCqMCMACkejB4oAcDBQAAAAAAoRAwDqADAgEBoQcwBRsD
+           amFzog8bDUpPU0VGU1NPTi5PUkejIjAgoAMCAQGhGTAXGwZrcmJ0Z3QbDUpPU0VG
+           U1NPTi5PUkelERgPMjAwMzAxMDgyMzAwMDBapwYCBEbYfGaoCzAJAgESAgEQAgED
+        S: + a4ICITCCAh2gAwIBBaEDAgELow8bDUpPU0VGU1NPTi5PUkekEDAOoAMCAQGhBzAF
+             GwNqYXOlggECYYH/MIH8oAMCAQWhDxsNSk9TRUZTU09OLk9SR6IiMCCgAwIBAaEZ
+             MBcbBmtyYnRndBsNSk9TRUZTU09OLk9SR6OBvzCBvKADAgEQoQMCAQGiga8EgaxJ
+             LzxzeR/yPCjnnac67Qk1aavvaLf3erjNFC0pDHOsWhe7aBFzsPeZsjwrpDizC/kF
+             hi1Y9pQMlEDxbfs0vqSRo5LP0pnkAeX/euiqsnupwhG7eaQfcFPNqDJaAdKFa8li
+             b0g4J7hf3QoTqnpIW/eYK/M+3I0E3GeOJGFrBVgumml7tDdCxjDd8OpjVh9Ejdq3
+             3FaVN7c92If9izILr9Az9mADuyv6zF4QafFtpoHnMIHkoAMCARChAwIBBqKB1wSB
+             1C4UxQSlQ7LlUap9QBJm/EwK8WyYXao+ScoccIXysZ2iNEVNyjE2Czv/F9rjUNNb
+             60e2PMHHsZRUYIvIlgkq6dwtlWI1AW11saE5OsdGPNNl8nP5m1MlrH4iYB8f2mWt
+             xmcEGSk4T9HREucyVl9DlhCyD/S+bRAjXO4u6GbMcFaVn+idonKgDUy+8TbgkICs
+             e79I7e//sxdAxVduK3QFmSAXrnIts+lo8VFfnWqwZOoPdZiBxnPck35zy7jJejaU
+             QysakfCgSniRfDzgW1C/UAo8QCWb
+        C: boIBpTCCAaGgAwIBBaEDAgEOogcDBQAAAAAAo4IBFGGCARAwggEMoAMCAQWhDxsN
+           Sk9TRUZTU09OLk9SR6IiMCCgAwIBAaEZMBcbBGltYXAbD3l4YS5leHR1bmRvLmNv
+           baOBzzCBzKADAgEQoQMCAQGigb8Egbxn6oQtjVF1OlzSSm2TimVUM4xEcaHUeZ0Q
+           TxqpVmmej0OhVXwtHKnrNY2v/+edOzNS8yojmmKaKN5cnUHnvLwgS/W0Xx55bhFW
+           zo0I+x0kAaOef7HHf5XsfinYybp5qVaLihjJXK0IrbYkeZy/B6tpAfsIuKfIRVXL
+           jI9DYt9a+sHVLpE+yHMiCxM//JWOnCJsnD2T5IeuHgjBf6D9DXVwzJTMJZRs3zVm
+           Vo4NhAoqIDsFtdZ3ca+bcaBA2aR0MHKgAwIBEKEDAgEBomYEZC0aevz6IesKrIx+
+           m8/qfYjYx/cho274VGzMrREKEg9lK8s1ajkeq4yrNQWxblwA3zx6Q2HzX0DHomhj
+           6Lm1TnB8VKJziZmFocyG3nicOuORf1oqO+qLmr9S3yNQUseKBFOEfX8=
+        S: . OK KERBEROS_V5 successful
+
+   (XXX this is not a real example)
+
+5. Security Considerations
+
+   The authentication phase is belived to be no less secure than the
+   Client/Server Authentication exchange described in the Kerberos 5
+   protocol.
+
+   If no security layer is negotiated, the connection is subject to
+   active man-in-the-middle attackers that hijack the connection after
+
+
+
+Josefsson                 Expires May 2, 2003                   [Page 7]
+
+Internet-Draft        A Kerberos 5 SASL Mechanism          November 2002
+
+
+   authentication has been completed.
+
+   When security layers are used, it is believed that the communication
+   channel negotiated by this specification is no less secure than the
+   KRB_SAFE and KRB_PRIV primitives.  In other words, it is believed
+   that if an attack that breaches integrity or privacy of this
+   mechanism, the same attack also applies to the Kerberos 5
+   specification, and vice versa.
+
+   Server implementations should be aware that this proxying function
+   can be abused, and MAY implement precaution against this if it is
+   considered a threat.  Useful precautions include limiting the size of
+   packets forwarded, and the number of packets, to abort the SASL
+   exchange when the limit is reached.
+
+   Server implementations should make sure the method to look up KDC for
+   the client indicated realm does not cause security problems.  In
+   particular, trusting unprotected DNS lookups to find the KDC of a
+   realm may be considered as dangerous by a server.
+
+   The forward-compatibility behaviour of returning empty responses to
+   unsupported commands may be abused as a covert channel.
+
+   The reason for the client to send, in the Authenticator checksum
+   field, not only the server random number but the entire initial
+   server packet with the security layer bitmask and maximum cipher-text
+   buffer size accepted by server, is to prevent an attacker from
+   downgrading the security layer ultimately selected.  The random
+   number ties the client and server to the same network session,
+   prevent man-in-the-middle attacks assuming a Kerberos 5 security
+   layer is chosen and that the Kerberos 5 security layer is secure.
+
+   The security considerations of Kerberos 5 and SASL are inherited.
+   Some immediates consequences of this follows (this is an inconclusive
+   summary):
+
+   Note that some of the Kerberos 5 encryption types are considered
+   weak, implementations must decide which algorithms are trusted.
+
+   Note that Kerberos 5 do not authorize users, it only authenticate
+   users.  Applications using this mechanism must thus perform checks,
+   not described in detail in this document, to make sure the
+   authenticated user is authorized to the service she is requesting.
+
+   Note that the SASL framework is subject to "downgrade" attacks where
+   an attacker forces a weaker SASL mechanism to be used.  The use of,
+   e.g., TLS [5] can be used to mitigate this.
+
+
+
+
+Josefsson                 Expires May 2, 2003                   [Page 8]
+
+Internet-Draft        A Kerberos 5 SASL Mechanism          November 2002
+
+
+Normative References
+
+   [1]  Kohl, J. and B. Neuman, "The Kerberos Network Authentication
+        Service (V5)", RFC 1510, September 1993.
+
+   [2]  Bradner, S., "Key words for use in RFCs to Indicate Requirement
+        Levels", BCP 14, RFC 2119, March 1997.
+
+   [3]  Myers, J., "Simple Authentication and Security Layer (SASL)",
+        RFC 2222, October 1997.
+
+Informative References
+
+   [4]  Eastlake, D., Crocker, S. and J. Schiller, "Randomness
+        Recommendations for Security", RFC 1750, December 1994.
+
+   [5]  Dierks, T., Allen, C., Treese, W., Karlton, P., Freier, A. and
+        P. Kocher, "The TLS Protocol Version 1.0", RFC 2246, January
+        1999.
+
+   [6]  Linn, J., "Generic Security Service Application Program
+        Interface Version 2, Update 1", RFC 2743, January 2000.
+
+
+Author's Address
+
+   Simon Josefsson
+   Drottningholmsv. 70
+   Stockholm  112 42
+   Sweden
+
+   EMail: simon@josefsson.org
+
+Acknowledgements
+
+   Text and ideas was borrowed from the Kerberos version 4 SASL
+   mechanism in RFC 2222.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Josefsson                 Expires May 2, 2003                   [Page 9]
+
+Internet-Draft        A Kerberos 5 SASL Mechanism          November 2002
+
+
+Intellectual Property Statement
+
+   The IETF takes no position regarding the validity or scope of any
+   intellectual property or other rights that might be claimed to
+   pertain to the implementation or use of the technology described in
+   this document or the extent to which any license under such rights
+   might or might not be available; neither does it represent that it
+   has made any effort to identify any such rights.  Information on the
+   IETF's procedures with respect to rights in standards-track and
+   standards-related documentation can be found in BCP-11.  Copies of
+   claims of rights made available for publication and any assurances of
+   licenses to be made available, or the result of an attempt made to
+   obtain a general license or permission for the use of such
+   proprietary rights by implementors or users of this specification can
+   be obtained from the IETF Secretariat.
+
+   The IETF invites any interested party to bring to its attention any
+   copyrights, patents or patent applications, or other proprietary
+   rights which may cover technology that may be required to practice
+   this standard.  Please address the information to the IETF Executive
+   Director.
+
+
+Full Copyright Statement
+
+   Copyright (C) The Internet Society (2002).  All Rights Reserved.
+
+   This document and translations of it may be copied and furnished to
+   others, and derivative works that comment on or otherwise explain it
+   or assist in its implementation may be prepared, copied, published
+   and distributed, in whole or in part, without restriction of any
+   kind, provided that the above copyright notice and this paragraph are
+   included on all such copies and derivative works.  However, this
+   document itself may not be modified in any way, such as by removing
+   the copyright notice or references to the Internet Society or other
+   Internet organizations, except as needed for the purpose of
+   developing Internet standards in which case the procedures for
+   copyrights defined in the Internet Standards process must be
+   followed, or as required to translate it into languages other than
+   English.
+
+   The limited permissions granted above are perpetual and will not be
+   revoked by the Internet Society or its successors or assignees.
+
+   This document and the information contained herein is provided on an
+   "AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+   TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+
+
+
+Josefsson                 Expires May 2, 2003                  [Page 10]
+
+Internet-Draft        A Kerberos 5 SASL Mechanism          November 2002
+
+
+   HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+   MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+
+Acknowledgement
+
+   Funding for the RFC Editor function is currently provided by the
+   Internet Society.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Josefsson                 Expires May 2, 2003                  [Page 11]
+

@@ -5,6 +5,9 @@ Libgsasl uses libntlm by Grant Edwards, libgssapi by MIT, libgcrypt by
 Werner Koch.  Templates for makefiles, manuals etc was borrowed from
 Libgcrypt.
 
+Sergey Poznyakoff sent useful bug reports, patches and/or suggested
+improvements.
+
 ----------------------------------------------------------------------
 Copyright (C) 2002 Simon Josefsson
 
