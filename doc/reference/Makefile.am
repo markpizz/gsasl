@@ -28,14 +28,14 @@ EXTRA_DIST = $(PACKAGE)-docs.tmpl $(HTML_OBJECTS) $(IMAGES)
 IMAGES = home.png left.png right.png up.png
 
 scan.stamp: $(top_srcdir)/lib/src/*.c $(top_srcdir)/lib/src/*.h
-	gtkdoc-scan --module=$(PACKAGE) --source-dir=$(top_srcdir)/lib \
+	gtkdoc-scan --module=$(PACKAGE) --source-dir=$(top_srcdir)/lib/src \
 		--ignore-headers="$(HIGNORE)" && touch scan.stamp
 
 tmpl.stamp: scan.stamp
 	gtkdoc-mktmpl --module=$(PACKAGE) --output-dir=.
 
 sgml.stamp: tmpl.stamp
-	gtkdoc-mkdb --module=$(PACKAGE) --source-dir=$(top_srcdir)/lib \
+	gtkdoc-mkdb --module=$(PACKAGE) --source-dir=$(top_srcdir)/lib/src \
 		--tmpl-dir=. --output-dir=. \
 		--main-sgml-file=$(srcdir)/$(PACKAGE)-docs.tmpl
 
