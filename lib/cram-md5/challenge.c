@@ -31,7 +31,7 @@
 #define DECCHAR(c) ((c & 0x0F) > 9 ? '0' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
 
 void
-cram_md5_challenge (char challenge[32])
+cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN])
 {
   size_t i;
 
@@ -43,7 +43,7 @@ cram_md5_challenge (char challenge[32])
    *   fully-qualified primary host name of the server.
    *
    * This implementation avoid the information leakage by always using
-   * 0 as the time stamp and "example" as the host name.  This is
+   * 0 as the time stamp and a fixed host name.  This is
    * unproblematic, as any client that try to validate the challenge
    * string somehow, would violate the same specification:
    *
@@ -52,7 +52,8 @@ cram_md5_challenge (char challenge[32])
    *
    */
 
-  strcpy (challenge, "<XXXXXXXXXXXXXXXXXXXX.0@example>");
+  memcpy (challenge, "<XXXXXXXXXXXXXXXXXXXX.0@localhost>",
+	  CRAM_MD5_CHALLENGE_LEN);
 
   gc_nonce (&challenge[1], 10);
 
