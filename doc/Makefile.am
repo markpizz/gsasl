@@ -61,15 +61,15 @@ include $(srcdir)/Makefile.gdoci
 
 # DocBook
 
-gsasl_html_auto_deps = html/a2289.html html/a2405.html html/c1098.html	\
+gsasl_html_auto_deps = html/a2299.html html/a2415.html html/c1098.html	\
 	html/c1186.html html/c16.html html/c1730.html html/c1904.html	\
-	html/c2005.html html/c2233.html html/c2243.html			\
-	html/c2248.html html/c2258.html html/c2261.html			\
-	html/c2267.html html/c2272.html html/c2276.html			\
-	html/c2280.html html/c2285.html html/c305.html html/c395.html	\
-	html/c425.html html/c9.html html/i2499.html html/i2625.html	\
+	html/c2005.html html/c2243.html html/c2253.html			\
+	html/c2258.html html/c2268.html html/c2271.html			\
+	html/c2277.html html/c2282.html html/c2286.html			\
+	html/c2290.html html/c2295.html html/c305.html html/c395.html	\
+	html/c425.html html/c9.html html/i2509.html html/i2635.html	\
 	html/index.html html/x1025.html html/x179.html html/x195.html	\
-	html/x2222.html html/x2474.html html/x258.html html/x26.html	\
+	html/x2232.html html/x2484.html html/x258.html html/x26.html	\
 	html/x276.html html/x319.html html/x331.html html/x349.html	\
 	html/x376.html html/x446.html html/x48.html html/x480.html	\
 	html/x569.html html/x59.html html/x643.html html/x718.html	\
