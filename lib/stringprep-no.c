@@ -1,4 +1,4 @@
-/* stringprep-no.c	dummy i18n SASL string processing for internal use
+/* stringprep-no.c	Dummy i18n SASL string processing.
  * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -19,10 +19,15 @@
  *
  */
 
+/*
+ * Note: this file is only used when --disable-stringprep is specified.
+ * Refer to stringprep.c for documentation.
+ */
+
 #include "internal.h"
 
 char *
-_gsasl_no_stringprep_nfkc (const char *in, ssize_t len)
+gsasl_stringprep_nfkc (const char *in, ssize_t len)
 {
   char *out;
 
@@ -41,15 +46,32 @@ _gsasl_no_stringprep_nfkc (const char *in, ssize_t len)
   return out;
 }
 
-char *
-_gsasl_no_stringprep (const char *in, int *stringprep_rc)
+static char *
+no_stringprep (const char *in, int *stringprep_rc)
 {
   char *out;
   int rc;
 
   out = malloc (strlen (in) + 1);
   if (out)
-    strcpy (out, in);
+    {
+      strcpy (out, in);
+      *stringprep_rc = 1;
+    }
+  else
+    *stringprep_rc = 0;
 
   return out;
+}
+
+char *
+gsasl_stringprep_saslprep (const char *in, int *stringprep_rc)
+{
+  return no_stringprep (in, stringprep_rc);
+}
+
+char *
+gsasl_stringprep_trace (const char *in, int *stringprep_rc)
+{
+  return no_stringprep (in, stringprep_rc);
 }
