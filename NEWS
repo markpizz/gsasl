@@ -4,6 +4,11 @@ See the end for copying conditions.
 
 * Changes in 0.0.8 (unreleased)
 
+** GNU SASL contain APIs for internationalized string processing.
+You no longer have to use Libidn directly for this.  The currently
+supported functions are gsasl_stringprep_nfkc,
+gsasl_stringprep_saslprep, and gsasl_stringprep_trace.
+
 ** Man pages for all public functions are included.
 
 ** GNULib is used for compatibility functions.
@@ -15,9 +20,10 @@ The library itself (lib/*) only use C89.  The remaining parts (src/
 and tests/) can use C89 and any functionality from GNULib.
 
 ** Improvements for embedded or otherwise limited systems.
-The math library (-lm) is no longer required. All client code can be
+The math library (-lm) is no longer required.  All client code can be
 disabled by --disable-client, and all server code can be disabled by
---disable-server.
+--disable-server.  The internationalized string processing library can
+be disabled by --without-stringprep.
 
 ** Gettext 0.12.1 and Libtool 1.5 is used.
 
