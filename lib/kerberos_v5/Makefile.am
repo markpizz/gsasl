@@ -19,7 +19,7 @@
 # Boston, MA 02111-1307, USA.
 
 # -Igl is for strdup.
-AM_CPPFLAGS = -I$(top_srcdir)/gl \
+AM_CPPFLAGS = -I$(top_builddir)/gl \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 
 noinst_LTLIBRARIES = libgsasl-kerberos_v5.la
