@@ -6,11 +6,13 @@ gsasl-decl.txt
 gsasl-doc.bottom
 gsasl-doc.top
 gsasl-gsasl.html
+gsasl-gsasl-compat.html
 gsasl-sections.txt
 gsasl-undocumented.txt
 gsasl-unused.sgml
 gsasl-unused.txt
 gsasl.sgml
+gsasl-compat.sgml
 home.png
 index.html
 index.sgml
