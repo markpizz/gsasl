@@ -116,13 +116,19 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
       gsasl_property_set (sctx, GSASL_PASSWORD, NULL);
       key = gsasl_property_get (sctx, GSASL_PASSWORD);
       if (!key)
-	return GSASL_NO_PASSWORD;
+	{
+	  free (passprep);
+	  return GSASL_NO_PASSWORD;
+	}
 
       /* FIXME: Specification is unclear on whether unassigned code
 	 points are allowed or not.  We don't allow them. */
       res = gsasl_saslprep (key, 0, &normkey, NULL);
       if (res != GSASL_OK)
-	return res;
+	{
+	  free (passprep);
+	  return res;
+	}
 
       if (strlen (passprep) == strlen (normkey) &&
 	  memcmp (normkey, passprep, strlen (normkey)) == 0)
@@ -131,6 +137,7 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
 	res = GSASL_AUTHENTICATION_ERROR;
       free (normkey);
     }
+  free (passprep);
 
   return res;
 }
