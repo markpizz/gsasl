@@ -22,6 +22,9 @@
 
 #include "digest-md5.h"
 
+/* Get strdup. */
+#include "strdup.h"
+
 #include <nettle-types.h>
 #ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h>

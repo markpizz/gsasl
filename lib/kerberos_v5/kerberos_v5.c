@@ -1,5 +1,5 @@
 /* kerberos_v5.c      implementation of experimental SASL mechanism KERBEROS_V5
- * Copyright (C) 2003  Simon Josefsson
+ * Copyright (C) 2003, 2004  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -21,6 +21,10 @@
 
 #include "kerberos_v5.h"
 
+/* Get strdup. */
+#include "strdup.h"
+
+/* Get Shishi API. */
 #include <shishi.h>
 
 #ifdef HAVE_NETINET_IN_H
