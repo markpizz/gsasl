@@ -19,29 +19,6 @@
  *
  */
 
-/**
- * Gsasl_callback_function:
- * @ctx: libgsasl handle.
- * @sctx: session handle, may be NULL.
- * @prop: enumerated value of Gsasl_property type.
- *
- * Prototype of function that the application should implement.  Use
- * gsasl_callback_set() or gsasl_callback_set_global() to inform the
- * library about your callback function.
- *
- * It is called by the SASL library when it need some information from
- * the application.  Depending on the value of @prop, it should either
- * set some property (e.g., username or password) using
- * gsasl_property_set() and gsasl_property_set_global(), or it should
- * extract some properties (e.g., authentication and authorization
- * identities) using gsasl_property_fast() and use them to make a
- * policy decision, perhaps returning GSASL_AUTHENTICATION_ERROR or
- * GSASL_OK depending on whether the policy permitted the operation.
- *
- * Return value: Any valid return code, the interpretation of which
- *   depend on the @prop value.
- **/
-
 #include "internal.h"
 
 /**
