@@ -19,6 +19,8 @@
  *
  */
 
+#include <progname.h>
+
 #include "internal.h"
 #include "callbacks.h"
 #include "imap.h"
@@ -200,6 +202,7 @@ main (int argc, char *argv[])
   char input[MAX_LINE_LENGTH];
   char *in;
 
+  set_program_name (argv[0]);
 #ifdef HAVE_LOCALE_H
   setlocale (LC_ALL, "");
 #endif
