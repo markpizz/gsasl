@@ -103,7 +103,7 @@ select_mechanism (char **mechlist)
   else if (args_info.server_flag)
     {
       if (!args_info.quiet_given)
-	fprintf (stderr, _("Chose SASL mechanisms:\n"));
+	fprintf (stderr, _("Chose SASL mechanism:\n"));
       if (!readln (&in))
 	return 0;
       *mechlist = in;
