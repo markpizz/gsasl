@@ -465,7 +465,7 @@ gcc -c foo.c `pkg-config libgsasl --cflags`
 
 Adding the output of @samp{pkg-config libgsasl --cflags} to the
 compilers command line will ensure that the compiler can find the
-`Liblibgsasl' header file.
+`gsasl.h' header file.
 
 A similar problem occurs when linking the program with the library.
 Again, the compiler has to find the library files.  For this to work,
@@ -473,8 +473,8 @@ the path to the library files has to be added to the library search path
 (via the @option{-L} option).  For this, the option @option{--libs} to
 @command{pkg-config libgsasl} can be used.  For convenience, this option
 also outputs all other options that are required to link the program
-with the `Liblibgsasl' libararies (in particular, the @samp{-llibgsasl}
-option).  The example shows how to link @file{foo.o} with the `Liblibgsasl'
+with the `libgsasl' libarary (for instance, the @samp{-lidn}
+option).  The example shows how to link @file{foo.o} with the `libgsasl'
 library to a program @command{foo}.
 
 @example
