@@ -21,4 +21,8 @@
 AM_CPPFLAGS = -I$(srcdir)/../src -I../src
 
 noinst_LTLIBRARIES = libgsasl-ntlm.la
-libgsasl_ntlm_la_SOURCES = x-ntlm.h ntlm.c
+libgsasl_ntlm_la_SOURCES = x-ntlm.h
+
+if CLIENT
+libgsasl_ntlm_la_SOURCES += ntlm.c
+endif
