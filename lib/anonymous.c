@@ -21,7 +21,7 @@
 
 #include "anonymous.h"
 
-#ifdef USE_ANONYMOUS
+#ifdef USE_CLIENT
 
 int
 _gsasl_anonymous_client_init (Gsasl_ctx * ctx)
@@ -101,7 +101,11 @@ _gsasl_anonymous_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
+#endif /* USE_CLIENT */
+
 /* Server */
+
+#ifdef USE_SERVER
 
 struct _Gsasl_anonymous_server_state
 {
@@ -211,4 +215,4 @@ _gsasl_anonymous_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
-#endif /* USE_ANONYMOUS */
+#endif /* USE_SERVER */

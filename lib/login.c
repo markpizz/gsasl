@@ -21,7 +21,7 @@
 
 #include "login.h"
 
-#ifdef USE_LOGIN
+#ifdef USE_CLIENT
 
 struct _Gsasl_login_client_state
 {
@@ -143,8 +143,11 @@ _gsasl_login_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
 
   return GSASL_OK;
 }
+#endif
 
 /* Server */
+
+#ifdef USE_SERVER
 
 struct _Gsasl_login_server_state
 {
@@ -321,4 +324,4 @@ _gsasl_login_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
-#endif /* USE_LOGIN */
+#endif /* USE_SERVER */

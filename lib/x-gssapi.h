@@ -24,8 +24,6 @@
 
 #include "internal.h"
 
-#if USE_GSSAPI
-
 #define _GSASL_GSSAPI_NAME "GSSAPI"
 
 extern int _gsasl_gssapi_client_init (Gsasl_ctx * ctx);
@@ -51,7 +49,5 @@ extern int _gsasl_gssapi_server_step (Gsasl_session_ctx * sctx,
 				      char *output, size_t * output_len);
 extern int _gsasl_gssapi_server_finish (Gsasl_session_ctx * sctx,
 					void *mech_data);
-
-#endif /* USE_GSSAPI */
 
 #endif /* _GSSAPI_H */

@@ -21,24 +21,18 @@
 
 #include "x-gssapi.h"
 
-#ifdef USE_GSSAPI
-
 #ifdef USE_GSS
-
-#include <gss.h>
-
+# include <gss.h>
 #else /* MIT GSSAPI */
-
-#ifdef HAVE_GSSAPI_H
-#include <gssapi.h>
-#endif
-#ifdef HAVE_GSSAPI_GSSAPI_H
-#include <gssapi/gssapi.h>
-#endif
-#ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
-#include <gssapi/gssapi_generic.h>
-#endif
-
+# ifdef HAVE_GSSAPI_H
+#  include <gssapi.h>
+# endif
+# ifdef HAVE_GSSAPI_GSSAPI_H
+#  include <gssapi/gssapi.h>
+# endif
+# ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
+# include <gssapi/gssapi_generic.h>
+# endif
 #endif
 
 #ifdef HAVE_NETINET_IN_H
@@ -50,6 +44,8 @@
 #define GSSAPI_AUTH_PRIVACY   4
 
 /* Client */
+
+#ifdef USE_CLIENT
 
 struct _Gsasl_gssapi_client_state
 {
@@ -291,7 +287,11 @@ _gsasl_gssapi_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
+#endif /* USE_CLIENT */
+
 /* Server */
+
+#ifdef USE_SERVER
 
 struct _Gsasl_gssapi_server_state
 {
@@ -573,4 +573,5 @@ _gsasl_gssapi_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 
   return GSASL_OK;
 }
-#endif /* USE_GSSAPI */
+
+#endif /* USE_SERVER */

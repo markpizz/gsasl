@@ -24,8 +24,6 @@
 
 #include "internal.h"
 
-#ifdef USE_NTLM
-
 #define _GSASL_NTLM_NAME "NTLM"
 
 extern int _gsasl_ntlm_client_init (Gsasl_ctx * ctx);
@@ -51,6 +49,5 @@ extern int _gsasl_ntlm_server_step (Gsasl_session_ctx * sctx,
 				    char *output, size_t * output_len);
 extern int _gsasl_ntlm_server_finish (Gsasl_session_ctx * sctx,
 				      void *mech_data);
-#endif /* USE_NTLM */
 
 #endif /* _SASL_NTLM_H */

@@ -24,8 +24,6 @@
 
 #include "internal.h"
 
-#ifdef USE_KERBEROS_V5
-
 #define _GSASL_KERBEROS_V5_NAME "KERBEROS_V5"
 
 extern int _gsasl_kerberos_v5_client_init (Gsasl_ctx * ctx);
@@ -75,7 +73,5 @@ extern int _gsasl_kerberos_v5_server_decode (Gsasl_session_ctx * sctx,
 					     size_t * output_len);
 extern int _gsasl_kerberos_v5_server_finish (Gsasl_session_ctx * sctx,
 					     void *mech_data);
-
-#endif /* USE_KERBEROS_V5 */
 
 #endif /* _KERBEROS_V5_H */

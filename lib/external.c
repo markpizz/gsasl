@@ -21,7 +21,7 @@
 
 #include "external.h"
 
-#ifdef USE_EXTERNAL
+#ifdef USE_CLIENT
 
 int
 _gsasl_external_client_init (Gsasl_ctx * ctx)
@@ -61,7 +61,11 @@ _gsasl_external_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
+#endif /* USE_CLIENT */
+
 /* Server */
+
+#ifdef USE_SERVER
 
 int
 _gsasl_external_server_init (Gsasl_ctx * ctx)
@@ -122,4 +126,4 @@ _gsasl_external_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
-#endif /* USE_EXTERNAL */
+#endif /* USE_SERVER */

@@ -1,5 +1,5 @@
 /* digest-md5.h	    header file for mechanism DIGEST-MD5 as defined in RFC 2831
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -23,8 +23,6 @@
 #define _DIGEST_MD5_H
 
 #include "internal.h"
-
-#ifdef USE_DIGEST_MD5
 
 #define _GSASL_DIGEST_MD5_NAME "DIGEST-MD5"
 
@@ -75,7 +73,5 @@ extern int _gsasl_digest_md5_server_decode (Gsasl_session_ctx * sctx,
 					    size_t input_len,
 					    char *output,
 					    size_t * output_len);
-
-#endif /* USE_DIGEST_MD5 */
 
 #endif /* _DIGEST_MD5_H */

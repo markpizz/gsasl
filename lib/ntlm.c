@@ -21,9 +21,9 @@
 
 #include "x-ntlm.h"
 
-#ifdef USE_NTLM
-
 #include <ntlm.h>
+
+#ifdef USE_CLIENT
 
 struct _Gsasl_ntlm_state
 {
@@ -189,4 +189,4 @@ _gsasl_ntlm_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
-#endif /* USE_NTLM */
+#endif /* USE_CLIENT */

@@ -62,6 +62,7 @@ if test "$anonymous" != "no" ; then
 fi
 AC_MSG_CHECKING([if ANONYMOUS should be used])
 AC_MSG_RESULT($anonymous)
+AM_CONDITIONAL(ANONYMOUS, test x$anonymous = xyes)
 
 # EXTERNAL
 AC_ARG_ENABLE(external,
@@ -73,6 +74,7 @@ if test "$external" != "no" ; then
 fi
 AC_MSG_CHECKING([if EXTERNAL should be used])
 AC_MSG_RESULT($external)
+AM_CONDITIONAL(EXTERNAL, test x$external = xyes)
 
 # PLAIN
 AC_ARG_ENABLE(plain,
@@ -84,6 +86,7 @@ if test "$plain" != "no" ; then
 fi
 AC_MSG_CHECKING([if PLAIN should be used])
 AC_MSG_RESULT($plain)
+AM_CONDITIONAL(PLAIN, test x$plain = xyes)
 
 # LOGIN
 AC_ARG_ENABLE(login,
@@ -95,6 +98,7 @@ if test "$login" != "no" ; then
 fi
 AC_MSG_CHECKING([if LOGIN should be used])
 AC_MSG_RESULT($login)
+AM_CONDITIONAL(LOGIN, test x$login = xyes)
 
 # SECURID
 AC_ARG_ENABLE(securid,
@@ -106,6 +110,7 @@ if test "$securid" != "no" ; then
 fi
 AC_MSG_CHECKING([if SECURID should be used])
 AC_MSG_RESULT($securid)
+AM_CONDITIONAL(SECURID, test x$securid = xyes)
 
 # NTLM
 AC_ARG_ENABLE(ntlm,
@@ -123,6 +128,7 @@ if test "$ntlm" != "no" ; then
 fi
 AC_MSG_CHECKING([if NTLM should be used])
 AC_MSG_RESULT($ntlm)
+AM_CONDITIONAL(NTLM, test x$ntlm = xyes)
 
 # Libgcrypt
 AM_PATH_LIBGCRYPT(1.1.7, [have_gcrypt=yes], [have_gcrypt=no])
@@ -153,6 +159,7 @@ if test "$cram_md5" != "no" ; then
 fi
 AC_MSG_CHECKING([if CRAM-MD5 should be used])
 AC_MSG_RESULT($cram_md5)
+AM_CONDITIONAL(CRAM_MD5, test x$cram_md5 = xyes)
 
 # DIGEST-MD5
 AC_ARG_ENABLE(digest-md5,
@@ -169,6 +176,7 @@ if test "$digest_md5" != "no" ; then
 fi
 AC_MSG_CHECKING([if DIGEST-MD5 should be used])
 AC_MSG_RESULT($digest_md5)
+AM_CONDITIONAL(DIGEST_MD5, test x$digest_md5 = xyes)
 
 # Disable libgcrypt unless we need.
 if test "$digest_md5" != "yes" && test "$cram_md5" != "yes"; then
@@ -223,6 +231,7 @@ if test "$gssapi" = "yes"; then
 fi
 AC_MSG_CHECKING([if GSSAPI should be used])
 AC_MSG_RESULT($gssapi)
+AM_CONDITIONAL(GSSAPI, test x$gssapi = xyes)
 
 # KERBEROS_V5
 AC_ARG_ENABLE(kerberos_v5,
@@ -243,6 +252,7 @@ if test "$kerberos_v5" != "no" ; then
 fi
 AC_MSG_CHECKING([if KERBEROS_V5 should be used])
 AC_MSG_RESULT($kerberos_v5)
+AM_CONDITIONAL(KERBEROS_V5, test x$kerberos_v5 = xyes)
 
 # Check for idn
 AC_ARG_WITH(system-idn,
@@ -291,6 +301,8 @@ AC_MSG_CHECKING([if client code should be built])
 AC_MSG_RESULT($client)
 AC_MSG_CHECKING([if server code should be built])
 AC_MSG_RESULT($server)
+AM_CONDITIONAL(CLIENT, test x$client = xyes)
+AM_CONDITIONAL(SERVER, test x$server = xyes)
 
 # Checks for header files.
 AC_HEADER_STDC

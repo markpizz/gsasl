@@ -21,7 +21,7 @@
 
 #include "securid.h"
 
-#ifdef USE_SECURID
+#ifdef USE_CLIENT
 
 int
 _gsasl_securid_client_init (Gsasl_ctx * ctx)
@@ -201,7 +201,11 @@ _gsasl_securid_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
+#endif
+
 /* Server */
+
+#if USE_SERVER
 
 int
 _gsasl_securid_server_init (Gsasl_ctx * ctx)
@@ -318,4 +322,4 @@ _gsasl_securid_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
-#endif /* USE_SECURID */
+#endif /* USE_SERVER */

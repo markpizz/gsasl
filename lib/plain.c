@@ -21,7 +21,7 @@
 
 #include "plain.h"
 
-#ifdef USE_PLAIN
+#ifdef USE_CLIENT
 
 struct _Gsasl_plain_client_state
 {
@@ -172,7 +172,11 @@ _gsasl_plain_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
+#endif /* USE_CLIENT */
+
 /* Server */
+
+#ifdef USE_SERVER
 
 struct _Gsasl_plain_server_state
 {
@@ -332,4 +336,4 @@ _gsasl_plain_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
-#endif /* USE_PLAIN */
+#endif /* USE_SERVER */

@@ -22,8 +22,6 @@
 
 #include "digest-md5.h"
 
-#ifdef USE_DIGEST_MD5
-
 #include <gcrypt.h>
 #ifdef HAVE_LIMITS_H
 #include <limits.h>
@@ -521,6 +519,8 @@ _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
 }
 
 /* Client */
+
+#ifdef USE_CLIENT
 
 struct _Gsasl_digest_md5_client_state
 {
@@ -1436,7 +1436,11 @@ _gsasl_digest_md5_client_decode (Gsasl_session_ctx * sctx,
   return GSASL_OK;
 }
 
+#endif
+
 /* Server */
+
+#ifdef USE_SERVER
 
 struct _Gsasl_digest_md5_server_state
 {
@@ -2283,4 +2287,4 @@ _gsasl_digest_md5_server_decode (Gsasl_session_ctx * sctx,
   return GSASL_OK;
 }
 
-#endif /* USE_DIGEST_MD5 */
+#endif /* USE_SERVER */

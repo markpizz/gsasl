@@ -21,9 +21,8 @@
 
 #include "kerberos_v5.h"
 
-#ifdef USE_KERBEROS_V5
-
 #include <shishi.h>
+
 #ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h> /* ntohl */
 #endif
@@ -41,6 +40,8 @@
 #define MAXBUF_DEFAULT 65536
 
 /* Client */
+
+#ifdef USE_CLIENT
 
 struct _Gsasl_kerberos_v5_client_state
 {
@@ -471,7 +472,11 @@ _gsasl_kerberos_v5_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
+#endif /* USE_CLIENT */
+
 /* Server */
+
+#ifdef USE_SERVER
 
 struct _Gsasl_kerberos_v5_server_state
 {
@@ -1049,5 +1054,4 @@ _gsasl_kerberos_v5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
 
   return GSASL_OK;
 }
-
-#endif /* USE_KERBEROS_V5 */
+#endif /* USE_SERVER */

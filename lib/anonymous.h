@@ -24,8 +24,6 @@
 
 #include "internal.h"
 
-#ifdef USE_ANONYMOUS
-
 #define _GSASL_ANONYMOUS_NAME "ANONYMOUS"
 
 extern int _gsasl_anonymous_client_init (Gsasl_ctx * ctx);
@@ -51,7 +49,5 @@ extern int _gsasl_anonymous_server_step (Gsasl_session_ctx * sctx,
 					 char *output, size_t * output_len);
 extern int _gsasl_anonymous_server_finish (Gsasl_session_ctx * sctx,
 					   void *mech_data);
-
-#endif /* USE_ANONYMOUS */
 
 #endif /* _ANONYMOUS_H */

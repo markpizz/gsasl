@@ -1,5 +1,5 @@
 /* cram-md5.h	header file for SASL mechanism CRAM-MD5 as defined in RFC 2195
- * Copyright (C) 2002  Simon Josefsson
+ * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -23,8 +23,6 @@
 #define _CRAM_MD5_H
 
 #include "internal.h"
-
-#ifdef USE_CRAM_MD5
 
 #define _GSASL_CRAM_MD5_NAME "CRAM-MD5"
 
@@ -51,7 +49,5 @@ extern int _gsasl_cram_md5_server_step (Gsasl_session_ctx * sctx,
 					char *output, size_t * output_len);
 extern int _gsasl_cram_md5_server_finish (Gsasl_session_ctx * sctx,
 					  void *mech_data);
-
-#endif /* USE_CRAM_MD5 */
 
 #endif /* _CRAM_MD5_H */

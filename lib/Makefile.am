@@ -20,34 +20,70 @@
 
 lib_LTLIBRARIES = libgsasl.la
 
+DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 INCLUDES = @LIBNTLM_CFLAGS@ @LIBGCRYPT_CFLAGS@ @LIBNTLM_CFLAGS@ \
-	@GSSAPI_CFLAGS@ @GSS_CFLAGS@ @SHISHI_CFLAGS@ @LIBIDN_CFLAGS@
+	@GSSAPI_CFLAGS@ @GSS_CFLAGS@ @SHISHI_CFLAGS@
 
 include_HEADERS = gsasl.h
 
-libgsasl_la_SOURCES = init.c done.c error.c version.c callback.c \
-			supportp.c suggest.c listmech.c \
-			hexdump.c base64.c md5pwd.c \
-			xstart.c xstep.c xfinish.c xcode.c \
-			common.c internal.h gettext.h \
-			external.h external.c \
-			anonymous.h anonymous.c \
-			plain.h plain.c \
-			login.h login.c \
-			cram-md5.h cram-md5.c \
-			digest-md5.h digest-md5.c \
-			x-ntlm.h ntlm.c \
-			x-gssapi.h gssapi.c \
-			securid.h securid.c \
-			kerberos_v5.h kerberos_v5.c
-
-libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ \
-	@GSSAPI_LIBS@ @GSS_LIBS@ @SHISHI_LIBS@ @LIBIDN_LIBS@
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+libgsasl_la_LIBADD = @LTLIBINTL@ @LIBGCRYPT_LIBS@ @LIBNTLM_LIBS@ \
+	@GSSAPI_LIBS@ @GSS_LIBS@ @SHISHI_LIBS@
+libgsasl_la_SOURCES = gsasl.h.in internal.h gettext.h \
+	init.c done.c error.c version.c callback.c common.c \
+	supportp.c suggest.c listmech.c \
+	xstart.c xstep.c xfinish.c xcode.c \
+	hexdump.c base64.c md5pwd.c
 
-localedir = $(datadir)/locale
+if CLIENT
+libgsasl_la_SOURCES += callback-c.c
+endif
 
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+if SERVER
+libgsasl_la_SOURCES += callback-s.c
+endif
+
+# Plugins:
+
+if EXTERNAL
+libgsasl_la_SOURCES += external.h external.c
+endif
+
+if ANONYMOUS
+libgsasl_la_SOURCES += anonymous.h anonymous.c
+endif
+
+if PLAIN
+libgsasl_la_SOURCES += plain.h plain.c
+endif
+
+if LOGIN
+libgsasl_la_SOURCES += login.h login.c
+endif
+
+if CRAM_MD5
+libgsasl_la_SOURCES += cram-md5.h cram-md5.c
+endif
+
+if DIGEST_MD5
+libgsasl_la_SOURCES += digest-md5.h digest-md5.c
+endif
+
+if NTLM
+libgsasl_la_SOURCES += x-ntlm.h ntlm.c
+endif
+
+if GSSAPI
+libgsasl_la_SOURCES += x-gssapi.h gssapi.c
+endif			
+
+if SECURID
+libgsasl_la_SOURCES += securid.h securid.c
+endif			
+
+if KERBEROS_V5
+libgsasl_la_SOURCES += kerberos_v5.h kerberos_v5.c
+endif
 
 indent:
 	indent $(libgsasl_la_SOURCES)

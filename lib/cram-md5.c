@@ -21,9 +21,9 @@
 
 #include "cram-md5.h"
 
-#ifdef USE_CRAM_MD5
-
 #include <gcrypt.h>
+
+#ifdef USE_CLIENT
 
 struct _Gsasl_cram_md5_client_state
 {
@@ -199,7 +199,11 @@ _gsasl_cram_md5_client_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
+#endif /* USE_CLIENT */
+
 /* Server */
+
+#ifdef USE_SERVER
 
 int
 _gsasl_cram_md5_server_init (Gsasl_ctx * ctx)
@@ -405,4 +409,4 @@ _gsasl_cram_md5_server_finish (Gsasl_session_ctx * sctx, void *mech_data)
   return GSASL_OK;
 }
 
-#endif /* USE_CRAM_MD5 */
+#endif /* USE_SERVER */
