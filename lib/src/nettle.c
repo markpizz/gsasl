@@ -40,19 +40,8 @@ _gsasl_crypto_init (void)
   return GSASL_OK;
 }
 
-/**
- * gsasl_randomize:
- * @strong: 0 iff operation should not block, non-0 for very strong randomness.
- * @data: output array to be filled with random data.
- * @datalen: size of output array.
- *
- * Store cryptographically random data of given size in the provided
- * buffer.
- *
- * Return value: Returns %GSASL_OK iff successful.
- **/
-int
-gsasl_randomize (int strong, char *data, size_t datalen)
+static int
+randomize (int strong, char *data, size_t datalen)
 {
   int fd;
   char *device;
@@ -86,6 +75,37 @@ gsasl_randomize (int strong, char *data, size_t datalen)
     return GSASL_FCLOSE_ERROR;
 
   return GSASL_OK;
+}
+
+/**
+ * gsasl_nonce:
+ * @data: output array to be filled with weak random data.
+ * @datalen: size of output array.
+ *
+ * Store weak random data of given size in the provided buffer.
+ *
+ * Return value: Returns %GSASL_OK iff successful.
+ **/
+int
+gsasl_nonce (char *data, size_t datalen)
+{
+  return randomize (0, data, datalen);
+}
+
+/**
+ * gsasl_randomize:
+ * @data: output array to be filled with strong random data.
+ * @datalen: size of output array.
+ *
+ * Store cryptographically strong random data of given size in the
+ * provided buffer.
+ *
+ * Return value: Returns %GSASL_OK iff successful.
+ **/
+int
+gsasl_randomize (char *data, size_t datalen)
+{
+  return randomize (1, data, datalen);
 }
 
 /**
