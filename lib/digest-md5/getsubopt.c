@@ -1,6 +1,6 @@
-/* getsubopt.c --- DIGEST-MD5 mechanism from RFC 2831, shared functions.
+/* getsubopt.c --- getsubopt modified for DIGEST-MD5 mechanism from RFC 2831.
  * Copyright (C) 2002, 2003, 2004  Simon Josefsson
- * Copyright (C) 1996, 1997, 1999 Free Software Foundation, Inc. (getsubopt)
+ * Copyright (C) 1996, 1997, 1999 Free Software Foundation, Inc.
  *
  * This file is part of GNU SASL Library.
  *
@@ -21,8 +21,14 @@
  *
  */
 
-#include "shared.h"
+#if HAVE_CONFIG_H
+# include "config.h"
+#endif
 
+/* Get prototypes. */
+#include "parser.h"
+
+/* Get memchr and memcmp. */
 #include <string.h>
 
 /* Parse comma separate list into words.
@@ -39,7 +45,9 @@
    suboption.  On exit *OPTIONP is set to the beginning of the next
    token or at the terminating NUL character.  */
 int
-_gsasl_getsubopt (char **optionp, const char *const *tokens, char **valuep)
+digest_md5_getsubopt (char **optionp,
+		      const char *const *tokens,
+		      char **valuep)
 {
   char *endp, *vstart;
   int cnt;
