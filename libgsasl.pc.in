@@ -10,7 +10,7 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: gsasl
+Name: libgsasl
 Description: GNU Simple Authentication and Security Layer (SASL)
 Version: @VERSION@
 Libs: -L${libdir} -R${libdir} -lgsasl

@@ -18,10 +18,10 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-EXTRA_DIST = ANNOUNCE config.h.in config.rpath mkinstalldirs gsasl.pc.in
+EXTRA_DIST = ANNOUNCE config.h.in config.rpath mkinstalldirs libgsasl.pc.in
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = gsasl.pc
+pkgconfig_DATA = libgsasl.pc
 
 MOST_SUBDIRS = m4 po argp lib src tests doc
 

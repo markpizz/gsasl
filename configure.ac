@@ -294,5 +294,5 @@ AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 # We are done
 AC_CONFIG_FILES(Makefile po/Makefile.in m4/Makefile \
 		doc/Makefile doc/reference/Makefile lib/gsasl.h lib/Makefile \
-		gsasl.pc src/Makefile tests/Makefile)
+		libgsasl.pc src/Makefile tests/Makefile)
 AC_OUTPUT
