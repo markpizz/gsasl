@@ -38,9 +38,21 @@
 void
 doit (void)
 {
+  char *md5file;
   char key[BUFSIZ];
   size_t keylen = BUFSIZ - 1;
   int res;
+
+  md5file = getenv ("MD5FILE");
+  if (md5file)
+    {
+      char *p;
+      if ((p = strchr (md5file, '=')))
+	md5file = p;
+    }
+
+  if (!md5file)
+    md5file = "cram-md5.pwd";
 
   keylen = sizeof (key) - 1;
   res = gsasl_md5pwd_get_password ("non-existing-file", "user", key, &keylen);
@@ -50,7 +62,7 @@ doit (void)
     fail ("non-existing-file FAIL (%d): %s\n", res, gsasl_strerror (res));
 
   keylen = sizeof (key) - 1;
-  res = gsasl_md5pwd_get_password ("cram-md5.pwd", BILL, key, &keylen);
+  res = gsasl_md5pwd_get_password (md5file, BILL, key, &keylen);
   if (res == GSASL_OK)
     success ("user-found OK\n");
   else
@@ -62,14 +74,14 @@ doit (void)
     success ("user-password OK\n");
 
   keylen = 5;
-  res = gsasl_md5pwd_get_password ("cram-md5.pwd", BILL, key, &keylen);
+  res = gsasl_md5pwd_get_password (md5file, BILL, key, &keylen);
   if (res == GSASL_TOO_SMALL_BUFFER)
     success ("too-small-buffer OK\n");
   else
     fail ("too-small-buffer FAIL (%d): %s\n", res, gsasl_strerror (res));
 
   keylen = sizeof (key) - 1;
-  res = gsasl_md5pwd_get_password ("cram-md5.pwd", "user", key, &keylen);
+  res = gsasl_md5pwd_get_password (md5file, "user", key, &keylen);
   if (res == GSASL_AUTHENTICATION_ERROR)
     success ("no-such-user OK\n");
   else
