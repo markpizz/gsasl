@@ -60,9 +60,10 @@ section entitled ``GNU Free Documentation License''.
 * Preparation::                 What you should do before using the library.
 * Using the Library::           High level overview of how to use the library.
 * Mechanisms::                  Mechanism specific information.
-* Global Functions::            Functions to use in global context.
-* Callback Functions::          Functions to set and get callbacks.
-* Session Functions::           Functions used during a SASL session.
+* Global Functions::            Functions that can be used at all times.
+* Callback Functions::          Set and use callbacks.
+* Property Functions::          Specify username, password etc.
+* Session Functions::           Perform an authentication.
 * Old Functions::               Descriptions of old API functions.
 * Utilities::                   Functions for various odd things.
 * Error Handling::              Error codes and such.
@@ -1336,8 +1337,15 @@ similar to the GSSAPI callback).
 @cindex Callbacks
 
 @include texi/callback.c.texi
-@include texi/callback-s.c.texi
-@include texi/callback-c.c.texi
+
+@c **********************************************************
+@c ******************  Property Functions  ******************
+@c **********************************************************
+@node Property Functions
+@chapter Property Functions
+@cindex Properties
+
+@include texi/property.c.texi
 
 
 @c **********************************************************
@@ -1381,6 +1389,8 @@ supported during a transition period.  Refer to the NEWS file to find
 out since when a function has been deprecated.
 
 @include texi/obsolete.c.texi
+@include texi/callback-c.c.texi
+@include texi/callback-s.c.texi
 
 
 
