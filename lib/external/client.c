@@ -25,8 +25,6 @@
 int
 _gsasl_external_client_start (Gsasl_session_ctx * sctx, void **mech_data)
 {
-  *mech_data = NULL;
-
   return GSASL_OK;
 }
 
