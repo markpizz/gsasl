@@ -43,9 +43,6 @@
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
 
-/* Used by *-md5.c. */
-#define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
-
 typedef int (*_Gsasl_init_function) (Gsasl * ctx);
 typedef void (*_Gsasl_done_function) (Gsasl * ctx);
 typedef int (*_Gsasl_start_function) (Gsasl_session * sctx,
@@ -131,12 +128,6 @@ extern char *_gsasl_no_stringprep (const char *in, int *stringprep_rc);
 #define gsasl_stringprep_saslprep _gsasl_no_stringprep
 #define gsasl_stringprep_trace _gsasl_no_stringprep
 #endif
-
-extern int _gsasl_crypto_init (void);
-extern int gsasl_randomize (int strong, char *data, size_t datalen);
-extern int gsasl_md5 (const char *in, size_t inlen, char *out[16]);
-extern int gsasl_hmac_md5 (const char *key, size_t keylen,
-			   const char *in, size_t inlen, char *outhash[16]);
 
 #define VALID_HANDLE(ctx) (ctx != NULL)
 #define VALID_SESSION_HANDLE(sctx) (sctx != NULL)
