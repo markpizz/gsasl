@@ -21,14 +21,15 @@
 
 #include "internal.h"
 #include "callbacks.h"
-#include "gsasl_cmd.h"
+#include "imap.h"
+#include "smtp.h"
 
 #define MAX_LINE_LENGTH BUFSIZ
 
 struct gengetopt_args_info args_info;
 int sockfd;
 
-static int
+int
 writeln (char *str)
 {
   printf ("%s\n", str);
@@ -49,7 +50,7 @@ writeln (char *str)
   return 1;
 }
 
-static int
+int
 readln (char **out)
 {
   char input[MAX_LINE_LENGTH];
@@ -78,11 +79,10 @@ select_mechanism (char **mechlist)
 {
   char *in;
 
-  if (args_info.imap_flag || args_info.smtp_flag)
-    {
-      if (!readln (&in))
-	return 0;
-    }
+  if (args_info.imap_flag)
+    return imap_select_mechanism (mechlist);
+  if (args_info.smtp_flag)
+    return smtp_select_mechanism (mechlist);
 
   if (args_info.server_flag)
     {
@@ -94,20 +94,10 @@ select_mechanism (char **mechlist)
     }
   else /* if (args_info.client_flag) */
     {
-      if (args_info.imap_flag && !writeln (". CAPABILITY"))
-	return 0;
-      if (args_info.smtp_flag && !writeln ("EHLO foo"))
-	return 0;
-
-      if (!args_info.quiet_given &&
-	  !args_info.imap_flag &&
-	  !args_info.smtp_flag)
-	fprintf (stderr,
-		 _("Input SASL mechanism supported by server:\n"));
+      if (!args_info.quiet_given)
+	fprintf (stderr, _("Input SASL mechanism supported by server:\n"));
       if (!readln (&in))
 	return 0;
-
-      /* XXX parse IMAP capability line */
 
       *mechlist = in;
     }
@@ -118,28 +108,14 @@ select_mechanism (char **mechlist)
 static int
 authenticate (const char *mech)
 {
-  if (args_info.imap_flag && args_info.client_flag)
-    {
-      char input[MAX_LINE_LENGTH];
+  if (args_info.imap_flag)
+    return imap_authenticate (mech);
+  if (args_info.smtp_flag)
+    return smtp_authenticate (mech);
 
-      sprintf (input, ". AUTHENTICATE %s", mech);
-      if (!writeln (input))
-	return 0;
-    }
-  else if (args_info.smtp_flag && args_info.client_flag)
-    {
-      char input[MAX_LINE_LENGTH];
-
-      sprintf (input, "AUTH %s", mech);
-      if (!writeln (input))
-	return 0;
-    }
-  else
-    {
-      if (!args_info.quiet_given)
-	fprintf (stderr, _("Using mechanism:\n"));
-      puts (mech);
-    }
+  if (!args_info.quiet_given)
+    fprintf (stderr, _("Using mechanism:\n"));
+  puts (mech);
 
   return 1;
 }
@@ -148,38 +124,18 @@ static int
 step_send (const char *data)
 {
   if (args_info.imap_flag)
-    {
-      char input[MAX_LINE_LENGTH];
+    return imap_step_send (data);
+  if (args_info.smtp_flag)
+    return smtp_step_send (data);
 
-      if (args_info.client_flag)
-	sprintf (input, "%s", data);
-      else
-	sprintf (input, "+ %s", data);
-      if (!writeln (input))
-	return 0;
-    }
-  else if (args_info.smtp_flag)
+  if (!args_info.quiet_given)
     {
-      char input[MAX_LINE_LENGTH];
-
       if (args_info.client_flag)
-	sprintf (input, "%s", data);
+	fprintf (stderr, _("Output from client:\n"));
       else
-	sprintf (input, "334 %s", data);
-      if (!writeln (input))
-	return 0;
+	fprintf (stderr, _("Output from server:\n"));
     }
-    else
-    {
-      if (!args_info.quiet_given)
-	{
-	  if (args_info.client_flag)
-	    fprintf (stderr, _("Output from client:\n"));
-	  else
-	    fprintf (stderr, _("Output from server:\n"));
-	}
-      fprintf (stdout, "%s\n", data);
-    }
+  fprintf (stdout, "%s\n", data);
 
   return 1;
 }
@@ -187,36 +143,13 @@ step_send (const char *data)
 static int
 step_recv (char **data)
 {
+  if (args_info.imap_flag)
+    return imap_step_recv (data);
+  if (args_info.smtp_flag)
+    return smtp_step_recv (data);
+
   if (!readln (data))
     return 0;
-
-  if (args_info.imap_flag)
-    {
-      char *p = *data;
-
-      if (p[0] != '+' || p[1] != ' ')
-	{
-	  fprintf (stderr, _("error: Server did not return expected SASL "
-			     "data (it must begin with '+ '):\n%s\n"), p);
-	  return 0;
-	}
-
-      memmove (&p[0], &p[2], strlen (p) - 1);
-    }
-
-  if (args_info.smtp_flag)
-    {
-      char *p = *data;
-
-      if (p[0] != '3' || p[1] != '3' || p[2] != '4' || p[3] != ' ')
-	{
-	  fprintf (stderr, _("error: Server did not return expected SASL "
-			     "data (it must begin with '334 '):\n%s\n"), p);
-	  return 0;
-	}
-
-      memmove (&p[0], &p[4], strlen (p) - 3);
-    }
 
   return 1;
 }
@@ -224,13 +157,10 @@ step_recv (char **data)
 static int
 auth_finish (void)
 {
-  char *in;
-
-  if (args_info.imap_flag && !readln (&in))
-    return 0;
-
-  if (args_info.smtp_flag && !readln (&in))
-    return 0;
+  if (args_info.imap_flag)
+    return imap_auth_finish ();
+  if (args_info.smtp_flag)
+    return smtp_auth_finish ();
 
   return 1;
 }
@@ -238,39 +168,12 @@ auth_finish (void)
 static int
 logout (void)
 {
-  char *in;
-
   if (args_info.imap_flag)
-    {
-      if (!writeln (". LOGOUT"))
-	return 1;
-
-      /* read "* BYE ..." */
-      if (!readln (&in))
-	return 1;
-
-      free (in);
-
-      /* read ". OK ..." */
-      if (!readln (&in))
-	return 1;
-
-      free (in);
-    }
-
+    return imap_logout ();
   if (args_info.smtp_flag)
-    {
-      if (!writeln ("QUIT"))
-	return 1;
+    return smtp_logout ();
 
-      /* read "221 2.0.0 foo closing ..." */
-      if (!readln (&in))
-	return 1;
-
-      free (in);
-    }
-
-  return 0;
+  return 1;
 }
 
 int

@@ -1,4 +1,4 @@
-/* callbacks.c	implementation of gsasl callbacks
+/* callbacks.c --- Implementation of gsasl callbacks.
  * Copyright (C) 2002, 2003  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -22,15 +22,9 @@
 #include "internal.h"
 #include "callbacks.h"
 
-#include "gsasl_cmd.h"
-
 struct gengetopt_args_info args_info;
 
 #define MAX_LINE_LENGTH BUFSIZ
-
-extern int silent;
-extern int verbose;
-extern size_t maxbuf;
 
 static char *
 readline (const char *prompt)
