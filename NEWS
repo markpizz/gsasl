@@ -1,28 +1,32 @@
-Libgsasl NEWS -- history of user-visible changes.
+Libgsasl NEWS -- history of user-visible changes.               -*- outline -*-
+Copyright (C) 2002 Simon Josefsson
+See the end for copying conditions.
+
+Please send libgsasl bug reports to bug-libgsasl@josefsson.org.
 
 * Changes in 0.0.2 (released 2002-11-07)
 
-** Includes a copy of libstringprep 0.0.1 for Unicode NFKC
-   normalization and locale charset to UTF-8 string conversion, and
-   preparation for the future if a SASL Stringprep profile is created.
-   If libstringprep is already installed, it is used by default.  You
-   can force the use of the internal version with
-   --without-system-libstringprep.
+** Includes a copy of libstringprep 0.0.2 for Unicode NFKC
+normalization and locale charset to UTF-8 string conversion, and
+preparation for the future if a SASL Stringprep profile is created.
+If libstringprep is already installed, it is used by default.  You can
+force the use of the internal version with
+--without-system-libstringprep.
 
 ** Uses pkg-config instead of libgsasl.m4 + libgsasl-config.in, and
-   for finding libntlm (requires libntlm 0.3.1 or later).
+for finding libntlm (requires libntlm 0.3.1 or later).
 
 ** Self tests for several mechanisms.
 
 ** The API now allows mechanisms to return data even when returning
-   GSASL_OK (earlier only on GSASL_NEEDS_MORE).
+GSASL_OK (earlier only on GSASL_NEEDS_MORE).
 
 ** Bug fixes.
 
 * Changes in 0.0.1 (released 2002-10-12)
 
 ** APIs for integrity and confidentiality protection of application
-   payload data.
+payload data.
 
 ** DIGEST-MD5 support for integrity protection.
 
@@ -31,8 +35,19 @@ Libgsasl NEWS -- history of user-visible changes.
 ** Initial release.
 
 ----------------------------------------------------------------------
-
-Local variables:
-mode: outline
-paragraph-separate: "[ 	]*$"
-end:
+Copyright information:
+
+Copyright (C) 2002 Simon Josefsson
+
+   Permission is granted to anyone to make or distribute verbatim copies
+   of this document as received, in any medium, provided that the
+   copyright notice and this permission notice are preserved,
+   thus giving the recipient permission to redistribute in turn.
+
+   Permission is granted to distribute modified versions
+   of this document, or of portions of it,
+   under the above conditions, provided also that they
+   carry prominent notices stating who last changed them.
+
+
+----------------------------------------------------------------------
