@@ -1288,25 +1288,18 @@ _gsasl_digest_md5_client_encode (Gsasl_session_ctx * sctx,
   _Gsasl_digest_md5_client_state *state = mech_data;
   int res;
 
-  if (state == NULL || state->step != 3)
+  if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_CONF)
     {
-      *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      return GSASL_OK;
+      /* XXX */
     }
-
-  if (state->qop & GSASL_QOP_AUTH_CONF)
-    {
-
-    }
-  else if (state->qop & GSASL_QOP_AUTH_INT)
+  else if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_INT)
     {
       GCRY_MD_HD md5h;
       char *hash;
       uint32_t tmp;
 
-      if (MAC_DATA_LEN + input_len + MAC_HMAC_LEN +
+      if (output &&
+	  MAC_DATA_LEN + input_len + MAC_HMAC_LEN +
 	  MAC_MSG_TYPE_LEN + MAC_SEQNUM_LEN > *output_len)
 	return GSASL_TOO_SMALL_BUFFER;
 
@@ -1348,6 +1341,13 @@ _gsasl_digest_md5_client_encode (Gsasl_session_ctx * sctx,
 
       gcry_md_close (md5h);
     }
+  else
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
 
   return GSASL_OK;
 }
@@ -1361,19 +1361,11 @@ _gsasl_digest_md5_client_decode (Gsasl_session_ctx * sctx,
 {
   _Gsasl_digest_md5_client_state *state = mech_data;
 
-  if (state == NULL || state->step != 3)
+  if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_CONF)
     {
-      *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      return GSASL_OK;
+      /* XXX */
     }
-
-  if (state->qop & GSASL_QOP_AUTH_CONF)
-    {
-
-    }
-  else if (state->qop & GSASL_QOP_AUTH_INT)
+  else if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_INT)
     {
       GCRY_MD_HD md5h;
       char *hash;
@@ -1430,6 +1422,14 @@ _gsasl_digest_md5_client_decode (Gsasl_session_ctx * sctx,
 
       gcry_md_close (md5h);
     }
+  else
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
+
 
   return GSASL_OK;
 }
@@ -2127,19 +2127,11 @@ _gsasl_digest_md5_server_encode (Gsasl_session_ctx * sctx,
   _Gsasl_digest_md5_server_state *state = mech_data;
   int res;
 
-  if (state == NULL || state->step != 3)
+  if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_CONF)
     {
-      *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      return GSASL_OK;
+      /* XXX */
     }
-
-  if (state->qop & GSASL_QOP_AUTH_CONF)
-    {
-
-    }
-  else if (state->qop & GSASL_QOP_AUTH_INT)
+  else if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_INT)
     {
       GCRY_MD_HD md5h;
       char *hash;
@@ -2188,6 +2180,13 @@ _gsasl_digest_md5_server_encode (Gsasl_session_ctx * sctx,
 
       gcry_md_close (md5h);
     }
+  else
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
 
   return GSASL_OK;
 }
@@ -2201,19 +2200,11 @@ _gsasl_digest_md5_server_decode (Gsasl_session_ctx * sctx,
 {
   _Gsasl_digest_md5_server_state *state = mech_data;
 
-  if (state == NULL || state->step != 3)
+  if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_CONF)
     {
-      *output_len = input_len;
-      if (output)
-	memcpy (output, input, input_len);
-      return GSASL_OK;
+      /* XXX */
     }
-
-  if (state->qop & GSASL_QOP_AUTH_CONF)
-    {
-
-    }
-  else if (state->qop & GSASL_QOP_AUTH_INT)
+  else if (state && state->step == 3 && state->qop & GSASL_QOP_AUTH_INT)
     {
       GCRY_MD_HD md5h;
       char *hash;
@@ -2270,6 +2261,14 @@ _gsasl_digest_md5_server_decode (Gsasl_session_ctx * sctx,
 
       gcry_md_close (md5h);
     }
+  else
+    {
+      *output_len = input_len;
+      if (output)
+	memcpy (output, input, input_len);
+      return GSASL_OK;
+    }
+
 
   return GSASL_OK;
 }
