@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-12-13 09:13+0100\n"
+"POT-Creation-Date: 2003-01-15 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,218 +15,218 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/error.c:41
+#: lib/error.c:40
 msgid "Libgsasl success"
 msgstr ""
 
-#: lib/error.c:45
+#: lib/error.c:44
 msgid "SASL mechanisms needs more data"
 msgstr ""
 
-#: lib/error.c:49
+#: lib/error.c:48
 msgid "Unknown SASL mechanism"
 msgstr ""
 
-#: lib/error.c:53
+#: lib/error.c:52
 msgid "SASL mechanism called too many times"
 msgstr ""
 
-#: lib/error.c:57
+#: lib/error.c:56
 msgid "SASL function need larger buffer (internal error)"
 msgstr ""
 
-#: lib/error.c:61
+#: lib/error.c:60
 msgid "Could not open file in SASL library"
 msgstr ""
 
-#: lib/error.c:65
+#: lib/error.c:64
 msgid "Could not close file in SASL library"
 msgstr ""
 
-#: lib/error.c:69
+#: lib/error.c:68
 msgid "Memory allocation error in SASL library"
 msgstr ""
 
-#: lib/error.c:73
+#: lib/error.c:72
 msgid "Base 64 coding error in SASL library"
 msgstr ""
 
-#: lib/error.c:77
+#: lib/error.c:76
 msgid "Gcrypt error in SASL library"
 msgstr ""
 
-#: lib/error.c:83
+#: lib/error.c:82
 msgid ""
 "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL "
 "library.  This is a serious internal error."
 msgstr ""
 
-#: lib/error.c:91
+#: lib/error.c:90
 msgid ""
 "GSSAPI library could not understand a peer name in gss_import_name() in SASL "
 "library.  This may be due to incorrect user supplied data."
 msgstr ""
 
-#: lib/error.c:99
+#: lib/error.c:98
 msgid ""
 "GSSAPI error in client while negotiating security context in "
 "gss_init_sec_context() in SASL library.  This is most likely due "
 "insufficient credentials or malicious interactions."
 msgstr ""
 
-#: lib/error.c:107
+#: lib/error.c:106
 msgid ""
 "GSSAPI error in server while negotiating security context in "
 "gss_init_sec_context() in SASL library.  This is most likely due "
 "insufficient credentials or malicious interactions."
 msgstr ""
 
-#: lib/error.c:115
+#: lib/error.c:114
 msgid ""
 "GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL "
 "library.  This is most likely due to data corruption."
 msgstr ""
 
-#: lib/error.c:123
+#: lib/error.c:122
 msgid ""
 "GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
 msgstr ""
 
-#: lib/error.c:130
+#: lib/error.c:129
 msgid ""
 "GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  "
 "This is most likely due to not having the proper Kerberos key available in /"
 "etc/krb5.keytab on the server."
 msgstr ""
 
-#: lib/error.c:139
+#: lib/error.c:138
 msgid ""
 "GSSAPI error creating a display name denoting the client in gss_display_name"
 "() in SASL library.  This is probably because the client suplied bad data."
 msgstr ""
 
-#: lib/error.c:147
+#: lib/error.c:146
 msgid ""
 "Other entity requested integrity or confidentiality protection in GSSAPI "
 "mechanism but this is currently not implemented."
 msgstr ""
 
-#: lib/error.c:154
+#: lib/error.c:153
 msgid ""
 "SASL mechanism needs gsasl_client_callback_anonymous() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:161
+#: lib/error.c:160
 msgid ""
 "SASL mechanism needs gsasl_client_callback_password() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:168
+#: lib/error.c:167
 msgid ""
 "SASL mechanism needs gsasl_client_callback_passcode() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:175
+#: lib/error.c:174
 msgid ""
 "SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
 msgstr ""
 
-#: lib/error.c:182
+#: lib/error.c:181
 msgid ""
 "SASL mechanism needs gsasl_client_callback_authorization_id() callback "
 "(application error)"
 msgstr ""
 
-#: lib/error.c:189
+#: lib/error.c:188
 msgid ""
 "SASL mechanism needs gsasl_client_callback_authentication_id() callback "
 "(application error)"
 msgstr ""
 
-#: lib/error.c:196
+#: lib/error.c:195
 msgid ""
 "SASL mechanism needs gsasl_client_callback_service() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:203
+#: lib/error.c:202
 msgid ""
 "SASL mechanism needs gsasl_server_callback_validate() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:210
+#: lib/error.c:209
 msgid ""
 "SASL mechanism needs gsasl_server_callback_cram_md5() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:217
+#: lib/error.c:216
 msgid ""
 "SASL mechanism needs gsasl_server_callback_digest_md5() callback "
 "(application error)"
 msgstr ""
 
-#: lib/error.c:224
+#: lib/error.c:223
 msgid ""
 "SASL mechanism needs gsasl_server_callback_anonymous() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:231
+#: lib/error.c:230
 msgid ""
 "SASL mechanism needs gsasl_server_callback_external() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:238
+#: lib/error.c:237
 msgid ""
 "SASL mechanism needs gsasl_server_callback_realm() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:245
+#: lib/error.c:244
 msgid ""
 "SASL mechanism needs gsasl_server_callback_securid() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:252
+#: lib/error.c:251
 msgid ""
 "SASL mechanism needs gsasl_server_callback_service() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:259
+#: lib/error.c:258
 msgid ""
 "SASL mechanism needs gsasl_server_callback_gssapi() callback (application "
 "error)"
 msgstr ""
 
-#: lib/error.c:264
+#: lib/error.c:263
 msgid "SASL mechanism could not parse input"
 msgstr ""
 
-#: lib/error.c:268
+#: lib/error.c:267
 msgid "Error authentication user"
 msgstr ""
 
-#: lib/error.c:272
+#: lib/error.c:271
 msgid "Cannot get internal library handle (library error)"
 msgstr ""
 
-#: lib/error.c:276
+#: lib/error.c:275
 msgid "Integrity error in application payload"
 msgstr ""
 
-#: lib/error.c:280
+#: lib/error.c:279
 msgid "No more realms available (non-fatal)"
 msgstr ""
 
-#: lib/error.c:284
+#: lib/error.c:283
 msgid "Libgsasl unknown error"
 msgstr ""
 
