@@ -33,3 +33,8 @@ ACLOCAL_AMFLAGS = -I m4 -I argp
 ChangeLog:
 	cvs2cl --fsf --usermap .cvsusers --separate-header -I \
 	"ChangeLog|.cvsignore|.cvsusers|autogen.sh|doc/specification/.*"
+
+indent:
+	(cd lib && make indent)
+	(cd src && make indent)
+	(cd tests && make indent)
