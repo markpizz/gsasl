@@ -39,11 +39,10 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
 			  const char *input, size_t input_len,
 			  char **output, size_t * output_len)
 {
-  const char *authorization_id = NULL;
-  char *authentication_id = NULL;
+  const char *authzidptr = input;
+  char *authidptr = NULL;
   char *passwordptr = NULL;
-  char *password = NULL;
-  char *passprep;
+  char *passwdz = NULL, *passprep = NULL, *authidprep = NULL;
   int res;
 
   *output_len = 0;
@@ -52,66 +51,78 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
   if (input_len == 0)
     return GSASL_NEEDS_MORE;
 
-  authorization_id = input;
-  authentication_id = memchr (input, 0, input_len);
-  if (authentication_id)
-    {
-      authentication_id++;
-      passwordptr = memchr (authentication_id, 0,
-			    input_len - strlen (authorization_id) - 1);
-      if (passwordptr != NULL)
-	passwordptr++;
-    }
+  /* Parse input. */
+  {
+    authidptr = memchr (input, 0, input_len - 1);
+    if (authidptr)
+      {
+	authidptr++;
+	passwordptr = memchr (authidptr, 0, input_len - strlen (input) - 1);
+	if (passwordptr)
+	  passwordptr++;
+	else
+	  return GSASL_MECHANISM_PARSE_ERROR;
+      }
+    else
+      return GSASL_MECHANISM_PARSE_ERROR;
 
-  if (passwordptr == NULL)
-    return GSASL_MECHANISM_PARSE_ERROR;
+    /* As the NUL (U+0000) character is used as a deliminator, the NUL
+       (U+0000) character MUST NOT appear in authzid, authcid, or passwd
+       productions. */
+    if (memchr (passwordptr, 0, input_len - (passwordptr - input)))
+      return GSASL_MECHANISM_PARSE_ERROR;
+  }
 
-  /* As the NUL (U+0000) character is used as a deliminator, the NUL
-     (U+0000) character MUST NOT appear in authzid, authcid, or passwd
-     productions. */
-  if (memchr (passwordptr, 0, input_len - (passwordptr - input)))
-    return GSASL_MECHANISM_PARSE_ERROR;
+  /* Remember authzid, authid, and password.  Authid and password need
+     to be prepared.  */
+  {
+    gsasl_property_set (sctx, GSASL_AUTHZID, authzidptr);
 
-  password = malloc (input_len - (passwordptr - input) + 1);
-  if (password == NULL)
-    return GSASL_MALLOC_ERROR;
-  memcpy (password, passwordptr, input_len - (passwordptr - input));
-  password[input_len - (passwordptr - input)] = '\0';
+    /* FIXME: Specificaiton is unclear on whether unassigned code
+       points are allowed or not.  We don't allow them. */
+    res = gsasl_saslprep (authidptr, 0, &authidprep, NULL);
+    if (res != GSASL_OK)
+      return res;
 
-  /* FIXME: Specificaiton is unclear on whether unassigned code
-     points are allowed or not.  We don't allow them. */
-  res = gsasl_saslprep (password, 0, &passprep, NULL);
-  free (password);
-  if (res != GSASL_OK)
-    return res;
+    gsasl_property_set (sctx, GSASL_AUTHID, authidprep);
 
-  gsasl_property_set (sctx, GSASL_AUTHID, authentication_id);
-  gsasl_property_set (sctx, GSASL_AUTHZID, authorization_id);
-  gsasl_property_set (sctx, GSASL_PASSWORD, passprep);
+    free (authidprep);
 
+    /* Need to zero terminate password... */
+    passwdz = malloc (input_len - (passwordptr - input) + 1);
+    if (passwdz == NULL)
+      return GSASL_MALLOC_ERROR;
+    memcpy (passwdz, passwordptr, input_len - (passwordptr - input));
+    passwdz[input_len - (passwordptr - input)] = '\0';
+
+    /* FIXME: Specificaiton is unclear on whether unassigned code
+       points are allowed or not.  We don't allow them. */
+    res = gsasl_saslprep (passwdz, 0, &passprep, NULL);
+    free (passwdz);
+    if (res != GSASL_OK)
+      return res;
+
+    gsasl_property_set (sctx, GSASL_PASSWORD, passprep);
+  }
+
+  /* Authorization.  Let application verify credentials internally,
+     but fall back to deal with it locally...*/
   res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_SIMPLE);
   if (res == GSASL_NO_CALLBACK)
     {
       const char *key;
       char *normkey;
 
-      gsasl_property_set (sctx, GSASL_PASSWORD, NULL);
-
-      key = gsasl_property_get (sctx, GSASL_PASSWORD);
+      gsasl_callback (sctx, GSASL_PASSWORD);
+      key = gsasl_property_fast (sctx, GSASL_PASSWORD);
       if (!key)
-	{
-	  free (passprep);
-	  return GSASL_NO_PASSWORD;
-	}
+	return GSASL_NO_PASSWORD;
 
       /* FIXME: Specification is unclear on whether unassigned code
 	 points are allowed or not.  We don't allow them. */
       res = gsasl_saslprep (key, 0, &normkey, NULL);
       if (res != GSASL_OK)
-	{
-	  free (passprep);
-	  return res;
-	}
+	return res;
 
       if (strlen (passprep) == strlen (normkey) &&
 	  memcmp (normkey, passprep, strlen (normkey)) == 0)
@@ -120,7 +131,6 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
 	res = GSASL_AUTHENTICATION_ERROR;
       free (normkey);
     }
-  free (passprep);
 
   return res;
 }
