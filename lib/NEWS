@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Changes in 0.1.4 (unreleased)
 
+** Fix various compile time warnings.
+
+** Revamp of gnulib compatibility files.
+
 ** More translations.
 French (by Michel Robitaille), Dutch (by Elros Cyriatan), Polish (by
 Jakub Bogusz), and Romanian (by Laurentiu Buzdugan).
