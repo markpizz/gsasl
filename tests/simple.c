@@ -410,6 +410,9 @@ client_callback_pin (Gsasl_session_ctx * xctx, char *suggestion,
       (suggestion != NULL && sasltv[i].suggestpin == NULL))
     return GSASL_AUTHENTICATION_ERROR;
 
+  if (*outlen < strlen (sasltv[i].pin))
+    return GSASL_TOO_SMALL_BUFFER;
+
   *outlen = strlen (sasltv[i].pin);
   if (out)
     memcpy (out, sasltv[i].pin, strlen (sasltv[i].pin));
