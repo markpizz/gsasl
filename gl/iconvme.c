@@ -44,7 +44,8 @@
    holds the error reason.  Note that this function does not handle
    embedded zero's in the output well.  */
 char *
-iconv_string (const char *str, const char *from_codeset, const char *to_codeset)
+iconv_string (const char *str, const char *from_codeset,
+	      const char *to_codeset)
 {
   char *dest = NULL;
 #if HAVE_ICONV
@@ -104,8 +105,8 @@ again:
 	    size_t newsize = outbuf_size * 2;
 	    char *newdest;
 
-	    if (newsize <= outbuf_size ||
-		!(newdest = realloc (dest, newsize)))
+	    if (newsize <= outbuf_size
+		|| !(newdest = realloc (dest, newsize)))
 	      {
 		have_error = 1;
 		goto out;
