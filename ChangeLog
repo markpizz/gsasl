@@ -1,3 +1,189 @@
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/zh_CN.po: Generated.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.3.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.Add.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Simplify.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Revert.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/iconvme.c: Fix.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Use new iconv API.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib.m4, gl/iconvme.c, gl/iconvme.h: Update.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/dummy.c: Remove.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Dummy not needed.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Remove authzid from LOGIN test vectors.
+
+2004-12-13  Simon Josefsson <simon@josefsson.org>
+
+	* gl/iconvme.c, gl/iconvme.h: Update.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Revert.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Fix.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/iconvme.c: Update.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Link with libiconv.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Use iconvme instead libidn.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Remove.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/iconvme.c, gl/iconvme.h,
+	gl/m4/gnulib.m4, gl/m4/iconvme.m4: Add iconvme.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add GSASL_REALM.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/restrict.m4: Update.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Sync example.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* examples/client-callback.c, examples/client-mech.c,
+	examples/client-serverfirst.c, examples/client.c: Fix, for new
+	base64 API.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Complain if aborting early.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix LOGIN test vector.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Don't use lib/config.h.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Ignore thread problems in libidn files.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/digest-md5.c: Don't do anything if DIGEST-MD5 isn't
+	supported.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix LOGIN tests.
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c, src/callbacks.h, src/gsasl.c: Use new API
+	(server mode not ported yet).
+
+2004-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, NEWS: Bump versions.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2004-11-29  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: 0.2.2.
+
 2004-11-29  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.2.2.
