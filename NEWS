@@ -2,6 +2,14 @@ GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
 Copyright (C) 2002, 2003 Simon Josefsson
 See the end for copying conditions.
 
+* Changes in 0.0.7 (unreleased)
+
+** Two new GSS libraries supported for the GSS-API mechanism.
+See http://josefsson.org/gss/ for GSS, which uses Shishi for Kerberos 5.
+See http://www.pdc.kth.se/heimdal/ for Heimdal.
+
+** Bug fixes.
+
 * Changes in 0.0.6 (released 2003-03-17)
 
 ** Gettext not included.
