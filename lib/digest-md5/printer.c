@@ -33,6 +33,9 @@
 /* Get asprintf. */
 #include <vasprintf.h>
 
+/* Get token validator. */
+#include "validate.h"
+
 /* FIXME: The challenge/response functions may print "empty" fields,
    such as "foo=bar, , , bar=foo".  It is valid, but look ugly. */
 
@@ -42,6 +45,11 @@ digest_md5_print_challenge (digest_md5_challenge *c)
   char *out = NULL;
   char *realm = NULL, *maxbuf = NULL;
   size_t i;
+
+  /* Below we assume the mandatory fields are present, verify that
+     first to avoid crashes. */
+  if (digest_md5_validate_challenge (c) != 0)
+    return NULL;
 
   for (i = 0; i < c->nrealms; i++)
     {
@@ -55,7 +63,7 @@ digest_md5_print_challenge (digest_md5_challenge *c)
     }
 
   if (c->servermaxbuf)
-    if (asprintf (&maxbuf, "maxbuf=\"%lud\"", c->servermaxbuf) < 0)
+    if (asprintf (&maxbuf, "maxbuf=\"%lu\"", c->servermaxbuf) < 0)
       goto end;
 
   if (asprintf (&out, "%s, nonce=\"%s\", %s%s%s%s%s, %s, "
@@ -98,6 +106,11 @@ digest_md5_print_response (digest_md5_response *r)
   const char *cipher = NULL;
   char *maxbuf = NULL;
 
+  /* Below we assume the mandatory fields are present, verify that
+     first to avoid crashes. */
+  if (digest_md5_validate_response (r) != 0)
+    return NULL;
+
   if (r->qop & DIGEST_MD5_QOP_AUTH_CONF)
     qop = "qop=auth-conf";
   else if (r->qop & DIGEST_MD5_QOP_AUTH_INT)
@@ -108,7 +121,7 @@ digest_md5_print_response (digest_md5_response *r)
     qop = "";
 
   if (r->clientmaxbuf)
-    if (asprintf (&maxbuf, "maxbuf=\"%lud\"", r->clientmaxbuf) < 0)
+    if (asprintf (&maxbuf, "maxbuf=\"%lu\"", r->clientmaxbuf) < 0)
       goto end;
 
   if (r->cipher & DIGEST_MD5_CIPHER_3DES)
@@ -160,6 +173,11 @@ char *
 digest_md5_print_finish (digest_md5_finish *finish)
 {
   char *out;
+
+  /* Below we assume the mandatory fields are present, verify that
+     first to avoid crashes. */
+  if (digest_md5_validate_finish (finish) != 0)
+    return NULL;
 
   if (asprintf (&out, "rspauth=%s", finish->rspauth) < 0)
     return NULL;
