@@ -143,6 +143,8 @@ extern "C"
     GSASL_PIN = 10,
     GSASL_REALM = 11,
     GSASL_QOP = 12,
+    GSASL_CLIENT_MAXBUF = 13,
+    GSASL_SERVER_MAXBUF = 14,
     /* Server validation callback properties. */
     GSASL_VALIDATE_SIMPLE = 500,
     GSASL_VALIDATE_EXTERNAL = 501,
