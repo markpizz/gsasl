@@ -40,7 +40,8 @@ extern _Gsasl_mechanism _gsasl_all_mechanisms[];
 int
 gsasl_init (Gsasl ** ctx)
 {
-  int i;
+  size_t i;
+  int rc;
 
   if (gc_init () != GC_OK)
     return GSASL_CRYPTO_ERROR;
@@ -51,55 +52,12 @@ gsasl_init (Gsasl ** ctx)
 
   for (i = 0; _gsasl_all_mechanisms[i].name; i++)
     {
-#ifdef USE_CLIENT
-      if (_gsasl_all_mechanisms[i].client.init == NULL ||
-	  _gsasl_all_mechanisms[i].client.init (*ctx) == GSASL_OK)
+      rc = gsasl_register (*ctx, &_gsasl_all_mechanisms[i]);
+      if (rc != GSASL_OK)
 	{
-	  if ((*ctx)->client_mechs)
-	    (*ctx)->client_mechs = (_Gsasl_mechanism *)
-	      realloc ((*ctx)->client_mechs,
-		       sizeof (*(*ctx)->client_mechs) *
-		       ((*ctx)->n_client_mechs + 1));
-	  else
-	    (*ctx)->client_mechs = (_Gsasl_mechanism *)
-	      malloc (sizeof (*(*ctx)->client_mechs));
-
-	  if ((*ctx)->client_mechs == NULL)
-	    {
-	      gsasl_done (*ctx);
-	      return GSASL_MALLOC_ERROR;
-	    }
-
-	  (*ctx)->client_mechs[(*ctx)->n_client_mechs] =
-	    _gsasl_all_mechanisms[i];
-	  (*ctx)->n_client_mechs++;
+	  gsasl_done (*ctx);
+	  return rc;
 	}
-#endif
-
-#ifdef USE_SERVER
-      if (_gsasl_all_mechanisms[i].server.init == NULL ||
-	  _gsasl_all_mechanisms[i].server.init (*ctx) == GSASL_OK)
-	{
-	  if ((*ctx)->server_mechs)
-	    (*ctx)->server_mechs = (_Gsasl_mechanism *)
-	      realloc ((*ctx)->server_mechs,
-		       sizeof (*(*ctx)->server_mechs) *
-		       ((*ctx)->n_server_mechs + 1));
-	  else
-	    (*ctx)->server_mechs = (_Gsasl_mechanism *)
-	      malloc (sizeof (*(*ctx)->server_mechs));
-
-	  if ((*ctx)->server_mechs == NULL)
-	    {
-	      gsasl_done (*ctx);
-	      return GSASL_MALLOC_ERROR;
-	    }
-
-	  (*ctx)->server_mechs[(*ctx)->n_server_mechs] =
-	    _gsasl_all_mechanisms[i];
-	  (*ctx)->n_server_mechs++;
-	}
-#endif
     }
 
   return GSASL_OK;
