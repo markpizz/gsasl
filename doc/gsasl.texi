@@ -478,9 +478,9 @@ you want to limit the size of the library.
 @itemx --disable-securid
 @itemx --disable-ntlm
 @itemx --disable-cram-md5
-@itemx --enable-digest-md5
+@itemx --disable-digest-md5
 @itemx --disable-gssapi
-@itemx --disable-kerberos_v5
+@itemx --enable-kerberos_v5
 Disable or enable individual mechanisms (@pxref{Mechanisms}).
 
 @item --without-stringprep
