@@ -1,3 +1,21 @@
+Libgsasl THANKS -- acknowledgements
+See the end for copying conditions.
+
 Libgsasl uses libntlm by Grant Edwards, libgssapi by MIT, libgcrypt by
 Werner Koch.  Templates for makefiles, manuals etc was borrowed from
 Libgcrypt.
+
+----------------------------------------------------------------------
+Copyright information:
+
+Copyright (C) 2002 Simon Josefsson
+
+   Permission is granted to anyone to make or distribute verbatim copies
+   of this document as received, in any medium, provided that the
+   copyright notice and this permission notice are preserved,
+   thus giving the recipient permission to redistribute in turn.
+
+   Permission is granted to distribute modified versions
+   of this document, or of portions of it,
+   under the above conditions, provided also that they
+   carry prominent notices stating who last changed them.
