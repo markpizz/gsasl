@@ -280,16 +280,16 @@ main (int argc, char *argv[])
       sockfd = socket (AF_INET, SOCK_STREAM, 0);
       if (sockfd < 0)
 	{
-	  perror ("socket()");
-	  fprintf (stderr, "%s: socket: %s\n", argv[0], strerror (errno));
+	  fprintf (stderr, "%s: ", argv[0]);
+	  perror ("socket");
 	  return 1;
 	}
 
       if (connect (sockfd, &connect_addr, sizeof (connect_addr)) < 0)
 	{
-	  perror ("connect()");
+	  fprintf (stderr, "%s: ", argv[0]);
+	  perror ("connect");
 	  close (sockfd);
-	  fprintf (stderr, "%s: connect: %s\n", argv[0], strerror (errno));
 	  return 1;
 	}
       if (!args_info.hostname_arg)

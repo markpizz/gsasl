@@ -49,12 +49,6 @@
 #ifdef HAVE_SYS_TIME_H
 #include <sys/time.h>		/* select() */
 #endif
-#ifdef HAVE_ERRNO_H
-#include <errno.h>		/* strerror */
-#endif
-#if defined HAVE_DECL_ERRNO && !HAVE_DECL_ERRNO
-/* extern int errno; */
-#endif
 
 #ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h>
