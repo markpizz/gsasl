@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a pkg-config metadata file.
-# Copyright 2002, 2003  Simon Josefsson
+# Copyright 2002, 2003, 2004  Simon Josefsson
 # 
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
@@ -13,5 +13,5 @@ includedir=@includedir@
 Name: libgsasl
 Description: GNU Simple Authentication and Security Layer (SASL)
 Version: @VERSION@
-Libs: -L${libdir} -R${libdir} -lgsasl
+Libs: -L${libdir} -lgsasl
 Cflags: -I${includedir}
