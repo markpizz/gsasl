@@ -30,6 +30,10 @@
 /* Get gc_nonce. */
 #include <gc.h>
 
+/* The sequence of X in TEMPLATE must be twice as long as NONCELEN. */
+#define NONCELEN 10
+#define TEMPLATE "<XXXXXXXXXXXXXXXXXXXX.0@localhost>"
+
 /* The probabilities for each digit are skewed (0-5 is more likely to
    occur than 6-9), but it is just used as a nonce anyway. */
 #define DIGIT(c) (((c) & 0x0F) > 9 ?		\
@@ -39,8 +43,10 @@
 void
 cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN])
 {
-  char nonce[10];
+  char nonce[NONCELEN];
   size_t i;
+
+  assert (strlen (TEMPLATE) == CRAM_MD5_CHALLENGE_LEN - 1);
 
   /*
    * From draft-ietf-sasl-crammd5-02.txt:
@@ -61,8 +67,6 @@ cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN])
    *
    */
 
-#define TEMPLATE "<XXXXXXXXXXXXXXXXXXXX.0@localhost>"
-  assert (strlen (TEMPLATE) == CRAM_MD5_CHALLENGE_LEN - 1);
   memcpy (challenge, TEMPLATE, CRAM_MD5_CHALLENGE_LEN);
 
   gc_nonce (nonce, sizeof (nonce));
