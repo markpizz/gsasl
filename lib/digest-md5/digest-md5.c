@@ -909,6 +909,8 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 
 	if (cb_qop)
 	  state->qop = cb_qop (sctx, state->qop);
+	else
+	  state->qop = GSASL_QOP_AUTH;
 
 	if (maxbuf == -1)
 	  maxbuf = MAXBUF_DEFAULT;
