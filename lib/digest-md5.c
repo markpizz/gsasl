@@ -345,13 +345,6 @@ _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
 
   /* A1 */
 
-  {
-    size_t i;
-    for (i = 0; i < MD5LEN; i++)
-      printf ("%02x ", secret[i]);
-    printf("\n");
-  }
-
   tmplen = MD5LEN + strlen (COLON) + strlen (nonce) +
     strlen (COLON) + strlen (cnonce);
   if (authzid && strlen (authzid) > 0)
@@ -383,12 +376,6 @@ _gsasl_digest (char *output,	/* must have 2*MD5LEN available bytes */
   free (tmp);
   if (rc != GSASL_OK)
     return rc;
-  {
-    size_t i;
-    for (i = 0; i < MD5LEN; i++)
-      printf ("%02x ", hash[i]);
-    printf("\n");
-  }
 
   if (kic)
     {
