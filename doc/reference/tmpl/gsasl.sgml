@@ -127,14 +127,13 @@ GNU SASL contains a library (`libgsasl'), a command line utility
 @ctx: 
 
 
-<!-- ##### FUNCTION gsasl_client_listmech ##### -->
+<!-- ##### FUNCTION gsasl_client_mechlist ##### -->
 <para>
 
 </para>
 
 @ctx: 
 @out: 
-@outlen: 
 @Returns: 
 
 
@@ -158,14 +157,13 @@ GNU SASL contains a library (`libgsasl'), a command line utility
 @Returns: 
 
 
-<!-- ##### FUNCTION gsasl_server_listmech ##### -->
+<!-- ##### FUNCTION gsasl_server_mechlist ##### -->
 <para>
 
 </para>
 
 @ctx: 
 @out: 
-@outlen: 
 @Returns: 
 
 
@@ -449,6 +447,16 @@ GNU SASL contains a library (`libgsasl'), a command line utility
 @Returns: 
 
 
+<!-- ##### USER_FUNCTION Gsasl_client_callback_maxbuf ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@servermaxbuf: 
+@Returns: 
+
+
 <!-- ##### USER_FUNCTION Gsasl_client_callback_realm ##### -->
 <para>
 
@@ -581,6 +589,15 @@ GNU SASL contains a library (`libgsasl'), a command line utility
 
 
 <!-- ##### USER_FUNCTION Gsasl_server_callback_qop ##### -->
+<para>
+
+</para>
+
+@sctx: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION Gsasl_server_callback_maxbuf ##### -->
 <para>
 
 </para>
@@ -1101,6 +1118,28 @@ GNU SASL contains a library (`libgsasl'), a command line utility
 </para>
 
 @ctx: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_client_listmech ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@out: 
+@outlen: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gsasl_server_listmech ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@out: 
+@outlen: 
 @Returns: 
 
 
