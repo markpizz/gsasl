@@ -8,9 +8,9 @@ See the end for copying conditions.
 Earlier they were not implemented at all.
 
 ** API and ABI modifications.
-gsasl_randomize: CHANGE.  Parameter "strong" was removed (use gsasl_nonce
-                          instead of a zero strong parameter).
+gsasl_random: ADD.
 gsasl_nonce: ADD.
+gsasl_randomize: DEPRECATED.  Use either gsasl_random or gsasl_nonce.
 
 * Changes in 0.1.0 (released 2004-04-16)
 
