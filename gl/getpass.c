@@ -1,4 +1,4 @@
-/* Copyright (C) 1992-2001, 2003 Free Software Foundation, Inc.
+/* Copyright (C) 1992-2001, 2003, 2004 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    This program is free software; you can redistribute it and/or modify
@@ -55,8 +55,19 @@
 #if _LIBC
 # define flockfile(s) _IO_flockfile (s)
 # define funlockfile(s) _IO_funlockfile (s)
-#else
+#elif USE_UNLOCKED_IO
 # include "unlocked-io.h"
+#else
+# undef fflush_unlocked
+# define fflush_unlocked(x) fflush (x)
+# undef flockfile
+# define flockfile(x) ((void) 0)
+# undef funlockfile
+# define funlockfile(x) ((void) 0)
+# undef fputs_unlocked
+# define fputs_unlocked(str,stream) fputs (str, stream)
+# undef putc_unlocked
+# define putc_unlocked(c,stream) putc (c, stream)
 #endif
 
 #if _LIBC
