@@ -1,5 +1,5 @@
 /* server.c --- ANONYMOUS mechanism as defined in RFC 2245, server side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -27,33 +27,19 @@
 /* Get specification. */
 #include "anonymous.h"
 
-/* Get malloc, free. */
-#include <stdlib.h>
-
-/* Get memcpy. */
-#include <string.h>
-
 int
 _gsasl_anonymous_server_step (Gsasl_session * sctx,
 			      void *mech_data,
 			      const char *input, size_t input_len,
 			      char **output, size_t * output_len)
 {
-  char *token;
-
   *output = NULL;
   *output_len = 0;
 
   if (input_len == 0)
     return GSASL_NEEDS_MORE;
 
-  token = malloc (input_len + 1);
-  if (token == NULL)
-    return GSASL_MALLOC_ERROR;
-  memcpy (token, input, input_len);
-  token[input_len] = '\0';
-  gsasl_property_set (sctx, GSASL_ANONYMOUS_TOKEN, token);
-  free (token);
+  gsasl_property_set_raw (sctx, GSASL_ANONYMOUS_TOKEN, input, input_len);
 
   return gsasl_callback (NULL, sctx, GSASL_VALIDATE_ANONYMOUS);
 }
