@@ -168,7 +168,7 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     _gsasl_securid_server_start,
     _gsasl_securid_server_step,
-    _gsasl_securid_server_finish,
+    NULL,
     NULL,
     NULL
 #endif

@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef _SECURID_H
-#define _SECURID_H
+#ifndef SECURID_H
+#define SECURID_H
 
 #include "internal.h"
 
@@ -48,7 +48,5 @@ extern int _gsasl_securid_server_step (Gsasl_session_ctx * sctx,
 				       const char *input,
 				       size_t input_len,
 				       char *output, size_t * output_len);
-extern int _gsasl_securid_server_finish (Gsasl_session_ctx * sctx,
-					 void *mech_data);
 
-#endif /* _SECURID_H */
+#endif /* SECURID_H */
