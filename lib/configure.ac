@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -415,7 +415,7 @@ AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 gl_SOURCE_BASE(gl)
 gl_M4_BASE(gl/m4)
 gl_LIB(libgl)
-gl_MODULES(strdup gettext base64 vasprintf)
+gl_MODULES(strdup gettext base64 vasprintf lgetline)
 gl_LGPL
 gl_INIT
 
