@@ -263,32 +263,27 @@ extern "C"
 
 /* Client callbacks: callback-c.c */
   extern void gsasl_client_callback_authorization_id_set (Gsasl * ctx,
-							  Gsasl_client_callback_authorization_id
-							  cb);
+							  Gsasl_client_callback_authorization_id cb);
   extern Gsasl_client_callback_authorization_id
     gsasl_client_callback_authorization_id_get (Gsasl * ctx);
 
   extern void gsasl_client_callback_authentication_id_set (Gsasl * ctx,
-							   Gsasl_client_callback_authentication_id
-							   cb);
+							   Gsasl_client_callback_authentication_id cb);
   extern Gsasl_client_callback_authentication_id
     gsasl_client_callback_authentication_id_get (Gsasl * ctx);
 
   extern void gsasl_client_callback_anonymous_set (Gsasl * ctx,
-						   Gsasl_client_callback_anonymous
-						   cb);
+						   Gsasl_client_callback_anonymous cb);
   extern Gsasl_client_callback_anonymous
     gsasl_client_callback_anonymous_get (Gsasl * ctx);
 
   extern void gsasl_client_callback_password_set (Gsasl * ctx,
-						  Gsasl_client_callback_password
-						  cb);
+						  Gsasl_client_callback_password cb);
   extern Gsasl_client_callback_password
     gsasl_client_callback_password_get (Gsasl * ctx);
 
   extern void gsasl_client_callback_passcode_set (Gsasl * ctx,
-						  Gsasl_client_callback_passcode
-						  cb);
+						  Gsasl_client_callback_passcode cb);
   extern Gsasl_client_callback_passcode
     gsasl_client_callback_passcode_get (Gsasl * ctx);
 
@@ -298,8 +293,7 @@ extern "C"
     gsasl_client_callback_pin_get (Gsasl * ctx);
 
   extern void gsasl_client_callback_service_set (Gsasl * ctx,
-						 Gsasl_client_callback_service
-						 cb);
+						 Gsasl_client_callback_service cb);
   extern Gsasl_client_callback_service
     gsasl_client_callback_service_get (Gsasl * ctx);
 
@@ -309,56 +303,47 @@ extern "C"
     gsasl_client_callback_qop_get (Gsasl * ctx);
 
   extern void gsasl_client_callback_maxbuf_set (Gsasl * ctx,
-						Gsasl_client_callback_maxbuf
-						cb);
+						Gsasl_client_callback_maxbuf cb);
   extern Gsasl_client_callback_maxbuf
     gsasl_client_callback_maxbuf_get (Gsasl * ctx);
   extern void gsasl_client_callback_realm_set (Gsasl * ctx,
-					       Gsasl_client_callback_realm
-					       cb);
+					       Gsasl_client_callback_realm cb);
   extern Gsasl_client_callback_realm
     gsasl_client_callback_realm_get (Gsasl * ctx);
 
 /* Server callbacks: callback-s.c */
   extern void gsasl_server_callback_validate_set (Gsasl * ctx,
-						  Gsasl_server_callback_validate
-						  cb);
+						  Gsasl_server_callback_validate cb);
   extern Gsasl_server_callback_validate
     gsasl_server_callback_validate_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_retrieve_set (Gsasl * ctx,
-						  Gsasl_server_callback_retrieve
-						  cb);
+						  Gsasl_server_callback_retrieve cb);
   extern Gsasl_server_callback_retrieve
     gsasl_server_callback_retrieve_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_cram_md5_set (Gsasl * ctx,
-						  Gsasl_server_callback_cram_md5
-						  cb);
+						  Gsasl_server_callback_cram_md5 cb);
   extern Gsasl_server_callback_cram_md5
     gsasl_server_callback_cram_md5_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_digest_md5_set (Gsasl * ctx,
-						    Gsasl_server_callback_digest_md5
-						    cb);
+						    Gsasl_server_callback_digest_md5 cb);
   extern Gsasl_server_callback_digest_md5
     gsasl_server_callback_digest_md5_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_external_set (Gsasl * ctx,
-						  Gsasl_server_callback_external
-						  cb);
+						  Gsasl_server_callback_external cb);
   extern Gsasl_server_callback_external
     gsasl_server_callback_external_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_anonymous_set (Gsasl * ctx,
-						   Gsasl_server_callback_anonymous
-						   cb);
+						   Gsasl_server_callback_anonymous cb);
   extern Gsasl_server_callback_anonymous
     gsasl_server_callback_anonymous_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_realm_set (Gsasl * ctx,
-					       Gsasl_server_callback_realm
-					       cb);
+					       Gsasl_server_callback_realm cb);
   extern Gsasl_server_callback_realm
     gsasl_server_callback_realm_get (Gsasl * ctx);
 
@@ -368,32 +353,27 @@ extern "C"
     gsasl_server_callback_qop_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_maxbuf_set (Gsasl * ctx,
-						Gsasl_server_callback_maxbuf
-						cb);
+						Gsasl_server_callback_maxbuf cb);
   extern Gsasl_server_callback_maxbuf
     gsasl_server_callback_maxbuf_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_cipher_set (Gsasl * ctx,
-						Gsasl_server_callback_cipher
-						cb);
+						Gsasl_server_callback_cipher cb);
   extern Gsasl_server_callback_cipher
     gsasl_server_callback_cipher_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_securid_set (Gsasl * ctx,
-						 Gsasl_server_callback_securid
-						 cb);
+						 Gsasl_server_callback_securid cb);
   extern Gsasl_server_callback_securid
     gsasl_server_callback_securid_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_gssapi_set (Gsasl * ctx,
-						Gsasl_server_callback_gssapi
-						cb);
+						Gsasl_server_callback_gssapi cb);
   extern Gsasl_server_callback_gssapi
     gsasl_server_callback_gssapi_get (Gsasl * ctx);
 
   extern void gsasl_server_callback_service_set (Gsasl * ctx,
-						 Gsasl_server_callback_service
-						 cb);
+						 Gsasl_server_callback_service cb);
   extern Gsasl_server_callback_service
     gsasl_server_callback_service_get (Gsasl * ctx);
 
