@@ -41,10 +41,12 @@ server_cb_retrieve (Gsasl_session_ctx * xctx,
 		    const char *authorization_id,
 		    const char *realm, char *key, size_t * keylen)
 {
+  if (!key)
+    *keylen = strlen (PASSWORD);
+
   if (*keylen < strlen (PASSWORD))
     return GSASL_TOO_SMALL_BUFFER;
 
-  *keylen = strlen (PASSWORD);
   if (key)
     memcpy (key, PASSWORD, *keylen);
 
@@ -55,10 +57,12 @@ static int
 client_cb_authentication_id (Gsasl_session_ctx * xctx,
 			     char *out, size_t * outlen)
 {
+  if (!out)
+    *outlen = strlen (USERNAME);
+
   if (*outlen < strlen (USERNAME))
     return GSASL_TOO_SMALL_BUFFER;
 
-  *outlen = strlen (USERNAME);
   if (out)
     memcpy (out, USERNAME, *outlen);
 
@@ -68,10 +72,12 @@ client_cb_authentication_id (Gsasl_session_ctx * xctx,
 static int
 client_cb_password (Gsasl_session_ctx * xctx, char *out, size_t * outlen)
 {
+  if (!out)
+    *outlen = strlen (PASSWORD);
+
   if (*outlen < strlen (PASSWORD))
     return GSASL_TOO_SMALL_BUFFER;
 
-  *outlen = strlen (PASSWORD);
   if (out)
     memcpy (out, PASSWORD, *outlen);
 
@@ -97,6 +103,11 @@ doit (void)
 
   gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);
 
+  gsasl_client_callback_authentication_id_set (ctx,
+					       client_cb_authentication_id);
+  gsasl_client_callback_password_set (ctx, client_cb_password);
+
+
   for (i = 0; i < 5; i++)
     {
       res = gsasl_server_start (ctx, "CRAM-MD5", &server);
@@ -105,11 +116,6 @@ doit (void)
 	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
 	  return;
 	}
-
-      gsasl_client_callback_authentication_id_set (ctx,
-						   client_cb_authentication_id);
-      gsasl_client_callback_password_set (ctx, client_cb_password);
-
       res = gsasl_client_start (ctx, "CRAM-MD5", &client);
       if (res != GSASL_OK)
 	{
