@@ -36,8 +36,11 @@ TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
 	THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c \
 	MD5FILE=$(srcdir)/cram-md5.pwd
 
-ctests = simple cram-md5 digest-md5 md5file \
-	old-cram-md5 old-digest-md5
+ctests = cram-md5 digest-md5
+
+if OBSOLETE
+ctests += simple md5file old-cram-md5 old-digest-md5
+endif
 
 # old-gssapi
 

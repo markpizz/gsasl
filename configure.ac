@@ -48,6 +48,20 @@ AC_SEARCH_LIBS(gethostbyname, nsl)
 # We want getaddrinfo, should be a gnulib module for it.
 AC_CHECK_FUNCS(getaddrinfo)
 
+# Allow disabling of obsolete stuff.
+AC_ARG_ENABLE(obsolete,
+  AS_HELP_STRING([--disable-obsolete], [disable backwards compatibility code]),
+    obsolete=$enableval)
+if test "$obsolete" = "no"; then
+  AC_DEFINE(GSASL_NO_OBSOLETE, 1,
+    [Define to 1 if you don't want backwards compatibility code.])
+else
+  obsolete=yes
+fi
+AC_MSG_CHECKING([if backwards compatibility code should be present])
+AC_MSG_RESULT($obsolete)
+AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
+
 # For gnulib stuff in gl/.
 gl_SOURCE_BASE(gl)
 gl_M4_BASE(gl/m4)

@@ -374,10 +374,10 @@ AC_MSG_RESULT($stringprep)
 
 # Allow disabling of client or server.
 AC_ARG_ENABLE(client,
-              AS_HELP_STRING([--disable-client], [Disable client code]),
+              AS_HELP_STRING([--disable-client], [disable client code]),
 	      client=$enableval)
 AC_ARG_ENABLE(server,
-              AS_HELP_STRING([--disable-server], [Disable server code]),
+              AS_HELP_STRING([--disable-server], [disable server code]),
 	      server=$enableval)
 if test "$client" != "no"; then
   AC_DEFINE(USE_CLIENT, 1, [Define to 1 if you want client code.])
@@ -396,6 +396,20 @@ AC_MSG_CHECKING([if server code should be built])
 AC_MSG_RESULT($server)
 AM_CONDITIONAL(CLIENT, test x$client = xyes)
 AM_CONDITIONAL(SERVER, test x$server = xyes)
+
+# Allow disabling of obsolete stuff.
+AC_ARG_ENABLE(obsolete,
+  AS_HELP_STRING([--disable-obsolete], [disable backwards compatibility code]),
+    obsolete=$enableval)
+if test "$obsolete" = "no"; then
+  AC_DEFINE(GSASL_NO_OBSOLETE, 1,
+    [Define to 1 if you don't want backwards compatibility code.])
+else
+  obsolete=yes
+fi
+AC_MSG_CHECKING([if backwards compatibility code should be present])
+AC_MSG_RESULT($obsolete)
+AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 
 # For gnulib stuff in gl/.
 gl_SOURCE_BASE(gl)

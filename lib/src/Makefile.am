@@ -34,8 +34,12 @@ libgsasl_la_SOURCES = gsasl.h.in internal.h \
 	callback.c property.c \
 	supportp.c suggest.c listmech.c \
 	xstart.c xstep.c xfinish.c xcode.c \
-	base64.c md5pwd.c crypto.c obsolete.c \
+	base64.c md5pwd.c crypto.c \
 	saslprep.c
+
+if OBSOLETE
+libgsasl_la_SOURCES += obsolete.c
+endif
 
 # Plugins:
 if EXTERNAL
