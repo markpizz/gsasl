@@ -93,18 +93,75 @@ readln1 (char **out)
   return 1;
 }
 
-int
+static int
 greeting (void)
 {
   char *in;
 
-  if (args_info.imap_flag && !readln1 (&in))
-    return 0;
+  if (args_info.imap_flag)
+    {
+      if (!readln1 (&in))
+	return 0;
+    }
 
   return 1;
 }
 
-int
+static int
+select_mechanism (char **mechlist)
+{
+  char *in;
+
+  if (args_info.server_flag)
+    {
+      if (!args_info.quiet_given)
+	fprintf (stderr, _("Chose SASL mechanisms:\n"));
+      if (!readln1 (&in))
+	return 0;
+      *mechlist = in;
+    }
+  else /* if (args_info.client_flag) */
+    {
+      if (args_info.imap_flag && !writeln (". CAPABILITY"))
+	return 0;
+
+      if (!args_info.quiet_given && !args_info.imap_flag)
+	fprintf (stderr,
+		 _("Input SASL mechanism supported by server:\n"));
+      if (!readln1 (&in))
+	return 0;
+
+      if (args_info.imap_flag)
+	/* XXX parse IMAP capability line */ ;
+
+      *mechlist = in;
+    }
+
+  return 1;
+}
+
+static int
+authenticate (const char *mech)
+{
+  if (args_info.imap_flag && args_info.client_flag)
+    {
+      char input[MAX_LINE_LENGTH];
+
+      sprintf (input, ". AUTHENTICATE %s", mech);
+      if (!writeln (input))
+	return 0;
+    }
+  else
+    {
+      if (!args_info.quiet_given)
+	fprintf (stderr, _("Using mechanism:\n"));
+      puts (mech);
+    }
+
+  return 1;
+}
+
+static int
 logout (void)
 {
   char *in;
@@ -136,6 +193,7 @@ main (int argc, char *argv[])
   Gsasl_ctx *ctx = NULL;
   int res;
   char input[MAX_LINE_LENGTH];
+  char *in;
   char *connect_hostname;
   char *connect_service;
   struct sockaddr connect_addr;
@@ -301,54 +359,21 @@ main (int argc, char *argv[])
       if (!greeting ())
 	return 1;
 
-      /* Decide mechanism to use */
+      if (!select_mechanism (&in))
+	return 1;
+
+      mech = gsasl_client_suggest_mechanism (ctx, in);
+      if (mech == NULL)
+	{
+	  fprintf (stderr, _("Cannot find mechanism...\n"));
+	  return 0;
+	}
 
       if (args_info.mechanism_arg)
-	{
-	  mech = args_info.mechanism_arg;
-	}
-      else if (args_info.server_flag)
-	{
-	  if (!args_info.quiet_given)
-	    fprintf (stderr, _("Chose SASL mechanisms:\n"));
-	  if (!readln (input, MAX_LINE_LENGTH))
-	    return 1;
-	  mech = input;
-	}
-      else /* if (args_info.client_flag) */
-	{
-	  if (args_info.imap_flag && !writeln (". CAPABILITY"))
-	    return 1;
+	mech = args_info.mechanism_arg;
 
-	  if (!args_info.quiet_given && !args_info.imap_flag)
-	    fprintf (stderr,
-		     _("Input SASL mechanism supported by server:\n"));
-	  if (!readln (input, MAX_LINE_LENGTH))
-	    return 1;
-
-	  if (args_info.imap_flag)
-	    /* XXX parse IMAP capability line */ ;
-
-	  mech = gsasl_client_suggest_mechanism (ctx, input);
-	  if (mech == NULL)
-	    {
-	      fprintf (stderr, _("Cannot find mechanism...\n"));
-	      return 1;
-	    }
-	}
-
-      if (args_info.imap_flag && args_info.client_flag)
-	{
-	  sprintf (input, ". AUTHENTICATE %s", mech);
-	  if (!writeln (input))
-	    return 1;
-	}
-      else
-	{
-	  if (!args_info.quiet_given)
-	    fprintf (stderr, _("Using mechanism:\n"));
-	  puts (mech);
-	}
+      if (!authenticate (mech))
+	return 1;
 
       /* Authenticate using mechanism */
 
