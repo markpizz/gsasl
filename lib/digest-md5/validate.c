@@ -108,7 +108,7 @@ digest_md5_validate_finish (digest_md5_finish *f)
 int
 digest_md5_validate (digest_md5_challenge *c, digest_md5_response *r)
 {
-  if (!c->nonce || r->nonce)
+  if (!c->nonce || !r->nonce)
     return -1;
 
   if (strcmp (c->nonce, r->nonce) != 0)
