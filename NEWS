@@ -1,8 +1,8 @@
 GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
-Copyright (C) 2002, 2003 Simon Josefsson
+Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
-* Changes in 0.0.11 (unreleased)
+* Changes in 0.0.11 (released 2004-01-06)
 
 ** The client part of CRAM-MD5 now uses SASLprep instead of NFKC.
 This aligns with draft-ietf-sasl-crammd5-01.
