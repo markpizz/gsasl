@@ -199,7 +199,6 @@ main (int argc, char *argv[])
   int res;
   char input[MAX_LINE_LENGTH];
   char *in;
-  struct sockaddr connect_addr;
 
 #ifdef HAVE_LOCALE_H
   setlocale (LC_ALL, "");
@@ -237,11 +236,19 @@ main (int argc, char *argv[])
 
   if (args_info.connect_given || args_info.inputs_num > 0)
     {
-      struct servent *se;
-      struct hostent *he;
-      struct sockaddr_in *sinaddr_inp = (struct sockaddr_in *) &connect_addr;
       char *connect_hostname;
       char *connect_service;
+      struct sockaddr connect_addr;
+      struct sockaddr *saddr = &connect_addr;
+      size_t saddrlen = sizeof (*saddr);
+#if HAVE_GETADDRINFO
+      struct addrinfo hints;
+      struct addrinfo *ai;
+      int gairc;
+#else
+      struct servent *se;
+      struct hostent *he;
+#endif
 
       if (args_info.connect_given)
 	{
@@ -272,29 +279,53 @@ main (int argc, char *argv[])
 	    connect_service = strdup ("143");
 	}
 
+#if HAVE_GETADDRINFO
+      memset (&hints, 0, sizeof (hints));
+      hints.ai_socktype = SOCK_STREAM;
+      gairc = getaddrinfo (connect_hostname, connect_service, &hints, &ai);
+      if (gairc != 0)
+	{
+	  fprintf (stderr, "%s: getaddrinfo (%s, %s): %s\n", argv[0],
+		   connect_hostname, connect_service, gai_strerror(gairc));
+	  return 1;
+	}
+      saddr = ai->ai_addr;
+      saddrlen = ai->ai_addrlen;
+#else
+      memset (&connect_addr, 0, sizeof (connect_addr));
       he = gethostbyname (connect_hostname);
-      if (!he || he->h_addr_list[0] == NULL || he->h_addrtype != AF_INET)
+      if (!he || he->h_addr_list[0] == NULL)
 	{
 	  fprintf (stderr, "%s: unknown host: %s\n", argv[0],
 		   connect_hostname);
 	  return 1;
 	}
-      memset (&connect_addr, 0, sizeof (connect_addr));
-      sinaddr_inp->sin_family = he->h_addrtype;
-      memcpy (&sinaddr_inp->sin_addr, he->h_addr_list[0], he->h_length);
-      se = getservbyname (connect_service, "tcp");
-      if (se)
-	sinaddr_inp->sin_port = se->s_port;
-      else
-	sinaddr_inp->sin_port = htons (atoi (connect_service));
-      if (sinaddr_inp->sin_port == 0 || sinaddr_inp->sin_port == htons (0))
+      saddr->sa_family = he->h_addrtype;
+      if (he->h_addrtype == AF_INET)
 	{
-	  fprintf (stderr, "%s: unknown service: %s\n", argv[0],
-		   connect_service);
+	  struct sockaddr_in *saddrin = (struct sockaddr_in *) &connect_addr;
+	  memcpy (&saddrin->sin_addr, he->h_addr_list[0], he->h_length);
+	  se = getservbyname (connect_service, "tcp");
+	  if (se)
+	    saddrin->sin_port = se->s_port;
+	  else if (atoi (connect_service) == 0)
+	    {
+	      fprintf (stderr, "%s: unknown service: %s\n", argv[0],
+		       connect_service);
+	      return 1;
+	    }
+	  else
+	    saddrin->sin_port = htons (atoi (connect_service));
+	}
+      else
+	{
+	  fprintf (stderr, "%s: unsupported address type: %d\n",
+		   argv[0], he->h_addrtype);
 	  return 1;
 	}
+#endif
 
-      sockfd = socket (AF_INET, SOCK_STREAM, 0);
+      sockfd = socket (saddr->sa_family, SOCK_STREAM, 0);
       if (sockfd < 0)
 	{
 	  fprintf (stderr, "%s: ", argv[0]);
@@ -302,13 +333,18 @@ main (int argc, char *argv[])
 	  return 1;
 	}
 
-      if (connect (sockfd, &connect_addr, sizeof (connect_addr)) < 0)
+      if (connect (sockfd, saddr, saddrlen) < 0)
 	{
 	  fprintf (stderr, "%s: ", argv[0]);
 	  perror ("connect");
 	  close (sockfd);
 	  return 1;
 	}
+
+#if HAVE_GETADDRINFO
+      freeaddrinfo (ai);
+#endif
+
       if (!args_info.hostname_arg)
 	args_info.hostname_arg = strdup (connect_hostname);
     }
