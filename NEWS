@@ -2,7 +2,7 @@ GNU SASL NEWS -- history of user-visible changes.               -*- outline -*-
 Copyright (C) 2002, 2003 Simon Josefsson
 See the end for copying conditions.
 
-* Changes in 0.0.10 (unreleased)
+* Changes in 0.0.10 (released 2003-11-22)
 
 ** The CRAM-MD5 server now reject invalid passwords.
 The logic flaw was introduced in 0.0.9, after blindly making code
