@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Changes in 0.1.5 (unreleased)
 
+** Update of generic crypto layer.
+
+** Translation fixes.
+
 * Changes in 0.1.4 (released 2004-08-08)
 
 ** Fix various compile time warnings.
