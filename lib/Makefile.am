@@ -18,6 +18,8 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+ACLOCAL_AMFLAGS = -I m4
+
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgsasl.pc
 
