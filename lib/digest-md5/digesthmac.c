@@ -72,18 +72,19 @@
    nonce.  QOP is the quality of protection to use.  AUTHZID is a zero
    terminated string with the authorization identity.  DIGESTURI is a
    zero terminated string with the server principal (e.g.,
-   imap/mail.example.org).  A2STRING is a zero terminated string that
-   should either be "AUTHENTICATE:" or ":".  CIPHER is the cipher to
-   use.  KIC, KIS, KCC, KCS are either NULL, or points to 16 byte
-   arrays that will hold the computed keys on output.  Returns 0 on
-   success. */
+   imap/mail.example.org).  RSPAUTH is a boolean which indicate
+   whether to compute a value for the RSPAUTH response or the "real"
+   authentication.  CIPHER is the cipher to use.  KIC, KIS, KCC, KCS
+   are either NULL, or points to 16 byte arrays that will hold the
+   computed keys on output.  Returns 0 on success. */
 int
 digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
 		 unsigned long nc, char *cnonce, digest_md5_qop qop,
-		 char *authzid, char *digesturi, const char *a2string,
+		 char *authzid, char *digesturi, int rspauth,
 		 digest_md5_cipher cipher,
 		 char *kic, char *kis, char *kcc, char *kcs)
 {
+  const char *a2string = rspauth ? COLON : A2_PRE;
   char nchex[9];
   char a1hexhash[2 * MD5LEN];
   char a2hexhash[2 * MD5LEN];

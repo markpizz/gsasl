@@ -31,7 +31,7 @@
 extern int digest_md5_hmac (char *output, char secret[DIGEST_MD5_LENGTH],
 			    char *nonce, unsigned long nc, char *cnonce,
 			    digest_md5_qop qop, char *authzid, char *digesturi,
-			    const char *a2string, digest_md5_cipher cipher,
+			    int rspauth, digest_md5_cipher cipher,
 			    char *kic, char *kis, char *kcc, char *kcs);
 
 #endif /* DIGEST_MD5_DIGESTHMAC_H */

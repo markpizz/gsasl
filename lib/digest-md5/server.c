@@ -668,7 +668,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	/* verify response */
 	res = digest_md5_hmac (output + outlen, secret,
 			       nonce, nc, cnonce, state->qop, authzid,
-			       digesturi, A2_PRE,
+			       digesturi, 0,
 			       state->cipher, NULL, NULL, NULL, NULL);
 	if (res)
 	  goto done;
@@ -692,7 +692,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 
 	res = digest_md5_hmac (output + outlen, secret,
 			       nonce, nc, cnonce, state->qop, authzid,
-			       digesturi, COLON,
+			       digesturi, 1,
 			       state->cipher,
 			       state->kic, state->kis, state->kcc, state->kcs);
 	if (res)

@@ -212,7 +212,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 			      state->response.qop,
 			      state->response.authzid,
 			      state->response.digesturi,
-			      A2_PRE,
+			      0,
 			      state->response.cipher,
 			      state->kic, state->kis,
 			      state->kcc, state->kcs);
@@ -246,7 +246,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 			       state->response.nonce, state->response.nc,
 			       state->response.cnonce, state->response.qop,
 			       state->response.authzid,
-			       state->response.digesturi, COLON,
+			       state->response.digesturi, 1,
 			       state->response.cipher, NULL, NULL, NULL, NULL);
 	if (res != GSASL_OK)
 	  break;
