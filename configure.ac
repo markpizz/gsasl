@@ -176,7 +176,7 @@ AC_ARG_ENABLE(gssapi,
   gssapi=$enableval)
 if test "$gssapi" != "no" ; then
 	PKG_CHECK_MODULES(GSS, gss >= 0.0.0, [gss=yes], [gss=no])
-	if test "$gss" == "yes" ; then
+	if test "$gss" = "yes" ; then
 		AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])
 		gssapi=yes
 	else
@@ -212,7 +212,7 @@ if test "$gssapi" != "no" ; then
 		fi
 	fi
 fi
-if test "$gssapi" == "yes"; then
+if test "$gssapi" = "yes"; then
 	AC_DEFINE(USE_GSSAPI, 1, [Define to 1 if you want GSSAPI.])
 fi
 AC_MSG_CHECKING([if GSSAPI should be used])
