@@ -19,8 +19,8 @@ dnl Process this file with autoconf to produce a configure script.
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-AC_PREREQ(2.50)
-AC_INIT(gsasl, 0.0.9, bug-gsasl@gnu.org)
+AC_PREREQ(2.59)
+AC_INIT([gsasl], [0.0.9], [bug-gsasl@gnu.org])
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
@@ -34,7 +34,7 @@ AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
 AM_INIT_AUTOMAKE(gnits)
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS(config.h)
 
 # Checks for programs.
 AM_GNU_GETTEXT(external)
@@ -392,8 +392,8 @@ AC_SEARCH_LIBS(gethostbyname, nsl)
 GTK_DOC_CHECK(1.1)
 
 # We are done
-AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in m4/Makefile \
-		gl/Makefile gl/m4/Makefile crypto/Makefile \
+AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
+		gl/Makefile crypto/Makefile \
 		doc/Makefile doc/reference/Makefile doc/doxygen/Doxyfile \
 		lib/Makefile lib/gsasl.h \
 		src/Makefile tests/Makefile)
