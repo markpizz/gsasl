@@ -533,6 +533,7 @@ main (int argc, char *argv[])
     fail ("gsasl_client_listmech() failed (%d):\n%s\n",
 	  res, gsasl_strerror (res));
 
+  outputlen = sizeof (output);
   res = gsasl_server_listmech (ctx, output, &outputlen);
   if (res != GSASL_OK)
     fail ("gsasl_server_listmech() failed (%d):\n%s\n",
