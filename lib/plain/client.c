@@ -45,19 +45,18 @@ _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
   int res;
 
   p = gsasl_property_get (sctx, GSASL_AUTHZID);
-  if (!p)
+  if (p)
     {
-      res = GSASL_NO_AUTHZID;
-      goto end;
+      authzid = gsasl_stringprep_nfkc (p, -1);
+      if (authzid == NULL)
+	{
+	  res = GSASL_UNICODE_NORMALIZATION_ERROR;
+	  goto end;
+	}
+      authzidlen = strlen (authzid);
     }
-
-  authzid = gsasl_stringprep_nfkc (p, -1);
-  if (authzid == NULL)
-    {
-      res = GSASL_UNICODE_NORMALIZATION_ERROR;
-      goto end;
-    }
-  authzidlen = strlen (authzid);
+  else
+    authzidlen = 0;
 
   p = gsasl_property_get (sctx, GSASL_AUTHID);
   if (!p)
@@ -97,7 +96,8 @@ _gsasl_plain_client_step (Gsasl_session_ctx * sctx,
       goto end;
     }
 
-  memcpy (*output, authzid, authzidlen);
+  if (authzid > 0)
+    memcpy (*output, authzid, authzidlen);
   (*output)[authzidlen] = '\0';
   memcpy (*output + authzidlen + 1, authid, authidlen);
   (*output)[authzidlen + 1 + authidlen] = '\0';

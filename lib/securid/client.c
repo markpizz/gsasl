@@ -60,7 +60,7 @@ _gsasl_securid_client_step (Gsasl_session_ctx * sctx,
 			    char **output, size_t * output_len)
 {
   int *step = mech_data;
-  const char *authzid, *authid, *passcode, *pin;
+  const char *authzid = NULL, *authid = NULL, *passcode = NULL, *pin = NULL;
   size_t authzidlen, authidlen, passcodelen, pinlen;
   int do_pin = 0;
   int res;
@@ -89,9 +89,10 @@ _gsasl_securid_client_step (Gsasl_session_ctx * sctx,
 
     case 0:
       authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
-      if (!authzid)
-	return GSASL_NO_AUTHZID;
-      authzidlen = strlen (authzid);
+      if (authzid)
+	authzidlen = strlen (authzid);
+      else
+	authzidlen = 0;
 
       authid = gsasl_property_get (sctx, GSASL_AUTHID);
       if (!authid)
@@ -133,7 +134,8 @@ _gsasl_securid_client_step (Gsasl_session_ctx * sctx,
       if (*output == NULL)
 	return GSASL_MALLOC_ERROR;
 
-      memcpy (*output, authzid, authzidlen);
+      if (authzid)
+	memcpy (*output, authzid, authzidlen);
       (*output)[authzidlen] = '\0';
       memcpy (*output + authzidlen + 1, authid, authidlen);
       (*output)[authzidlen + 1 + authidlen] = '\0';
