@@ -33,6 +33,8 @@ please let me know so work duplication can be avoided.
   + Authentication infrastructure implementing the callbacks for
     PAM, Kerberos, SQL, etc.  Separate project?  GNU Mailutils has
     some starting points for this, but the API is inflexible.
+  + Provide standard callbacks for tty, GTK, gpg-agent etc.  Probably
+    should be a separate library.
   + Hide explicit data array handling in a string API
   + Port applications to use libgsasl
   + More SASL mechanisms
