@@ -1,3 +1,73 @@
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/zh_CN.po: Generated.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.1.
+
+2004-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/zh_CN.po: Sync with TP.
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Fix.
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2004-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Fix.
+
+2004-11-13  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Typo.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Fix.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Add.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Fix.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template: Sync with texinfo.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template: Fix.
+
+2004-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
 2004-11-07  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
