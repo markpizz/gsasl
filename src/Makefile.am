@@ -26,7 +26,7 @@ BUILT_SOURCES = gsasl_cmd.c gsasl_cmd.h
 gsasl_SOURCES = gsasl.c $(BUILT_SOURCES) gsasl.ggo \
 	imap.c imap.h smtp.c smtp.h \
 	callbacks.h callbacks.c internal.h
-gsasl_LDADD = ../lib/src/libgsasl.la ../gl/libgl.la $(LTLIBICONV)
+gsasl_LDADD = ../lib/src/libgsasl.la ../gl/libgl.la
 
 localedir = $(datadir)/locale
 
