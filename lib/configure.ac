@@ -131,14 +131,9 @@ AC_MSG_CHECKING([whether to use libgcrypt])
 AC_MSG_RESULT($libgcrypt)
 if test "$libgcrypt" != "no" ; then
 	AC_DEFINE(USE_GCRYPT, 1, [Define to 1 if you want to use libgcrypt.])
-else
-	NETTLE_CFLAGS="-I\$(top_srcdir)/crypto"
-	NETTLE_LIBS="\$(top_builddir)/crypto/libnettle.la"
 fi
 AM_CONDITIONAL(LIBGCRYPT, test "$libgcrypt" != "no")
 AM_CONDITIONAL(NETTLE, test "$libgcrypt" = "no")
-AC_SUBST(NETTLE_CFLAGS)
-AC_SUBST(NETTLE_LIBS)
 
 # CRAM-MD5
 AC_ARG_ENABLE(cram-md5,

@@ -20,7 +20,7 @@
 
 EXTRA_DIST = README
 
-AM_CPPFLAGS = @LIBGCRYPT_CFLAGS@ @NETTLE_CFLAGS@
+AM_CPPFLAGS = @LIBGCRYPT_CFLAGS@
 
 BUILT_SOURCES = nettle-types.h
 DISTCLEANFILES = nettle-types.h
@@ -28,7 +28,7 @@ DISTCLEANFILES = nettle-types.h
 noinst_LTLIBRARIES = libgc.la
 
 libgc_la_SOURCES = gc.h
-libgc_la_LIBADD = @LIBGCRYPT_LIBS@ @NETTLE_LIBS@
+libgc_la_LIBADD = @LIBGCRYPT_LIBS@
 
 if NETTLE
 libgc_la_SOURCES += gc-nettle.c \
