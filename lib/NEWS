@@ -22,6 +22,11 @@ This means the code now use strdup, which improve readability.
 
 ** Translation fixes.
 
+** Libtool's -export-symbols-regex is now used to only export official APIs.
+Before, applications might accidentally access internal functions.
+Note that this is not supported on all platforms, so you must still
+make sure you are not using undocumented symbols in Libgsasl.
+
 ** API and ABI modifications.
 The only non-backwards compatible change is for gsasl_encode and
 gsasl_decode.  The library is both source and binary backwards
