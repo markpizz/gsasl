@@ -22,7 +22,9 @@
 #ifndef _CALLBACKS_H
 #define _CALLBACKS_H
 
-#include <gsasl.h>
+#include <gsasl.h> /* Gsasl_session_ctx */
+
+/* Client callbacks */
 
 extern int
 client_callback_anonymous (Gsasl_session_ctx * ctx,
@@ -56,6 +58,7 @@ extern Gsasl_qop
 client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops);
 
 extern int client_callback_maxbuf (Gsasl_session_ctx * ctx, int servermaxbuf);
+
 /* Server callbacks */
 
 extern int
@@ -78,7 +81,7 @@ extern int server_callback_external (Gsasl_session_ctx * ctx);
 extern int
 server_callback_validate (Gsasl_session_ctx * ctx,
 			  const char *authorization_id,
-			  const char *authentication_id, 
+			  const char *authentication_id,
 			  const char *password);
 
 extern int
@@ -94,6 +97,7 @@ server_callback_service (Gsasl_session_ctx * ctx,
 
 int
 server_callback_gssapi (Gsasl_session_ctx * ctx,
-			char *clientname, char *authentication_id);
+			const char *clientname,
+			const char *authentication_id);
 
 #endif /* _CALLBACKS_H */

@@ -19,35 +19,7 @@
  *
  */
 
-#include <stdio.h>
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-#ifdef HAVE_NETDB_H
-#include <netdb.h>
-#endif
-#ifdef HAVE_STDLIB_H
-#include <stdlib.h>
-#endif
-#ifdef HAVE_LOCALE_H
-#include <locale.h>
-#endif
-#if HAVE_STRING_H
-# if !STDC_HEADERS && HAVE_MEMORY_H
-#  include <memory.h>
-# endif
-# include <string.h>
-#endif
-#if HAVE_STRINGS_H
-# include <strings.h>
-#endif
-#include <argp.h>
-#include <gsasl.h>
-
-#include <stringprep.h>
+#include "internal.h"
 
 #define MAX_LINE_LENGTH BUFSIZ
 
@@ -391,7 +363,7 @@ server_callback_external (Gsasl_session_ctx * ctx)
 int
 server_callback_validate (Gsasl_session_ctx * ctx,
 			  const char *authorization_id,
-			  const char *authentication_id, 
+			  const char *authentication_id,
 			  const char *password)
 {
   char *data;
@@ -489,7 +461,8 @@ server_callback_service (Gsasl_session_ctx * ctx,
 
 int
 server_callback_gssapi (Gsasl_session_ctx * ctx,
-			char *client_name, char *authentication_id)
+			const char *client_name,
+			const char *authentication_id)
 {
   char *data;
 
