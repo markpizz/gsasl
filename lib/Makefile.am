@@ -73,9 +73,11 @@ SUBDIRS += src
 POURL = ftp://tiger.informatik.hu-berlin.de/pub/po/maint/$(PACKAGE)
 update-po:
 	cd po && \
-	wget --timestamping --retr-symlinks $(POURL)/??.po && \
+	wget --non-verbose --timestamping --retr-symlinks $(POURL)/??.po && \
 	cvs add ??.po || true && \
-	cvs commit -m "Sync with TP." ??.po
+	echo en@boldquot en@quot > LINGUAS && \
+	ls ??.po | sed 's/.po//' >> LINGUAS && \
+	cvs commit -m "Sync with TP." LINGUAS ??.po
 
 ChangeLog:
 	cvs2cl --fsf --FSF --usermap ../.cvsusers -I ChangeLog -I .cvs \
