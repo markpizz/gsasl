@@ -40,6 +40,16 @@ extern int  _gsasl_digest_md5_client_step (Gsasl_session_ctx *cctx,
 					   size_t *output_len);
 extern int  _gsasl_digest_md5_client_finish (Gsasl_session_ctx *cctx,
 					     void *mech_data);
+extern int _gsasl_digest_md5_client_encode (Gsasl_session_ctx *xctx, 
+					    const char *input, 
+					    size_t input_len,
+					    char *output,
+					    size_t *output_len);
+extern int _gsasl_digest_md5_client_decode (Gsasl_session_ctx *xctx, 
+					    const char *input, 
+					    size_t input_len,
+					    char *output,
+					    size_t *output_len);
 
 extern int  _gsasl_digest_md5_server_init (Gsasl_ctx *ctx);
 extern void _gsasl_digest_md5_server_done (Gsasl_ctx *ctx);
@@ -53,6 +63,16 @@ extern int  _gsasl_digest_md5_server_step (Gsasl_session_ctx *sctx,
 					   size_t *output_len);
 extern int  _gsasl_digest_md5_server_finish (Gsasl_session_ctx *sctx,
 					     void *mech_data);
+extern int _gsasl_digest_md5_server_encode (Gsasl_session_ctx *xctx, 
+					    const char *input, 
+					    size_t input_len,
+					    char *output,
+					    size_t *output_len);
+extern int _gsasl_digest_md5_server_decode (Gsasl_session_ctx *xctx, 
+					    const char *input, 
+					    size_t input_len,
+					    char *output,
+					    size_t *output_len);
 
 #endif /* USE_DIGEST_MD5 */
 
