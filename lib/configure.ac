@@ -356,21 +356,21 @@ AC_MSG_RESULT($kerberos_v5)
 AM_CONDITIONAL(KERBEROS_V5, test x$kerberos_v5 = xyes)
 
 # Check for libidn
-AC_ARG_WITH(saslprep,
-  AS_HELP_STRING([--without-saslprep], [disable non-ASCII support]),
-	saslprep=$withval, saslprep=yes)
-if test "$saslprep" != "no"; then
+AC_ARG_WITH(stringprep,
+  AS_HELP_STRING([--without-stringprep], [disable non-ASCII support]),
+	stringprep=$withval, stringprep=yes)
+if test "$stringprep" != "no"; then
   sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version, [
-    saslprep=yes
-    AC_DEFINE(WITH_SASLPREP, 1,
-	[Define to 1 if you want to use SASLprep in Libidn.])
+    stringprep=yes
+    AC_DEFINE(WITH_STRINGPREP, 1,
+	[Define to 1 if you want to use string preparation from Libidn.])
   ], [
-    saslprep=no
-    AC_MSG_WARN([Libidn not found.  SASLprep disabled.])
+    stringprep=no
+    AC_MSG_WARN([Libidn not found.  Stringprep disabled.])
   ])
 fi
 AC_MSG_CHECKING([if non-ASCII support via Libidn should be built])
-AC_MSG_RESULT($saslprep)
+AC_MSG_RESULT($stringprep)
 
 # Allow disabling of client or server.
 AC_ARG_ENABLE(client,
