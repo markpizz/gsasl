@@ -23,7 +23,7 @@
 # define GSASL_COMPAT_H
 
 /* Old error codes */
-typedef enum
+enum
   {
     GSASL_TOO_SMALL_BUFFER = 4,
     GSASL_GCRYPT_ERROR = GSASL_CRYPTO_ERROR,
