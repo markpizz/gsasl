@@ -22,8 +22,8 @@
 
 #include "cram-md5.h"
 
-/* Get cram_md5_challenge. */
-#include "challenge.h"
+/* Get cram_md5_digest. */
+#include "digest.h"
 
 #define MD5LEN 16
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
@@ -40,12 +40,10 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
 			     const char *input, size_t input_len,
 			     char **output, size_t * output_len)
 {
+  char response[CRAM_MD5_DIGEST_LEN];
   const char *p;
-  char *hash;
   size_t len;
   char *tmp;
-  int i;
-  int res;
 
   if (input_len == 0)
     {
@@ -61,51 +59,34 @@ _gsasl_cram_md5_client_step (Gsasl_session_ctx * sctx,
   tmp = gsasl_stringprep_saslprep (p, NULL);
   if (tmp == NULL)
     return GSASL_SASLPREP_ERROR;
-  res = gsasl_hmac_md5 (tmp, strlen (tmp), input, input_len, &hash);
+
+  cram_md5_digest (input, input_len, tmp, strlen (tmp), response);
+
   free (tmp);
-  if (res != GSASL_OK)
-    {
-      free (hash);
-      return GSASL_CRYPTO_ERROR;
-    }
 
   p = gsasl_property_get (sctx, GSASL_AUTHID);
   if (!p)
-    {
-      free (hash);
-      return GSASL_NO_AUTHID;
-    }
+    return GSASL_NO_AUTHID;
 
   tmp = gsasl_stringprep_saslprep (p, NULL);
   if (tmp == NULL)
-    {
-      free (hash);
-      return GSASL_SASLPREP_ERROR;
-    }
+    return GSASL_SASLPREP_ERROR;
 
   len = strlen (tmp);
 
-  *output_len = len + strlen (" ") + 2 * MD5LEN;
+  *output_len = len + strlen (" ") + CRAM_MD5_DIGEST_LEN;
   *output = malloc (*output_len);
   if (!*output)
     {
       free (tmp);
-      free (hash);
       return GSASL_MALLOC_ERROR;
     }
 
   memcpy (*output, tmp, len);
-  free (tmp);
   (*output)[len++] = ' ';
+  memcpy (*output + len, response, CRAM_MD5_DIGEST_LEN);
 
-  for (i = 0; i < MD5LEN; i++)
-    {
-      (*output)[len + 2 * i + 1] = HEXCHAR (hash[i]);
-      (*output)[len + 2 * i + 0] = HEXCHAR (hash[i] >> 4);
-    }
-  *output_len = len + 2 * MD5LEN;
-
-  free (hash);
+  free (tmp);
 
   return GSASL_OK;
 }
