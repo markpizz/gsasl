@@ -34,8 +34,21 @@ _gsasl_external_client_step (Gsasl_session_ctx * sctx,
 			     const char *input, size_t input_len,
 			     char **output, size_t * output_len)
 {
-  *output = NULL;
-  *output_len = 0;
+  const char *p;
+
+  p = gsasl_property_get (sctx, GSASL_CLIENT_AUTHZID);
+  if (p)
+    {
+      *output = strdup (p);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      *output_len = strlen (p);
+    }
+  else
+    {
+      *output = NULL;
+      *output_len = 0;
+    }
 
   return GSASL_OK;
 }
