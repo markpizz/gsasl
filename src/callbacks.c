@@ -95,7 +95,8 @@ utf8cpy (char *dst, size_t * dstlen, char *src, size_t srclen)
     {
       if (src[i] & 0x80)
 	nonasciiflag = 1;
-      dst[i] = src[i] & 0x7F;
+      if (dst)
+	dst[i] = src[i] & 0x7F;
     }
 
   if (nonasciiflag)
