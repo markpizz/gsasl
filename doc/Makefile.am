@@ -18,7 +18,9 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+if ENABLE_GTK_DOC
 SUBDIRS = reference
+endif
 
 EXTRA_DIST = gdoc gdoc-error gsasl-example1.c \
 	gsasl.html gsasl.ps gsasl.pdf \
