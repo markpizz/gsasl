@@ -130,8 +130,7 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
 	  return res;
 	}
 
-      if (strlen (passprep) == strlen (normkey) &&
-	  memcmp (normkey, passprep, strlen (normkey)) == 0)
+      if (strcmp (normkey, passprep) == 0)
 	res = GSASL_OK;
       else
 	res = GSASL_AUTHENTICATION_ERROR;
