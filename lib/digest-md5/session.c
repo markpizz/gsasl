@@ -33,14 +33,6 @@
 /* Get memcpy, strdup, strlen. */
 #include <string.h>
 
-/* Get htonl.  FIXME: use inline macro instead. */
-#ifdef HAVE_SYS_TYPES_H
-# include <sys/types.h>
-#endif
-#ifdef HAVE_NETINET_IN_H
-# include <netinet/in.h>
-#endif
-
 /* Get gc_hmac_md5. */
 #include <gc.h>
 
@@ -69,15 +61,16 @@ digest_md5_encode (const char *input, size_t input_len,
     {
       char *seqnumin;
       char hash[GC_MD5_LEN];
-      uint32_t tmp;
       size_t len;
 
       seqnumin = malloc (MAC_SEQNUM_LEN + input_len);
       if (seqnumin == NULL)
 	return -1;
 
-      tmp = htonl (sendseqnum);
-      memcpy (seqnumin, (char *) &tmp, MAC_SEQNUM_LEN);
+      seqnumin[0] = (sendseqnum >> 24) & 0xFF;
+      seqnumin[1] = (sendseqnum >> 16) & 0xFF;
+      seqnumin[2] = (sendseqnum >> 8) & 0xFF;
+      seqnumin[3] = sendseqnum & 0xFF;
       memcpy (seqnumin + MAC_SEQNUM_LEN, input, input_len);
 
       res = gc_hmac_md5 (key, MD5LEN,
@@ -100,11 +93,15 @@ digest_md5_encode (const char *input, size_t input_len,
       len += MAC_HMAC_LEN;
       memcpy (*output + len, MAC_MSG_TYPE, MAC_MSG_TYPE_LEN);
       len += MAC_MSG_TYPE_LEN;
-      tmp = htonl (sendseqnum);
-      memcpy (*output + len, &tmp, MAC_SEQNUM_LEN);
+      (*output + len)[0] = (sendseqnum >> 24) & 0xFF;
+      (*output + len)[1] = (sendseqnum >> 16) & 0xFF;
+      (*output + len)[2] = (sendseqnum >> 8) & 0xFF;
+      (*output + len)[3] = sendseqnum & 0xFF;
       len += MAC_SEQNUM_LEN;
-      tmp = htonl (len - MAC_DATA_LEN);
-      memcpy (*output, &tmp, MAC_DATA_LEN);
+      (*output)[0] = ((len - MAC_DATA_LEN) >> 24) & 0xFF;
+      (*output)[1] = ((len - MAC_DATA_LEN) >> 16) & 0xFF;
+      (*output)[2] = ((len - MAC_DATA_LEN) >> 8) & 0xFF;
+      (*output)[3] = (len - MAC_DATA_LEN) & 0xFF;
     }
   else
     {
@@ -117,6 +114,11 @@ digest_md5_encode (const char *input, size_t input_len,
 
   return 0;
 }
+
+#define C2I(buf) ((buf[0] & 0xFF) |		\
+		  ((buf[1] & 0xFF) << 8) |	\
+		  ((buf[2] & 0xFF) << 16) |	\
+		  ((buf[3] & 0xFF) << 24))
 
 int
 digest_md5_decode (const char *input, size_t input_len,
@@ -133,13 +135,14 @@ digest_md5_decode (const char *input, size_t input_len,
     {
       char *seqnumin;
       char hash[GC_MD5_LEN];
-      uint32_t len, tmp;
+      unsigned long len, tmp;
+      char tmpbuf[SASL_INTEGRITY_PREFIX_LENGTH];
       int res;
 
       if (input_len < SASL_INTEGRITY_PREFIX_LENGTH)
 	return -2;
 
-      len = ntohl (*(uint32_t *) input);
+      len = C2I (input);
 
       if (input_len < SASL_INTEGRITY_PREFIX_LENGTH + len)
 	return -2;
@@ -150,9 +153,12 @@ digest_md5_decode (const char *input, size_t input_len,
       if (seqnumin == NULL)
 	return -1;
 
-      tmp = htonl (readseqnum);
+      tmpbuf[0] = (readseqnum >> 24) & 0xFF;
+      tmpbuf[1] = (readseqnum >> 16) & 0xFF;
+      tmpbuf[2] = (readseqnum >> 8) & 0xFF;
+      tmpbuf[3] = readseqnum & 0xFF;
 
-      memcpy (seqnumin, (char *) &tmp, SASL_INTEGRITY_PREFIX_LENGTH);
+      memcpy (seqnumin, tmpbuf, SASL_INTEGRITY_PREFIX_LENGTH);
       memcpy (seqnumin + SASL_INTEGRITY_PREFIX_LENGTH,
 	      input + MAC_DATA_LEN, len);
 
@@ -167,7 +173,7 @@ digest_md5_decode (const char *input, size_t input_len,
 	  && memcmp (MAC_MSG_TYPE,
 		     input + input_len - MAC_SEQNUM_LEN - MAC_MSG_TYPE_LEN,
 		     MAC_MSG_TYPE_LEN) == 0
-	  && memcmp (&tmp, input + input_len - MAC_SEQNUM_LEN,
+	  && memcmp (tmpbuf, input + input_len - MAC_SEQNUM_LEN,
 		     MAC_SEQNUM_LEN) == 0)
 	{
 	  *output_len = len;
