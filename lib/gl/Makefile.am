@@ -31,5 +31,3 @@ libgl_la_SOURCES += strdup.h
 
 
 # Makefile.am ends here
-
-libgl_la_SOURCES += gettext.h

@@ -15,6 +15,9 @@ Implement the Gsasl_*_function interfaces, populate a Gsasl_mechanism
 struct with name of SASL mechanism and the function pointers, and
 call gsasl_register to register your new mechanism.
 
+** Now using Lesser GNULib for portability code.
+This means the code now use strdup, which improve readability.
+
 ** Translation fixes.
 
 ** API and ABI modifications.

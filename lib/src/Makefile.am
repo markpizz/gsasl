@@ -20,7 +20,7 @@
 
 lib_LTLIBRARIES = libgsasl.la
 
-AM_CPPFLAGS = -I$(srcdir)/../gl -I$(srcdir)/.. \
+AM_CPPFLAGS = -I$(srcdir)/../gl -I../gl -I$(srcdir)/.. \
 	-I$(srcdir)/../crypto -I../crypto
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 

@@ -18,9 +18,8 @@
 # Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA
 
-# -Igl is for strdup, -Icrypto is for nettle-types.h.
-AM_CPPFLAGS = -I$(srcdir)/../src -I../src \
-	-I$(srcdir)/../gl -I../crypto
+AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl \
+	-I../crypto
 
 noinst_LTLIBRARIES = libgsasl-digest_md5.la
 libgsasl_digest_md5_la_SOURCES = digest-md5.h mechinfo.c \

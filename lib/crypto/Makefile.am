@@ -20,7 +20,7 @@
 
 EXTRA_DIST = README
 
-AM_CPPFLAGS = @LIBGCRYPT_CFLAGS@
+AM_CPPFLAGS = @LIBGCRYPT_CFLAGS@ -I$(srcdir)/../gl -I../gl
 
 BUILT_SOURCES = nettle-types.h
 DISTCLEANFILES = nettle-types.h

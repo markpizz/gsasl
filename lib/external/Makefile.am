@@ -18,7 +18,7 @@
 # Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA
 
-AM_CPPFLAGS = -I$(srcdir)/../src -I$(builddir)/../src
+AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl
 
 noinst_LTLIBRARIES = libgsasl-external.la
 libgsasl_external_la_SOURCES = external.h mechinfo.c

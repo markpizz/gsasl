@@ -25,9 +25,6 @@
 
 #include "kerberos_v5.h"
 
-/* Get strdup. */
-#include "strdup.h"
-
 /* Get Shishi API. */
 #include <shishi.h>
 

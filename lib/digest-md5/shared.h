@@ -25,9 +25,6 @@
 
 #include "digest-md5.h"
 
-/* Get strdup. */
-#include "strdup.h"
-
 #include <nettle-types.h>
 #ifdef HAVE_SYS_TYPES_H
 # include <sys/types.h>
