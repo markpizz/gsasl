@@ -20,14 +20,14 @@ dnl Process this file with autoconf to produce a configure script.
 # Boston, MA 02111-1307, USA.
 
 AC_PREREQ(2.59)
-AC_INIT([gsasl], [0.0.9], [bug-gsasl@gnu.org])
+AC_INIT([gsasl], [0.0.10], [bug-gsasl@gnu.org])
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 LT_CURRENT=5
-LT_REVISION=0
+LT_REVISION=1
 LT_AGE=4
 AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
