@@ -72,18 +72,6 @@ char *alloca ();
 # define __attribute(xyz)     /* Ignore */
 #endif
 
-#ifndef __strchrnul
-# define __strchrnul strchrnul
-#endif
-
-#ifndef __mempcpy
-# define __mempcpy mempcpy
-#endif
-
-#ifndef __strndup
-# define __strndup strndup
-#endif
-
 #ifndef _LIBC
 # if !HAVE_DECL_STRERROR
 char *strerror ();
