@@ -17,16 +17,16 @@
 # License along with Libgsasl; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-test_scripts = plain-client.sh
-test_programs = unicode
-
-EXTRA_DIST = $(test_scripts)
+test_programs = unicode simple
 
 check_PROGRAMS = $(test_programs)
 
-TESTS = $(test_programs) $(test_scripts)
+TESTS = $(test_programs)
 
 INCLUDES = -I$(top_srcdir)/lib
 LDADD = ../lib/libgsasl.la
 
 noinst_PROGRAMS = $(test_programs)
+
+indent:
+	indent $(SOURCES)
