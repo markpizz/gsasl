@@ -28,12 +28,16 @@
 extern char *readline (const char *prompt);
 #endif
 
+#include "iconvme.h"
+
 static char *
 locale_to_utf8 (char *str)
 {
+#if HAVE_LANGINFO_CODESET
   if (str)
     {
-      char *q = stringprep_locale_to_utf8 (str);
+      char *from = nl_langinfo (CODESET);
+      char *q = iconv_z (from, "UTF-8", str);
       if (!q)
 	fprintf (stderr, "warning: Could not convert string to UTF-8...\n");
       else
@@ -42,6 +46,7 @@ locale_to_utf8 (char *str)
 	  str = q;
 	}
     }
+#endif
 
   return str;
 }
