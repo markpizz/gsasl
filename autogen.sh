@@ -1,7 +1,7 @@
 #!/bin/sh
 set -x
-ACLOCAL=${ACLOCAL:-aclocal-1.6}; export ACLOCAL
-AUTOMAKE=${AUTOMAKE:-automake-1.6}; export AUTOMAKE
+ACLOCAL=${ACLOCAL:-aclocal}; export ACLOCAL
+AUTOMAKE=${AUTOMAKE:-automake}; export AUTOMAKE
 AUTOCONF=${AUTOCONF:-autoconf}; export AUTOCONF
 LIBTOOLIZE=${LIBTOOLIZE:-libtoolize}; export LIBTOOLIZE
 AUTOHEADER=${AUTOHEADER:-autoheader}; export AUTOHEADER
