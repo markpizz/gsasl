@@ -18,21 +18,47 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
+
 noinst_LTLIBRARIES = libgl.la
 
-libgl_la_SOURCES = dummy.c gettext.h \
-	strdup.h \
-	getpassword.h getpassword.c
-if !READLINE
-libgl_la_SOURCES += readline.c
-endif
+libgl_la_SOURCES =
 libgl_la_LIBADD = @LTLIBOBJS@
+EXTRA_DIST =
+BUILT_SOURCES =
+SUFFIXES =
+MOSTLYCLEANFILES =
+CLEANFILES =
+DISTCLEANFILES =
+MAINTAINERCLEANFILES =
+libgl_la_SOURCES += dummy.c
 
-BUILT_SOURCES = $(GETOPT_H)
-EXTRA_DIST = getopt_.h getopt_int.h
 
+libgl_la_SOURCES += exit.h
+
+
+libgl_la_SOURCES += fatal.h fatal.c
+
+BUILT_SOURCES += $(GETOPT_H)
+EXTRA_DIST += getopt_.h getopt_int.h
+
+# We need the following in order to create an <getopt.h> when the system
+# doesn't have one that works with the given compiler.
 all-local $(libgl_la_OBJECTS): $(GETOPT_H)
 getopt.h: getopt_.h
 	cp $(srcdir)/getopt_.h $@-t
 	mv $@-t $@
-MOSTLYCLEANFILES = getopt.h getopt.h-t
+MOSTLYCLEANFILES += getopt.h getopt.h-t
+
+libgl_la_SOURCES += gettext.h
+
+libgl_la_SOURCES += strdup.h
+
+libgl_la_SOURCES += unlocked-io.h
+
+# Local additions
+
+libgl_la_SOURCES += getpassword.h getpassword.c
+if !READLINE
+libgl_la_SOURCES += readline.c
+endif

@@ -1,4 +1,4 @@
-/* Declare a dummy symbol, to prevent empty libraries from breaking builds.
+/* A dummy file, to prevent empty libraries from breaking builds.
    Copyright (C) 2004 Simon Josefsson
 
    This program is free software; you can redistribute it and/or modify it
@@ -16,16 +16,15 @@
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
    USA.  */
 
-/*
- * Some systems, reportedly OpenBSD and Mac OS X, refuse to create
- * libraries without any symbols.  You might get an error like:
- *
- * > ar cru .libs/libgl.a
- * > ar: no archive members specified
- *
- * Defining a static symbol, as is done in this file, and adding the
- * file to the library, will prevent the library from being empty.
- *
- */
+/* Some systems, reportedly OpenBSD and Mac OS X, refuse to create
+   libraries without any object files.  You might get an error like:
 
-static char *to_prevent_empty_libraries;
+   > ar cru .libs/libgl.a
+   > ar: no archive members specified
+
+   Compiling this file, and adding its object file to the library, will
+   prevent the library from being empty.  */
+
+/* This declaration is solely to ensure that after preprocessing
+   this file is never empty.  */
+typedef int dummy;
