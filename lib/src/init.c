@@ -1,5 +1,5 @@
 /* init.c --- Entry point for libgsasl.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -87,17 +87,17 @@ register_builtin_mechs (Gsasl * ctx)
     return rc;
 #endif /* USE_NTLM */
 
-#ifdef USE_CRAM_MD5
-  rc = gsasl_register (ctx, &gsasl_cram_md5_mechanism);
-  if (rc != GSASL_OK)
-    return rc;
-#endif /* USE_CRAM_MD5 */
-
 #ifdef USE_DIGEST_MD5
   rc = gsasl_register (ctx, &gsasl_digest_md5_mechanism);
   if (rc != GSASL_OK)
     return rc;
 #endif /* USE_DIGEST_MD5 */
+
+#ifdef USE_CRAM_MD5
+  rc = gsasl_register (ctx, &gsasl_cram_md5_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_CRAM_MD5 */
 
 #ifdef USE_GSSAPI
   rc = gsasl_register (ctx, &gsasl_gssapi_mechanism);
