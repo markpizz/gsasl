@@ -18,12 +18,12 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-INCLUDES = -I../lib -I$(top_srcdir)/gl @LIBIDN_CFLAGS@
+INCLUDES = -I../lib -I$(top_srcdir)/gl
 
 bin_PROGRAMS = gsasl
 
 gsasl_SOURCES = gsasl.c callbacks.h callbacks.c internal.h
-gsasl_LDADD = ../lib/libgsasl.la @LIBIDN_LIBS@ ../gl/libfoo.la
+gsasl_LDADD = ../lib/libgsasl.la ../gl/libfoo.la
 
 localedir = $(datadir)/locale
 
