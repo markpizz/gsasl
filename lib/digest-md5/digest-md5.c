@@ -1218,7 +1218,7 @@ _gsasl_digest_md5_client_step (Gsasl_session_ctx * sctx,
 	  {
 	    char tmp[MAXBUF_MAX_DECIMAL_SIZE + 1];
 
-	    sprintf (&tmp, "%ld", maxbuf);
+	    sprintf (tmp, "%ld", maxbuf);
 
 	    if (outlen + strlen (MAXBUF_PRE) + strlen (tmp) +
 		strlen (MAXBUF_POST) >= *output_len)
@@ -1759,7 +1759,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 	{
 	  char tmp[MAXBUF_MAX_DECIMAL_SIZE + 1];
 
-	  sprintf (&tmp, "%ld", maxbuf);
+	  sprintf (tmp, "%ld", maxbuf);
 
 	  if (outlen + strlen (MAXBUF_PRE) + strlen (tmp) +
 	      strlen (MAXBUF_POST) >= *output_len)
