@@ -19,7 +19,7 @@
 
 gsasl_texi_auto_deps = gsasl-api-version.texi gsasl-api-global.texi \
 	gsasl-api-session.texi gsasl-api-callback.texi gsasl-api-utils.texi \
-	gsasl-api-error.texi
+	gsasl-api-error.texi gsasl-api-error-labels.texi
 
 # gsasl.xml gsasl-db.txt gsasl-db.html gsasl-db.ps gsasl-db.pdf
 
@@ -33,7 +33,7 @@ MAINTAINERCLEANFILES = $(generated)
 
 DISTCLEANFILES = $(man_MANS)
 
-EXTRA_DIST = gdoc gsasl-example1.c $(man_MANS) $(generated)
+EXTRA_DIST = gdoc gdoc-error gsasl-example1.c $(man_MANS) $(generated)
 
 info_TEXINFOS = gsasl.texi
 gsasl_TEXINFOS = lgpl.texi gpl.texi fdl.texi $(gsasl_texi_auto_deps) \
@@ -65,6 +65,8 @@ gsasl_api_utils_deps = $(top_srcdir)/lib/base64.c \
 
 gsasl_api_error_deps = $(top_srcdir)/lib/error.c
 
+gsasl_api_error_label_deps = $(gsasl_api_error_deps)
+
 gsasl-api-global.texi: $(gsasl_api_global_deps)
 	$(PERL) $(srcdir)/gdoc -texinfo $^ > $@
 
@@ -82,6 +84,9 @@ gsasl-api-utils.texi: $(gsasl_api_utils_deps)
 
 gsasl-api-error.texi: $(gsasl_api_error_deps)
 	$(PERL) $(srcdir)/gdoc -texinfo $^ > $@
+
+gsasl-api-error-labels.texi: $(gsasl_api_error_label_deps)
+	$(PERL) $(srcdir)/gdoc-error $^ > $@
 
 # Man page:
 
