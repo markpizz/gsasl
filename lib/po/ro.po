@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libgsasl 0.1.0\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-08-26 16:53+0200\n"
+"POT-Creation-Date: 2004-04-16 21:12+0200\n"
 "PO-Revision-Date: 2004-04-18 12:00-0500\n"
 "Last-Translator: Laurentiu Buzdugan <lbuz@rolix.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -59,217 +59,108 @@ msgid "Gcrypt error in SASL library"
 msgstr "Eroare gcrypt în biblioteca SASL"
 
 #: src/error.c:90
-msgid ""
-"GSSAPI library could not deallocate memory in gss_release_buffer() in SASL "
-"library.  This is a serious internal error."
-msgstr ""
-"Biblioteca GSSAPI nu a putut dealoca memorie în gss_release_buffer() în "
-"biblioteca SASL.  Aceasta este o eroare internã serioasã."
+msgid "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL library.  This is a serious internal error."
+msgstr "Biblioteca GSSAPI nu a putut dealoca memorie în gss_release_buffer() în biblioteca SASL.  Aceasta este o eroare internã serioasã."
 
 #: src/error.c:98
-msgid ""
-"GSSAPI library could not understand a peer name in gss_import_name() in SASL "
-"library.  This may be due to incorrect user supplied data."
-msgstr ""
-"Biblioteca GSSAPI nu a putut înþelege un nume pereche în gss_import_name() "
-"în biblioteca SASL.  Aceasta ar putea fi cauzatã de furnizarea de date "
-"incorecte de cãtre utilizator."
+msgid "GSSAPI library could not understand a peer name in gss_import_name() in SASL library.  This may be due to incorrect user supplied data."
+msgstr "Biblioteca GSSAPI nu a putut înþelege un nume pereche în gss_import_name() în biblioteca SASL.  Aceasta ar putea fi cauzatã de furnizarea de date incorecte de cãtre utilizator."
 
 #: src/error.c:106
-msgid ""
-"GSSAPI error in client while negotiating security context in "
-"gss_init_sec_context() in SASL library.  This is most likely due "
-"insufficient credentials or malicious interactions."
-msgstr ""
-"Eroare GSSAPI în client în timpul negocierii contextului de securitate în "
-"gss_init_sec_context() în biblioteca SASL.  Aceasta se datoreazã cel mai "
-"probabil datelor de acreditare insuficiente sau interacþiunii rãuvoitoare."
+msgid "GSSAPI error in client while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgstr "Eroare GSSAPI în client în timpul negocierii contextului de securitate în gss_init_sec_context() în biblioteca SASL.  Aceasta se datoreazã cel mai probabil datelor de acreditare insuficiente sau interacþiunii rãuvoitoare."
 
 #: src/error.c:114
-msgid ""
-"GSSAPI error in server while negotiating security context in "
-"gss_init_sec_context() in SASL library.  This is most likely due "
-"insufficient credentials or malicious interactions."
-msgstr ""
-"Eroare GSSAPI în server în timpul negocierii contextului de securitate în "
-"gss_init_sec_context() în biblioteca SASL.  Aceasta se datoreazã cel mai "
-"probabil datelor de acreditare insuficiente sau interacþiunii rãuvoitoare."
+msgid "GSSAPI error in server while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgstr "Eroare GSSAPI în server în timpul negocierii contextului de securitate în gss_init_sec_context() în biblioteca SASL.  Aceasta se datoreazã cel mai probabil datelor de acreditare insuficiente sau interacþiunii rãuvoitoare."
 
 #: src/error.c:122
-msgid ""
-"GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL "
-"library.  This is most likely due to data corruption."
-msgstr ""
-"Eroare GSSAPI în timpul decriptãrii sai decodãrii datelor în gss_unwrap() în "
-"biblioteca SASL.  Aceasta se datoreazã cel mai probabil corupþiei datelor."
+msgid "GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL library.  This is most likely due to data corruption."
+msgstr "Eroare GSSAPI în timpul decriptãrii sai decodãrii datelor în gss_unwrap() în biblioteca SASL.  Aceasta se datoreazã cel mai probabil corupþiei datelor."
 
 #: src/error.c:130
-msgid ""
-"GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
-msgstr ""
-"Eroare GSSAPI în timpul cifrãrii sau codãrii datelor în biblioteca SASL."
+msgid "GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
+msgstr "Eroare GSSAPI în timpul cifrãrii sau codãrii datelor în biblioteca SASL."
 
 #: src/error.c:137
-msgid ""
-"GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  "
-"This is most likely due to not having the proper Kerberos key available in /"
-"etc/krb5.keytab on the server."
-msgstr ""
-"Eroare GSSAPI la achiziþionare datelor de acreditare în gss_acquire_cred() "
-"în biblioteca SASL.  Cauza cea mai probabilã este absenþa cheii Kerberos "
-"corespunzãtoare în /etc/krb5.keytab pe server."
+msgid "GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  This is most likely due to not having the proper Kerberos key available in /etc/krb5.keytab on the server."
+msgstr "Eroare GSSAPI la achiziþionare datelor de acreditare în gss_acquire_cred() în biblioteca SASL.  Cauza cea mai probabilã este absenþa cheii Kerberos corespunzãtoare în /etc/krb5.keytab pe server."
 
 #: src/error.c:146
-msgid ""
-"GSSAPI error creating a display name denoting the client in gss_display_name"
-"() in SASL library.  This is probably because the client suplied bad data."
-msgstr ""
-"Eroare GSSAPI la crearea numelui de afiºat denotând clientul în "
-"gss_display_name() în biblioteca SASL.  Probabil cã aceasta se datoreazã "
-"faptului cã clientul a furinzat date incorecte."
+msgid "GSSAPI error creating a display name denoting the client in gss_display_name() in SASL library.  This is probably because the client suplied bad data."
+msgstr "Eroare GSSAPI la crearea numelui de afiºat denotând clientul în gss_display_name() în biblioteca SASL.  Probabil cã aceasta se datoreazã faptului cã clientul a furinzat date incorecte."
 
 #: src/error.c:154
-msgid ""
-"Other entity requested integrity or confidentiality protection in GSSAPI "
-"mechanism but this is currently not implemented."
-msgstr ""
-"O altã entitate a cerut protecþia confidenþialitãþii sau integritaþii în "
-"mecanismul GSSAPI dar aceasta nu este implementatã deocamdatã."
+msgid "Other entity requested integrity or confidentiality protection in GSSAPI mechanism but this is currently not implemented."
+msgstr "O altã entitate a cerut protecþia confidenþialitãþii sau integritaþii în mecanismul GSSAPI dar aceasta nu este implementatã deocamdatã."
 
 #: src/error.c:161
-msgid ""
-"SASL mechanism needs gsasl_client_callback_anonymous() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_anonymous() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_client_callback_anonymous() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_anonymous() (eroare aplicaþie)"
 
 #: src/error.c:168
-msgid ""
-"SASL mechanism needs gsasl_client_callback_password() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_password() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_client_callback_password() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_password() (eroare aplicaþie)"
 
 #: src/error.c:175
-msgid ""
-"SASL mechanism needs gsasl_client_callback_passcode() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_passcode() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_client_callback_passcode() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_passcode() (eroare aplicaþie)"
 
 #: src/error.c:182
-msgid ""
-"SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_pin() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_pin() (eroare aplicaþie)"
 
 #: src/error.c:189
-msgid ""
-"SASL mechanism needs gsasl_client_callback_authorization_id() callback "
-"(application error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul "
-"gsasl_client_callback_authorization_id() (eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_client_callback_authorization_id() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_authorization_id() (eroare aplicaþie)"
 
 #: src/error.c:196
-msgid ""
-"SASL mechanism needs gsasl_client_callback_authentication_id() callback "
-"(application error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul "
-"gsasl_client_callback_authentication_id() (eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_client_callback_authentication_id() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_authentication_id() (eroare aplicaþie)"
 
 #: src/error.c:203
-msgid ""
-"SASL mechanism needs gsasl_client_callback_service() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_service() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_client_callback_service() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_client_callback_service() (eroare aplicaþie)"
 
 #: src/error.c:210
-msgid ""
-"SASL mechanism needs gsasl_server_callback_validate() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_validate() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_server_callback_validate() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_validate() (eroare aplicaþie)"
 
 #: src/error.c:217
-msgid ""
-"SASL mechanism needs gsasl_server_callback_cram_md5() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_cram_md5() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_server_callback_cram_md5() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_cram_md5() (eroare aplicaþie)"
 
 #: src/error.c:224
-msgid ""
-"SASL mechanism needs gsasl_server_callback_digest_md5() callback "
-"(application error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_digest_md5() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_server_callback_digest_md5() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_digest_md5() (eroare aplicaþie)"
 
 #: src/error.c:231
-msgid ""
-"SASL mechanism needs gsasl_server_callback_anonymous() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_anonymous() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_server_callback_anonymous() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_anonymous() (eroare aplicaþie)"
 
 #: src/error.c:238
-msgid ""
-"SASL mechanism needs gsasl_server_callback_external() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_external() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_server_callback_external() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_external() (eroare aplicaþie)"
 
 #: src/error.c:245
-msgid ""
-"SASL mechanism needs gsasl_server_callback_realm() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_realm() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_server_callback_realm() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_realm() (eroare aplicaþie)"
 
 #: src/error.c:252
-msgid ""
-"SASL mechanism needs gsasl_server_callback_securid() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_securid() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_server_callback_securid() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_securid() (eroare aplicaþie)"
 
 #: src/error.c:259
-msgid ""
-"SASL mechanism needs gsasl_server_callback_service() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_service() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_server_callback_service() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_service() (eroare aplicaþie)"
 
 #: src/error.c:266
-msgid ""
-"SASL mechanism needs gsasl_server_callback_gssapi() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_gssapi() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_server_callback_gssapi() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_gssapi() (eroare aplicaþie)"
 
 #: src/error.c:271
-msgid ""
-"SASL mechanism needs gsasl_server_callback_retrieve() callback (application "
-"error)"
-msgstr ""
-"Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_retrieve() "
-"(eroare aplicaþie)"
+msgid "SASL mechanism needs gsasl_server_callback_retrieve() callback (application error)"
+msgstr "Mecanismul SASL are nevoie de callback-ul gsasl_server_callback_retrieve() (eroare aplicaþie)"
 
 #: src/error.c:276
 msgid "SASL mechanism could not parse input"
@@ -293,15 +184,11 @@ msgstr "Nici un alt realm disponibil (non-fatal)"
 
 #: src/error.c:296
 msgid "Client-side functionality not available in library (application error)"
-msgstr ""
-"Funcþionalitate de partea clientului nu este disponibilã în bibliotecã "
-"(eroare aplicaþie)"
+msgstr "Funcþionalitate de partea clientului nu este disponibilã în bibliotecã (eroare aplicaþie)"
 
 #: src/error.c:301
 msgid "Server-side functionality not available in library (application error)"
-msgstr ""
-"Funcþionalitate de partea serverului nu este disponibilã în bibliotecã "
-"(eroare aplicaþie)"
+msgstr "Funcþionalitate de partea serverului nu este disponibilã în bibliotecã (eroare aplicaþie)"
 
 #: src/error.c:306
 msgid "The provided library handle was invalid (application error)"
