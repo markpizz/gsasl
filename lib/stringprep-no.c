@@ -56,9 +56,10 @@ no_stringprep (const char *in, int *stringprep_rc)
   if (out)
     {
       strcpy (out, in);
-      *stringprep_rc = 1;
+      if (stringprep_rc)
+	*stringprep_rc = 1;
     }
-  else
+  else if (stringprep_rc)
     *stringprep_rc = 0;
 
   return out;
