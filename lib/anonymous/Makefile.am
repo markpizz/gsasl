@@ -24,10 +24,10 @@ noinst_LTLIBRARIES = libgsasl-anonymous.la
 libgsasl_anonymous_la_SOURCES = anonymous.h
 
 if CLIENT
-libgsasl_cram_md5_la_SOURCES += client.c
+libgsasl_anonymous_la_SOURCES += client.c
 endif
 
 if SERVER
-libgsasl_cram_md5_la_SOURCES += server.c
+libgsasl_anonymous_la_SOURCES += server.c
 endif
 
