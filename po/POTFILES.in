@@ -1,5 +1,4 @@
 # List of source files containing translatable strings for libgsasl.
-# Copyright (c) 2002 by Simon Josefsson
+# Copyright (c) 2002, 2003 by Simon Josefsson
 
 lib/error.c
-lib/hexdump.c
