@@ -1,6 +1,7 @@
 Makefile
 Makefile.gdoc
 Makefile.in
+abstraction.pdf
 controlflow.pdf
 controlflow2.pdf
 gsasl-api-callback.texi
