@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.        -*- outline -*-
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
-* Changes in 0.1.2 (unreleased)
+* Changes in 0.1.2 (released 2004-07-16)
 
 ** Cross compile builds should work.
 It should work for any sane cross compile target, but the only tested
