@@ -24,16 +24,11 @@ ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
 # Maintainer targets
 
+.PHONY: ChangeLog
 ChangeLog:
-	test ! -f .cvsusers || \
-	(cvs2cl --fsf --FSF --usermap .cvsusers -I ChangeLog -I .cvs \
-	-I autogen.sh -I doc/specification -I lib/ && \
-	cat .cvscopying >> ChangeLog)
-
-indent:
-	(cd lib && make indent)
-	(cd src && make indent)
-	(cd tests && make indent)
+	cvs2cl --fsf --FSF --usermap ../.cvsusers -I ChangeLog -I .cvs \
+		-I autogen.sh -I doc/specification -I lib/
+	cat ../.cvscopying >> ChangeLog
 
 htmldir = ../www-$(PACKAGE)
 tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
