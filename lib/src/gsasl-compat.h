@@ -55,11 +55,141 @@ enum
 
 typedef Gsasl Gsasl_ctx __attribute__ ((deprecated));
 typedef Gsasl_session Gsasl_session_ctx __attribute__ ((deprecated));
+extern int gsasl_client_listmech (Gsasl * ctx, char *out,
+				  size_t * outlen)
+  __attribute__ ((deprecated));
+extern int gsasl_server_listmech (Gsasl * ctx, char *out, size_t * outlen)
+  __attribute__ ((deprecated));
+extern int gsasl_client_step (Gsasl_session * sctx, const char *input,
+			      size_t input_len, char *output,
+			      size_t * output_len)
+  __attribute__ ((deprecated));
+extern int gsasl_client_step_base64 (Gsasl_session * sctx,
+				     const char *b64input, char *b64output,
+				     size_t b64output_len)
+  __attribute__ ((deprecated));
+extern int gsasl_server_step (Gsasl_session * sctx, const char *input,
+			      size_t input_len, char *output,
+			      size_t * output_len)
+  __attribute__ ((deprecated));
+extern int gsasl_server_step_base64 (Gsasl_session * sctx,
+				     const char *b64input, char *b64output,
+				     size_t b64output_len)
+  __attribute__ ((deprecated));
+extern void gsasl_client_finish (Gsasl_session * sctx)
+  __attribute__ ((deprecated));
+extern void gsasl_server_finish (Gsasl_session * sctx)
+  __attribute__ ((deprecated));
+extern Gsasl *gsasl_client_ctx_get (Gsasl_session * sctx)
+  __attribute__ ((deprecated));
+extern Gsasl *gsasl_server_ctx_get (Gsasl_session * sctx)
+  __attribute__ ((deprecated));
+extern void gsasl_client_application_data_set (Gsasl_session * sctx,
+					       void *application_data)
+  __attribute__ ((deprecated));
+extern void *gsasl_client_application_data_get (Gsasl_session * sctx)
+  __attribute__ ((deprecated));
+extern void gsasl_server_application_data_set (Gsasl_session * sctx,
+					       void *application_data)
+  __attribute__ ((deprecated));
+extern void *gsasl_server_application_data_get (Gsasl_session * sctx)
+  __attribute__ ((deprecated));
+extern int gsasl_randomize (int strong, char *data, size_t datalen)
+  __attribute__ ((deprecated));
+extern Gsasl *gsasl_ctx_get (Gsasl_session * sctx)
+  __attribute__ ((deprecated));
+extern int gsasl_encode_inline (Gsasl_session * sctx, const char *input,
+				size_t input_len, char *output,
+				size_t * output_len)
+  __attribute__ ((deprecated));
+extern int gsasl_decode_inline (Gsasl_session * sctx, const char *input,
+				size_t input_len, char *output,
+				size_t * output_len)
+  __attribute__ ((deprecated));
+extern void gsasl_application_data_set (Gsasl * ctx, void *appdata)
+  __attribute__ ((deprecated));
+extern void *gsasl_application_data_get (Gsasl * ctx)
+  __attribute__ ((deprecated));
+extern void gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
+  __attribute__ ((deprecated));
+extern void *gsasl_appinfo_get (Gsasl_session * sctx)
+  __attribute__ ((deprecated));
+extern const char *gsasl_server_suggest_mechanism (Gsasl * ctx,
+						   const char *mechlist)
+  __attribute__ ((deprecated));
+
+/* Callback prototypes */
+typedef int (*Gsasl_client_callback_anonymous) (Gsasl_session * sctx,
+						char *out, size_t * outlen);
+typedef int (*Gsasl_client_callback_authentication_id) (Gsasl_session * sctx,
+							char *out,
+							size_t * outlen);
+typedef int (*Gsasl_client_callback_authorization_id) (Gsasl_session * sctx,
+						       char *out,
+						       size_t * outlen);
+typedef int (*Gsasl_client_callback_password) (Gsasl_session * sctx,
+					       char *out, size_t * outlen);
+typedef int (*Gsasl_client_callback_passcode) (Gsasl_session * sctx,
+					       char *out, size_t * outlen);
+typedef int (*Gsasl_client_callback_pin) (Gsasl_session * sctx,
+					  char *suggestion, char *out,
+					  size_t * outlen);
+typedef int (*Gsasl_client_callback_service) (Gsasl_session * sctx,
+					      char *service,
+					      size_t * servicelen,
+					      char *hostname,
+					      size_t * hostnamelen,
+					      char *servicename,
+					      size_t * servicenamelen);
+typedef Gsasl_qop (*Gsasl_client_callback_qop) (Gsasl_session * sctx,
+						Gsasl_qop serverqops);
+typedef size_t (*Gsasl_client_callback_maxbuf) (Gsasl_session * sctx,
+						size_t servermaxbuf);
+typedef int (*Gsasl_client_callback_realm) (Gsasl_session * sctx, char *out,
+					    size_t * outlen);
+typedef int (*Gsasl_server_callback_retrieve) (Gsasl_session * sctx,
+					       const char *authentication_id,
+					       const char *authorization_id,
+					       const char *realm, char *key,
+					       size_t * keylen);
+typedef int (*Gsasl_server_callback_validate) (Gsasl_session * sctx,
+					       const char *authorization_id,
+					       const char *authentication_id,
+					       const char *password);
+typedef int (*Gsasl_server_callback_gssapi) (Gsasl_session * sctx,
+					     const char *clientname,
+					     const char *authentication_id);
+typedef int (*Gsasl_server_callback_securid) (Gsasl_session * sctx,
+					      const char *authentication_id,
+					      const char *authorization_id,
+					      const char *passcode, char *pin,
+					      char *suggestpin,
+					      size_t * suggestpinlen);
+typedef int (*Gsasl_server_callback_cram_md5) (Gsasl_session * sctx,
+					       char *username,
+					       char *challenge,
+					       char *response);
+typedef int (*Gsasl_server_callback_digest_md5) (Gsasl_session * sctx,
+						 char *username, char *realm,
+						 char *secrethash);
+typedef int (*Gsasl_server_callback_service) (Gsasl_session * sctx,
+					      char *service,
+					      size_t * servicelen,
+					      char *hostname,
+					      size_t * hostnamelen);
+typedef int (*Gsasl_server_callback_external) (Gsasl_session * sctx);
+typedef int (*Gsasl_server_callback_anonymous) (Gsasl_session * sctx,
+						const char *token);
+typedef int (*Gsasl_server_callback_realm) (Gsasl_session * sctx, char *out,
+					    size_t * outlen, size_t nth);
+typedef Gsasl_qop (*Gsasl_server_callback_qop) (Gsasl_session * sctx);
+typedef size_t (*Gsasl_server_callback_maxbuf) (Gsasl_session * sctx);
+typedef Gsasl_cipher (*Gsasl_server_callback_cipher) (Gsasl_session * sctx);
 
 /* Obsolete client callbacks: callback-c.c */
 extern void
-gsasl_client_callback_authorization_id_set
-(Gsasl * ctx, Gsasl_client_callback_authorization_id cb)
+  gsasl_client_callback_authorization_id_set
+  (Gsasl * ctx, Gsasl_client_callback_authorization_id cb)
   __attribute__ ((deprecated));
 extern Gsasl_client_callback_authorization_id
 gsasl_client_callback_authorization_id_get (Gsasl * ctx)
@@ -226,136 +356,5 @@ __attribute__ ((deprecated));
 extern Gsasl_server_callback_service gsasl_server_callback_service_get (Gsasl
 									* ctx)
   __attribute__ ((deprecated));
-
-extern int gsasl_client_listmech (Gsasl * ctx, char *out,
-				  size_t * outlen)
-  __attribute__ ((deprecated));
-extern int gsasl_server_listmech (Gsasl * ctx, char *out, size_t * outlen)
-  __attribute__ ((deprecated));
-extern int gsasl_client_step (Gsasl_session * sctx, const char *input,
-			      size_t input_len, char *output,
-			      size_t * output_len)
-  __attribute__ ((deprecated));
-extern int gsasl_client_step_base64 (Gsasl_session * sctx,
-				     const char *b64input, char *b64output,
-				     size_t b64output_len)
-  __attribute__ ((deprecated));
-extern int gsasl_server_step (Gsasl_session * sctx, const char *input,
-			      size_t input_len, char *output,
-			      size_t * output_len)
-  __attribute__ ((deprecated));
-extern int gsasl_server_step_base64 (Gsasl_session * sctx,
-				     const char *b64input, char *b64output,
-				     size_t b64output_len)
-  __attribute__ ((deprecated));
-extern void gsasl_client_finish (Gsasl_session * sctx)
-  __attribute__ ((deprecated));
-extern void gsasl_server_finish (Gsasl_session * sctx)
-  __attribute__ ((deprecated));
-extern Gsasl *gsasl_client_ctx_get (Gsasl_session * sctx)
-  __attribute__ ((deprecated));
-extern Gsasl *gsasl_server_ctx_get (Gsasl_session * sctx)
-  __attribute__ ((deprecated));
-extern void gsasl_client_application_data_set (Gsasl_session * sctx,
-					       void *application_data)
-  __attribute__ ((deprecated));
-extern void *gsasl_client_application_data_get (Gsasl_session * sctx)
-  __attribute__ ((deprecated));
-extern void gsasl_server_application_data_set (Gsasl_session * sctx,
-					       void *application_data)
-  __attribute__ ((deprecated));
-extern void *gsasl_server_application_data_get (Gsasl_session * sctx)
-  __attribute__ ((deprecated));
-extern int gsasl_randomize (int strong, char *data, size_t datalen)
-  __attribute__ ((deprecated));
-extern Gsasl *gsasl_ctx_get (Gsasl_session * sctx)
-  __attribute__ ((deprecated));
-extern int gsasl_encode_inline (Gsasl_session * sctx, const char *input,
-				size_t input_len, char *output,
-				size_t * output_len)
-  __attribute__ ((deprecated));
-extern int gsasl_decode_inline (Gsasl_session * sctx, const char *input,
-				size_t input_len, char *output,
-				size_t * output_len)
-  __attribute__ ((deprecated));
-extern void gsasl_application_data_set (Gsasl * ctx, void *appdata)
-  __attribute__ ((deprecated));
-extern void *gsasl_application_data_get (Gsasl * ctx)
-  __attribute__ ((deprecated));
-extern void gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
-  __attribute__ ((deprecated));
-extern void *gsasl_appinfo_get (Gsasl_session * sctx)
-  __attribute__ ((deprecated));
-extern const char *gsasl_server_suggest_mechanism (Gsasl * ctx,
-						   const char *mechlist)
-  __attribute__ ((deprecated));
-
-/* Callback prototypes */
-typedef int (*Gsasl_client_callback_anonymous) (Gsasl_session * sctx,
-						char *out, size_t * outlen);
-typedef int (*Gsasl_client_callback_authentication_id) (Gsasl_session * sctx,
-							char *out,
-							size_t * outlen);
-typedef int (*Gsasl_client_callback_authorization_id) (Gsasl_session * sctx,
-						       char *out,
-						       size_t * outlen);
-typedef int (*Gsasl_client_callback_password) (Gsasl_session * sctx,
-					       char *out, size_t * outlen);
-typedef int (*Gsasl_client_callback_passcode) (Gsasl_session * sctx,
-					       char *out, size_t * outlen);
-typedef int (*Gsasl_client_callback_pin) (Gsasl_session * sctx,
-					  char *suggestion, char *out,
-					  size_t * outlen);
-typedef int (*Gsasl_client_callback_service) (Gsasl_session * sctx,
-					      char *service,
-					      size_t * servicelen,
-					      char *hostname,
-					      size_t * hostnamelen,
-					      char *servicename,
-					      size_t * servicenamelen);
-typedef Gsasl_qop (*Gsasl_client_callback_qop) (Gsasl_session * sctx,
-						Gsasl_qop serverqops);
-typedef size_t (*Gsasl_client_callback_maxbuf) (Gsasl_session * sctx,
-						size_t servermaxbuf);
-typedef int (*Gsasl_client_callback_realm) (Gsasl_session * sctx, char *out,
-					    size_t * outlen);
-typedef int (*Gsasl_server_callback_retrieve) (Gsasl_session * sctx,
-					       const char *authentication_id,
-					       const char *authorization_id,
-					       const char *realm, char *key,
-					       size_t * keylen);
-typedef int (*Gsasl_server_callback_validate) (Gsasl_session * sctx,
-					       const char *authorization_id,
-					       const char *authentication_id,
-					       const char *password);
-typedef int (*Gsasl_server_callback_gssapi) (Gsasl_session * sctx,
-					     const char *clientname,
-					     const char *authentication_id);
-typedef int (*Gsasl_server_callback_securid) (Gsasl_session * sctx,
-					      const char *authentication_id,
-					      const char *authorization_id,
-					      const char *passcode, char *pin,
-					      char *suggestpin,
-					      size_t * suggestpinlen);
-typedef int (*Gsasl_server_callback_cram_md5) (Gsasl_session * sctx,
-					       char *username,
-					       char *challenge,
-					       char *response);
-typedef int (*Gsasl_server_callback_digest_md5) (Gsasl_session * sctx,
-						 char *username, char *realm,
-						 char *secrethash);
-typedef int (*Gsasl_server_callback_service) (Gsasl_session * sctx,
-					      char *service,
-					      size_t * servicelen,
-					      char *hostname,
-					      size_t * hostnamelen);
-typedef int (*Gsasl_server_callback_external) (Gsasl_session * sctx);
-typedef int (*Gsasl_server_callback_anonymous) (Gsasl_session * sctx,
-						const char *token);
-typedef int (*Gsasl_server_callback_realm) (Gsasl_session * sctx, char *out,
-					    size_t * outlen, size_t nth);
-typedef Gsasl_qop (*Gsasl_server_callback_qop) (Gsasl_session * sctx);
-typedef size_t (*Gsasl_server_callback_maxbuf) (Gsasl_session * sctx);
-typedef Gsasl_cipher (*Gsasl_server_callback_cipher) (Gsasl_session * sctx);
 
 #endif /* GSASL_COMPAT_H */
