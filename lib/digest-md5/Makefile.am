@@ -40,5 +40,5 @@ if SERVER
 libgsasl_digest_md5_la_SOURCES += server.c
 endif
 
-LDADD = libgsasl-digest_md5.la ../crypto/libgc.la
+LDADD = libgsasl-digest_md5.la ../gl/libgl.la ../crypto/libgc.la
 check_PROGRAMS = test-parser
