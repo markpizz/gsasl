@@ -643,7 +643,7 @@ this is done by calling @code{gsasl_done}.  For example:
 int
 main (int argc, char *argv[])
 @{
-  Gsasl_ctx *ctx = NULL;
+  Gsasl *ctx = NULL;
   int rc;
 ...
   rc = gsasl_init (&ctx);
@@ -665,7 +665,7 @@ set the current locale using @code{setlocale} before calling
 int
 main (int argc, char *argv[])
 @{
-  Gsasl_ctx *ctx = NULL;
+  Gsasl *ctx = NULL;
   int rc;
 ...
   setlocale (LC_ALL, "");
@@ -694,7 +694,7 @@ information.  Example code to initialize secure memory in your code:
 int
 main (int argc, char *argv[])
 @{
-  Gsasl_ctx *ctx = NULL;
+  Gsasl *ctx = NULL;
   int rc;
 ...
   /* Check version of libgcrypt. */
