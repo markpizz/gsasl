@@ -22,7 +22,7 @@ if ENABLE_GTK_DOC
 SUBDIRS = reference
 endif
 
-EXTRA_DIST = gdoc gdoc-error gsasl-example1.c \
+EXTRA_DIST = gdoc gdoc-error \
 	gsasl.html gsasl.ps gsasl.pdf texinfo.css \
 	doxygen/Doxyfile.in doxygen/gdoc2doxygen
 
