@@ -35,6 +35,7 @@ ACLOCAL_AMFLAGS = -I m4 -I argp
 
 .PHONY: ChangeLog
 ChangeLog:
+	test ! -f .cvsusers || \
 	cvs2cl --fsf --usermap .cvsusers --separate-header -I \
     "ChangeLog|.cvsignore|.cvsusers|autogen.sh|doc/specification|libstringprep"
 
