@@ -223,8 +223,8 @@ typedef int (*Gsasl_server_callback_validate) (Gsasl_session_ctx *ctx,
 					       const char *authentication_id,
 					       const char *password);
 typedef int (*Gsasl_server_callback_gssapi) (Gsasl_session_ctx *ctx, 
-					     char *clientname,
-					     char *authentication_id);
+					     const char *clientname,
+					     const char *authentication_id);
 typedef int (*Gsasl_server_callback_securid) (Gsasl_session_ctx *ctx, 
 					      const char *authentication_id,
 					      const char *authorization_id,
