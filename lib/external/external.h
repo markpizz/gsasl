@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef _EXTERNAL_H
-#define _EXTERNAL_H
+#ifndef EXTERNAL_H
+#define EXTERNAL_H
 
 #include "internal.h"
 
@@ -33,8 +33,6 @@ extern int _gsasl_external_client_step (Gsasl_session_ctx * sctx,
 					void *mech_data,
 					const char *input, size_t input_len,
 					char **output, size_t * output_len);
-extern int _gsasl_external_client_finish (Gsasl_session_ctx * sctx,
-					  void *mech_data);
 
 extern int _gsasl_external_server_start (Gsasl_session_ctx * sctx,
 					 void **mech_data);
@@ -42,7 +40,5 @@ extern int _gsasl_external_server_step (Gsasl_session_ctx * sctx,
 					void *mech_data,
 					const char *input, size_t input_len,
 					char **output, size_t * output_len);
-extern int _gsasl_external_server_finish (Gsasl_session_ctx * sctx,
-					  void *mech_data);
 
-#endif /* _EXTERNAL_H */
+#endif /* EXTERNAL_H */
