@@ -36,8 +36,9 @@ ACLOCAL_AMFLAGS = -I m4 -I argp
 .PHONY: ChangeLog
 ChangeLog:
 	test ! -f .cvsusers || \
-	cvs2cl --FSF --usermap .cvsusers \
-		-I "ChangeLog|.cvs|autogen.sh|doc/specification|libstringprep"
+	(cvs2cl --FSF --usermap .cvsusers \
+	-I "ChangeLog|.cvs|autogen.sh|doc/specification|libstringprep" && \
+	cat .cvscopying >> ChangeLog)
 
 indent:
 	(cd lib && make indent)
