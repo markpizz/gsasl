@@ -47,6 +47,7 @@ AM_MISSING_PROG(DOCBOOK2TXT, docbook2txt, $missing_dir)
 AM_MISSING_PROG(DOCBOOK2HTML, docbook2html, $missing_dir)
 AM_MISSING_PROG(DOCBOOK2PS, docbook2ps, $missing_dir)
 AM_MISSING_PROG(DOCBOOK2PDF, docbook2pdf, $missing_dir)
+AM_WITH_DMALLOC
 
 # ANONYMOUS
 AC_ARG_ENABLE(anonymous,
