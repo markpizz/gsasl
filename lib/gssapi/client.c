@@ -98,12 +98,12 @@ _gsasl_gssapi_client_step (Gsasl_session * sctx,
     {
       const char *service, *hostname;
 
-      service = gsasl_property_get (sctx, GSASL_CLIENT_SERVICE);
+      service = gsasl_property_get (sctx, GSASL_SERVICE);
       if (!service)
 	return GSASL_NO_SERVICE;
 
-      hostname = gsasl_property_get (sctx, GSASL_CLIENT_HOSTNAME);
-      if (!service)
+      hostname = gsasl_property_get (sctx, GSASL_HOSTNAME);
+      if (!hostname)
 	return GSASL_NO_HOSTNAME;
 
       /* FIXME: Use asprintf. */

@@ -35,6 +35,14 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->anonymous_token;
       break;
 
+    case GSASL_SERVICE:
+      p = &sctx->service;
+      break;
+
+    case GSASL_HOSTNAME:
+      p = &sctx->hostname;
+      break;
+
     case GSASL_AUTHID:
       p = &sctx->authid;
       break;
@@ -78,6 +86,14 @@ map_global (Gsasl * ctx, Gsasl_property prop)
     {
     case GSASL_ANONYMOUS_TOKEN:
       p = &ctx->anonymous_token;
+      break;
+
+    case GSASL_SERVICE:
+      p = &ctx->service;
+      break;
+
+    case GSASL_HOSTNAME:
+      p = &ctx->hostname;
       break;
 
     case GSASL_AUTHID:
@@ -276,6 +292,7 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
       Gsasl_client_callback_password cb_password;
       Gsasl_client_callback_passcode cb_passcode;
       Gsasl_client_callback_pin cb_pin;
+      Gsasl_client_callback_service cb_service;
       char buf[BUFSIZ];
       size_t buflen = BUFSIZ - 1;
       int res;
@@ -285,6 +302,28 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 
       switch (prop)
 	{
+	case GSASL_SERVICE:
+	  cb_service = gsasl_client_callback_service_get (sctx->ctx);
+	  if (!cb_service)
+	    break;
+	  res = cb_service (sctx, buf, &buflen, NULL, 0, NULL, 0);
+	  if (res != GSASL_OK)
+	    break;
+	  buf[buflen] = '\0';
+	  gsasl_property_set (sctx, prop, buf);
+	  break;
+
+	case GSASL_HOSTNAME:
+	  cb_service = gsasl_client_callback_service_get (sctx->ctx);
+	  if (!cb_service)
+	    break;
+	  res = cb_service (sctx, NULL, 0, buf, &buflen, NULL, 0);
+	  if (res != GSASL_OK)
+	    break;
+	  buf[buflen] = '\0';
+	  gsasl_property_set (sctx, prop, buf);
+	  break;
+
 	case GSASL_ANONYMOUS_TOKEN:
 	  cb_anonymous = gsasl_client_callback_anonymous_get (sctx->ctx);
 	  if (!cb_anonymous)
