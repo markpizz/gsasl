@@ -1,6 +1,6 @@
 # getline.m4 serial 10
 
-dnl Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004 Free Software
+dnl Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003 Free Software
 dnl Foundation, Inc.
 
 dnl This file is free software, distributed under the terms of the GNU
@@ -67,19 +67,6 @@ AC_DEFUN([AM_FUNC_GETLINE],
     gl_PREREQ_GETLINE
     gl_PREREQ_GETNDELIM2
   fi
-
-  AC_CHECK_DECLS_ONCE(getline getdelim)
-  AH_BOTTOM([/* Prototype for getline and getdelim. */
-#include <stddef.h>
-#include <stdio.h>
-#include <sys/types.h>
-#if !HAVE_DECL_GETLINE
-extern ssize_t getline (char **_lineptr, size_t *_linesize, FILE *_stream);
-#endif
-#if !HAVE_DECL_GETDELIM
-extern ssize_t getdelim (char **_lineptr, size_t *_linesize, int _delimiter,
-			  FILE *_stream);
-#endif])
 ])
 
 # Prerequisites of lib/getline.c.

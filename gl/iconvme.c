@@ -38,11 +38,16 @@
 # include <limits.h>
 #endif
 
-/* Convert a zero-terminated string from one code set to another.  The
-   returned string is allocated using malloc, and must be dellocated
-   by the caller using free.  On failure, NULL is returned and errno
-   holds the error reason.  Note that this function does not handle
-   embedded zero's in the output well.  */
+/* Get strdup. */
+#include "strdup.h"
+
+/* Convert a zero-terminated string STR from the FROM_CODSET code set
+   to the TO_CODESET code set.  The returned string is allocated using
+   malloc, and must be dellocated by the caller using free.  On
+   failure, NULL is returned and errno holds the error reason.  Note
+   that if TO_CODESET uses \0 for anything but to terminate the
+   string, the caller of this function may have difficulties finding
+   out the length of the output string.  */
 char *
 iconv_string (const char *str, const char *from_codeset,
 	      const char *to_codeset)
@@ -51,44 +56,28 @@ iconv_string (const char *str, const char *from_codeset,
 #if HAVE_ICONV
   iconv_t cd;
   char *outp;
-  ICONV_CONST char *p;
-  size_t inbytes_remaining;
-  size_t outbytes_remaining;
+  char *p = (char *) str;
+  size_t inbytes_remaining = strlen (p);
+  /* Guess the maximum length the output string can have.  */
+  size_t outbuf_size = (inbytes_remaining + 1) * MB_LEN_MAX;
+  size_t outbytes_remaining = outbuf_size - 1; /* -1 for NUL */
   size_t err;
-  size_t outbuf_size;
   int have_error = 0;
 #endif
 
   if (strcmp (to_codeset, from_codeset) == 0)
-    {
-      char *q;
-
-      q = malloc (strlen (str) + 1);
-      if (!q)
-	return NULL;
-
-      return strcpy (q, str);
-    }
+    return strdup (str);
 
 #if HAVE_ICONV
   cd = iconv_open (to_codeset, from_codeset);
-
   if (cd == (iconv_t) - 1)
     return NULL;
-
-  p = (ICONV_CONST char *) str;
-
-  inbytes_remaining = strlen (p);
-  /* Guess the maximum length the output string can have.  */
-  outbuf_size = (inbytes_remaining + 1) * MB_LEN_MAX;
 
   outp = dest = malloc (outbuf_size);
   if (dest == NULL)
     goto out;
-  outbytes_remaining = outbuf_size - 1;	/* -1 for NUL */
 
 again:
-
   err = iconv (cd, &p, &inbytes_remaining, &outp, &outbytes_remaining);
 
   if (err == (size_t) - 1)
@@ -105,8 +94,13 @@ again:
 	    size_t newsize = outbuf_size * 2;
 	    char *newdest;
 
-	    if (newsize <= outbuf_size
-		|| !(newdest = realloc (dest, newsize)))
+	    if (newsize <= outbuf_size)
+	      {
+		errno = ENOMEM;
+		have_error = 1;
+		goto out;
+	      }
+	    if (!(newdest = realloc (dest, newsize)))
 	      {
 		have_error = 1;
 		goto out;
@@ -133,17 +127,25 @@ again:
 
   *outp = '\0';
 
-  if (*p != '\0')
-    have_error = 1;
-
 out:
-  iconv_close (cd);
+  {
+    int save_errno = errno;
 
-  if (have_error)
-    {
-      free (dest);
-      dest = NULL;
-    }
+    if (iconv_close (cd) < 0 && !have_error)
+      {
+	/* If we didn't have a real error before, make sure we restore
+	   the iconv_close error below. */
+	save_errno = errno;
+	have_error = 1;
+      }
+
+    if (have_error && dest)
+      {
+	free (dest);
+	dest = NULL;
+	errno = save_errno;
+      }
+  }
 #else
   errno = ENOSYS;
 #endif

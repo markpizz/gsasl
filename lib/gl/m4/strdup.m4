@@ -1,5 +1,5 @@
-# strdup.m4 serial 4
-dnl Copyright (C) 2002, 2003, 2004 Free Software Foundation, Inc.
+# strdup.m4 serial 5
+dnl Copyright (C) 2002, 2003, 2004, 2005 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -10,12 +10,16 @@ AC_DEFUN([gl_FUNC_STRDUP],
 [
   AC_REPLACE_FUNCS(strdup)
   AC_CHECK_DECLS_ONCE(strdup)
-  AH_BOTTOM([/* Prototype for strdup. */
-#if !HAVE_DECL_STRDUP
-extern char *strdup (const char *s);
-#endif])
   gl_PREREQ_STRDUP
 ])
 
 # Prerequisites of lib/strdup.c.
 AC_DEFUN([gl_PREREQ_STRDUP], [:])
+
+AC_DEFUN([gl_AUTOPROTO_STRDUP],
+[
+  AH_BOTTOM([/* Prototype for strdup. */
+#if !HAVE_DECL_STRDUP
+extern char *strdup (const char *s);
+#endif])
+])
