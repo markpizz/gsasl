@@ -1,5 +1,11 @@
 Libgsasl NEWS -- history of user-visible changes.
 
+* Changes in 0.0.2 (released 2002-10-17)
+
+** Uses pkg-config instead of libgsasl.m4 + libgsasl-config.in.
+
+** Uses pkg-config to find libntlm.
+
 * Changes in 0.0.1 (released 2002-10-12)
 
 ** APIs for integrity and confidentiality protection of application
