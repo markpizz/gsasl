@@ -398,8 +398,8 @@ If you are interested, please write to:
 
 @verbatim
 Simon Josefsson Datakonsult
-Drottningholmsv. 70
-112 42 Stockholm
+Hagagatan 24
+113 47 Stockholm
 Sweden
 
 E-mail: simon@josefsson.org
