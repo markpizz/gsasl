@@ -630,6 +630,9 @@ main()
 
       write_to_server(output);
 
+      if (rc == GSASL_OK)
+        break;
+
       input = read_from_server();
     @}
   while (rc == GSASL_NEEDS_MORE);
