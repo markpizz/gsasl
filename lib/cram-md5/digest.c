@@ -23,32 +23,30 @@
 /* Get prototype. */
 #include "digest.h"
 
-/* Get gsasl_hmac_md5. */
-#include "gsasl.h"
+/* Get gc_hmac_md5. */
+#include "gc.h"
+
+#if CRAM_MD5_DIGEST_LEN != 2* GC_MD5_LEN
+# error MD5 length mismatch
+#endif
 
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))
-
-#define MD5LEN 16
 
 void
 cram_md5_digest (const char *challenge,
 		 size_t challengelen,
 		 const char *secret,
-		 size_t secretlen,
-		 char response[CRAM_MD5_DIGEST_LEN])
+		 size_t secretlen, char response[CRAM_MD5_DIGEST_LEN])
 {
-  char *hash;
+  char hash[GC_MD5_LEN];
   size_t i;
 
-  gsasl_hmac_md5 (secret, secretlen ? secretlen : strlen (secret),
-		  challenge, strlen (challenge),
-		  &hash);
+  gc_hmac_md5 (secret, secretlen ? secretlen : strlen (secret),
+	       challenge, strlen (challenge), hash);
 
-  for (i = 0; i < MD5LEN; i++)
+  for (i = 0; i < GC_MD5_LEN; i++)
     {
       *response++ = HEXCHAR (hash[i] >> 4);
       *response++ = HEXCHAR (hash[i]);
     }
-
-  free (hash);
 }
