@@ -242,11 +242,11 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     _gsasl_digest_md5_client_start,
-    _gsasl_digest_md5_client_step,
+    NULL,
     _gsasl_digest_md5_client_finish,
     _gsasl_digest_md5_client_encode,
     _gsasl_digest_md5_client_decode,
-    NULL
+    _gsasl_digest_md5_client_step
 #endif
     },
    {
@@ -254,11 +254,11 @@ _Gsasl_mechanism _gsasl_all_mechanisms[] = {
     NULL,
     NULL,
     _gsasl_digest_md5_server_start,
-    _gsasl_digest_md5_server_step,
+    NULL,
     _gsasl_digest_md5_server_finish,
     _gsasl_digest_md5_server_encode,
     _gsasl_digest_md5_server_decode,
-    NULL
+    _gsasl_digest_md5_server_step
 #endif
     }
    },

@@ -81,7 +81,7 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
 			       void *mech_data,
 			       const char *input,
 			       size_t input_len,
-			       char *output, size_t * output_len)
+			       char **output2, size_t * output2_len)
 {
   _Gsasl_digest_md5_server_state *state = mech_data;
   Gsasl_server_callback_realm cb_realm;
@@ -94,6 +94,13 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
   int res;
   int outlen;
   unsigned long maxbuf = MAXBUF_DEFAULT;
+  /* FIXME: Remove fixed size buffer. */
+  char output[BUFSIZ];
+  size_t outputlen = BUFSIZ - 1;
+  size_t *output_len = &outputlen;
+
+  *output2 = NULL;
+  *output2_len = 0;
 
   ctx = gsasl_server_ctx_get (sctx);
   if (ctx == NULL)
@@ -726,6 +733,15 @@ _gsasl_digest_md5_server_step (Gsasl_session_ctx * sctx,
   if (output && *output_len > 0)
     fprintf (stderr, "%s\n", output);
 #endif
+
+  if (res == GSASL_OK || res == GSASL_NEEDS_MORE)
+    {
+      *output2_len = *output_len;
+      *output2 = malloc (*output2_len);
+      if (!*output2)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output2, output, *output2_len);
+    }
 
   return res;
 }
