@@ -75,7 +75,7 @@ gsasl_step (Gsasl_session * sctx,
 }
 
 /**
- * gsasl_step_base64:
+ * gsasl_step64:
  * @sctx: libgsasl client handle.
  * @b64input: input base64 encoded byte array.
  * @b64output: newly allocated output base64 encoded byte array.
