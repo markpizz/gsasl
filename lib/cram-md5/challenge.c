@@ -39,10 +39,10 @@ cram_md5_challenge (char challenge[32])
    *   arbitrary string of random digits, a time-stamp, and the
    *   fully-qualified primary host name of the server.
    *
-   * This implementation avoid the information leakage, and always use
-   * 0 as the time stamp, and "example" as the host name.  A client
-   * that try to validate the challenge string somehow, would violate
-   * the same specification:
+   * This implementation avoid the information leakage by always using
+   * 0 as the time stamp and "example" as the host name.  This is
+   * unproblematic, as any client that try to validate the challenge
+   * string somehow, would violate the same specification:
    *
    *   The client MUST NOT interpret or attempt to validate the
    *   contents of the challenge in any way.
