@@ -46,6 +46,17 @@ fail (const char *format, ...)
 }
 
 void
+success (const char *format, ...)
+{
+  va_list arg_ptr;
+
+  va_start (arg_ptr, format);
+  if (verbose)
+    vfprintf (stdout, format, arg_ptr);
+  va_end (arg_ptr);
+}
+
+void
 escapeprint (const char *str, size_t len)
 {
   size_t i;

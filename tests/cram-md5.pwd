@@ -1,0 +1,14 @@
+# Derived from ../doc/specification/md5.txt written by Mark Crispin.
+#
+# CRAM-MD5 authentication database
+# Entries are in form <user><tab><password>
+# Lines starting with "#" are comments
+
+bill	hubba-hubba
+hillary	nysenator
+monica	beret
+tripp	wired
+kenstarr	inquisitor
+reno	waco
+jessie	thebody
+billgates	ruleworld

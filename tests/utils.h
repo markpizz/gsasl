@@ -31,6 +31,7 @@ extern int error_count;
 extern int break_on_error;
 
 extern void fail (const char *format, ...);
+extern void success (const char *format, ...);
 extern void escapeprint (const char *str, size_t len);
 extern void hexprint (const char *str, size_t len);
 extern void binprint (const char *str, size_t len);
