@@ -120,8 +120,11 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	  break;
 	res = cb_securid (sctx, sctx->authid, sctx->authzid, sctx->passcode,
 			  sctx->pin, buf, &buflen);
-	buf[buflen] = '\0';
-	gsasl_property_set (sctx, GSASL_SUGGESTED_PIN, buf);
+	if (buflen > 0 && buflen < BUFSIZ - 1)
+	  {
+	    buf[buflen] = '\0';
+	    gsasl_property_set (sctx, GSASL_SUGGESTED_PIN, buf);
+	  }
 	return res;
 	break;
 
