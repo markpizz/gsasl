@@ -87,58 +87,29 @@ gsasl_step (Gsasl_session * sctx,
 int
 gsasl_step64 (Gsasl_session * sctx, const char *b64input, char **b64output)
 {
-  size_t input_len, output_len;
-  char *input, *output;
+  size_t input_len = 0, output_len = 0;
+  char *input = NULL, *output = NULL;
   int res;
 
-  if (b64input && strlen (b64input) > 0)
+  if (b64input)
     {
-      int len;
-
-      input_len = strlen (b64input) + 1;
-      input = (char *) malloc (input_len);
-      if (input == NULL)
-	return GSASL_MALLOC_ERROR;
-
-      len = gsasl_base64_decode (b64input, input, input_len);
-      if (len == -1)
-	{
-	  free (input);
-	  return GSASL_BASE64_ERROR;
-	}
-      input_len = (size_t) len;
-    }
-  else
-    {
-      input = NULL;
-      input_len = 0;
+      res = gsasl_base64_from (b64input, strlen (b64input),
+			       &input, &input_len);
+      if (res != GSASL_OK)
+	return GSASL_BASE64_ERROR;
     }
 
   res = gsasl_step (sctx, input, input_len, &output, &output_len);
-
   if (res == GSASL_OK || res == GSASL_NEEDS_MORE)
     {
-      size_t allen = output_len * 4 / 3 + 4;	/* XXX ? */
-      int len;
-
-      *b64output = malloc (allen);
-      if (*b64output == NULL)
+      res = gsasl_base64_to (output, output_len, b64output, NULL);
+      if (res != GSASL_OK)
 	{
 	  if (input != NULL)
 	    free (input);
 	  if (output != NULL)
 	    free (output);
-	  return GSASL_MALLOC_ERROR;
-	}
-
-      len = gsasl_base64_encode (output, output_len, *b64output, allen);
-      if (len == -1)
-	{
-	  if (input != NULL)
-	    free (input);
-	  if (output != NULL)
-	    free (output);
-	  return GSASL_BASE64_ERROR;
+	  return res;
 	}
 
       if (output != NULL)
