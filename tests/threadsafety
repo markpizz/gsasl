@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# Copyright (C) 2004 Simon Josefsson
+#
+# This file is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This file is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this file; see the file COPYING.  If not, write to the
+# Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+# MA 02111-1307, USA.
+
+FILES="$@"
+FILES=${FILES:-$THREADSAFETY_FILES}
+
+if test -z "$FILES"; then
+    echo "Usage: $0 [FILE...]"
+    exit 1
+fi
+
+# http://www.opengroup.org/onlinepubs/009695399/functions/xsh_chap02_09.html
+UNSAFE="asctime basename catgets crypt ctime dbm_clearerr dbm_close dbm_delete dbm_error dbm_fetch dbm_firstkey dbm_nextkey dbm_open dbm_store dirname dlerror drand48 ecvt encrypt endgrent endpwent endutxent fcvt ftw gcvt getc_unlocked getchar_unlocked getdate getenv getgrent getgrgid getgrnam gethostbyaddr gethostbyname gethostent getlogin getnetbyaddr getnetbyname getnetent getopt getprotobyname getprotobynumber getprotoent getpwent getpwnam getpwuid getservbyname getservbyport getservent getutxent getutxid getutxline gmtime hcreate hdestroy hsearch inet_ntoa l64a lgamma lgammaf lgammal localeconv localtime lrand48 mrand48 nftw nl_langinfo ptsname putc_unlocked putchar_unlocked putenv pututxline rand readdir setenv setgrent setkey setpwent setutxent strerror strtok ttyname unsetenv wcstombs wctomb"
+
+set -- $UNSAFE
+cmd="-e [^_0-9a-z]($1"
+shift
+while test "$1"; do
+    cmd="${cmd}|$1"
+    shift
+done
+cmd="${cmd})[^_0-9a-z]"
+
+! egrep $cmd $FILES
