@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-10-17 15:53+0200\n"
+"POT-Creation-Date: 2002-11-14 10:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,19 +20,19 @@ msgid "Libgsasl success"
 msgstr ""
 
 #: lib/error.c:45
-msgid "SASL mechanisms needs more data (application error)"
+msgid "SASL mechanisms needs more data"
 msgstr ""
 
 #: lib/error.c:49
-msgid "Unknown SASL mechanism (application error)"
+msgid "Unknown SASL mechanism"
 msgstr ""
 
 #: lib/error.c:53
-msgid "SASL mechanism called too many times (application error)"
+msgid "SASL mechanism called too many times"
 msgstr ""
 
 #: lib/error.c:57
-msgid "SASL function need larger buffer (application error)"
+msgid "SASL function need larger buffer (internal error)"
 msgstr ""
 
 #: lib/error.c:61
