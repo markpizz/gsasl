@@ -16,6 +16,9 @@ There is no specification for LOGIN, but arguable it should use
 SASLprep, but on the server side.
 
 ** DIGEST-MD5 is disabled by default, pending a rewrite for the new API.
+The mechanism still work if your application is using the old callback
+API, in which case you may enable it (--enable-digest-md5) to have the
+same functionality as in older versions.
 
 ** LOGIN client now uses authentication identity, not authorization identity,
 reported by Martin Lambers.
