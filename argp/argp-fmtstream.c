@@ -134,7 +134,7 @@ __argp_fmtstream_update (argp_fmtstream_t fs)
 	      /* No buffer space for spaces.  Must flush.  */
 	      size_t i;
 	      for (i = 0; i < pad; i++)
-		putc_unlocked (' ', fs->stream);
+		putc (' ', fs->stream);
 	    }
 	  fs->point_col = pad;
 	}
@@ -269,7 +269,7 @@ __argp_fmtstream_update (argp_fmtstream_t fs)
 		{
 		  if (nl > fs->buf)
 		    fwrite_unlocked (fs->buf, 1, nl - fs->buf, fs->stream);
-		  putc_unlocked ('\n', fs->stream);
+		  putc ('\n', fs->stream);
 		  len += buf - fs->buf;
 		  nl = buf = fs->buf;
 		}
@@ -286,7 +286,7 @@ __argp_fmtstream_update (argp_fmtstream_t fs)
 	      *nl++ = ' ';
 	  else
 	    for (i = 0; i < fs->wmargin; ++i)
-	      putc_unlocked (' ', fs->stream);
+	      putc (' ', fs->stream);
 
 	  /* Copy the tail of the original buffer into the current buffer
 	     position.  */

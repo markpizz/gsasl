@@ -1801,14 +1801,14 @@ __argp_error (const struct argp_state *state, const char *fmt, ...)
 
 	  fputs_unlocked (__argp_short_program_name(state),
 			  stream);
-	  putc_unlocked (':', stream);
-	  putc_unlocked (' ', stream);
+	  putc (':', stream);
+	  putc (' ', stream);
 
 	  va_start (ap, fmt);
 	  vfprintf (stream, fmt, ap);
 	  va_end (ap);
 
-	  putc_unlocked ('\n', stream);
+	  putc ('\n', stream);
 
 	  __argp_state_help (state, stream, ARGP_HELP_STD_ERR);
 
@@ -1847,8 +1847,8 @@ __argp_failure (const struct argp_state *state, int status, int errnum,
 	    {
 	      va_list ap;
 
-	      putc_unlocked (':', stream);
-	      putc_unlocked (' ', stream);
+	      putc (':', stream);
+	      putc (' ', stream);
 
 	      va_start (ap, fmt);
 	      vfprintf (stream, fmt, ap);
@@ -1857,12 +1857,12 @@ __argp_failure (const struct argp_state *state, int status, int errnum,
 
 	  if (errnum)
 	    {
-	      putc_unlocked (':', stream);
-	      putc_unlocked (' ', stream);
+	      putc (':', stream);
+	      putc (' ', stream);
 	      fputs (STRERROR (errnum), stream);
 	    }
 
-	  putc_unlocked ('\n', stream);
+	  putc ('\n', stream);
 
 	  __funlockfile (stream);
 
