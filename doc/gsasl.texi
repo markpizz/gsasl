@@ -1312,10 +1312,10 @@ Different SASL mechanisms have different requirements on the
 application using it.  To handle these differences the library can use
 a callback function into your application in several different ways.
 Some mechanisms, such as @samp{PLAIN}, are simple to explain and use.
-The client callback for these mechanisms is implement by querying the
-user for a username and password.  The server callback hand the
-username and password into any local policy deciding authentication
-system (such as @file{/etc/passwd} via PAM).
+The client callback for these mechanisms should query the user for a
+username and password.  The server callback hand the username and
+password into any local policy deciding authentication system (such as
+@file{/etc/passwd} via PAM).
 
 Mechanism such as @samp{CRAM-MD5} and @samp{DIGEST-MD5} uses hashed
 passwords.  The client callback are the same as for PLAIN.  However,
@@ -1352,11 +1352,11 @@ entirely dependent on callbacks.
 @section The EXTERNAL mechanism
 
 The EXTERNAL mechanism is used to authenticate a user to a server
-using some out-of-band authentication environment.  EXTERNAL is often
-used within TLS or IPSEC protected channels.  Note that in the server,
-you need to make sure that TLS and IPSEC actually authenticated the
-client successfully.  It is normally not sufficient for TLS and IPSEC
-to be used, since they provided anonymous modes.
+based on out-of-band authentication.  EXTERNAL is typically used over
+TLS authenticated channels.  Note that in the server, you need to make
+sure that TLS actually authenticated the client successfully.  It is
+normally not sufficient that TLS is used, since they also support
+anonymous modes.
 
 In the client, this mechanism is always enabled, and will send the
 @code{GSASL_AUTHZID} property as the authorization name to the server,
@@ -1385,7 +1385,7 @@ server.
 In the server, this mechanism will invoke the
 @code{GSASL_VALIDATE_ANONYMOUS} callback to decide whether the client
 should be permitted to log in.  Your callback can retrieve the
-@code{GSASL_ANONYMOUS_TOKEN} property, for example to store it in a
+@code{GSASL_ANONYMOUS_TOKEN} property to, for example, save it in a
 log file.  The token is normally not used to decide whether the client
 should be permitted to log in or not.
 
