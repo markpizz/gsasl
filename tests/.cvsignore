@@ -6,5 +6,6 @@ unicode
 simple
 cram-md5
 digest-md5
+md5file
 *.la
 *.lo
