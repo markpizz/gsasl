@@ -184,39 +184,102 @@ if test "$digest_md5" != "yes" && test "$cram_md5" != "yes"; then
     LIBGCRYPT_LIBS=""
 fi
 
-# GSSAPI (tests partially stolen from mailutils and fetchmail)
+# GSSAPI.
 AC_ARG_ENABLE(gssapi,
   AC_HELP_STRING([--disable-gssapi], [don't use the GSSAPI mechanism]),
-  gssapi=$enableval)
-if test "$gssapi" != "no" ; then
+  gssapi=$enableval, gssapi=yes)
+AC_MSG_NOTICE([checking for GSS implementation])
+if test "$gssapi" = "gss"; then
+	AC_MSG_NOTICE([trying GSS])
 	PKG_CHECK_MODULES(GSS, gss >= 0.0.0, [gss=yes], [gss=no])
 	if test "$gss" = "yes" ; then
+		AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])
+		gssapi=yes
+	fi
+elif test "$gssapi" = "mit"; then
+	AC_MSG_NOTICE([trying MIT])
+	AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
+	if test "$KRB5_CONFIG" != "no" ; then
+		GSSAPI_CFLAGS=`$KRB5_CONFIG --cflags`
+		GSSAPI_LIBS=`$KRB5_CONFIG --libs gssapi`
+		save_CPPFLAGS=$CPPFLAGS
+		CPPFLAGS=$GSSAPI_CFLAGS
+		AC_CHECK_HEADERS(gssapi/gssapi.h gssapi/gssapi_generic.h)
+		AC_CHECK_DECL(GSS_C_NT_HOSTBASED_SERVICE,,
+			[AC_DEFINE(GSS_C_NT_HOSTBASED_SERVICE,
+				gss_nt_service_name,
+				[Work around buggy MIT library])],[
+#ifdef HAVE_GSSAPI_GSSAPI_H
+# include <gssapi/gssapi.h>
+#endif
+#ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
+# include <gssapi/gssapi_generic.h>
+#endif
+])
+		CPPFLAGS=$save_CPPFLAGS
+		AC_SUBST(GSSAPI_CFLAGS)
+		AC_SUBST(GSSAPI_LIBS)
+		gssapi=yes
+	else
+		AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
+		gssapi=no
+	fi
+elif test "$gssapi" = "heimdal"; then
+	AC_MSG_NOTICE([trying Heimdal])
+	AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
+	if test "$KRB5_CONFIG" != "no" ; then
+		GSSAPI_CFLAGS=`$KRB5_CONFIG --cflags`
+		GSSAPI_LIBS=`$KRB5_CONFIG --libs gssapi`
+		save_CPPFLAGS=$CPPFLAGS
+		CPPFLAGS=$GSSAPI_CFLAGS
+		AC_CHECK_HEADERS(gssapi.h)
+		CPPFLAGS=$save_CPPFLAGS
+		AC_SUBST(GSSAPI_CFLAGS)
+		AC_SUBST(GSSAPI_LIBS)
+		gssapi=yes
+	else
+		AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
+		gssapi=no
+	fi
+elif test "$gssapi" != "no" ; then
+	AC_MSG_NOTICE([auto-detecing GSS/MIT/Heimdal])
+	AC_MSG_NOTICE([use --enable-gssapi=IMPL to override])
+	AC_MSG_NOTICE([where IMPL is `gss', `mit', or `heimdal'])
+	PKG_CHECK_MODULES(GSS, gss >= 0.0.0, [gss=yes], [gss=no])
+	if test "$gss" = "yes" ; then
+		AC_MSG_NOTICE([GSS found])
 		AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])
 		gssapi=yes
 	else
 		AC_MSG_WARN([GSS not found (see http://josefsson.org/gss/)...])
 		AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
 		if test "$KRB5_CONFIG" != "no" ; then
+			AC_MSG_NOTICE([MIT/Heimdal found])
 			GSSAPI_CFLAGS=`$KRB5_CONFIG --cflags`
 			GSSAPI_LIBS=`$KRB5_CONFIG --libs gssapi`
 			save_CPPFLAGS=$CPPFLAGS
 			CPPFLAGS=$GSSAPI_CFLAGS
 			AC_CHECK_HEADERS(gssapi.h gssapi/gssapi.h gssapi/gssapi_generic.h)
-			AC_CHECK_DECL(GSS_C_NT_HOSTBASED_SERVICE,,
-				[AC_DEFINE(GSS_C_NT_HOSTBASED_SERVICE,
+			if test -n "$ac_cv_header_gssapi_h" -a \
+				-n "$ac_cv_header_gssapi_gssapi_h"; then
+				AC_MSG_ERROR([Both MIT and Heimdal headers found, please specify either --enable-gssapi=mit or --enable-gssapi=heimdal.])
+			fi
+			if test -n "$ac_cv_header_gssapi_h"; then
+				AC_MSG_NOTICE([Heimdal found])
+			else
+				AC_MSG_NOTICE([MIT found])
+				AC_CHECK_DECL(GSS_C_NT_HOSTBASED_SERVICE,,
+					[AC_DEFINE(GSS_C_NT_HOSTBASED_SERVICE,
 					gss_nt_service_name,
 					[Work around buggy MIT library])],[
-#ifdef HAVE_GSSAPI_H /* MIT GSSAPI */
-# include <gssapi.h>
-#else /* Heimdal GSSAPI */
-# ifdef HAVE_GSSAPI_GSSAPI_H
-#  include <gssapi/gssapi.h>
-# endif
-# ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
-#  include <gssapi/gssapi_generic.h>
-# endif
+#ifdef HAVE_GSSAPI_GSSAPI_H
+# include <gssapi/gssapi.h>
+#endif
+#ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
+# include <gssapi/gssapi_generic.h>
 #endif
 ])
+			fi
 			CPPFLAGS=$save_CPPFLAGS
 			AC_SUBST(GSSAPI_CFLAGS)
 			AC_SUBST(GSSAPI_LIBS)
