@@ -18,15 +18,23 @@
 # the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+EXTRA_DIST = getopt.h
+
+AM_CPPFLAGS = -I../lib -I$(top_srcdir)/lib
+
 bin_PROGRAMS = gsasl
 
-gsasl_SOURCES = gsasl.c callbacks.h callbacks.c internal.h
-gsasl_CPPFLAGS = -I../lib -I$(top_srcdir)/gl
-gsasl_LDADD = ../lib/libgsasl.la ../gl/libfoo.la
+BUILT_SOURCES = gsasl_cmd.c gsasl_cmd.h
+gsasl_SOURCES = gsasl.c $(BUILT_SOURCES) gsasl.ggo \
+	callbacks.h callbacks.c internal.h
+gsasl_LDADD = ../lib/libgsasl.la $(LTLIBOBJS)
 
 localedir = $(datadir)/locale
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
+$(BUILT_SOURCES): gsasl.ggo
+	gengetopt --input gsasl.ggo --file-name gsasl_cmd
 
 indent:
 	indent $(gsasl_SOURCES)

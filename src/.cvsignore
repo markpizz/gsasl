@@ -3,3 +3,5 @@
 Makefile
 Makefile.in
 gsasl
+gsasl_cmd.c
+gsasl_cmd.h

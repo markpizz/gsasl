@@ -22,23 +22,15 @@
 #include "internal.h"
 #include "callbacks.h"
 
+#include "gsasl_cmd.h"
+
+struct gengetopt_args_info args_info;
+
 #define MAX_LINE_LENGTH BUFSIZ
 
 extern int silent;
 extern int verbose;
-extern char *anonymous_token;
-extern char *authentication_id;
-extern char *authorization_id;
-extern char *password;
-extern char *passcode;
-extern char *mechanism;
-extern char *service;
-extern char *hostname;
-extern char *servicename;
-extern char **realms;
-extern size_t nrealms;
 extern size_t maxbuf;
-extern int qop;
 
 static char *
 readline (const char *prompt)
@@ -117,14 +109,15 @@ client_callback_anonymous (Gsasl_session_ctx * ctx,
 {
   int rc;
 
-  if (anonymous_token == NULL)
-    anonymous_token =
+  if (args_info.anonymous_token_arg == NULL)
+    args_info.anonymous_token_arg =
       strdup (readline ("Enter anonymous token (e.g., email address): "));
 
-  if (anonymous_token == NULL)
+  if (args_info.anonymous_token_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, anonymous_token, strlen (anonymous_token));
+  rc = utf8cpy (out, outlen, args_info.anonymous_token_arg,
+		strlen (args_info.anonymous_token_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -137,13 +130,13 @@ client_callback_authorization_id (Gsasl_session_ctx * ctx,
 {
   int rc;
 
-  if (authorization_id == NULL)
-    authorization_id = strdup (readline ("Enter authorization ID: "));
+  if (args_info.authorization_id_arg == NULL)
+    args_info.authorization_id_arg = strdup (readline ("Enter authorization ID: "));
 
-  if (authorization_id == NULL)
+  if (args_info.authorization_id_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, authorization_id, strlen (authorization_id));
+  rc = utf8cpy (out, outlen, args_info.authorization_id_arg, strlen (args_info.authorization_id_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -156,13 +149,13 @@ client_callback_authentication_id (Gsasl_session_ctx * ctx,
 {
   int rc;
 
-  if (authentication_id == NULL)
-    authentication_id = strdup (readline ("Enter authentication ID: "));
+  if (args_info.authentication_id_arg == NULL)
+    args_info.authentication_id_arg = strdup (readline ("Enter authentication ID: "));
 
-  if (authentication_id == NULL)
+  if (args_info.authentication_id_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, authentication_id, strlen (authentication_id));
+  rc = utf8cpy (out, outlen, args_info.authentication_id_arg, strlen (args_info.authentication_id_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -174,13 +167,13 @@ client_callback_password (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
 {
   int rc;
 
-  if (password == NULL)
-    password = strdup (readline ("Enter password: "));
+  if (args_info.password_arg == NULL)
+    args_info.password_arg = strdup (readline ("Enter password: "));
 
-  if (password == NULL)
+  if (args_info.password_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, password, strlen (password));
+  rc = utf8cpy (out, outlen, args_info.password_arg, strlen (args_info.password_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -196,37 +189,38 @@ client_callback_service (Gsasl_session_ctx * ctx,
 {
   int rc;
 
-  if (service == NULL)
-    service =
+  if (args_info.service_arg == NULL)
+    args_info.service_arg =
       strdup (readline ("Enter GSSAPI service name (e.g. \"imap\"): "));
 
-  if (hostname == NULL)
-    hostname = strdup (readline ("Enter hostname of server: "));
+  if (args_info.hostname_arg == NULL)
+    args_info.hostname_arg = strdup (readline ("Enter hostname of server: "));
 
-  if (srvnamelen && servicename == NULL)
-    servicename =
+  if (srvnamelen && args_info.service_name_arg == NULL)
+    args_info.service_name_arg =
       strdup (readline ("Enter generic server name (optional): "));
 
-  if (service == NULL)
+  if (args_info.service_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  if (hostname == NULL)
+  if (args_info.hostname_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  if (srvnamelen && servicename == NULL)
+  if (srvnamelen && args_info.service_name_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (srv, srvlen, service, strlen (service));
+  rc = utf8cpy (srv, srvlen, args_info.service_arg,
+		strlen (args_info.service_arg));
   if (rc != GSASL_OK)
     return rc;
 
-  rc = utf8cpy (host, hostlen, hostname, strlen (hostname));
+  rc = utf8cpy (host, hostlen, args_info.hostname_arg, strlen (args_info.hostname_arg));
   if (rc != GSASL_OK)
     return rc;
 
   if (srvnamelen)
     {
-      rc = utf8cpy (srvname, srvnamelen, servicename, strlen (servicename));
+      rc = utf8cpy (srvname, srvnamelen, args_info.service_name_arg, strlen (args_info.service_name_arg));
       if (rc != GSASL_OK)
 	return rc;
     }
@@ -239,13 +233,13 @@ client_callback_passcode (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
 {
   int rc;
 
-  if (passcode == NULL)
-    passcode = strdup (readline ("Enter passcode: "));
+  if (args_info.passcode_arg == NULL)
+    args_info.passcode_arg = strdup (readline ("Enter passcode: "));
 
-  if (passcode == NULL)
+  if (args_info.passcode_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, passcode, strlen (passcode));
+  rc = utf8cpy (out, outlen, args_info.passcode_arg, strlen (args_info.passcode_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -255,6 +249,18 @@ client_callback_passcode (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
 Gsasl_qop
 client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops)
 {
+  int qop = 0;
+
+  if (args_info.quality_of_protection_given)
+    {
+      if (strcmp (args_info.quality_of_protection_arg, "auth") == 0)
+	qop = GSASL_QOP_AUTH;
+      else if (strcmp (args_info.quality_of_protection_arg, "auth-int") == 0)
+	qop = GSASL_QOP_AUTH_INT;
+      else if (strcmp (args_info.quality_of_protection_arg, "auth-conf") == 0)
+	qop = GSASL_QOP_AUTH_CONF;
+    }
+
   if (!(serverqops & qop))
     fprintf (stderr,
 	     "Warning: Server QOPs %d does not include client QOP %d.\n",
@@ -265,7 +271,7 @@ client_callback_qop (Gsasl_session_ctx * ctx, Gsasl_qop serverqops)
 size_t
 client_callback_maxbuf (Gsasl_session_ctx * ctx, size_t servermaxbuf)
 {
-  return maxbuf;
+  return args_info.maxbuf_arg;
 }
 
 int
@@ -273,19 +279,19 @@ client_callback_realm (Gsasl_session_ctx * ctx, char *out, size_t * outlen)
 {
   int rc;
 
-  if (nrealms == 0)
+  if (args_info.realm_given == 0)
     {
-      realms = malloc (sizeof (*realms));
-      memset (realms, 0, sizeof (*realms));
+      args_info.realm_arg = malloc (sizeof (*args_info.realm_arg));
+      memset (args_info.realm_arg, 0, sizeof (*args_info.realm_arg));
     }
 
-  if (realms[0] == NULL)
-    realms[0] = strdup (readline ("Enter client realm: "));
+  if (args_info.realm_arg[0] == NULL)
+    args_info.realm_arg[0] = strdup (readline ("Enter client realm: "));
 
-  if (realms[0] == NULL)
+  if (args_info.realm_arg[0] == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (out, outlen, realms[0], strlen (realms[0]));
+  rc = utf8cpy (out, outlen, args_info.realm_arg[0], strlen (args_info.realm_arg[0]));
   if (rc != GSASL_OK)
     return rc;
 
@@ -335,7 +341,7 @@ server_callback_qop (Gsasl_session_ctx * ctx)
 size_t
 server_callback_maxbuf (Gsasl_session_ctx * ctx)
 {
-  return maxbuf;
+  return args_info.maxbuf_arg;
 }
 
 int
@@ -344,7 +350,7 @@ server_callback_realm (Gsasl_session_ctx * ctx,
 {
   int rc;
 
-  if (nrealms == 0)
+  if (args_info.realm_given == 0)
     {
       struct hostent *he;
       char hostname[BUFSIZ];
@@ -358,16 +364,16 @@ server_callback_realm (Gsasl_session_ctx * ctx,
       if (he && strlen (he->h_name) < BUFSIZ)
 	strcpy (hostname, he->h_name);
 
-      realms = malloc (sizeof (*realms));
-      if (realms == NULL)
+      args_info.realm_arg = malloc (sizeof (*args_info.realm_arg));
+      if (args_info.realm_arg == NULL)
 	return GSASL_MALLOC_ERROR;
-      realms[nrealms++] = strdup (hostname);
+      args_info.realm_arg[args_info.realm_given++] = strdup (hostname);
     }
 
-  if (nth >= nrealms)
+  if (nth >= args_info.realm_given)
     return GSASL_NO_MORE_REALMS;
 
-  rc = utf8cpy (out, outlen, realms[nth], strlen (realms[nth]));
+  rc = utf8cpy (out, outlen, args_info.realm_arg[nth], strlen (args_info.realm_arg[nth]));
   if (rc != GSASL_OK)
     return rc;
 
@@ -442,13 +448,13 @@ server_callback_retrieve (Gsasl_session_ctx * ctx,
   else
     printf ("No realm\n");
 
-  if (password == NULL)
-    password = strdup (readline ("Enter password: "));
+  if (args_info.password_arg == NULL)
+    args_info.password_arg = strdup (readline ("Enter password: "));
 
-  if (password == NULL)
+  if (args_info.password_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (key, keylen, password, strlen (password));
+  rc = utf8cpy (key, keylen, args_info.password_arg, strlen (args_info.password_arg));
   if (rc != GSASL_OK)
     return rc;
 
@@ -462,24 +468,25 @@ server_callback_service (Gsasl_session_ctx * ctx,
 {
   int rc;
 
-  if (service == NULL)
-    service =
+  if (args_info.service_arg == NULL)
+    args_info.service_arg =
       strdup (readline ("Enter GSSAPI service name (e.g. \"imap\"): "));
 
-  if (hostname == NULL)
-    hostname = strdup (readline ("Enter hostname of server: "));
+  if (args_info.hostname_arg == NULL)
+    args_info.hostname_arg = strdup (readline ("Enter hostname of server: "));
 
-  if (service == NULL)
+  if (args_info.service_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  if (hostname == NULL)
+  if (args_info.hostname_arg == NULL)
     return GSASL_AUTHENTICATION_ERROR;
 
-  rc = utf8cpy (srv, srvlen, service, strlen (service));
+  rc = utf8cpy (srv, srvlen, args_info.service_arg,
+		strlen (args_info.service_arg));
   if (rc != GSASL_OK)
     return rc;
 
-  rc = utf8cpy (host, hostlen, hostname, strlen (hostname));
+  rc = utf8cpy (host, hostlen, args_info.hostname_arg, strlen (args_info.hostname_arg));
   if (rc != GSASL_OK)
     return rc;
 

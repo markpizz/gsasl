@@ -68,8 +68,6 @@
 #include <stringprep.h>
 #endif
 
-#include <argp.h>
-
 #include <gsasl.h>
 
 #include "gettext.h"
