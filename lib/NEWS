@@ -21,6 +21,12 @@ This means the code now use strdup, which improve readability.
 ** Translation fixes.
 
 ** API and ABI modifications.
+The only non-backwards compatible change is for gsasl_encode and
+gsasl_decode.  The library is both source and binary backwards
+compatible otherwise.  As gsasl_encode and gsasl_decode has not been
+very stable so far, hopefully they are not yet widely used, which
+warranted this otherwise bad change.  The details follow.
+
 gsasl_encode, gsasl_decode: MODIFIED.  Now allocate the output parameter.
 gsasl_encode_inline, gsasl_decode_inline: ADD, DEPRECATED.
   Same as the old gsasl_encode and gsasl_decode, to simplify conversion.
