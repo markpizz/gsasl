@@ -29,24 +29,9 @@
 #include <string.h>
 #include <gsasl.h>
 
+#include "utils.h"
+
 #define MAX_LINE_LENGTH BUFSIZ
-
-static int verbose = 0;
-static int error_count = 0;
-static int break_on_error = 0;
-
-static void
-fail (const char *format, ...)
-{
-  va_list arg_ptr;
-
-  va_start (arg_ptr, format);
-  vfprintf (stderr, format, arg_ptr);
-  va_end (arg_ptr);
-  error_count++;
-  if (break_on_error)
-    exit (1);
-}
 
 #define MAXSTEP 50
 #define CLIENT 1
@@ -416,8 +401,8 @@ server_callback_securid (Gsasl_session_ctx * xctx,
   return res;
 }
 
-int
-main (int argc, char *argv[])
+void
+doit (void)
 {
   Gsasl_ctx *ctx = NULL;
   Gsasl_session_ctx *xctx = NULL;
@@ -426,28 +411,11 @@ main (int argc, char *argv[])
   size_t i, j;
   int res;
 
-  do
-    if (strcmp (argv[argc - 1], "-v") == 0 ||
-	strcmp (argv[argc - 1], "--verbose") == 0)
-      verbose = 1;
-    else if (strcmp (argv[argc - 1], "-b") == 0 ||
-	     strcmp (argv[argc - 1], "--break-on-error") == 0)
-      break_on_error = 1;
-    else if (strcmp (argv[argc - 1], "-h") == 0 ||
-	     strcmp (argv[argc - 1], "-?") == 0 ||
-	     strcmp (argv[argc - 1], "--help") == 0)
-      {
-	printf ("Usage: %s [-vbh?] [--verbose] [--break-on-error] [--help]\n",
-		argv[0]);
-	return 1;
-      }
-  while (argc-- > 1);
-
   res = gsasl_init (&ctx);
   if (res != GSASL_OK)
     {
       fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
-      return 1;
+      return;
     }
 
   gsasl_client_callback_authentication_id_set
@@ -490,7 +458,7 @@ main (int argc, char *argv[])
 	continue;
 #endif
 
-      if (verbose)
+      if (debug)
 	printf ("Entry %d %s mechanism %s:\n",
 		i, sasltv[i].clientp ? "client" : "server", sasltv[i].mech);
 
@@ -513,7 +481,7 @@ main (int argc, char *argv[])
 	  else
 	    gsasl_server_application_data_set (xctx, &j);
 
-	  if (verbose)
+	  if (debug)
 	    printf ("Input : %s\n",
 		    sasltv[i].step[j] ? sasltv[i].step[j] : "");
 
@@ -526,7 +494,7 @@ main (int argc, char *argv[])
 	    res = gsasl_server_step_base64 (xctx, sasltv[i].step[j],
 					    output, outputlen);
 
-	  if (verbose)
+	  if (debug)
 	    printf ("Output: %s\n", output);
 
 	  if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
@@ -574,14 +542,9 @@ main (int argc, char *argv[])
       else
 	gsasl_server_finish (xctx);
 
-      if (verbose)
+      if (debug)
 	printf ("\n");
     }
 
   gsasl_done (ctx);
-
-  if (verbose)
-    printf ("SASL self tests done with %d errors\n", error_count);
-
-  return error_count ? 1 : 0;
 }
