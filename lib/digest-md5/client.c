@@ -835,23 +835,12 @@ _gsasl_digest_md5_client_encode (Gsasl_session * sctx,
   _Gsasl_digest_md5_client_state *state = mech_data;
   int res;
 
-  if (state && state->step == 3)
-    {
-      res = digest_md5_encode (sctx, input, input_len, output, output_len,
-			       state->qop, state->sendseqnum, state->kic);
-      if (res != GSASL_OK)
-	return res;
+  res = digest_md5_encode (sctx, input, input_len, output, output_len,
+			   state->qop, state->sendseqnum, state->kic);
+  if (res != GSASL_OK)
+    return res;
 
-      state->sendseqnum++;
-    }
-  else
-    {
-      *output_len = input_len;
-      *output = malloc (input_len);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-      memcpy (*output, input, input_len);
-    }
+  state->sendseqnum++;
 
   return GSASL_OK;
 }
@@ -866,23 +855,12 @@ _gsasl_digest_md5_client_decode (Gsasl_session * sctx,
   _Gsasl_digest_md5_client_state *state = mech_data;
   int res;
 
-  if (state && state->step == 3)
-    {
-      res = digest_md5_decode (sctx, input, input_len, output, output_len,
-			       state->qop, state->readseqnum, state->kis);
-      if (res != GSASL_OK)
-	return res;
+  res = digest_md5_decode (sctx, input, input_len, output, output_len,
+			   state->qop, state->readseqnum, state->kis);
+  if (res != GSASL_OK)
+    return res;
 
-      state->readseqnum++;
-    }
-  else
-    {
-      *output_len = input_len;
-      *output = malloc (input_len);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-      memcpy (*output, input, input_len);
-    }
+  state->readseqnum++;
 
   return GSASL_OK;
 }

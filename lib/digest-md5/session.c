@@ -93,6 +93,14 @@ digest_md5_encode (Gsasl_session * sctx,
 
       free (hash);
     }
+  else
+    {
+      *output_len = input_len;
+      *output = malloc (input_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, input, input_len);
+    }
 
   return GSASL_OK;
 }
@@ -163,6 +171,14 @@ digest_md5_decode (Gsasl_session * sctx,
 	return GSASL_INTEGRITY_ERROR;
 
       free (hash);
+    }
+  else
+    {
+      *output_len = input_len;
+      *output = malloc (input_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, input, input_len);
     }
 
 
