@@ -2,6 +2,8 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004 Simon Josefsson
 See the end for copying conditions.
 
+* Version 0.2.4 (unreleased)
+
 * Version 0.2.3 (released 2004-12-15)
 
 ** NTLM now set the 'domain' field to the GSASL_REALM property value.
