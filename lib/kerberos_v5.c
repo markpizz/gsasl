@@ -196,10 +196,6 @@ _gsasl_kerberos_v5_client_step (Gsasl_session_ctx * sctx,
       if (res)
 	return GSASL_SHISHI_ERROR;
 
-      res = shishi_kdcreq_clear_padata (state->sh, shishi_as_req(state->as));
-      if (res)
-	return GSASL_SHISHI_ERROR;
-
       if (cb_authentication_id) /* Shishi defaults to one otherwise */
 	{
 	  len = *output_len - 1;
@@ -436,9 +432,7 @@ _gsasl_kerberos_v5_server_start (Gsasl_session_ctx * sctx, void **mech_data)
   if (err)
     return GSASL_SHISHI_ERROR;
 
-  /* This can be pretty much anything, the client will never have it.
-     Listeners that crack the sessionkey will see cipher text
-     encrypted with this key. */
+  /* This can be pretty much anything, the client will never have it. */
   err = shishi_key_random (state->sh, SHISHI_AES256_CTS_HMAC_SHA1_96,
 			   &state->sessiontktkey);
   if (err)
@@ -707,7 +701,7 @@ _gsasl_kerberos_v5_server_step (Gsasl_session_ctx * sctx,
 
 	  return GSASL_NEEDS_MORE;
 	}
-      else if ((asn1 = shishi_d2a_apreq (state->sh, input, input_len)))
+      else if ((asn1 = shishi_der2asn1_apreq (state->sh, input, input_len)))
 	{
 	  int adtype;
 
