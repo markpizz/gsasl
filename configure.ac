@@ -218,15 +218,15 @@ distributed with GNU Ssasl instead.
 
 ]])
 	LIBIDN_CFLAGS="-I\$(top_srcdir)/libidn"
-	LIBIDN_LIBS="\$(top_builddir)/libidn/libidn.la"
-	LIBIDN=libidn
+	LIBIDN_LIBS="\$(top_builddir)/libstringprep/libidn.la"
+	LIBIDN=libstringprep
 fi
 AC_SUBST(LIBIDN)
 AC_SUBST(LIBIDN_CFLAGS)
 AC_SUBST(LIBIDN_LIBS)
 AC_MSG_CHECKING([if system's libidn should be used])
 AC_MSG_RESULT($with_system_idn)
-AC_CONFIG_SUBDIRS(libidn)
+AC_CONFIG_SUBDIRS(libstringprep)
 
 # Checks for header files.
 AC_HEADER_STDC
