@@ -1,10 +1,10 @@
 /* Recode strings between character sets, using iconv.
-   Copyright (C) 2002, 2003, 2004 Free Software Foundation, Inc.
+   Copyright (C) 2002, 2003, 2004, 2005 Free Software Foundation, Inc.
 
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2, or (at
-   your option) any later version.
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,7 +13,7 @@
 
    You should have received a copy of the GNU General Public License along
    with this program; if not, write to the Free Software Foundation,
-   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
 #ifdef HAVE_CONFIG_H
 # include <config.h>
@@ -31,15 +31,23 @@
 /* Get errno. */
 #include <errno.h>
 
+#ifdef _LIBC
+# define HAVE_ICONV 1
+#else
+/* Get strdup. */
+# include "strdup.h"
+#endif
+
 #if HAVE_ICONV
 /* Get iconv etc. */
 # include <iconv.h>
-/* Get MB_LEN_MAX. */
+/* Get MB_LEN_MAX, CHAR_BIT.  */
 # include <limits.h>
 #endif
 
-/* Get strdup. */
-#include "strdup.h"
+#ifndef SIZE_MAX
+# define SIZE_MAX ((size_t) -1)
+#endif
 
 /* Convert a zero-terminated string STR from the FROM_CODSET code set
    to the TO_CODESET code set.  The returned string is allocated using
@@ -59,10 +67,18 @@ iconv_string (const char *str, const char *from_codeset,
   char *p = (char *) str;
   size_t inbytes_remaining = strlen (p);
   /* Guess the maximum length the output string can have.  */
-  size_t outbuf_size = (inbytes_remaining + 1) * MB_LEN_MAX;
-  size_t outbytes_remaining = outbuf_size - 1; /* -1 for NUL */
+  size_t outbuf_size = inbytes_remaining + 1;
+  size_t outbytes_remaining;
   size_t err;
   int have_error = 0;
+
+  /* Use a worst-case output size guess, so long as that wouldn't be
+     too large for comfort.  It's OK if the guess is wrong so long as
+     it's nonzero.  */
+  size_t approx_sqrt_SIZE_MAX = SIZE_MAX >> (sizeof (size_t) * CHAR_BIT / 2);
+  if (outbuf_size <= approx_sqrt_SIZE_MAX / MB_LEN_MAX)
+    outbuf_size *= MB_LEN_MAX;
+  outbytes_remaining = outbuf_size - 1;
 #endif
 
   if (strcmp (to_codeset, from_codeset) == 0)
@@ -70,10 +86,10 @@ iconv_string (const char *str, const char *from_codeset,
 
 #if HAVE_ICONV
   cd = iconv_open (to_codeset, from_codeset);
-  if (cd == (iconv_t) - 1)
+  if (cd == (iconv_t) -1)
     return NULL;
 
-  outp = dest = malloc (outbuf_size);
+  outp = dest = (char *) malloc (outbuf_size);
   if (dest == NULL)
     goto out;
 
@@ -100,7 +116,8 @@ again:
 		have_error = 1;
 		goto out;
 	      }
-	    if (!(newdest = realloc (dest, newsize)))
+	    newdest = (char *) realloc (dest, newsize);
+	    if (newdest == NULL)
 	      {
 		have_error = 1;
 		goto out;

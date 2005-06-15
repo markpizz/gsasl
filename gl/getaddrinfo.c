@@ -1,5 +1,5 @@
 /* Get address information (partial implementation).
-   Copyright (C) 1997, 2001, 2002, 2004 Free Software Foundation, Inc.
+   Copyright (C) 1997, 2001, 2002, 2004, 2005 Free Software Foundation, Inc.
    Contributed by Simon Josefsson <simon@josefsson.org>.
 
    This program is free software; you can redistribute it and/or modify
@@ -14,7 +14,7 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software Foundation,
-   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
 #if HAVE_CONFIG_H
 # include <config.h>
@@ -74,14 +74,10 @@ getaddrinfo (const char *restrict nodename,
   if (hints && !validate_family (hints->ai_family))
     return EAI_FAMILY;
 
-  if (hints && hints->ai_socktype)
-    /* FIXME: Support more socket types. */
-    return EAI_SOCKTYPE;
-
   if (hints &&
-      hints->ai_protocol != SOCK_STREAM && hints->ai_protocol != SOCK_DGRAM)
-    /* FIXME: Support other protocols. */
-    return EAI_SERVICE;		/* FIXME: Better return code? */
+      hints->ai_socktype != SOCK_STREAM && hints->ai_socktype != SOCK_DGRAM)
+    /* FIXME: Support other socktype. */
+    return EAI_SOCKTYPE; /* FIXME: Better return code? */
 
   if (!nodename)
     /* FIXME: Support server bind mode. */
@@ -90,7 +86,7 @@ getaddrinfo (const char *restrict nodename,
   if (servname)
     {
       const char *proto =
-	(hints && hints->ai_protocol == SOCK_DGRAM) ? "udp" : "tcp";
+	(hints && hints->ai_socktype == SOCK_DGRAM) ? "udp" : "tcp";
 
       /* FIXME: Use getservbyname_r if available. */
       se = getservbyname (servname, proto);
@@ -171,6 +167,8 @@ getaddrinfo (const char *restrict nodename,
       return EAI_NODATA;
     }
 
+  tmp->ai_protocol = (hints) ? hints->ai_protocol : 0;
+  tmp->ai_socktype = (hints) ? hints->ai_socktype : 0;
   tmp->ai_addr->sa_family = he->h_addrtype;
 
   /* FIXME: If more than one address, create linked list of addrinfo's. */
