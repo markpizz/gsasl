@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.6 (unreleased)
 
+** Update of gnulib files.
+
 * Version 0.2.5 (released 2005-02-08)
 
 ** Added self test of EXTERNAL mechanism.

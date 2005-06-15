@@ -7,6 +7,8 @@ See the end for copying conditions.
 ** The SASL PLAIN server now permit unassigned code points in SASLprep.
 This aligns with draft-ietf-sasl-plain-06.txt which is in last call.
 
+** Update of gnulib files.
+
 ** API and ABI modifications.
 No changes since last version.
 
