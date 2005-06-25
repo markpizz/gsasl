@@ -1,5 +1,5 @@
 GNU SASL README -- Important introductory notes.
-Copyright (C) 2002, 2003, 2004 Simon Josefsson
+Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson
 See the end for copying conditions.
 
 This directory holds GNU SASL which is an implementation of the Simple
@@ -16,7 +16,7 @@ LGPL, as other free SASL implementations exists.  See also
 However, the command-line application and test suite (src/, and
 tests/) are licensed under the GNU General Public License license (see
 COPYING), and the documentation (doc/) is licensed under the GNU Free
-Documentation License (see COPYING.DOC).
+Documentation License.
 
 Currently there is some support for the following mechanisms:
 
