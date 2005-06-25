@@ -4,6 +4,15 @@ See the end for copying conditions.
 
 * Version 0.2.6 (unreleased)
 
+** Fix use of 'head -1' in configure script.
+Replaced with more portable and compliant command 'sed 1q', thanks to
+Carsten Lohrke.
+
+** The macro AX_CREATE_STDINT_H used to find uint8_t, uint32_t etc was updated.
+Should only be relevant if you use Nettle rather than libgcrypt.
+
+** The license template in files were updated with the new FSF address.
+
 ** The SASL PLAIN server now permit unassigned code points in SASLprep.
 This aligns with draft-ietf-sasl-plain-06.txt which is in last call.
 
