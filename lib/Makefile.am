@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -15,8 +15,8 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with GNU SASL Library; if not, write to the Free
-# Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-# 02111-1307, USA
+# Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301, USA.
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
