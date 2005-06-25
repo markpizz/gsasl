@@ -1,6 +1,5 @@
 /* version.c -- Version handling.
- * Copyright (C) 2002, 2004  Simon Josefsson
- * Copyright (C) 1998, 1999, 2000, 2001, 2002 Free Software Foundation, Inc.
+ * Copyright (C) 2002, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -20,53 +19,18 @@
  *
  */
 
-/* This file is based on src/global.c in libgcrypt */
-
 #include "internal.h"
 
-/* Get isdigit. */
-# include <ctype.h>
-
-static const char *
-_gsasl_parse_version_number (const char *s, int *number)
-{
-  int val = 0;
-
-  if (*s == '0' && isdigit (s[1]))
-    return NULL;		/* leading zeros are not allowed */
-  for (; isdigit (*s); s++)
-    {
-      val *= 10;
-      val += *s - '0';
-    }
-  *number = val;
-  return val < 0 ? NULL : s;
-}
-
-
-static const char *
-_gsasl_parse_version_string (const char *s, int *major, int *minor,
-			     int *micro)
-{
-  s = _gsasl_parse_version_number (s, major);
-  if (!s || *s != '.')
-    return NULL;
-  s++;
-  s = _gsasl_parse_version_number (s, minor);
-  if (!s || *s != '.')
-    return NULL;
-  s++;
-  s = _gsasl_parse_version_number (s, micro);
-  if (!s)
-    return NULL;
-  return s;			/* patchlevel */
-}
+/* Get check_version. */
+#include "check_version.h"
 
 /**
  * gsasl_check_version:
- * @req_version: version string to compare with, or NULL
+ * @req_version: version string to compare with, or NULL.
  *
  * Check library version.
+ *
+ * See %GSASL_VERSION for a suitable @req_version string.
  *
  * Return value: Check that the the version of the library is at
  *   minimum the one given as a string in @req_version and return the
@@ -77,31 +41,5 @@ _gsasl_parse_version_string (const char *s, int *major, int *minor,
 const char *
 gsasl_check_version (const char *req_version)
 {
-  const char *ver = VERSION;
-  int my_major, my_minor, my_micro;
-  int rq_major, rq_minor, rq_micro;
-  const char *my_plvl, *rq_plvl;
-
-  if (!req_version)
-    return ver;
-
-  my_plvl = _gsasl_parse_version_string (ver,
-					 &my_major, &my_minor, &my_micro);
-  if (!my_plvl)
-    return NULL;		/* very strange our own version is bogus */
-  rq_plvl = _gsasl_parse_version_string (req_version, &rq_major, &rq_minor,
-					 &rq_micro);
-  if (!rq_plvl)
-    return NULL;		/* req version string is invalid */
-
-  if (my_major > rq_major
-      || (my_major == rq_major && my_minor > rq_minor)
-      || (my_major == rq_major && my_minor == rq_minor
-	  && my_micro > rq_micro)
-      || (my_major == rq_major && my_minor == rq_minor
-	  && my_micro == rq_micro && strcmp (my_plvl, rq_plvl) >= 0))
-    {
-      return ver;
-    }
-  return NULL;
+  return check_version (req_version);
 }
