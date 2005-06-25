@@ -3,7 +3,7 @@
 #   mentioned in maintain.texi.  See the help message below for usage details.
 # $Id$
 # 
-# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2004, 2005 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, you can either send email to this
 # program's maintainer or write to: The Free Software Foundation,
-# Inc.; 59 Temple Place, Suite 330; Boston, MA 02111-1307, USA.
+# Inc.; 51 Franklin Street, Fifth Floor; Boston, MA 02110-1301, USA.
 #
 # Original author: Mohit Agarwal.
 # Send bug reports and any other correspondence to bug-texinfo@gnu.org.
@@ -44,7 +44,7 @@ rcs_version=`set - $rcs_revision; echo $2`
 program=`echo $0 | sed -e 's!.*/!!'`
 version="gendocs.sh $rcs_version
 
-Copyright (C) 2003 Free Software Foundation, Inc.
+Copyright (C) 2005 Free Software Foundation, Inc.
 There is NO warranty.  You may redistribute this software
 under the terms of the GNU General Public License.
 For more information about these matters, see the files named COPYING."
@@ -146,16 +146,18 @@ fi
 
 echo Generating output formats for $srcfile
 
-echo Generating info files...
-${MAKEINFO} -o $PACKAGE.info $srcfile
+cmd="${MAKEINFO} -o $PACKAGE.info $srcfile"
+echo "Generating info files... ($cmd)"
+eval $cmd
 mkdir -p $outdir/
 tar czf $outdir/$PACKAGE.info.tar.gz $PACKAGE.info*
 info_tgz_size="`calcsize $outdir/$PACKAGE.info.tar.gz`"
 # do not mv the info files, there's no point in having them available
 # separately on the web.
 
-echo Generating dvi ...
-${TEXI2DVI} $srcfile
+cmd="${TEXI2DVI} $srcfile"
+echo "Generating dvi ... ($cmd)"
+eval $cmd
 
 # now, before we compress dvi:
 echo Generating postscript...
@@ -169,28 +171,32 @@ gzip -f -9 $PACKAGE.dvi
 dvi_gz_size="`calcsize $PACKAGE.dvi.gz`"
 mv $PACKAGE.dvi.gz $outdir/
 
-echo Generating pdf ...
-${TEXI2DVI} --pdf $srcfile
+cmd="${TEXI2DVI} --pdf $srcfile"
+echo "Generating pdf ... ($cmd)"
+eval $cmd
 pdf_size="`calcsize $PACKAGE.pdf`"
 mv $PACKAGE.pdf $outdir/
 
-echo Generating ASCII...
-${MAKEINFO} -o $PACKAGE.txt --no-split --no-headers $srcfile
+cmd="${MAKEINFO} -o $PACKAGE.txt --no-split --no-headers $srcfile"
+echo "Generating ASCII... ($cmd)"
+eval $cmd
 ascii_size="`calcsize $PACKAGE.txt`"
 gzip -f -9 -c $PACKAGE.txt >$outdir/$PACKAGE.txt.gz
 ascii_gz_size="`calcsize $outdir/$PACKAGE.txt.gz`"
 mv $PACKAGE.txt $outdir/
 
-echo Generating monolithic html...
+cmd="${MAKEINFO} --no-split --html -o $PACKAGE.html $html $srcfile"
+echo "Generating monolithic html... ($cmd)"
 rm -rf $PACKAGE.html  # in case a directory is left over
-${MAKEINFO} --no-split --html -o $PACKAGE.html $html $srcfile
+eval $cmd
 html_mono_size="`calcsize $PACKAGE.html`"
 gzip -f -9 -c $PACKAGE.html >$outdir/$PACKAGE.html.gz
 html_mono_gz_size="`calcsize $outdir/$PACKAGE.html.gz`"
 mv $PACKAGE.html $outdir/
 
-echo Generating html by node...
-${MAKEINFO} --html -o $PACKAGE.html $html $srcfile
+cmd="${MAKEINFO} --html -o $PACKAGE.html $html $srcfile"
+echo "Generating html by node... ($cmd)"
+eval $cmd
 split_html_dir=$PACKAGE.html
 (
   cd ${split_html_dir} || exit 1
@@ -203,21 +209,23 @@ mv ${split_html_dir}/*.html $outdir/html_node/
 rmdir ${split_html_dir}
 
 echo Making .tar.gz for sources...
-srcfiles=`ls *.texinfo *.texi *.txi 2>/dev/null`
-tar czfh $outdir/$PACKAGE.texi.tar.gz $srcfiles
+srcfiles=`ls *.texinfo *.texi *.txi *.eps 2>/dev/null`
+tar cvzfh $outdir/$PACKAGE.texi.tar.gz $srcfiles
 texi_tgz_size="`calcsize $outdir/$PACKAGE.texi.tar.gz`"
 
 if test -n "$docbook"; then
-  echo Generating docbook XML...
-  ${MAKEINFO} -o - --docbook $srcfile > ${srcdir}/$PACKAGE-db.xml
+  cmd="${MAKEINFO} -o - --docbook $srcfile > ${srcdir}/$PACKAGE-db.xml"
+  echo "Generating docbook XML... $(cmd)"
+  eval $cmd
   docbook_xml_size="`calcsize $PACKAGE-db.xml`"
   gzip -f -9 -c $PACKAGE-db.xml >$outdir/$PACKAGE-db.xml.gz
   docbook_xml_gz_size="`calcsize $outdir/$PACKAGE-db.xml.gz`"
   mv $PACKAGE-db.xml $outdir/
 
-  echo Generating docbook HTML...
+  cmd="${DOCBOOK2HTML} -o $split_html_db_dir ${outdir}/$PACKAGE-db.xml"
+  echo "Generating docbook HTML... ($cmd)"
+  eval $cmd
   split_html_db_dir=html_node_db
-  ${DOCBOOK2HTML} -o $split_html_db_dir ${outdir}/$PACKAGE-db.xml
   (
     cd ${split_html_db_dir} || exit 1
     tar -czf ../$outdir/${PACKAGE}.html_node_db.tar.gz -- *.html
@@ -228,19 +236,22 @@ if test -n "$docbook"; then
   mv ${split_html_db_dir}/*.html $outdir/html_node_db/
   rmdir ${split_html_db_dir}
 
-  echo Generating docbook ASCII...
-  ${DOCBOOK2TXT} ${outdir}/$PACKAGE-db.xml
+  cmd="${DOCBOOK2TXT} ${outdir}/$PACKAGE-db.xml"
+  echo "Generating docbook ASCII... ($cmd)"
+  eval $cmd
   docbook_ascii_size="`calcsize $PACKAGE-db.txt`"
   mv $PACKAGE-db.txt $outdir/
 
-  echo Generating docbook PS...
-  ${DOCBOOK2PS} ${outdir}/$PACKAGE-db.xml
+  cmd="${DOCBOOK2PS} ${outdir}/$PACKAGE-db.xml"
+  echo "Generating docbook PS... $(cmd)"
+  eval $cmd
   gzip -f -9 -c $PACKAGE-db.ps >$outdir/$PACKAGE-db.ps.gz
   docbook_ps_gz_size="`calcsize $outdir/$PACKAGE-db.ps.gz`"
   mv $PACKAGE-db.ps $outdir/
 
-  echo Generating docbook PDF...
-  ${DOCBOOK2PDF} ${outdir}/$PACKAGE-db.xml
+  cmd="${DOCBOOK2PDF} ${outdir}/$PACKAGE-db.xml"
+  echo "Generating docbook PDF... ($cmd)"
+  eval $cmd
   docbook_pdf_size="`calcsize $PACKAGE-db.pdf`"
   mv $PACKAGE-db.pdf $outdir/
 fi
@@ -248,27 +259,27 @@ fi
 echo Writing index file...
 curdate="`date '+%B %d, %Y'`"
 sed \
-   -e "s/%%TITLE%%/$MANUAL_TITLE/g" \
-   -e "s/%%DATE%%/$curdate/g" \
-   -e "s/%%PACKAGE%%/$PACKAGE/g" \
-   -e "s/%%HTML_MONO_SIZE%%/$html_mono_size/g" \
-   -e "s/%%HTML_MONO_GZ_SIZE%%/$html_mono_gz_size/g" \
-   -e "s/%%HTML_NODE_TGZ_SIZE%%/$html_node_tgz_size/g" \
-   -e "s/%%INFO_TGZ_SIZE%%/$info_tgz_size/g" \
-   -e "s/%%DVI_GZ_SIZE%%/$dvi_gz_size/g" \
-   -e "s/%%PDF_SIZE%%/$pdf_size/g" \
-   -e "s/%%PS_GZ_SIZE%%/$ps_gz_size/g" \
-   -e "s/%%ASCII_SIZE%%/$ascii_size/g" \
-   -e "s/%%ASCII_GZ_SIZE%%/$ascii_gz_size/g" \
-   -e "s/%%TEXI_TGZ_SIZE%%/$texi_tgz_size/g" \
-   -e "s/%%DOCBOOK_HTML_NODE_TGZ_SIZE%%/$html_node_db_tgz_size/g" \
-   -e "s/%%DOCBOOK_ASCII_SIZE%%/$docbook_ascii_size/g" \
-   -e "s/%%DOCBOOK_PS_GZ_SIZE%%/$docbook_ps_gz_size/g" \
-   -e "s/%%DOCBOOK_PDF_SIZE%%/$docbook_pdf_size/g" \
-   -e "s/%%DOCBOOK_XML_SIZE%%/$docbook_xml_size/g" \
-   -e "s/%%DOCBOOK_XML_GZ_SIZE%%/$docbook_xml_gz_size/g" \
+   -e "s!%%TITLE%%!$MANUAL_TITLE!g" \
+   -e "s!%%DATE%%!$curdate!g" \
+   -e "s!%%PACKAGE%%!$PACKAGE!g" \
+   -e "s!%%HTML_MONO_SIZE%%!$html_mono_size!g" \
+   -e "s!%%HTML_MONO_GZ_SIZE%%!$html_mono_gz_size!g" \
+   -e "s!%%HTML_NODE_TGZ_SIZE%%!$html_node_tgz_size!g" \
+   -e "s!%%INFO_TGZ_SIZE%%!$info_tgz_size!g" \
+   -e "s!%%DVI_GZ_SIZE%%!$dvi_gz_size!g" \
+   -e "s!%%PDF_SIZE%%!$pdf_size!g" \
+   -e "s!%%PS_GZ_SIZE%%!$ps_gz_size!g" \
+   -e "s!%%ASCII_SIZE%%!$ascii_size!g" \
+   -e "s!%%ASCII_GZ_SIZE%%!$ascii_gz_size!g" \
+   -e "s!%%TEXI_TGZ_SIZE%%!$texi_tgz_size!g" \
+   -e "s!%%DOCBOOK_HTML_NODE_TGZ_SIZE%%!$html_node_db_tgz_size!g" \
+   -e "s!%%DOCBOOK_ASCII_SIZE%%!$docbook_ascii_size!g" \
+   -e "s!%%DOCBOOK_PS_GZ_SIZE%%!$docbook_ps_gz_size!g" \
+   -e "s!%%DOCBOOK_PDF_SIZE%%!$docbook_pdf_size!g" \
+   -e "s!%%DOCBOOK_XML_SIZE%%!$docbook_xml_size!g" \
+   -e "s!%%DOCBOOK_XML_GZ_SIZE%%!$docbook_xml_gz_size!g" \
    -e "s,%%SCRIPTURL%%,$scripturl,g" \
-   -e "s/%%SCRIPTNAME%%/$prog/g" \
+   -e "s!%%SCRIPTNAME%%!$prog!g" \
 $GENDOCS_TEMPLATE_DIR/gendocs_template >$outdir/index.html
 
 echo "Done!  See $outdir/ subdirectory for new files."
