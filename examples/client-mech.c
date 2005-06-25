@@ -1,5 +1,5 @@
 /* client-mech.c --- Example SASL client, with a choice of mechanism to use.
- * Copyright (C) 2004  Simon Josefsson
+ * Copyright (C) 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with GNU SASL; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
 
