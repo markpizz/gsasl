@@ -23,7 +23,7 @@
 #include "internal.h"
 
 /* Get check_version. */
-#include "check_version.h"
+#include "check-version.h"
 
 /**
  * gsasl_check_version:
