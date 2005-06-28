@@ -1,4 +1,4 @@
-/* check_version.h --- Check version string compatibility.
+/* check-version.h --- Check version string compatibility.
    Copyright (C) 2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
