@@ -22,8 +22,7 @@
 
 #include "internal.h"
 
-/* Get check_version. */
-#include "check-version.h"
+#include <strverscmp.h>
 
 /**
  * gsasl_check_version:
@@ -42,5 +41,8 @@
 const char *
 gsasl_check_version (const char *req_version)
 {
-  return check_version (req_version);
+  if (!req_version || strverscmp (req_version, PACKAGE_VERSION) < 0)
+    return PACKAGE_VERSION;
+
+  return NULL;
 }
