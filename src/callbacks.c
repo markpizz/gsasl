@@ -22,13 +22,8 @@
 #include "internal.h"
 #include "callbacks.h"
 
-#ifdef HAVE_READLINE_READLINE_H
-# include <readline/readline.h>
-#else
-extern char *readline (const char *prompt);
-#endif
-
 #include "iconvme.h"
+#include "readline.h"
 
 static char *
 locale_to_utf8 (char *str)
