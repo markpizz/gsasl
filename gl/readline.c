@@ -20,6 +20,15 @@
 # include "config.h"
 #endif
 
+/* This module is intended to be used when the application only need
+   the readline interface.  If you need more functions from the
+   readline library, it is recommended to require the readline library
+   (or improve this module) rather than #if-protect part of your
+   application (doing so would add assumptions of this module into
+   your application).  The application should use #include
+   "readline.h", that header file will include <readline/readline.h>
+   if the real library is present on the system. */
+
 #include <stdio.h>
 #include <getline.h>
 
