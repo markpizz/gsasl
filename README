@@ -18,6 +18,10 @@ tests/) are licensed under the GNU General Public License license (see
 COPYING), and the documentation (doc/) is licensed under the GNU Free
 Documentation License.
 
+If you need help to use GNU SASL, or wish to help others, you are
+invited to join our mailing list help-gsasl@gnu.org, see
+<http://lists.gnu.org/mailman/listinfo/help-gsasl>.
+
 Currently there is some support for the following mechanisms:
 
   - CRAM-MD5 (RFC 2195)

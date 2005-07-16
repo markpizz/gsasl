@@ -16,6 +16,8 @@ Should only be relevant if you use Nettle rather than libgcrypt.
 ** The SASL PLAIN server now permit unassigned code points in SASLprep.
 This aligns with draft-ietf-sasl-plain-06.txt which is in last call.
 
+** gsasl_check_version simplified and made more robust.
+
 ** Update of gnulib files.
 
 ** API and ABI modifications.
