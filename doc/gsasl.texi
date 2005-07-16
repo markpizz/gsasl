@@ -136,6 +136,7 @@ mechanisms through an abstract interface.}
 * Features::
 * SASL Overview::
 * Supported Platforms::
+* Getting help::
 * Commercial Support::
 * Downloading and Installing::
 * Bug Reports::
@@ -382,6 +383,15 @@ GCC 3.4 and GNU Make @code{m68k-uclinux-elf}.
 
 If you port GNU SASL to a new platform, please report it to the author
 so this list can be updated.
+
+@node Getting help
+@section Getting help
+
+A mailing list where users may help each other exists, and you can
+reach it by sending e-mail to @email{help-gsasl@@gnu.org}.  Archives
+of the mailing list discussions, and an interface to manage
+subscriptions, is available through the World Wide Web at
+@url{http://lists.gnu.org/mailman/listinfo/help-gsasl}.
 
 @node Commercial Support
 @section Commercial Support
