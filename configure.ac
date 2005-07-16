@@ -65,13 +65,8 @@ AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 gl_SOURCE_BASE(gl)
 gl_M4_BASE(gl/m4)
 gl_LIB(libgl)
-gl_MODULES(getopt progname strdup exit error getpass-gnu getaddrinfo iconvme)
+gl_MODULES(getopt progname strdup exit error getpass-gnu getaddrinfo iconvme readline)
 gl_INIT
-
-# Try to find readline.
-AC_CHECK_HEADERS(readline/readline.h)
-AC_CHECK_LIB(readline, readline)
-AM_CONDITIONAL(READLINE, test "$ac_cv_lib_readline_readline" = "yes")
 
 # Check for gtk-doc.
 GTK_DOC_CHECK(1.1)

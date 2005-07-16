@@ -1,4 +1,4 @@
-/* readline.c --- Simple implementation of readline.
+/* readline.h --- Simple implementation of readline.
    Copyright (C) 2005 Free Software Foundation, Inc.
    Written by Simon Josefsson
 
@@ -16,26 +16,13 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#if HAVE_CONFIG_H
-# include "config.h"
+#ifndef GL_READLINE_H
+#define GL_READLINE_H
+
+#if HAVE_READLINE_READLINE_H
+# include <readline/readline.h>
+#else
+extern char *readline (const char *prompt);
 #endif
 
-#include <stdio.h>
-#include <getline.h>
-
-/* Get specification. */
-#include "readline.h"
-
-char *
-readline (const char *prompt)
-{
-  char *out = NULL;
-  size_t size = 0;
-
-  printf ("%s", prompt);
-
-  if (getline (&out, &size, stdin) < 0)
-    return NULL;
-
-  return out;
-}
+#endif /* GL_READLINE_H */
