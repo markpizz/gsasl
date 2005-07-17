@@ -24,6 +24,7 @@
 #endif
 
 #include <stdlib.h>
+#include <errno.h>
 
 #include "getdelim.h"
 
