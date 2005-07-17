@@ -414,7 +414,7 @@ AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 gl_SOURCE_BASE(gl)
 gl_M4_BASE(gl/m4)
 gl_LIB(libgl)
-gl_MODULES(strdup gettext base64 vasprintf lgetline strverscmp)
+gl_MODULES(strdup gettext base64 vasprintf getline strverscmp)
 gl_LGPL
 gl_INIT
 
