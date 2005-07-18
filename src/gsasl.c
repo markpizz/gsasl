@@ -237,7 +237,7 @@ main (int argc, char *argv[])
       struct sockaddr *saddr = &connect_addr;
       size_t saddrlen = sizeof (*saddr);
       struct addrinfo hints;
-      struct addrinfo *ai;
+      struct addrinfo *ai0, *ai;
 
       if (args_info.connect_given)
 	{
@@ -269,24 +269,40 @@ main (int argc, char *argv[])
 	}
 
       memset (&hints, 0, sizeof (hints));
+      hints.ai_flags = AI_CANONNAME;
       hints.ai_socktype = SOCK_STREAM;
-      res = getaddrinfo (connect_hostname, connect_service, &hints, &ai);
+      res = getaddrinfo (connect_hostname, connect_service, &hints, &ai0);
       if (res != 0)
 	error (EXIT_FAILURE, 0, "%s: %s", connect_hostname,
 	       gai_strerror (res));
-      saddr = ai->ai_addr;
-      saddrlen = ai->ai_addrlen;
 
-      sockfd = socket (saddr->sa_family, SOCK_STREAM, 0);
+      for (ai = ai0; ai; ai = ai->ai_next)
+	{
+	  fprintf (stderr, "Trying %s...\n", quote (ai->ai_canonname));
+
+	  sockfd = socket (ai->ai_family, ai->ai_socktype, ai->ai_protocol);
+	  if (sockfd < 0)
+	    {
+	      error (0, errno, "socket");
+	      continue;
+	    }
+
+	  if (connect (sockfd, ai->ai_addr, ai->ai_addrlen) < 0)
+	    {
+	      int save_errno = errno;
+	      close (sockfd);
+	      sockfd = -1;
+	      error (0, save_errno, "connect");
+	      continue;
+	    }
+	  break;
+	}
+
       if (sockfd < 0)
 	error (EXIT_FAILURE, errno, "socket");
 
-      if (connect (sockfd, saddr, saddrlen) < 0)
-	{
-	  int save_errno = errno;
-	  close (sockfd);
-	  error (EXIT_FAILURE, save_errno, "connect");
-	}
+      saddr = ai->ai_addr;
+      saddrlen = ai->ai_addrlen;
 
       freeaddrinfo (ai);
 
