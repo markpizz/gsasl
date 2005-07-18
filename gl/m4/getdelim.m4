@@ -26,5 +26,5 @@ AC_DEFUN([gl_FUNC_GETDELIM],
 # Prerequisites of lib/getdelim.c.
 AC_DEFUN([gl_PREREQ_GETDELIM],
 [
-  :
+  AC_CHECK_FUNCS([flockfile funlockfile])
 ])
