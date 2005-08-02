@@ -28,6 +28,15 @@
 
 #include "getdelim.h"
 
+#if !HAVE_FLOCKFILE
+# undef flockfile
+# define flockfile(x) ((void) 0)
+#endif
+#if !HAVE_FUNLOCKFILE
+# undef funlockfile
+# define funlockfile(x) ((void) 0)
+#endif
+
 /* Read up to (and including) a DELIMITER from FP into *LINEPTR (and
    NUL-terminate it).  *LINEPTR is a pointer returned from malloc (or
    NULL), pointing to *N characters of space.  It is realloc'ed as

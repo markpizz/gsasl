@@ -30,9 +30,8 @@ MAINTAINERCLEANFILES =
 BUILT_SOURCES += $(ALLOCA_H)
 EXTRA_DIST += alloca_.h
 
-# We need the following in order to create an <alloca.h> when the system
+# We need the following in order to create <alloca.h> when the system
 # doesn't have one that works with the given compiler.
-all-local $(libgl_la_OBJECTS): $(ALLOCA_H)
 alloca.h: alloca_.h
 	cp $(srcdir)/alloca_.h $@-t
 	mv $@-t $@
@@ -57,9 +56,8 @@ libgl_la_SOURCES += gettext.h
 BUILT_SOURCES += $(STDBOOL_H)
 EXTRA_DIST += stdbool_.h
 
-# We need the following in order to create an <stdbool.h> when the system
+# We need the following in order to create <stdbool.h> when the system
 # doesn't have one that works.
-all-local $(libgl_la_OBJECTS): $(STDBOOL_H)
 stdbool.h: stdbool_.h
 	sed -e 's/@''HAVE__BOOL''@/$(HAVE__BOOL)/g' < $(srcdir)/stdbool_.h > $@-t
 	mv $@-t $@
