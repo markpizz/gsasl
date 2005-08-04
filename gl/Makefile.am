@@ -42,9 +42,8 @@ libgl_la_SOURCES += getaddrinfo.h
 BUILT_SOURCES += $(GETOPT_H)
 EXTRA_DIST += getopt_.h getopt_int.h
 
-# We need the following in order to create an <getopt.h> when the system
+# We need the following in order to create <getopt.h> when the system
 # doesn't have one that works with the given compiler.
-all-local $(libgl_la_OBJECTS): $(GETOPT_H)
 getopt.h: getopt_.h
 	cp $(srcdir)/getopt_.h $@-t
 	mv $@-t $@
@@ -76,9 +75,8 @@ libgl_la_SOURCES += progname.h progname.c
 BUILT_SOURCES += $(STDBOOL_H)
 EXTRA_DIST += stdbool_.h
 
-# We need the following in order to create an <stdbool.h> when the system
+# We need the following in order to create <stdbool.h> when the system
 # doesn't have one that works.
-all-local $(libgl_la_OBJECTS): $(STDBOOL_H)
 stdbool.h: stdbool_.h
 	sed -e 's/@''HAVE__BOOL''@/$(HAVE__BOOL)/g' < $(srcdir)/stdbool_.h > $@-t
 	mv $@-t $@
