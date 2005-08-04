@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.2\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-02-08 12:37+0100\n"
+"POT-Creation-Date: 2004-11-29 01:57+0100\n"
 "PO-Revision-Date: 2004-12-29 12:00-0500\n"
 "Last-Translator: Laurentiu Buzdugan <lbuz@rolix.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, fuzzy, c-format
-msgid "Choose SASL mechanism:\n"
+#, c-format
+msgid "Chose SASL mechanism:\n"
 msgstr "Alegeþi mecanismul SASL:\n"
 
 #, c-format
@@ -56,15 +56,11 @@ msgstr "Nu pot gãsi mecanismul...\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr ""
-"Introduceþi datele de autentificare base64 de la server (apãsaþi  RET dacã "
-"nu existã):\n"
+msgstr "Introduceþi datele de autentificare base64 de la server (apãsaþi  RET dacã nu existã):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Introduceþi datele de autentificare base64 de la client (apãsaþi  RET dacã "
-"nu existã):\n"
+msgstr "Introduceþi datele de autentificare base64 de la client (apãsaþi  RET dacã nu existã):\n"
 
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
