@@ -8,11 +8,11 @@ OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
 BSD-Port-URL: http://www.freshports.org/security/gsasl/
 CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
 Mirror-Site-URL: http://josefsson.org/gsasl/
-Version: 0.2.5
+Version: 0.2.6
 Release-Focus: Minor bugfixes
 
-Strings that trigger the Unicode NFKC bug in PR#29 are now rejected.
-ANONYMOUS server reject empty and overlong tokens.  EXTERNAL client
-now return empty data instead of NULL for empty authzid.  Typos in
-gsasl_strerror() messages fixed.  Added self test of EXTERNAL
-mechanism.  Vietnamese translation added.
+The gsasl tool now try to connect to all addresses for a server name.
+The SASL PLAIN server now permit unassigned code points in SASLprep.
+Fix use of 'head -1' in configure script.  The license template in
+files were updated with the new FSF address.  gsasl_check_version
+simplified and made more robust.  Update of gnulib files.
