@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.6 (unreleased)
 
+** The help-gsasl@gnu.org mailing list is now mentioned in documentation.
+
 ** The license template in files were updated with the new FSF address.
 
 ** Update of gnulib files.
