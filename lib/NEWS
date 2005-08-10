@@ -5,7 +5,7 @@ See the end for copying conditions.
 * Version 0.2.6 (unreleased)
 
 ** The SASL PLAIN server now permit unassigned code points in SASLprep.
-This aligns with draft-ietf-sasl-plain-06.txt which is in last call.
+This aligns with draft-ietf-sasl-plain-08.txt which is in last call.
 
 ** Fix use of 'head -1' in configure script.
 Replaced with more portable and compliant command 'sed 1q', thanks to
