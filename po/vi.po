@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.2\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-11-29 01:57+0100\n"
+"POT-Creation-Date: 2005-08-10 12:46+0200\n"
 "PO-Revision-Date: 2005-01-18 20:29+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net> \n"
@@ -14,8 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, c-format
-msgid "Chose SASL mechanism:\n"
+#, fuzzy, c-format
+msgid "Choose SASL mechanism:\n"
 msgstr "Chọn cơ cấu SASL\n"
 
 #, c-format
@@ -56,7 +56,8 @@ msgstr "Nhập dữ liệu xác thực cơ số 64 từ máy chủ (bấm RET n�
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Nhập dữ liệu xác thực cơ số 64 từ ứng dụng khách (bấm RET nếu không có):\n"
+msgstr ""
+"Nhập dữ liệu xác thực cơ số 64 từ ứng dụng khách (bấm RET nếu không có):\n"
 
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"

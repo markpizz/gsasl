@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.2\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-11-29 01:57+0100\n"
+"POT-Creation-Date: 2005-08-10 12:46+0200\n"
 "PO-Revision-Date: 2004-12-21 21:31-0500\n"
 "Last-Translator: Kevin Patrick Scannell <scannell@SLU.EDU>\n"
 "Language-Team: Irish <ga@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, c-format
-msgid "Chose SASL mechanism:\n"
+#, fuzzy, c-format
+msgid "Choose SASL mechanism:\n"
 msgstr "Roghnaigh sásra SASL:\n"
 
 #, c-format
@@ -53,11 +53,15 @@ msgstr "Ní bhfuarthas an sásra...\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon ann):\n"
+msgstr ""
+"Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon "
+"ann):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon ann):\n"
+msgstr ""
+"Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon "
+"ann):\n"
 
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
