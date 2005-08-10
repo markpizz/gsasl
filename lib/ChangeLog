@@ -1,3 +1,192 @@
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Generated.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.6.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Update PGP key.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Update.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Reorder.
+
+2005-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Sync with TP.
+
+2005-08-02  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getdelim.c, gl/m4/getdelim.m4: Update.
+
+2005-07-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getdelim.c: Update.
+
+2005-07-17  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/getdelim.c, gl/getdelim.h,
+	gl/getline.c, gl/getline.h, gl/m4/getdelim.m4, gl/m4/getline.m4,
+	gl/m4/gnulib.m4, gl/lgetdelim.c, gl/lgetdelim.h, gl/lgetline.c,
+	gl/lgetline.h, gl/m4/lgetdelim.m4, gl/m4/lgetline.m4: Use new LGPL
+	getline module.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* m4/ax_create_stdint_h.m4: Update.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Simplify.
+
+2005-07-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/version.c: Use strverscmp rather than now obsolete
+	check-version module.
+
+2005-07-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/check-version.c, gl/check-version.h,
+	gl/m4/check-version.m4, gl/m4/gnulib.m4, gl/m4/size_max.m4: Update
+
+2005-07-15  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Don't use gnulib's check-version, use strverscmp
+	directly instead.
+
+2005-06-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/check-version.c: Typo.
+
+2005-06-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/check-version.m4: Add.
+
+2005-06-28  Simon Josefsson <simon@josefsson.org>
+
+	* src/version.c: Typo.
+
+2005-06-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/check-version.c, gl/check-version.h,
+	gl/check_version.c, gl/check_version.h, gl/strverscmp.c,
+	gl/strverscmp.h, gl/m4/gnulib.m4, gl/m4/strverscmp.m4: Use the real
+	check-version module.
+
+2005-06-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/base64.h, gl/base64.c: Update gnulib files.
+
+2005-06-28  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Typo.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* anonymous/anonymous.h, anonymous/client.c, anonymous/mechinfo.c,
+	anonymous/server.c, cram-md5/challenge.c, cram-md5/challenge.h,
+	cram-md5/client.c, cram-md5/cram-md5.h, cram-md5/digest.c,
+	cram-md5/digest.h, cram-md5/mechinfo.c, cram-md5/server.c,
+	digest-md5/client.c, digest-md5/digest-md5.h,
+	digest-md5/digesthmac.c, digest-md5/digesthmac.h,
+	digest-md5/free.c, digest-md5/free.h, digest-md5/getsubopt.c,
+	digest-md5/mechinfo.c, digest-md5/parser.c, digest-md5/parser.h,
+	digest-md5/printer.c, digest-md5/printer.h, digest-md5/server.c,
+	digest-md5/session.c, digest-md5/session.h,
+	digest-md5/test-parser.c, digest-md5/tokens.h,
+	digest-md5/validate.c, digest-md5/validate.h, external/client.c,
+	external/external.h, external/mechinfo.c, external/server.c,
+	gssapi/client.c, gssapi/mechinfo.c, gssapi/server.c,
+	gssapi/x-gssapi.h, kerberos_v5/client.c, kerberos_v5/kerberos_v5.c,
+	kerberos_v5/kerberos_v5.h, kerberos_v5/server.c,
+	kerberos_v5/shared.h, login/client.c, login/login.h,
+	login/mechinfo.c, login/server.c, ntlm/mechinfo.c, ntlm/ntlm.c,
+	ntlm/x-ntlm.h, plain/client.c, plain/mechinfo.c, plain/plain.h,
+	plain/server.c, securid/client.c, securid/mechinfo.c,
+	securid/securid.h, securid/server.c, Makefile.am, configure.ac,
+	COPYING: Fix address in license.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am, src/base64.c, src/callback.c, src/crypto.c,
+	src/done.c, src/error.c, src/gsasl-compat.h, src/gsasl-mech.h,
+	src/gsasl.h.in, src/init.c, src/internal.h, src/listmech.c,
+	src/md5pwd.c, src/obsolete.c, src/property.c, src/register.c,
+	src/saslprep.c, src/suggest.c, src/supportp.c, src/version.c,
+	src/xcode.c, src/xfinish.c, src/xstart.c, src/xstep.c,
+	anonymous/Makefile.am, cram-md5/Makefile.am, crypto/Makefile.am,
+	digest-md5/Makefile.am, external/Makefile.am, gssapi/Makefile.am,
+	kerberos_v5/Makefile.am, login/Makefile.am, ntlm/Makefile.am,
+	plain/Makefile.am, securid/Makefile.am: Fix address in license.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/check_version.c,
+	gl/check_version.h, gl/m4/gnulib.m4, src/version.c: Use
+	check_version gnulib module.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* gl/size_max.h: Sync with gnulib.
+
+2005-06-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-06-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/alloca_.h, gl/asnprintf.c, gl/asprintf.c,
+	gl/base64.c, gl/base64.h, gl/gettext.h, gl/printf-args.c,
+	gl/printf-args.h, gl/printf-parse.c, gl/printf-parse.h,
+	gl/stdbool_.h, gl/strdup.c, gl/strdup.h, gl/vasnprintf.c,
+	gl/vasnprintf.h, gl/vasprintf.c, gl/vasprintf.h, gl/xsize.h,
+	gl/m4/gettext.m4, gl/m4/glibc2.m4, gl/m4/gnulib.m4,
+	gl/m4/intdiv0.m4, gl/m4/intmax.m4, gl/m4/inttypes-pri.m4,
+	gl/m4/inttypes.m4, gl/m4/isc-posix.m4, gl/m4/lcmessage.m4,
+	gl/m4/lib-link.m4, gl/m4/lib-prefix.m4, gl/m4/nls.m4, gl/m4/po.m4,
+	gl/m4/printf-posix.m4, gl/m4/progtest.m4, gl/m4/strdup.m4: Update
+	gnulib files.
+
+2005-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl-compat.h: Define __attribute__ to empty for C++, tiny
+	patch Ryan Slack <ryan@evine.ca>.
+
+2005-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: Use SASLprep(authcid) as authzid, when the
+	provided authzid is empty.
+
+2005-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump versions.
+
+2005-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* plain/server.c: Align unassigned code point usage in preparation,
+	as per -06.
+
 2005-02-08  Simon Josefsson <simon@josefsson.org>
 
 	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
