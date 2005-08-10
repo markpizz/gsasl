@@ -1,3 +1,194 @@
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po:
+	Generated.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.6.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Update PGP key.
+
+2005-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/getopt.m4: Update.
+
+2005-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po: Sync
+	with TP.
+
+2005-07-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/quote.c, gl/quote.h: Add.
+
+2005-07-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Loop through all getaddrinfo replies.  Print 'Trying
+	foo...' lines, a'la telnet.
+
+2005-07-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/exitfail.c, gl/exitfail.h, gl/getdelim.c,
+	gl/quotearg.c, gl/quotearg.h, gl/xalloc-die.c, gl/xalloc.h,
+	gl/xmalloc.c, gl/m4/exitfail.m4, gl/m4/getdelim.m4,
+	gl/m4/gnulib.m4, gl/m4/mbrtowc.m4, gl/m4/mbstate_t.m4,
+	gl/m4/quote.m4, gl/m4/quotearg.m4, gl/m4/xalloc.m4: Add quote.
+
+2005-07-18  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use quote too.
+
+2005-07-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getdelim.c: Update.
+
+2005-07-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getdelim.c, gl/getdelim.h, gl/getline.c,
+	gl/getline.h, gl/m4/codeset.m4, gl/m4/getdelim.m4,
+	gl/m4/getline.m4, gl/m4/getndelim2.m4, gl/m4/gettext.m4,
+	gl/m4/glibc2.m4, gl/m4/glibc21.m4, gl/m4/gnulib.m4,
+	gl/m4/intdiv0.m4, gl/m4/intmax.m4, gl/m4/inttypes-pri.m4,
+	gl/m4/inttypes.m4, gl/m4/inttypes_h.m4, gl/m4/isc-posix.m4,
+	gl/m4/lcmessage.m4, gl/m4/longdouble.m4, gl/m4/longlong.m4,
+	gl/m4/nls.m4, gl/m4/po.m4, gl/m4/printf-posix.m4,
+	gl/m4/progtest.m4, gl/m4/signed.m4, gl/m4/size_max.m4,
+	gl/m4/ssize_t.m4, gl/m4/stdint_h.m4, gl/m4/uintmax_t.m4,
+	gl/m4/ulonglong.m4, gl/m4/wchar_t.m4, gl/m4/wint_t.m4,
+	gl/m4/xsize.m4, gl/getndelim2.c, gl/getndelim2.h: Update
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Mention help-gsasl.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* README: Add.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/readline.c, gl/m4/readline.m4: Update.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Simplify readline.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/readline.c, gl/readline.h, gl/m4/gnulib.m4,
+	gl/m4/readline.m4, configure.ac: Use new readline module.
+
+2005-07-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/readline.c: Fix license.
+
+2005-07-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getaddrinfo.h, gl/m4/gnulib.m4: Update.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Update PGP key.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* README, doc/reference/gsasl-docs.sgml: Don't reference
+	COPYING.DOC.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* COPYING.DOC: Remove (already included in manual).
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac, doc/Makefile.am, doc/fdl.texi,
+	doc/gdoc-error, doc/gendocs_template, doc/doxygen/gdoc2doxygen,
+	examples/Makefile.am, src/Makefile.am, src/gsasl.ggo,
+	tests/Makefile.am, tests/utils.c, tests/utils.h,
+	examples/client-callback.c, examples/client-mech.c,
+	examples/client-serverfirst.c, examples/client.c: Fix address in
+	license.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs.sh: Update from texinfo.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Typo.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c, tests/digest-md5.c, tests/external.c,
+	tests/gssapi.c, tests/md5file.c, tests/old-cram-md5.c,
+	tests/old-digest-md5.c, tests/old-gssapi.c, tests/old-md5file.c,
+	tests/simple.c, tests/threadsafety, tests/unicode.c, tests/utils.c,
+	tests/utils.h: Fix address in license.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c, src/callbacks.h, src/gsasl.c, src/imap.c,
+	src/imap.h, src/internal.h, src/smtp.c, src/smtp.h: Fix address in
+	license.
+
+2005-06-25  Simon Josefsson <simon@josefsson.org>
+
+	* COPYING: Fix address in license.
+
+2005-06-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-06-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/error.c, gl/error.h, gl/exit.h,
+	gl/gai_strerror.c, gl/getaddrinfo.c, gl/getaddrinfo.h,
+	gl/getline.c, gl/getline.h, gl/getndelim2.c, gl/getndelim2.h,
+	gl/getopt.c, gl/getopt1.c, gl/getopt_.h, gl/getopt_int.h,
+	gl/getpass.c, gl/getpass.h, gl/gettext.h, gl/iconvme.c,
+	gl/iconvme.h, gl/progname.c, gl/progname.h, gl/stdbool_.h,
+	gl/strdup.c, gl/strdup.h, gl/m4/extensions.m4,
+	gl/m4/getaddrinfo.m4, gl/m4/getline.m4, gl/m4/getopt.m4,
+	gl/m4/getpass.m4, gl/m4/gettext.m4, gl/m4/glibc2.m4,
+	gl/m4/gnulib.m4, gl/m4/intdiv0.m4, gl/m4/intmax.m4,
+	gl/m4/inttypes-pri.m4, gl/m4/inttypes.m4, gl/m4/isc-posix.m4,
+	gl/m4/lcmessage.m4, gl/m4/lib-link.m4, gl/m4/lib-prefix.m4,
+	gl/m4/nls.m4, gl/m4/po.m4, gl/m4/printf-posix.m4,
+	gl/m4/progtest.m4, gl/m4/strdup.m4: Update gnulib files.
+
+2005-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2005-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: API fix, reported by Ryan Slack <ryan@evine.ca>.
+
+2005-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, NEWS: Bump versions.
+
+2005-02-08  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Fix.
+
 2005-02-08  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
