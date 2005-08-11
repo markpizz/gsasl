@@ -15,11 +15,3 @@ AC_DEFUN([gl_FUNC_STRDUP],
 
 # Prerequisites of lib/strdup.c.
 AC_DEFUN([gl_PREREQ_STRDUP], [:])
-
-AC_DEFUN([gl_AUTOPROTO_STRDUP],
-[
-  AH_BOTTOM([/* Prototype for strdup. */
-#if !HAVE_DECL_STRDUP
-extern char *strdup (const char *s);
-#endif])
-])

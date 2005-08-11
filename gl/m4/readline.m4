@@ -51,7 +51,7 @@ AC_DEFUN([gl_FUNC_READLINE],
 
   AC_CHECK_HEADERS(readline/readline.h)
 
-  if test "$ac_cv_lib_readline" = no; then
+  if test $gl_cv_lib_readline = no; then
     AC_LIBOBJ(readline)
     gl_PREREQ_READLINE
   fi
