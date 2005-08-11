@@ -20,8 +20,15 @@
 #define GL_READLINE_H
 
 #if HAVE_READLINE_READLINE_H
+/* <readline/readline.h> makes use of the FILE type without including
+   <stdio.h> itself. */
+# include <stdio.h>
 # include <readline/readline.h>
 #else
+/* Prints a prompt PROMPT and then reads and returns a single line of
+   text from the user.  If PROMPT is NULL or the empty string, no
+   prompt is displayed.  The returned line is allocated with malloc;
+   the caller should free the line when it has finished with it. */
 extern char *readline (const char *prompt);
 #endif
 

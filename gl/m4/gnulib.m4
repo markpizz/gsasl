@@ -38,6 +38,9 @@ AC_DEFUN([gl_INIT],
 dnl Usage: gl_MODULES(module1 module2 ...)
 AC_DEFUN([gl_MODULES], [])
 
+dnl Usage: gl_AVOID(module1 module2 ...)
+AC_DEFUN([gl_AVOID], [])
+
 dnl Usage: gl_SOURCE_BASE(DIR)
 AC_DEFUN([gl_SOURCE_BASE], [])
 

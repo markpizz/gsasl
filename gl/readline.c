@@ -29,11 +29,11 @@
    "readline.h", that header file will include <readline/readline.h>
    if the real library is present on the system. */
 
-#include <stdio.h>
-#include <getline.h>
-
 /* Get specification. */
 #include "readline.h"
+
+#include <stdio.h>
+#include <getline.h>
 
 char *
 readline (const char *prompt)
@@ -41,7 +41,8 @@ readline (const char *prompt)
   char *out = NULL;
   size_t size = 0;
 
-  printf ("%s", prompt);
+  if (prompt)
+    fputs (prompt, stdout);
 
   if (getline (&out, &size, stdin) < 0)
     return NULL;
