@@ -13,10 +13,10 @@ decided that we would get more help from the community if we used the
 LGPL, as other free SASL implementations exists.  See also
 <http://www.gnu.org/licenses/why-not-lgpl.html>.
 
-However, the command-line application and test suite (src/, and
-tests/) are licensed under the GNU General Public License license (see
-COPYING), and the documentation (doc/) is licensed under the GNU Free
-Documentation License.
+The command-line application and test suite (src/, and tests/) are
+licensed under the GNU General Public License license (see COPYING).
+The documentation (doc/) is licensed under the GNU Free Documentation
+License.
 
 If you need help to use GNU SASL, or wish to help others, you are
 invited to join our mailing list help-gsasl@gnu.org, see
