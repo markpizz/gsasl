@@ -58,8 +58,7 @@ please let me know so work duplication can be avoided.
     should be a separate library.
   + Port applications to use libgsasl
   + More SASL mechanisms
-  + Cleanup code, possibly by using some string abstraction library.
-    (lib/digest-md5.c most problematic)
+  - Cleanup code, possibly by using some string abstraction library.
   - Privacy separation (authenticate in one process, pass state to another).
   - Improve documentation
   - Port to Cyclone? CCured?
