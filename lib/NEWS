@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.7 (unreleased)
 
+** Eliminated some compiler warnings.
+
 ** API and ABI modifications.
 No changes since last version.
 
