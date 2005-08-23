@@ -123,7 +123,6 @@ register_builtin_mechs (Gsasl * ctx)
 int
 gsasl_init (Gsasl ** ctx)
 {
-  size_t i;
   int rc;
 
   if (gc_init () != GC_OK)
