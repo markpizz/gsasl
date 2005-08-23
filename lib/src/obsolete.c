@@ -1606,9 +1606,9 @@ char *
 gsasl_stringprep_saslprep (const char *in, int *stringprep_rc)
 {
   char *out = NULL;
+#if WITH_SASLPREP
   int rc;
 
-#if WITH_SASLPREP
   rc = stringprep_profile (in, &out, "SASLprep", 0);
   if (stringprep_rc)
     *stringprep_rc = rc;
@@ -1640,9 +1640,9 @@ char *
 gsasl_stringprep_trace (const char *in, int *stringprep_rc)
 {
   char *out = NULL;
+#if WITH_SASLPREP
   int rc;
 
-#if WITH_SASLPREP
   rc = stringprep_profile (in, &out, "trace", 0);
   if (stringprep_rc)
     *stringprep_rc = rc;
