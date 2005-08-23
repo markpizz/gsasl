@@ -66,6 +66,7 @@
 #include "error.h"
 #include "getpass.h"
 #include "getaddrinfo.h"
+#include "quote.h"
 
 /* Get i18n. */
 #include <gettext.h>
