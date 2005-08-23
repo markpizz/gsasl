@@ -31,12 +31,10 @@
 #include <stdarg.h>
 #include <ctype.h>
 #include <string.h>
+#include <errno.h>
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
-#endif
-#ifdef HAVE_ERRNO_H
-# include <errno.h>
 #endif
 #ifdef HAVE_SYS_TYPES_H
 # include <sys/types.h>		/* select() */
