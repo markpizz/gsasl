@@ -50,7 +50,7 @@ const char *GSASL_VALID_MECHANISM_CHARACTERS =
 static int
 register_builtin_mechs (Gsasl * ctx)
 {
-  int rc;
+  int rc = GSASL_OK;
 
 #ifdef USE_ANONYMOUS
   rc = gsasl_register (ctx, &gsasl_anonymous_mechanism);
