@@ -8,7 +8,7 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.7 (unreleased)
 
-** Fix build problems when cross-compiling to uClibc platforms.
+** Fix build problems when cross-compiling to uClibc and Mingw32 platforms.
 
 ** Detecting and using the readline library has been improved.
 
