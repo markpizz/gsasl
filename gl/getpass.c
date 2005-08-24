@@ -78,11 +78,11 @@ char *getpass(const char *prompt)
 #if HAVE_STDIO_EXT_H
 # include <stdio_ext.h>
 #endif
-#if HAVE___FSETLOCKING
+#if !HAVE___FSETLOCKING
 # define __fsetlocking(stream, type) /* empty */
 #endif
 
-#if HAVE_TERMIOS
+#if HAVE_TERMIOS_H
 # include <termios.h>
 #endif
 
