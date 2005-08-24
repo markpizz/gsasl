@@ -4,6 +4,9 @@ See the end for copying conditions.
 
 * Version 0.2.7 (unreleased)
 
+** Fixed bug in GNU SASL 0.1.x.backwards compatibility code in the
+** callback for GSASL_PASSWORD.
+
 ** Eliminated some compiler warnings.
 
 ** API and ABI modifications.
