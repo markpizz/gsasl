@@ -1,3 +1,51 @@
+2005-08-25  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Generated.
+
+2005-08-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.7.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Sync with TP.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/obsolete.c: Fix warnings.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/callback.c:
+	(gsasl_callback): Fix typo in GSASL_PASSWORD backwards compatibility
+	handling.
+
+2005-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/init.c: Remove unused variable.
+
+2005-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/init.c: Fix warning when no mechanism is enabled.
+
+2005-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib.m4, gl/m4/onceonly_2_57.m4, gl/m4/strdup.m4: Update.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2005-08-10  Simon Josefsson <simon@josefsson.org>
 
 	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
