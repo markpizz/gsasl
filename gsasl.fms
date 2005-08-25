@@ -8,11 +8,10 @@ OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
 BSD-Port-URL: http://www.freshports.org/security/gsasl/
 CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
 Mirror-Site-URL: http://josefsson.org/gsasl/
-Version: 0.2.6
+Version: 0.2.7
 Release-Focus: Minor bugfixes
 
-The gsasl tool now try to connect to all addresses for a server name.
-The SASL PLAIN server now permit unassigned code points in SASLprep.
-Fix use of 'head -1' in configure script.  The license template in
-files were updated with the new FSF address.  gsasl_check_version
-simplified and made more robust.  Update of gnulib files.
+Fix build problems when cross-compiling to uClibc and Mingw32
+platforms.  Detecting and using the readline library has been
+improved.  Fixed bug in GNU SASL 0.1.x.backwards compatibility code in
+the callback for GSASL_PASSWORD.  Eliminated some compiler warnings.
