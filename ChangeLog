@@ -1,3 +1,101 @@
+2005-08-25  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po:
+	Generated.
+
+2005-08-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.7.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getpass.c: Update.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib.m4: Update.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Replace getpass-gnu with getpass (getpass-gnu is
+	always built on glibc systems..).
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getpass.c: Update.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getpass.c, gl/m4/getpass.m4: Update.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po: Sync
+	with TP.
+
+2005-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getpass.c, gl/m4/getopt.m4, gl/m4/getpass.m4: Update.
+
+2005-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Assume C89, for errno.h.
+
+2005-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Include quote.h.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* README: Reprioritize.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* README: Fix.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/readline.m4: Update.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/readline.m4: Update.
+
+2005-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/readline.m4: Update.
+
+2005-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/readline.m4: Update.
+
+2005-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Possibly -lreadline.
+
+2005-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* gl/readline.c, gl/readline.h, gl/m4/gnulib.m4,
+	gl/m4/onceonly_2_57.m4, gl/m4/readline.m4, gl/m4/strdup.m4: Update.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Update.
+
+2005-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2005-08-10  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
