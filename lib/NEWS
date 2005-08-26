@@ -2,6 +2,8 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson
 See the end for copying conditions.
 
+* Version 0.2.8 (unreleased)
+
 * Version 0.2.7 (released 2005-08-25)
 
 ** Fixed bug in GNU SASL 0.1.x.backwards compatibility code in the
