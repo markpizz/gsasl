@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.8 (unreleased)
 
+** Improved checking for libidn when the system need -R, -rpath or similar.
+
 * Version 0.2.7 (released 2005-08-25)
 
 ** Fixed bug in GNU SASL 0.1.x.backwards compatibility code in the

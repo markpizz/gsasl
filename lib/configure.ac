@@ -357,16 +357,24 @@ AC_ARG_WITH(stringprep,
   AS_HELP_STRING([--without-stringprep], [disable non-ASCII support]),
 	stringprep=$withval, stringprep=yes)
 if test "$stringprep" != "no"; then
-  sj_CHECK_HEADERLIB(stringprep.h, idn, stringprep_check_version, [
-    stringprep=yes
-    AC_CHECK_FUNCS(pr29_8z)
-    AC_CHECK_HEADERS(pr29.h)
-    AC_DEFINE(WITH_STRINGPREP, 1,
+  AC_LIB_LINKFLAGS_BODY([idn])
+  save_CPPFLAGS="$CPPFLAGS"
+  save_LIBS="$LIBS"
+  AC_LIB_APPENDTOVAR([CPPFLAGS], [$INCIDN])
+  LIBS="$LIBS $LIBIDN"
+  AC_CHECK_HEADER(stringprep.h,, stringprep=no)
+  AC_CHECK_FUNC(stringprep_check_version,, stringprep=no)
+  AC_CHECK_FUNCS(pr29_8z)
+  AC_CHECK_HEADERS(pr29.h)
+  CPPFLAGS="$save_CPPFLAGS"
+  LIBS="$save_LIBS"
+fi
+if test "$stringprep" != "no"; then
+  AC_DEFINE(WITH_STRINGPREP, 1,
 	[Define to 1 if you want to use string preparation from Libidn.])
-  ], [
-    stringprep=no
-    AC_MSG_WARN([Libidn not found.  Stringprep disabled.])
-  ])
+else
+  stringprep=no
+  AC_MSG_WARN([Libidn not found.  Stringprep disabled.])
 fi
 AC_MSG_CHECKING([if non-ASCII support via Libidn should be built])
 AC_MSG_RESULT($stringprep)
