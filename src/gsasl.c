@@ -24,6 +24,10 @@
 #include "imap.h"
 #include "smtp.h"
 
+#if WITH_GNUTLS
+# include <gnutls/gnutls.h>
+#endif
+
 #define MAX_LINE_LENGTH BUFSIZ
 
 struct gengetopt_args_info args_info;
@@ -205,13 +209,20 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
+#if WITH_GNUTLS
+  res = gnutls_global_init ();
+  if (res < 0)
+    error (EXIT_FAILURE, 0, _("GnuTLS initialization failure: %s"),
+	   gnutls_strerror (res));
+#endif
+
   if (cmdline_parser (argc, argv, &args_info) != 0)
     return 1;
 
   if (!args_info.client_flag && !args_info.server_flag &&
       !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
     error (EXIT_FAILURE, 0,
-	   "missing argument\nTry `%s --help' for more information.",
+	   _("missing argument\nTry `%s --help' for more information."),
 	   program_name);
 
   if (args_info.smtp_flag && args_info.imap_flag)
@@ -538,6 +549,10 @@ main (int argc, char *argv[])
     }
 
   gsasl_done (ctx);
+
+#if WITH_GNUTLS
+  gnutls_global_deinit ();
+#endif
 
   return 0;
 }

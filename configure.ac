@@ -61,6 +61,30 @@ AC_MSG_CHECKING([if backwards compatibility code should be present])
 AC_MSG_RESULT($obsolete)
 AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 
+# Check for gnutls
+AC_ARG_WITH(gnutls,
+  AS_HELP_STRING([--without-gnutls], [disable GnuTLS support]),
+	gnutls=$withval, gnutls=yes)
+if test "$gnutls" != "no"; then
+  AC_LIB_LINKFLAGS([gnutls])
+  save_CPPFLAGS="$CPPFLAGS"
+  save_LIBS="$LIBS"
+  AC_LIB_APPENDTOVAR([CPPFLAGS], [$INCGNUTLS])
+  LIBS="$LIBS $LIBGNUTLS"
+  AC_CHECK_HEADER(gnutls/gnutls.h,, gnutls=no)
+  AC_CHECK_FUNC(gnutls_check_version,, gnutls=no)
+  CPPFLAGS="$save_CPPFLAGS"
+  LIBS="$save_LIBS"
+fi
+if test "$gnutls" != "no"; then
+  AC_DEFINE(WITH_GNUTLS, 1, [Define to 1 if you want STARTTLS support.])
+else
+  gnutls=no
+  AC_MSG_WARN([GnuTLS not found.  STARTTLS support disabled.])
+fi
+AC_MSG_CHECKING([if STARTTLS support via GnuTLS should be built])
+AC_MSG_RESULT($gnutls)
+
 # For gnulib stuff in gl/.
 gl_SOURCE_BASE(gl)
 gl_M4_BASE(gl/m4)
