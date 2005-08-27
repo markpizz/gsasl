@@ -1829,7 +1829,7 @@ optional for any corresponding short options.
 @code{gsasl} recognizes these commands:
 
 @verbatim
-  -c, --client               Act as client.
+  -c, --client               Act as client (the default).
       --client-mechanisms    Write name of supported client mechanisms
                              separated by space to stdout.
   -s, --server               Act as server.
@@ -1874,16 +1874,17 @@ Functions}) in the library.  The default is the query the user on the
 terminal.
 
 @verbatim
-  -a, --authentication-id=STRING   Identity of credential owner.
+  -n, --anonymous-token=STRING    Token for anonymous authentication, usually
+                                  mail address (ANONYMOUS only).
+  -a, --authentication-id=STRING  Identity of credential owner.
+  -z, --authorization-id=STRING   Identity to request service for.
       --disable-cleartext-validate
                              Disable cleartext validate hook, forcing server to
                              prompt for password.
-      --enable-cram-md5-validate   Validate CRAM-MD5 challenge and response
-                             interactively.
+      --enable-cram-md5-validate  Validate CRAM-MD5 challenge and response
+                                  interactively.
       --hostname=STRING      Set the name of the server with the requested
                              service.
-  -n, --anonymous-token=STRING   Token for anonymous authentication, usually
-                             mail address (ANONYMOUS only).
   -p, --password=STRING      Password for authentication (insecure for
                              non-testing purposes).
       --passcode=NUMBER      Passcode for authentication (SECURID only).
@@ -1899,7 +1900,27 @@ terminal.
       --service-name=STRING  Set the generic server name in case of a
                              replicated server (DIGEST-MD5 only).
   -x, --maxbuf=NUMBER        Indicate maximum buffer size (DIGEST-MD5 only).
-  -z, --authorization-id=STRING   Identity to request service for.
+@end verbatim
+
+@majorheading STARTTLS options
+
+@verbatim
+      --starttls                Force use of STARTTLS.  The default is to use
+                                  STARTTLS when available.  (default=off)
+      --no-starttls             Unconditionally disable STARTTLS.
+                                  (default=off)
+      --x509-ca-file=FILE       File containing one or more X.509 Certificate
+                                  Authorities certificates in PEM format, used
+                                  to verify the certificate received from the
+                                  server.  If not specified, no verification of
+                                  the remote server certificate will be done.
+      --x509-cert-file=FILE     File containing client X.509 certificate in PEM
+                                  format.  Used together with --x509-key-file
+                                  to specify the certificate/key pair.
+      --x509-key-file=FILE      Private key for the client X.509 certificate in
+                                  PEM format.  Used together with
+                                  --x509-key-file to specify the
+                                  certificate/key pair.
 @end verbatim
 
 @majorheading Other Options
