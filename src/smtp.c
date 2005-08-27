@@ -61,7 +61,7 @@ smtp_select_mechanism (char **mechlist)
 	return 0;
       *mechlist = in;
     }
-  else				/* if (args_info.client_flag) */
+  else
     {
       if (!writeln ("EHLO [127.0.0.1]"))
 	return 0;
@@ -84,19 +84,19 @@ smtp_select_mechanism (char **mechlist)
 int
 smtp_authenticate (const char *mech)
 {
-  if (args_info.client_flag)
+  if (args_info.server_flag)
+    {
+      if (!args_info.quiet_given)
+	fprintf (stderr, _("Using mechanism:\n"));
+      puts (mech);
+    }
+  else
     {
       char input[MAX_LINE_LENGTH];
 
       sprintf (input, "AUTH %s", mech);
       if (!writeln (input))
 	return 0;
-    }
-  else
-    {
-      if (!args_info.quiet_given)
-	fprintf (stderr, _("Using mechanism:\n"));
-      puts (mech);
     }
 
   return 1;
@@ -107,10 +107,10 @@ smtp_step_send (const char *data)
 {
   char input[MAX_LINE_LENGTH];
 
-  if (args_info.client_flag)
-    sprintf (input, "%s", data);
-  else
+  if (args_info.server_flag)
     sprintf (input, "334 %s", data);
+  else
+    sprintf (input, "%s", data);
   if (!writeln (input))
     return 0;
 
