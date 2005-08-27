@@ -64,17 +64,17 @@ register_builtin_mechs (Gsasl * ctx)
     return rc;
 #endif /* USE_EXTERNAL */
 
-#ifdef USE_PLAIN
-  rc = gsasl_register (ctx, &gsasl_plain_mechanism);
-  if (rc != GSASL_OK)
-    return rc;
-#endif /* USE_PLAIN */
-
 #ifdef USE_LOGIN
   rc = gsasl_register (ctx, &gsasl_login_mechanism);
   if (rc != GSASL_OK)
     return rc;
 #endif /* USE_LOGIN */
+
+#ifdef USE_PLAIN
+  rc = gsasl_register (ctx, &gsasl_plain_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_PLAIN */
 
 #ifdef USE_SECURID
   rc = gsasl_register (ctx, &gsasl_securid_mechanism);
