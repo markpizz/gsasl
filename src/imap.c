@@ -46,7 +46,7 @@ imap_has_starttls (void)
   if (!readln (&in))
     return 0;
 
-  has_tls = strstr (in, "STDARTTLS") != NULL;
+  has_tls = strstr (in, "STARTTLS") != NULL;
 
   if (!readln (&in))
     return 0;
