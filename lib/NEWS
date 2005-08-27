@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.8 (unreleased)
 
+** The PLAIN mechanism is preferred over LOGIN when both are available.
+
 ** Improved checking for libidn when the system need -R, -rpath or similar.
 
 * Version 0.2.7 (released 2005-08-25)
