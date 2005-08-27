@@ -196,10 +196,10 @@ step_send (const char *data)
 
   if (!args_info.quiet_given)
     {
-      if (args_info.client_given)
-	fprintf (stderr, _("Output from client:\n"));
-      else
+      if (args_info.server_flag)
 	fprintf (stderr, _("Output from server:\n"));
+      else
+	fprintf (stderr, _("Output from client:\n"));
     }
   fprintf (stdout, "%s\n", data);
 
@@ -533,7 +533,7 @@ main (int argc, char *argv[])
     }
 #endif
 
-  if (args_info.client_given || args_info.server_given)
+  if (args_info.client_flag || args_info.client_given || args_info.server_given)
     {
       char *out;
       char *b64output;
@@ -560,10 +560,10 @@ main (int argc, char *argv[])
 
       /* Authenticate using mechanism */
 
-      if (args_info.client_given)
-	res = gsasl_client_start (ctx, mech, &xctx);
-      else
+      if (args_info.server_flag)
 	res = gsasl_server_start (ctx, mech, &xctx);
+      else
+	res = gsasl_client_start (ctx, mech, &xctx);
       if (res != GSASL_OK)
 	error (EXIT_FAILURE, 0, _("mechanism unavailable: %s"),
 	       gsasl_strerror (res));
@@ -571,7 +571,7 @@ main (int argc, char *argv[])
       in = NULL;
       out = NULL;
 
-      if (args_info.client_given && args_info.no_client_first_flag)
+      if (!args_info.server_flag && args_info.no_client_first_flag)
 	{
 	  res = GSASL_NEEDS_MORE;
 	  goto no_client_first;
@@ -593,12 +593,12 @@ main (int argc, char *argv[])
 	  if (!args_info.quiet_given &&
 	      !args_info.imap_flag && !args_info.smtp_flag)
 	    {
-	      if (args_info.client_given)
-		fprintf (stderr, _("Enter base64 authentication data "
-				   "from server (press RET if none):\n"));
-	      else
+	      if (args_info.server_flag)
 		fprintf (stderr, _("Enter base64 authentication data "
 				   "from client (press RET if none):\n"));
+	      else
+		fprintf (stderr, _("Enter base64 authentication data "
+				   "from server (press RET if none):\n"));
 	    }
 
 	  if (!step_recv (&in))
@@ -615,12 +615,12 @@ main (int argc, char *argv[])
 
       if (!args_info.quiet_given)
 	{
-	  if (args_info.client_given)
-	    fprintf (stderr, _("Client authentication "
-			       "finished (server trusted)...\n"));
-	  else
+	  if (args_info.server_flag)
 	    fprintf (stderr, _("Server authentication "
 			       "finished (client trusted)...\n"));
+	  else
+	    fprintf (stderr, _("Client authentication "
+			       "finished (server trusted)...\n"));
 	}
 
       /* Transfer application payload */
