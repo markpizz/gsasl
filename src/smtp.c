@@ -35,6 +35,29 @@ smtp_greeting (void)
 }
 
 int
+smtp_has_starttls (void)
+{
+  char *in, *capa;
+  int has_tls = 0;
+
+  if (!writeln ("EHLO [127.0.0.1]"))
+    return 0;
+
+  do
+    {
+      if (!readln (&in))
+	return 0;
+
+#define TLSGREETING "250-STARTTLS"
+      if (strncmp (in, TLSGREETING, strlen (TLSGREETING)) == 0)
+	has_tls = 1;
+    }
+  while (strncmp (in, "250 ", 4) != 0);
+
+  return has_tls;
+}
+
+int
 smtp_starttls (void)
 {
   char *in;

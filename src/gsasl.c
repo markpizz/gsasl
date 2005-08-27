@@ -123,7 +123,12 @@ greeting (void)
 static int
 has_starttls (void)
 {
-  return 1;
+  if (args_info.imap_flag)
+    return imap_has_starttls ();
+  if (args_info.smtp_flag)
+    return smtp_has_starttls ();
+
+  return 0;
 }
 
 static int

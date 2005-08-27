@@ -35,6 +35,26 @@ imap_greeting (void)
 }
 
 int
+imap_has_starttls (void)
+{
+  char *in, *capa;
+  int has_tls = 0;
+
+  if (!writeln (". CAPABILITY"))
+    return 0;
+
+  if (!readln (&in))
+    return 0;
+
+  has_tls = strstr (in, "STDARTTLS") != NULL;
+
+  if (!readln (&in))
+    return 0;
+
+  return has_tls;
+}
+
+int
 imap_starttls (void)
 {
   char *in;
