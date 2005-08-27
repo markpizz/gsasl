@@ -32,6 +32,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <errno.h>
+#include <stdbool.h>
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
@@ -64,6 +65,7 @@
 #include "error.h"
 #include "getpass.h"
 #include "getaddrinfo.h"
+#include "readline.h"
 #include "quote.h"
 
 /* Get i18n. */

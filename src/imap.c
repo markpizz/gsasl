@@ -24,12 +24,34 @@
 #define MAX_LINE_LENGTH BUFSIZ
 
 int
-imap_select_mechanism (char **mechlist)
+imap_greeting (void)
 {
   char *in;
 
   if (!readln (&in))
     return 0;
+
+  return 1;
+}
+
+int
+imap_starttls (void)
+{
+  char *in;
+
+  if (!writeln (". STARTTLS"))
+    return 0;
+
+  if (!readln (&in))
+    return 0;
+
+  return 1;
+}
+
+int
+imap_select_mechanism (char **mechlist)
+{
+  char *in;
 
   if (args_info.server_flag)
     {

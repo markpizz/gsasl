@@ -21,6 +21,8 @@
 
 #include "internal.h"
 
+extern int imap_greeting (void);
+extern int imap_starttls (void);
 extern int imap_select_mechanism (char **mechlist);
 extern int imap_authenticate (const char *mech);
 extern int imap_step_send (const char *data);

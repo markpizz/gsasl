@@ -21,6 +21,8 @@
 
 #include "internal.h"
 
+extern int smtp_greeting (void);
+extern int smtp_starttls (void);
 extern int smtp_select_mechanism (char **mechlist);
 extern int smtp_authenticate (const char *mech);
 extern int smtp_step_send (const char *data);

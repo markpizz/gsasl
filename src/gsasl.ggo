@@ -31,7 +31,7 @@ option "connect" - "Connect to TCP server and negotiate on stream instead of std
 
 section "Generic options"
 option "application-data" d "After authentication, read data from stdin and run it through the mechanism's security layer and print it base64 encoded to stdout. The default is to terminate after authentication." flag on
-option "imap" - "Use a IMAP-like logon procedure (client only). Also sets the --service default to 'imap'." flag on
+option "imap" - "Use a IMAP-like logon procedure (client only). Also sets the --service default to 'imap'." flag off
 option "smtp" - "Use a SMTP-like logon procedure (client only). Also sets the --service default to 'smtp'." flag off
 option "mechanism" m "Mechanism to use." string no
 option "no-client-first" - "Disallow client to send data first (client only)." flag off
@@ -50,6 +50,13 @@ option "service-name" - "Set the generic server name in case of a replicated ser
 option "enable-cram-md5-validate" - "Validate CRAM-MD5 challenge and response interactively." flag off
 option "disable-cleartext-validate" - "Disable cleartext validate hook, forcing server to prompt for password." flag off
 option "quality-of-protection" - "How application payload will be protected. 'auth' means no protection, 'auth-int' means integrity protection, 'auth-conf' means integrity and confidentialiy protection.  Currently only used by DIGEST-MD5, where the default is 'auth-conf'." string typestr="TYPE" no
+
+section "STARTTLS options"
+option "starttls" - "Force use of STARTTLS.  The default is to use STARTTLS when available." flag off
+option "no-starttls" - "Unconditionally disable STARTTLS." flag off
+option "x509-ca-file" - "File containing one or more X.509 Certificate Authorities certificates in PEM format, used to verify the certificate received from the server.  If not specified, no verification of the remote server certificate will be done." string typestr="FILE" no
+option "x509-cert-file" - "File containing client X.509 certificate in PEM format.  Used together with --x509-key-file to specify the certificate/key pair." string typestr="FILE" no
+option "x509-key-file" - "Private key for the client X.509 certificate in PEM format.  Used together with --x509-key-file to specify the certificate/key pair." string typestr="FILE" no
 
 section "Other options"
 option "verbose" - "Produce verbose output." flag off

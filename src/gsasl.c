@@ -26,6 +26,8 @@
 
 #if WITH_GNUTLS
 # include <gnutls/gnutls.h>
+gnutls_session session;
+bool using_tls = false;
 #endif
 
 #define MAX_LINE_LENGTH BUFSIZ
@@ -42,12 +44,24 @@ writeln (const char *str)
     {
       size_t len;
 
-      len = write (sockfd, str, strlen (str));
+#if WITH_GNUTLS
+      if (using_tls)
+	len = gnutls_record_send (session, str, strlen (str));
+      else
+#endif
+	len = write (sockfd, str, strlen (str));
       if (len != strlen (str))
 	return 0;
 
-      len = write (sockfd, "\r\n", strlen ("\r\n"));
-      if (len != strlen ("\r\n"))
+#define CRLF "\r\n"
+
+#if WITH_GNUTLS
+      if (using_tls)
+	len = gnutls_record_send (session, CRLF, strlen (CRLF));
+      else
+#endif
+	len = write (sockfd, CRLF, strlen (CRLF));
+      if (len != strlen (CRLF))
 	return 0;
     }
 
@@ -57,37 +71,68 @@ writeln (const char *str)
 int
 readln (char **out)
 {
-  char input[MAX_LINE_LENGTH];
-
   if (sockfd)
     {
       ssize_t len;
       size_t j = 0;
+      char input[MAX_LINE_LENGTH];
 
       /* FIXME: Optimize and remove size limit. */
 
       do
 	{
 	  j++;
-	  len = recv (sockfd, &input[j - 1], 1, 0);
+
+#if WITH_GNUTLS
+	  if (using_tls)
+	    len = gnutls_record_recv (session, &input[j - 1], 1);
+	  else
+#endif
+	    len = recv (sockfd, &input[j - 1], 1, 0);
 	  if (len <= 0)
 	    return 0;
 	}
       while (input[j - 1] != '\n' && j < MAX_LINE_LENGTH);
       input[j] = '\0';
+
+      *out = strdup (input);
+
+      printf ("%s", *out);
     }
   else
     {
-      /* FIXME: Use readline?  Or getline. */
-
-      if (!fgets (input, MAX_LINE_LENGTH, stdin))
+      *out = readline ("");
+      if (*out == NULL)
 	return 0;
     }
 
-  if (sockfd)
-    printf ("%s", input);
+  return 1;
+}
 
-  *out = strdup (input);
+static int
+greeting (void)
+{
+  if (args_info.imap_flag)
+    return imap_greeting ();
+  if (args_info.smtp_flag)
+    return smtp_greeting ();
+
+  return 1;
+}
+
+static int
+has_starttls (void)
+{
+  return 1;
+}
+
+static int
+starttls (void)
+{
+  if (args_info.imap_flag)
+    return imap_starttls ();
+  if (args_info.smtp_flag)
+    return smtp_starttls ();
 
   return 1;
 }
@@ -201,20 +246,22 @@ main (int argc, char *argv[])
 {
   Gsasl *ctx = NULL;
   int res;
-  char input[MAX_LINE_LENGTH];
   char *in;
+  char *connect_hostname;
+  char *connect_service;
+#if WITH_GNUTLS
+  const int kx_prio[] = { GNUTLS_KX_RSA, GNUTLS_KX_DHE_DSS,
+    GNUTLS_KX_DHE_RSA, GNUTLS_KX_ANON_DH, 0
+  };
+  gnutls_anon_client_credentials anoncred;
+  gnutls_certificate_credentials x509cred;
+  int ret, outerr;
+#endif
 
   set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
-
-#if WITH_GNUTLS
-  res = gnutls_global_init ();
-  if (res < 0)
-    error (EXIT_FAILURE, 0, _("GnuTLS initialization failure: %s"),
-	   gnutls_strerror (res));
-#endif
 
   if (cmdline_parser (argc, argv, &args_info) != 0)
     return 1;
@@ -225,59 +272,118 @@ main (int argc, char *argv[])
 	   _("missing argument\nTry `%s --help' for more information."),
 	   program_name);
 
-  if (args_info.smtp_flag && args_info.imap_flag)
-    args_info.imap_flag = 0;
+  if ((args_info.x509_cert_file_arg && !args_info.x509_key_file_arg) ||
+      (!args_info.x509_cert_file_arg && args_info.x509_key_file_arg))
+    error (EXIT_FAILURE, 0,
+	   _("need both --x509-cert-file and --x509-key-file"));
 
-  if (args_info.imap_flag && !args_info.service_given)
+  if (args_info.starttls_flag && args_info.no_starttls_flag)
+    error (EXIT_FAILURE, 0,
+	   _("cannot use both --starttls and --no-starttls"));
+
+  if (args_info.smtp_flag && args_info.imap_flag)
+    error (EXIT_FAILURE, 0, _("cannot use both --smtp and --imap"));
+
+  if (!args_info.connect_given && args_info.inputs_num == 0 &&
+      !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
     {
-      args_info.service_arg = strdup ("imap");
-      args_info.no_client_first_flag = 1;
+      cmdline_parser_print_help ();
+      return EXIT_SUCCESS;
     }
 
-  if (args_info.smtp_flag && !args_info.service_given)
+  if (args_info.connect_given)
     {
-      args_info.service_arg = strdup ("smtp");
-      args_info.no_client_first_flag = 1;
+      if (strrchr (args_info.connect_arg, ':'))
+	{
+	  connect_hostname = strdup (args_info.connect_arg);
+	  *strrchr (connect_hostname, ':') = '\0';
+	  connect_service = strdup (strrchr (args_info.connect_arg, ':') + 1);
+	}
+      else
+	{
+	  connect_hostname = strdup (args_info.connect_arg);
+	  if (args_info.smtp_flag)
+	    connect_service = strdup ("smtp");
+	  else
+	    connect_service = strdup ("imap");
+	}
+    }
+  else if (args_info.inputs_num > 0)
+    {
+      connect_hostname = args_info.inputs[0];
+      if (args_info.inputs_num > 1)
+	connect_service = args_info.inputs[1];
+      else if (args_info.smtp_flag)
+	connect_service = strdup ("smtp");
+      else
+	connect_service = strdup ("imap");
+    }
+
+  if (!args_info.smtp_flag && !args_info.imap_flag)
+    {
+      if (strcmp (connect_service, "25") == 0 ||
+	  strcmp (connect_service, "smtp") == 0)
+	args_info.smtp_flag = 1;
+      else
+	args_info.imap_flag = 1;
+    }
+
+  if (args_info.imap_flag && !args_info.service_given)
+    args_info.service_arg = strdup ("imap");
+
+  if (args_info.smtp_flag && !args_info.service_given)
+    args_info.service_arg = strdup ("smtp");
+
+  if (args_info.imap_flag || args_info.smtp_flag)
+    args_info.no_client_first_flag = 1;
+
+  if (!args_info.hostname_arg)
+    args_info.hostname_arg = strdup (connect_hostname);
+
+  res = gsasl_init (&ctx);
+  if (res != GSASL_OK)
+    error (EXIT_FAILURE, 0, _("initialization failure: %s"),
+	   gsasl_strerror (res));
+
+  gsasl_callback_set (ctx, callback);
+
+  if (args_info.client_mechanisms_flag || args_info.server_mechanisms_flag)
+    {
+      char *mechs;
+
+      if (args_info.client_mechanisms_flag)
+	res = gsasl_client_mechlist (ctx, &mechs);
+      else
+	res = gsasl_server_mechlist (ctx, &mechs);
+
+      if (res != GSASL_OK)
+	error (EXIT_FAILURE, 0, _("error listing mechanisms: %s"),
+	       gsasl_strerror (res));
+
+      if (!args_info.quiet_given)
+	{
+	  if (args_info.client_mechanisms_flag)
+	    fprintf (stderr,
+		     _("This client supports the following mechanisms:\n"));
+	  else
+	    fprintf (stderr,
+		     _("This server supports the following mechanisms:\n"));
+	}
+
+      fprintf (stdout, "%s\n", mechs);
+
+      free (mechs);
+
+      return EXIT_SUCCESS;
     }
 
   if (args_info.connect_given || args_info.inputs_num > 0)
     {
-      char *connect_hostname;
-      char *connect_service;
       struct sockaddr connect_addr;
       struct sockaddr *saddr = &connect_addr;
       size_t saddrlen = sizeof (*saddr);
       struct addrinfo hints;
       struct addrinfo *ai0, *ai;
-
-      if (args_info.connect_given)
-	{
-	  if (strrchr (args_info.connect_arg, ':'))
-	    {
-	      connect_hostname = strdup (args_info.connect_arg);
-	      *strrchr (connect_hostname, ':') = '\0';
-	      connect_service =
-		strdup (strrchr (args_info.connect_arg, ':') + 1);
-	    }
-	  else
-	    {
-	      connect_hostname = strdup (args_info.connect_arg);
-	      if (args_info.smtp_flag)
-		connect_service = strdup ("25");
-	      else
-		connect_service = strdup ("143");
-	    }
-	}
-      else if (args_info.inputs_num > 0)
-	{
-	  connect_hostname = args_info.inputs[0];
-	  if (args_info.inputs_num > 1)
-	    connect_service = args_info.inputs[1];
-	  else if (args_info.smtp_flag)
-	    connect_service = strdup ("25");
-	  else
-	    connect_service = strdup ("143");
-	}
 
       memset (&hints, 0, sizeof (hints));
       hints.ai_flags = AI_CANONNAME;
@@ -316,57 +422,113 @@ main (int argc, char *argv[])
       saddrlen = ai->ai_addrlen;
 
       freeaddrinfo (ai);
-
-      if (!args_info.hostname_arg)
-	args_info.hostname_arg = strdup (connect_hostname);
-    }
-  else if (!args_info.client_mechanisms_flag &&
-	   !args_info.server_mechanisms_flag)
-    {
-      cmdline_parser_print_help ();
-      return EXIT_SUCCESS;
     }
 
-  res = gsasl_init (&ctx);
-  if (res != GSASL_OK)
-    error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
-	   gsasl_strerror (res));
+  if (!greeting ())
+    return 1;
 
-  gsasl_callback_set (ctx, callback);
-
-  if (args_info.client_mechanisms_flag || args_info.server_mechanisms_flag)
+#if WITH_GNUTLS
+  if (!args_info.no_starttls_flag && (args_info.starttls_flag ||
+				      has_starttls ()))
     {
-      char *mechs;
+      res = gnutls_global_init ();
+      if (res < 0)
+	error (EXIT_FAILURE, 0, _("GnuTLS global initialization failed: %s"),
+	       gnutls_strerror (res));
 
-      if (args_info.client_mechanisms_flag)
-	res = gsasl_client_mechlist (ctx, &mechs);
-      else
-	res = gsasl_server_mechlist (ctx, &mechs);
+      res = gnutls_init (&session, GNUTLS_CLIENT);
+      if (res < 0)
+	error (EXIT_FAILURE, 0, _("GnuTLS initialization failed: %s"),
+	       gnutls_strerror (res));
 
-      if (res != GSASL_OK)
-	error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
-	       gsasl_strerror (res));
+      res = gnutls_set_default_priority (session);
+      if (res < 0)
+	error (EXIT_FAILURE, 0, _("setting GnuTLS defaults failed: %s"),
+	       gnutls_strerror (res));
 
-      if (!args_info.quiet_given)
+      res = gnutls_anon_allocate_client_credentials (&anoncred);
+      if (res < 0)
+	error (EXIT_FAILURE, 0,
+	       _("allocating anonymous GnuTLS credential: %s"),
+	       gnutls_strerror (res));
+
+      res = gnutls_credentials_set (session, GNUTLS_CRD_ANON, anoncred);
+      if (res < 0)
+	error (EXIT_FAILURE, 0, _("setting anonymous GnuTLS credential: %s"),
+	       gnutls_strerror (res));
+
+      res = gnutls_certificate_allocate_credentials (&x509cred);
+      if (res < 0)
+	error (EXIT_FAILURE, 0, _("allocating X.509 GnuTLS credential: %s"),
+	       gnutls_strerror (res));
+
+      if (args_info.x509_cert_file_arg && args_info.x509_key_file_arg)
+	res = gnutls_certificate_set_x509_key_file
+	  (x509cred, args_info.x509_cert_file_arg,
+	   args_info.x509_key_file_arg, GNUTLS_X509_FMT_PEM);
+      if (res != GNUTLS_E_SUCCESS)
+	error (EXIT_FAILURE, 0, _("loading X.509 GnuTLS credential: %s"),
+	       gnutls_strerror (res));
+
+      if (args_info.x509_ca_file_arg)
 	{
-	  if (args_info.client_mechanisms_flag)
-	    fprintf (stderr,
-		     _("This client supports the following mechanisms:\n"));
-	  else
-	    fprintf (stderr,
-		     _("This server supports the following mechanisms:\n"));
+	  res = gnutls_certificate_set_x509_trust_file
+	    (x509cred, args_info.x509_ca_file_arg, GNUTLS_X509_FMT_PEM);
+	  if (res < 0)
+	    error (EXIT_FAILURE, 0, _("no X.509 CAs found: %s"),
+		   gnutls_strerror (res));
+	  error (EXIT_FAILURE, 0, _("no X.509 CAs found"));
 	}
 
-      fprintf (stdout, "%s\n", mechs);
+      res =
+	gnutls_credentials_set (session, GNUTLS_CRD_CERTIFICATE, x509cred);
+      if (res < 0)
+	error (EXIT_FAILURE, 0, _("setting X.509 GnuTLS credential: %s"),
+	       gnutls_strerror (res));
 
-      free (mechs);
+      res = gnutls_kx_set_priority (session, kx_prio);
+      if (res < 0)
+	error (EXIT_FAILURE, 0, _("setting GnuTLS key exchange priority: %s"),
+	       gnutls_strerror (res));
 
-      return EXIT_SUCCESS;
+      gnutls_transport_set_ptr (session, (gnutls_transport_ptr) sockfd);
+
+      if (!starttls ())
+	return 1;
+
+      res = gnutls_handshake (session);
+      if (res < 0)
+	error (EXIT_FAILURE, 0, _("GnuTLS handshake failed: %s"),
+	       gnutls_strerror (res));
+
+      if (args_info.x509_ca_file_arg)
+	{
+	  unsigned int status;
+
+	  res = gnutls_certificate_verify_peers2 (session, &status);
+	  if (res < 0)
+	    error (EXIT_FAILURE, 0, _("verifying peer certificate: %s"),
+		   gnutls_strerror (res));
+
+	  if (status & GNUTLS_CERT_INVALID)
+	    error (EXIT_FAILURE, 0, _("server certificate is not trusted"));
+
+	  if (status & GNUTLS_CERT_SIGNER_NOT_FOUND)
+	    error (EXIT_FAILURE, 0,
+		   _("server certificate hasn't got a known issuer"));
+
+	  if (status & GNUTLS_CERT_REVOKED)
+	    error (EXIT_FAILURE, 0, _("server certificate has been revoked"));
+
+	  error (EXIT_FAILURE, 0, _("could not verify server certificate"));
+	}
+
+      using_tls = true;
     }
+#endif
 
   if (args_info.client_flag || args_info.server_flag)
     {
-      char output[MAX_LINE_LENGTH];
       char *out;
       char *b64output;
       size_t output_len;
@@ -397,7 +559,7 @@ main (int argc, char *argv[])
       else
 	res = gsasl_server_start (ctx, mech, &xctx);
       if (res != GSASL_OK)
-	error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
+	error (EXIT_FAILURE, 0, _("mechanism unavailable: %s"),
 	       gsasl_strerror (res));
 
       in = NULL;
@@ -439,7 +601,7 @@ main (int argc, char *argv[])
       while (res == GSASL_NEEDS_MORE);
 
       if (res != GSASL_OK)
-	error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
+	error (EXIT_FAILURE, 0, _("mechanism error: %s"),
 	       gsasl_strerror (res));
 
       if (!auth_finish ())
@@ -472,6 +634,8 @@ main (int argc, char *argv[])
 	    {
 	      if (FD_ISSET (STDIN_FILENO, &readfds))
 		{
+		  char input[MAX_LINE_LENGTH];
+
 		  input[0] = '\0';
 		  if (fgets (input, MAX_LINE_LENGTH - 2, stdin) == NULL)
 		    break;
@@ -485,7 +649,6 @@ main (int argc, char *argv[])
 		  else
 		    input[strlen (input) - 1] = '\0';
 
-		  output_len = sizeof (output);
 		  res = gsasl_encode (xctx, input, strlen (input),
 				      &out, &output_len);
 		  if (res != GSASL_OK)
@@ -493,7 +656,14 @@ main (int argc, char *argv[])
 
 		  if (sockfd)
 		    {
-		      if (write (sockfd, out, output_len) != output_len)
+		      ssize_t len;
+#if WITH_GNUTLS
+		      if (using_tls)
+			len = gnutls_record_send (session, out, output_len);
+		      else
+#endif
+			len = write (sockfd, out, output_len);
+		      if (len != output_len)
 			return 0;
 		    }
 		  else if (!(strlen (input) == output_len &&
@@ -529,7 +699,7 @@ main (int argc, char *argv[])
 	    }
 
 	  if (res != GSASL_OK)
-	    error (EXIT_FAILURE, 0, _("Libgsasl error (%d): %s"), res,
+	    error (EXIT_FAILURE, 0, _("encoding error: %s"), res,
 		   gsasl_strerror (res));
 	}
 
@@ -544,6 +714,17 @@ main (int argc, char *argv[])
 
   if (sockfd)
     {
+#if WITH_GNUTLS
+      if (using_tls)
+	{
+	  res = gnutls_bye (session, GNUTLS_SHUT_RDWR);
+	  if (res < 0)
+	    error (EXIT_FAILURE, 0,
+		   _("terminating GnuTLS session failed: %s"),
+		   gnutls_strerror (res));
+
+	}
+#endif
       shutdown (sockfd, SHUT_RDWR);
       close (sockfd);
     }
@@ -551,7 +732,13 @@ main (int argc, char *argv[])
   gsasl_done (ctx);
 
 #if WITH_GNUTLS
-  gnutls_global_deinit ();
+  if (using_tls)
+    {
+      gnutls_deinit (session);
+      gnutls_anon_free_client_credentials (anoncred);
+      gnutls_certificate_free_credentials (x509cred);
+      gnutls_global_deinit ();
+    }
 #endif
 
   return 0;
