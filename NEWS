@@ -8,6 +8,12 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.8 (unreleased)
 
+** The gsasl tool now support STARTTLS for IMAP and SMTP.
+
+** The --client and --server parameters for the gsasl tool now work properly.
+
+** The --client and --server stdin/stdout modes now use the readline library.
+
 * Version 0.2.7 (released 2005-08-25)
 
 ** Fix build problems when cross-compiling to uClibc and Mingw32 platforms.
