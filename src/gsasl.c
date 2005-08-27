@@ -267,6 +267,7 @@ main (int argc, char *argv[])
     return 1;
 
   if (!args_info.client_flag && !args_info.server_flag &&
+      !args_info.connect_arg &&
       !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
     error (EXIT_FAILURE, 0,
 	   _("missing argument\nTry `%s --help' for more information."),
@@ -477,7 +478,8 @@ main (int argc, char *argv[])
 	  if (res < 0)
 	    error (EXIT_FAILURE, 0, _("no X.509 CAs found: %s"),
 		   gnutls_strerror (res));
-	  error (EXIT_FAILURE, 0, _("no X.509 CAs found"));
+	  if (res == 0)
+	    error (EXIT_FAILURE, 0, _("no X.509 CAs found"));
 	}
 
       res =
@@ -520,7 +522,9 @@ main (int argc, char *argv[])
 	  if (status & GNUTLS_CERT_REVOKED)
 	    error (EXIT_FAILURE, 0, _("server certificate has been revoked"));
 
-	  error (EXIT_FAILURE, 0, _("could not verify server certificate"));
+	  if (status != 0)
+	    error (EXIT_FAILURE, 0,
+		   _("could not verify server certificate (rc=%d)"), status);
 	}
 
       using_tls = true;
