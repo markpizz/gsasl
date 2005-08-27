@@ -33,7 +33,7 @@ bool using_tls = false;
 #define MAX_LINE_LENGTH BUFSIZ
 
 struct gengetopt_args_info args_info;
-int sockfd;
+int sockfd = 0;
 
 int
 writeln (const char *str)
@@ -160,7 +160,8 @@ select_mechanism (char **mechlist)
   else				/* if (args_info.client_flag) */
     {
       if (!args_info.quiet_given)
-	fprintf (stderr, _("Input SASL mechanism supported by server:\n"));
+	fprintf (stderr,
+		 _("Input list of SASL mechanisms supported by server:\n"));
       if (!readln (&in))
 	return 0;
 
@@ -195,7 +196,7 @@ step_send (const char *data)
 
   if (!args_info.quiet_given)
     {
-      if (args_info.client_flag)
+      if (args_info.client_given)
 	fprintf (stderr, _("Output from client:\n"));
       else
 	fprintf (stderr, _("Output from server:\n"));
@@ -266,7 +267,7 @@ main (int argc, char *argv[])
   if (cmdline_parser (argc, argv, &args_info) != 0)
     return 1;
 
-  if (!args_info.client_flag && !args_info.server_flag &&
+  if (!args_info.client_given && !args_info.server_given &&
       !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
     error (EXIT_FAILURE, 0,
 	   _("missing argument\nTry `%s --help' for more information."),
@@ -285,6 +286,7 @@ main (int argc, char *argv[])
     error (EXIT_FAILURE, 0, _("cannot use both --smtp and --imap"));
 
   if (!args_info.connect_given && args_info.inputs_num == 0 &&
+      !args_info.client_given && !args_info.server_given &&
       !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
     {
       cmdline_parser_print_help ();
@@ -319,7 +321,7 @@ main (int argc, char *argv[])
 	connect_service = strdup ("imap");
     }
 
-  if (!args_info.smtp_flag && !args_info.imap_flag)
+  if (connect_service && !args_info.smtp_flag && !args_info.imap_flag)
     {
       if (strcmp (connect_service, "25") == 0 ||
 	  strcmp (connect_service, "smtp") == 0)
@@ -337,7 +339,7 @@ main (int argc, char *argv[])
   if (args_info.imap_flag || args_info.smtp_flag)
     args_info.no_client_first_flag = 1;
 
-  if (!args_info.hostname_arg)
+  if (connect_hostname && !args_info.hostname_arg)
     args_info.hostname_arg = strdup (connect_hostname);
 
   res = gsasl_init (&ctx);
@@ -428,8 +430,8 @@ main (int argc, char *argv[])
     return 1;
 
 #if WITH_GNUTLS
-  if (!args_info.no_starttls_flag && (args_info.starttls_flag ||
-				      has_starttls ()))
+  if (sockfd && !args_info.no_starttls_flag &&
+      (args_info.starttls_flag || has_starttls ()))
     {
       res = gnutls_global_init ();
       if (res < 0)
@@ -530,7 +532,7 @@ main (int argc, char *argv[])
     }
 #endif
 
-  if (args_info.client_flag || args_info.server_flag)
+  if (args_info.client_given || args_info.server_given)
     {
       char *out;
       char *b64output;
@@ -557,7 +559,7 @@ main (int argc, char *argv[])
 
       /* Authenticate using mechanism */
 
-      if (args_info.client_flag)
+      if (args_info.client_given)
 	res = gsasl_client_start (ctx, mech, &xctx);
       else
 	res = gsasl_server_start (ctx, mech, &xctx);
@@ -568,7 +570,7 @@ main (int argc, char *argv[])
       in = NULL;
       out = NULL;
 
-      if (args_info.client_flag && args_info.no_client_first_flag)
+      if (args_info.client_given && args_info.no_client_first_flag)
 	{
 	  res = GSASL_NEEDS_MORE;
 	  goto no_client_first;
@@ -590,7 +592,7 @@ main (int argc, char *argv[])
 	  if (!args_info.quiet_given &&
 	      !args_info.imap_flag && !args_info.smtp_flag)
 	    {
-	      if (args_info.client_flag)
+	      if (args_info.client_given)
 		fprintf (stderr, _("Enter base64 authentication data "
 				   "from server (press RET if none):\n"));
 	      else
@@ -612,7 +614,7 @@ main (int argc, char *argv[])
 
       if (!args_info.quiet_given)
 	{
-	  if (args_info.client_flag)
+	  if (args_info.client_given)
 	    fprintf (stderr, _("Client authentication "
 			       "finished (server trusted)...\n"));
 	  else
