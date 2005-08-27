@@ -267,7 +267,8 @@ main (int argc, char *argv[])
   if (cmdline_parser (argc, argv, &args_info) != 0)
     return 1;
 
-  if (!args_info.client_given && !args_info.server_given &&
+  if (!(args_info.client_flag || args_info.client_given) &&
+      !args_info.server_given &&
       !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
     error (EXIT_FAILURE, 0,
 	   _("missing argument\nTry `%s --help' for more information."),
