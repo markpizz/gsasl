@@ -52,10 +52,7 @@ release:
 	cvs rtag $(tag) $(PACKAGE)
 	gpg -b $(distdir).tar.gz
 	gpg --verify $(distdir).tar.gz.sig
-	echo "directory: $(PACKAGE)" > $(distdir).tar.gz.directive
-	gpg --clearsign $(distdir).tar.gz.directive
-	ncftpput ftp-upload.gnu.org /incoming/alpha \
-		$(distdir).tar.gz{,.sig,.directive.asc}
+	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
 	cd doc && ./gendocs.sh --html "--css-include=texinfo.css" \
 		-o ../$(htmldir)/manual/ $(PACKAGE) "GNU SASL"
 	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/
