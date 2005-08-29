@@ -20,7 +20,7 @@
 SUBDIRS = po gl lib src examples tests doc
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
-DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --disable-obsolete
 
 # Maintainer targets
 
