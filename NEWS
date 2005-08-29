@@ -14,6 +14,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 ** The --client and --server stdin/stdout modes now use the readline library.
 
+** Fixed build problems in getpass on uClibc and Mingw32 platforms.
+
 * Version 0.2.7 (released 2005-08-25)
 
 ** Fix build problems when cross-compiling to uClibc and Mingw32 platforms.
