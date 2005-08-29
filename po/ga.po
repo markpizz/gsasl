@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.2\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-08-25 14:49+0200\n"
+"POT-Creation-Date: 2005-08-29 16:07+0200\n"
 "PO-Revision-Date: 2004-12-21 21:31-0500\n"
 "Last-Translator: Kevin Patrick Scannell <scannell@SLU.EDU>\n"
 "Language-Team: Irish <ga@li.org>\n"
@@ -19,8 +19,8 @@ msgstr ""
 msgid "Choose SASL mechanism:\n"
 msgstr "Roghnaigh sásra SASL:\n"
 
-#, c-format
-msgid "Input SASL mechanism supported by server:\n"
+#, fuzzy, c-format
+msgid "Input list of SASL mechanisms supported by server:\n"
 msgstr "Sásra SASL tacaithe ag an fhreastalaí:\n"
 
 #, c-format
@@ -28,16 +28,35 @@ msgid "Using mechanism:\n"
 msgstr "Ag úsáid an tsásra:\n"
 
 #, c-format
-msgid "Output from client:\n"
-msgstr "Aschur ón chliant:\n"
-
-#, c-format
 msgid "Output from server:\n"
 msgstr "Aschur ón fhreastalaí:\n"
 
 #, c-format
-msgid "Libgsasl error (%d): %s"
-msgstr "Earráid Libgsasl (%d): %s"
+msgid "Output from client:\n"
+msgstr "Aschur ón chliant:\n"
+
+#, c-format
+msgid ""
+"missing argument\n"
+"Try `%s --help' for more information."
+msgstr ""
+
+msgid "need both --x509-cert-file and --x509-key-file"
+msgstr ""
+
+msgid "cannot use both --starttls and --no-starttls"
+msgstr ""
+
+msgid "cannot use both --smtp and --imap"
+msgstr ""
+
+#, c-format
+msgid "initialization failure: %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "error listing mechanisms: %s"
+msgstr "Ag úsáid an tsásra:\n"
 
 #, c-format
 msgid "This client supports the following mechanisms:\n"
@@ -48,14 +67,79 @@ msgid "This server supports the following mechanisms:\n"
 msgstr "Tacaíonn an freastalaí seo na sásraí a leanas:\n"
 
 #, c-format
+msgid "GnuTLS global initialization failed: %s"
+msgstr ""
+
+#, c-format
+msgid "GnuTLS initialization failed: %s"
+msgstr ""
+
+#, c-format
+msgid "setting GnuTLS defaults failed: %s"
+msgstr ""
+
+#, c-format
+msgid "allocating anonymous GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "setting anonymous GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "allocating X.509 GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "loading X.509 GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "no X.509 CAs found: %s"
+msgstr ""
+
+msgid "no X.509 CAs found"
+msgstr ""
+
+#, c-format
+msgid "setting X.509 GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "setting GnuTLS key exchange priority: %s"
+msgstr ""
+
+#, c-format
+msgid "GnuTLS handshake failed: %s"
+msgstr ""
+
+#, c-format
+msgid "verifying peer certificate: %s"
+msgstr ""
+
+# # @name STRONGAUTH_REQUIRED_HINT
+# # @loc none
+#, fuzzy
+msgid "server certificate is not trusted"
+msgstr "Fíordheimhniú den fhreastalaí déanta (cliant iontaofa)...\n"
+
+msgid "server certificate hasn't got a known issuer"
+msgstr ""
+
+msgid "server certificate has been revoked"
+msgstr ""
+
+#, c-format
+msgid "could not verify server certificate (rc=%d)"
+msgstr ""
+
+#, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Ní bhfuarthas an sásra...\n"
 
 #, c-format
-msgid "Enter base64 authentication data from server (press RET if none):\n"
+msgid "mechanism unavailable: %s"
 msgstr ""
-"Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon "
-"ann):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
@@ -64,14 +148,24 @@ msgstr ""
 "ann):\n"
 
 #, c-format
-msgid "Client authentication finished (server trusted)...\n"
-msgstr "Fíordheimhniú den chliant déanta (freastalaí iontaofa)...\n"
+msgid "Enter base64 authentication data from server (press RET if none):\n"
+msgstr ""
+"Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon "
+"ann):\n"
+
+#, c-format
+msgid "mechanism error: %s"
+msgstr ""
 
 # # @name STRONGAUTH_REQUIRED_HINT
 # # @loc none
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Fíordheimhniú den fhreastalaí déanta (cliant iontaofa)...\n"
+
+#, c-format
+msgid "Client authentication finished (server trusted)...\n"
+msgstr "Fíordheimhniú den chliant déanta (freastalaí iontaofa)...\n"
 
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
@@ -82,5 +176,16 @@ msgid "Base64 encoded application data to send:\n"
 msgstr "Sonraí le seoladh, ionchódaithe le bunuimhir 64:\n"
 
 #, c-format
+msgid "encoding error: %s"
+msgstr ""
+
+#, c-format
 msgid "Session finished...\n"
 msgstr "Seisiún déanta...\n"
+
+#, c-format
+msgid "terminating GnuTLS session failed: %s"
+msgstr ""
+
+#~ msgid "Libgsasl error (%d): %s"
+#~ msgstr "Earráid Libgsasl (%d): %s"
