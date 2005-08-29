@@ -66,17 +66,9 @@ AC_ARG_WITH(gnutls,
   AS_HELP_STRING([--without-gnutls], [disable GnuTLS support]),
 	gnutls=$withval, gnutls=yes)
 if test "$gnutls" != "no"; then
-  AC_LIB_LINKFLAGS([gnutls])
-  save_CPPFLAGS="$CPPFLAGS"
-  save_LIBS="$LIBS"
-  AC_LIB_APPENDTOVAR([CPPFLAGS], [$INCGNUTLS])
-  LIBS="$LIBS $LIBGNUTLS"
-  AC_CHECK_HEADER(gnutls/gnutls.h,, gnutls=no)
-  AC_CHECK_FUNC(gnutls_check_version,, gnutls=no)
-  CPPFLAGS="$save_CPPFLAGS"
-  LIBS="$save_LIBS"
+  AC_LIB_HAVE_LINKFLAGS(gnutls,, gnutls/gnutls.h, [gnutls_check_version (0);])
 fi
-if test "$gnutls" != "no"; then
+if test "$ac_cv_libgnutls" = yes; then
   AC_DEFINE(WITH_GNUTLS, 1, [Define to 1 if you want STARTTLS support.])
 else
   gnutls=no
