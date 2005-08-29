@@ -69,7 +69,7 @@ if test "$gnutls" != "no"; then
   AC_LIB_HAVE_LINKFLAGS(gnutls,, [#include <gnutls/gnutls.h>],
     [gnutls_check_version (0);])
 fi
-if test "$ac_cv_libgnutls" != no; then
+if test "$ac_cv_libgnutls" != yes; then
   gnutls=no
   AC_MSG_WARN([GnuTLS not found.  STARTTLS support disabled.])
 fi
