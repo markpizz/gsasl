@@ -27,7 +27,7 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --disable-obsolete
 POURL = ftp://ftp.unex.es/pub/gnu-i18n/po/maint/$(PACKAGE)
 update-po:
 	cd po && \
-	wget --non-verbose --timestamping --retr-symlinks $(POURL)/*.po && \
+	wget --no-verbose --timestamping --retr-symlinks $(POURL)/*.po && \
 	cvs add `ls *.po | grep -v quot.po` || true && \
 	ls *.po | sed 's/.po//' > LINGUAS && \
 	cvs commit -m "Sync with TP." LINGUAS `ls *.po | grep -v quot.po`
