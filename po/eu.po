@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-08-29 16:07+0200\n"
+"POT-Creation-Date: 2004-08-08 00:42+0200\n"
 "PO-Revision-Date: 2004-11-05 16:36+0100\n"
 "Last-Translator: Mikel Olasagasti <hey_neken@euskal.org>\n"
 "Language-Team: Basque <translation-team-eu@lists.sourceforge.net>\n"
@@ -17,173 +17,83 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, fuzzy, c-format
-msgid "Choose SASL mechanism:\n"
+#: src/gsasl.c:106
+#, c-format
+msgid "Chose SASL mechanism:\n"
 msgstr "Aukeratu SASL mekanismoa:\n"
 
-#, fuzzy, c-format
-msgid "Input list of SASL mechanisms supported by server:\n"
+#: src/gsasl.c:114
+#, c-format
+msgid "Input SASL mechanism supported by server:\n"
 msgstr "Sartu zerbitzariak onartzen dituen SASL mekanismoak:\n"
 
+#: src/gsasl.c:133
 #, c-format
 msgid "Using mechanism:\n"
 msgstr "Mekanismo hau erabiltzen:\n"
 
-#, c-format
-msgid "Output from server:\n"
-msgstr "Zerbitzariaren irteera:\n"
-
+#: src/gsasl.c:150
 #, c-format
 msgid "Output from client:\n"
 msgstr "Bezeroaren irteera:\n"
 
+#: src/gsasl.c:152
 #, c-format
-msgid ""
-"missing argument\n"
-"Try `%s --help' for more information."
-msgstr ""
+msgid "Output from server:\n"
+msgstr "Zerbitzariaren irteera:\n"
 
-msgid "need both --x509-cert-file and --x509-key-file"
-msgstr ""
-
-msgid "cannot use both --starttls and --no-starttls"
-msgstr ""
-
-msgid "cannot use both --smtp and --imap"
-msgstr ""
-
+#: src/gsasl.c:335 src/gsasl.c:377 src/gsasl.c:428 src/gsasl.c:470
+#: src/gsasl.c:562
 #, c-format
-msgid "initialization failure: %s"
-msgstr ""
+msgid "Libgsasl error (%d): %s"
+msgstr "Libgsasl errorea (%d): %s"
 
-#, fuzzy, c-format
-msgid "error listing mechanisms: %s"
-msgstr "Mekanismo hau erabiltzen:\n"
-
+#: src/gsasl.c:384
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Bezero honek mekanismo hauek onartzen ditu:\n"
 
+#: src/gsasl.c:387
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Zerbitzari honek mekanismo hauek onartzen ditu:\n"
 
-#, c-format
-msgid "GnuTLS global initialization failed: %s"
-msgstr ""
-
-#, c-format
-msgid "GnuTLS initialization failed: %s"
-msgstr ""
-
-#, c-format
-msgid "setting GnuTLS defaults failed: %s"
-msgstr ""
-
-#, c-format
-msgid "allocating anonymous GnuTLS credential: %s"
-msgstr ""
-
-#, c-format
-msgid "setting anonymous GnuTLS credential: %s"
-msgstr ""
-
-#, c-format
-msgid "allocating X.509 GnuTLS credential: %s"
-msgstr ""
-
-#, c-format
-msgid "loading X.509 GnuTLS credential: %s"
-msgstr ""
-
-#, c-format
-msgid "no X.509 CAs found: %s"
-msgstr ""
-
-msgid "no X.509 CAs found"
-msgstr ""
-
-#, c-format
-msgid "setting X.509 GnuTLS credential: %s"
-msgstr ""
-
-#, c-format
-msgid "setting GnuTLS key exchange priority: %s"
-msgstr ""
-
-#, c-format
-msgid "GnuTLS handshake failed: %s"
-msgstr ""
-
-#, c-format
-msgid "verifying peer certificate: %s"
-msgstr ""
-
-#, fuzzy
-msgid "server certificate is not trusted"
-msgstr "Zerbitzaria egiaztatua (bezeroak fidatua)...\n"
-
-msgid "server certificate hasn't got a known issuer"
-msgstr ""
-
-msgid "server certificate has been revoked"
-msgstr ""
-
-#, c-format
-msgid "could not verify server certificate (rc=%d)"
-msgstr ""
-
+#: src/gsasl.c:411
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Ezin da mekanismoa aurkitu...\n"
 
-#, c-format
-msgid "mechanism unavailable: %s"
-msgstr ""
-
-#, c-format
-msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Sartu bezeroko egiaztapen datuak base64 moduan (sakatu INTRO behar ez "
-"bada):\n"
-
+#: src/gsasl.c:457
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr ""
-"Sartu zerbitzariko egiaztapen datuak base64 moduan (sakatu INTRO behar ez "
-"bada):\n"
+msgstr "Sartu zerbitzariko egiaztapen datuak base64 moduan (sakatu INTRO behar ez bada):\n"
 
+#: src/gsasl.c:460
 #, c-format
-msgid "mechanism error: %s"
-msgstr ""
+msgid "Enter base64 authentication data from client (press RET if none):\n"
+msgstr "Sartu bezeroko egiaztapen datuak base64 moduan (sakatu INTRO behar ez bada):\n"
 
-#, c-format
-msgid "Server authentication finished (client trusted)...\n"
-msgstr "Zerbitzaria egiaztatua (bezeroak fidatua)...\n"
-
+#: src/gsasl.c:479
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Bezeroa egiaztatua (zerbitzariak fidatua)...\n"
 
+#: src/gsasl.c:482
+#, c-format
+msgid "Server authentication finished (client trusted)...\n"
+msgstr "Zerbitzaria egiaztatua (bezeroak fidatua)...\n"
+
+#: src/gsasl.c:497
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Sartu aplikazioaren datuak (fitxategi-amaiera amaitzeko):\n"
 
+#: src/gsasl.c:536
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Bidaliko den aplikazio datuak base64 moduan kodifikatua:\n"
 
-#, c-format
-msgid "encoding error: %s"
-msgstr ""
-
+#: src/gsasl.c:567
 #, c-format
 msgid "Session finished...\n"
 msgstr "Saioa amaituta...\n"
-
-#, c-format
-msgid "terminating GnuTLS session failed: %s"
-msgstr ""
-
-#~ msgid "Libgsasl error (%d): %s"
-#~ msgstr "Libgsasl errorea (%d): %s"

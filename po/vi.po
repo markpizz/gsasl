@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.2\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-08-29 16:07+0200\n"
+"POT-Creation-Date: 2004-11-29 01:57+0100\n"
 "PO-Revision-Date: 2005-01-18 20:29+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net> \n"
@@ -14,12 +14,12 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, fuzzy, c-format
-msgid "Choose SASL mechanism:\n"
+#, c-format
+msgid "Chose SASL mechanism:\n"
 msgstr "Chọn cơ cấu SASL\n"
 
-#, fuzzy, c-format
-msgid "Input list of SASL mechanisms supported by server:\n"
+#, c-format
+msgid "Input SASL mechanism supported by server:\n"
 msgstr "Gỡ cơ cấu SASL được hỗ trợ do máy chủ\n"
 
 #, c-format
@@ -27,35 +27,16 @@ msgid "Using mechanism:\n"
 msgstr "Đang sử dụng cơ cấu: \n"
 
 #, c-format
-msgid "Output from server:\n"
-msgstr "Máy chủ xuất:\n"
-
-#, c-format
 msgid "Output from client:\n"
 msgstr "Ưng dụng khách xuất:\n"
 
 #, c-format
-msgid ""
-"missing argument\n"
-"Try `%s --help' for more information."
-msgstr ""
-
-msgid "need both --x509-cert-file and --x509-key-file"
-msgstr ""
-
-msgid "cannot use both --starttls and --no-starttls"
-msgstr ""
-
-msgid "cannot use both --smtp and --imap"
-msgstr ""
+msgid "Output from server:\n"
+msgstr "Máy chủ xuất:\n"
 
 #, c-format
-msgid "initialization failure: %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "error listing mechanisms: %s"
-msgstr "Đang sử dụng cơ cấu: \n"
+msgid "Libgsasl error (%d): %s"
+msgstr "Lỗi libgsasl (%d): %s"
 
 #, c-format
 msgid "This client supports the following mechanisms:\n"
@@ -66,98 +47,24 @@ msgid "This server supports the following mechanisms:\n"
 msgstr "Máy chủ này hỗ trợ cơ cấu theo đây:\n"
 
 #, c-format
-msgid "GnuTLS global initialization failed: %s"
-msgstr ""
-
-#, c-format
-msgid "GnuTLS initialization failed: %s"
-msgstr ""
-
-#, c-format
-msgid "setting GnuTLS defaults failed: %s"
-msgstr ""
-
-#, c-format
-msgid "allocating anonymous GnuTLS credential: %s"
-msgstr ""
-
-#, c-format
-msgid "setting anonymous GnuTLS credential: %s"
-msgstr ""
-
-#, c-format
-msgid "allocating X.509 GnuTLS credential: %s"
-msgstr ""
-
-#, c-format
-msgid "loading X.509 GnuTLS credential: %s"
-msgstr ""
-
-#, c-format
-msgid "no X.509 CAs found: %s"
-msgstr ""
-
-msgid "no X.509 CAs found"
-msgstr ""
-
-#, c-format
-msgid "setting X.509 GnuTLS credential: %s"
-msgstr ""
-
-#, c-format
-msgid "setting GnuTLS key exchange priority: %s"
-msgstr ""
-
-#, c-format
-msgid "GnuTLS handshake failed: %s"
-msgstr ""
-
-#, c-format
-msgid "verifying peer certificate: %s"
-msgstr ""
-
-#, fuzzy
-msgid "server certificate is not trusted"
-msgstr "Việc xác thực máy chủ hoàn thành (ứng dụng khách được tin)...\n"
-
-msgid "server certificate hasn't got a known issuer"
-msgstr ""
-
-msgid "server certificate has been revoked"
-msgstr ""
-
-#, c-format
-msgid "could not verify server certificate (rc=%d)"
-msgstr ""
-
-#, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Không tìm được cơ cấu...\n"
-
-#, c-format
-msgid "mechanism unavailable: %s"
-msgstr ""
-
-#, c-format
-msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Nhập dữ liệu xác thực cơ số 64 từ ứng dụng khách (bấm RET nếu không có):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
 msgstr "Nhập dữ liệu xác thực cơ số 64 từ máy chủ (bấm RET nếu không có):\n"
 
 #, c-format
-msgid "mechanism error: %s"
-msgstr ""
-
-#, c-format
-msgid "Server authentication finished (client trusted)...\n"
-msgstr "Việc xác thực máy chủ hoàn thành (ứng dụng khách được tin)...\n"
+msgid "Enter base64 authentication data from client (press RET if none):\n"
+msgstr "Nhập dữ liệu xác thực cơ số 64 từ ứng dụng khách (bấm RET nếu không có):\n"
 
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Việc xác thực ứng dụng khách hoàn thành (máy chủ được tin)...\n"
+
+#, c-format
+msgid "Server authentication finished (client trusted)...\n"
+msgstr "Việc xác thực máy chủ hoàn thành (ứng dụng khách được tin)...\n"
 
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
@@ -168,16 +75,5 @@ msgid "Base64 encoded application data to send:\n"
 msgstr "Dữ liệu ứng dụng được mã hóa cơ số 64 để gởi:\n"
 
 #, c-format
-msgid "encoding error: %s"
-msgstr ""
-
-#, c-format
 msgid "Session finished...\n"
 msgstr "Phiên xong rồi...\n"
-
-#, c-format
-msgid "terminating GnuTLS session failed: %s"
-msgstr ""
-
-#~ msgid "Libgsasl error (%d): %s"
-#~ msgstr "Lỗi libgsasl (%d): %s"
