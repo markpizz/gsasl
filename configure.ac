@@ -66,7 +66,8 @@ AC_ARG_WITH(gnutls,
   AS_HELP_STRING([--without-gnutls], [disable GnuTLS support]),
 	gnutls=$withval, gnutls=yes)
 if test "$gnutls" != "no"; then
-  AC_LIB_HAVE_LINKFLAGS(gnutls,, gnutls/gnutls.h, [gnutls_check_version (0);])
+  AC_LIB_HAVE_LINKFLAGS(gnutls,, [#include <gnutls/gnutls.h>],
+    [gnutls_check_version (0);])
 fi
 if test "$ac_cv_libgnutls" = yes; then
   AC_DEFINE(WITH_GNUTLS, 1, [Define to 1 if you want STARTTLS support.])
