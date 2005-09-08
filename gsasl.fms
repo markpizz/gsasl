@@ -8,10 +8,13 @@ OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
 BSD-Port-URL: http://www.freshports.org/security/gsasl/
 CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
 Mirror-Site-URL: http://josefsson.org/gsasl/
-Version: 0.2.7
-Release-Focus: Minor bugfixes
+Version: 0.2.8
+Release-Focus: Major feature enhancements
 
-Fix build problems when cross-compiling to uClibc and Mingw32
-platforms.  Detecting and using the readline library has been
-improved.  Fixed bug in GNU SASL 0.1.x.backwards compatibility code in
-the callback for GSASL_PASSWORD.  Eliminated some compiler warnings.
+The gsasl tool now support STARTTLS for IMAP and SMTP using GnuTLS.
+The PLAIN mechanism is preferred over LOGIN when both are available.
+The --client and --server parameters for the gsasl tool now work
+properly.  The --client and --server stdin/stdout modes now use the
+readline library.  Improved checking for libidn when the system need
+-R, -rpath or similar.  Fixed build problems in getpass on uClibc and
+Mingw32 platforms.  Kinyarwanda translation added.
