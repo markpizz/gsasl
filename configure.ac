@@ -74,10 +74,6 @@ AC_MSG_CHECKING([if STARTTLS support via GnuTLS should be built])
 AC_MSG_RESULT($gnutls)
 
 # For gnulib stuff in gl/.
-gl_SOURCE_BASE(gl)
-gl_M4_BASE(gl/m4)
-gl_LIB(libgl)
-gl_MODULES(getopt progname strdup exit error getpass getaddrinfo iconvme readline quote)
 gl_INIT
 
 # Check for gtk-doc.
