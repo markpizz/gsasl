@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.2\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-11-29 01:57+0100\n"
+"POT-Creation-Date: 2005-09-08 16:17+0200\n"
 "PO-Revision-Date: 2004-12-29 12:00-0500\n"
 "Last-Translator: Laurentiu Buzdugan <lbuz@rolix.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, c-format
-msgid "Chose SASL mechanism:\n"
+#, fuzzy, c-format
+msgid "Choose SASL mechanism:\n"
 msgstr "Alegeþi mecanismul SASL:\n"
 
-#, c-format
-msgid "Input SASL mechanism supported by server:\n"
+#, fuzzy, c-format
+msgid "Input list of SASL mechanisms supported by server:\n"
 msgstr "Introduceþi mecanismul SASL suportat de server:\n"
 
 #, c-format
@@ -31,16 +31,35 @@ msgid "Using mechanism:\n"
 msgstr "Folosind mecanismul:\n"
 
 #, c-format
-msgid "Output from client:\n"
-msgstr "Ieºirea de la client:\n"
-
-#, c-format
 msgid "Output from server:\n"
 msgstr "Ieºirea de la server:\n"
 
 #, c-format
-msgid "Libgsasl error (%d): %s"
-msgstr "Eroare libgsasl (%d): %s"
+msgid "Output from client:\n"
+msgstr "Ieºirea de la client:\n"
+
+#, c-format
+msgid ""
+"missing argument\n"
+"Try `%s --help' for more information."
+msgstr ""
+
+msgid "need both --x509-cert-file and --x509-key-file"
+msgstr ""
+
+msgid "cannot use both --starttls and --no-starttls"
+msgstr ""
+
+msgid "cannot use both --smtp and --imap"
+msgstr ""
+
+#, c-format
+msgid "initialization failure: %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "error listing mechanisms: %s"
+msgstr "Folosind mecanismul:\n"
 
 #, c-format
 msgid "This client supports the following mechanisms:\n"
@@ -51,24 +70,101 @@ msgid "This server supports the following mechanisms:\n"
 msgstr "Acest server suportã urmãtoarele mecanisme:\n"
 
 #, c-format
+msgid "GnuTLS global initialization failed: %s"
+msgstr ""
+
+#, c-format
+msgid "GnuTLS initialization failed: %s"
+msgstr ""
+
+#, c-format
+msgid "setting GnuTLS defaults failed: %s"
+msgstr ""
+
+#, c-format
+msgid "allocating anonymous GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "setting anonymous GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "allocating X.509 GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "loading X.509 GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "no X.509 CAs found: %s"
+msgstr ""
+
+msgid "no X.509 CAs found"
+msgstr ""
+
+#, c-format
+msgid "setting X.509 GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "setting GnuTLS key exchange priority: %s"
+msgstr ""
+
+#, c-format
+msgid "GnuTLS handshake failed: %s"
+msgstr ""
+
+#, c-format
+msgid "verifying peer certificate: %s"
+msgstr ""
+
+#, fuzzy
+msgid "server certificate is not trusted"
+msgstr "Autentificarea clientului a fost terminatã (client de încredere)...\n"
+
+msgid "server certificate hasn't got a known issuer"
+msgstr ""
+
+msgid "server certificate has been revoked"
+msgstr ""
+
+#, c-format
+msgid "could not verify server certificate (rc=%d)"
+msgstr ""
+
+#, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Nu pot gãsi mecanismul...\n"
 
 #, c-format
-msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Introduceþi datele de autentificare base64 de la server (apãsaþi  RET dacã nu existã):\n"
+msgid "mechanism unavailable: %s"
+msgstr ""
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Introduceþi datele de autentificare base64 de la client (apãsaþi  RET dacã nu existã):\n"
+msgstr ""
+"Introduceþi datele de autentificare base64 de la client (apãsaþi  RET dacã "
+"nu existã):\n"
 
 #, c-format
-msgid "Client authentication finished (server trusted)...\n"
-msgstr "Autentificarea clientului a fost terminatã (server de încredere)...\n"
+msgid "Enter base64 authentication data from server (press RET if none):\n"
+msgstr ""
+"Introduceþi datele de autentificare base64 de la server (apãsaþi  RET dacã "
+"nu existã):\n"
+
+#, c-format
+msgid "mechanism error: %s"
+msgstr ""
 
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Autentificarea clientului a fost terminatã (client de încredere)...\n"
+
+#, c-format
+msgid "Client authentication finished (server trusted)...\n"
+msgstr "Autentificarea clientului a fost terminatã (server de încredere)...\n"
 
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
@@ -79,5 +175,16 @@ msgid "Base64 encoded application data to send:\n"
 msgstr "Datele aplicaþiei encodate Base64 de trimis:\n"
 
 #, c-format
+msgid "encoding error: %s"
+msgstr ""
+
+#, c-format
 msgid "Session finished...\n"
 msgstr "Sesiune terminatã...\n"
+
+#, c-format
+msgid "terminating GnuTLS session failed: %s"
+msgstr ""
+
+#~ msgid "Libgsasl error (%d): %s"
+#~ msgstr "Eroare libgsasl (%d): %s"

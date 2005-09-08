@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libgsasl 0.2.2\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-11-29 01:57+0100\n"
+"POT-Creation-Date: 2005-09-08 16:17+0200\n"
 "PO-Revision-Date: 2005-04-04 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -29,7 +29,7 @@ msgid "Libgsasl success"
 msgstr "Ibyatunganye"
 
 #, fuzzy
-msgid "SASL mechanisms needs more data"
+msgid "SASL mechanism needs more data"
 msgstr "Birenzeho Ibyatanzwe"
 
 msgid "Unknown SASL mechanism"
@@ -38,14 +38,6 @@ msgstr ""
 #, fuzzy
 msgid "SASL mechanism called too many times"
 msgstr "Times"
-
-#, fuzzy
-msgid "Could not open file in SASL library"
-msgstr "OYA Gufungura IDOSIYE in Isomero"
-
-#, fuzzy
-msgid "Could not close file in SASL library"
-msgstr "OYA Gufunga IDOSIYE in Isomero"
 
 #, fuzzy
 msgid "Memory allocation error in SASL library"
@@ -60,39 +52,61 @@ msgid "Low-level crypto error in SASL library"
 msgstr "urwego Ikosa in Isomero"
 
 #, fuzzy
-msgid "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL library.  This is a serious internal error."
+msgid ""
+"GSSAPI library could not deallocate memory in gss_release_buffer() in SASL "
+"library.  This is a serious internal error."
 msgstr "Isomero OYA Ububiko in in Isomero ni a By'imbere Ikosa"
 
 #, fuzzy
-msgid "GSSAPI library could not understand a peer name in gss_import_name() in SASL library.  This may be due to incorrect user supplied data."
+msgid ""
+"GSSAPI library could not understand a peer name in gss_import_name() in SASL "
+"library.  This may be due to incorrect user supplied data."
 msgstr "Isomero OYA a Izina: in in Isomero Gicurasi Kuri Ukoresha: Ibyatanzwe"
 
 #, fuzzy
-msgid "GSSAPI error in client while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgid ""
+"GSSAPI error in client while negotiating security context in "
+"gss_init_sec_context() in SASL library.  This is most likely due "
+"insufficient credentials or malicious interactions."
 msgstr "Ikosa in Umukiriya Umutekano Imvugiro in in Isomero ni Cyangwa"
 
 #, fuzzy
-msgid "GSSAPI error in server while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgid ""
+"GSSAPI error in server while negotiating security context in "
+"gss_init_sec_context() in SASL library.  This is most likely due "
+"insufficient credentials or malicious interactions."
 msgstr "Ikosa in Seriveri Umutekano Imvugiro in in Isomero ni Cyangwa"
 
 #, fuzzy
-msgid "GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL library.  This is most likely due to data corruption."
+msgid ""
+"GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL "
+"library.  This is most likely due to data corruption."
 msgstr "Ikosa Cyangwa Ibyatanzwe in in Isomero ni Kuri Ibyatanzwe"
 
 #, fuzzy
-msgid "GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
+msgid ""
+"GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
 msgstr "Ikosa Cyangwa Imisobekere: Ibyatanzwe in in Isomero"
 
 #, fuzzy
-msgid "GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  This is most likely due to not having the proper Kerberos key available in /etc/krb5.keytab on the server."
-msgstr "Ikosa in in Isomero ni Kuri OYA i NYACYO Urufunguzo Bihari in ku i Seriveri"
+msgid ""
+"GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  "
+"This is most likely due to not having the proper Kerberos key available in /"
+"etc/krb5.keytab on the server."
+msgstr ""
+"Ikosa in in Isomero ni Kuri OYA i NYACYO Urufunguzo Bihari in ku i Seriveri"
 
 #, fuzzy
-msgid "GSSAPI error creating a display name denoting the client in gss_display_name() in SASL library.  This is probably because the client suplied bad data."
-msgstr "Ikosa a Kugaragaza Izina: i Umukiriya in in Isomero ni i Umukiriya Ibyatanzwe"
+msgid ""
+"GSSAPI error creating a display name denoting the client in gss_display_name"
+"() in SASL library.  This is probably because the client supplied bad data."
+msgstr ""
+"Ikosa a Kugaragaza Izina: i Umukiriya in in Isomero ni i Umukiriya Ibyatanzwe"
 
 #, fuzzy
-msgid "Other entity requested integrity or confidentiality protection in GSSAPI mechanism but this is currently not implemented."
+msgid ""
+"Other entity requested integrity or confidentiality protection in GSSAPI "
+"mechanism but this is currently not implemented."
 msgstr "Cyangwa Irinda in iyi ni OYA"
 
 #, fuzzy
@@ -100,16 +114,12 @@ msgid "SASL mechanism could not parse input"
 msgstr "OYA Iyinjiza"
 
 #, fuzzy
-msgid "Error authentication user"
+msgid "Error authenticating user"
 msgstr "Ukoresha:"
 
 #, fuzzy
 msgid "Integrity error in application payload"
 msgstr "Ikosa in Porogaramu"
-
-#, fuzzy
-msgid "No more realms available (non-fatal)"
-msgstr "Birenzeho Bihari"
 
 #, fuzzy
 msgid "Client-side functionality not available in library (application error)"
@@ -120,10 +130,6 @@ msgid "Server-side functionality not available in library (application error)"
 msgstr "OYA Bihari in Isomero Porogaramu Ikosa"
 
 #, fuzzy
-msgid "The provided library handle was invalid (application error)"
-msgstr "Isomero Sibyo Porogaramu Ikosa"
-
-#, fuzzy
 msgid "No callback specified by caller (application error)."
 msgstr "ku Porogaramu Ikosa"
 
@@ -132,11 +138,13 @@ msgid "Authentication failed because the anonymous token was not provided."
 msgstr "Byanze i OYA"
 
 #, fuzzy
-msgid "Authentication failed because the authentication identity was not provided."
+msgid ""
+"Authentication failed because the authentication identity was not provided."
 msgstr "Byanze i Ikiranga OYA"
 
 #, fuzzy
-msgid "Authentication failed because the authorization identity was not provided."
+msgid ""
+"Authentication failed because the authorization identity was not provided."
 msgstr "Byanze i Ikiranga OYA"
 
 #, fuzzy
@@ -159,85 +167,137 @@ msgstr "Byanze i Serivisi Izina: OYA"
 msgid "Authentication failed because the host name was not provided."
 msgstr "Byanze i Ubuturo Izina: OYA"
 
-#, fuzzy
-msgid "Failed to perform Unicode Normalization on string."
-msgstr "Kuri ku Ikurikiranyanyuguti"
+msgid "Could not prepare internationalized (non-ASCII) string."
+msgstr ""
 
 #, fuzzy
-msgid "SASL function need larger buffer (internal error)"
+msgid "SASL function needs larger buffer (internal error)"
 msgstr "Umumaro Kinini By'imbere Ikosa"
+
+#, fuzzy
+msgid "Could not open file in SASL library"
+msgstr "OYA Gufungura IDOSIYE in Isomero"
+
+#, fuzzy
+msgid "Could not close file in SASL library"
+msgstr "OYA Gufunga IDOSIYE in Isomero"
 
 #, fuzzy
 msgid "Cannot get internal library handle (library error)"
 msgstr "Kubona By'imbere Isomero Isomero Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_client_callback_anonymous() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_client_callback_anonymous() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_client_callback_password() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_client_callback_password() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_client_callback_passcode() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_client_callback_passcode() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_client_callback_authorization_id() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_client_callback_authorization_id() callback "
+"(application error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_client_callback_authentication_id() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_client_callback_authentication_id() callback "
+"(application error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_client_callback_service() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_client_callback_service() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_server_callback_validate() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_server_callback_validate() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_server_callback_cram_md5() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_server_callback_cram_md5() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_server_callback_digest_md5() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_server_callback_digest_md5() callback "
+"(application error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_server_callback_anonymous() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_server_callback_anonymous() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_server_callback_external() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_server_callback_external() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_server_callback_realm() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_server_callback_realm() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_server_callback_securid() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_server_callback_securid() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_server_callback_service() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_server_callback_service() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_server_callback_gssapi() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_server_callback_gssapi() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
 
 #, fuzzy
-msgid "SASL mechanism needs gsasl_server_callback_retrieve() callback (application error)"
+msgid ""
+"SASL mechanism needs gsasl_server_callback_retrieve() callback (application "
+"error)"
 msgstr "Porogaramu Ikosa"
+
+#, fuzzy
+msgid "Failed to perform Unicode Normalization on string."
+msgstr "Kuri ku Ikurikiranyanyuguti"
+
+#, fuzzy
+msgid "No more realms available (non-fatal)"
+msgstr "Birenzeho Bihari"
+
+#, fuzzy
+msgid "The provided library handle was invalid (application error)"
+msgstr "Isomero Sibyo Porogaramu Ikosa"
 
 #, fuzzy
 msgid "Libgsasl unknown error"
