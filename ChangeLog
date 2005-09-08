@@ -1,3 +1,162 @@
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.8.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/rw.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po,
+	po/zh_CN.po: Generated.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po:
+	Update.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS, po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po,
+	po/pl.po, po/ro.po, po/rw.po, po/sq.po, po/sr.po, po/sv.po,
+	po/vi.po, po/zh_CN.po, NEWS: Add.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Update gnulib.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Don't check for getaddrinfo.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getdelim.c, gl/getpass.c,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4,
+	gl/m4/gnulib.m4, gl/m4/lib-link.m4, gl/m4/lib-prefix.m4: Update.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS: Sync with TP.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po:
+	Update.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix typo.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Don't define WITH_GNUTLS, already handled.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Use new CPP symbol to test for GnuTLS.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Typo.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Simplify gnutls check.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix for modern wget.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po: Sync
+	with TP.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Use --disable-obsolete for distcheck, so it is
+	tested.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getpass.c, gl/iconvme.c, gl/iconvme.h,
+	gl/m4/gnulib.m4: Update.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Use gnupload.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/imap.c: Fix typo.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c, src/imap.c, src/imap.h, src/smtp.c, src/smtp.h: Fix
+	has_starttls().
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix gsasl parameters.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/imap.c, src/smtp.c: Fix --client.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix --client and --server again.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix --client.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix --client and --server.  Don't start TLS on
+	stdin/stdout connections.  Fix crashes.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Revert bogus --connect fix.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix server certificate verification.  Fix --connect.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c, src/gsasl.ggo, src/imap.c, src/imap.h,
+	src/internal.h, src/smtp.c, src/smtp.h: Add STARTTLS support.  Use
+	readline() when reading protocol server output from stdin (rarely).
+	Handle second argument protocol names better.
+
+2005-08-26  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, src/Makefile.am, src/gsasl.c: Start to use GnuTLS.
+
+2005-08-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2005-08-25  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Update.
+
 2005-08-25  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
