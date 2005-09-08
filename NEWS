@@ -16,6 +16,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 ** Fixed build problems in getpass on uClibc and Mingw32 platforms.
 
+** Kinyarwanda translation added.
+
 * Version 0.2.7 (released 2005-08-25)
 
 ** Fix build problems when cross-compiling to uClibc and Mingw32 platforms.
