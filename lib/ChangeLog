@@ -1,3 +1,68 @@
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.8.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/rw.po,
+	po/sr.po, po/sv.po, po/vi.po: Generated.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS, po/rw.po: Update.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/getdelim.c,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4,
+	gl/m4/gnulib.m4, gl/m4/lib-link.m4, gl/m4/lib-prefix.m4: Update.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS: Sync with TP.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Update.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix for modern wget.
+
+2005-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib.m4: Update.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Use gnupload.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/init.c: Prefer PLAIN over LOGIN.
+
+2005-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Link with @LTLIBIDN@ too.
+
+2005-08-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Improve libidn checking (to get -R, -rpath
+	etc).
+
+2005-08-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2005-08-25  Simon Josefsson <simon@josefsson.org>
 
 	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
