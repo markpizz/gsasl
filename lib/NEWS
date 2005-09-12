@@ -2,6 +2,11 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson
 See the end for copying conditions.
 
+* Version 0.2.9 (unreleased)
+
+** API and ABI modifications.
+No changes since last version.
+
 * Version 0.2.8 (released 2005-09-08)
 
 ** The PLAIN mechanism is preferred over LOGIN when both are available.
