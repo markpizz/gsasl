@@ -107,5 +107,3 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strerror_r.m4
   m4/xalloc.m4
 ])
-
-# gnulib-comp.m4 ends here

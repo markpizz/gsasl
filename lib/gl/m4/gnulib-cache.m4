@@ -21,9 +21,8 @@ gl_MODULES([base64 getline gettext strdup strverscmp vasprintf])
 gl_AVOID([])
 gl_SOURCE_BASE([gl])
 gl_M4_BASE([gl/m4])
+gl_TESTS_BASE([gl/tests])
 gl_LIB([libgl])
 gl_LGPL
 gl_LIBTOOL
 gl_MACRO_PREFIX([gl])
-
-# gnulib-cache.m4 ends here

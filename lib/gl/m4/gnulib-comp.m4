@@ -112,5 +112,3 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/wint_t.m4
   m4/xsize.m4
 ])
-
-# gnulib-comp.m4 ends here
