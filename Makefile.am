@@ -50,8 +50,6 @@ release:
 	$(MAKE) ChangeLog distcheck
 	cvs commit -m "" ChangeLog
 	cvs rtag $(tag) $(PACKAGE)
-	gpg -b $(distdir).tar.gz
-	gpg --verify $(distdir).tar.gz.sig
 	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
 	cd doc && ./gendocs.sh --html "--css-include=texinfo.css" \
 		-o ../$(htmldir)/manual/ $(PACKAGE) "GNU SASL"
