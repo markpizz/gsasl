@@ -24,7 +24,7 @@
 #include "imap.h"
 #include "smtp.h"
 
-#if HAVE_LIBGNUTLS
+#ifdef HAVE_LIBGNUTLS
 # include <gnutls/gnutls.h>
 gnutls_session session;
 bool using_tls = false;
@@ -44,7 +44,7 @@ writeln (const char *str)
     {
       size_t len;
 
-#if HAVE_LIBGNUTLS
+#ifdef HAVE_LIBGNUTLS
       if (using_tls)
 	len = gnutls_record_send (session, str, strlen (str));
       else
@@ -55,7 +55,7 @@ writeln (const char *str)
 
 #define CRLF "\r\n"
 
-#if HAVE_LIBGNUTLS
+#ifdef HAVE_LIBGNUTLS
       if (using_tls)
 	len = gnutls_record_send (session, CRLF, strlen (CRLF));
       else
@@ -83,7 +83,7 @@ readln (char **out)
 	{
 	  j++;
 
-#if HAVE_LIBGNUTLS
+#ifdef HAVE_LIBGNUTLS
 	  if (using_tls)
 	    len = gnutls_record_recv (session, &input[j - 1], 1);
 	  else
@@ -255,7 +255,7 @@ main (int argc, char *argv[])
   char *in;
   char *connect_hostname;
   char *connect_service;
-#if HAVE_LIBGNUTLS
+#ifdef HAVE_LIBGNUTLS
   const int kx_prio[] = { GNUTLS_KX_RSA, GNUTLS_KX_DHE_DSS,
     GNUTLS_KX_DHE_RSA, GNUTLS_KX_ANON_DH, 0
   };
@@ -435,7 +435,7 @@ main (int argc, char *argv[])
   if (!greeting ())
     return 1;
 
-#if HAVE_LIBGNUTLS
+#ifdef HAVE_LIBGNUTLS
   if (sockfd && !args_info.no_starttls_flag &&
       (args_info.starttls_flag || has_starttls ()))
     {
@@ -668,7 +668,7 @@ main (int argc, char *argv[])
 		  if (sockfd)
 		    {
 		      ssize_t len;
-#if HAVE_LIBGNUTLS
+#ifdef HAVE_LIBGNUTLS
 		      if (using_tls)
 			len = gnutls_record_send (session, out, output_len);
 		      else
@@ -725,7 +725,7 @@ main (int argc, char *argv[])
 
   if (sockfd)
     {
-#if HAVE_LIBGNUTLS
+#ifdef HAVE_LIBGNUTLS
       if (using_tls)
 	{
 	  res = gnutls_bye (session, GNUTLS_SHUT_RDWR);
@@ -742,7 +742,7 @@ main (int argc, char *argv[])
 
   gsasl_done (ctx);
 
-#if HAVE_LIBGNUTLS
+#ifdef HAVE_LIBGNUTLS
   if (using_tls)
     {
       gnutls_deinit (session);
