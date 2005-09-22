@@ -49,9 +49,9 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/config.rpath
   lib/error.c
   lib/error.h
+  lib/exit.h
   lib/exitfail.c
   lib/exitfail.h
-  lib/exit.h
   lib/gai_strerror.c
   lib/getaddrinfo.c
   lib/getaddrinfo.h
@@ -59,8 +59,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getdelim.h
   lib/getline.c
   lib/getline.h
-  lib/getopt1.c
   lib/getopt.c
+  lib/getopt1.c
   lib/getopt_.h
   lib/getopt_int.h
   lib/getpass.c
@@ -70,10 +70,10 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/iconvme.h
   lib/progname.c
   lib/progname.h
-  lib/quotearg.c
-  lib/quotearg.h
   lib/quote.c
   lib/quote.h
+  lib/quotearg.c
+  lib/quotearg.h
   lib/readline.c
   lib/readline.h
   lib/stdbool_.h
@@ -97,8 +97,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mbrtowc.m4
   m4/mbstate_t.m4
   m4/onceonly_2_57.m4
-  m4/quotearg.m4
   m4/quote.m4
+  m4/quotearg.m4
   m4/readline.m4
   m4/restrict.m4
   m4/sockpfaf.m4
