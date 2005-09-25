@@ -42,7 +42,6 @@ AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h pwd.h errno.h)
 
 # Checks for library functions.
 AC_SEARCH_LIBS(socket, socket)
-AC_SEARCH_LIBS(gethostbyname, nsl)
 
 # Allow disabling of obsolete stuff.
 AC_ARG_ENABLE(obsolete,

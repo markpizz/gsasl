@@ -38,6 +38,7 @@ AC_DEFUN([gl_INIT],
   gl_QUOTEARG
   gl_FUNC_READLINE
   gl_C_RESTRICT
+  gl_SOCKLEN_T
   AM_STDBOOL_H
   gl_FUNC_STRDUP
   gl_XALLOC
@@ -101,6 +102,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/quotearg.m4
   m4/readline.m4
   m4/restrict.m4
+  m4/socklen.m4
   m4/sockpfaf.m4
   m4/stdbool.m4
   m4/strdup.m4
