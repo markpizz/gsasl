@@ -52,7 +52,6 @@
 #ifdef HAVE_PWD_H
 # include <pwd.h>		/* getpwnam */
 #endif
-
 #ifdef HAVE_NETINET_IN_H
 # include <netinet/in.h>
 #endif
