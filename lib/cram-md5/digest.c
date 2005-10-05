@@ -48,7 +48,7 @@
  *
  */
 
-#if CRAM_MD5_DIGEST_LEN != 2* GC_MD5_LEN
+#if CRAM_MD5_DIGEST_LEN != 2*GC_MD5_DIGEST_SIZE
 # error MD5 length mismatch
 #endif
 

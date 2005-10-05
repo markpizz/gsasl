@@ -1,5 +1,5 @@
 /* session.c --- Data integrity/privacy protection of DIGEST-MD5.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -59,7 +59,7 @@ digest_md5_encode (const char *input, size_t input_len,
   else if (qop & DIGEST_MD5_QOP_AUTH_INT)
     {
       char *seqnumin;
-      char hash[GC_MD5_LEN];
+      char hash[GC_MD5_DIGEST_SIZE];
       size_t len;
 
       seqnumin = malloc (MAC_SEQNUM_LEN + input_len);
@@ -131,7 +131,7 @@ digest_md5_decode (const char *input, size_t input_len,
   else if (qop & DIGEST_MD5_QOP_AUTH_INT)
     {
       char *seqnumin;
-      char hash[GC_MD5_LEN];
+      char hash[GC_MD5_DIGEST_SIZE];
       unsigned long len;
       char tmpbuf[SASL_INTEGRITY_PREFIX_LENGTH];
       int res;
