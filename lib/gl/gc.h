@@ -24,6 +24,8 @@
 /* Get size_t. */
 # include <stddef.h>
 
+#define GC_MD5_DIGEST_SIZE 16
+
 enum Gc_rc
   {
     GC_OK = 0,
