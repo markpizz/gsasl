@@ -21,8 +21,9 @@ AC_DEFUN([gl_PREREQ_GETADDRINFO], [
   AC_REQUIRE([AC_GNU_SOURCE])
   AC_CHECK_HEADERS_ONCE(sys/socket.h netdb.h sys/types.h netinet/in.h)
   AC_CHECK_DECLS([getaddrinfo, freeaddrinfo, gai_strerror],,,[
-  /* sys/types.h is not strictly needed according to POSIX, but the
-     sys/socket.h in FreeBSD 4.10 require it. */
+  /* sys/types.h is not needed according to POSIX, but the
+     sys/socket.h in i386-unknown-freebsd4.10 and
+     powerpc-apple-darwin5.5 required it. */
 #ifdef HAVE_SYS_TYPES_H
 # include <sys/types.h>
 #endif
