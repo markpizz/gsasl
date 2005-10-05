@@ -7,13 +7,19 @@ dnl with or without modifications, as long as this notice is preserved.
 AC_DEFUN([gl_GC],
 [
   AC_LIBSOURCES([gc.h, gc-gnulib.c, gc-libgcrypt.c])
-  AC_LIB_HAVE_LINKFLAGS([gcrypt])
+  AC_ARG_WITH(libgcrypt,
+    AS_HELP_STRING([--with-libgcrypt], [use libgcrypt for low-level crypto]),
+    libgcrypt=$withval, libgcrypt=no)
+  if test "$libgcrypt" != no; then
+    AC_LIB_HAVE_LINKFLAGS([gcrypt])
+  fi
   if test "$ac_cv_libgcrypt" = yes; then
     AC_CHECK_HEADER(gcrypt.h)
     AC_LIBOBJ([gc-libgcrypt])
   else
     AC_LIBOBJ([gc-gnulib])
     gl_MD5
+    gl_MEMXOR
     gl_HMAC_MD5
 
     # Devices with randomness.
@@ -89,7 +95,6 @@ AC_DEFUN([gl_GC],
                      [defined to the name of the pseudo random device])
     AC_DEFINE_UNQUOTED(NAME_OF_NONCE_DEVICE, "$NAME_OF_NONCE_DEVICE",
                      [defined to the name of the unpredictable nonce device])
-  
   fi
 ])
 

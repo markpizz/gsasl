@@ -62,6 +62,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/hmac.h
   lib/md5.c
   lib/md5.h
+  lib/memxor.c
+  lib/memxor.h
   lib/printf-args.c
   lib/printf-args.h
   lib/printf-parse.c
@@ -103,6 +105,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/longdouble.m4
   m4/longlong.m4
   m4/md5.m4
+  m4/memxor.m4
   m4/nls.m4
   m4/onceonly_2_57.m4
   m4/po.m4

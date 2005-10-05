@@ -142,8 +142,8 @@ gc_md5 (const void *in, size_t inlen, void *resbuf)
 
 int
 gc_hmac_md5 (const void *key, size_t keylen,
-	     const void *in, size_t inlen, void *resbuf);
+	     const void *in, size_t inlen, char *resbuf)
 {
-  hmac_md5 (key, keylen, in, inlen, outhash);
+  hmac_md5 (key, keylen, in, inlen, resbuf);
   return 0;
 }
