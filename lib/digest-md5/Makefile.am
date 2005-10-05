@@ -19,8 +19,7 @@
 # MA 02110-1301, USA.
 
 AM_CPPFLAGS = -I$(srcdir)/../src -I../src \
-	-I$(srcdir)/../gl -I../gl \
-	-I$(srcdir)/../crypto -I../crypto
+	-I$(srcdir)/../gl -I../gl
 
 EXTRA_DIST = README
 
@@ -43,5 +42,5 @@ if SERVER
 libgsasl_digest_md5_la_SOURCES += server.c
 endif
 
-LDADD = libgsasl-digest_md5.la ../gl/libgl.la ../crypto/libgc.la
+LDADD = libgsasl-digest_md5.la ../gl/libgl.la
 check_PROGRAMS = test-parser
