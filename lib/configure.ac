@@ -118,100 +118,6 @@ AC_MSG_CHECKING([if NTLM should be used])
 AC_MSG_RESULT($ntlm)
 AM_CONDITIONAL(NTLM, test x$ntlm = xyes)
 
-# Check for libgcrypt
-AC_ARG_WITH(libgcrypt,
-  AS_HELP_STRING([--with-libgcrypt], [use libgcrypt for low-level crypto]),
-  libgcrypt=$withval, libgcrypt=no)
-if test "$libgcrypt" != "no" ; then
-	AM_PATH_LIBGCRYPT(1.1.42, :, [
-		libgcrypt=no
-		AC_MSG_WARN([Libgcrypt >= 1.1.42 not found.])
-	])
-fi
-AC_MSG_CHECKING([whether to use libgcrypt])
-AC_MSG_RESULT($libgcrypt)
-if test "$libgcrypt" != "no" ; then
-	AC_DEFINE(USE_GCRYPT, 1, [Define to 1 if you want to use libgcrypt.])
-fi
-AM_CONDITIONAL(LIBGCRYPT, test "$libgcrypt" != "no")
-AM_CONDITIONAL(NETTLE, test "$libgcrypt" = "no")
-
-# Generic Crypto stuff.
-if test "$libgcrypt" = "no" ; then
-  # Devices with randomness.
-  # FIXME: Are these the best defaults?
-  case "${target}" in
-    *-openbsd*)
-	NAME_OF_RANDOM_DEVICE="/dev/srandom"
-	NAME_OF_PSEUDO_RANDOM_DEVICE="/dev/prandom"
-	NAME_OF_NONCE_DEVICE="/dev/urandom"
-        ;;
-
-    *-netbsd*)
-	NAME_OF_RANDOM_DEVICE="/dev/srandom"
-	NAME_OF_PSEUDO_RANDOM_DEVICE="/dev/urandom"
-	NAME_OF_NONCE_DEVICE="/dev/urandom"
-        ;;
-
-    *-solaris* | *-irix* | *-dec-osf* )
-	NAME_OF_RANDOM_DEVICE="/dev/random"
-	NAME_OF_PSEUDO_RANDOM_DEVICE="/dev/random"
-	NAME_OF_NONCE_DEVICE="/dev/random"
-        ;;
-
-    *)
-	NAME_OF_RANDOM_DEVICE="/dev/random"
-	NAME_OF_PSEUDO_RANDOM_DEVICE="/dev/urandom"
-	NAME_OF_NONCE_DEVICE="/dev/urandom"
-        ;;
-  esac
-
-  AC_MSG_CHECKING([device with (strong) random data...])
-  AC_ARG_ENABLE(random-device,
-	AC_HELP_STRING([--enable-random-device],
-		[device with (strong) randomness (for Nettle)]),
-	NAME_OF_RANDOM_DEVICE=$enableval)
-  AC_MSG_RESULT($NAME_OF_RANDOM_DEVICE)
-
-  AC_MSG_CHECKING([device with pseudo random data...])
-  AC_ARG_ENABLE(pseudo-random-device,
-	AC_HELP_STRING([--enable-pseudo-random-device],
-		[device with pseudo randomness (for Nettle)]),
-	NAME_OF_PSEUDO_RANDOM_DEVICE=$enableval)
-  AC_MSG_RESULT($NAME_OF_PSEUDO_RANDOM_DEVICE)
-
-  AC_MSG_CHECKING([device with unpredictable data for nonces...])
-  AC_ARG_ENABLE(nonce-device,
-	AC_HELP_STRING([--enable-nonce-device],
-		[device with unpredictable nonces (for Nettle)]),
-	NAME_OF_NONCE_DEVICE=$enableval)
-  AC_MSG_RESULT($NAME_OF_NONCE_DEVICE)
-
-  if test "$cross_compiling" != yes; then
-    AC_CHECK_FILE($NAME_OF_RANDOM_DEVICE,, AC_MSG_ERROR([[
-      *** Device for (strong) random data $NAME_OF_RANDOM_DEVICE does not exist
-    ]]))
-    AC_CHECK_FILE($NAME_OF_PSEUDO_RANDOM_DEVICE,, AC_MSG_ERROR([[
-      *** Device for pseudo-random data $NAME_OF_PSEUDO_RANDOM_DEVICE does not exist
-    ]]))
-    AC_CHECK_FILE($NAME_OF_NONCE_DEVICE,, AC_MSG_ERROR([[
-      *** Device for unpredictable nonces $NAME_OF_NONCE_DEVICE does not exist
-    ]]))
-  else
-    AC_MSG_NOTICE([[Cross compiling, assuming random devices exists...]])  
-  fi
-
-  # FIXME: Open+read 42 bytes+close twice and compare data.  Should differ.
-
-  AC_DEFINE_UNQUOTED(NAME_OF_RANDOM_DEVICE, "$NAME_OF_RANDOM_DEVICE",
-                   [defined to the name of the (strong) random device])
-  AC_DEFINE_UNQUOTED(NAME_OF_PSEUDO_RANDOM_DEVICE,
-			 "$NAME_OF_PSEUDO_RANDOM_DEVICE",
-                   [defined to the name of the pseudo random device])
-  AC_DEFINE_UNQUOTED(NAME_OF_NONCE_DEVICE, "$NAME_OF_NONCE_DEVICE",
-                   [defined to the name of the unpredictable nonce device])
-fi
-
 # CRAM-MD5
 AC_ARG_ENABLE(cram-md5,
   AS_HELP_STRING([--disable-cram-md5], [don't use the CRAM-MD5 mechanism]),
@@ -421,11 +327,8 @@ AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 # For gnulib stuff in gl/.
 gl_INIT
 
-# We need uint8_t etc.
-AX_CREATE_STDINT_H(crypto/nettle-types.h, sys/types.h)
-
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
-		gl/Makefile crypto/Makefile \
+		gl/Makefile \
 		src/gsasl.h src/Makefile \
 		anonymous/Makefile cram-md5/Makefile \
 		digest-md5/Makefile external/Makefile \
