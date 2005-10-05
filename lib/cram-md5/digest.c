@@ -1,5 +1,5 @@
 /* digest.c --- Generate a CRAM-MD5 hex encoded HMAC-MD5 response string.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -60,14 +60,14 @@ cram_md5_digest (const char *challenge,
 		 const char *secret,
 		 size_t secretlen, char response[CRAM_MD5_DIGEST_LEN])
 {
-  char hash[GC_MD5_LEN];
+  char hash[GC_MD5_DIGEST_SIZE];
   size_t i;
 
   gc_hmac_md5 (secret, secretlen ? secretlen : strlen (secret),
 	       challenge, challengelen ? challengelen : strlen (challenge),
 	       hash);
 
-  for (i = 0; i < GC_MD5_LEN; i++)
+  for (i = 0; i < GC_MD5_DIGEST_SIZE; i++)
     {
       *response++ = HEXCHAR (hash[i] >> 4);
       *response++ = HEXCHAR (hash[i]);
