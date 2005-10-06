@@ -20,7 +20,7 @@
 
 /* Note: This file is only built if GC uses Libgcrypt. */
 
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
 
@@ -114,7 +114,10 @@ gc_md5 (const void *in, size_t inlen, void *resbuf)
 
   p = gcry_md_read (hd, GCRY_MD_MD5);
   if (p == NULL)
-    return GC_INVALID_HASH;
+    {
+      gcry_md_close (mdh);
+      return GC_INVALID_HASH;
+    }
 
   memcpy (resbuf, p, outlen);
 
@@ -140,13 +143,19 @@ gc_hmac_md5 (const void *key, size_t keylen,
 
   err = gcry_md_setkey (mdh, key, keylen);
   if (err != GPG_ERR_NO_ERROR)
-    return GC_INVALID_HASH;
+    {
+      gcry_md_close (mdh);
+      return GC_INVALID_HASH;
+    }
 
   gcry_md_write (mdh, in, inlen);
 
   hash = gcry_md_read (mdh, GCRY_MD_MD5);
   if (hash == NULL)
-    return GC_INVALID_HASH;
+    {
+      gcry_md_close (mdh);
+      return GC_INVALID_HASH;
+    }
 
   memcpy (resbuf, hash, hlen);
 

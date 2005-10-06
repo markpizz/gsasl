@@ -1,28 +1,26 @@
 /* gc-gl-common.c --- Common gnulib internal crypto interface functions
  * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
- * This file is part of GC.
+ * This file is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation; either version 2.1, or (at your
+ * option) any later version.
  *
- * GC is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
+ * This file is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
  *
- * GC is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General
- * Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License License along with GC; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
- * USA
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this file; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
  *
  */
 
 /* Note: This file is only built if GC uses internal functions. */
 
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
 
@@ -36,6 +34,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <errno.h>
 
 #include <string.h>
 
@@ -87,7 +86,12 @@ randomize (int level, char *data, size_t datalen)
       tmp = read (fd, data, datalen);
 
       if (tmp < 0)
-	return GC_RANDOM_ERROR;
+	{
+	  int save_errno = errno;
+	  close (fd);
+	  errno = save_errno;
+	  return GC_RANDOM_ERROR;
+	}
 
       len += tmp;
     }
