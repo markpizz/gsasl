@@ -1,27 +1,27 @@
 # Polish translation for gsasl.
-# Copyright (C) 2004 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
-# Jakub Bogusz <qboosh@pld-linux.org>, 2004.
+# Jakub Bogusz <qboosh@pld-linux.org>, 2004, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 0.1.4\n"
+"Project-Id-Version: gsasl 0.2.8-b20050829\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-09-28 10:14+0200\n"
-"PO-Revision-Date: 2004-08-25 22:41+0200\n"
+"POT-Creation-Date: 2005-08-29 01:49+0200\n"
+"PO-Revision-Date: 2005-09-12 17:44+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Choose SASL mechanism:\n"
 msgstr "Wybór mechanizmów SASL:\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Input list of SASL mechanisms supported by server:\n"
-msgstr "Wej¶ciowy mechanizm SASL obs³ugiwany przez serwer:\n"
+msgstr "Wej¶ciowa lista mechanizmów SASL obs³ugiwanych przez serwer:\n"
 
 #, c-format
 msgid "Using mechanism:\n"
@@ -40,23 +40,25 @@ msgid ""
 "missing argument\n"
 "Try `%s --help' for more information."
 msgstr ""
+"brak argumentu\n"
+"`%s --help' poda wiêcej informacji."
 
 msgid "need both --x509-cert-file and --x509-key-file"
-msgstr ""
+msgstr "wymagane jest zarówno --x509-cert-file jak i --x509-key-file"
 
 msgid "cannot use both --starttls and --no-starttls"
-msgstr ""
+msgstr "nie mo¿na u¿yæ --starttls i --nostarttls jednocze¶nie"
 
 msgid "cannot use both --smtp and --imap"
-msgstr ""
+msgstr "nie mo¿na u¿yæ --smtp i --imap jednocze¶nie"
 
 #, c-format
 msgid "initialization failure: %s"
-msgstr ""
+msgstr "b³±d inicjalizacji: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "error listing mechanisms: %s"
-msgstr "U¿ycie mechanizmu:\n"
+msgstr "b³±d wypisywania mechanizmów: %s"
 
 #, c-format
 msgid "This client supports the following mechanisms:\n"
@@ -68,68 +70,67 @@ msgstr "Mechanizmy obs³ugiwane przez ten serwer:\n"
 
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
-msgstr ""
+msgstr "Globalna inicjalizacja GnuTLS nie powiod³a siê: %s"
 
 #, c-format
 msgid "GnuTLS initialization failed: %s"
-msgstr ""
+msgstr "Inicjalizacja GnuTLS nie powiod³a siê: %s"
 
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
-msgstr ""
+msgstr "ustawienie warto¶ci domy¶lnych GnuTLS nie powiod³o siê: %s"
 
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
-msgstr ""
+msgstr "przydzielanie anonimowych danych uwierzytelniaj±cych GnuTLS: %s"
 
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
-msgstr ""
+msgstr "ustawianie anonimowych danych uwierzytelniaj±cych GnuTLS: %s"
 
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
-msgstr ""
+msgstr "przydzielanie danych uwierzytelniaj±cych X.509 GnuTLS: %s"
 
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
-msgstr ""
+msgstr "wczytywanie danych uwierzytelniaj±cych X.509 GnuTLS: %s"
 
 #, c-format
 msgid "no X.509 CAs found: %s"
-msgstr ""
+msgstr "nie znaleziono CA X.509: %s"
 
 msgid "no X.509 CAs found"
-msgstr ""
+msgstr "nie znaleziono CA X.509"
 
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
-msgstr ""
+msgstr "ustawianie danych uwierzytelniaj±cych X.509 GnuTLS: %s"
 
 #, c-format
 msgid "setting GnuTLS key exchange priority: %s"
-msgstr ""
+msgstr "ustawianie priorytetu wymiany kluczy GnuTLS: %s"
 
 #, c-format
 msgid "GnuTLS handshake failed: %s"
-msgstr ""
+msgstr "powitanie GnuTLS nie powiod³o siê: %s"
 
 #, c-format
 msgid "verifying peer certificate: %s"
-msgstr ""
+msgstr "sprawdzanie certyfikatu drugiej strony: %s"
 
-#, fuzzy
 msgid "server certificate is not trusted"
-msgstr "Uwierzytelnienie serwera zakoñczone (klient zaufa³)...\n"
+msgstr "certyfikat serwera nie jest zaufany"
 
 msgid "server certificate hasn't got a known issuer"
-msgstr ""
+msgstr "certyfikat serwera nie ma znanego wystawcy"
 
 msgid "server certificate has been revoked"
-msgstr ""
+msgstr "certyfikat serwera zosta³ anulowany"
 
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
-msgstr ""
+msgstr "nie mo¿na zweryfikowaæ certyfikatu serwera (rc=%d)"
 
 #, c-format
 msgid "Cannot find mechanism...\n"
@@ -137,7 +138,7 @@ msgstr "Nie znaleziono mechanizmu...\n"
 
 #, c-format
 msgid "mechanism unavailable: %s"
-msgstr ""
+msgstr "mechanizm niedostêpny: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
@@ -149,7 +150,7 @@ msgstr "Dane uwierzytelniaj±ce base64 od serwera (RET je¶li ¿adne):\n"
 
 #, c-format
 msgid "mechanism error: %s"
-msgstr ""
+msgstr "b³±d mechanizmu: %s"
 
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
@@ -169,7 +170,7 @@ msgstr "Zakodowane base64 dane aplikacji do wys³ania:\n"
 
 #, c-format
 msgid "encoding error: %s"
-msgstr ""
+msgstr "b³±d kodowania: %s"
 
 #, c-format
 msgid "Session finished...\n"
@@ -177,7 +178,4 @@ msgstr "Sesja zakoñczona...\n"
 
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
-msgstr ""
-
-#~ msgid "Libgsasl error (%d): %s"
-#~ msgstr "B³±d libgsasl (%d): %s"
+msgstr "zakoñczenie sesji GnuTLS nie powiod³o siê: %s"
