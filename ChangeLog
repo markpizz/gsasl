@@ -1,3 +1,116 @@
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po:
+	Generated.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.9.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/rw.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po,
+	po/zh_CN.po: Sync with TP.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/stdbool.m4: Update.
+
+2005-10-06  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getdelim.c, gl/m4/getaddrinfo.m4: Update.
+
+2005-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Update.
+
+2005-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Update.
+
+2005-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getaddrinfo.h, gl/getdelim.c, gl/m4/getaddrinfo.m4: Update.
+
+2005-10-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getaddrinfo.m4: Update.
+
+2005-10-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getdelim.c: Update.
+
+2005-10-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getaddrinfo.h, gl/m4/getaddrinfo.m4: Update.
+
+2005-09-28  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/rw.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po,
+	po/zh_CN.po: Sync with TP.
+
+2005-09-28  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Typo.
+
+2005-09-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getaddrinfo.m4: Update.
+
+2005-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/getaddrinfo.c, gl/getopt_.h, gl/quotearg.c,
+	gl/m4/getaddrinfo.m4, gl/m4/gnulib-comp.m4, gl/m4/socklen.m4:
+	Gnulib getaddrinfo fix.
+
+2005-09-22  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getaddrinfo.c, gl/m4/gnulib-comp.m4: Update.
+
+2005-09-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Simplify CPP symbol usage.
+
+2005-09-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/exitfail.c, gl/getaddrinfo.c, gl/getdelim.c, gl/getline.c,
+	gl/getopt1.c, gl/getpass.c, gl/progname.c, gl/quote.c,
+	gl/quotearg.c, gl/readline.c, gl/xalloc-die.c, gl/xmalloc.c:
+	Update.
+
+2005-09-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gai_strerror.c, gl/getaddrinfo.c, gl/getaddrinfo.h,
+	gl/m4/getaddrinfo.m4, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4:
+	Update.
+
+2005-09-19  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Gnupload sign the file too.
+
+2005-09-12  Simon Josefsson <simon@josefsson.org>
+
+	* m4/gtk-doc.m4: Update.
+
+2005-09-12  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2005-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: 0.2.8.
+
 2005-09-08  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.2.8.
