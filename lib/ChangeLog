@@ -1,3 +1,109 @@
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Generated.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.9.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* gssapi/server.c: Fix cast error.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/rw.po,
+	po/sr.po, po/sv.po, po/vi.po: Sync with TP.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* gssapi/client.c: Fix cast errors.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/hmac.h, gl/m4/memxor.m4, gl/m4/stdbool.m4: Update.
+
+2005-10-06  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gc-gnulib.c, gl/gc-libgcrypt.c, gl/getdelim.c, gl/memxor.c,
+	gl/m4/memxor.m4: Update.
+
+2005-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/memxor.c: Update.
+
+2005-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gc-gnulib.c, gl/memxor.c, gl/memxor.h, gl/m4/gc.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/memxor.m4: Update.
+
+2005-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gc.h: Update.
+
+2005-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* cram-md5/digest.c, digest-md5/session.c: Use new gc API.
+
+2005-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am, digest-md5/Makefile.am, cram-md5/Makefile.am:
+	Remove crypto/.
+
+2005-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac, gl/Makefile.am, gl/gc-gnulib.c,
+	gl/gc-libgcrypt.c, gl/gc.h, gl/hmac-md5.c, gl/hmac.h, gl/md5.c,
+	gl/md5.h, gl/m4/gc.m4, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/hmac-md5.m4, gl/m4/md5.m4, gl/m4/uint32_t.m4: Replace crypto/
+	with gnulib modules.
+
+2005-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getdelim.c: Update.
+
+2005-10-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getdelim.c: Update.
+
+2005-09-28  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/rw.po,
+	po/sr.po, po/sv.po, po/vi.po: Sync with TP.
+
+2005-09-22  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4: Update.
+
+2005-09-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getdelim.c, gl/getline.c, gl/strverscmp.c: Update.
+
+2005-09-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/base64.c, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Update.
+
+2005-09-19  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Gnupload sign the file too.
+
+2005-09-12  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2005-09-08  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.2.8.
@@ -244,7 +350,7 @@
 	src/md5pwd.c, src/obsolete.c, src/property.c, src/register.c,
 	src/saslprep.c, src/suggest.c, src/supportp.c, src/version.c,
 	src/xcode.c, src/xfinish.c, src/xstart.c, src/xstep.c,
-	anonymous/Makefile.am, cram-md5/Makefile.am, crypto/Makefile.am,
+	anonymous/Makefile.am, cram-md5/Makefile.am,
 	digest-md5/Makefile.am, external/Makefile.am, gssapi/Makefile.am,
 	kerberos_v5/Makefile.am, login/Makefile.am, ntlm/Makefile.am,
 	plain/Makefile.am, securid/Makefile.am: Fix address in license.
@@ -1805,9 +1911,9 @@
 2004-09-26  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS, anonymous/Makefile.am, cram-md5/Makefile.am,
-	crypto/Makefile.am, digest-md5/Makefile.am, digest-md5/shared.h,
-	external/Makefile.am, gl/Makefile.am, gl/strdup.c, gl/strdup.h,
-	gl/m4/strdup.m4, gssapi/Makefile.am, kerberos_v5/kerberos_v5.c,
+	digest-md5/Makefile.am, digest-md5/shared.h, external/Makefile.am,
+	gl/Makefile.am, gl/strdup.c, gl/strdup.h, gl/m4/strdup.m4,
+	gssapi/Makefile.am, kerberos_v5/kerberos_v5.c,
 	kerberos_v5/shared.h, login/Makefile.am, ntlm/Makefile.am,
 	plain/Makefile.am, securid/Makefile.am, src/Makefile.am: Use Lesser
 	GNULib.
@@ -2161,14 +2267,6 @@
 
 2004-09-18  Simon Josefsson <simon@josefsson.org>
 
-	* crypto/gc-nettle.c, crypto/hmac.h: Remove SHA.
-
-2004-09-18  Simon Josefsson <simon@josefsson.org>
-
-	* crypto/Makefile.am: Fix.
-
-2004-09-18  Simon Josefsson <simon@josefsson.org>
-
 	* THANKS: Add.
 
 2004-09-18  Simon Josefsson <simon@josefsson.org>
@@ -2195,8 +2293,7 @@
 2004-09-18  Simon Josefsson <simon@josefsson.org>
 
 	* src/gsasl.h.in, src/internal.h, src/property.c, src/register.c,
-	src/xstep.c, cram-md5/client.c, crypto/gc-libgcrypt.c,
-	crypto/gc-nettle.c, crypto/gc.h, gssapi/client.c, plain/client.c,
+	src/xstep.c, cram-md5/client.c, gssapi/client.c, plain/client.c,
 	plain/server.c: Indent.
 
 2004-09-18  Simon Josefsson <simon@josefsson.org>
@@ -2205,8 +2302,7 @@
 
 2004-09-18  Simon Josefsson <simon@josefsson.org>
 
-	* cram-md5/server.c, crypto/gc-nettle.c, ntlm/ntlm.c, src/common.c:
-	Fix warnings.
+	* cram-md5/server.c, ntlm/ntlm.c, src/common.c: Fix warnings.
 
 2004-09-18  Simon Josefsson <simon@josefsson.org>
 
@@ -2421,11 +2517,6 @@
 
 	* configure.ac: Add GC stuff.
 
-2004-08-22  Simon Josefsson <simon@josefsson.org>
-
-	* crypto/gc-libgcrypt.c, crypto/gc-nettle.c, crypto/gc.h,
-	crypto/hmac.h, crypto/sha.h: Sync GC with GnuTLS.
-
 2004-08-18  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS, configure.ac: Bump version.
@@ -2530,8 +2621,8 @@
 
 2004-08-04  Simon Josefsson <simon@josefsson.org>
 
-	* cram-md5/challenge.c, crypto/gc-nettle.c, src/crypto.c: Fix,
-	reported by Dimitri Papadopoulos-Orfanos <papadopo@shfj.cea.fr>.
+	* cram-md5/challenge.c, src/crypto.c: Fix, reported by Dimitri
+	Papadopoulos-Orfanos <papadopo@shfj.cea.fr>.
 
 2004-08-04  Simon Josefsson <simon@josefsson.org>
 
@@ -2630,20 +2721,12 @@
 
 2004-06-26  Simon Josefsson <simon@josefsson.org>
 
-	* configure.ac, crypto/Makefile.am:
+	* configure.ac:
 	(NETTLE_CFLAGS, NETTLE_LIBS): Remove.
 
 2004-06-26  Simon Josefsson <simon@josefsson.org>
 
-	* crypto/gc-nettle.c: Fix.
-
-2004-06-26  Simon Josefsson <simon@josefsson.org>
-
 	* NEWS: Fix.
-
-2004-06-26  Simon Josefsson <simon@josefsson.org>
-
-	* crypto/gc.h: Fix (for GTK-DOC).
 
 2004-06-26  Simon Josefsson <simon@josefsson.org>
 
@@ -2719,12 +2802,10 @@
 2004-06-18  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am, cram-md5/Makefile.am, cram-md5/challenge.c,
-	crypto/Makefile.am, crypto/gc-libgcrypt.c, crypto/gc-nettle.c,
-	crypto/gc.h, src/Makefile.am, src/crypto.h, src/init.c,
-	src/libgcrypt.c, src/nettle.c, src/obsolete.c: Initiate creation of
-	GC ("generic crypto") as non-GSASL specific Nettle/Libgcrypt
-	wrapper.  Obsolete gsasl_nonce, gsasl_random, gsasl_md5,
-	gsasl_hmac_md5.
+	src/Makefile.am, src/crypto.h, src/init.c, src/libgcrypt.c,
+	src/nettle.c, src/obsolete.c: Initiate creation of GC ("generic
+	crypto") as non-GSASL specific Nettle/Libgcrypt wrapper.  Obsolete
+	gsasl_nonce, gsasl_random, gsasl_md5, gsasl_hmac_md5.
 
 2004-06-18  Simon Josefsson <simon@josefsson.org>
 
@@ -2953,15 +3034,6 @@
 
 2004-04-16  Simon Josefsson <simon@josefsson.org>
 
-	* crypto/Makefile.am: Fix license.  Remove alloca.
-
-2004-04-16  Simon Josefsson <simon@josefsson.org>
-
-	* crypto/Makefile.am, crypto/cbc.h, crypto/nettle-internal.h,
-	crypto/nettle-meta.h: Update.
-
-2004-04-16  Simon Josefsson <simon@josefsson.org>
-
 	* po/sv.po: Generated.
 
 2004-04-16  Simon Josefsson <simon@josefsson.org>
@@ -3141,14 +3213,6 @@
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
 	* configure.ac: Add, taken mostly from ../configure.ac.
-
-2004-04-15  Simon Josefsson <simon@josefsson.org>
-
-	* crypto/Makefile.am, crypto/README, crypto/README.gsasl,
-	crypto/hmac-md5.c, crypto/hmac.c, crypto/hmac.h, crypto/macros.h,
-	crypto/md5-meta.c, crypto/md5.c, crypto/md5.h, crypto/memxor.c,
-	crypto/memxor.h, crypto/nettle-internal.h, crypto/nettle-meta.h:
-	Move crypto/ from top-level to lib/.
 
 2004-04-15  Simon Josefsson <simon@josefsson.org>
 
