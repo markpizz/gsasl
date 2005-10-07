@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson
 See the end for copying conditions.
 
-* Version 0.2.9 (unreleased)
+* Version 0.2.9 (released 2005-10-07)
 
 ** Fix build error with some compilers in GSS-API mechanism.
 
