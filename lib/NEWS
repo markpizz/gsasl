@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.9 (unreleased)
 
+** Fix build error with some compilers in GSS-API mechanism.
+
 ** Gnulib is now used for crypto functions, instead of Nettle in crypto/.
 Libgcrypt can still optionally be used through --with-libgcrypt.
 
