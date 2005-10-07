@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.1.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-08-08 00:42+0200\n"
+"POT-Creation-Date: 2005-10-07 16:04+0200\n"
 "PO-Revision-Date: 2004-10-23 02:02+0800\n"
 "Last-Translator: Meng Jie <zuxyhere@eastday.com>\n"
 "Language-Team: Chinese (simplified) <i18n-translation@lists.linux.net.cn>\n"
@@ -15,83 +15,169 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/gsasl.c:106
-#, c-format
-msgid "Chose SASL mechanism:\n"
+#, fuzzy, c-format
+msgid "Choose SASL mechanism:\n"
 msgstr "选择 SASL 机制：\n"
 
-#: src/gsasl.c:114
-#, c-format
-msgid "Input SASL mechanism supported by server:\n"
+#, fuzzy, c-format
+msgid "Input list of SASL mechanisms supported by server:\n"
 msgstr "输入服务器所支持的 SASL 机制：\n"
 
-#: src/gsasl.c:133
 #, c-format
 msgid "Using mechanism:\n"
 msgstr "使用机制：\n"
 
-#: src/gsasl.c:150
-#, c-format
-msgid "Output from client:\n"
-msgstr "客户端的输出：\n"
-
-#: src/gsasl.c:152
 #, c-format
 msgid "Output from server:\n"
 msgstr "服务器的输出：\n"
 
-#: src/gsasl.c:335 src/gsasl.c:377 src/gsasl.c:428 src/gsasl.c:470
-#: src/gsasl.c:562
 #, c-format
-msgid "Libgsasl error (%d): %s"
-msgstr "Libgsasl 出错(%d)：%s"
+msgid "Output from client:\n"
+msgstr "客户端的输出：\n"
 
-#: src/gsasl.c:384
+#, c-format
+msgid ""
+"missing argument\n"
+"Try `%s --help' for more information."
+msgstr ""
+
+msgid "need both --x509-cert-file and --x509-key-file"
+msgstr ""
+
+msgid "cannot use both --starttls and --no-starttls"
+msgstr ""
+
+msgid "cannot use both --smtp and --imap"
+msgstr ""
+
+#, c-format
+msgid "initialization failure: %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "error listing mechanisms: %s"
+msgstr "使用机制：\n"
+
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "这个客户端支持以下机制：\n"
 
-#: src/gsasl.c:387
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "这个服务器支持以下机制：\n"
 
-#: src/gsasl.c:411
+#, c-format
+msgid "GnuTLS global initialization failed: %s"
+msgstr ""
+
+#, c-format
+msgid "GnuTLS initialization failed: %s"
+msgstr ""
+
+#, c-format
+msgid "setting GnuTLS defaults failed: %s"
+msgstr ""
+
+#, c-format
+msgid "allocating anonymous GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "setting anonymous GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "allocating X.509 GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "loading X.509 GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "no X.509 CAs found: %s"
+msgstr ""
+
+msgid "no X.509 CAs found"
+msgstr ""
+
+#, c-format
+msgid "setting X.509 GnuTLS credential: %s"
+msgstr ""
+
+#, c-format
+msgid "setting GnuTLS key exchange priority: %s"
+msgstr ""
+
+#, c-format
+msgid "GnuTLS handshake failed: %s"
+msgstr ""
+
+#, c-format
+msgid "verifying peer certificate: %s"
+msgstr ""
+
+#, fuzzy
+msgid "server certificate is not trusted"
+msgstr "服务器认证完成(客户端可信)……\n"
+
+msgid "server certificate hasn't got a known issuer"
+msgstr ""
+
+msgid "server certificate has been revoked"
+msgstr ""
+
+#, c-format
+msgid "could not verify server certificate (rc=%d)"
+msgstr ""
+
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "找不到机制……\n"
 
-#: src/gsasl.c:457
 #, c-format
-msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "输入服务器发送的 base64 编码的应用程序数据(如果没有，请按回车)：\n"
+msgid "mechanism unavailable: %s"
+msgstr ""
 
-#: src/gsasl.c:460
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
 msgstr "输入客户端发送的 base64 编码的应用程序数据(如果没有，请按回车)：\n"
 
-#: src/gsasl.c:479
 #, c-format
-msgid "Client authentication finished (server trusted)...\n"
-msgstr "客户端认证完成(服务器可信)……\n"
+msgid "Enter base64 authentication data from server (press RET if none):\n"
+msgstr "输入服务器发送的 base64 编码的应用程序数据(如果没有，请按回车)：\n"
 
-#: src/gsasl.c:482
+#, c-format
+msgid "mechanism error: %s"
+msgstr ""
+
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "服务器认证完成(客户端可信)……\n"
 
-#: src/gsasl.c:497
+#, c-format
+msgid "Client authentication finished (server trusted)...\n"
+msgstr "客户端认证完成(服务器可信)……\n"
+
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "输入应用程序数据(用 EOF 结束输入)：\n"
 
-#: src/gsasl.c:536
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "要发送的 Base64 编码的应用程序数据：\n"
 
-#: src/gsasl.c:567
+#, c-format
+msgid "encoding error: %s"
+msgstr ""
+
 #, c-format
 msgid "Session finished...\n"
 msgstr "会话结束……\n"
+
+#, c-format
+msgid "terminating GnuTLS session failed: %s"
+msgstr ""
+
+#~ msgid "Libgsasl error (%d): %s"
+#~ msgstr "Libgsasl 出错(%d)：%s"
