@@ -1,5 +1,5 @@
 /* server.c --- SASL mechanism GSSAPI as defined in RFC 2222, server side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -240,7 +240,7 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
 	}
 
       gsasl_property_set_raw (sctx, GSASL_AUTHZID,
-			      bufdesc2.value + 4, bufdesc2.length - 4);
+			      (char*)bufdesc2.value + 4, bufdesc2.length - 4);
 
       maj_stat = gss_display_name (&min_stat, state->client,
 				   &client_name, &mech_type);
