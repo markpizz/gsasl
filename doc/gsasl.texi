@@ -691,12 +691,13 @@ main (int argc, char *argv[])
 @end example
 
 In order to take advantage of the secure memory features in
-Libgcrypt@footnote{Note that GNU SASL can also use Nettle for the
-Crypto backend.  Take care to verify that GNU SASL really use
-Libgcrypt, if this is what you want.}, you need to initialize secure
-memory in your application, and for some platforms even make your
-application setuid root.  See the Libgcrypt documentation for more
-information.  Example code to initialize secure memory in your code:
+Libgcrypt@footnote{Note that GNU SASL normally use its own internal
+implementation of the cryptographic functions.  Take care to verify
+that GNU SASL really use Libgcrypt, if this is what you want.}, you
+need to initialize secure memory in your application, and for some
+platforms even make your application setuid root.  See the Libgcrypt
+documentation for more information.  Example code to initialize secure
+memory in your code:
 
 @example
 #include <gcrypt.h>
@@ -1800,6 +1801,8 @@ et al, using code from Samba written by Andrew Tridgell, and now
 maintained by Simon Josefsson.  The KERBEROS_V5 mechanism uses Shishi
 by Simon Josefsson.  The GSSAPI mechanism uses a GSS-API
 implementation, such as GSSLib by Simon Josefsson.
+
+Gnulib is used to simplify portability.
 
 This manual borrows text from the SASL specification.
 

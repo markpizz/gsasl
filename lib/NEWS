@@ -4,7 +4,7 @@ See the end for copying conditions.
 
 * Version 0.2.9 (unreleased)
 
-** Gnulib is now used for crypto functions.
+** Gnulib is now used for crypto functions, instead of Nettle in crypto/.
 Libgcrypt can still optionally be used through --with-libgcrypt.
 
 ** API and ABI modifications.
