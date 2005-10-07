@@ -1,5 +1,5 @@
 /* client.c --- SASL mechanism GSSAPI as defined in RFC 2222, client side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -221,9 +221,12 @@ _gsasl_gssapi_client_step (Gsasl_session * sctx,
       if (!bufdesc.value)
 	return GSASL_MALLOC_ERROR;
 
-      ((char *) bufdesc.value)[0] = state->qop;
-      memcpy (bufdesc.value + 1, clientwrap + 1, 3);
-      memcpy (bufdesc.value + 4, p, strlen (p));
+      {
+	char *q = bufdesc.value;
+	q[0] = state->qop;
+	memcpy (q + 1, clientwrap + 1, 3);
+	memcpy (q + 4, p, strlen (p));
+      }
 
       maj_stat = gss_wrap (&min_stat, state->context, 0, GSS_C_QOP_DEFAULT,
 			   &bufdesc, &conf_state, &bufdesc2);
