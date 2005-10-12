@@ -28,12 +28,15 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_ALLOCA
   gl_FUNC_BASE64
   gl_GC
+  gl_GC_HMAC_MD5
+  gl_GC_MD5
   gl_FUNC_GETDELIM
   gl_FUNC_GETLINE
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   gl_C_RESTRICT
   gl_SIZE_MAX
   AM_STDBOOL_H
+  gl_STDINT_H
   gl_FUNC_STRDUP
   gl_FUNC_STRVERSCMP
   gl_FUNC_VASNPRINTF
@@ -70,6 +73,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/printf-parse.h
   lib/size_max.h
   lib/stdbool_.h
+  lib/stdint_.h
   lib/strdup.c
   lib/strdup.h
   lib/strverscmp.c
@@ -83,6 +87,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/base64.m4
   m4/codeset.m4
   m4/eoverflow.m4
+  m4/gc-hmac-md5.m4
+  m4/gc-md5.m4
   m4/gc.m4
   m4/getdelim.m4
   m4/getline.m4
@@ -115,10 +121,10 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/signed.m4
   m4/size_max.m4
   m4/stdbool.m4
+  m4/stdint.m4
   m4/stdint_h.m4
   m4/strdup.m4
   m4/strverscmp.m4
-  m4/uint32_t.m4
   m4/uintmax_t.m4
   m4/ulonglong.m4
   m4/vasnprintf.m4

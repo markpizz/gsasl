@@ -14,10 +14,10 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgl --source-base=gl --m4-base=gl/m4 --aux-dir=. --lgpl --libtool --macro-prefix=gl base64 gc getline gettext strdup strverscmp vasprintf
+#   gnulib-tool --import --dir=. --lib=libgl --source-base=gl --m4-base=gl/m4 --aux-dir=. --lgpl --libtool --macro-prefix=gl base64 gc gc-hmac-md5 gc-md5 getline gettext strdup strverscmp vasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
-gl_MODULES([base64 gc getline gettext strdup strverscmp vasprintf])
+gl_MODULES([base64 gc gc-hmac-md5 gc-md5 getline gettext strdup strverscmp vasprintf])
 gl_AVOID([])
 gl_SOURCE_BASE([gl])
 gl_M4_BASE([gl/m4])
