@@ -133,4 +133,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/wchar_t.m4
   m4/wint_t.m4
   m4/xsize.m4
+  tests/test-gc-hmac-md5.c
+  tests/test-gc-md5.c
+  tests/test-gc.c
 ])
