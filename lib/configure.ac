@@ -247,16 +247,18 @@ AM_CONDITIONAL(GSSAPI, test x$gssapi = xyes)
 
 # KERBEROS_V5
 AC_ARG_ENABLE(kerberos_v5,
-	AS_HELP_STRING([--disable-kerberos_v5],
-                       [don't use the KERBEROS_V5 mechanism]),
-	kerberos_v5=$enableval, kerberos_v5=no)
+  AS_HELP_STRING([--disable-kerberos_v5],
+    [don't use the KERBEROS_V5 mechanism]),
+  kerberos_v5=$enableval, kerberos_v5=no)
 if test "$kerberos_v5" != "no" ; then
-	sj_CHECK_HEADERLIB(shishi.h, shishi, shishi_check_version,
-		[kerberos_v5=yes
-		AC_DEFINE(USE_KERBEROS_V5, 1,
-                          [Define to 1 if you want KERBEROS_V5.])],
-		[kerberos_v5=no
-		AC_MSG_WARN([shishi not found, disabling KERBEROS_V5])])
+  AC_LIB_HAVE_LINKFLAGS(shishi,, [#include <shishi.h>], [shishi ();])
+  if test "$ac_cv_libshishi" != yes; then
+    kerberos_v5=no
+    AC_MSG_WARN([GNU Shishi not found, disabling KERBEROS_V5])
+  else
+    kerberos_v5=yes
+    AC_DEFINE(USE_KERBEROS_V5, 1, [Define to 1 if you want KERBEROS_V5.])
+  fi
 fi
 AC_MSG_CHECKING([if KERBEROS_V5 should be used])
 AC_MSG_RESULT($kerberos_v5)
