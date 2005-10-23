@@ -18,7 +18,7 @@ dnl Process this file with autoconf to produce a configure script.
 # along with GNU SASL; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-AC_INIT([gsasl], [0.2.10], [bug-gsasl@gnu.org])
+AC_INIT([gsasl], [0.2.11], [bug-gsasl@gnu.org])
 
 AC_PREREQ(2.59)
 AM_INIT_AUTOMAKE([1.9 gnits])
