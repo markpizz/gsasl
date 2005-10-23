@@ -65,7 +65,7 @@ gsasl_saslprep (const char *in, Gsasl_saslprep_flags flags,
     }
 
 # if defined (HAVE_PR29_8Z) && defined (HAVE_PR29_H)
-  if (pr29_8z (out) != PR29_SUCCESS)
+  if (pr29_8z (*out) != PR29_SUCCESS)
     {
       free (*out);
       *out = NULL;
