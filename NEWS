@@ -6,7 +6,7 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
-* Version 0.2.10 (unreleased)
+* Version 0.2.10 (released 2005-10-23)
 
 ** Work around bug in GnuTLS that made the command line tool exit after
 ** failing to write a zero length message to the peer.
