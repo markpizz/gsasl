@@ -11,6 +11,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 ** Work around bug in GnuTLS that made the command line tool exit after
 ** failing to write a zero length message to the peer.
 
+** Don't use GnuTLS if gnutls_certificate_verify_peers2 isn't present.
+
 ** Update of gnulib files.
 
 * Version 0.2.9 (released 2005-10-07)

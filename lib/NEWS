@@ -4,7 +4,9 @@ See the end for copying conditions.
 
 * Version 0.2.10 (unreleased)
 
-** Update of gnulib files.
+** Improve configure checks for libidn, libntlm, libgss and libshishi presence.
+
+** Update of gnulib files, now includes self tests.
 
 ** API and ABI modifications.
 No changes since last version.
