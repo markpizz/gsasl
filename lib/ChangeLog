@@ -1,3 +1,115 @@
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/rw.po,
+	po/sr.po, po/sv.po, po/vi.po: Generated.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.10.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac: Move gnulib self tests.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-cache.m4, tests/Makefile.am,
+	tests/test-gc-hmac-md5.c, tests/test-gc-md5.c, tests/test-gc.c:
+	Update.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac, gl/Makefile.am, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4: Add gnulib self tests.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/saslprep.c: Fix pr29_8z call.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/saslprep.c: Improve pr29 check.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* gssapi/Makefile.am: Need libgss.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* ntlm/Makefile.am: Need libntlm.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix libidn test.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/saslprep.c: Use new defines.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* m4/check_headerlib.m4: Remove.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix GSS checks.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix shishi test.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix ntlm check.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* gl/md5.c, gl/md5.h: Update.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/gc-gnulib.c, gl/gc-libgcrypt.c, gl/gc.h,
+	gl/hmac-md5.c, gl/m4/gc-hmac-md5.m4, gl/m4/gc-md5.m4, gl/m4/gc.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/stdbool.m4: Update.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/rw.po,
+	po/sr.po, po/sv.po, po/vi.po: Sync with TP.
+
+2005-10-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump versions.
+
+2005-10-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-10-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gc-gnulib.c: Update.
+
+2005-10-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gc-gnulib.c, gl/gc-libgcrypt.c, gl/gc.h, gl/m4/stdbool.m4:
+	Update.
+
+2005-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/gc-gnulib.c, gl/gc-libgcrypt.c, gl/stdint_.h,
+	gl/m4/gc-hmac-md5.m4, gl/m4/gc-md5.m4, gl/m4/gc.m4,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/stdint.m4:
+	Update.
+
+2005-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gc-gnulib.c, gl/gc-libgcrypt.c, gl/gc.h, gl/md5.c, gl/md5.h,
+	gl/m4/md5.m4: Update.
+
 2005-10-07  Simon Josefsson <simon@josefsson.org>
 
 	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
