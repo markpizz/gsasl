@@ -69,9 +69,14 @@ gsasl_simple_getpass (const char *filename, const char *username, char **key)
 	    {
 	      *key = malloc (strlen (line) - userlen);
 	      if (!*key)
-		return GSASL_MALLOC_ERROR;
+		{
+		  free (line);
+		  return GSASL_MALLOC_ERROR;
+		}
 
 	      strcpy (*key, line + userlen + 1);
+
+	      free (line);
 
 	      fclose (fh);
 
@@ -81,6 +86,9 @@ gsasl_simple_getpass (const char *filename, const char *username, char **key)
 
       fclose (fh);
     }
+
+  if (line)
+    free (line);
 
   return GSASL_AUTHENTICATION_ERROR;
 }
