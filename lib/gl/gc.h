@@ -25,49 +25,62 @@
 # include <stddef.h>
 
 enum Gc_rc
-  {
-    GC_OK = 0,
-    GC_MALLOC_ERROR,
-    GC_INIT_ERROR,
-    GC_RANDOM_ERROR,
-    GC_INVALID_CIPHER,
-    GC_INVALID_HASH,
-    GC_PKCS5_INVALID_ITERATION_COUNT,
-    GC_PKCS5_INVALID_DERIVED_KEY_LENGTH,
-    GC_PKCS5_DERIVED_KEY_TOO_LONG
-  };
+{
+  GC_OK = 0,
+  GC_MALLOC_ERROR,
+  GC_INIT_ERROR,
+  GC_RANDOM_ERROR,
+  GC_INVALID_CIPHER,
+  GC_INVALID_HASH,
+  GC_PKCS5_INVALID_ITERATION_COUNT,
+  GC_PKCS5_INVALID_DERIVED_KEY_LENGTH,
+  GC_PKCS5_DERIVED_KEY_TOO_LONG
+};
 typedef enum Gc_rc Gc_rc;
 
 /* Hash types. */
 enum Gc_hash
-  {
-    GC_MD5,
-    GC_SHA1
-  };
+{
+  GC_MD4,
+  GC_MD5,
+  GC_SHA1,
+  GC_MD2,
+  GC_RMD160
+};
 typedef enum Gc_hash Gc_hash;
 
+enum Gc_hash_mode
+{
+  GC_HMAC = 1
+};
+typedef enum Gc_hash_mode Gc_hash_mode;
+
+typedef void *gc_hash_handle;
+
+#define GC_MD4_DIGEST_SIZE 16
 #define GC_MD5_DIGEST_SIZE 16
 #define GC_SHA1_DIGEST_SIZE 20
 
 /* Cipher types. */
 enum Gc_cipher
-  {
-    GC_AES128,
-    GC_AES192,
-    GC_AES256,
-    GC_3DES,
-    GC_DES,
-    GC_ARCFOUR128,
-    GC_ARCFOUR40,
-    GC_ARCTWO40
-  };
+{
+  GC_AES128,
+  GC_AES192,
+  GC_AES256,
+  GC_3DES,
+  GC_DES,
+  GC_ARCFOUR128,
+  GC_ARCFOUR40,
+  GC_ARCTWO40
+};
 typedef enum Gc_cipher Gc_cipher;
 
 enum Gc_cipher_mode
-  {
-    GC_CBC,
-    GC_STREAM
-  };
+{
+  GC_ECB,
+  GC_CBC,
+  GC_STREAM
+};
 typedef enum Gc_cipher_mode Gc_cipher_mode;
 
 typedef void *gc_cipher_handle;
@@ -87,9 +100,14 @@ extern void gc_set_allocators (gc_malloc_t func_malloc,
 			       gc_realloc_t func_realloc,
 			       gc_free_t func_free);
 
+/* Randomness. */
+extern Gc_rc gc_nonce (char *data, size_t datalen);
+extern Gc_rc gc_pseudo_random (char *data, size_t datalen);
+extern Gc_rc gc_random (char *data, size_t datalen);
+
 /* Ciphers. */
 extern Gc_rc gc_cipher_open (Gc_cipher cipher, Gc_cipher_mode mode,
-			     gc_cipher_handle * outhandle);
+			     gc_cipher_handle *outhandle);
 extern Gc_rc gc_cipher_setkey (gc_cipher_handle handle,
 			       size_t keylen, const char *key);
 extern Gc_rc gc_cipher_setiv (gc_cipher_handle handle,
@@ -101,6 +119,17 @@ extern Gc_rc gc_cipher_decrypt_inline (gc_cipher_handle handle,
 extern Gc_rc gc_cipher_close (gc_cipher_handle handle);
 
 /* Hashes. */
+
+extern Gc_rc gc_hash_open (Gc_hash hash, Gc_hash_mode mode,
+			   gc_hash_handle *outhandle);
+extern Gc_rc gc_hash_clone (gc_hash_handle handle, gc_hash_handle *outhandle);
+extern size_t gc_hash_digest_length (Gc_hash hash);
+extern void gc_hash_hmac_setkey (gc_hash_handle handle,
+				 size_t len, const char *key);
+extern void gc_hash_write (gc_hash_handle handle,
+			   size_t len, const char *data);
+extern const char *gc_hash_read (gc_hash_handle handle);
+extern void gc_hash_close (gc_hash_handle handle);
 
 /* Compute a hash value over buffer IN of INLEN bytes size using the
    algorithm HASH, placing the result in the pre-allocated buffer OUT.
@@ -115,11 +144,9 @@ gc_hash_buffer (Gc_hash hash, const void *in, size_t inlen, char *out);
 extern Gc_rc gc_md5 (const void *in, size_t inlen, void *resbuf);
 extern Gc_rc gc_sha1 (const void *in, size_t inlen, void *resbuf);
 extern Gc_rc gc_hmac_md5 (const void *key, size_t keylen,
-			  const void *in, size_t inlen,
-			  char *resbuf);
+			  const void *in, size_t inlen, char *resbuf);
 extern Gc_rc gc_hmac_sha1 (const void *key, size_t keylen,
-			   const void *in, size_t inlen,
-			   char *resbuf);
+			   const void *in, size_t inlen, char *resbuf);
 
 /* Derive cryptographic keys from a password P of length PLEN, with
    salt S of length SLEN, placing the result in pre-allocated buffer
@@ -131,8 +158,7 @@ extern Gc_rc gc_hmac_sha1 (const void *key, size_t keylen,
 extern Gc_rc
 gc_pbkdf2_sha1 (const char *P, size_t Plen,
 		const char *S, size_t Slen,
-		unsigned int c,
-		char *DK, size_t dkLen);
+		unsigned int c, char *DK, size_t dkLen);
 
 /*
   TODO:
@@ -148,7 +174,7 @@ gc_pbkdf2_sha1 (const char *P, size_t Plen,
 
   > Simon Josefsson <jas@extundo.com> writes:
   >
-  >> * Perhaps the /dev/*random reading should be separated into a separate
+  >> * Perhaps the /dev/?random reading should be separated into a separate
   >>   module?  It might be useful outside of the gc layer too.
   >
   > Absolutely.  I've been meaning to do that for months (for a "shuffle"
@@ -159,9 +185,9 @@ gc_pbkdf2_sha1 (const char *P, size_t Plen,
   I'll write a separate module for that part.
 
   I think we should even add a good PRNG that is re-seeded from
-  /dev/*random frequently.  GnuTLS can need a lot of random data on a
+  /dev/?random frequently.  GnuTLS can need a lot of random data on a
   big server, more than /dev/random can supply.  And /dev/urandom might
-  not be strong enough.  Further, the security of /dev/*random can also
+  not be strong enough.  Further, the security of /dev/?random can also
   be questionable.
 
   >>   I'm also not sure about the names of those functions, they suggest
@@ -199,12 +225,12 @@ gc_pbkdf2_sha1 (const char *P, size_t Plen,
   it isn't called too often.  You can guess what the next value will be,
   but it will always be different.
 
-  The problem is that /dev/*random doesn't offer any kind of semantic
+  The problem is that /dev/?random doesn't offer any kind of semantic
   guarantees.  But applications need an API that make that promise.
 
   I think we should do this in several steps:
 
-  1) Write a module that can read from /dev/*random.
+  1) Write a module that can read from /dev/?random.
 
   2) Add a module for a known-good PRNG suitable for random number
   generation, that can be continuously re-seeded.

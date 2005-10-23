@@ -46,7 +46,11 @@ libgl_la_SOURCES += base64.h base64.c
 
 ## begin gnulib module gc
 
+if GL_COND_LIBTOOL
+libgl_la_LIBADD += $(LTLIBGCRYPT)
+else
 libgl_la_LIBADD += $(LIBGCRYPT)
+endif
 
 ## end   gnulib module gc
 

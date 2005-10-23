@@ -105,12 +105,16 @@ gc_cipher_open (Gc_cipher alg, Gc_cipher_mode mode,
 
   switch (alg)
     {
-    case GC_AES256:
-      gcryalg = GCRY_CIPHER_RIJNDAEL256;
-      break;
-
     case GC_AES128:
       gcryalg = GCRY_CIPHER_RIJNDAEL;
+      break;
+
+    case GC_AES192:
+      gcryalg = GCRY_CIPHER_RIJNDAEL;
+      break;
+
+    case GC_AES256:
+      gcryalg = GCRY_CIPHER_RIJNDAEL256;
       break;
 
     case GC_3DES:
@@ -136,6 +140,10 @@ gc_cipher_open (Gc_cipher alg, Gc_cipher_mode mode,
 
   switch (mode)
     {
+    case GC_ECB:
+      gcrymode = GCRY_CIPHER_MODE_ECB;
+      break;
+
     case GC_CBC:
       gcrymode = GCRY_CIPHER_MODE_CBC;
       break;
@@ -211,12 +219,138 @@ gc_cipher_close (gc_cipher_handle handle)
 /* Hashes. */
 
 Gc_rc
+gc_hash_open (Gc_hash hash, Gc_hash_mode mode, gc_hash_handle * outhandle)
+{
+  int gcryalg, gcrymode;
+  gcry_error_t err;
+
+  switch (hash)
+    {
+    case GC_MD4:
+      gcryalg = GCRY_MD_MD4;
+      break;
+
+    case GC_MD5:
+      gcryalg = GCRY_MD_MD5;
+      break;
+
+    case GC_SHA1:
+      gcryalg = GCRY_MD_SHA1;
+      break;
+
+    case GC_RMD160:
+      gcryalg = GCRY_MD_RMD160;
+      break;
+
+    default:
+      return GC_INVALID_HASH;
+    }
+
+  switch (mode)
+    {
+    case 0:
+      gcrymode = 0;
+      break;
+
+    case GC_HMAC:
+      gcrymode = GCRY_MD_FLAG_HMAC;
+      break;
+
+    default:
+      return GC_INVALID_HASH;
+    }
+
+  err = gcry_md_open ((gcry_md_hd_t *) outhandle, gcryalg, gcrymode);
+  if (gcry_err_code (err))
+    return GC_INVALID_HASH;
+
+  return GC_OK;
+}
+
+Gc_rc
+gc_hash_clone (gc_hash_handle handle, gc_hash_handle * outhandle)
+{
+  int err;
+
+  err = gcry_md_copy ((gcry_md_hd_t *) outhandle, (gcry_md_hd_t) handle);
+  if (err)
+    return GC_INVALID_HASH;
+
+  return GC_OK;
+}
+
+size_t
+gc_hash_digest_length (Gc_hash hash)
+{
+  int gcryalg;
+
+  switch (hash)
+    {
+    case GC_MD4:
+      gcryalg = GCRY_MD_MD4;
+      break;
+
+    case GC_MD5:
+      gcryalg = GCRY_MD_MD5;
+      break;
+
+    case GC_SHA1:
+      gcryalg = GCRY_MD_SHA1;
+      break;
+
+    case GC_RMD160:
+      gcryalg = GCRY_MD_RMD160;
+      break;
+
+    default:
+      return 0;
+    }
+
+  return gcry_md_get_algo_dlen (gcryalg);
+}
+
+void
+gc_hash_hmac_setkey (gc_hash_handle handle, size_t len, const char *key)
+{
+  gcry_md_setkey ((gcry_md_hd_t) handle, key, len);
+}
+
+void
+gc_hash_write (gc_hash_handle handle, size_t len, const char *data)
+{
+  gcry_md_write ((gcry_md_hd_t) handle, data, len);
+}
+
+const char *
+gc_hash_read (gc_hash_handle handle)
+{
+  const char *digest;
+
+  gcry_md_final ((gcry_md_hd_t) handle);
+  digest = gcry_md_read ((gcry_md_hd_t) handle, 0);
+
+  return digest;
+}
+
+void
+gc_hash_close (gc_hash_handle handle)
+{
+  gcry_md_close ((gcry_md_hd_t) handle);
+}
+
+Gc_rc
 gc_hash_buffer (Gc_hash hash, const void *in, size_t inlen, char *resbuf)
 {
   int gcryalg;
 
   switch (hash)
     {
+#ifdef GC_USE_MD4
+    case GC_MD4:
+      gcryalg = GCRY_MD_MD4;
+      break;
+#endif
+
 #ifdef GC_USE_MD5
     case GC_MD5:
       gcryalg = GCRY_MD_MD5;
@@ -226,6 +360,12 @@ gc_hash_buffer (Gc_hash hash, const void *in, size_t inlen, char *resbuf)
 #ifdef GC_USE_SHA1
     case GC_SHA1:
       gcryalg = GCRY_MD_SHA1;
+      break;
+#endif
+
+#ifdef GC_USE_RMD160
+    case GC_RMD160:
+      gcryalg = GCRY_MD_RMD160;
       break;
 #endif
 
@@ -239,6 +379,38 @@ gc_hash_buffer (Gc_hash hash, const void *in, size_t inlen, char *resbuf)
 }
 
 /* One-call interface. */
+
+#ifdef GC_USE_MD4
+Gc_rc
+gc_md4 (const void *in, size_t inlen, void *resbuf)
+{
+  size_t outlen = gcry_md_get_algo_dlen (GCRY_MD_MD4);
+  gcry_md_hd_t hd;
+  gpg_error_t err;
+  unsigned char *p;
+
+  assert (outlen == GC_MD4_DIGEST_SIZE);
+
+  err = gcry_md_open (&hd, GCRY_MD_MD4, 0);
+  if (err != GPG_ERR_NO_ERROR)
+    return GC_INVALID_HASH;
+
+  gcry_md_write (hd, in, inlen);
+
+  p = gcry_md_read (hd, GCRY_MD_MD4);
+  if (p == NULL)
+    {
+      gcry_md_close (hd);
+      return GC_INVALID_HASH;
+    }
+
+  memcpy (resbuf, p, outlen);
+
+  gcry_md_close (hd);
+
+  return GC_OK;
+}
+#endif
 
 #ifdef GC_USE_MD5
 Gc_rc
@@ -354,7 +526,7 @@ gc_hmac_sha1 (const void *key, size_t keylen,
   unsigned char *hash;
   gpg_error_t err;
 
-  assert (hlen == 16);
+  assert (hlen == GC_SHA1_DIGEST_SIZE);
 
   err = gcry_md_open (&mdh, GCRY_MD_SHA1, GCRY_MD_FLAG_HMAC);
   if (err != GPG_ERR_NO_ERROR)
