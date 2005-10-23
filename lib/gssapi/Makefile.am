@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -30,3 +30,5 @@ endif
 if SERVER
 libgsasl_gssapi_la_SOURCES += server.c
 endif
+
+libgsasl_gssapi_la_LIBADD = @LTLIBGSS@
