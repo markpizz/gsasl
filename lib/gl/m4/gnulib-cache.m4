@@ -21,7 +21,7 @@ gl_MODULES([base64 gc gc-hmac-md5 gc-hmac-md5-tests gc-md5 gc-md5-tests gc-tests
 gl_AVOID([])
 gl_SOURCE_BASE([gl])
 gl_M4_BASE([gl/m4])
-gl_TESTS_BASE([gl/tests])
+gl_TESTS_BASE([tests])
 gl_LIB([libgl])
 gl_LGPL
 gl_LIBTOOL
