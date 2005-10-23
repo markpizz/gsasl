@@ -1,3 +1,49 @@
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/rw.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po,
+	po/zh_CN.po: Generated.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.10.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Look for gnutls_certificate_verify_peers2, to get a
+	recent gnutls.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/rw.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po,
+	po/zh_CN.po: Sync with TP.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Work around GnuTLS bug when sending zero length
+	messages.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-10-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2005-10-22  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4, gl/m4/stdbool.m4: Update.
+
 2005-10-07  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
