@@ -22,7 +22,7 @@
 
 #include "internal.h"
 
-#if WITH_SASLPREP
+#if HAVE_LIBIDN
 # include <stringprep.h>
 # if HAVE_PR29_H
 #  include <pr29.h>
@@ -48,7 +48,7 @@ int
 gsasl_saslprep (const char *in, Gsasl_saslprep_flags flags,
 		char **out, int *stringpreprc)
 {
-#if WITH_SASLPREP
+#if HAVE_LIBIDN
   int rc;
 
   rc = stringprep_profile (in, out, "SASLprep",
