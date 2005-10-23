@@ -108,11 +108,15 @@ AC_ARG_ENABLE(ntlm,
   AS_HELP_STRING([--disable-ntlm], [don't use the NTLM mechanism]),
   ntlm=$enableval)
 if test "$ntlm" != "no"; then
-	sj_CHECK_HEADERLIB(ntlm.h, ntlm, ntlm_des_set_key,
-		[ntlm=yes
-		AC_DEFINE(USE_NTLM, 1, [Define to 1 if you want NTLM.])],
-		[ntlm=no
-		AC_MSG_WARN([Libntlm >= 0.3.5 not found, disabling NTLM.])])
+    AC_LIB_HAVE_LINKFLAGS(ntlm,, [#include <ntlm.h>],
+      [buildSmbNtlmAuthRequest_noatsplit (0, 0, 0);])
+  if test "$ac_cv_libntlm" != yes; then
+    ntlm=no
+    AC_MSG_WARN([Libntlm >= 0.3.5 not found, disabling NTLM.])
+  else
+    ntlm=yes
+    AC_DEFINE(USE_NTLM, 1, [Define to 1 if you want NTLM.])
+  fi
 fi
 AC_MSG_CHECKING([if NTLM should be used])
 AC_MSG_RESULT($ntlm)
