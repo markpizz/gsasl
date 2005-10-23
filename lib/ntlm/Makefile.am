@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -26,3 +26,5 @@ libgsasl_ntlm_la_SOURCES = x-ntlm.h mechinfo.c
 if CLIENT
 libgsasl_ntlm_la_SOURCES += ntlm.c
 endif
+
+libgsasl_ntlm_la_LIBADD = @LTLIBNTLM@
