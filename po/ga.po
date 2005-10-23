@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.8-b20050829\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-08-29 01:49+0200\n"
+"POT-Creation-Date: 2005-10-23 20:36+0200\n"
 "PO-Revision-Date: 2005-09-12 21:31-0500\n"
 "Last-Translator: Kevin Patrick Scannell <scannell@SLU.EDU>\n"
 "Language-Team: Irish <ga@li.org>\n"
@@ -144,11 +144,15 @@ msgstr "níl an sásra ar fáil: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon sonra ann):\n"
+msgstr ""
+"Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon sonra "
+"ann):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon sonra ann):\n"
+msgstr ""
+"Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon "
+"sonra ann):\n"
 
 #, c-format
 msgid "mechanism error: %s"
