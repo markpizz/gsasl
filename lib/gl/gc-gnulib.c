@@ -38,6 +38,9 @@
 #include <errno.h>
 
 /* Hashes. */
+#ifdef GC_USE_MD2
+# include "md2.h"
+#endif
 #ifdef GC_USE_MD4
 # include "md4.h"
 #endif
@@ -189,6 +192,8 @@ gc_cipher_open (Gc_cipher alg, Gc_cipher_mode mode,
   Gc_rc rc = GC_OK;
 
   ctx = calloc (sizeof (*ctx), 1);
+  if (!ctx)
+    return GC_MALLOC_ERROR;
 
   ctx->alg = alg;
   ctx->mode = mode;
@@ -543,11 +548,14 @@ typedef struct _gc_hash_ctx {
   Gc_hash alg;
   Gc_hash_mode mode;
   char hash[MAX_DIGEST_SIZE];
-#ifdef GC_USE_MD5
-  struct md5_ctx md5Context;
+#ifdef GC_USE_MD2
+  struct md2_ctx md2Context;
 #endif
 #ifdef GC_USE_MD4
   struct md4_ctx md4Context;
+#endif
+#ifdef GC_USE_MD5
+  struct md5_ctx md5Context;
 #endif
 #ifdef GC_USE_SHA1
   struct sha1_ctx sha1Context;
@@ -567,6 +575,12 @@ gc_hash_open (Gc_hash hash, Gc_hash_mode mode, gc_hash_handle * outhandle)
 
   switch (hash)
     {
+#ifdef GC_USE_MD2
+    case GC_MD2:
+      md2_init_ctx (&ctx->md2Context);
+      break;
+#endif
+
 #ifdef GC_USE_MD4
     case GC_MD4:
       md4_init_ctx (&ctx->md4Context);
@@ -605,7 +619,7 @@ gc_hash_open (Gc_hash hash, Gc_hash_mode mode, gc_hash_handle * outhandle)
   else
     free (ctx);
 
-  return GC_OK;
+  return rc;
 }
 
 Gc_rc
@@ -613,7 +627,6 @@ gc_hash_clone (gc_hash_handle handle, gc_hash_handle * outhandle)
 {
   _gc_hash_ctx *in = handle;
   _gc_hash_ctx *out;
-  Gc_rc rc = GC_OK;
 
   *outhandle = out = calloc (sizeof (*out), 1);
   if (!out)
@@ -631,12 +644,20 @@ gc_hash_digest_length (Gc_hash hash)
 
   switch (hash)
     {
+    case GC_MD2:
+      len = GC_MD2_DIGEST_SIZE;
+      break;
+
     case GC_MD4:
       len = GC_MD4_DIGEST_SIZE;
       break;
 
     case GC_MD5:
       len = GC_MD5_DIGEST_SIZE;
+      break;
+
+    case GC_RMD160:
+      len = GC_RMD160_DIGEST_SIZE;
       break;
 
     case GC_SHA1:
@@ -654,10 +675,15 @@ void
 gc_hash_write (gc_hash_handle handle, size_t len, const char *data)
 {
   _gc_hash_ctx *ctx = handle;
-  Gc_rc rc = GC_OK;
 
   switch (ctx->alg)
     {
+#ifdef GC_USE_MD2
+    case GC_MD2:
+      md2_process_bytes (data, len, &ctx->md2Context);
+      break;
+#endif
+
 #ifdef GC_USE_MD4
     case GC_MD4:
       md4_process_bytes (data, len, &ctx->md4Context);
@@ -686,10 +712,16 @@ gc_hash_read (gc_hash_handle handle)
 {
   _gc_hash_ctx *ctx = handle;
   const char *ret = NULL;
-  Gc_rc rc;
 
   switch (ctx->alg)
     {
+#ifdef GC_USE_MD2
+    case GC_MD2:
+      md2_finish_ctx (&ctx->md2Context, ctx->hash);
+      ret = ctx->hash;
+      break;
+#endif
+
 #ifdef GC_USE_MD4
     case GC_MD4:
       md4_finish_ctx (&ctx->md4Context, ctx->hash);
@@ -731,6 +763,12 @@ gc_hash_buffer (Gc_hash hash, const void *in, size_t inlen, char *resbuf)
 {
   switch (hash)
     {
+#ifdef GC_USE_MD2
+    case GC_MD2:
+      md2_buffer (in, inlen, resbuf);
+      break;
+#endif
+
 #ifdef GC_USE_MD4
     case GC_MD4:
       md4_buffer (in, inlen, resbuf);
@@ -755,6 +793,15 @@ gc_hash_buffer (Gc_hash hash, const void *in, size_t inlen, char *resbuf)
 
   return GC_OK;
 }
+
+#ifdef GC_USE_MD2
+Gc_rc
+gc_md2 (const void *in, size_t inlen, void *resbuf)
+{
+  md2_buffer (in, inlen, resbuf);
+  return GC_OK;
+}
+#endif
 
 #ifdef GC_USE_MD4
 Gc_rc
