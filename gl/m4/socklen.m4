@@ -1,5 +1,5 @@
 # socklen.m4 serial 3
-dnl Copyright (C) 2005 Free Software Foundation, Inc.
+dnl Copyright (C) 2005, 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -39,8 +39,7 @@ AC_DEFUN([gl_TYPE_SOCKLEN_T],
          done
       ])
       if test "$gl_cv_socklen_t_equiv" = ""; then
-	AC_MSG_WARN([Cannot find a type to use in place of socklen_t, using int...])
-	gl_cv_socklen_t_equiv=int
+	AC_MSG_ERROR([Cannot find a type to use in place of socklen_t])
       fi
       AC_MSG_RESULT([$gl_cv_socklen_t_equiv])
       AC_DEFINE_UNQUOTED([socklen_t], [$gl_cv_socklen_t_equiv],
