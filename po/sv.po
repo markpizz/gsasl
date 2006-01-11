@@ -1,28 +1,28 @@
 # Swedish translations for gsasl package
-# Svenska översättningar för paket gsasl.
-# Copyright (C) 2002, 2004 Simon Josefsson.
+# Copyright (C) 2006 Free Software Foundation, Inc.
 # Simon Josefsson <simon@josefsson.org>, 2002.
+# Daniel Nylander <po@danielnylander.se>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gsasl 0.0.15\n"
+"Project-Id-Version: gsasl 0.2.8-b20050829\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-10-23 20:36+0200\n"
-"PO-Revision-Date: 2004-04-16 11:03+0200\n"
-"Last-Translator: Simon Josefsson <simon@josefsson.org>\n"
-"Language-Team: Swedish <sv@li.org>\n"
+"POT-Creation-Date: 2005-08-29 01:49+0200\n"
+"PO-Revision-Date: 2006-01-11 13:30+0100\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Choose SASL mechanism:\n"
 msgstr "Välj SASL-mekanism:\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Input list of SASL mechanisms supported by server:\n"
-msgstr "Mata in namn på de SASL mekanismer som servern stöder:\n"
+msgstr "Mata in lista på de SASL-mekanismer som stöds av servern:\n"
 
 #, c-format
 msgid "Using mechanism:\n"
@@ -41,23 +41,25 @@ msgid ""
 "missing argument\n"
 "Try `%s --help' for more information."
 msgstr ""
+"saknar argument\n"
+"Försök med \"%s --help\" för mer information."
 
 msgid "need both --x509-cert-file and --x509-key-file"
-msgstr ""
+msgstr "behöver både --x509-cert-file och --x509-key-file"
 
 msgid "cannot use both --starttls and --no-starttls"
-msgstr ""
+msgstr "kan inte använda både --starttls och --no-starttls"
 
 msgid "cannot use both --smtp and --imap"
-msgstr ""
+msgstr "kan inte använda både --smtp och --imap"
 
 #, c-format
 msgid "initialization failure: %s"
-msgstr ""
+msgstr "initieringsfel: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "error listing mechanisms: %s"
-msgstr "Använder mekanism:\n"
+msgstr "fel vid listning av mekanismer: %s"
 
 #, c-format
 msgid "This client supports the following mechanisms:\n"
@@ -69,68 +71,67 @@ msgstr "Den här servern stöder följande mekanismer:\n"
 
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
-msgstr ""
+msgstr "GnuTLS globalt initieringsfel: %s"
 
 #, c-format
 msgid "GnuTLS initialization failed: %s"
-msgstr ""
+msgstr "GnuTLS initieringsfel: %s"
 
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
-msgstr ""
+msgstr "inställning av GnuTLS förvalda värden misslyckades: %s"
 
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
-msgstr ""
+msgstr "allokerar anonym GnuTLS-behörighet: %s"
 
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
-msgstr ""
+msgstr "ställer in anonym GnuTLS-behörighet: %s"
 
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
-msgstr ""
+msgstr "allokerar X.509 GnuTLS-behörighet: %s"
 
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
-msgstr ""
+msgstr "läser in X.509 GnuTLS-behörighet: %s"
 
 #, c-format
 msgid "no X.509 CAs found: %s"
-msgstr ""
+msgstr "inga X.509 CA hittades: %s"
 
 msgid "no X.509 CAs found"
-msgstr ""
+msgstr "inga X.509 CA hittades"
 
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
-msgstr ""
+msgstr "ställer in X.509 GnuTLS-behörighet: %s"
 
 #, c-format
 msgid "setting GnuTLS key exchange priority: %s"
-msgstr ""
+msgstr "ställer in GnuTLS prioritet för nyckelutväxling: %s"
 
 #, c-format
 msgid "GnuTLS handshake failed: %s"
-msgstr ""
+msgstr "GnuTLS handskakning misslyckades: %s"
 
 #, c-format
 msgid "verifying peer certificate: %s"
-msgstr ""
+msgstr "validerar motpartscertifikat: %s"
 
-#, fuzzy
 msgid "server certificate is not trusted"
-msgstr "Serverautentisering avslutad (klient verifierad)...\n"
+msgstr "servercertifikat är ej pålitligt"
 
 msgid "server certificate hasn't got a known issuer"
-msgstr ""
+msgstr "servercertifikat har inte en känd utgivare"
 
 msgid "server certificate has been revoked"
-msgstr ""
+msgstr "servercertifikat har återkallats"
 
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
-msgstr ""
+msgstr "kunde inte validera servercertifikat (rc=%d)"
 
 #, c-format
 msgid "Cannot find mechanism...\n"
@@ -138,23 +139,19 @@ msgstr "Kan inte hitta mekanism...\n"
 
 #, c-format
 msgid "mechanism unavailable: %s"
-msgstr ""
+msgstr "mekanism ej tillgänglig: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Mata in base64 autentiseringsdata från klient (finns inget data, tryck "
-"ENTER):\n"
+msgstr "Mata in base64 autentiseringsdata från klient (finns inget data, tryck ENTER):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr ""
-"Mata in base64 autentiseringsdata från server (finns inget data, tryck "
-"ENTER):\n"
+msgstr "Mata in base64 autentiseringsdata från server (finns inget data, tryck ENTER):\n"
 
 #, c-format
 msgid "mechanism error: %s"
-msgstr ""
+msgstr "mekanismfel: %s"
 
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
@@ -174,7 +171,7 @@ msgstr "Base64-kodad applikationsdata att skicka:\n"
 
 #, c-format
 msgid "encoding error: %s"
-msgstr ""
+msgstr "kodningsfel: %s"
 
 #, c-format
 msgid "Session finished...\n"
@@ -182,7 +179,7 @@ msgstr "Session avslutad...\n"
 
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
-msgstr ""
+msgstr "terminering av GnuTLS-session misslyckades: %s"
 
 #~ msgid "Libgsasl error (%d): %s\n"
 #~ msgstr "Libgsasl fel (%d): %s\n"
