@@ -16,6 +16,7 @@ noinst_LTLIBRARIES = libgl.la
 
 libgl_la_SOURCES =
 libgl_la_LIBADD = @LTLIBOBJS@
+noinst_HEADERS =
 EXTRA_DIST =
 BUILT_SOURCES =
 SUFFIXES =
