@@ -14,17 +14,17 @@ AC_DEFUN([gl_GETADDRINFO],
 
   if test "$ac_cv_search_gethostbyname" = "no"; then
     save_LIBS="$LIBS"
-    LIBS="$LIBS -lwsock32"
-    AC_MSG_CHECKING([whether we need -lwsock32])
+    LIBS="$LIBS -lws2_32"
+    AC_MSG_CHECKING([whether we need -lws2_32 for gethostbyname])
     AC_LINK_IFELSE([
       AC_LANG_PROGRAM([[
-#include <ws2tcpip.h>
-]], [gethostbyname ("foo");])],
-      need_wsock32=yes, need_wsock32=no)
-    AC_MSG_RESULT($need_wsock32)
+#include <winsock2.h>
+]], [gethostbyname (0, 0);])],
+      need_ws2=yes, need_ws2=no)
+    AC_MSG_RESULT($need_ws2)
     LIBS="$save_LIBS"
-    if test "$need_wsock32" = "yes"; then
-      LIBS="$LIBS -lwsock32"
+    if test "$need_ws2 = "yes"; then
+      LIBS="$LIBS -lws2_32
     fi
   fi
 
