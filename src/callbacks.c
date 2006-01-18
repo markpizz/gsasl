@@ -1,5 +1,5 @@
 /* callbacks.c --- Implementation of gsasl callbacks.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -101,6 +101,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     case GSASL_AUTHID:
       if (args_info.authentication_id_arg == NULL)
 	{
+#if HAVE_GETPWUID
 	  uid_t uid;
 	  struct passwd *pw;
 
@@ -114,6 +115,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	      args_info.authentication_id_arg = strdup (pw->pw_name);
 	    }
 	  else
+#endif
 	    args_info.authentication_id_arg =
 	      readutf8line ("Enter authentication ID: ");
 	}
