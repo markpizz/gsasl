@@ -23,7 +23,7 @@ AC_DEFUN([gl_GETADDRINFO],
       need_ws2=yes, need_ws2=no)
     AC_MSG_RESULT($need_ws2)
     LIBS="$save_LIBS"
-    if test "$need_ws2 = "yes"; then
+    if test "$need_ws2" = "yes"; then
       LIBS="$LIBS -lws2_32
     fi
   fi
