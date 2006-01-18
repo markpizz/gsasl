@@ -19,7 +19,7 @@ AC_DEFUN([gl_GETADDRINFO],
     AC_LINK_IFELSE([
       AC_LANG_PROGRAM([[
 #include <winsock2.h>
-]], [gethostbyname (0, 0);])],
+]], [gethostbyname (0);])],
       need_ws2=yes, need_ws2=no)
     AC_MSG_RESULT($need_ws2)
     LIBS="$save_LIBS"
