@@ -1,4 +1,4 @@
-# getaddrinfo.m4 serial 7
+# getaddrinfo.m4 serial 8
 dnl Copyright (C) 2004, 2005, 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -24,7 +24,7 @@ AC_DEFUN([gl_GETADDRINFO],
     AC_MSG_RESULT($need_ws2)
     LIBS="$save_LIBS"
     if test "$need_ws2" = "yes"; then
-      LIBS="$LIBS -lws2_32
+      LIBS="$LIBS -lws2_32"
     fi
   fi
 
