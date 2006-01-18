@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -35,10 +35,12 @@ TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
 	THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c \
 	MD5FILE=$(srcdir)/cram-md5.pwd
 
-ctests = external cram-md5 digest-md5 md5file
+ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\
+	md5file$(EXEEXT)
 
 if OBSOLETE
-ctests += simple old-md5file old-cram-md5 old-digest-md5
+ctests += simple$(EXEEXT) old-md5file$(EXEEXT) old-cram-md5$(EXEEXT)	\
+	old-digest-md5$(EXEEXT)
 endif
 
 # old-gssapi
