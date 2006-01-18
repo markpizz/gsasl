@@ -1,5 +1,5 @@
 /* internal.h	internal header file for gsasl
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -34,17 +34,16 @@
 #include <errno.h>
 #include <stdbool.h>
 
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
 #ifdef HAVE_SYS_TYPES_H
 # include <sys/types.h>		/* select() */
 #endif
+#include <sys/socket.h>	/* for AF_INET */
+
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
 #ifdef HAVE_NETDB_H
 # include <netdb.h>
-#endif
-#ifdef HAVE_SYS_SOCKET_H
-# include <sys/socket.h>	/* for AF_INET */
 #endif
 #ifdef HAVE_SYS_TIME_H
 # include <sys/time.h>		/* select() */
