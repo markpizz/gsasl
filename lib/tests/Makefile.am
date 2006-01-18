@@ -33,7 +33,7 @@ LDADD = ../gl/libgl.la
 
 ## begin gnulib module gc-hmac-md5-tests
 
-TESTS += test-gc-hmac-md5
+TESTS += test-gc-hmac-md5$(EXEEXT)
 noinst_PROGRAMS += test-gc-hmac-md5
 test_gc_hmac_md5_SOURCES = test-gc-hmac-md5.c
 
@@ -41,7 +41,7 @@ test_gc_hmac_md5_SOURCES = test-gc-hmac-md5.c
 
 ## begin gnulib module gc-md5-tests
 
-TESTS += test-gc-md5
+TESTS += test-gc-md5$(EXEEXT)
 noinst_PROGRAMS += test-gc-md5
 test_gc_md5_SOURCES = test-gc-md5.c
 
@@ -49,7 +49,7 @@ test_gc_md5_SOURCES = test-gc-md5.c
 
 ## begin gnulib module gc-tests
 
-TESTS += test-gc
+TESTS += test-gc$(EXEEXT)
 noinst_PROGRAMS += test-gc
 test_gc_SOURCES = test-gc.c
 
