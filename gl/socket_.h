@@ -34,4 +34,15 @@
 # include <ws2tcpip.h>
 #endif
 
+/* For shutdown(). */
+#ifndef SHUT_RD
+# define SHUT_RD 0
+#endif
+#ifndef SHUT_WR
+# define SHUT_WR 1
+#endif
+#ifndef SHUT_RDWR
+# define SHUT_RDWR 2
+#endif
+
 #endif /* _SYS_SOCKET_H */
