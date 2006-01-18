@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -42,6 +42,7 @@ AC_CHECK_HEADERS(unistd.h netdb.h netinet/in.h pwd.h errno.h)
 
 # Checks for library functions.
 AC_SEARCH_LIBS(socket, socket)
+AC_CHECK_FUNCS(getpwuid)
 
 # Allow disabling of obsolete stuff.
 AC_ARG_ENABLE(obsolete,
