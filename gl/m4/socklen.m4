@@ -1,17 +1,17 @@
 # socklen.m4 serial 3
-dnl Copyright (C) 2005, 2006 Free Software Foundation, Inc.
+dnl Copyright (C) 2005-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
 
-dnl From Albert Chin, Windows fixes from Simon Josefsson.
+dnl From Albert Chin.
 
 dnl Check for socklen_t: historically on BSD it is an int, and in
 dnl POSIX 1g it is a type of its own, but some platforms use different
 dnl types for the argument to getsockopt, getpeername, etc.  So we
 dnl have to test to find something that will work.
 AC_DEFUN([gl_TYPE_SOCKLEN_T],
-  [AC_CHECK_HEADERS_ONCE([sys/socket.h ws2tcpip.h])
+  [AC_REQUIRE([gl_HEADER_SYS_SOCKET])
    AC_CHECK_TYPE([socklen_t], ,
      [AC_MSG_CHECKING([for socklen_t equivalent])
       AC_CACHE_VAL([gl_cv_gl_cv_socklen_t_equiv],
@@ -22,13 +22,11 @@ AC_DEFUN([gl_TYPE_SOCKLEN_T],
 	   for t in int size_t "unsigned int" "long int" "unsigned long int"; do
 	     AC_TRY_COMPILE(
 	       [#include <sys/types.h>
-		#if HAVE_SYS_SOCKET_H
+                #if HAVE_SYS_SOCKET_H
                 # include <sys/socket.h>
+                #else
+                # include "socket_.h"
                 #endif
-		#if HAVE_WS2TCPIP_H
-                # include <ws2tcpip.h>
-                #endif
-
 		int getpeername (int, $arg2 *, $t *);],
                [$t len;
 		getpeername (0, 0, &len);],
@@ -45,9 +43,4 @@ AC_DEFUN([gl_TYPE_SOCKLEN_T],
       AC_DEFINE_UNQUOTED([socklen_t], [$gl_cv_socklen_t_equiv],
         [type to use in place of socklen_t if not defined])],
      [#include <sys/types.h>
-      #if HAVE_SYS_SOCKET_H
-      # include <sys/socket.h>
-      #endif
-      #if HAVE_WS2TCPIP_H
-      # include <ws2tcpip.h>
-      #endif])])
+      #include <sys/socket.h>])])
