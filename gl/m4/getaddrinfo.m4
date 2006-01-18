@@ -6,9 +6,28 @@ dnl with or without modifications, as long as this notice is preserved.
 
 AC_DEFUN([gl_GETADDRINFO],
 [
+  AC_MSG_NOTICE([checking how to do getaddrinfo])
+
   AC_SEARCH_LIBS(getaddrinfo, [nsl socket])
   AC_SEARCH_LIBS(gethostbyname, [inet nsl])
   AC_SEARCH_LIBS(getservbyname, [inet nsl socket xnet])
+
+  if test "$ac_cv_search_gethostbyname" = "no"; then
+    save_LIBS="$LIBS"
+    LIBS="$LIBS -lwsock32"
+    AC_MSG_CHECKING([whether we need -lwsock32])
+    AC_LINK_IFELSE([
+      AC_LANG_PROGRAM([[
+#include <ws2tcpip.h>
+]], [gethostbyname ("foo");])],
+      need_wsock32=yes, need_wsock32=no)
+    AC_MSG_RESULT($need_wsock32)
+    LIBS="$save_LIBS"
+    if test "$need_wsock32" = "yes"; then
+      LIBS="$LIBS -lwsock32"
+    fi
+  fi
+
   AC_REPLACE_FUNCS(getaddrinfo gai_strerror)
   gl_PREREQ_GETADDRINFO
 ])
