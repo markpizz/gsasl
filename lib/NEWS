@@ -1,8 +1,12 @@
 GNU SASL LIBRARY NEWS -- History of user-visible changes.
-Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson
+Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson
 See the end for copying conditions.
 
 * Version 0.2.11 (unreleased)
+
+** Ported to Windows by cross-compiling using Mingw32.
+Using Debian's mingw32 compiler, you can build it for Windows by invoking
+`./configure --host=i586-mingw32msvc --disable-gssapi'.
 
 ** Fix memory leak in gsasl_simple_getpass.
 
