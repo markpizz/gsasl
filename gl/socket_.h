@@ -35,13 +35,13 @@
 #endif
 
 /* For shutdown(). */
-#ifndef SHUT_RD
-# define SHUT_RD 0
+#if !defined(SHUT_RD) && defined (SD_RECEIVE)
+# define SHUT_RD SD_RECEIVE
 #endif
-#ifndef SHUT_WR
+#if !defined(SHUT_WR) && defined (SD_SEND)
 # define SHUT_WR 1
 #endif
-#ifndef SHUT_RDWR
+#if !defined(SHUT_RDWR) && defined (SD_BOTH)
 # define SHUT_RDWR 2
 #endif
 
