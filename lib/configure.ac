@@ -205,8 +205,9 @@ elif test "$gssapi" != "no" ; then
     AC_MSG_NOTICE([GNU GSS found])
     AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])
   elif test "$cross_compiling" != "no"; then
-    AC_MSG_NOTICE([Cross-compiling, won't rely on MIT/Heimdal krb5-config])
+    AC_MSG_WARN([Cross-compiling, won't rely on MIT/Heimdal krb5-config])
     AC_MSG_NOTICE([Use --enable-gssapi=mit or --enable-gssapi=heimdal.])
+    gssapi=no
   else
     AC_MSG_WARN([GNU GSS not found (see http://josefsson.org/gss/)...])
     AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
