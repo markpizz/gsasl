@@ -27,6 +27,7 @@
    winsock2.h and ws2tcpip.h that declare the sys/socket.h definitions
    we need. */
 
+#define WINVER 0x0501
 #if HAVE_WINSOCK2_H
 # include <winsock2.h>
 #endif

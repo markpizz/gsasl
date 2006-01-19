@@ -6,31 +6,29 @@ dnl with or without modifications, as long as this notice is preserved.
 
 AC_DEFUN([gl_GETADDRINFO],
 [
-  AC_SEARCH_LIBS(getaddrinfo, [nsl socket])
+  AC_MSG_NOTICE([checking how to do getaddrinfo])
 
-  if test "$ac_cv_search_getaddrinfo" = "no"; then
+  AC_SEARCH_LIBS(getaddrinfo, [nsl socket])
+  AC_CHECK_FUNCS(getaddrinfo,, [
     AC_CACHE_CHECK(for getaddrinfo in ws2tcpip.h and -lws2_32,
-                   gl_cv_getaddrinfo, [
-      gl_cv_getaddrinfo=no
+                   gl_cv_w32_getaddrinfo, [
+      gl_cv_w32_getaddrinfo=no
       am_save_LIBS="$LIBS"
       LIBS="$LIBS -lws2_32"
       AC_TRY_LINK([
 #define WINVER 0x0501
-if HAVE_WS2TCPIP_H
-# include <ws2tcpip.h>
-#endif
-], [getaddrinfo(0, 0, 0, 0);], gl_cv_getaddrinfo=yes)
+#include <ws2tcpip.h>
+], [getaddrinfo(0, 0, 0, 0);], gl_cv_w32_getaddrinfo=yes)
       LIBS="$am_save_LIBS"
-      if test "$gl_cv_getaddrinfo" = "yes"; then
+      if test "$gl_cv_w32_getaddrinfo" = "yes"; then
         LIBS="$LIBS -lws2_32"
+      else
+        AC_LIBOBJ(getaddrinfo)
       fi
-    ])
-  fi
+    ])])
 
-  if test "$gl_cv_getaddrinfo" = "no"; then
-    AC_REPLACE_FUNCS(getaddrinfo gai_strerror)
-    gl_PREREQ_GETADDRINFO
-  fi
+  AC_REPLACE_FUNCS(gai_strerror)
+  gl_PREREQ_GETADDRINFO
 ])
 
 # Prerequisites of lib/getaddrinfo.h and lib/getaddrinfo.c.
@@ -41,18 +39,34 @@ AC_DEFUN([gl_PREREQ_GETADDRINFO], [
   AC_REQUIRE([gl_SOCKET_FAMILIES])
   AC_REQUIRE([AC_C_INLINE])
   AC_REQUIRE([AC_GNU_SOURCE])
-  AC_CHECK_HEADERS_ONCE(netinet/in.h)
+  AC_CHECK_HEADERS_ONCE(netinet/in.h sys/socket.h netdb.h ws2tcpip.h)
   AC_CHECK_DECLS([getaddrinfo, freeaddrinfo, gai_strerror],,,[
   /* sys/types.h is not needed according to POSIX, but the
      sys/socket.h in i386-unknown-freebsd4.10 and
      powerpc-apple-darwin5.5 required it. */
 #include <sys/types.h>
+#ifdef HAVE_SYS_SOCKET_H
 #include <sys/socket.h>
+#endif
+#ifdef HAVE_NETDB_H
 #include <netdb.h>
+#endif
+#ifdef HAVE_WS2TCPIP_H
+#define WINVER 0x0501
+#include <ws2tcpip.h>
+#endif
 ])
   AC_CHECK_TYPES([struct addrinfo],,,[
 #include <sys/types.h>
+#ifdef HAVE_SYS_SOCKET_H
 #include <sys/socket.h>
+#endif
+#ifdef HAVE_NETDB_H
 #include <netdb.h>
+#endif
+#ifdef HAVE_WS2TCPIP_H
+#define WINVER 0x0501
+#include <ws2tcpip.h>
+#endif
 ])
 ])
