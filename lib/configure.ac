@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -204,6 +204,9 @@ elif test "$gssapi" != "no" ; then
     gssapi=yes
     AC_MSG_NOTICE([GNU GSS found])
     AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])
+  elif test "$cross_compiling" = "yes"; then
+    AC_MSG_NOTICE([Cross-compiling, won't rely on MIT/Heimdal krb5-config])
+    AC_MSG_NOTICE([Use --enable-gssapi=mit or --enable-gssapi=heimdal.])
   else
     AC_MSG_WARN([GNU GSS not found (see http://josefsson.org/gss/)...])
     AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
