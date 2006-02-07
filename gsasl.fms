@@ -8,12 +8,8 @@ OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
 BSD-Port-URL: http://www.freshports.org/security/gsasl/
 CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
 Mirror-Site-URL: http://josefsson.org/gsasl/
-Version: 0.2.10
+Version: 0.2.11
 Release-Focus: Minor bugfixes
 
-Work around bug in GnuTLS that made the command line tool exit after
-failing to write a zero length message to the peer, which affected the
-GSS-API mechanism.  Don't use GnuTLS if
-gnutls_certificate_verify_peers2 isn't present.  Improve configure
-checks for libidn, libntlm, libgss and libshishi presence.  Update of
-gnulib files, now includes self tests.
+Ported to Windows by cross-compiling using Mingw32.  Fix memory leak
+in gsasl_simple_getpass.  Update of gnulib files.
