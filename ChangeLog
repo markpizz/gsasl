@@ -1,3 +1,153 @@
+2006-02-07  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: 0.2.11.
+
+2006-02-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.11.
+
+2006-02-07  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/rw.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po,
+	po/zh_CN.po: Update.
+
+2006-02-07  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/vi.po, po/zh_CN.po: Update
+
+2006-02-07  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Typo.
+
+2006-02-07  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Initialize ws2_32, if necessary.
+
+2006-02-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getaddrinfo.h, gl/getopt.c, gl/quotearg.c, gl/socket_.h,
+	gl/stdbool_.h, gl/m4/getopt.m4, gl/m4/gnulib-tool.m4,
+	gl/m4/stdbool.m4: Update.
+
+2006-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gai_strerror.c, gl/getaddrinfo.h, gl/socket_.h,
+	gl/m4/getaddrinfo.m4: Update.
+
+2006-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gai_strerror.c, gl/getaddrinfo.h, gl/m4/getaddrinfo.m4,
+	gl/m4/socklen.m4: Update.
+
+2006-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/socket_.h: Add.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getaddrinfo.m4: Update.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getaddrinfo.m4: Update.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/socklen.m4: Update.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/socklen.m4: Update.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getaddrinfo.m4: Update.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Mingw32 fix.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix EXEEXT.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gai_strerror.c, gl/getaddrinfo.h, gl/socket_.h,
+	gl/m4/getaddrinfo.m4: Update.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Fix #include's.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Protect getpwuid, for mingw32.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Check for getpwuid.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/socket_.h, gl/m4/gnulib-comp.m4,
+	gl/m4/sys_socket_h.m4: Add.
+
+2006-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/getaddrinfo.m4: Update.
+
+2006-01-11  Simon Josefsson <simon@josefsson.org>
+
+	* po/sv.po: Update.
+
+2006-01-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4, gl/m4/readline.m4,
+	gl/m4/socklen.m4: Update.
+
+2005-12-25  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getaddrinfo.m4, gl/m4/socklen.m4: Update.
+
+2005-12-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4: Update.
+
+2005-12-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-12-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/socklen.m4: Update.
+
+2005-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getaddrinfo.h, gl/readline.c: Sync gnulib.
+
+2005-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Fix.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Update PGP key.
+
+2005-10-23  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Add.
+
 2005-10-23  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
