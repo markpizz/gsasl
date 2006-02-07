@@ -1,3 +1,74 @@
+2006-02-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.11.
+
+2006-02-07  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/rw.po,
+	po/sr.po, po/sv.po, po/vi.po: Update.
+
+2006-02-07  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Update
+
+2006-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix cross-compile test.
+
+2006-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix cross-compile test.
+
+2006-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Don't be fooled by krb5-config when
+	cross-compiling.
+
+2006-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Update.
+
+2006-01-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/base64.c, gl/md5.c, gl/md5.h, gl/stdint_.h:
+	Update.
+
+2006-01-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/stdint_.h, gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4,
+	gl/m4/stdint.m4: Update.
+
+2005-12-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2005-12-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-11-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gc-gnulib.c, gl/gc-libgcrypt.c, gl/gc.h, gl/md5.c,
+	gl/stdint_.h, tests/test-gc-hmac-md5.c, tests/test-gc-md5.c: Sync
+	gnulib.
+
+2005-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump versions.
+
+2005-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-10-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/md5pwd.c: Fix memory leak.
+
 2005-10-23  Simon Josefsson <simon@josefsson.org>
 
 	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/rw.po,
