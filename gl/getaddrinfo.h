@@ -71,11 +71,13 @@ struct addrinfo
 #  define EAI_OVERFLOW	  -12	/* Argument buffer overflow.  */
 #endif
 # ifndef EAI_ADDRFAMILY
-/* Not define on mingw32. */
+/* Not defined on mingw32.  XXX May be incorrect? Perhaps it is never
+   returned? */
 #  define EAI_ADDRFAMILY  -9	/* Address family for NAME not supported.  */
 # endif
 # ifndef EAI_SYSTEM
-/* Not define on mingw32. */
+/* Not defined on mingw32.  XXX May be incorrect? Perhaps it is never
+   returned? */
 #  define EAI_SYSTEM	  -11	/* System error returned in `errno'.  */
 # endif
 
