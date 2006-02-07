@@ -289,7 +289,7 @@ main (int argc, char *argv[])
     wVersionRequested = MAKEWORD(2, 0);
     r = WSAStartup( wVersionRequested, &wsaData);
     if (r)
-      error (EXIT_FAILURE, 0, _("Cannot initialize Windows sockets.");
+      error (EXIT_FAILURE, 0, _("Cannot initialize Windows sockets."));
   }
 #endif
 
