@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.8-b20050829\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-10-23 20:36+0200\n"
+"POT-Creation-Date: 2005-08-29 01:49+0200\n"
 "PO-Revision-Date: 2005-09-13 13:33+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -45,17 +45,13 @@ msgstr ""
 "Hãy thử « %s --help » (trợ giúp) để xem thông tin thêm."
 
 msgid "need both --x509-cert-file and --x509-key-file"
-msgstr ""
-"cần thiết cả « --x509-cert-file » (tập tin chứng nhận) lẫn « --x509-key-file "
-"» (tập tin khóa) đều"
+msgstr "cần thiết cả « --x509-cert-file » (tập tin chứng nhận) lẫn « --x509-key-file » (tập tin khóa) đều"
 
 msgid "cannot use both --starttls and --no-starttls"
-msgstr ""
-"không thể sử dụng tùy chọn « --starttls » (có) với « --no-starttls » (không)."
+msgstr "không thể sử dụng tùy chọn « --starttls » (có) với « --no-starttls » (không)."
 
 msgid "cannot use both --smtp and --imap"
-msgstr ""
-"không thể sử dụng tùy chọn « --smtp » với « --imap » (giao thức khác nhau)."
+msgstr "không thể sử dụng tùy chọn « --smtp » với « --imap » (giao thức khác nhau)."
 
 #, c-format
 msgid "initialization failure: %s"
@@ -147,14 +143,11 @@ msgstr "cơ cấu không sẵn sàng: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Nhập dữ liệu xác thực cơ số 64 từ ứng dụng khách (bấm phím RETURN nếu không "
-"có):\n"
+msgstr "Nhập dữ liệu xác thực cơ số 64 từ ứng dụng khách (bấm phím RETURN nếu không có):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr ""
-"Nhập dữ liệu xác thực cơ số 64 từ máy phục vụ (bấm RET nếu không có):\n"
+msgstr "Nhập dữ liệu xác thực cơ số 64 từ máy phục vụ (bấm RET nếu không có):\n"
 
 #, c-format
 msgid "mechanism error: %s"
