@@ -14,10 +14,10 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgl --source-base=gl --m4-base=gl/m4 --aux-dir=. --libtool --macro-prefix=gl error exit getaddrinfo getopt getpass iconvme progname quote readline strdup
+#   gnulib-tool --import --dir=. --lib=libgl --source-base=gl --m4-base=gl/m4 --aux-dir=. --libtool --macro-prefix=gl error exit getaddrinfo getopt getpass iconvme maintainer-makefile progname quote readline strdup
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
-gl_MODULES([error exit getaddrinfo getopt getpass iconvme progname quote readline strdup])
+gl_MODULES([error exit getaddrinfo getopt getpass iconvme maintainer-makefile progname quote readline strdup])
 gl_AVOID([])
 gl_SOURCE_BASE([gl])
 gl_M4_BASE([gl/m4])
