@@ -49,6 +49,8 @@ else
 all: configure Makefile
 	make
 
+-include ./Makefile.cfg
+
 Makefile: configure
 	./configure $(CFGFLAGS)
 
