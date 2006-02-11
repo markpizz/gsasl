@@ -46,10 +46,13 @@ include $(srcdir)/Makefile.maint
 
 else
 
-all: configure Makefile
-	make
+all: configure Makefile build-all
 
 -include ./Makefile.cfg
+include ./Makefile.maint
+
+build-all:
+	make
 
 Makefile: configure
 	./configure $(CFGFLAGS)
