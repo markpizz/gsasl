@@ -33,12 +33,9 @@ endif
 # Make tar archive easier to reproduce.
 export TAR_OPTIONS = --owner=0 --group=0 --numeric-owner
 
+# Ran autoreconf and configure or not?
 have-Makefile := $(shell test -f Makefile && echo yes)
-
 ifeq ($(have-Makefile),yes)
-
-# Make tar archive easier to reproduce.
-export TAR_OPTIONS = --owner=0 --group=0 --numeric-owner
 
 include Makefile
 -include $(srcdir)/Makefile.cfg
@@ -46,19 +43,15 @@ include $(srcdir)/Makefile.maint
 
 else
 
-all: configure Makefile build-all
+.DEFAULT_GOAL := abort-due-to-no-makefile
 
 -include ./Makefile.cfg
 include ./Makefile.maint
 
-build-all:
-	make
-
-Makefile: configure
-	./configure $(CFGFLAGS)
-
-configure:
-	autoreconf --install
+abort-due-to-no-makefile:
+	@echo There seems to be no Makefile in this directory.
+	@echo "You must run ./configure before running \`make'."
+	@exit 1
 
 endif
 
