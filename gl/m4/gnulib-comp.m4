@@ -51,8 +51,8 @@ AC_DEFUN([gl_INIT],
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/GNUmakefile
-  build-aux/Makefile.maint
   build-aux/config.rpath
+  build-aux/maint.mk
   lib/error.c
   lib/error.h
   lib/exit.h
