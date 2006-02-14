@@ -1,5 +1,5 @@
 /* test-parser.c --- Self tests of DIGEST-MD5 parser & printer.
- * Copyright (C) 2004  Simon Josefsson
+ * Copyright (C) 2004, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -153,14 +153,15 @@ main (int argc, char *argv[])
   /* Auth-response, finish. */
 
   {
-    char *token = "rspauth=\"4711\"";
+    char *token = "rspauth=\"6a204da26b9888ee40bb3052ff056a67\"";
 
     printf ("finish `%s': ", token);
     rc = digest_md5_parse_finish (token, 0, &f);
     if (rc != 0)
       abort ();
     printf ("`%s'? %s\n", f.rspauth,
-	    strcmp ("4711", f.rspauth) == 0 ? "ok" : "FAILURE");
+	    strcmp ("6a204da26b9888ee40bb3052ff056a67", f.rspauth) == 0
+	    ? "ok" : "FAILURE");
   }
 
   {
@@ -175,9 +176,9 @@ main (int argc, char *argv[])
 
   memset (buf16, 'Q', 16);
 
-  rc =
-    digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce", DIGEST_MD5_QOP_AUTH,
-		     "authzid", "digesturi", 1, 0, NULL, NULL, NULL, NULL);
+  rc = digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce",
+			DIGEST_MD5_QOP_AUTH, "authzid", "digesturi",
+			1, 0, NULL, NULL, NULL, NULL);
   if (rc != 0)
     abort ();
   buf32[32] = '\0';
@@ -185,9 +186,9 @@ main (int argc, char *argv[])
     abort ();
   printf ("digest: `%s': PASS\n", buf32);
 
-  rc =
-    digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce", DIGEST_MD5_QOP_AUTH,
-		     "authzid", "digesturi", 0, 0, NULL, NULL, NULL, NULL);
+  rc = digest_md5_hmac (buf32, buf16, "nonce", 1, "cnonce",
+			DIGEST_MD5_QOP_AUTH, "authzid", "digesturi", 0, 0,
+			NULL, NULL, NULL, NULL);
   if (rc != 0)
     abort ();
   buf32[32] = '\0';
