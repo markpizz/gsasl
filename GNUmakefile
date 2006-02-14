@@ -49,8 +49,8 @@ else
 include ./Makefile.maint
 
 abort-due-to-no-makefile:
-	@echo There seems to be no Makefile in this directory.
-	@echo "You must run ./configure before running \`make'."
+	@echo There seems to be no Makefile in this directory.   1>&2
+	@echo "You must run ./configure before running \`make'." 1>&2
 	@exit 1
 
 endif
