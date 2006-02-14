@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -43,4 +43,7 @@ libgsasl_digest_md5_la_SOURCES += server.c
 endif
 
 LDADD = libgsasl-digest_md5.la ../gl/libgl.la
-check_PROGRAMS = test-parser
+
+ctests = test-parser$(EXEEXT)
+TESTS = $(ctests)	
+check_PROGRAMS = $(ctests)
