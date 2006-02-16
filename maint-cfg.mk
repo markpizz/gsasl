@@ -25,6 +25,13 @@ endif
 gtk-doc.make:
 	gtkdocize
 
-bootstrap: gtk-doc.make
+autoreconf: gtk-doc.make
 	test -f ./configure || autoreconf --install
+
+bootstrap: autoreconf
 	./configure $(CFGFLAGS)
+
+W32ROOT ?= $(HOME)/w32root
+
+mingw32: autoreconf 
+	./configure $(CFGFLAGS) --host=i586-mingw32msvc --build=`./config.guess` --prefix=$(W32ROOT)
