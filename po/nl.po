@@ -1,32 +1,32 @@
 # Dutch translation of gsasl.
-# Copyright (C) 2004 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
-# Elros Cyriatan <cyriatan@fastmail.fm>, 2004.
+# Taco Witte <tcwitte@cs.uu.nl>, 2004-2006.
 # 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 0.1.4\n"
+"Project-Id-Version: gsasl 0.2.8-b20050829\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2006-02-07 11:33+0100\n"
-"PO-Revision-Date: 2004-08-27 12:49+0200\n"
-"Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
-"Language-Team: Dutch <vertaling@nl.linux.org>\n"
+"POT-Creation-Date: 2005-08-29 01:49+0200\n"
+"PO-Revision-Date: 2006-02-07 18:46+0200\n"
+"Last-Translator: Taco Witte <tcwitte@cs.uu.nl>\n"
+"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Choose SASL mechanism:\n"
 msgstr "Kies SASL-methode:\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Input list of SASL mechanisms supported by server:\n"
-msgstr "Invoer SASL-methode ondersteund door server:\n"
+msgstr "Invoerlijst van SASL-methodes ondersteund door server:\n"
 
 #, c-format
 msgid "Using mechanism:\n"
-msgstr "In gebruik zijnde methode:\n"
+msgstr "Methode in gebruik:\n"
 
 #, c-format
 msgid "Output from server:\n"
@@ -36,31 +36,30 @@ msgstr "Uitvoer van server:\n"
 msgid "Output from client:\n"
 msgstr "Uitvoer van client:\n"
 
-msgid "Cannot initialize Windows sockets."
-msgstr ""
-
 #, c-format
 msgid ""
 "missing argument\n"
 "Try `%s --help' for more information."
 msgstr ""
+"ontbrekend argument\n"
+"Probeer `%s --help' voor meer informatie."
 
 msgid "need both --x509-cert-file and --x509-key-file"
-msgstr ""
+msgstr "--x509-cert-file en --x509-key-file zijn beide nodig"
 
 msgid "cannot use both --starttls and --no-starttls"
-msgstr ""
+msgstr "--starttls en --no-starttls gaan niet samen"
 
 msgid "cannot use both --smtp and --imap"
-msgstr ""
+msgstr "--smtp en --imap gaan niet samen"
 
 #, c-format
 msgid "initialization failure: %s"
-msgstr ""
+msgstr "initialisatiefout: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "error listing mechanisms: %s"
-msgstr "In gebruik zijnde methode:\n"
+msgstr "fout bij opsommen methoden: %s"
 
 #, c-format
 msgid "This client supports the following mechanisms:\n"
@@ -72,90 +71,87 @@ msgstr "Deze server ondersteunt de volgende methoden:\n"
 
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
-msgstr ""
+msgstr "GnuTLS globale initialisatie mislukt: %s"
 
 #, c-format
 msgid "GnuTLS initialization failed: %s"
-msgstr ""
+msgstr "GnuTLS initialisatie mislukt: %s"
 
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
-msgstr ""
+msgstr "instellen GnuTLS-standaardwaarden mislukt: %s"
 
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
-msgstr ""
+msgstr "toewijzen anonieme GnuTLS vertrouwensgegevens: %s"
 
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
-msgstr ""
+msgstr "instellen anonieme GnuTLS vertrouwensgegevens: %s"
 
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
-msgstr ""
+msgstr "toewijzen X.509 GnuTLS vertrouwensgegevens: %s"
 
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
-msgstr ""
+msgstr "laden X.509 GnuTLS vertrouwensgegevens: %s"
 
 #, c-format
 msgid "no X.509 CAs found: %s"
-msgstr ""
+msgstr "geen X.509 CAs gevonden: %s"
 
 msgid "no X.509 CAs found"
-msgstr ""
+msgstr "geen X.509 CAs gevonden"
 
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
-msgstr ""
+msgstr "instellen X.509 GnuTLS vertrouwensgegevens: %s"
 
 #, c-format
 msgid "setting GnuTLS key exchange priority: %s"
-msgstr ""
+msgstr "instellen GnuTLS toetsuitwisselingsprioriteit: %s"
 
 #, c-format
 msgid "GnuTLS handshake failed: %s"
-msgstr ""
+msgstr "GnuTLS-handdruk mislukt: %s"
 
 #, c-format
 msgid "verifying peer certificate: %s"
-msgstr ""
+msgstr "verifiëren certificaat van de ander: %s"
 
-#, fuzzy
 msgid "server certificate is not trusted"
-msgstr "Server authentificatie voltooid (client vertrouwd).\n"
+msgstr "servercertificaat wordt niet vertrouwd"
 
 msgid "server certificate hasn't got a known issuer"
-msgstr ""
+msgstr "servercertificaat is niet door een bekende uitgegeven"
 
 msgid "server certificate has been revoked"
-msgstr ""
+msgstr "servercertificaat is herroepen"
 
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
-msgstr ""
+msgstr "kon servercertificaat niet verifiëren (rc=%d)"
 
 #, c-format
 msgid "Cannot find mechanism...\n"
-msgstr "Kan methode niet vinden.\n"
+msgstr "Kan methode niet vinden...\n"
 
 #, c-format
 msgid "mechanism unavailable: %s"
-msgstr ""
+msgstr "methode onbeschikbaar: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Geef base64 authentificatiegegevens van client (druk op ENTER als geen):\n"
+msgstr "Geef base64 authentificatiegegevens van client (druk op ENTER als geen):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr ""
-"Geef base64 authentificatiegegevens van server (druk op ENTER als geen):\n"
+msgstr "Geef base64 authentificatiegegevens van server (druk op ENTER als geen):\n"
 
 #, c-format
 msgid "mechanism error: %s"
-msgstr ""
+msgstr "methodefout: %s"
 
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
@@ -175,15 +171,12 @@ msgstr "Base64-gecodeerde toepassingsgegevens om te verzenden:\n"
 
 #, c-format
 msgid "encoding error: %s"
-msgstr ""
+msgstr "coderingsfout: %s"
 
 #, c-format
 msgid "Session finished...\n"
-msgstr "Sessie voltooid.\n"
+msgstr "Sessie voltooid...\n"
 
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
-msgstr ""
-
-#~ msgid "Libgsasl error (%d): %s"
-#~ msgstr "Libgsasl fout (%d): %s"
+msgstr "beëindigen GnuTLS-sessie mislukt: %s"
