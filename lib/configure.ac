@@ -334,8 +334,7 @@ AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 gl_INIT
 
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
-		gl/Makefile tests/Makefile \
-		src/gsasl.h src/Makefile \
+		gl/Makefile tests/Makefile src/Makefile \
 		anonymous/Makefile cram-md5/Makefile \
 		digest-md5/Makefile external/Makefile \
 		gssapi/Makefile kerberos_v5/Makefile \
