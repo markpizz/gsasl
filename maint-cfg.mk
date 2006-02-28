@@ -22,10 +22,7 @@ ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 .DEFAULT_GOAL := bootstrap
 endif
 
-gtk-doc.make:
-	gtkdocize
-
-autoreconf: gtk-doc.make
+autoreconf:
 	test -f ./configure || autoreconf --install
 
 bootstrap: autoreconf
