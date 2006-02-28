@@ -334,8 +334,10 @@ AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 gl_INIT
 
 # Update version number in src/gsasl.h.
-sed 's/GSASL_VERSION ".*"/GSASL_VERSION "'$PACKAGE_VERSION'"/' \
-    $srcdir/src/gsasl.h > fixhdr.tmp
+if ! sed 's/GSASL_VERSION ".*"/GSASL_VERSION "'$PACKAGE_VERSION'"/' \
+    $srcdir/src/gsasl.h > fixhdr.tmp; then
+  AC_MSG_ERROR([[*** Failed to update version number in src/gsasl.h...]])
+fi
 if cmp -s $srcdir/src/gsasl.h fixhdr.tmp 2>/dev/null; then
   rm -f fixhdr.tmp
 elif ! mv fixhdr.tmp $srcdir/src/gsasl.h; then
