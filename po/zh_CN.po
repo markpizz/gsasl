@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.8-b20050829\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2006-02-07 11:33+0100\n"
+"POT-Creation-Date: 2005-08-29 01:49+0200\n"
 "PO-Revision-Date: 2005-12-04 03:48+0800\n"
 "Last-Translator: Meng Jie <zuxyhere@eastday.com>\n"
 "Language-Team: Chinese (simplified) <i18n-translation@lists.linux.net.cn>\n"
@@ -34,9 +34,6 @@ msgstr "服务器的输出：\n"
 #, c-format
 msgid "Output from client:\n"
 msgstr "客户端的输出：\n"
-
-msgid "Cannot initialize Windows sockets."
-msgstr ""
 
 #, c-format
 msgid ""
