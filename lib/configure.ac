@@ -333,6 +333,15 @@ AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 # For gnulib stuff in gl/.
 gl_INIT
 
+# Update version number in src/gsasl.h.
+sed 's/GSASL_VERSION ".*"/GSASL_VERSION "'$PACKAGE_VERSION'"/' \
+    $srcdir/src/gsasl.h > fixhdr.tmp
+if cmp -s $srcdir/src/gsasl.h fixhdr.tmp 2>/dev/null; then
+  rm -f fixhdr.tmp
+elif ! mv fixhdr.tmp $srcdir/src/gsasl.h; then
+  AC_MSG_ERROR([[*** Failed to move fixhdr.tmp to src/gsasl.h...]])
+fi
+
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
 		gl/Makefile tests/Makefile src/Makefile \
 		anonymous/Makefile cram-md5/Makefile \
