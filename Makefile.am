@@ -27,6 +27,7 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --disable-obsolete
 update-po: refresh-po
 	cvs add `ls po/*.po | grep -v quot.po` || true && \
 	cvs commit -m "Sync with TP." po/LINGUAS `ls po/*.po | grep -v quot.po`
+	$(MAKE) -C lib update-po
 
 ChangeLog:
 	cvs2cl --fsf --FSF --usermap .cvsusers -I ChangeLog -I .cvs \
