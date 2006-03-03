@@ -50,7 +50,9 @@ AC_DEFUN([gl_INIT],
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
+  build-aux/GNUmakefile
   build-aux/config.rpath
+  build-aux/maint.mk
   lib/alloca_.h
   lib/asnprintf.c
   lib/asprintf.c
