@@ -102,6 +102,20 @@ mostlyclean-local:
 
 ## end   gnulib module sys_socket
 
+## begin gnulib module unistd
+
+BUILT_SOURCES += $(UNISTD_H)
+EXTRA_DIST += unistd_.h
+
+# We need the following in order to create <byteswap.h> when the system
+# doesn't have one.
+unistd.h: unistd_.h
+	cp $(srcdir)/unistd_.h $@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += unistd.h unistd.h-t
+
+## end   gnulib module unistd
+
 ## begin gnulib module xalloc-die
 
 libgl_la_SOURCES += xalloc-die.c

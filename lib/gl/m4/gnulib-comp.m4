@@ -32,6 +32,7 @@ AC_DEFUN([gl_INIT],
   gl_GC
   gl_GC_HMAC_MD5
   gl_GC_MD5
+  gl_GC_RANDOM
   gl_FUNC_GETDELIM
   gl_FUNC_GETLINE
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
@@ -94,6 +95,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/eoverflow.m4
   m4/gc-hmac-md5.m4
   m4/gc-md5.m4
+  m4/gc-random.m4
   m4/gc.m4
   m4/getdelim.m4
   m4/getline.m4

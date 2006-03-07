@@ -44,6 +44,7 @@ AC_DEFUN([gl_INIT],
   AM_STDBOOL_H
   gl_FUNC_STRDUP
   gl_HEADER_SYS_SOCKET
+  gl_HEADER_UNISTD
   gl_XALLOC
 ])
 
@@ -86,6 +87,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdbool_.h
   lib/strdup.c
   lib/strdup.h
+  lib/unistd_.h
   lib/xalloc-die.c
   lib/xalloc.h
   lib/xmalloc.c
@@ -114,5 +116,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strdup.m4
   m4/strerror_r.m4
   m4/sys_socket_h.m4
+  m4/unistd_h.m4
   m4/xalloc.m4
 ])
