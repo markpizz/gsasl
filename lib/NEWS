@@ -11,8 +11,6 @@ Reported by Francis Brosnan Blazquez <francis@aspl.es>.
 
 ** Enable fixed self-test of DIGEST-MD5 parser.
 
-** Update of gnulib files.
-
 ** API and ABI modifications.
 No changes since last version.
 
