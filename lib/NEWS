@@ -7,6 +7,12 @@ See the end for copying conditions.
 ** Add -no-undefined to libtool command, to build DLL and import library on Mingw32.
 Reported by Francis Brosnan Blazquez <francis@aspl.es>.
 
+** Improved validation of received strings in the DIGEST-MD5 parser.
+
+** Enable fixed self-test of DIGEST-MD5 parser.
+
+** Update of gnulib files.
+
 ** API and ABI modifications.
 No changes since last version.
 
