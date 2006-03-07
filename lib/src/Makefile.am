@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -26,7 +26,7 @@ DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 include_HEADERS = gsasl.h gsasl-mech.h gsasl-compat.h
 
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
-	-export-symbols-regex '^(gsasl|GSASL).*'
+	-export-symbols-regex '^(gsasl|GSASL).*' -no-undefined
 libgsasl_la_LIBADD = ../gl/libgl.la @LTLIBINTL@ @LTLIBIDN@
 libgsasl_la_SOURCES = gsasl.h.in internal.h \
 	init.c done.c register.c error.c version.c \
