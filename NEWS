@@ -8,6 +8,9 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.12 (unreleased)
 
+** Update of gnulib files.
+Improves portability to Mingw32.
+
 * Version 0.2.11 (released 2006-02-07)
 
 ** Ported to Windows by cross-compiling using Mingw32.
