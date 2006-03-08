@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.8-b20050829\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-08-29 01:49+0200\n"
+"POT-Creation-Date: 2006-03-08 12:33+0100\n"
 "PO-Revision-Date: 2005-09-12 21:31-0500\n"
 "Last-Translator: Kevin Patrick Scannell <scannell@SLU.EDU>\n"
 "Language-Team: Irish <ga@li.org>\n"
@@ -34,6 +34,9 @@ msgstr "Aschur ón fhreastalaí:\n"
 #, c-format
 msgid "Output from client:\n"
 msgstr "Aschur ón chliant:\n"
+
+msgid "Cannot initialize Windows sockets."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -144,11 +147,15 @@ msgstr "níl an sásra ar fáil: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon sonra ann):\n"
+msgstr ""
+"Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon sonra "
+"ann):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon sonra ann):\n"
+msgstr ""
+"Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon "
+"sonra ann):\n"
 
 #, c-format
 msgid "mechanism error: %s"
