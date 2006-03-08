@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson
 See the end for copying conditions.
 
-* Version 0.2.12 (unreleased)
+* Version 0.2.12 (released 2006-03-08)
 
 ** Add -no-undefined to libtool command, to build DLL and import library on Mingw32.
 Reported by Francis Brosnan Blazquez <francis@aspl.es>.
@@ -10,6 +10,8 @@ Reported by Francis Brosnan Blazquez <francis@aspl.es>.
 ** Improved validation of received strings in the DIGEST-MD5 parser.
 
 ** Enable fixed self-test of DIGEST-MD5 parser.
+
+** Update of gnulib files.
 
 ** API and ABI modifications.
 No changes since last version.
