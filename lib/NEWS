@@ -2,6 +2,8 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson
 See the end for copying conditions.
 
+* Version 0.2.13 (unreleased)
+
 * Version 0.2.12 (released 2006-03-08)
 
 ** Add -no-undefined to libtool command, to build DLL and import library on Mingw32.
