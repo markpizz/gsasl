@@ -87,7 +87,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdbool_.h
   lib/strdup.c
   lib/strdup.h
-  lib/unistd_.h
   lib/xalloc-die.c
   lib/xalloc.h
   lib/xmalloc.c

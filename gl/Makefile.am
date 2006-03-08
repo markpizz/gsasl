@@ -105,14 +105,12 @@ mostlyclean-local:
 ## begin gnulib module unistd
 
 BUILT_SOURCES += $(UNISTD_H)
-EXTRA_DIST += unistd_.h
 
-# We need the following in order to create <unistd.h> when the system
-# doesn't have one.
-unistd.h: unistd_.h
-	cp $(srcdir)/unistd_.h $@-t
-	mv $@-t $@
-MOSTLYCLEANFILES += unistd.h unistd.h-t
+# We need the following in order to create an empty placeholder for
+# <unistd.h> when the system doesn't have one.
+unistd.h:
+	echo '/* Empty placeholder for $@.  */' >$@
+MOSTLYCLEANFILES += unistd.h
 
 ## end   gnulib module unistd
 
