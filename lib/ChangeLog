@@ -1,3 +1,109 @@
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Generated.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.12.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Remove gsasl.h.in.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* maint.mk, gl/gc-gnulib.c, gl/m4/gc-random.m4: Update.
+
+2006-03-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-03-07  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Add -no-undefined, required to produce DLLs on
+	mingw32.
+
+2006-03-07  Simon Josefsson <simon@josefsson.org>
+
+	* maint.mk, gl/Makefile.am, gl/gc-gnulib.c, gl/gc-libgcrypt.c,
+	gl/m4/gc-random.m4, gl/m4/gc.m4, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4: Update.
+
+2006-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* po/rw.po: Remove.
+
+2006-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS: Sync with TP.
+
+2006-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix update-po.
+
+2006-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, maint-cfg.mk, maint.mk, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Add.
+
+2006-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* src/md5pwd.c, src/obsolete.c: Doc fix, implied by report from
+	Yvan Bassuel <yvan@brutux.org>.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/base64.h, gl/strverscmp.h: Update.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, src/gsasl.h, NEWS: Bump versions.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/pl.po, po/ro.po, po/sr.po, po/sv.po,
+	po/vi.po: Sync with TP.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix version update.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Update version number in src/gsasl.h.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Don't build gsasl.h.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h, src/gsasl.h.in: Move gsasl.h.in to gsasl.h and hard
+	code version number (a script will be needed to update it).  This
+	simplifies porting to Windows.
+
+2006-02-19  Simon Josefsson <simon@josefsson.org>
+
+	* po/nl.po: Update.
+
+2006-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/stdbool_.h, gl/strverscmp.h, gl/vasnprintf.c,
+	gl/m4/gnulib-tool.m4, gl/m4/stdbool.m4: Update.
+
+2006-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/Makefile.am: Run test-parser test.
+
+2006-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/test-parser.c: Don't crash.
+
+2006-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/validate.c: Test finish token further.
+
 2006-02-07  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.2.11.
