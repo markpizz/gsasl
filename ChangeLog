@@ -1,3 +1,135 @@
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po:
+	Generated.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.12.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* maint.mk, gl/Makefile.am, gl/unistd_.h, gl/m4/gnulib-comp.m4,
+	gl/m4/unistd_h.m4: Update.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Update.
+
+2006-03-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-03-07  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS, NEWS: Add.
+
+2006-03-07  Simon Josefsson <simon@josefsson.org>
+
+	* maint.mk, gl/Makefile.am, gl/getopt.c, gl/unistd_.h,
+	gl/m4/gnulib-comp.m4, gl/m4/readline.m4, gl/m4/unistd_h.m4: Update.
+
+2006-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix update-po.
+
+2006-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* po/rw.po: Remove.
+
+2006-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS: Sync with TP.
+
+2006-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix update-po.
+
+2006-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* maint.mk, gl/m4/readline.m4: Update.
+
+2006-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* maint.mk, gl/iconvme.c, gl/readline.c, gl/m4/getaddrinfo.m4,
+	gl/m4/readline.m4: Update.
+
+2006-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* maint-cfg.mk: Don't gtkdocize.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* gtk-doc.make: Add.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getopt.c: Update.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, NEWS: Bump versions.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/pl.po, po/ro.po,
+	po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po: Sync with TP.
+
+2006-02-19  Simon Josefsson <simon@josefsson.org>
+
+	* po/nl.po: Update.
+
+2006-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* maint-cfg.mk: Fix.
+
+2006-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* maint.mk, gl/xalloc-die.c, gl/m4/getaddrinfo.m4,
+	gl/m4/socklen.m4, gl/m4/sys_socket_h.m4: Update.
+
+2006-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, maint-cfg.mk, maint.mk, gl/m4/gnulib-comp.m4: Rename
+
+2006-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.cfg: Fix.
+
+2006-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.cfg: Add --enable-gtk-doc.
+
+2006-02-14  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile: Update.
+
+2006-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile: Update.
+
+2006-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.cfg: Fix.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile: Update gnulib.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.cfg: Add.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, Makefile.maint, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Update gnulib.
+
 2006-02-07  Simon Josefsson <simon@josefsson.org>
 
 	* gsasl.fms: 0.2.11.
