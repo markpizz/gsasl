@@ -4,6 +4,9 @@ See the end for copying conditions.
 
 * Version 0.2.13 (unreleased)
 
+** API and ABI modifications.
+No changes since last version.
+
 * Version 0.2.12 (released 2006-03-08)
 
 ** Add -no-undefined to libtool command, to build DLL and import library on Mingw32.

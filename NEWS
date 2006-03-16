@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.13 (unreleased)
 
+** The manual doesn't have any invariant sections.
+
 * Version 0.2.12 (released 2006-03-08)
 
 ** Update of gnulib files.
