@@ -25,6 +25,8 @@ CLEANFILES =
 DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 
+AM_CPPFLAGS =
+
 ## begin gnulib module exit
 
 libgl_la_SOURCES += exit.h
