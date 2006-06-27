@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-## Copyright (c) 2002, 2003, 2004 Simon Josefsson                ##
+## Copyright (c) 2002, 2003, 2004, 2005, 2006 Simon Josefsson    ##
 ##                    added -texinfo, -listfunc                  ##
 ##                    man page revamp                            ##
 ##                    various improvements                       ##
@@ -351,6 +351,8 @@ sub output_texinfo {
     my ($parameter, $section);
     my $count;
 
+    print "\@subheading ".$args{'function'}."\n";
+    print "\@anchor{".$args{'function'}."}\n";
     print "\@deftypefun {" . $args{'functiontype'} . "} ";
     print "{".$args{'function'}."} ";
     print "(";
@@ -630,7 +632,9 @@ sub output_man {
     }
     foreach $section (@{$args{'sectionlist'}}) {
 	print ".SH \"" . uc($section) . "\"\n";
-	output_highlight($args{'sections'}{$section});
+	$sec = $args{'sections'}{$section};
+	$sec =~ s/-/\\-/g;
+	output_highlight($sec);
     }
 
     if ($args{'bugsto'}) {
