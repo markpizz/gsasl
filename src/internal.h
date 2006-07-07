@@ -34,14 +34,11 @@
 #include <errno.h>
 #include <stdbool.h>
 
-#ifdef HAVE_SYS_TYPES_H
-# include <sys/types.h>		/* select() */
-#endif
+#include <sys/types.h>
 #include <sys/socket.h>	/* for AF_INET */
+#include <sys/select.h> /* select() */
 
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include <unistd.h>
 #ifdef HAVE_NETDB_H
 # include <netdb.h>
 #endif

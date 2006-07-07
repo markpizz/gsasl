@@ -49,6 +49,7 @@ AC_DEFUN([gl_INIT],
   gl_TYPE_SOCKLEN_T
   AM_STDBOOL_H
   gl_FUNC_STRDUP
+  gl_HEADER_SYS_SELECT
   gl_HEADER_SYS_SOCKET
   gl_HEADER_UNISTD
   gl_FUNC_VASNPRINTF
@@ -149,6 +150,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdint_h.m4
   m4/strdup.m4
   m4/strerror_r.m4
+  m4/sys_select_h.m4
   m4/sys_socket_h.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
