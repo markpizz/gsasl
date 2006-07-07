@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.13 (unreleased)
 
+** Fix memory leak in gsasl_client_listmech and gsasl_server_listmech.
+
 ** API and ABI modifications.
 No changes since last version.
 
