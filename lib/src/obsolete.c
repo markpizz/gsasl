@@ -1666,9 +1666,10 @@ gsasl_stringprep_trace (const char *in, int *stringprep_rc)
  *
  * The file should be on the UoW "MD5 Based Authentication" format,
  * which means it is in text format with comments denoted by # first
- * on the line, with user entries looking as "username<TAB>password".
- * This function removes <CR> and <LF> at the end of lines before
- * processing.  <TAB>, <CR>, and <LF> denote ASCII symbols here.
+ * on the line, with user entries looking as "usernameTABpassword".
+ * This function removes CR and LF at the end of lines before
+ * processing.  TAB, CR, and LF denote ASCII values 9, 13, and 10,
+ * respectively.
  *
  * Return value: Return GSASL_OK if output buffer contains the
  * password, GSASL_AUTHENTICATION_ERROR if the user could not be
