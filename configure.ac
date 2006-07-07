@@ -38,7 +38,7 @@ AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 
 # Checks for header files.
-AC_CHECK_HEADERS(sys/types.h sys/poll.h sys/time.h)
+AC_CHECK_HEADERS(sys/poll.h sys/time.h)
 AC_CHECK_HEADERS(netdb.h netinet/in.h pwd.h errno.h)
 
 # Checks for library functions.
