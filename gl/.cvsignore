@@ -4,5 +4,6 @@ Makefile
 Makefile.in
 *.lo
 *.la
+alloca.h
 getopt.h
 sys
