@@ -21,11 +21,26 @@ EXTRA_DIST =
 BUILT_SOURCES =
 SUFFIXES =
 MOSTLYCLEANFILES =
+MOSTLYCLEANDIRS =
 CLEANFILES =
 DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 
 AM_CPPFLAGS =
+
+## begin gnulib module alloca-opt
+
+BUILT_SOURCES += $(ALLOCA_H)
+EXTRA_DIST += alloca_.h
+
+# We need the following in order to create <alloca.h> when the system
+# doesn't have one that works with the given compiler.
+alloca.h: alloca_.h
+	cp $(srcdir)/alloca_.h $@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += alloca.h alloca.h-t
+
+## end   gnulib module alloca-opt
 
 ## begin gnulib module exit
 
@@ -66,11 +81,35 @@ libgl_la_LIBADD += $(LTLIBICONV)
 
 ## end   gnulib module iconvme
 
+## begin gnulib module inet_ntop
+
+libgl_la_SOURCES += inet_ntop.h
+
+## end   gnulib module inet_ntop
+
+## begin gnulib module minmax
+
+libgl_la_SOURCES += minmax.h
+
+## end   gnulib module minmax
+
 ## begin gnulib module progname
 
 libgl_la_SOURCES += progname.h progname.c
 
 ## end   gnulib module progname
+
+## begin gnulib module size_max
+
+libgl_la_SOURCES += size_max.h
+
+## end   gnulib module size_max
+
+## begin gnulib module snprintf
+
+libgl_la_SOURCES += snprintf.h
+
+## end   gnulib module snprintf
 
 ## begin gnulib module stdbool
 
@@ -98,9 +137,7 @@ sys/socket.h: socket_.h
 	cp $(srcdir)/socket_.h $@-t
 	mv $@-t $@
 MOSTLYCLEANFILES += sys/socket.h sys/socket.h-t
-
-mostlyclean-local:
-	-rmdir sys 2>/dev/null
+MOSTLYCLEANDIRS += sys
 
 ## end   gnulib module sys_socket
 
@@ -116,11 +153,31 @@ MOSTLYCLEANFILES += unistd.h
 
 ## end   gnulib module unistd
 
+## begin gnulib module vasnprintf
+
+libgl_la_SOURCES += printf-args.h printf-parse.h vasnprintf.h
+
+## end   gnulib module vasnprintf
+
 ## begin gnulib module xalloc-die
 
 libgl_la_SOURCES += xalloc-die.c
 
 ## end   gnulib module xalloc-die
 
+## begin gnulib module xsize
+
+libgl_la_SOURCES += xsize.h
+
+## end   gnulib module xsize
+
+
+mostlyclean-local:
+	@test -z "$(MOSTLYCLEANDIRS)" || \
+	  for dir in $(MOSTLYCLEANDIRS); do \
+	    if test -d $$dir; then \
+	      echo "rmdir $$dir"; rmdir $$dir; \
+	    fi; \
+	  done
 
 # Makefile.am ends here

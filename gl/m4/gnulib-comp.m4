@@ -28,6 +28,7 @@ AC_DEFUN([gl_EARLY],
 AC_DEFUN([gl_INIT],
 [
   AM_CONDITIONAL([GL_COND_LIBTOOL], [true])
+  gl_FUNC_ALLOCA
   gl_ERROR
   gl_EXITFAIL
   gl_GETADDRINFO
@@ -37,16 +38,22 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_GETPASS
   AM_ICONV
   gl_ICONVME
+  gl_INET_NTOP
+  gl_MINMAX
   gl_QUOTE
   gl_QUOTEARG
   gl_FUNC_READLINE
   gl_C_RESTRICT
+  gl_SIZE_MAX
+  gl_FUNC_SNPRINTF
   gl_TYPE_SOCKLEN_T
   AM_STDBOOL_H
   gl_FUNC_STRDUP
   gl_HEADER_SYS_SOCKET
   gl_HEADER_UNISTD
+  gl_FUNC_VASNPRINTF
   gl_XALLOC
+  gl_XSIZE
 ])
 
 # This macro records the list of files which have been installed by
@@ -55,6 +62,8 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/GNUmakefile
   build-aux/config.rpath
   build-aux/maint.mk
+  lib/alloca_.h
+  lib/asnprintf.c
   lib/error.c
   lib/error.h
   lib/exit.h
@@ -76,6 +85,13 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/gettext.h
   lib/iconvme.c
   lib/iconvme.h
+  lib/inet_ntop.c
+  lib/inet_ntop.h
+  lib/minmax.h
+  lib/printf-args.c
+  lib/printf-args.h
+  lib/printf-parse.c
+  lib/printf-parse.h
   lib/progname.c
   lib/progname.h
   lib/quote.c
@@ -84,13 +100,21 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/quotearg.h
   lib/readline.c
   lib/readline.h
+  lib/size_max.h
+  lib/snprintf.c
+  lib/snprintf.h
   lib/socket_.h
   lib/stdbool_.h
   lib/strdup.c
   lib/strdup.h
+  lib/vasnprintf.c
+  lib/vasnprintf.h
   lib/xalloc-die.c
   lib/xalloc.h
   lib/xmalloc.c
+  lib/xsize.h
+  m4/alloca.m4
+  m4/eoverflow.m4
   m4/error.m4
   m4/exitfail.m4
   m4/getaddrinfo.m4
@@ -100,22 +124,36 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getpass.m4
   m4/iconv.m4
   m4/iconvme.m4
+  m4/inet_ntop.m4
+  m4/intmax_t.m4
+  m4/inttypes_h.m4
   m4/lib-ld.m4
   m4/lib-link.m4
   m4/lib-prefix.m4
+  m4/longdouble.m4
+  m4/longlong.m4
   m4/mbrtowc.m4
   m4/mbstate_t.m4
+  m4/minmax.m4
   m4/onceonly_2_57.m4
   m4/quote.m4
   m4/quotearg.m4
   m4/readline.m4
   m4/restrict.m4
+  m4/signed.m4
+  m4/size_max.m4
+  m4/snprintf.m4
   m4/socklen.m4
   m4/sockpfaf.m4
   m4/stdbool.m4
+  m4/stdint_h.m4
   m4/strdup.m4
   m4/strerror_r.m4
   m4/sys_socket_h.m4
   m4/unistd_h.m4
+  m4/vasnprintf.m4
+  m4/wchar_t.m4
+  m4/wint_t.m4
   m4/xalloc.m4
+  m4/xsize.m4
 ])

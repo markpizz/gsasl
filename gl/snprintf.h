@@ -1,5 +1,6 @@
-/* exit() function.
-   Copyright (C) 1995, 2001 Free Software Foundation, Inc.
+/* Formatted output to strings.
+   Copyright (C) 2004 Free Software Foundation, Inc.
+   Written by Simon Josefsson.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -11,22 +12,18 @@
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software Foundation,
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifndef _EXIT_H
-#define _EXIT_H
+#ifndef SNPRINTF_H
+#define SNPRINTF_H
 
-/* Get exit() declaration.  */
-#include <stdlib.h>
+/* Get snprintf declaration, if available.  */
+#include <stdio.h>
 
-/* Some systems do not define EXIT_*, despite otherwise supporting C89.  */
-#ifndef EXIT_SUCCESS
-# define EXIT_SUCCESS 0
-#endif
-#ifndef EXIT_FAILURE
-# define EXIT_FAILURE 1
+#if defined HAVE_DECL_SNPRINTF && !HAVE_DECL_SNPRINTF
+int snprintf (char *str, size_t size, const char *format, ...);
 #endif
 
-#endif /* _EXIT_H */
+#endif /* SNPRINTF_H */

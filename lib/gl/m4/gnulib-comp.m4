@@ -90,6 +90,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/vasprintf.c
   lib/vasprintf.h
   lib/xsize.h
+  m4/absolute-header.m4
   m4/alloca.m4
   m4/base64.m4
   m4/codeset.m4
