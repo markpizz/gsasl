@@ -41,9 +41,6 @@ gl_EARLY
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
-# Checks for header files.
-AC_CHECK_HEADERS(sys/types.h netinet/in.h)
-
 # ANONYMOUS
 AC_ARG_ENABLE(anonymous,
   AS_HELP_STRING([--disable-anonymous], [don't use the ANONYMOUS mechanism]),

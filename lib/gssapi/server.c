@@ -1,5 +1,5 @@
 /* server.c --- SASL mechanism GSSAPI as defined in RFC 2222, server side.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -44,10 +44,6 @@
 # ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
 #  include <gssapi/gssapi_generic.h>
 # endif
-#endif
-
-#ifdef HAVE_NETINET_IN_H
-# include <netinet/in.h>
 #endif
 
 struct _Gsasl_gssapi_server_state
