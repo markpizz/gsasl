@@ -34,7 +34,7 @@ TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
 	SHISHI_USER=ignore-this-warning \
 	THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c \
 	MD5FILE=$(srcdir)/cram-md5.pwd \
-	$(VALGRID)
+	$(VALGRIND)
 
 ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\
 	md5file$(EXEEXT)
