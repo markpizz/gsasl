@@ -1,5 +1,5 @@
 /* client.c --- SASL mechanism SECURID from RFC 2808, client side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -164,5 +164,6 @@ _gsasl_securid_client_finish (Gsasl_session * sctx, void *mech_data)
 {
   int *step = mech_data;
 
-  free (step);
+  if (step)
+    free (step);
 }

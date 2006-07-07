@@ -1,5 +1,5 @@
 /* ntlm.c --- Implementation of non-standard SASL mechanism NTLM, client side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -136,5 +136,6 @@ _gsasl_ntlm_client_finish (Gsasl_session * sctx, void *mech_data)
 {
   _Gsasl_ntlm_state *state = mech_data;
 
-  free (state);
+  if (state)
+    free (state);
 }

@@ -1,5 +1,5 @@
 /* client.c --- Non-standard SASL mechanism LOGIN, client side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -102,6 +102,9 @@ void
 _gsasl_login_client_finish (Gsasl_session * sctx, void *mech_data)
 {
   struct _Gsasl_login_client_state *state = mech_data;
+
+  if (!state)
+    return;
 
   free (state);
 }

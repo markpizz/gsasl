@@ -259,6 +259,9 @@ _gsasl_gssapi_client_finish (Gsasl_session * sctx, void *mech_data)
   _Gsasl_gssapi_client_state *state = mech_data;
   OM_uint32 maj_stat, min_stat;
 
+  if (!state)
+    return;
+
   if (state->service != GSS_C_NO_NAME)
     maj_stat = gss_release_name (&min_stat, &state->service);
   if (state->context != GSS_C_NO_CONTEXT)

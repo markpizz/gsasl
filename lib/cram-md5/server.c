@@ -1,5 +1,5 @@
 /* server.c --- SASL CRAM-MD5 server side functions.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -125,5 +125,6 @@ _gsasl_cram_md5_server_finish (Gsasl_session * sctx, void *mech_data)
 {
   char *challenge = mech_data;
 
-  free (challenge);
+  if (challenge)
+    free (challenge);
 }

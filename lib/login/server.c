@@ -1,5 +1,5 @@
 /* server.c --- Non-standard SASL mechanism LOGIN, server side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -149,6 +149,9 @@ void
 _gsasl_login_server_finish (Gsasl_session * sctx, void *mech_data)
 {
   struct _Gsasl_login_server_state *state = mech_data;
+
+  if (!state)
+    return;
 
   if (state->username)
     free (state->username);

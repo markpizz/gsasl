@@ -1,5 +1,5 @@
 /* client.c --- DIGEST-MD5 mechanism from RFC 2831, client side.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -258,6 +258,9 @@ void
 _gsasl_digest_md5_client_finish (Gsasl_session * sctx, void *mech_data)
 {
   _Gsasl_digest_md5_client_state *state = mech_data;
+
+  if (!state)
+    return;
 
   digest_md5_free_challenge (&state->challenge);
   digest_md5_free_response (&state->response);
