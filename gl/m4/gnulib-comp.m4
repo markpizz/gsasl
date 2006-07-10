@@ -136,7 +136,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mbrtowc.m4
   m4/mbstate_t.m4
   m4/minmax.m4
-  m4/onceonly_2_57.m4
   m4/quote.m4
   m4/quotearg.m4
   m4/readline.m4
