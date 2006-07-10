@@ -36,6 +36,7 @@ AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
+AM_MISSING_PROG(DIA, dia, $missing_dir)
 
 # Checks for header files.
 AC_CHECK_HEADERS(sys/poll.h sys/time.h)
