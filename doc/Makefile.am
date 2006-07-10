@@ -27,13 +27,13 @@ EXTRA_DIST = gdoc gdoc-error \
 	doxygen/Doxyfile.in doxygen/gdoc2doxygen
 
 .dia.png:
-	dia --export=$@ --export-to-format=png $<
+	$(DIA) --export=$@ --export-to-format=png $<
 
 .dia.eps:
-	dia --export=$@ --export-to-format=eps $<
+	$(DIA) --export=$@ --export-to-format=eps $<
 
 .eps.pdf:
-	epstopdf $<
+	$(EPSTOPDF) $<
 
 info_TEXINFOS = gsasl.texi
 gsasl_TEXINFOS = fdl.texi $(gdoc_TEXINFOS) \
