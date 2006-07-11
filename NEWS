@@ -13,6 +13,8 @@ Further improves portability to MinGW.
 
 ** The manual doesn't have any invariant sections.
 
+** Improved Doxygen manual.
+
 ** The tests are run under valgrind, if it is installed.
 Use --disable-valgrind-tests to unconditionally disable this.  It is
 disabled by default for cross compiles.
