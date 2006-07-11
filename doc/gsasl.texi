@@ -1762,28 +1762,28 @@ Library can be used when writing your own application.
 @section Example 1
 
 @example
-@verbatiminclude ../examples/client.c
+@verbatiminclude client.c
 @end example
 
 @node Example 2
 @section Example 2
 
 @example
-@verbatiminclude ../examples/client-serverfirst.c
+@verbatiminclude client-serverfirst.c
 @end example
 
 @node Example 3
 @section Example 3
 
 @example
-@verbatiminclude ../examples/client-mech.c
+@verbatiminclude client-mech.c
 @end example
 
 @node Example 4
 @section Example 4
 
 @example
-@verbatiminclude ../examples/client-callback.c
+@verbatiminclude client-callback.c
 @end example
 
 
