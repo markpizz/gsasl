@@ -23,6 +23,8 @@ lib_LTLIBRARIES = libgsasl.la
 AM_CPPFLAGS = -I$(srcdir)/../gl -I../gl -I$(srcdir)/..
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 
+EXTRA_DIST = doxygen.c
+
 include_HEADERS = gsasl.h gsasl-mech.h gsasl-compat.h
 
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
