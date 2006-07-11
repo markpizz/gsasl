@@ -13,6 +13,10 @@ Further improves portability to MinGW.
 
 ** The manual doesn't have any invariant sections.
 
+** The tests are run under valgrind, if it is installed.
+Use --disable-valgrind-tests to unconditionally disable this.  It is
+disabled by default for cross compiles.
+
 ** Various minor fixes.
 
 * Version 0.2.12 (released 2006-03-08)
