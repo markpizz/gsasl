@@ -52,6 +52,7 @@ gsasl-api-error-labels.texi: $(top_srcdir)/lib/src/error.c
 	$(PERL) $(srcdir)/gdoc-error $^ > $@
 
 AM_MAKEINFOFLAGS = -I $(top_builddir)/doc -I $(top_srcdir)/examples
+TEXI2DVI = texi2dvi $(AM_MAKEINFOFLAGS)
 AM_MAKEINFOHTMLFLAGS = $(AM_MAKEINFOFLAGS) \
 	--no-split --number-sections --css-include=texinfo.css
 
