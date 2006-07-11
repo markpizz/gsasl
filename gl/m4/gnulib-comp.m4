@@ -63,6 +63,7 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/GNUmakefile
   build-aux/config.rpath
   build-aux/maint.mk
+  doc/fdl.texi
   lib/alloca_.h
   lib/asnprintf.c
   lib/error.c
