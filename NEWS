@@ -13,6 +13,8 @@ Further improves portability to MinGW.
 
 ** The manual doesn't have any invariant sections.
 
+** Various minor fixes.
+
 * Version 0.2.12 (released 2006-03-08)
 
 ** Update of gnulib files.
