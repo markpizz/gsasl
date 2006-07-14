@@ -4,7 +4,12 @@ See the end for copying conditions.
 
 * Version 0.2.13 (unreleased)
 
+** Update of gnulib files.
+Further improves portability to MinGW.
+
 ** Fix memory leak in gsasl_client_listmech and gsasl_server_listmech.
+
+** Configure fixes, for portability.
 
 ** API and ABI modifications.
 No changes since last version.
