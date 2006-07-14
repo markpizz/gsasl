@@ -11,9 +11,7 @@ SASL.  That include the manual, the command line tool, and self tests.
 ** Update of gnulib files.
 Further improves portability to MinGW.
 
-** The manual doesn't have any invariant sections.
-
-** Improved Doxygen manual.
+** Various improvements in the manuals.
 
 ** The tests are run under valgrind, if it is installed.
 Use --disable-valgrind-tests to unconditionally disable this.  It is
