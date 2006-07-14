@@ -1,3 +1,167 @@
+2006-07-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.13.
+
+2006-07-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2006-07-14  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix gendocs path.
+
+2006-07-14  Simon Josefsson <simon@josefsson.org>
+
+	* gendocs.sh, doc/gendocs.sh, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Update.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po: Sync
+	with TP.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4:
+	Update.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/doxygen/Doxyfile.in: Fix.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/doxygen/Doxyfile.in: Update doxygen version.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/doxygen/Doxyfile.orig: New.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix gendocs.sh -I's.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix include paths.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix texi2dvi -I's.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Don't hard code dia/epstopdf.
+
+2006-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use missing for epstopdf.
+
+2006-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use missing for dia.
+
+2006-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getopt.m4, gl/m4/gnulib-comp.m4, gl/m4/onceonly_2_57.m4:
+	Update.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Fix typo.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Run under valgrind, if available.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Test for valgrind.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Assume sys/types.h.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/sys_select_h.m4, src/internal.h: Assume
+	unistd.h, sys/select.h, sys/socket.h and sys/types.h.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/alloca_.h, gl/asnprintf.c, gl/exit.h,
+	gl/getaddrinfo.c, gl/getaddrinfo.h, gl/getopt.c, gl/inet_ntop.c,
+	gl/inet_ntop.h, gl/minmax.h, gl/printf-args.c, gl/printf-args.h,
+	gl/printf-parse.c, gl/printf-parse.h, gl/size_max.h, gl/snprintf.c,
+	gl/snprintf.h, gl/socket_.h, gl/vasnprintf.c, gl/vasnprintf.h,
+	gl/xsize.h, gl/m4/alloca.m4, gl/m4/eoverflow.m4,
+	gl/m4/getaddrinfo.m4, gl/m4/getpass.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/inet_ntop.m4, gl/m4/intmax_t.m4, gl/m4/inttypes_h.m4,
+	gl/m4/longdouble.m4, gl/m4/longlong.m4, gl/m4/minmax.m4,
+	gl/m4/onceonly_2_57.m4, gl/m4/signed.m4, gl/m4/size_max.m4,
+	gl/m4/snprintf.m4, gl/m4/sockpfaf.m4, gl/m4/stdint_h.m4,
+	gl/m4/vasnprintf.m4, gl/m4/wchar_t.m4, gl/m4/wint_t.m4,
+	gl/m4/xsize.m4: Update gnulib.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Fix texinfo/man output.
+
+2006-06-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Make portable to mingw.
+
+2006-05-31  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getpass.c: Update.
+
+2006-05-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/stdbool.m4: Update.
+
+2006-05-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4:
+	Update.
+
+2006-04-26  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/getpass.m4, gl/m4/strerror_r.m4: Update.
+
+2006-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: No invariant section, suggested by Yvan.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Add -I's to fix make dist.
+
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
@@ -3788,6 +3952,10 @@
 
 	* doc/gdoc: Update.
 
+2003-11-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/man/Makefile.am: Remove (replaced by gdoc framework).
+
 2003-10-29  Simon Josefsson <simon@josefsson.org>
 
 	* README: Add todo item.
@@ -3912,6 +4080,10 @@
 
 2003-10-09  Simon Josefsson <simon@josefsson.org>
 
+	* doc/man/Makefile.am: Add.
+
+2003-10-09  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS: Fix.
 
 2003-10-09  Simon Josefsson <simon@josefsson.org>
@@ -4030,6 +4202,10 @@
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
 
+	* doc/man/Makefile.am: Update.
+
+2003-10-06  Simon Josefsson <simon@josefsson.org>
+
 	* doc/Makefile.am: Add stringprep.
 
 2003-10-06  Simon Josefsson <simon@josefsson.org>
@@ -4102,7 +4278,7 @@
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 
-	* doc/Makefile.am: Add man pages.
+	* doc/Makefile.am, doc/man/Makefile.am: Add man pages.
 
 2003-10-01  Simon Josefsson <simon@josefsson.org>
 

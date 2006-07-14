@@ -1,3 +1,130 @@
+2006-07-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.13.
+
+2006-07-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Sync with TP.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Dist doxygen.c.
+
+2006-07-11  Simon Josefsson <simon@josefsson.org>
+
+	* src/doxygen.c: Add.
+
+2006-07-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/absolute-header.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/onceonly_2_57.m4: Update.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* src/xstart.c: Fix mem leak.  If a mechanism set properties in the
+	session indirectly, but later fails to start the mechanism, the
+	properties would be leaked.  Solved by cleaning up the mechanism
+	with gsasl_finish, which require mechanism finish procedures to
+	handle failed mechanism startups.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* login/client.c, login/server.c, securid/client.c, ntlm/ntlm.c:
+	Don't crash in finish for un-initialized sessions.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* gssapi/server.c, gssapi/client.c, cram-md5/server.c,
+	digest-md5/client.c, digest-md5/server.c: Don't crash in finish for
+	un-initialized sessions.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* src/listmech.c: Simplify.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* src/md5pwd.c, src/obsolete.c: Doc fix.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gssapi/client.c, gssapi/server.c: Don't need
+	netinet/in.h nor sys/types.h.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* m4/ax_create_stdint_h.m4: Remove.
+
+2006-07-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/alloca_.h, gl/base64.c, gl/size_max.h,
+	gl/stdint_.h, gl/strverscmp.c, gl/m4/absolute-header.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/longlong.m4, gl/m4/onceonly_2_57.m4,
+	gl/m4/size_max.m4, gl/m4/stdint.m4, gl/m4/ulonglong.m4: Update
+	gnulib.
+
+2006-06-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Make portable to mingw.
+
+2006-05-31  Simon Josefsson <simon@josefsson.org>
+
+	* gl/printf-args.c: Update.
+
+2006-05-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/stdint_.h, gl/m4/stdbool.m4: Update.
+
+2006-05-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4:
+	Update.
+
+2006-05-04  Simon Josefsson <simon@josefsson.org>
+
+	* gl/stdint_.h: Update.
+
+2006-04-26  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/longdouble.m4: Update.
+
+2006-04-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/base64.c, gl/stdint_.h: Update.
+
+2006-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/base64.c: Update.
+
+2006-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/base64.c: Update.
+
+2006-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-03-11  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h: Bump version.
+
+2006-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gc-random.m4: Update.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
 	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
