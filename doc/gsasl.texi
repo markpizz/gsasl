@@ -136,6 +136,7 @@ mechanisms through an abstract interface.}
 * Getting Started::
 * Features::
 * SASL Overview::
+* Requirements::
 * Supported Platforms::
 * Getting help::
 * Commercial Support::
@@ -254,6 +255,37 @@ stream of octets prepended with a four octet field in network byte
 order that represents the length of the following buffer.  The length
 of the cipher-text buffer must be no larger than the maximum size
 that was defined or negotiated by the other side.
+
+@node Requirements
+@section Requirements
+
+The GNU SASL library does not have any required external dependencies,
+but some optional features are enabled if you have a specific external
+library.
+
+@table @asis
+@item LibNTLM
+The NTLM mechanism requires the library LibNTLM,
+@url{http://josefsson.org/libntlm/}.
+
+@item GSS-API
+The GSS-API mechanism requires a GSS-API library, such as GNU GSS
+(@url{http://josefsson.org/gss/}, MIT Kerberos or Heimdal.
+
+@item LibIDN
+Processing of non-ASCII username and passwords requires the SASLprep
+implementation in GNU LibIDN (@url{http://josefsson.org/libidn/}.
+This is needed for full conformance with the latest SASL protocol
+drafts, but is optional in the library for improved portability.
+@end table
+
+The command-line interface to GNU SASL requires a POSIX or Windows
+platform for network connectivity.  The command-line tool can make use
+of GnuTLS (@url{http://josefsson.org/gnutls/} to support the STARTTLS
+modes of IMAP and SMTP, but GnuTLS is not required.
+
+Note that the library does not need a POSIX platform or network
+connectivity.
 
 @node Supported Platforms
 @section Supported Platforms
