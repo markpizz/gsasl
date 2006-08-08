@@ -320,7 +320,8 @@ gsasl_client_ctx_get (Gsasl_session * sctx)
  * normally used by the application to maintain state between the main
  * program and the callback.
  *
- * Deprecated: Use gsasl_callback_hook_set() instead.
+ * Deprecated: Use gsasl_callback_hook_set() or
+ * gsasl_session_hook_set() instead.
  **/
 void
 gsasl_client_application_data_set (Gsasl_session * sctx,
@@ -340,7 +341,8 @@ gsasl_client_application_data_set (Gsasl_session * sctx,
  *
  * Return value: Returns the application specific data, or NULL.
  *
- * Deprecated: Use gsasl_callback_hook_get() instead.
+ * Deprecated: Use gsasl_callback_hook_get() or
+ * gsasl_session_hook_get() instead.
  **/
 void *
 gsasl_client_application_data_get (Gsasl_session * sctx)
@@ -373,7 +375,8 @@ gsasl_server_ctx_get (Gsasl_session * sctx)
  * normally used by the application to maintain state between the main
  * program and the callback.
  *
- * Deprecated: Use gsasl_callback_hook_set() instead.
+ * Deprecated: Use gsasl_callback_hook_set() or
+ * gsasl_session_hook_set() instead.
  **/
 void
 gsasl_server_application_data_set (Gsasl_session * sctx,
@@ -393,7 +396,8 @@ gsasl_server_application_data_set (Gsasl_session * sctx,
  *
  * Return value: Returns the application specific data, or NULL.
  *
- * Deprecated: Use gsasl_callback_hook_get() instead.
+ * Deprecated: Use gsasl_callback_hook_get() or
+ * gsasl_session_hook_get() instead.
  **/
 void *
 gsasl_server_application_data_get (Gsasl_session * sctx)
