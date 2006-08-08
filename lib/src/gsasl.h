@@ -183,8 +183,12 @@ extern "C"
   extern void gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb);
   extern int gsasl_callback (Gsasl * ctx, Gsasl_session * sctx,
 			     Gsasl_property prop);
+
   extern void gsasl_callback_hook_set (Gsasl * ctx, void *hook);
   extern void *gsasl_callback_hook_get (Gsasl * ctx);
+
+  extern void gsasl_session_hook_set (Gsasl_session * sctx, void *hook);
+  extern void *gsasl_session_hook_get (Gsasl_session * sctx);
 
   /* Property handling: property.c */
   extern void gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,

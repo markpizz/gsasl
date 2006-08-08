@@ -1,5 +1,5 @@
 /* callback.c --- Callback handling.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -173,11 +173,12 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
  * @ctx: libgsasl handle.
  * @hook: opaque pointer to application specific data.
  *
- * Store application specific data in the libgsasl handle.  The
- * application data can be later (for instance, inside a callback) be
- * retrieved by calling gsasl_callback_hook_get().  It is normally
- * used by the application to maintain state between the main program
- * and the callback.
+ * Store application specific data in the libgsasl handle.
+ *
+ * The application data can be later (for instance, inside a callback)
+ * be retrieved by calling gsasl_callback_hook_get().  This is
+ * normally used by the application to maintain a global state between
+ * the main program and callbacks.
  *
  * Since: 0.2.0
  **/
@@ -191,10 +192,11 @@ gsasl_callback_hook_set (Gsasl * ctx, void *hook)
  * gsasl_callback_hook_get:
  * @ctx: libgsasl handle.
  *
- * Retrieve application specific data from libgsasl handle. The
- * application data is set using gsasl_callback_hook_set().  It is
- * normally used by the application to maintain state between the main
- * program and the callback.
+ * Retrieve application specific data from libgsasl handle.
+ *
+ * The application data is set using gsasl_callback_hook_set().  This
+ * is normally used by the application to maintain a global state
+ * between the main program and callbacks.
  *
  * Return value: Returns the application specific data, or NULL.
  *
@@ -204,4 +206,44 @@ void *
 gsasl_callback_hook_get (Gsasl * ctx)
 {
   return ctx->application_hook;
+}
+
+/**
+ * gsasl_session_hook_set:
+ * @sctx: libgsasl session handle.
+ * @hook: opaque pointer to application specific data.
+ *
+ * Store application specific data in the libgsasl session handle.
+ *
+ * The application data can be later (for instance, inside a callback)
+ * be retrieved by calling gsasl_session_hook_get().  This is normally
+ * used by the application to maintain a per-session state between the
+ * main program and callbacks.
+ *
+ * Since: 0.2.14
+ **/
+void
+gsasl_session_hook_set (Gsasl_session * sctx, void *hook)
+{
+  sctx->application_hook = hook;
+}
+
+/**
+ * gsasl_session_hook_get:
+ * @sctx: libgsasl session handle.
+ *
+ * Retrieve application specific data from libgsasl session handle.
+ *
+ * The application data is set using gsasl_callback_hook_set().  This
+ * is normally used by the application to maintain a per-session state
+ * between the main program and callbacks.
+ *
+ * Return value: Returns the application specific data, or NULL.
+ *
+ * Since: 0.2.14
+ **/
+void *
+gsasl_session_hook_get (Gsasl_session * sctx)
+{
+  return sctx->application_hook;
 }
