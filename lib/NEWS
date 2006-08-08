@@ -2,6 +2,23 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson
 See the end for copying conditions.
 
+* Version 0.2.14 (unreleased)
+
+** New functions to set per-session application hooks.
+Earlier only the global functions gsasl_callback_hook_set and
+gsasl_callback_hook_set were available, but with the new
+gsasl_session_hook_set and gsasl_session_hook_get, it is possible to
+store and retrieve per-session specific data.  This simplifies
+callback handling in applications.  Suggested by James Mansion.
+
+The new function supersede the gsasl_client_application_data_get,
+gsasl_client_application_data_set, gsasl_server_application_data_get,
+and gsasl_server_application_data_set functions in the obsolete API.
+
+** API and ABI modifications.
+gsasl_session_hook_get,
+gsasl_session_hook_set: ADD.
+
 * Version 0.2.13 (released 2006-06-14)
 
 ** Update of gnulib files.
