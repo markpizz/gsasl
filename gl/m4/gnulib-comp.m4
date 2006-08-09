@@ -29,6 +29,7 @@ AC_DEFUN([gl_INIT],
 [
   AM_CONDITIONAL([GL_COND_LIBTOOL], [true])
   gl_FUNC_ALLOCA
+  gl_HEADER_ARPA_INET
   gl_ERROR
   gl_EXITFAIL
   gl_GETADDRINFO
@@ -40,6 +41,7 @@ AC_DEFUN([gl_INIT],
   gl_ICONVME
   gl_INET_NTOP
   gl_MINMAX
+  gl_HEADER_NETINET_IN
   gl_QUOTE
   gl_QUOTEARG
   gl_FUNC_READLINE
@@ -118,6 +120,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/xmalloc.c
   lib/xsize.h
   m4/alloca.m4
+  m4/arpa_inet_h.m4
   m4/eoverflow.m4
   m4/error.m4
   m4/exitfail.m4
@@ -139,6 +142,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mbrtowc.m4
   m4/mbstate_t.m4
   m4/minmax.m4
+  m4/netinet_in_h.m4
+  m4/onceonly_2_57.m4
   m4/quote.m4
   m4/quotearg.m4
   m4/readline.m4

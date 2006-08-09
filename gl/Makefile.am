@@ -17,10 +17,11 @@ noinst_LTLIBRARIES = libgl.la
 libgl_la_SOURCES =
 libgl_la_LIBADD = @LTLIBOBJS@
 noinst_HEADERS =
+pkgdata_DATA =
 EXTRA_DIST =
 BUILT_SOURCES =
 SUFFIXES =
-MOSTLYCLEANFILES =
+MOSTLYCLEANFILES = core *.stackdump
 MOSTLYCLEANDIRS =
 CLEANFILES =
 DISTCLEANFILES =
@@ -41,6 +42,21 @@ alloca.h: alloca_.h
 MOSTLYCLEANFILES += alloca.h alloca.h-t
 
 ## end   gnulib module alloca-opt
+
+## begin gnulib module arpa_inet
+
+BUILT_SOURCES += $(ARPA_INET_H)
+
+# We need the following in order to create <arpa/inet.h> when the system
+# doesn't have one.
+arpa/inet.h:
+	test -d arpa || mkdir arpa
+	echo '#include <sys/socket.h>' >$@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += arpa/inet.h arpa/inet.h-t
+MOSTLYCLEANDIRS += arpa
+
+## end   gnulib module arpa_inet
 
 ## begin gnulib module exit
 
@@ -92,6 +108,21 @@ libgl_la_SOURCES += inet_ntop.h
 libgl_la_SOURCES += minmax.h
 
 ## end   gnulib module minmax
+
+## begin gnulib module netinet_in
+
+BUILT_SOURCES += $(NETINET_IN_H)
+
+# We need the following in order to create <netinet/in.h> when the system
+# doesn't have one.
+netinet/in.h:
+	test -d netinet || mkdir netinet
+	echo '#include <sys/socket.h>' >$@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += netinet/in.h netinet/in.h-t
+MOSTLYCLEANDIRS += netinet
+
+## end   gnulib module netinet_in
 
 ## begin gnulib module progname
 
@@ -187,7 +218,7 @@ libgl_la_SOURCES += xsize.h
 ## end   gnulib module xsize
 
 
-mostlyclean-local:
+mostlyclean-local: mostlyclean-generic
 	@test -z "$(MOSTLYCLEANDIRS)" || \
 	  for dir in $(MOSTLYCLEANDIRS); do \
 	    if test -d $$dir; then \
