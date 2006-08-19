@@ -1,3 +1,55 @@
+2006-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Update key.
+
+2006-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.14.
+
+2006-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* gendocs.sh, gl/Makefile.am, gl/error.c, gl/minmax.h,
+	gl/snprintf.c, gl/m4/getaddrinfo.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/inet_ntop.m4, gl/m4/minmax.m4, gl/m4/restrict.m4: Update.
+
+2006-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Add.
+
+2006-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump version.
+
+2006-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/error.c, gl/error.h, gl/exitfail.c,
+	gl/getaddrinfo.c, gl/getaddrinfo.h, gl/gettext.h, gl/inet_ntop.h,
+	gl/printf-args.c, gl/quote.c, gl/m4/arpa_inet_h.m4,
+	gl/m4/getline.m4, gl/m4/gnulib-comp.m4, gl/m4/inet_ntop.m4,
+	gl/m4/lib-link.m4, gl/m4/netinet_in_h.m4, gl/m4/onceonly_2_57.m4:
+	Update.
+
+2006-07-28  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2006-07-28  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2006-07-28  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add requirements, suggested by "MANSION, James,
+	GBM".
+
 2006-07-14  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.2.13.
