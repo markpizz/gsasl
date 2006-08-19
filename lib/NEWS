@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson
 See the end for copying conditions.
 
-* Version 0.2.14 (unreleased)
+* Version 0.2.14 (released 2006-08-19)
 
 ** New functions to set per-session application hooks.
 Earlier only the global functions gsasl_callback_hook_set and
