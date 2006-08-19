@@ -8,6 +8,9 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.14 (unreleased)
 
+** New section "Requirements" in the manual, lists the external components.
+Suggested by James Mansion.
+
 * Version 0.2.13 (released 2006-06-14)
 
 ** Update of gnulib files.
