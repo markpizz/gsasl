@@ -103,12 +103,6 @@ libgl_la_SOURCES += inet_ntop.h
 
 ## end   gnulib module inet_ntop
 
-## begin gnulib module minmax
-
-libgl_la_SOURCES += minmax.h
-
-## end   gnulib module minmax
-
 ## begin gnulib module netinet_in
 
 BUILT_SOURCES += $(NETINET_IN_H)
