@@ -19,15 +19,15 @@ dnl Process this file with autoconf to produce a configure script.
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-AC_INIT([libgsasl], [0.2.14], [bug-gsasl@gnu.org])
+AC_INIT([libgsasl], [0.2.15], [bug-gsasl@gnu.org])
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
-AC_SUBST(LT_CURRENT, 9)
-AC_SUBST(LT_REVISION, 10)
-AC_SUBST(LT_AGE, 2)
+AC_SUBST(LT_CURRENT, 10)
+AC_SUBST(LT_REVISION, 0)
+AC_SUBST(LT_AGE, 3)
 
 AC_PREREQ(2.59)
 AM_INIT_AUTOMAKE([1.9 gnits])
