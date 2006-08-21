@@ -153,7 +153,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdbool.m4
   m4/stdint_h.m4
   m4/strdup.m4
-  m4/strerror_r.m4
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
   m4/unistd_h.m4
