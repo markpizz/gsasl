@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson
 See the end for copying conditions.
 
-* Version 0.2.15 (unreleased)
+* Version 0.2.15 (released 2006-08-22)
 
 ** Changed libgsasl shared library version.
 The shared library version was not incremented correctly in the last
