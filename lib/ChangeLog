@@ -1,3 +1,33 @@
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Generated.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.15.
+
+2006-08-21  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h: Bump version.
+
+2006-08-21  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Fix.
+
+2006-08-21  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Update PGP key.
+
+2006-08-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump version.
+
+2006-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Generated.
+
 2006-08-19  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.2.14.
