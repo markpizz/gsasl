@@ -164,8 +164,8 @@ fi
 AC_ARG_WITH(gssapi-impl,
   AS_HELP_STRING([--with-gssapi-impl=gss/mit/heimdal/yes],
                  [select GSS-API implementation]),
-  gssapi_impl=$enableval, gssapi_impl=yes)
-AC_MSG_NOTICE([checking for GSS implementation])
+  gssapi_impl=$withval, gssapi_impl=yes)
+AC_MSG_NOTICE([checking for GSS implementation ($gssapi_impl)])
 if test "$gssapi_impl" = "gss"; then
   AC_MSG_NOTICE([trying GSS])
   AC_LIB_HAVE_LINKFLAGS(gss,, [#include <gss.h>], [gss_check_version (0);])
