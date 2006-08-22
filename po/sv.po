@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.8-b20050829\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-08-29 01:49+0200\n"
+"POT-Creation-Date: 2006-08-21 17:52+0200\n"
 "PO-Revision-Date: 2006-01-11 13:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -35,6 +35,9 @@ msgstr "Utdata från server:\n"
 #, c-format
 msgid "Output from client:\n"
 msgstr "Utdata från klient:\n"
+
+msgid "Cannot initialize Windows sockets."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -143,11 +146,15 @@ msgstr "mekanism ej tillgänglig: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Mata in base64 autentiseringsdata från klient (finns inget data, tryck ENTER):\n"
+msgstr ""
+"Mata in base64 autentiseringsdata från klient (finns inget data, tryck "
+"ENTER):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Mata in base64 autentiseringsdata från server (finns inget data, tryck ENTER):\n"
+msgstr ""
+"Mata in base64 autentiseringsdata från server (finns inget data, tryck "
+"ENTER):\n"
 
 #, c-format
 msgid "mechanism error: %s"
