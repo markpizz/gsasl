@@ -58,6 +58,10 @@ if GSSAPI
 SUBDIRS += gssapi
 endif			
 
+if GS2
+SUBDIRS += gs2
+endif			
+
 if SECURID
 SUBDIRS += securid
 endif			

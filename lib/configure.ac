@@ -144,22 +144,36 @@ AC_MSG_CHECKING([if DIGEST-MD5 should be used])
 AC_MSG_RESULT($digest_md5)
 AM_CONDITIONAL(DIGEST_MD5, test x$digest_md5 = xyes)
 
-# GSSAPI.
+# GS2, first part
+AC_ARG_ENABLE(gs2,
+  AS_HELP_STRING([--disable-gs2], [don't use the GS2 mechanism]),
+  gs2=$enableval)
+if test "$gs2" != "no" ; then
+	gs2=yes
+fi
+
+# GSSAPI, first part
 AC_ARG_ENABLE(gssapi,
   AS_HELP_STRING([--disable-gssapi], [don't use the GSSAPI mechanism]),
-  gssapi=$enableval, gssapi=yes)
+  gssapi=$enableval)
+if test "$gssapi" != "no" ; then
+	gssapi=yes
+fi
+
+# GSSAPI.
+AC_ARG_WITH(gssapi-impl,
+  AS_HELP_STRING([--with-gssapi-impl=gss/mit/heimdal/yes],
+                 [select GSS-API implementation]),
+  gssapi_impl=$enableval, gssapi_impl=yes)
 AC_MSG_NOTICE([checking for GSS implementation])
-if test "$gssapi" = "gss"; then
+if test "$gssapi_impl" = "gss"; then
   AC_MSG_NOTICE([trying GSS])
   AC_LIB_HAVE_LINKFLAGS(gss,, [#include <gss.h>], [gss_check_version (0);])
   if test "$ac_cv_libgss" != yes; then
-    gssapi=no
+    gssapi_impl=no
     AC_MSG_WARN([GNU GSS not found, disabling GSSAPI.])
-  else
-    gssapi=yes
-    AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])
   fi
-elif test "$gssapi" = "mit"; then
+elif test "$gssapi_impl" = "mit"; then
   AC_MSG_NOTICE([trying MIT])
   AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
   if test "$KRB5_CONFIG" != "no" ; then
@@ -176,36 +190,33 @@ elif test "$gssapi" = "mit"; then
 # include <gssapi/gssapi_generic.h>
 #endif
 ])
-    gssapi=yes
   else
     AC_MSG_WARN([MIT Kerberos krb5-config not found, disabling GSSAPI])
-    gssapi=no
+    gssapi_impl=no
   fi
-elif test "$gssapi" = "heimdal"; then
+elif test "$gssapi_impl" = "heimdal"; then
   AC_MSG_NOTICE([trying Heimdal])
   AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
   if test "$KRB5_CONFIG" != "no" ; then
     CPPFLAGS="$CPPFLAGS `$KRB5_CONFIG --cflags`"
     LIBS="$LIBS `$KRB5_CONFIG --libs gssapi`"
     AC_CHECK_HEADERS(gssapi.h)
-    gssapi=yes
   else
     AC_MSG_WARN([Heimdal krb5-config not found, disabling GSSAPI])
-    gssapi=no
+    gssapi_impl=no
   fi
-elif test "$gssapi" != "no" ; then
+elif test "$gssapi_impl" != "no" ; then
   AC_MSG_NOTICE([auto-detecing GSS/MIT/Heimdal])
-  AC_MSG_NOTICE([use --enable-gssapi=IMPL to override])
+  AC_MSG_NOTICE([use --with-gssapi-impl=IMPL to override])
   AC_MSG_NOTICE([where IMPL is `gss', `mit', or `heimdal'])
   AC_LIB_HAVE_LINKFLAGS(gss,, [#include <gss.h>], [gss_check_version (0);])
   if test "$ac_cv_libgss" = yes; then
-    gssapi=yes
+    gssapi_impl=gss
     AC_MSG_NOTICE([GNU GSS found])
-    AC_DEFINE(USE_GSS, 1, [Define to 1 if you want GSS.])
   elif test "$cross_compiling" != "no"; then
     AC_MSG_WARN([Cross-compiling, won't rely on MIT/Heimdal krb5-config])
-    AC_MSG_NOTICE([Use --enable-gssapi=mit or --enable-gssapi=heimdal.])
-    gssapi=no
+    AC_MSG_NOTICE([Use --with-gssapi-impl=mit or --with-gssapi-impl=heimdal.])
+    gssapi_impl=no
   else
     AC_MSG_WARN([GNU GSS not found (see http://josefsson.org/gss/)...])
     AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
@@ -217,10 +228,11 @@ elif test "$gssapi" != "no" ; then
       if test "$ac_cv_header_gssapi_h" = "yes" &&
          test "$ac_cv_header_gssapi_gssapi_h" = "yes"; then
         AC_MSG_WARN([Both Heimdal and MIT GSSAPI header files found.  Will use Heimdal.])
-        AC_MSG_WARN([Use --enable-gssapi=mit to override.])
+        AC_MSG_WARN([Use --with-gssapi-impl=mit to override.])
       fi
       if test "$ac_cv_header_gssapi_h" != "no"; then
         AC_MSG_NOTICE([Heimdal found])
+        gssapi_impl=heimdal
       else
         AC_MSG_NOTICE([MIT found])
         AC_CHECK_DECL(GSS_C_NT_HOSTBASED_SERVICE,,
@@ -233,16 +245,32 @@ elif test "$gssapi" != "no" ; then
 # include <gssapi/gssapi_generic.h>
 #endif
 ])
+        gssapi_impl=mit
       fi
-      gssapi=yes
     else
-      gssapi=no
+      gssapi_impl=no
       AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
     fi
   fi
 fi
-if test "$gssapi" = "yes"; then
-	AC_DEFINE(USE_GSSAPI, 1, [Define to 1 if you want GSSAPI.])
+
+# Disable GSSAPI/GS2 if we can't find GSS-API implementation
+if test "$gssapi_impl" = "no"; then
+  gs2=no
+  gssapi=no
+fi
+
+# GSSAPI, second part
+if test "$gs2" != "no" ; then
+  AC_DEFINE(USE_GS2, 1, [Define to 1 if you want GS2.])
+fi
+AC_MSG_CHECKING([if GS2 should be used])
+AC_MSG_RESULT($gs2)
+AM_CONDITIONAL(GS2, test x$gs2 = xyes)
+
+# GS2, second part
+if test "$gssapi" != "no" ; then
+  AC_DEFINE(USE_GSSAPI, 1, [Define to 1 if you want GSSAPI.])
 fi
 AC_MSG_CHECKING([if GSSAPI should be used])
 AC_MSG_RESULT($gssapi)

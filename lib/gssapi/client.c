@@ -33,7 +33,7 @@
 /* Get specification. */
 #include "x-gssapi.h"
 
-#ifdef USE_GSS
+#ifdef HAVE_LIBGSS
 # include <gss.h>
 #elif HAVE_GSSAPI_H		/* Heimdal GSSAPI */
 # include <gssapi.h>
