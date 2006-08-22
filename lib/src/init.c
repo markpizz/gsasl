@@ -1,5 +1,5 @@
 /* init.c --- Entry point for libgsasl.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -29,6 +29,7 @@
 #include "cram-md5/cram-md5.h"
 #include "external/external.h"
 #include "gssapi/x-gssapi.h"
+#include "gs2/gs2.h"
 #include "anonymous/anonymous.h"
 #include "plain/plain.h"
 #include "securid/securid.h"
@@ -102,6 +103,12 @@ register_builtin_mechs (Gsasl * ctx)
 
 #ifdef USE_GSSAPI
   rc = gsasl_register (ctx, &gsasl_gssapi_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_GSSAPI */
+
+#ifdef USE_GS2
+  rc = gsasl_register (ctx, &gsasl_gs2_krb5_mechanism);
   if (rc != GSASL_OK)
     return rc;
 #endif /* USE_GSSAPI */

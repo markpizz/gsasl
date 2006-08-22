@@ -75,6 +75,10 @@ if GSSAPI
 libgsasl_la_LIBADD += ../gssapi/libgsasl-gssapi.la
 endif			
 
+if GS2
+libgsasl_la_LIBADD += ../gs2/libgsasl-gs2.la
+endif			
+
 if SECURID
 libgsasl_la_LIBADD += ../securid/libgsasl-securid.la
 endif			
