@@ -27,8 +27,8 @@
 /* Get specification. */
 #include "gs2.h"
 
-Gsasl_mechanism gsasl_gs2_mechanism = {
-  GSASL_GS2_NAME,
+Gsasl_mechanism gsasl_gs2_krb5_mechanism = {
+  GSASL_GS2_KRB5_NAME,
   {
    NULL,
    NULL,
