@@ -17,7 +17,6 @@ noinst_LTLIBRARIES = libgl.la
 libgl_la_SOURCES =
 libgl_la_LIBADD = @LTLIBOBJS@
 noinst_HEADERS =
-pkgdata_DATA =
 EXTRA_DIST =
 BUILT_SOURCES =
 SUFFIXES =
@@ -64,6 +63,12 @@ libgl_la_SOURCES += exit.h
 
 ## end   gnulib module exit
 
+## begin gnulib module exitfail
+
+EXTRA_DIST += exitfail.h
+
+## end   gnulib module exitfail
+
 ## begin gnulib module getaddrinfo
 
 libgl_la_SOURCES += getaddrinfo.h
@@ -83,6 +88,12 @@ getopt.h: getopt_.h
 MOSTLYCLEANFILES += getopt.h getopt.h-t
 
 ## end   gnulib module getopt
+
+## begin gnulib module getpass
+
+EXTRA_DIST += getpass.h
+
+## end   gnulib module getpass
 
 ## begin gnulib module gettext-h
 
@@ -124,6 +135,18 @@ libgl_la_SOURCES += progname.h progname.c
 
 ## end   gnulib module progname
 
+## begin gnulib module quote
+
+EXTRA_DIST += quote.h
+
+## end   gnulib module quote
+
+## begin gnulib module quotearg
+
+EXTRA_DIST += quotearg.h
+
+## end   gnulib module quotearg
+
 ## begin gnulib module size_max
 
 libgl_la_SOURCES += size_max.h
@@ -149,6 +172,12 @@ stdbool.h: stdbool_.h
 MOSTLYCLEANFILES += stdbool.h stdbool.h-t
 
 ## end   gnulib module stdbool
+
+## begin gnulib module strdup
+
+EXTRA_DIST += strdup.h
+
+## end   gnulib module strdup
 
 ## begin gnulib module sys_select
 
@@ -198,6 +227,12 @@ MOSTLYCLEANFILES += unistd.h
 libgl_la_SOURCES += printf-args.h printf-parse.h vasnprintf.h
 
 ## end   gnulib module vasnprintf
+
+## begin gnulib module xalloc
+
+EXTRA_DIST += xalloc.h
+
+## end   gnulib module xalloc
 
 ## begin gnulib module xalloc-die
 

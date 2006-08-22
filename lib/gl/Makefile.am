@@ -17,7 +17,6 @@ noinst_LTLIBRARIES = libgl.la
 libgl_la_SOURCES =
 libgl_la_LIBADD = @LTLIBOBJS@
 noinst_HEADERS =
-pkgdata_DATA =
 EXTRA_DIST =
 BUILT_SOURCES =
 SUFFIXES =
@@ -58,6 +57,12 @@ libgl_la_LIBADD += $(LIBGCRYPT)
 endif
 
 ## end   gnulib module gc
+
+## begin gnulib module gc-md5
+
+libgl_la_SOURCES += md5.h
+
+## end   gnulib module gc-md5
 
 ## begin gnulib module gettext
 
@@ -133,6 +138,18 @@ stdint.h: stdint_.h
 MOSTLYCLEANFILES += stdint.h stdint.h-t
 
 ## end   gnulib module stdint
+
+## begin gnulib module strdup
+
+EXTRA_DIST += strdup.h
+
+## end   gnulib module strdup
+
+## begin gnulib module strverscmp
+
+EXTRA_DIST += strverscmp.h
+
+## end   gnulib module strverscmp
 
 ## begin gnulib module vasnprintf
 
