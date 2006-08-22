@@ -1,5 +1,5 @@
 /* xfinish.c --- Finish libgsasl session.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -34,12 +34,12 @@ gsasl_finish (Gsasl_session * sctx)
 {
   if (sctx->clientp)
     {
-      if (sctx->mech->client.finish)
+      if (sctx->mech && sctx->mech->client.finish)
 	sctx->mech->client.finish (sctx, sctx->mech_data);
     }
   else
     {
-      if (sctx->mech->server.finish)
+      if (sctx->mech && sctx->mech->server.finish)
 	sctx->mech->server.finish (sctx, sctx->mech_data);
     }
 
