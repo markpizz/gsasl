@@ -29,21 +29,168 @@
 int
 main (int argc, char *argv[])
 {
-  gs2_token tok;
+  struct gs2_token tok;
   int rc;
 
   {
-    char *token = "\x00\x00\x00\x00";
+    char token[4] = "\x00\x00\x00\x00";
     rc = gs2_parser (token, sizeof (token), &tok);
-    if (rc >= 0)
-      abort ();
+    if (rc < 0)
+      {
+	printf ("gs2_parser zero rc %d\n", rc);
+	abort ();
+      }
+    if (tok.context_token != NULL ||
+	tok.context_length != 0 ||
+	tok.wrap_token != NULL ||
+	tok.wrap_length != 0)
+      {
+	printf ("gs2_parser zero failure (%d: %x-%d-%x-%d)\n",
+		sizeof (token),
+		tok.context_token, tok.context_length,
+		tok.wrap_token, tok.wrap_length);
+	abort ();
+      }
   }
 
   {
-    char *token = "\x00\x00\x00\x04";
+    char token[4] = "\x00\x00\x00\x01";
     rc = gs2_parser (token, sizeof (token), &tok);
     if (rc >= 0)
-      abort ();
+      {
+	printf ("gs2_parser one-empty rc %d\n", rc);
+	abort ();
+      }
+  }
+
+  {
+    char token[4] = "\x00\x00\x00\x04";
+    rc = gs2_parser (token, sizeof (token), &tok);
+    if (rc >= 0)
+      {
+	printf ("gs2_parser four-empty rc %d\n", rc);
+	abort ();
+      }
+  }
+
+  {
+    char token[5] = "\x00\x00\x00\x00\x65";
+    rc = gs2_parser (token, sizeof (token), &tok);
+    if (rc < 0)
+      {
+	printf ("gs2_parser zero-ok rc %d\n", rc);
+	abort ();
+      }
+    if (tok.context_token != NULL ||
+	tok.context_length != 0 ||
+	tok.wrap_token != &token[4] ||
+	tok.wrap_length != 1)
+      {
+	printf ("gs2_parser zero-ok failure (%x-%d-%x-%d)\n",
+		tok.context_token, tok.context_length,
+		tok.wrap_token, tok.wrap_length);
+	abort ();
+      }
+  }
+
+  {
+    char token[5] = "\x00\x00\x00\x01\x65";
+    rc = gs2_parser (token, sizeof (token), &tok);
+    if (rc < 0)
+      {
+	printf ("gs2_parser one-ok rc %d\n", rc);
+	abort ();
+      }
+    if (tok.context_token != &token[4] ||
+	tok.context_length != 1 ||
+	tok.wrap_token != NULL ||
+	tok.wrap_length != 0)
+      {
+	printf ("gs2_parser one-ok failure (%x-%d-%x-%d)\n",
+		tok.context_token, tok.context_length,
+		tok.wrap_token, tok.wrap_length);
+	abort ();
+      }
+  }
+
+  {
+    char token[6] = "\x00\x00\x00\x00\xAA\xBB";
+    rc = gs2_parser (token, sizeof (token), &tok);
+    if (rc < 0)
+      {
+	printf ("gs2_parser zero-two-ok rc %d\n", rc);
+	abort ();
+      }
+    if (tok.context_token != NULL ||
+	tok.context_length != 0 ||
+	tok.wrap_token != &token[4] ||
+	tok.wrap_length != 2)
+      {
+	printf ("gs2_parser zero-two-ok failure (%x-%d-%x-%d)\n",
+		tok.context_token, tok.context_length,
+		tok.wrap_token, tok.wrap_length);
+	abort ();
+      }
+  }
+
+  {
+    char token[6] = "\x00\x00\x00\x02\xAA\xAB";
+    rc = gs2_parser (token, sizeof (token), &tok);
+    if (rc < 0)
+      {
+	printf ("gs2_parser zero-two-ok rc %d\n", rc);
+	abort ();
+      }
+    if (tok.context_token != &token[4] ||
+	tok.context_length != 2 ||
+	tok.wrap_token != NULL ||
+	tok.wrap_length != 0)
+      {
+	printf ("gs2_parser zero-two-ok failure (%x-%d-%x-%d)\n",
+		tok.context_token, tok.context_length,
+		tok.wrap_token, tok.wrap_length);
+	abort ();
+      }
+  }
+
+  {
+    char token[6] = "\x00\x00\x00\x01\xAA\xAB";
+    rc = gs2_parser (token, sizeof (token), &tok);
+    if (rc < 0)
+      {
+	printf ("gs2_parser both rc %d\n", rc);
+	abort ();
+      }
+    if (tok.context_token != &token[4] ||
+	tok.context_length != 1 ||
+	tok.wrap_token != &token[5] ||
+	tok.wrap_length != 1)
+      {
+	printf ("gs2_parser both failure (%x-%d-%x-%d)\n",
+		tok.context_token, tok.context_length,
+		tok.wrap_token, tok.wrap_length);
+	abort ();
+      }
+  }
+
+  {
+    char token[8] = "\x00\x00\x00\x02\xAA\xBA\xAB\xBB";
+    rc = gs2_parser (token, sizeof (token), &tok);
+    if (rc < 0)
+      {
+	printf ("gs2_parser both2 rc %d\n", rc);
+	abort ();
+      }
+    if (tok.context_token != &token[4] ||
+	tok.context_length != 2 ||
+	tok.wrap_token != &token[6] ||
+	tok.wrap_length != 2)
+      {
+	printf ("gs2_parser both2 failure (%x-%d-%x-%d)\n",
+		tok.context_token, tok.context_length,
+		tok.wrap_token, tok.wrap_length);
+	abort ();
+      }
   }
 
   return 0;
