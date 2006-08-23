@@ -23,7 +23,8 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl
 EXTRA_DIST = README
 
 noinst_LTLIBRARIES = libgsasl-gs2.la
-libgsasl_gs2_la_SOURCES = gs2.h mechinfo.c
+libgsasl_gs2_la_SOURCES = gs2.h mechinfo.c \
+	gs2parser.h gs2parser.c
 
 if CLIENT
 libgsasl_gs2_la_SOURCES += client.c
