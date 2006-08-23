@@ -22,6 +22,14 @@
 
 #include "gs2parser.h"
 
+#include <stdint.h>
+
+/* Parse a GS2 token in TOKEN of TOKLEN length, check the length
+   field, and set the appropriate values in OUT, if OUT is non-NULL.
+   The values in OUT that are set points into the TOKEN buffer, so
+   they must not be deallocated.  On success, the function sets all
+   values in OUT.  Returns 0 on success, or negative on failures
+   (i.e., the input is invalid).  */
 int
 gs2_parser (const char *token, size_t toklen, struct gs2_token *out)
 {
@@ -29,20 +37,69 @@ gs2_parser (const char *token, size_t toklen, struct gs2_token *out)
 
   /* Packets shorter than 4 octets are invalid. */
   if (toklen < 4)
-    return 1;
+    return -1;
 
   ctxlen = token[0] << 24 | token[1] << 16 | token[2] << 8 | token[3];
 
   /* If the length field is longer than the entire packet size, minus
      4 octets, the packet is invalid. */
   if (ctxlen > toklen - 4)
-    return 1;
+    return -2;
+
+  if (!out)
+    return -3;
 
   out->context_length = ctxlen;
   out->context_token = token + 4;
 
   out->wrap_length = toklen - ctxlen - 4;
   out->wrap_token = out->wrap_length > 0 ? token + 4 + out->wrap_length : NULL;
+
+  return 0;
+}
+
+/* Encode a GS2 token into OUT, a pre-allocated buffer of size at
+   least CONTEXT_LENGTH + WRAP_LENGTH + 4.  CONTEXT is the context
+   token, of length CONTEXT_LENGTH.  WRAP is the wrap token, of length
+   WRAP_LENGTH.  If OUTLEN is non-NULL, the length of the output token
+   is written to it on successful exit.  If OUT is NULL, no data is
+   written, but the input lengths are verified, and the OUTLEN
+   variable is written (if applicable).  This can be used to determine
+   how large buffer must be allocated for OUT.  Returns 0 on success,
+   or negative on failures (i.e., the input is invalid). */
+int
+gs2_encode (const char *context, size_t context_length,
+	    const char *wrap, size_t wrap_length,
+	    char *out, size_t *outlen)
+{
+  size_t totlen = 4 + context_length + wrap_length;
+  uint32_t ctxlen;
+
+  /* Reject out of bounds conditions. */
+  if (totlen > UINT32_MAX || totlen < context_length || totlen < wrap_length)
+    return -1;
+
+  /* Only time we accept NULL inputs is for zero-length inputs. */
+  if (context == NULL && context_length != 0)
+    return -2;
+  if (wrap == NULL && wrap_length != 0)
+    return -3;
+
+  if (outlen)
+    *outlen = totlen;
+
+  if (!out)
+    return 0;
+
+  out[0] = (context_length >> 24) & 0xFF;
+  out[1] = (context_length >> 16) & 0xFF;
+  out[2] = (context_length >> 8) & 0xFF;
+  out[3] = context_length & 0xFF;
+
+  if (context)
+    memcpy (out + 4, context, context_length);
+  if (wrap)
+    memcpy (out + 4 + context_length, wrap, wrap_length);
 
   return 0;
 }

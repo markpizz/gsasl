@@ -23,14 +23,20 @@
 #ifndef GS2_PARSER_H
 # define GS2_PARSER_H
 
+#include <string.h>
+
 struct gs2_token {
+  const char *context_token;
   size_t context_length;
-  char *context_token;
+  const char *wrap_token;
   size_t wrap_length;
-  char *wrap_token;
 };
 
 extern int gs2_parser (const char *token, size_t toklen,
 		       struct gs2_token *out);
+
+extern int gs2_encode (const char *context, size_t context_length,
+		       const char *wrap, size_t wrap_length,
+		       char *out, size_t *outlen);
 
 #endif /* GS2_PARSER_H */
