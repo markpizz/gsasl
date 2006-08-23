@@ -20,7 +20,7 @@
  *
  */
 
-#include "parser.h"
+#include "gs2parser.h"
 
 int
 gs2_parser (const char *token, size_t toklen, struct gs2_token *out)
