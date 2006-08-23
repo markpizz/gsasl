@@ -146,8 +146,8 @@ AM_CONDITIONAL(DIGEST_MD5, test x$digest_md5 = xyes)
 
 # GS2, first part
 AC_ARG_ENABLE(gs2,
-  AS_HELP_STRING([--disable-gs2], [don't use the GS2 mechanism]),
-  gs2=$enableval)
+  AS_HELP_STRING([--enable-gs2], [use the GS2 mechanism]),
+  gs2=$enableval, gs2=no)
 if test "$gs2" != "no" ; then
 	gs2=yes
 fi
@@ -278,8 +278,8 @@ AM_CONDITIONAL(GSSAPI, test x$gssapi = xyes)
 
 # KERBEROS_V5
 AC_ARG_ENABLE(kerberos_v5,
-  AS_HELP_STRING([--disable-kerberos_v5],
-    [don't use the KERBEROS_V5 mechanism]),
+  AS_HELP_STRING([--enable-kerberos_v5],
+    [use the KERBEROS_V5 mechanism]),
   kerberos_v5=$enableval, kerberos_v5=no)
 if test "$kerberos_v5" != "no" ; then
   AC_LIB_HAVE_LINKFLAGS(shishi,, [#include <shishi.h>], [shishi ();])
