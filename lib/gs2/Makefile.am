@@ -32,3 +32,9 @@ endif
 if SERVER
 libgsasl_gs2_la_SOURCES += server.c
 endif
+
+LDADD = libgsasl-gs2.la ../gl/libgl.la
+
+ctests = test-parser$(EXEEXT)
+TESTS = $(ctests)	
+check_PROGRAMS = $(ctests)
