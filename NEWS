@@ -8,6 +8,9 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.3.0 (unreleased)
 
+** Support for the GS2 mechanism.
+See lib/NEWS for the details.  It is disabled by default.
+
 * Version 0.2.15 (released 2006-08-22)
 
 ** Changed libgsasl shared library version.

@@ -4,6 +4,16 @@ See the end for copying conditions.
 
 * Version 0.3.0 (unreleased)
 
+** Added an experimental implementation of the GS2 mechanism.
+The mechanism disabled by default, but you can enable it by specifying
+--enable-gs2 when you run configure.  The mechanism requires an
+external GSS-API library.  Configure will automatically try to find
+(in order of preference) the GNU GSS, Heimdal, or MIT Kerberos
+implementation of GSS-API automatically, and use one of them, but you
+may specify --with-gssapi-impl=gss/mit/heimdal to select a particular
+implementation.  Using one GSS-API library for the GSSAPI mechanism,
+and another for the GS2 mechanism is not supported.
+
 * Version 0.2.15 (released 2006-08-22)
 
 ** Changed libgsasl shared library version.
