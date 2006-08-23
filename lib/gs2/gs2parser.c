@@ -50,10 +50,10 @@ gs2_parser (const char *token, size_t toklen, struct gs2_token *out)
     return -3;
 
   out->context_length = ctxlen;
-  out->context_token = token + 4;
+  out->context_token = ctxlen > 0 ? token + 4 : NULL;
 
-  out->wrap_length = toklen - ctxlen - 4;
-  out->wrap_token = out->wrap_length > 0 ? token + 4 + out->wrap_length : NULL;
+  out->wrap_length = toklen - 4 - ctxlen;
+  out->wrap_token = out->wrap_length > 0 ? token + 4 + ctxlen : NULL;
 
   return 0;
 }
