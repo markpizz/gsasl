@@ -62,19 +62,18 @@ gs2_parser (const char *token, size_t toklen, struct gs2_token *out)
   return 0;
 }
 
-/* Encode a GS2 token into OUT, a pre-allocated buffer of size at
-   least CONTEXT_LENGTH + WRAP_LENGTH + 4.  CONTEXT is the context
-   token, of length CONTEXT_LENGTH.  WRAP is the wrap token, of length
-   WRAP_LENGTH.  If OUTLEN is non-NULL, the length of the output token
-   is written to it on successful exit.  If OUT is NULL, no data is
-   written, but the input lengths are verified, and the OUTLEN
-   variable is written (if applicable).  This can be used to determine
-   how large buffer must be allocated for OUT.  Returns 0 on success,
-   or negative on failures (i.e., the input is invalid). */
+/* Encode a GS2 token into newly allocated OUT buffer.  CONTEXT is the
+   context token, of length CONTEXT_LENGTH.  WRAP is the wrap token,
+   of length WRAP_LENGTH.  If OUTLEN is non-NULL, the length of the
+   output token is written to it on successful exit.  If OUT is NULL,
+   no data is written, but the input lengths are verified, and the
+   OUTLEN variable is written (if applicable).  This can be used to
+   determine how large the output will be.  Returns 0 on success, or
+   negative on failures (i.e., the input is invalid). */
 int
 gs2_encode (const char *context, size_t context_length,
 	    const char *wrap, size_t wrap_length,
-	    char *out, size_t *outlen)
+	    char **out, size_t *outlen)
 {
   size_t totlen = 4 + context_length + wrap_length;
   uint32_t ctxlen;
@@ -95,15 +94,19 @@ gs2_encode (const char *context, size_t context_length,
   if (!out)
     return 0;
 
-  out[0] = (context_length >> 24) & 0xFF;
-  out[1] = (context_length >> 16) & 0xFF;
-  out[2] = (context_length >> 8) & 0xFF;
-  out[3] = context_length & 0xFF;
+  *out = malloc (*outlen);
+  if (!*out)
+    return -4;
+
+  (*out)[0] = (context_length >> 24) & 0xFF;
+  (*out)[1] = (context_length >> 16) & 0xFF;
+  (*out)[2] = (context_length >> 8) & 0xFF;
+  (*out)[3] = context_length & 0xFF;
 
   if (context)
-    memcpy (out + 4, context, context_length);
+    memcpy (*out + 4, context, context_length);
   if (wrap)
-    memcpy (out + 4 + context_length, wrap, wrap_length);
+    memcpy (*out + 4 + context_length, wrap, wrap_length);
 
   return 0;
 }
