@@ -161,6 +161,20 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       rc = GSASL_OK;
       break;
 
+    case GSASL_VALIDATE_GSSAPI:
+      {
+	char *str;
+	printf ("Authzid: %s\nDisplay Name: %s\n",
+		gsasl_property_fast (sctx, GSASL_AUTHZID),
+		gsasl_property_fast (sctx, GSASL_GSSAPI_DISPLAY_NAME));
+	str = readutf8line ("Validate GSS-API user? (y/n) ");
+	if (strcmp (str, "y") == 0 || strcmp (str, "Y") == 0)
+	  rc = GSASL_OK;
+	else
+	  rc = GSASL_AUTHENTICATION_ERROR;
+      }
+      break;
+
     default:
       printf ("Mechanism requested unsupported property `%d'.\n", prop);
       break;
