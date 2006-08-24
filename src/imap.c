@@ -1,5 +1,5 @@
 /* imap.c --- Implement IMAP profile of SASL login.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -146,7 +146,7 @@ imap_step_recv (char **data)
 
   p = *data;
 
-  if (p[0] != '+' || p[1] != ' ')
+  if (!args_info.server_flag && (p[0] != '+' || p[1] != ' '))
     {
       fprintf (stderr, _("error: Server did not return expected SASL "
 			 "data (it must begin with '+ '):\n%s\n"), p);
