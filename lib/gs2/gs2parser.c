@@ -39,7 +39,11 @@ gs2_parser (const char *token, size_t toklen, struct gs2_token *out)
   if (toklen < 4)
     return -1;
 
-  ctxlen = token[0] << 24 | token[1] << 16 | token[2] << 8 | token[3];
+  ctxlen =
+    (token[0] << 24) & 0xFF000000 |
+    (token[1] << 16) & 0xFF0000 |
+    (token[2] << 8) & 0xFF00 |
+    (token[3]) & 0xFF;
 
   /* If the length field is longer than the entire packet size, minus
      4 octets, the packet is invalid. */
