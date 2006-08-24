@@ -172,6 +172,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	  rc = GSASL_OK;
 	else
 	  rc = GSASL_AUTHENTICATION_ERROR;
+	free (str);
       }
       break;
 
