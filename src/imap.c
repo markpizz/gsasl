@@ -146,14 +146,17 @@ imap_step_recv (char **data)
 
   p = *data;
 
-  if (!args_info.server_flag && (p[0] != '+' || p[1] != ' '))
+  if (!args_info.server_flag)
     {
-      fprintf (stderr, _("error: Server did not return expected SASL "
-			 "data (it must begin with '+ '):\n%s\n"), p);
-      return 0;
-    }
+      if (p[0] != '+' || p[1] != ' ')
+	{
+	  fprintf (stderr, _("error: Server did not return expected SASL "
+			     "data (it must begin with '+ '):\n%s\n"), p);
+	  return 0;
+	}
 
-  memmove (&p[0], &p[2], strlen (p) - 1);
+      memmove (&p[0], &p[2], strlen (p) - 1);
+    }
 
   if (p[strlen (p) - 1] == '\n')
     p[strlen (p) - 1] = '\0';
