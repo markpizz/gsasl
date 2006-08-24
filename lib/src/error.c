@@ -1,5 +1,5 @@
 /* error.c --- Error handling functionality.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -76,74 +76,57 @@ gsasl_strerror (int err)
       break;
 
     case GSASL_GSSAPI_RELEASE_BUFFER_ERROR:
-      p =
-	_
-	("GSSAPI library could not deallocate memory in "
-	 "gss_release_buffer() in SASL library.  This is a serious "
-	 "internal error.");
+      p = _("GSSAPI library could not deallocate memory in "
+	    "gss_release_buffer() in SASL library.  This is a serious "
+	    "internal error.");
       break;
 
     case GSASL_GSSAPI_IMPORT_NAME_ERROR:
-      p =
-	_
-	("GSSAPI library could not understand a peer name in "
-	 "gss_import_name() in SASL library.  This may be due to "
-	 "incorrect user supplied data.");
+      p = _("GSSAPI library could not understand a peer name in "
+	    "gss_import_name() in SASL library.  This is most likely "
+	    "due to incorrect service and/or hostnames.");
       break;
 
     case GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR:
-      p =
-	_
-	("GSSAPI error in client while negotiating security context in "
-	 "gss_init_sec_context() in SASL library.  This is most likely "
-	 "due insufficient credentials or malicious interactions.");
+      p = _("GSSAPI error in client while negotiating security context in "
+	    "gss_init_sec_context() in SASL library.  This is most likely "
+	    "due insufficient credentials or malicious interactions.");
       break;
 
     case GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR:
-      p =
-	_
-	("GSSAPI error in server while negotiating security context in "
-	 "gss_init_sec_context() in SASL library.  This is most likely "
-	 "due insufficient credentials or malicious interactions.");
+      p = _("GSSAPI error in server while negotiating security context in "
+	    "gss_init_sec_context() in SASL library.  This is most likely "
+	    "due insufficient credentials or malicious interactions.");
       break;
 
     case GSASL_GSSAPI_UNWRAP_ERROR:
-      p =
-	_
-	("GSSAPI error while decrypting or decoding data in "
-	 "gss_unwrap() in SASL library.  This is most likely "
-	 "due to data corruption.");
+      p = _("GSSAPI error while decrypting or decoding data in "
+	    "gss_unwrap() in SASL library.  This is most likely "
+	    "due to data corruption.");
       break;
 
     case GSASL_GSSAPI_WRAP_ERROR:
-      p =
-	_
-	("GSSAPI error while encrypting or encoding data in "
-	 "gss_wrap() in SASL library.");
+      p = _("GSSAPI error while encrypting or encoding data in "
+	    "gss_wrap() in SASL library.");
       break;
 
     case GSASL_GSSAPI_ACQUIRE_CRED_ERROR:
-      p =
-	_
-	("GSSAPI error acquiring credentials in "
-	 "gss_acquire_cred() in SASL library.  This is most likely due"
-	 " to not having the proper Kerberos key available in "
-	 "/etc/krb5.keytab on the server.");
+      p = _("GSSAPI error acquiring credentials in "
+	    "gss_acquire_cred() in SASL library.  This is most likely due"
+	    " to not having the proper Kerberos key available in "
+	    "/etc/krb5.keytab on the server.");
       break;
 
     case GSASL_GSSAPI_DISPLAY_NAME_ERROR:
-      p =
-	_
-	("GSSAPI error creating a display name denoting the client in "
-	 "gss_display_name() in SASL library.  This is probably because "
-	 "the client supplied bad data.");
+      p = _("GSSAPI error creating a display name denoting the "
+	    "client in gss_display_name() in SASL library.  This is "
+	    "probably because the client supplied bad data.");
       break;
 
     case GSASL_GSSAPI_UNSUPPORTED_PROTECTION_ERROR:
-      p =
-	_
-	("Other entity requested integrity or confidentiality protection "
-	 "in GSSAPI mechanism but this is currently not implemented.");
+      p = _("Other entity requested integrity or confidentiality "
+	    "protection in GSSAPI mechanism but this is currently "
+	    "not implemented.");
       break;
 
     case GSASL_MECHANISM_PARSE_ERROR:
@@ -234,115 +217,84 @@ gsasl_strerror (int err)
       break;
 
     case GSASL_NEED_CLIENT_ANONYMOUS_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_client_callback_anonymous() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_client_callback_anonymous() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_CLIENT_PASSWORD_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_client_callback_password() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_client_callback_password() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_CLIENT_PASSCODE_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_client_callback_passcode() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_client_callback_passcode() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_CLIENT_PIN_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_client_callback_pin() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_client_callback_pin() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_CLIENT_AUTHORIZATION_ID_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_client_callback_authorization_id() "
-	 "callback (application error)");
+      p = _("SASL mechanism needs gsasl_client_callback_authorization_id() "
+	    "callback (application error)");
       break;
 
     case GSASL_NEED_CLIENT_AUTHENTICATION_ID_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_client_callback_authentication_id() "
-	 "callback (application error)");
+      p = _("SASL mechanism needs gsasl_client_callback_authentication_id() "
+	    "callback (application error)");
       break;
 
     case GSASL_NEED_CLIENT_SERVICE_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_client_callback_service() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_client_callback_service() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_SERVER_VALIDATE_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_server_callback_validate() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_server_callback_validate() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_SERVER_CRAM_MD5_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_server_callback_cram_md5() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_server_callback_cram_md5() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_SERVER_DIGEST_MD5_CALLBACK:
       p =
-	_
-	("SASL mechanism needs gsasl_server_callback_digest_md5() callback "
-	 "(application error)");
+	_("SASL mechanism needs gsasl_server_callback_digest_md5() callback "
+	  "(application error)");
       break;
 
     case GSASL_NEED_SERVER_ANONYMOUS_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_server_callback_anonymous() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_server_callback_anonymous() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_SERVER_EXTERNAL_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_server_callback_external() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_server_callback_external() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_SERVER_REALM_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_server_callback_realm() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_server_callback_realm() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_SERVER_SECURID_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_server_callback_securid() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_server_callback_securid() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_SERVER_SERVICE_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_server_callback_service() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_server_callback_service() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_SERVER_GSSAPI_CALLBACK:
-      p =
-	_
-	("SASL mechanism needs gsasl_server_callback_gssapi() callback "
-	 "(application error)");
+      p = _("SASL mechanism needs gsasl_server_callback_gssapi() callback "
+	    "(application error)");
       break;
 
     case GSASL_NEED_SERVER_RETRIEVE_CALLBACK:
