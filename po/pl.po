@@ -1,14 +1,14 @@
 # Polish translation for gsasl.
-# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
-# Jakub Bogusz <qboosh@pld-linux.org>, 2004, 2005.
+# Jakub Bogusz <qboosh@pld-linux.org>, 2004-2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 0.2.8-b20050829\n"
+"Project-Id-Version: gsasl 0.2.15\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
 "POT-Creation-Date: 2006-08-21 17:52+0200\n"
-"PO-Revision-Date: 2005-09-12 17:44+0200\n"
+"PO-Revision-Date: 2006-08-24 18:20+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgid "Output from client:\n"
 msgstr "Wyj¶cie klienta:\n"
 
 msgid "Cannot initialize Windows sockets."
-msgstr ""
+msgstr "Nie mo¿na zainicjowaæ gniazd Windows."
 
 #, c-format
 msgid ""

@@ -1,16 +1,16 @@
 # Irish translations for gsasl.
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
-# Kevin Patrick Scannell <scannell@SLU.EDU>, 2004.
+# Kevin Patrick Scannell <scannell@SLU.EDU>, 2004, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 0.2.8-b20050829\n"
+"Project-Id-Version: gsasl 0.2.15\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
 "POT-Creation-Date: 2006-08-21 17:52+0200\n"
-"PO-Revision-Date: 2005-09-12 21:31-0500\n"
+"PO-Revision-Date: 2006-08-23 21:31-0500\n"
 "Last-Translator: Kevin Patrick Scannell <scannell@SLU.EDU>\n"
-"Language-Team: Irish <ga@li.org>\n"
+"Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,7 +36,7 @@ msgid "Output from client:\n"
 msgstr "Aschur ón chliant:\n"
 
 msgid "Cannot initialize Windows sockets."
-msgstr ""
+msgstr "Ní féidir soicéid Windows a thúsú."
 
 #, c-format
 msgid ""
@@ -147,15 +147,11 @@ msgstr "níl an sásra ar fáil: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon sonra "
-"ann):\n"
+msgstr "Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon sonra ann):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr ""
-"Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon "
-"sonra ann):\n"
+msgstr "Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon sonra ann):\n"
 
 #, c-format
 msgid "mechanism error: %s"
@@ -173,7 +169,7 @@ msgstr "Fíordheimhniú den chliant déanta (freastalaí iontaofa)...\n"
 
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
-msgstr "Iontráil sonraí feidhmchláir (EOF nuair atá tú déanta):\n"
+msgstr "Iontráil sonraí feidhmchláir (comhadchríoch nuair atá tú déanta):\n"
 
 #, c-format
 msgid "Base64 encoded application data to send:\n"
