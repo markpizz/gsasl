@@ -50,6 +50,7 @@ libgl_la_SOURCES += base64.h base64.c
 
 ## begin gnulib module gc
 
+EXTRA_DIST += gc.h
 if GL_COND_LIBTOOL
 libgl_la_LIBADD += $(LTLIBGCRYPT)
 else
@@ -63,6 +64,18 @@ endif
 libgl_la_SOURCES += md5.h
 
 ## end   gnulib module gc-md5
+
+## begin gnulib module getdelim
+
+EXTRA_DIST += getdelim.h
+
+## end   gnulib module getdelim
+
+## begin gnulib module getline
+
+EXTRA_DIST += getline.h
+
+## end   gnulib module getline
 
 ## begin gnulib module gettext
 
@@ -114,9 +127,10 @@ EXTRA_DIST += stdint_.h
 stdint.h: stdint_.h
 	sed -e 's/@''HAVE_WCHAR_H''@/$(HAVE_WCHAR_H)/g' \
 	    -e 's/@''HAVE_STDINT_H''@/$(HAVE_STDINT_H)/g' \
-	    -e 's/@''HAVE_SYS_TYPES_H''@/$(HAVE_SYS_TYPES_H)/g' \
 	    -e 's|@''ABSOLUTE_STDINT_H''@|$(ABSOLUTE_STDINT_H)|g' \
+	    -e 's/@''HAVE_SYS_TYPES_H''@/$(HAVE_SYS_TYPES_H)/g' \
 	    -e 's/@''HAVE_INTTYPES_H''@/$(HAVE_INTTYPES_H)/g' \
+	    -e 's|@''ABSOLUTE_INTTYPES_H''@|$(ABSOLUTE_INTTYPES_H)|g' \
 	    -e 's/@''HAVE_SYS_INTTYPES_H''@/$(HAVE_SYS_INTTYPES_H)/g' \
 	    -e 's/@''HAVE_SYS_BITYPES_H''@/$(HAVE_SYS_BITYPES_H)/g' \
 	    -e 's/@''HAVE_LONG_LONG_INT''@/$(HAVE_LONG_LONG_INT)/g' \
