@@ -31,9 +31,14 @@ AC_DEFUN([gl_EARLY],
 AC_DEFUN([gl_INIT],
 [
   AM_CONDITIONAL([GL_COND_LIBTOOL], [true])
+  gl_cond_libtool=true
   gl_FUNC_ALLOCA
   gl_FUNC_BASE64
   gl_GC
+  if test $gl_cond_libtool = false; then
+    gl_ltlibdeps="$gl_ltlibdeps $LTLIBGCRYPT"
+    gl_libdeps="$gl_libdeps $LIBGCRYPT"
+  fi
   gl_GC_HMAC_MD5
   gl_GC_MD5
   gl_GC_RANDOM

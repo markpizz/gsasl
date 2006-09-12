@@ -30,6 +30,7 @@ AC_DEFUN([gl_EARLY],
 AC_DEFUN([gl_INIT],
 [
   AM_CONDITIONAL([GL_COND_LIBTOOL], [true])
+  gl_cond_libtool=true
   gl_FUNC_ALLOCA
   gl_HEADER_ARPA_INET
   gl_ERROR
@@ -41,6 +42,10 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_GETPASS
   AM_ICONV
   gl_ICONVME
+  if test $gl_cond_libtool = false; then
+    gl_ltlibdeps="$gl_ltlibdeps $LTLIBICONV"
+    gl_libdeps="$gl_libdeps $LIBICONV"
+  fi
   gl_INET_NTOP
   gl_HEADER_NETINET_IN
   gl_QUOTE

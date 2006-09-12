@@ -27,5 +27,6 @@ gl_DOC_BASE([doc])
 gl_TESTS_BASE([tests])
 gl_LIB([libgl])
 gl_LGPL
+gl_MAKEFILE_NAME([])
 gl_LIBTOOL
 gl_MACRO_PREFIX([gl])
