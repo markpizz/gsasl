@@ -76,7 +76,7 @@ Appendices
 
 * Protocol Clarifications::     Our notes on the SASL protocol.
 * Old Functions::               Descriptions of old API functions.
-* Copying This Manual::         How you can copy and share this manual.
+* Copying Information::		How you can copy and share GNU SASL.
 
 Indices
 
@@ -2099,23 +2099,27 @@ otherwise @code{GSASL_AUTHENTICATION_ERROR}.
 @include gsasl-callback-server-service.texi
 @include gsasl-callback-validate.texi
 
-@node Copying This Manual
-@appendix Copying This Manual
+@node Copying Information
+@appendix Copying Information
 
 @menu
-* GNU Free Documentation License::  License for copying this manual.
+* GNU Free Documentation License::   License for copying this manual.
+* GNU LGPL::                         License for copying the library.
+* GNU GPL::                          License for copying the programs.
 @end menu
 
 @include fdl.texi
-
-@node Concept Index
-@unnumbered Concept Index
-
-@printindex cp
+@include lgpl.texi
+@include gpl.texi
 
 @node Function and Data Index
 @unnumbered Function and Data Index
 
 @printindex fn
+
+@node Concept Index
+@unnumbered Concept Index
+
+@printindex cp
 
 @bye
