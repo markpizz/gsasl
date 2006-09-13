@@ -73,6 +73,7 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/maint.mk
   doc/fdl.texi
   doc/gendocs_template
+  doc/gpl.texi
   lib/alloca_.h
   lib/asnprintf.c
   lib/error.c
