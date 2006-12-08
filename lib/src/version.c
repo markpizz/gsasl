@@ -1,5 +1,5 @@
 /* version.c -- Version handling.
- * Copyright (C) 2002, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2004, 2005, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -41,7 +41,7 @@
 const char *
 gsasl_check_version (const char *req_version)
 {
-  if (!req_version || strverscmp (req_version, PACKAGE_VERSION) < 0)
+  if (!req_version || strverscmp (req_version, PACKAGE_VERSION) <= 0)
     return PACKAGE_VERSION;
 
   return NULL;
