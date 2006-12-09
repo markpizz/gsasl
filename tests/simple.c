@@ -1,5 +1,5 @@
 /* simple.c --- Test the simple SASL mechanisms.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -400,6 +400,12 @@ doit (void)
   size_t outputlen;
   size_t i, j;
   int res;
+
+  if (!gsasl_check_version (GSASL_VERSION))
+    fail ("gsasl_check_version failure");
+
+  success ("Header version %s library version %s\n",
+	   GSASL_VERSION, gsasl_check_version (NULL));
 
   res = gsasl_init (&ctx);
   if (res != GSASL_OK)
