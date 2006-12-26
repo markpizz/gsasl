@@ -1,0 +1,561 @@
+
+
+
+NETWORK WORKING GROUP                                          J. Altman
+Internet-Draft                                          Secure Endpoints
+Expires: June 16, 2007                                       N. Williams
+                                                        Sun Microsystems
+                                                       December 13, 2006
+
+
+           On the Use of Channel Bindings to Secure Channels
+                  draft-altman-tls-channel-bindings-01
+
+Status of this Memo
+
+   By submitting this Internet-Draft, each author represents that any
+   applicable patent or other IPR claims of which he or she is aware
+   have been or will be disclosed, and any of which he or she becomes
+   aware will be disclosed, in accordance with Section 6 of BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF), its areas, and its working groups.  Note that
+   other groups may also distribute working documents as Internet-
+   Drafts.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   The list of current Internet-Drafts can be accessed at
+   http://www.ietf.org/ietf/1id-abstracts.txt.
+
+   The list of Internet-Draft Shadow Directories can be accessed at
+   http://www.ietf.org/shadow.html.
+
+   This Internet-Draft will expire on June 16, 2007.
+
+Copyright Notice
+
+   Copyright (C) The IETF Trust (2006).
+
+
+
+
+
+
+
+
+
+
+
+
+
+Altman & Williams         Expires June 16, 2007                 [Page 1]
+
+Internet-Draft             On Channel Bindings             December 2006
+
+
+Abstract
+
+   This document defines a form of channel bindings for TLS (Transport
+   Layer Security), namely the concatenation of the initial client and
+   server "finished" messages for a TLS connection.
+
+
+Table of Contents
+
+   1.  Conventions used in this document  . . . . . . . . . . . . . .  3
+   2.  Naming TLS Connections . . . . . . . . . . . . . . . . . . . .  4
+   3.  Recommended Application Programming Interfaces . . . . . . . .  5
+   4.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . .  6
+   5.  Security Considerations  . . . . . . . . . . . . . . . . . . .  7
+   6.  Normative References . . . . . . . . . . . . . . . . . . . . .  8
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . .  9
+   Intellectual Property and Copyright Statements . . . . . . . . . . 10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Altman & Williams         Expires June 16, 2007                 [Page 2]
+
+Internet-Draft             On Channel Bindings             December 2006
+
+
+1.  Conventions used in this document
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Altman & Williams         Expires June 16, 2007                 [Page 3]
+
+Internet-Draft             On Channel Bindings             December 2006
+
+
+2.  Naming TLS Connections
+
+   Whenever a "name" is needed for a TLS connection such that the "name"
+   is cryptographically bound to the said TLS [RFC4346]connection (its
+   pre-master secret, negotiation, messages, etc...) such a name may be
+   constructed as described below; we term this a "channel binding."
+
+   The channel bindings for TLS connections consist of the concatenation
+   of the initial client and server "finished" TLS messages section
+   7.4.9 [RFC4346] (note: the unencrypted messages).  The initial TLS
+   finished messages are the first pair of TLS finished messages
+   exchanged after TLS channel establishment.  It is irrelevant whether
+   the TLS channel was established with a previous SessionID section
+   7.4.1.2 [RFC4346] or not.
+
+   Application protocols MAY specify which of the two initial finished
+   messages, or combination of both of them, to use.  If this is not
+   specified, the concatenation of the client and the server finished
+   TLS messages are used. (client finished message first.)
+
+   The process by which applications perform "channel binding," that is,
+   the process by which applications establish that the channel bindings
+   for a given TLS connection are observed to be the same at both
+   application ends of the TLS connection is not described here.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Altman & Williams         Expires June 16, 2007                 [Page 4]
+
+Internet-Draft             On Channel Bindings             December 2006
+
+
+3.  Recommended Application Programming Interfaces
+
+   TLS implementations supporting the use of initial TLS finished
+   messages as channel bindings should provide application programming
+   interfaces to enable higher level protocol implementations to obtain
+   the initial TLS finished messages for both the client and server
+   endpoints.
+
+   It is acceptable for the API to provide access to the most recent
+   finished messages although doing so will require that the application
+   be aware of TLS renegotiations in order to ensure that the correct
+   set of TLS finished messages are used.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Altman & Williams         Expires June 16, 2007                 [Page 5]
+
+Internet-Draft             On Channel Bindings             December 2006
+
+
+4.  IANA Considerations
+
+   There are no IANA considerations for this document.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Altman & Williams         Expires June 16, 2007                 [Page 6]
+
+Internet-Draft             On Channel Bindings             December 2006
+
+
+5.  Security Considerations
+
+   The TLS finished messages section7.4.9 [RFC4346] are known to both
+   TLS endpoints and can therefore be safely used as a channel binding
+   provided that the higher level protocol binding to the TLS channel
+   provides integrity protection for the TLS finished messages and only
+   communicates the TLS finished messages across the TLS channel that it
+   is binding to.
+
+   If there is an active man-in-the-middle attack, the attacker will
+   already possess knowledge of the TLS finished messages for both
+   inbound and outbound TLS channels.  Therefore, there is no additional
+   information obtained by the attacker via the use of the TLS finished
+   messages as a channel binding
+
+   The Security Considerations section of
+   "draft-williams-on-channel-binding" applies to this document.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Altman & Williams         Expires June 16, 2007                 [Page 7]
+
+Internet-Draft             On Channel Bindings             December 2006
+
+
+6.  Normative References
+
+   [I-D.williams-on-channel-binding]
+              Williams, N., "On the Use of Channel Bindings to Secure
+              Channels", draft-williams-on-channel-binding-00 (work in
+              progress), August 2006.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+   [RFC4346]  Dierks, T. and E. Rescorla, "The Transport Layer Security
+              (TLS) Protocol Version 1.1", RFC 4346, April 2006.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Altman & Williams         Expires June 16, 2007                 [Page 8]
+
+Internet-Draft             On Channel Bindings             December 2006
+
+
+Authors' Addresses
+
+   Jeffrey Altman
+   Secure Endpoints Inc.
+   255 W 94TH ST PHB
+   NEW YORK, NY  10025
+   US
+
+   Email: jaltman@secure-endpoints.com
+
+
+   Nicolas Williams
+   Sun Microsystems Inc.
+   5300 Riata Trace Ct
+   Austin, TX  78727
+   US
+
+   Email: Nicolas.Williams@sun.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Altman & Williams         Expires June 16, 2007                 [Page 9]
+
+Internet-Draft             On Channel Bindings             December 2006
+
+
+Full Copyright Statement
+
+   Copyright (C) The IETF Trust (2006).
+
+   This document is subject to the rights, licenses and restrictions
+   contained in BCP 78, and except as set forth therein, the authors
+   retain all their rights.
+
+   This document and the information contained herein are provided on an
+   "AS IS" basis and THE CONTRIBUTOR, THE ORGANIZATION HE/SHE REPRESENTS
+   OR IS SPONSORED BY (IF ANY), THE INTERNET SOCIETY, THE IETF TRUST AND
+   THE INTERNET ENGINEERING TASK FORCE DISCLAIM ALL WARRANTIES, EXPRESS
+   OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF
+   THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED
+   WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+
+Intellectual Property
+
+   The IETF takes no position regarding the validity or scope of any
+   Intellectual Property Rights or other rights that might be claimed to
+   pertain to the implementation or use of the technology described in
+   this document or the extent to which any license under such rights
+   might or might not be available; nor does it represent that it has
+   made any independent effort to identify any such rights.  Information
+   on the procedures with respect to rights in RFC documents can be
+   found in BCP 78 and BCP 79.
+
+   Copies of IPR disclosures made to the IETF Secretariat and any
+   assurances of licenses to be made available, or the result of an
+   attempt made to obtain a general license or permission for the use of
+   such proprietary rights by implementers or users of this
+   specification can be obtained from the IETF on-line IPR repository at
+   http://www.ietf.org/ipr.
+
+   The IETF invites any interested party to bring to its attention any
+   copyrights, patents or patent applications, or other proprietary
+   rights that may cover technology that may be required to implement
+   this standard.  Please address the information to the IETF at
+   ietf-ipr@ietf.org.
+
+
+Acknowledgment
+
+   Funding for the RFC Editor function is provided by the IETF
+   Administrative Support Activity (IASA).
+
+
+
+
+
+Altman & Williams         Expires June 16, 2007                [Page 10]
+
+
