@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2004-2006 Free Software Foundation, Inc.
+# Copyright (C) 2004-2007 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -65,9 +65,13 @@ AC_DEFUN([gl_INIT],
   AM_STDBOOL_H
   gl_FUNC_STRDUP
   gl_HEADER_SYS_SELECT
+  AC_PROG_MKDIR_P
   gl_HEADER_SYS_SOCKET
+  AC_PROG_MKDIR_P
   gl_HEADER_UNISTD
   gl_FUNC_VASNPRINTF
+  gl_WCHAR_H
+  gl_WCTYPE_H
   gl_XALLOC
   gl_XSIZE
   m4_popdef([AC_LIBSOURCES])
@@ -159,12 +163,16 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdbool_.h
   lib/strdup.c
   lib/strdup.h
+  lib/unistd_.h
   lib/vasnprintf.c
   lib/vasnprintf.h
+  lib/wchar_.h
+  lib/wctype_.h
   lib/xalloc-die.c
   lib/xalloc.h
   lib/xmalloc.c
   lib/xsize.h
+  m4/absolute-header.m4
   m4/alloca.m4
   m4/arpa_inet_h.m4
   m4/eoverflow.m4
@@ -175,6 +183,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getline.m4
   m4/getopt.m4
   m4/getpass.m4
+  m4/gnulib-common.m4
   m4/iconv.m4
   m4/iconvme.m4
   m4/inet_ntop.m4
@@ -204,7 +213,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sys_socket_h.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
+  m4/wchar.m4
   m4/wchar_t.m4
+  m4/wctype.m4
   m4/wint_t.m4
   m4/xalloc.m4
   m4/xsize.m4

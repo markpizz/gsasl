@@ -1,5 +1,5 @@
-/* strdup.h -- duplicate a string
-   Copyright (C) 2004, 2006 Free Software Foundation, Inc.
+/* Substitute for and wrapper around <unistd.h>.
+   Copyright (C) 2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,25 +15,38 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifndef STRDUP_H_
-#define STRDUP_H_
+#ifndef _GL_UNISTD_H
+#define _GL_UNISTD_H
 
-/* Get strdup declaration, if available.  */
-#include <string.h>
+#if HAVE_UNISTD_H
+# include @ABSOLUTE_UNISTD_H@
+#endif
+
+
+/* Declare overridden functions.  */
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#ifdef FCHDIR_REPLACEMENT
 
-#if defined HAVE_DECL_STRDUP && !HAVE_DECL_STRDUP && !defined strdup
-/* Duplicate S, returning an identical malloc'd string.  */
-extern char *strdup (const char *s);
+/* Change the process' current working directory to the directory on which
+   the given file descriptor is open.  */
+extern int fchdir (int /*fd*/);
+
+# define close rpl_close
+extern int close (int);
+# define dup rpl_dup
+extern int dup (int);
+# define dup2 rpl_dup2
+extern int dup2 (int, int);
+
 #endif
-
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* STRDUP_H_ */
+
+#endif /* _GL_UNISTD_H */

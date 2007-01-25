@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2004-2006 Free Software Foundation, Inc.
+# Copyright (C) 2004-2007 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -47,8 +47,11 @@ AC_DEFUN([gl_INIT],
     gl_libdeps="$gl_libdeps $LIBGCRYPT"
   fi
   gl_GC_HMAC_MD5
+  gl_MODULE_INDICATOR([gc-hmac-md5])
   gl_GC_MD5
+  gl_MODULE_INDICATOR([gc-md5])
   gl_GC_RANDOM
+  gl_MODULE_INDICATOR([gc-random])
   gl_FUNC_GETDELIM
   gl_FUNC_GETLINE
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
@@ -60,6 +63,7 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_STRVERSCMP
   gl_FUNC_VASNPRINTF
   gl_FUNC_VASPRINTF
+  gl_WCHAR_H
   gl_XSIZE
   m4_popdef([AC_LIBSOURCES])
   m4_popdef([AC_REPLACE_FUNCS])
@@ -135,6 +139,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/vasnprintf.h
   lib/vasprintf.c
   lib/vasprintf.h
+  lib/wchar_.h
   lib/xsize.h
   m4/absolute-header.m4
   m4/alloca.m4
@@ -150,6 +155,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/gettext.m4
   m4/glibc2.m4
   m4/glibc21.m4
+  m4/gnulib-common.m4
   m4/hmac-md5.m4
   m4/iconv.m4
   m4/intdiv0.m4
@@ -184,6 +190,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/vasnprintf.m4
   m4/vasprintf.m4
   m4/visibility.m4
+  m4/wchar.m4
   m4/wchar_t.m4
   m4/wint_t.m4
   m4/xsize.m4
