@@ -1,0 +1,675 @@
+
+
+
+
+
+
+Network Working Group                                  Abhijit Menon-Sen
+Internet-Draft                                    Oryx Mail Systems GmbH
+Intended Status: Proposed Standard                          Chris Newman
+Expires: September 6, 2007                              Sun Microsystems
+                                                              March 2007
+
+
+       Salted Challenge Response Authentication Mechanism (SCRAM)
+                     draft-newman-auth-scram-04.txt
+
+
+Status of this Memo
+
+    By submitting this Internet-Draft, each author represents that any
+    applicable patent or other IPR claims of which he or she is aware
+    have been or will be disclosed, and any of which he or she becomes
+    aware will be disclosed, in accordance with Section 6 of BCP 79.
+
+    Internet-Drafts are working documents of the Internet Engineering
+    Task Force (IETF), its areas, and its working groups.  Note that
+    other groups may also distribute working documents as Internet-
+    Drafts.
+
+    Internet-Drafts are draft documents valid for a maximum of six
+    months and may be updated, replaced, or obsoleted by other documents
+    at any time.  It is inappropriate to use Internet-Drafts as
+    reference material or to cite them other than as "work in progress."
+
+    The list of current Internet-Drafts can be accessed at
+    http://www.ietf.org/ietf/1id-abstracts.txt. The list of Internet-
+    Draft Shadow Directories can be accessed at
+    http://www.ietf.org/shadow.html.
+
+    This Internet-Draft expires in September 2007.
+
+
+Copyright Notice
+
+    Copyright (C) The IETF Trust (2007).
+
+
+Abstract
+
+    The secure authentication mechanism most widely deployed and used by
+    Internet application protocols, is the transmission of clear-text
+    passwords over a channel protected by Transport Layer Security
+    (TLS).  There are some significant security concerns with that
+    mechanism which could be addressed by the use of a challenge
+
+
+
+Menon-Sen and Newman     Expires September 2007                 [Page 1]
+
+Internet-draft                                                March 2007
+
+
+    response authentication mechanism protected by TLS. Unfortunately,
+    the challenge response mechanisms presently on the standards track
+    all fail to meet requirements necessary for widespread deployment
+    and have had success only in limited use.
+
+    This specification describes the Salted Challenge Response
+    Authentication Mechanism (SCRAM) which addresses the deployability
+    requirements.  When used in combination with Transport Layer
+    Security or an equivalent security layer, this mechanism could
+    improve the status-quo for application protocol authentication and
+    provide a suitable choice for a mandatory-to-implement mechanism for
+    future application protocol standards.
+
+
+1.  Conventions Used in This Document
+
+    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+    document are to be interpreted as described in [RFC2119].
+
+    Formal syntax is defined by [RFC4234] including the core rules
+    defined in Appendix B of [RFC4234].
+
+    Example lines prefaced by "C:" are sent by the client and ones
+    prefaced by "S:" by the server. If a single "C:" or "S:" label
+    applies to multiple lines, then the line breaks between those lines
+    are for editorial clarity only and are not part of the actual
+    protocol exchange.
+
+
+1.1.  Terminology
+
+    This document uses several terms defined in [RFC2828] ("Internet
+    Security Glossary") including the following: authentication,
+    authentication exchange, authentication information, brute force,
+    challenge-response, cryptographic hash function, dictionary attack,
+    eavesdropping, hash result, keyed hash, man-in-the-middle, nonce,
+    one-way encryption function, password, replay attack and salt.
+    Readers not familiar with these terms should use that glossary as a
+    reference.
+
+    Some clarifications and additional definitions follow:
+
+    - Authentication information: Information used to verify an identity
+      claimed by a SCRAM client.  The authentication information for a
+      SCRAM identity consists of salt, and for each cryptographic hash
+      function supported, it includes the "StoredKey" and the
+      "ServerKey" (the latter two are defined in the algorithm
+
+
+
+Menon-Sen and Newman     Expires September 2007                 [Page 2]
+
+Internet-draft                                                March 2007
+
+
+      overview).
+
+    - Authentication database: The database used to look up the
+      authentication information associated with a particular identity.
+      For application protocols, LDAPv3 (see [RFC4510]) is frequently
+      used as the authentication database.  For network-level protocols
+      such as PPP or 802.11x, the use of RADIUS is more common.
+
+    - Base64: An encoding mechanism defined in [RFC2045] which converts
+      an octet string input to a textual output string which can be
+      easily displayed to a human. Although MIME permits arbitrary
+      insertion of whitespace and other characters, use of base64 in
+      SCRAM is restricted to the canonical form with no whitespace.
+
+    - Octet: An 8-bit byte.
+
+    - Octet string: A sequence of 8-bit bytes.
+
+    - Salt: A random octet string that is combined with a password
+      before applying a one-way encryption function.  This value is used
+      to protect passwords that are stored in an authentication
+      database.
+
+
+1.2.  Notation
+
+    The pseudocode description of the algorithm uses the following
+    notations:
+
+    - ":=": The variable on the left hand side represents the octet
+      string resulting from the expression on the right hand side.
+
+    - "+": Octet string concatenation.
+
+    - "[ ]": A portion of an expression enclosed in "[" and "]" may not
+      be included in the result under some circumstances.  See the
+      associated text for a description of those circumstances.
+
+    - HMAC(key, str): Apply the HMAC keyed hash algorithm (defined in
+      [RFC2104]) using the octet string represented by "key" as the key
+      and the octet string "str" as the input string.  The size of the
+      result is the hash result size for the hash function in use. For
+      example, it is 20 octets for SHA-1 (see [RFC3174]).
+
+    - H(str): Apply the cryptographic hash function to the octet string
+      "str", producing an octet string as a result.  The size of the
+      result depends on the hash result size for the hash function in
+      use.
+
+
+
+Menon-Sen and Newman     Expires September 2007                 [Page 3]
+
+Internet-draft                                                March 2007
+
+
+    - Hi(str): Apply the cryptographic hash function to the octet string
+      "str", then repeat the application on the output string for a
+      number of iterations equal to the integer i minus 1.
+
+    - XOR: Apply the exclusive-or operation to combine the octet string
+      on the left of this operator with the octet string on the right of
+      this operator.  The length of the output and each of the two
+      inputs will be the same for this use.
+
+
+2.  Introduction
+
+    This specification describes the Salted Challenge Response
+    Authentication Mechanism (SCRAM) which addresses the requirements
+    necessary to deploy a challenge-response mechanism more widely than
+    past attempts.  When used in combination with Transport Layer
+    Security (TLS, see [RFC4346]) or an equivalent security layer, this
+    mechanism could improve the status-quo for application protocol
+    authentication and provide a suitable choice for a mandatory-to-
+    implement mechanism for future application protocol standards.
+
+    For simplicity, this mechanism does not presently include
+    negotiation of a security layer.  It is intended to be used with an
+    external security layer such as that provided by TLS or SSH.
+
+    SCRAM provides the following protocol features:
+
+    - The authentication information stored in the authentication
+      database is not sufficient by itself to impersonate the client.
+      The information is salted to prevent a pre-stored dictionary
+      attack if the database is stolen.
+
+    - The server does not gain the ability to impersonate the client to
+      other servers (with an exception for server-authorized proxies).
+
+    - The mechanism permits the use of a server-authorized proxy without
+      requiring that proxy to have super-user rights with the back-end
+      server.
+
+    - A standard attribute is defined to enable storage of the
+      authentication information in LDAPv3 (see [RFC4510]).
+
+    - Bindings to several authentication frameworks are provided so the
+      mechanism is not limited to a small subset of protocols.
+
+    - Both the client and server can be authenticated by the protocol.
+
+    - The cryptographic hash function used to authenticate can be
+
+
+
+Menon-Sen and Newman     Expires September 2007                 [Page 4]
+
+Internet-draft                                                March 2007
+
+
+      upgraded gracefully without breaking backwards compatibility or
+      risking downgrade attacks.
+
+    For an in-depth discussion of why other challenge response
+    mechanisms are not considered sufficient, see appendix A.  For more
+    information about the motivations behind the design of this
+    mechanism, see appendix B.
+
+    Comments regarding this draft may be sent either to the ietf-
+    sasl@imc.org mailing list or to the authors.
+
+
+3.  SCRAM Algorithm Overview
+
+    Here is a psuedocode overview of the complete SCRAM algorithm:
+
+        SaltedPassword  := Hi(HMAC(password, salt))
+        ClientKey       := H(SaltedPassword)
+        StoredKey       := H(ClientKey)
+        Message         := [FirstClientMessage + "," +
+                            FirstServerMessage + "," +]
+                            FinalClientMessageExcludingP
+        ClientSignature := HMAC(StoredKey, Message)
+        ClientProof     := ClientKey XOR ClientSignature
+        ServerKey       := HMAC(SaltedPassword, salt)
+        ServerSignature := HMAC(ServerKey, Message)
+
+    The client has access to the user's password and once it gets the
+    value of the salt and the value of i from the server, it can
+    determine all of the above values.  The authentication information
+    which the server stores consists of the "salt", the "StoredKey" and
+    the "ServerKey".  The server authenticates the client by computing
+    the ClientSignature, exclusive-oring that with the ClientProof to
+    recover the ClientKey and verifying the correctness of the ClientKey
+    by applying the hash function and comparing the result to the
+    StoredKey.
+
+
+4.  SCRAM Authentication Exchange
+
+    The SCRAM protocol is a textual protocol with a comma-separated list
+    of attribute value pairs.  Each attribute has a name with one
+    letter.  An example of a simple protocol exchange follows:
+
+        C: r=ClientNonce,n=Chris Newman
+        S: r=ClientNonceServerNonce,i=128,s=PxR/wv+epq
+        C: r=ClientNonceServerNonce,
+           c=QWBv+XbwcaI/wp,p=WxPv/siO5l+qxN4
+
+
+
+Menon-Sen and Newman     Expires September 2007                 [Page 5]
+
+Internet-draft                                                March 2007
+
+
+        S: v=WxPv/siO5l+qxN4
+
+    The client sends the first message to provide the user name whose
+    password will be used, a random and unique nonce and a list of the
+    cryptographic hash functions the client supports.  The server
+    responds by appending additional randomness on the end of the nonce,
+    providing the list of hash functions it supports, and providing the
+    base64-encoded salt from that user's authentication information.
+    The client then authenticates by repeating the nonce, stating the
+    resource to which it is authenticating, an optional base64-encoded
+    channel binding (discussed later) and a proof that it has the user's
+    password.  Unless the client has choosen to skip the server
+    authentication step (discussed later), the server responds with a
+    verification proof that the server has the appropriate password
+    verifier.
+
+    A more detailed description of the protocol elements follows:
+
+    - a: This attribute can be provided in the client's first message.
+      It specifies the authorization identity. When this is omitted or
+      empty, it is presumed to be the same as the "n" attribute.  When
+      this is different from the "n" attribute, then the "n" attribute
+      specifies the user name whose password will be used for
+      authentication, while the "a" attribute specifies the user whose
+      identity will be associated with the connection subsequent to
+      successful authentication and authorization.  This is typically
+      used when an administrative user wishes to impersonate another
+      user to perform some management role for that user.  It can also
+      be used by proxies in some situations (see appendix A for more
+      information).  The syntax of this field is the same as that of the
+      "n" field with respect to quoting of '=' and ','.
+
+    - c: This base64-encoded string is the channel binding.  Whether
+      this is included and the meaning of the contents of this string
+      depends on the external security layer used with this mechanism.
+      See section XXX for more details.  If this is present, the
+      authentication MUST fail unless this value is successfully
+      verified.  In other words, if it appears when not expected then an
+      automatic authentication failure results.  This is necessary to
+      detect a man-in-the-middle attack on the security layer (see
+      security considerations for details).
+
+    - n: This is the name of the user whose password is used for
+      authentication.  In most cases, the "a" attribute is omitted and
+      this also specifies the identity which will be associated with the
+      connection subsequent to authentication and authorization.  If the
+      actual name contains the characters ',' or '=', then a quoting
+      mechanism is applied which converts these characters to '=2C' and
+
+
+
+Menon-Sen and Newman     Expires September 2007                 [Page 6]
+
+Internet-draft                                                March 2007
+
+
+      '=3D' respectively.  If the server receives a name string which
+      contains '=' not followed by either '2C' or '3D', then the server
+      MUST fail the authentication.
+
+    - p: This base64-encoded string provides the client's proof of
+      authentication.  This is the last attribute in the message.  See
+      the algorithm overview for the computation.
+
+    - r: This is a sequence of random printable characters excluding ','
+      which forms the nonce used as input to the hash function. No
+      quoting is applied to this string (unless the binding of SCRAM to
+      a particular protocol states otherwise).  The client provides the
+      first part of the string and the server provides the second part.
+      It is important that this be different for each authentication and
+      it is important that the client verifies the first part of this
+      string used in all messages was provided by the client.
+
+    - s: This is a base64-encoded string which represents the salt used
+      by the server for this user.
+
+    - v: This is used to verify the server has access to the user's
+      authentication information.  If the client supplies the "v"
+      attribute with an empty value in the message with a "p", that
+      indicates the client does not want the server to provide
+      verification.  When the server includes this in the final message,
+      it is always the last attribute in the message.  See the next
+      section for the computation.
+
+
+5.  Security Considerations
+
+    If the authentication exchange is performed without a strong
+    security layer, then a passive eavesdropper can gain sufficient
+    information to mount an offline dictionary or brute-force attack
+    which can be used to recover the user's password.  The amount of
+    time necessary for this attack depends on the cryptographic hash
+    function selected, the strength of the password and the iteration
+    count supplied by the server.  An external security layer with
+    strong encryption will prevent this attack.
+
+    If the external security layer used to protect the SCRAM exchange
+    uses an anonymous key exchange, then the SCRAM channel binding
+    mechanism can be used to detect a man-in-the-middle attack on the
+    security layer and cause the authentication to fail as a result.
+    However, the man-in-the-middle attacker will have gained sufficient
+    information to mount an offline dictionary or brute-force attack.
+    For this reason, SCRAM includes the ability to increase the
+    iteration count over time.
+
+
+
+Menon-Sen and Newman     Expires September 2007                 [Page 7]
+
+Internet-draft                                                March 2007
+
+
+    If the authentication information is stolen from the authentication
+    database, then an offline dictionary or brute-force attack can be
+    used to recover the user's password.  The use of salt mitigates this
+    attack somewhat by requiring a separate attack on each password.
+    Authentication mechanisms which protect against this attack are
+    available (e.g., the EKE class of mechanisms), but the patent
+    situation is presently unclear.
+
+    If an attacker obtains the authentication information from the
+    authentication repository and eavesdrops on one authentication
+    exchange, the attacker gains the ability to impersonate that user to
+    all servers providing SCRAM access using the same password and salt.
+
+
+6.  IANA considerations
+
+    (Hash function names registry, SASL mechanism registration.)
+
+
+
+7. Acknowedgements
+
+    (Frank Ellermann already?)
+
+
+8. Normative References
+
+    [RFC2045]  Freed, Borenstein, "Multipurpose Internet Mail Extensions
+               (MIME) Part One: Format of Internet Message Bodies", RFC
+               2045, Innosoft, November 1996.
+
+    [RFC2104]  Krawczyk, Bellare, Canetti, "HMAC: Keyed-Hashing for
+               Message Authentication", IBM, February 1997.
+
+    [RFC2119]  Bradner, "Key words for use in RFCs to Indicate
+               pRequirement Levels", RFC 2119, Harvard University, March
+               1997.
+
+    [RFC3174]  Eastlake, Jones, "US Secure Hash Algorithm 1 (SHA1)", RFC
+               3174, Motorola, September 2001
+
+    [RFC3986]  Berners-Lee, Fielding, Masinter, "Uniform Resource
+               Identifier (URI): Generic Syntax", RFC 3986, W3C/MIT,
+               January 2005.
+
+    [RFC4234]  Crocker, Overell, "Augmented BNF for Syntax
+               Specifications: ABNF", RFC 4234, Brandenburg
+               Internetworking, Demon Internet Ltd, October 2005.
+
+
+
+Menon-Sen and Newman     Expires September 2007                 [Page 8]
+
+Internet-draft                                                March 2007
+
+
+    [RFC4346]  Dierks, Rescorla, "The Transport Layer Security (TLS)
+               Protocol, Version 1.1", RFC 4346, Brandenburg
+               Internetworking, April 2006.
+
+    [RFC4422]  Melnikov, Zeilenga, "Simple Authentication and Security
+               Layer (SASL)", RFC 4422, Isode Limited, June 2006.
+
+
+9. Informative References
+
+    [RFC1939]  Myers, Rose, "Post Office Protocol - Version 3", RFC
+               1939, Carnegie Mellon, May 1996.
+
+    [RFC2195]  Klensin, Catoe, Krumviede, "IMAP/POP AUTHorize Extension
+               for Simple Challenge/Response", RFC 2195, MCI, September
+               1997.
+
+    [RFC2202]  Cheng, Glenn, "Test Cases for HMAC-MD5 and HMAC-SHA-1",
+               RFC 2202, IBM, September 1997
+
+    [RFC2289]  Haller, Metz, Nesser, Straw, "A One-Time Password
+               System", RFC 2289, STD0061, February 1998.
+
+    [RFC2828]  Shirey, "Internet Security Glossary", RFC 2828, FYI 0036,
+               May 2000.
+
+    [RFC4086]  Eastlake, Schiller, Crocker, "Randomness Requirements for
+               Security", RFC 4086, BCP 0106, Motorola Laboratories,
+               June 2005.
+
+    [RFC4120]  Neuman, Yo, Hartman, Raebun, "The Kerberos Network
+               Authentication Service (V5)", RFC 4120, USC-ISI, July
+               2005.
+
+    [RFC4510]  Zeilenga, "Lightweight Directory Access Protocol (LDAP):
+               Technical Specification Road Map", RFC 4510, June 2006.
+
+    [DIGEST-MD5] Melnikov, "Using Digest Authentication as a SASL
+               Mechanism", draft-ietf-sasl-rfc2831bis-11.txt, Isode
+               Ltd., November 2006
+
+
+10. Authors' Addresses
+
+    Abhijit Menon-Sen
+    Oryx Mail Systems GmbH
+
+    Email: ams@oryx.com
+
+
+
+Menon-Sen and Newman     Expires September 2007                 [Page 9]
+
+Internet-draft                                                March 2007
+
+
+    Chris Newman
+    Sun Microsystems
+    1050 Lakes Drive
+    West Covina, CA  91790
+    USA
+
+    Email: chris.newman@sun.com
+
+
+Appendix A: Other Authentication Mechanisms
+
+    (To be written.)
+
+
+
+Appendix B: Design Motivations
+
+    (To be written.)
+
+
+Appendix C: SCRAM Examples
+
+    (To be written.)
+
+
+Appendix D: SCRAM Interoperability Testing
+
+    (To be written.)
+
+
+Intellectual Property Statement
+
+    The IETF takes no position regarding the validity or scope of any
+    Intellectual Property Rights or other rights that might be claimed
+    to pertain to the implementation or use of the technology described
+    in this document or the extent to which any license under such
+    rights might or might not be available; nor does it represent that
+    it has made any independent effort to identify any such rights.
+    Information on the procedures with respect to rights in RFC
+    documents can be found in BCP 78 and BCP 79.
+
+    Copies of IPR disclosures made to the IETF Secretariat and any
+    assurances of licenses to be made available, or the result of an
+    attempt made to obtain a general license or permission for the use
+    of such proprietary rights by implementers or users of this
+    specification can be obtained from the IETF on-line IPR repository
+    at http://www.ietf.org/ipr.
+
+
+
+
+Menon-Sen and Newman     Expires September 2007                [Page 10]
+
+Internet-draft                                                March 2007
+
+
+    The IETF invites any interested party to bring to its attention any
+    copyrights, patents or patent applications, or other proprietary
+    rights that may cover technology that may be required to implement
+    this standard.  Please address the information to the IETF at ietf-
+    ipr@ietf.org.
+
+
+Full Copyright Statement
+
+    Copyright (C) The IETF Trust (2007).  This document is subject to
+    the rights, licenses and restrictions contained in BCP 78, and
+    except as set forth therein, the authors retain all their rights.
+
+    This document and the information contained herein are provided on
+    an "AS IS" basis and THE CONTRIBUTOR, THE ORGANIZATION HE/SHE
+    REPRESENTS OR IS SPONSORED BY (IF ANY), THE INTERNET SOCIETY, THE
+    IETF TRUST AND THE INTERNET ENGINEERING TASK FORCE DISCLAIM ALL
+    WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY
+    WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE
+    ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS
+    FOR A PARTICULAR PURPOSE.
+
+
+Acknowledgment
+
+    Funding for the RFC Editor function is currently provided by the
+    Internet Society.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Menon-Sen and Newman     Expires September 2007                [Page 11]
+
+Internet-draft                                                March 2007
+
+
+          (RFC Editor: Please delete everything after this point)
+
+
+Open Issues
+
+    Appendixes A, B and C need to be written.
+
+    D too, and the framework implemented.
+
+    Should the title include the acronym SASL to help the greppers?
+
+
+Changes since -03
+
+    - Seven years have passed, in which it became clear that DIGEST-MD5
+      suffered from unacceptably bad interoperability, so SCRAM-MD5 is
+      now bad from the dead.
+
+    - Be hash agnostic, so MD5 can be replaced more easily
+
+    - General simplification.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Menon-Sen and Newman     Expires September 2007                [Page 12]
+
