@@ -1,5 +1,5 @@
 /* internal.h	internal header file for gsasl
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -55,7 +55,6 @@
 #include <gsasl.h>
 
 /* Gnulib. */
-#include "strdup.h"
 #include "progname.h"
 #include "error.h"
 #include "getpass.h"
