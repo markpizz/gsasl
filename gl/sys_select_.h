@@ -1,5 +1,5 @@
-/* strdup.h -- duplicate a string
-   Copyright (C) 2004, 2006 Free Software Foundation, Inc.
+/* Substitute for <sys/select.h>.
+   Copyright (C) 2007 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,25 +15,23 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifndef STRDUP_H_
-#define STRDUP_H_
+#ifndef _GL_SYS_SELECT_H
+#define _GL_SYS_SELECT_H
 
-/* Get strdup declaration, if available.  */
-#include <string.h>
+#if @HAVE_SYS_SELECT_H@
 
-#ifdef __cplusplus
-extern "C" {
+/* On many platforms, <sys/select.h> assumes prior inclusion of
+   <sys/types.h>.  */
+
+# include <sys/types.h>
+# include @ABSOLUTE_SYS_SELECT_H@
+
+#else
+
+/* A platform that lacks <sys/select.h>.  */
+
+# include <sys/socket.h>
+
 #endif
 
-
-#if defined HAVE_DECL_STRDUP && !HAVE_DECL_STRDUP && !defined strdup
-/* Duplicate S, returning an identical malloc'd string.  */
-extern char *strdup (const char *s);
-#endif
-
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* STRDUP_H_ */
+#endif /* _GL_SYS_SELECT_H */

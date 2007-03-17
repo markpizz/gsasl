@@ -26,6 +26,7 @@ AC_DEFUN([gl_EARLY],
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([AC_PROG_RANLIB])
   AC_REQUIRE([AC_GNU_SOURCE])
+  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
 ])
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -40,6 +41,7 @@ AC_DEFUN([gl_INIT],
   gl_source_base='gl'
   gl_FUNC_ALLOCA
   gl_HEADER_ARPA_INET
+  AC_PROG_MKDIR_P
   gl_ERROR
   gl_EXITFAIL
   gl_GETADDRINFO
@@ -56,19 +58,25 @@ AC_DEFUN([gl_INIT],
   gl_INET_NTOP
   gl_INLINE
   gl_HEADER_NETINET_IN
+  AC_PROG_MKDIR_P
   gl_QUOTE
   gl_QUOTEARG
   gl_FUNC_READLINE
   gl_SIZE_MAX
   gl_FUNC_SNPRINTF
+  gl_STDIO_MODULE_INDICATOR([snprintf])
   gl_TYPE_SOCKLEN_T
   AM_STDBOOL_H
+  gl_STDIO_H
+  gl_STDLIB_H
   gl_FUNC_STRDUP
+  gl_STRING_MODULE_INDICATOR([strdup])
+  gl_HEADER_STRING_H
   gl_HEADER_SYS_SELECT
   AC_PROG_MKDIR_P
   gl_HEADER_SYS_SOCKET
   AC_PROG_MKDIR_P
-  gl_HEADER_UNISTD
+  gl_UNISTD_H
   gl_FUNC_VASNPRINTF
   gl_WCHAR_H
   gl_WCTYPE_H
@@ -114,6 +122,7 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/GNUmakefile
   build-aux/config.rpath
   build-aux/gendocs.sh
+  build-aux/link-warning.h
   build-aux/maint.mk
   doc/fdl.texi
   doc/gendocs_template
@@ -123,7 +132,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/asnprintf.c
   lib/error.c
   lib/error.h
-  lib/exit.h
   lib/exitfail.c
   lib/exitfail.h
   lib/gai_strerror.c
@@ -144,6 +152,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/iconvme.h
   lib/inet_ntop.c
   lib/inet_ntop.h
+  lib/netinet_in_.h
   lib/printf-args.c
   lib/printf-args.h
   lib/printf-parse.c
@@ -158,11 +167,13 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/readline.h
   lib/size_max.h
   lib/snprintf.c
-  lib/snprintf.h
   lib/socket_.h
   lib/stdbool_.h
+  lib/stdio_.h
+  lib/stdlib_.h
   lib/strdup.c
-  lib/strdup.h
+  lib/string_.h
+  lib/sys_select_.h
   lib/unistd_.h
   lib/vasnprintf.c
   lib/vasnprintf.h
@@ -178,6 +189,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/eoverflow.m4
   m4/error.m4
   m4/exitfail.m4
+  m4/extensions.m4
   m4/getaddrinfo.m4
   m4/getdelim.m4
   m4/getline.m4
@@ -208,7 +220,10 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sockpfaf.m4
   m4/stdbool.m4
   m4/stdint_h.m4
+  m4/stdio_h.m4
+  m4/stdlib_h.m4
   m4/strdup.m4
+  m4/string_h.m4
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
   m4/unistd_h.m4
