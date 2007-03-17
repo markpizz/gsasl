@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=. --lgpl --libtool --macro-prefix=gl base64 gc gc-hmac-md5 gc-hmac-md5-tests gc-md5 gc-md5-tests gc-random gc-tests getline gettext maintainer-makefile strdup strverscmp vasprintf
+#   gnulib-tool --import --dir=. --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=build-aux --lgpl --libtool --macro-prefix=gl base64 gc gc-hmac-md5 gc-hmac-md5-tests gc-md5 gc-md5-tests gc-random gc-tests getline gettext maintainer-makefile strdup strverscmp vasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])

@@ -26,7 +26,7 @@ AC_DEFUN([gl_EARLY],
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([AC_PROG_RANLIB])
   AC_REQUIRE([AC_GNU_SOURCE])
-  AC_REQUIRE([gl_LOCK_EARLY])
+  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
 ])
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -55,11 +55,14 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_GETDELIM
   gl_FUNC_GETLINE
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
-  AM_GNU_GETTEXT_VERSION([0.15])
+  AM_GNU_GETTEXT_VERSION([0.16.1])
   gl_SIZE_MAX
   AM_STDBOOL_H
   gl_STDINT_H
+  gl_STDIO_H
   gl_FUNC_STRDUP
+  gl_STRING_MODULE_INDICATOR([strdup])
+  gl_HEADER_STRING_H
   gl_FUNC_STRVERSCMP
   gl_FUNC_VASNPRINTF
   gl_FUNC_VASPRINTF
@@ -104,6 +107,7 @@ AC_DEFUN([gl_LIBSOURCES],
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/GNUmakefile
   build-aux/config.rpath
+  build-aux/link-warning.h
   build-aux/maint.mk
   lib/alloca_.h
   lib/asnprintf.c
@@ -131,14 +135,14 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/size_max.h
   lib/stdbool_.h
   lib/stdint_.h
+  lib/stdio_.h
   lib/strdup.c
-  lib/strdup.h
+  lib/string_.h
   lib/strverscmp.c
   lib/strverscmp.h
   lib/vasnprintf.c
   lib/vasnprintf.h
   lib/vasprintf.c
-  lib/vasprintf.h
   lib/wchar_.h
   lib/xsize.h
   m4/absolute-header.m4
@@ -146,6 +150,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/base64.m4
   m4/codeset.m4
   m4/eoverflow.m4
+  m4/extensions.m4
   m4/gc-hmac-md5.m4
   m4/gc-md5.m4
   m4/gc-random.m4
@@ -175,7 +180,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/md5.m4
   m4/memxor.m4
   m4/nls.m4
-  m4/onceonly_2_57.m4
   m4/po.m4
   m4/printf-posix.m4
   m4/progtest.m4
@@ -183,7 +187,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdbool.m4
   m4/stdint.m4
   m4/stdint_h.m4
+  m4/stdio_h.m4
   m4/strdup.m4
+  m4/string_h.m4
   m4/strverscmp.m4
   m4/uintmax_t.m4
   m4/ulonglong.m4
