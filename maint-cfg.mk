@@ -25,6 +25,7 @@ endif
 autoreconf:
 	test -f ./configure || autoreconf --install
 	mv build-aux/config.rpath{-,}
+	mv lib/build-aux/config.rpath{-,}
 
 bootstrap: autoreconf
 	./configure $(CFGFLAGS)

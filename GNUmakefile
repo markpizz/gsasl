@@ -4,6 +4,7 @@ gnulib.mk:
 	ln -s build-aux/GNUmakefile gnulib.mk || cp build-aux/GNUmakefile gnulib.mk
 	ln -s build-aux/maint.mk maint.mk || cp build-aux/maint.mk maint.mk
 	mv build-aux/config.rpath{,-}
+	mv lib/build-aux/config.rpath{,-}
 endif
 
 -include gnulib.mk
