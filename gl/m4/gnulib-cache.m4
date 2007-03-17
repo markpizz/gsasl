@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=. --libtool --macro-prefix=gl error exit fdl gendocs getaddrinfo getopt getpass gpl iconvme lgpl maintainer-makefile progname quote readline strdup sys_select unistd
+#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=build-aux --libtool --macro-prefix=gl error exit fdl gendocs getaddrinfo getopt getpass gpl iconvme lgpl maintainer-makefile progname quote readline strdup sys_select unistd
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
