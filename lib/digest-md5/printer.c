@@ -1,5 +1,5 @@
 /* printer.h --- Convert DIGEST-MD5 token structures into strings.
- * Copyright (C) 2004  Simon Josefsson
+ * Copyright (C) 2004, 2007  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -31,7 +31,7 @@
 #include <stdlib.h>
 
 /* Get asprintf. */
-#include <vasprintf.h>
+#include <stdio.h>
 
 /* Get token validator. */
 #include "validate.h"
