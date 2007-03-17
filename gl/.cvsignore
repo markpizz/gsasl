@@ -7,3 +7,7 @@ Makefile.in
 alloca.h
 getopt.h
 sys
+stdio.h
+stdlib.h
+string.h
+unistd.h
