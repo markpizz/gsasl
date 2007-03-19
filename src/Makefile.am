@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2007 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -17,7 +17,8 @@
 # along with GNU SASL; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-AM_CPPFLAGS = -I$(top_srcdir)/gl -I../lib/src -I$(top_srcdir)/lib/src
+AM_CPPFLAGS = -I$(top_srcdir)/gl -I$(top_builddir)/gl \
+	 -I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src
 
 bin_PROGRAMS = gsasl
 
