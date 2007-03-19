@@ -1,15 +1,14 @@
 GNU SASL NEWS -- History of user-visible changes.
-Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson
+Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson
 See the end for copying conditions.
 
 Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
-* Version 0.3.0 (unreleased)
+* Version 0.2.16 (unreleased)
 
-** Support for the GS2 mechanism.
-See lib/NEWS for the details.  It is disabled by default.
+** Update of gnulib files.
 
 * Version 0.2.15 (released 2006-08-22)
 
