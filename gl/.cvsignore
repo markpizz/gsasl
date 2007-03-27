@@ -13,3 +13,10 @@ string.h
 unistd.h
 float+.h
 stdint_.h
+c-ctype.c
+c-ctype.h
+c-strcase.h
+c-strcasecmp.c
+c-strncasecmp.c
+striconv.c
+striconv.h

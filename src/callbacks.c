@@ -1,5 +1,5 @@
 /* callbacks.c --- Implementation of gsasl callbacks.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -22,7 +22,7 @@
 #include "internal.h"
 #include "callbacks.h"
 
-#include "iconvme.h"
+#include "striconv.h"
 #include "readline.h"
 
 static char *
@@ -32,7 +32,7 @@ locale_to_utf8 (char *str)
   if (str)
     {
       char *from = nl_langinfo (CODESET);
-      char *q = iconv_string (str, from, "UTF-8");
+      char *q = str_iconv (str, from, "UTF-8");
       if (!q)
 	fprintf (stderr, "warning: Could not convert string to UTF-8...\n");
       else

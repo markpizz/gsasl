@@ -49,6 +49,7 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_GETLINE
   gl_GETOPT
   gl_FUNC_GETPASS
+  AM_ICONV
   gl_INET_NTOP
   gl_INLINE
   gl_HEADER_NETINET_IN
@@ -66,6 +67,10 @@ AC_DEFUN([gl_INIT],
   gl_STDLIB_H
   gl_FUNC_STRDUP
   gl_STRING_MODULE_INDICATOR([strdup])
+  if test $gl_cond_libtool = false; then
+    gl_ltlibdeps="$gl_ltlibdeps $LTLIBICONV"
+    gl_libdeps="$gl_libdeps $LIBICONV"
+  fi
   gl_HEADER_STRING_H
   gl_HEADER_SYS_SELECT
   AC_PROG_MKDIR_P
@@ -125,6 +130,11 @@ AC_DEFUN([gl_FILE_LIST], [
   doc/lgpl.texi
   lib/alloca_.h
   lib/asnprintf.c
+  lib/c-ctype.c
+  lib/c-ctype.h
+  lib/c-strcase.h
+  lib/c-strcasecmp.c
+  lib/c-strncasecmp.c
   lib/error.c
   lib/error.h
   lib/exitfail.c
@@ -167,6 +177,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdio_.h
   lib/stdlib_.h
   lib/strdup.c
+  lib/striconv.c
+  lib/striconv.h
   lib/string_.h
   lib/sys_select_.h
   lib/unistd_.h
@@ -191,6 +203,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getopt.m4
   m4/getpass.m4
   m4/gnulib-common.m4
+  m4/iconv.m4
   m4/inet_ntop.m4
   m4/inline.m4
   m4/intmax_t.m4
