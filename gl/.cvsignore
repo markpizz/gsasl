@@ -20,3 +20,4 @@ c-strcasecmp.c
 c-strncasecmp.c
 striconv.c
 striconv.h
+stdint.h

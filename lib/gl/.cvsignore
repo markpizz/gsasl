@@ -7,3 +7,5 @@ stdint.h
 *.lo
 *.la
 float+.h
+stdio.h
+string.h
