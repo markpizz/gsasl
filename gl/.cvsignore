@@ -11,3 +11,5 @@ stdio.h
 stdlib.h
 string.h
 unistd.h
+float+.h
+stdint_.h
