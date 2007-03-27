@@ -114,6 +114,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/asprintf.c
   lib/base64.c
   lib/base64.h
+  lib/float+.h
   lib/gc-gnulib.c
   lib/gc-libgcrypt.c
   lib/gc.h

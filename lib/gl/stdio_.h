@@ -188,7 +188,7 @@ extern int vsprintf (char *str, const char *format, va_list args)
 #  define asprintf rpl_asprintf
 #  define vasprintf rpl_vasprintf
 # endif
-# if @REPLACE_VASPRINTF@ || !@HAVE_DECL_VASPRINTF@
+# if @REPLACE_VASPRINTF@ || !@HAVE_VASPRINTF@
   /* Write formatted output to a string dynamically allocated with malloc().
      If the memory allocation succeeds, store the address of the string in
      *RESULT and return the number of resulting bytes, excluding the trailing

@@ -49,12 +49,6 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_GETLINE
   gl_GETOPT
   gl_FUNC_GETPASS
-  AM_ICONV
-  gl_ICONVME
-  if test $gl_cond_libtool = false; then
-    gl_ltlibdeps="$gl_ltlibdeps $LTLIBICONV"
-    gl_libdeps="$gl_libdeps $LIBICONV"
-  fi
   gl_INET_NTOP
   gl_INLINE
   gl_HEADER_NETINET_IN
@@ -67,6 +61,7 @@ AC_DEFUN([gl_INIT],
   gl_STDIO_MODULE_INDICATOR([snprintf])
   gl_TYPE_SOCKLEN_T
   AM_STDBOOL_H
+  gl_STDINT_H
   gl_STDIO_H
   gl_STDLIB_H
   gl_FUNC_STRDUP
@@ -134,6 +129,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/error.h
   lib/exitfail.c
   lib/exitfail.h
+  lib/float+.h
   lib/gai_strerror.c
   lib/getaddrinfo.c
   lib/getaddrinfo.h
@@ -148,8 +144,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getpass.c
   lib/getpass.h
   lib/gettext.h
-  lib/iconvme.c
-  lib/iconvme.h
   lib/inet_ntop.c
   lib/inet_ntop.h
   lib/netinet_in_.h
@@ -169,6 +163,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/snprintf.c
   lib/socket_.h
   lib/stdbool_.h
+  lib/stdint_.h
   lib/stdio_.h
   lib/stdlib_.h
   lib/strdup.c
@@ -196,8 +191,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getopt.m4
   m4/getpass.m4
   m4/gnulib-common.m4
-  m4/iconv.m4
-  m4/iconvme.m4
   m4/inet_ntop.m4
   m4/inline.m4
   m4/intmax_t.m4
@@ -218,6 +211,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/socklen.m4
   m4/sockpfaf.m4
   m4/stdbool.m4
+  m4/stdint.m4
   m4/stdint_h.m4
   m4/stdio_h.m4
   m4/stdlib_h.m4
@@ -225,6 +219,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/string_h.m4
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
+  m4/ulonglong.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
   m4/wchar.m4

@@ -6,3 +6,4 @@ alloca.h
 stdint.h
 *.lo
 *.la
+float+.h
