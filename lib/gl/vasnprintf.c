@@ -54,14 +54,12 @@
 #include "xsize.h"
 
 #if NEED_PRINTF_DIRECTIVE_A && !defined IN_LIBINTL
-# include "float+.h"
+# include <math.h>
 # include "isnan.h"
 # include "printf-frexp.h"
-# if HAVE_LONG_DOUBLE
-#  include "isnanl-nolibm.h"
-#  include "printf-frexpl.h"
-#  include "fpucw.h"
-# endif
+# include "isnanl-nolibm.h"
+# include "printf-frexpl.h"
+# include "fpucw.h"
 #endif
 
 /* Some systems, like OSF/1 4.0 and Woe32, don't have EOVERFLOW.  */
@@ -126,6 +124,33 @@ local_wcslen (const wchar_t *s)
 #endif
 /* Here we need to call the native sprintf, not rpl_sprintf.  */
 #undef sprintf
+
+#if NEED_PRINTF_DIRECTIVE_A && !defined IN_LIBINTL
+/* Determine the decimal-point character according to the current locale.  */
+# ifndef decimal_point_char_defined
+#  define decimal_point_char_defined 1
+static char
+decimal_point_char ()
+{
+  const char *point;
+  /* Determine it in a multithread-safe way.  We know nl_langinfo is
+     multithread-safe on glibc systems, but is not required to be multithread-
+     safe by POSIX.  sprintf(), however, is multithread-safe.  localeconv()
+     is rarely multithread-safe.  */
+#  if HAVE_NL_LANGINFO && __GLIBC__
+  point = nl_langinfo (RADIXCHAR);
+#  elif 1
+  char pointbuf[5];
+  sprintf (pointbuf, "%#.0f", 1.0);
+  point = &pointbuf[1];
+#  else
+  point = localeconv () -> decimal_point;
+#  endif
+  /* The decimal point is always a single byte: either '.' or ','.  */
+  return (point[0] != '\0' ? point[0] : '.');
+}
+# endif
+#endif
 
 CHAR_T *
 VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list args)
@@ -359,7 +384,6 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 		  }
 
 		/* Allocate a temporary buffer of sufficient size.  */
-# if HAVE_LONG_DOUBLE
 		if (type == TYPE_LONGDOUBLE)
 		  tmp_length =
 		    (unsigned int) ((LDBL_DIG + 1)
@@ -367,7 +391,6 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 				   )
 		    + 1; /* turn floor into ceil */
 		else
-# endif
 		  tmp_length =
 		    (unsigned int) ((DBL_DIG + 1)
 				    * 0.831 /* decimal -> hexadecimal */
@@ -400,7 +423,6 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 
 		pad_ptr = NULL;
 		p = tmp;
-# if HAVE_LONG_DOUBLE
 		if (type == TYPE_LONGDOUBLE)
 		  {
 		    long double arg = a.arg[dp->arg_index].a.a_longdouble;
@@ -423,21 +445,10 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 
 			BEGIN_LONG_DOUBLE_ROUNDING ();
 
-			if (arg < 0.0L)
+			if (signbit (arg)) /* arg < 0.0L or negative zero */
 			  {
 			    sign = -1;
 			    arg = -arg;
-			  }
-			else if (arg == 0.0L)
-			  {
-			    /* Distinguish 0.0L and -0.0L.  */
-			    static long double plus_zero = 0.0L;
-			    long double arg_mem = arg;
-			    if (memcmp (&plus_zero, &arg_mem, SIZEOF_LDBL) != 0)
-			      {
-				sign = -1;
-				arg = -arg;
-			      }
 			  }
 
 			if (sign < 0)
@@ -510,18 +521,7 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 			      if ((flags & FLAG_ALT)
 				  || mantissa > 0.0L || precision > 0)
 				{
-				  const char *point;
-				  /* Prefer nl_langinfo() over localeconv(),
-				     since the latter is not multithread-
-				     safe.  */
-#  if HAVE_NL_LANGINFO
-				  point = nl_langinfo (RADIXCHAR);
-#  else
-				  point = localeconv () -> decimal_point;
-#  endif
-				  /* The decimal point is always a single byte:
-				     either '.' or ','.  */
-				  *p++ = (point[0] != '\0' ? point[0] : '.');
+				  *p++ = decimal_point_char ();
 				  /* This loop terminates because we assume
 				     that FLT_RADIX is a power of 2.  */
 				  while (mantissa > 0.0L)
@@ -544,15 +544,15 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 				}
 			      }
 			      *p++ = dp->conversion - 'A' + 'P';
-#  if WIDE_CHAR_VERSION
+# if WIDE_CHAR_VERSION
 			      {
 				static const wchar_t decimal_format[] =
 				  { '%', '+', 'd', '\0' };
 				SNPRINTF (p, 6 + 1, decimal_format, exponent);
 			      }
-#  else
+# else
 			      sprintf (p, "%+d", exponent);
-#  endif
+# endif
 			      while (*p != '\0')
 				p++;
 			  }
@@ -561,7 +561,6 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 		      }
 		  }
 		else
-# endif
 		  {
 		    double arg = a.arg[dp->arg_index].a.a_double;
 
@@ -580,21 +579,10 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 		      {
 			int sign = 0;
 
-			if (arg < 0.0)
+			if (signbit (arg)) /* arg < 0.0 or negative zero */
 			  {
 			    sign = -1;
 			    arg = -arg;
-			  }
-			else if (arg == 0.0)
-			  {
-			    /* Distinguish 0.0 and -0.0.  */
-			    static double plus_zero = 0.0;
-			    double arg_mem = arg;
-			    if (memcmp (&plus_zero, &arg_mem, SIZEOF_DBL) != 0)
-			      {
-				sign = -1;
-				arg = -arg;
-			      }
 			  }
 
 			if (sign < 0)
@@ -667,18 +655,7 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 			      if ((flags & FLAG_ALT)
 				  || mantissa > 0.0 || precision > 0)
 				{
-				  const char *point;
-				  /* Prefer nl_langinfo() over localeconv(),
-				     since the latter is not multithread-
-				     safe.  */
-#  if HAVE_NL_LANGINFO
-				  point = nl_langinfo (RADIXCHAR);
-#  else
-				  point = localeconv () -> decimal_point;
-#  endif
-				  /* The decimal point is always a single byte:
-				     either '.' or ','.  */
-				  *p++ = (point[0] != '\0' ? point[0] : '.');
+				  *p++ = decimal_point_char ();
 				  /* This loop terminates because we assume
 				     that FLT_RADIX is a power of 2.  */
 				  while (mantissa > 0.0)
@@ -927,7 +904,6 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 		      break;
 
 		    case 'f': case 'F':
-# if HAVE_LONG_DOUBLE
 		      if (type == TYPE_LONGDOUBLE)
 			tmp_length =
 			  (unsigned int) (LDBL_MAX_EXP
@@ -937,7 +913,6 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 			  + 1 /* turn floor into ceil */
 			  + 10; /* sign, decimal point etc. */
 		      else
-# endif
 			tmp_length =
 			  (unsigned int) (DBL_MAX_EXP
 					  * 0.30103 /* binary -> decimal */
@@ -955,7 +930,6 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 		      break;
 
 		    case 'a': case 'A':
-# if HAVE_LONG_DOUBLE
 		      if (type == TYPE_LONGDOUBLE)
 			tmp_length =
 			  (unsigned int) (LDBL_DIG
@@ -963,7 +937,6 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 					 )
 			  + 1; /* turn floor into ceil */
 		      else
-# endif
 			tmp_length =
 			  (unsigned int) (DBL_DIG
 					  * 0.831 /* decimal -> hexadecimal */
@@ -1082,15 +1055,18 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 #endif
 		    *p++ = 'l';
 		    break;
-#if HAVE_LONG_DOUBLE
 		  case TYPE_LONGDOUBLE:
 		    *p++ = 'L';
 		    break;
-#endif
 		  default:
 		    break;
 		  }
-		*p = dp->conversion;
+#if NEED_PRINTF_DIRECTIVE_F
+		if (dp->conversion == 'F')
+		  *p = 'f';
+		else
+#endif
+		  *p = dp->conversion;
 #if USE_SNPRINTF
 		p[1] = '%';
 		p[2] = 'n';
@@ -1243,14 +1219,12 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 			  SNPRINTF_BUF (arg);
 			}
 			break;
-#if HAVE_LONG_DOUBLE
 		      case TYPE_LONGDOUBLE:
 			{
 			  long double arg = a.arg[dp->arg_index].a.a_longdouble;
 			  SNPRINTF_BUF (arg);
 			}
 			break;
-#endif
 		      case TYPE_CHAR:
 			{
 			  int arg = a.arg[dp->arg_index].a.a_char;
@@ -1377,6 +1351,18 @@ VASNPRINTF (CHAR_T *resultbuf, size_t *lengthp, const CHAR_T *format, va_list ar
 		    memcpy (result + length, tmp, count * sizeof (CHAR_T));
 		    if (tmp != tmpbuf)
 		      free (tmp);
+#endif
+
+#if NEED_PRINTF_DIRECTIVE_F
+		    if (dp->conversion == 'F')
+		      {
+			/* Convert the %f result to upper case for %F.  */
+			CHAR_T *rp = result + length;
+			size_t rc;
+			for (rc = count; rc > 0; rc--, rp++)
+			  if (*rp >= 'a' && *rp <= 'z')
+			    *rp = *rp - 'a' + 'A';
+		      }
 #endif
 
 		    length += count;

@@ -161,6 +161,46 @@ libgl_la_SOURCES += gettext.h
 
 ## end   gnulib module gettext-h
 
+## begin gnulib module iconv_open
+
+BUILT_SOURCES += $(ICONV_H)
+
+# We need the following in order to create <iconv.h> when the system
+# doesn't have one that works with the given compiler.
+iconv.h: iconv_.h
+	rm -f $@-t $@
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+	  sed -e 's|@''ABSOLUTE_ICONV_H''@|$(ABSOLUTE_ICONV_H)|g' \
+	      -e 's|@''REPLACE_ICONV_OPEN''@|$(REPLACE_ICONV_OPEN)|g' \
+	      < $(srcdir)/iconv_.h; \
+	} > $@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += iconv.h iconv.h-t
+
+GPERF = gperf
+iconv_open-aix.h: iconv_open-aix.gperf
+	$(GPERF) -m 10 $(srcdir)/iconv_open-aix.gperf > $@-t
+	mv $@-t $@
+iconv_open-hpux.h: iconv_open-hpux.gperf
+	$(GPERF) -m 10 $(srcdir)/iconv_open-hpux.gperf > $@-t
+	mv $@-t $@
+iconv_open-irix.h: iconv_open-irix.gperf
+	$(GPERF) -m 10 $(srcdir)/iconv_open-irix.gperf > $@-t
+	mv $@-t $@
+iconv_open-osf.h: iconv_open-osf.gperf
+	$(GPERF) -m 10 $(srcdir)/iconv_open-osf.gperf > $@-t
+	mv $@-t $@
+BUILT_SOURCES        += iconv_open-aix.h iconv_open-hpux.h iconv_open-irix.h iconv_open-osf.h
+MOSTLYCLEANFILES     += iconv_open-aix.h-t iconv_open-hpux.h-t iconv_open-irix.h-t iconv_open-osf.h-t
+MAINTAINERCLEANFILES += iconv_open-aix.h iconv_open-hpux.h iconv_open-irix.h iconv_open-osf.h
+EXTRA_DIST           += iconv_open-aix.h iconv_open-hpux.h iconv_open-irix.h iconv_open-osf.h
+
+EXTRA_DIST += iconv_.h iconv_open-aix.gperf iconv_open-hpux.gperf iconv_open-irix.gperf iconv_open-osf.gperf iconv_open.c
+
+EXTRA_libgl_la_SOURCES += iconv_open.c
+
+## end   gnulib module iconv_open
+
 ## begin gnulib module inet_ntop
 
 
@@ -322,6 +362,7 @@ stdio.h: stdio_.h
 	      -e 's|@''GNULIB_VSNPRINTF''@|$(GNULIB_VSNPRINTF)|g' \
 	      -e 's|@''GNULIB_VSPRINTF_POSIX''@|$(GNULIB_VSPRINTF_POSIX)|g' \
 	      -e 's|@''GNULIB_VASPRINTF''@|$(GNULIB_VASPRINTF)|g' \
+	      -e 's|@''GNULIB_FFLUSH''@|$(GNULIB_FFLUSH)|g' \
 	      -e 's|@''REPLACE_FPRINTF''@|$(REPLACE_FPRINTF)|g' \
 	      -e 's|@''REPLACE_VFPRINTF''@|$(REPLACE_VFPRINTF)|g' \
 	      -e 's|@''REPLACE_PRINTF''@|$(REPLACE_PRINTF)|g' \
@@ -334,6 +375,7 @@ stdio.h: stdio_.h
 	      -e 's|@''REPLACE_VSPRINTF''@|$(REPLACE_VSPRINTF)|g' \
 	      -e 's|@''HAVE_VASPRINTF''@|$(HAVE_VASPRINTF)|g' \
 	      -e 's|@''REPLACE_VASPRINTF''@|$(REPLACE_VASPRINTF)|g' \
+	      -e 's|@''REPLACE_FFLUSH''@|$(REPLACE_FFLUSH)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/stdio_.h; \
 	} > $@-t
@@ -532,7 +574,7 @@ EXTRA_DIST += unistd_.h
 ## begin gnulib module vasnprintf
 
 
-EXTRA_DIST += asnprintf.c float+.h printf-args.c printf-args.h printf-parse.c printf-parse.h vasnprintf.c vasnprintf.h
+EXTRA_DIST += asnprintf.c printf-args.c printf-args.h printf-parse.c printf-parse.h vasnprintf.c vasnprintf.h
 
 EXTRA_libgl_la_SOURCES += asnprintf.c printf-args.c printf-parse.c vasnprintf.c
 

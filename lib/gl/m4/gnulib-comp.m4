@@ -56,6 +56,8 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_GETLINE
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.16.1])
+  AC_SUBST([LIBINTL])
+  AC_SUBST([LTLIBINTL])
   gl_SIZE_MAX
   AM_STDBOOL_H
   gl_STDINT_H
@@ -66,6 +68,7 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_STRVERSCMP
   gl_FUNC_VASNPRINTF
   gl_FUNC_VASPRINTF
+  gl_STDIO_MODULE_INDICATOR([vasprintf])
   gl_WCHAR_H
   gl_XSIZE
   m4_popdef([AC_LIBSOURCES])
@@ -114,7 +117,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/asprintf.c
   lib/base64.c
   lib/base64.h
-  lib/float+.h
   lib/gc-gnulib.c
   lib/gc-libgcrypt.c
   lib/gc.h
@@ -176,7 +178,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lib-link.m4
   m4/lib-prefix.m4
   m4/lock.m4
-  m4/longdouble.m4
   m4/longlong.m4
   m4/md5.m4
   m4/memxor.m4

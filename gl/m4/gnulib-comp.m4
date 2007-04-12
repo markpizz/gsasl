@@ -49,7 +49,11 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_GETLINE
   gl_GETOPT
   gl_FUNC_GETPASS
+  AC_SUBST([LIBINTL])
+  AC_SUBST([LTLIBINTL])
   AM_ICONV
+  gl_ICONV_H
+  gl_FUNC_ICONV_OPEN
   gl_INET_NTOP
   gl_INLINE
   gl_HEADER_NETINET_IN
@@ -139,7 +143,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/error.h
   lib/exitfail.c
   lib/exitfail.h
-  lib/float+.h
   lib/gai_strerror.c
   lib/getaddrinfo.c
   lib/getaddrinfo.h
@@ -154,6 +157,12 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getpass.c
   lib/getpass.h
   lib/gettext.h
+  lib/iconv_.h
+  lib/iconv_open-aix.gperf
+  lib/iconv_open-hpux.gperf
+  lib/iconv_open-irix.gperf
+  lib/iconv_open-osf.gperf
+  lib/iconv_open.c
   lib/inet_ntop.c
   lib/inet_ntop.h
   lib/netinet_in_.h
@@ -204,6 +213,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getpass.m4
   m4/gnulib-common.m4
   m4/iconv.m4
+  m4/iconv_h.m4
+  m4/iconv_open.m4
   m4/inet_ntop.m4
   m4/inline.m4
   m4/intmax_t.m4
@@ -211,7 +222,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lib-ld.m4
   m4/lib-link.m4
   m4/lib-prefix.m4
-  m4/longdouble.m4
   m4/longlong.m4
   m4/mbrtowc.m4
   m4/mbstate_t.m4

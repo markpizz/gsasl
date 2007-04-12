@@ -16,8 +16,11 @@ AC_DEFUN([gl_REPLACE_VASPRINTF],
 [
   AC_LIBOBJ([vasprintf])
   AC_LIBOBJ([asprintf])
+  AC_REQUIRE([gl_STDIO_H_DEFAULTS])
   if test $ac_cv_func_vasprintf = yes; then
     REPLACE_VASPRINTF=1
+  else
+    HAVE_VASPRINTF=0
   fi
   gl_PREREQ_VASPRINTF_H
   gl_PREREQ_VASPRINTF

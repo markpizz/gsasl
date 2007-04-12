@@ -1,4 +1,4 @@
-/* A substitute for ISO C99 <wchar.h>, for platforms that have issues.
+/* A GNU-like <iconv.h>.
 
    Copyright (C) 2007 Free Software Foundation, Inc.
 
@@ -16,34 +16,27 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-/* Written by Eric Blake.  */
+#ifndef _GL_ICONV_H
+#define _GL_ICONV_H
 
-/*
- * ISO C 99 <wchar.h> for platforms that have issues.
- * <http://www.opengroup.org/susv3xbd/wchar.h.html>
- *
- * For now, this just ensures proper prerequisite inclusion order.
- */
+#include @ABSOLUTE_ICONV_H@
 
-#ifdef __DECC
-# include <stdio.h>
-# include_next <wchar.h>
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-#ifndef _GL_WCHAR_H
-#define _GL_WCHAR_H
 
-/* Tru64 with Desktop Toolkit C has a bug: <stdio.h> must be included before
-   <wchar.h>.
-   BSD/OS 4.0.1 has a bug: <stddef.h>, <stdio.h> and <time.h> must be
-   included before <wchar.h>.  */
-#include <stddef.h>
-#include <stdio.h>
-#include <time.h>
-
-/* Include the original <wchar.h>.  */
-#ifndef __DECC
-# include @ABSOLUTE_WCHAR_H@
+#if @REPLACE_ICONV_OPEN@
+/* An iconv_open wrapper that supports the IANA standardized encoding names
+   ("ISO-8859-1" etc.) as far as possible.  */
+# define iconv_open rpl_iconv_open
+extern iconv_t iconv_open (const char *tocode, const char *fromcode);
 #endif
 
-#endif /* _GL_WCHAR_H */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

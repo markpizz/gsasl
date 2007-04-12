@@ -15,11 +15,11 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=build-aux --lgpl --libtool --macro-prefix=gl base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-md5 crypto/gc-md5-tests crypto/gc-random crypto/gc-tests gc gc-hmac-md5 gc-hmac-md5-tests gc-md5 gc-md5-tests gc-random gc-tests getline gettext maintainer-makefile strdup strverscmp vasprintf
+#   gnulib-tool --import --dir=. --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=build-aux --lgpl --libtool --macro-prefix=gl base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-md5 crypto/gc-md5-tests crypto/gc-random crypto/gc-tests getline gettext maintainer-makefile strdup strverscmp vasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
-gl_MODULES([base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-md5 crypto/gc-md5-tests crypto/gc-random crypto/gc-tests gc gc-hmac-md5 gc-hmac-md5-tests gc-md5 gc-md5-tests gc-random gc-tests getline gettext maintainer-makefile strdup strverscmp vasprintf])
+gl_MODULES([base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-md5 crypto/gc-md5-tests crypto/gc-random crypto/gc-tests getline gettext maintainer-makefile strdup strverscmp vasprintf])
 gl_AVOID([])
 gl_SOURCE_BASE([gl])
 gl_M4_BASE([gl/m4])
