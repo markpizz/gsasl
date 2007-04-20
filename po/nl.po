@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.8-b20050829\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-08-29 01:49+0200\n"
+"POT-Creation-Date: 2007-04-20 15:15+0200\n"
 "PO-Revision-Date: 2006-02-07 18:46+0200\n"
 "Last-Translator: Taco Witte <tcwitte@cs.uu.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -35,6 +35,9 @@ msgstr "Uitvoer van server:\n"
 #, c-format
 msgid "Output from client:\n"
 msgstr "Uitvoer van client:\n"
+
+msgid "Cannot initialize Windows sockets."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -143,11 +146,13 @@ msgstr "methode onbeschikbaar: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Geef base64 authentificatiegegevens van client (druk op ENTER als geen):\n"
+msgstr ""
+"Geef base64 authentificatiegegevens van client (druk op ENTER als geen):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Geef base64 authentificatiegegevens van server (druk op ENTER als geen):\n"
+msgstr ""
+"Geef base64 authentificatiegegevens van server (druk op ENTER als geen):\n"
 
 #, c-format
 msgid "mechanism error: %s"

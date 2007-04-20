@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.15\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2006-08-21 17:52+0200\n"
+"POT-Creation-Date: 2007-04-20 15:15+0200\n"
 "PO-Revision-Date: 2006-09-14 22:25-0400\n"
 "Last-Translator: Aleksandar Jelenak <jelenak@verizon.net>\n"
 "Language-Team: Serbian <gnu@prevod.org>\n"
@@ -144,11 +144,13 @@ msgstr "недоступан метод: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Унесите base64 податке за потврду клијента (притисните <RET> ако нема):\n"
+msgstr ""
+"Унесите base64 податке за потврду клијента (притисните <RET> ако нема):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Унесите base64 податке за потврду сервера (притисните <RET> ако нема):\n"
+msgstr ""
+"Унесите base64 податке за потврду сервера (притисните <RET> ако нема):\n"
 
 #, c-format
 msgid "mechanism error: %s"
