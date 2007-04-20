@@ -1,96 +1,183 @@
 # Serbian translation of `gsasl'.
-# Copyright (C) 2004 Free Software Foundation, Inc.
+# Copyright (C) 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the `gsasl' package.
-# Aleksandar Jelenak <jelenak@netlinkplus.net>, 2004.
+# Aleksandar Jelenak <jelenak@verizon.net>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 0.1.4\n"
+"Project-Id-Version: gsasl 0.2.15\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-08-08 00:42+0200\n"
-"PO-Revision-Date: 2004-08-26 20:45-0400\n"
-"Last-Translator: Aleksandar Jelenak <jelenak@netlinkplus.net>\n"
+"POT-Creation-Date: 2006-08-21 17:52+0200\n"
+"PO-Revision-Date: 2006-09-14 22:25-0400\n"
+"Last-Translator: Aleksandar Jelenak <jelenak@verizon.net>\n"
 "Language-Team: Serbian <gnu@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/gsasl.c:106
 #, c-format
-msgid "Chose SASL mechanism:\n"
-msgstr "Изаберите SASL метод:\n"
+msgid "Choose SASL mechanism:\n"
+msgstr "Изабери SASL метод:\n"
 
-#: src/gsasl.c:114
 #, c-format
-msgid "Input SASL mechanism supported by server:\n"
-msgstr "Улазни SASL методи подржани од сервера:\n"
+msgid "Input list of SASL mechanisms supported by server:\n"
+msgstr "Улазни списак SASL метода подржаних од сервера:\n"
 
-#: src/gsasl.c:133
 #, c-format
 msgid "Using mechanism:\n"
 msgstr "Користи метод:\n"
 
-#: src/gsasl.c:150
-#, c-format
-msgid "Output from client:\n"
-msgstr "Излаз клијента:\n"
-
-#: src/gsasl.c:152
 #, c-format
 msgid "Output from server:\n"
 msgstr "Излаз сервера:\n"
 
-#: src/gsasl.c:335 src/gsasl.c:377 src/gsasl.c:428 src/gsasl.c:470
-#: src/gsasl.c:562
 #, c-format
-msgid "Libgsasl error (%d): %s"
-msgstr "Libgsasl грешка (%d): %s"
+msgid "Output from client:\n"
+msgstr "Излаз клијента:\n"
 
-#: src/gsasl.c:384
+msgid "Cannot initialize Windows sockets."
+msgstr "Не може иницијализовати Виндоуз сокете."
+
+#, c-format
+msgid ""
+"missing argument\n"
+"Try `%s --help' for more information."
+msgstr ""
+"недостаје аргумент\n"
+"Покушај „%s --help“ за више објашњења."
+
+msgid "need both --x509-cert-file and --x509-key-file"
+msgstr "потребни и --x509-cert-file и --x509-key-file"
+
+msgid "cannot use both --starttls and --no-starttls"
+msgstr "не може користити и --starttls и --no-starttls"
+
+msgid "cannot use both --smtp and --imap"
+msgstr "не може користити и --smtp и --imap"
+
+#, c-format
+msgid "initialization failure: %s"
+msgstr "иницијализација неуспешна: %s"
+
+#, c-format
+msgid "error listing mechanisms: %s"
+msgstr "списак грешака метода: %s"
+
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Овај клијент подржава следеће методе:\n"
 
-#: src/gsasl.c:387
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Овај сервер подржава следеће методе:\n"
 
-#: src/gsasl.c:411
+#, c-format
+msgid "GnuTLS global initialization failed: %s"
+msgstr "GnuTLS глобална иницијализација неуспешна: %s"
+
+#, c-format
+msgid "GnuTLS initialization failed: %s"
+msgstr "GnuTLS иницијализација неуспешна: %s"
+
+#, c-format
+msgid "setting GnuTLS defaults failed: %s"
+msgstr "подразумевано подешавање GnuTLS неуспешно: %s"
+
+#, c-format
+msgid "allocating anonymous GnuTLS credential: %s"
+msgstr "добављам анонимно GnuTLS уверење: %s"
+
+#, c-format
+msgid "setting anonymous GnuTLS credential: %s"
+msgstr "задајем анонимно GnuTLS уверење: %s"
+
+#, c-format
+msgid "allocating X.509 GnuTLS credential: %s"
+msgstr "добављам X.509 GnuTLS уверење: %s"
+
+#, c-format
+msgid "loading X.509 GnuTLS credential: %s"
+msgstr "учитавам X.509 GnuTLS уверење: %s"
+
+#, c-format
+msgid "no X.509 CAs found: %s"
+msgstr "ниједан X.509 издавач сертификата нађен: %s"
+
+msgid "no X.509 CAs found"
+msgstr "ниједан X.509 издавач сертификата нађен"
+
+#, c-format
+msgid "setting X.509 GnuTLS credential: %s"
+msgstr "задајем X.509 GnuTLS уверење: %s"
+
+#, c-format
+msgid "setting GnuTLS key exchange priority: %s"
+msgstr "задајем приоритет измене GnuTLS кључа: %s"
+
+#, c-format
+msgid "GnuTLS handshake failed: %s"
+msgstr "GnuTLS руковање неуспешно: %s"
+
+#, c-format
+msgid "verifying peer certificate: %s"
+msgstr "проверавам вршњаково уверење: %s"
+
+msgid "server certificate is not trusted"
+msgstr "сертификату сервера се не верује"
+
+msgid "server certificate hasn't got a known issuer"
+msgstr "серверов сертификат нема познатог издавача"
+
+msgid "server certificate has been revoked"
+msgstr "серверов сертификат је повучен"
+
+#, c-format
+msgid "could not verify server certificate (rc=%d)"
+msgstr "не може потврдити сертификат сервера (rc=%d)"
+
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Не може наћи метод...\n"
 
-#: src/gsasl.c:457
 #, c-format
-msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Унесите base64 податке за потврду сервера (притисните <RET> ако нема):\n"
+msgid "mechanism unavailable: %s"
+msgstr "недоступан метод: %s"
 
-#: src/gsasl.c:460
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
 msgstr "Унесите base64 податке за потврду клијента (притисните <RET> ако нема):\n"
 
-#: src/gsasl.c:479
 #, c-format
-msgid "Client authentication finished (server trusted)...\n"
-msgstr "Потврђивање клијента завршено (серверу се верује)...\n"
+msgid "Enter base64 authentication data from server (press RET if none):\n"
+msgstr "Унесите base64 податке за потврду сервера (притисните <RET> ако нема):\n"
 
-#: src/gsasl.c:482
+#, c-format
+msgid "mechanism error: %s"
+msgstr "грешка метода: %s"
+
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Потврђивање сервера завршено (клијенту се верује)...\n"
 
-#: src/gsasl.c:497
+#, c-format
+msgid "Client authentication finished (server trusted)...\n"
+msgstr "Потврђивање клијента завршено (серверу се верује)...\n"
+
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Унесите податке за обраду (<EOF> за крај):\n"
 
-#: src/gsasl.c:536
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Base64 кодовани подаци за слање:\n"
 
-#: src/gsasl.c:567
+#, c-format
+msgid "encoding error: %s"
+msgstr "грешка кодовања: %s"
+
 #, c-format
 msgid "Session finished...\n"
 msgstr "Сесија завршена...\n"
+
+#, c-format
+msgid "terminating GnuTLS session failed: %s"
+msgstr "завршавање GnuTLS сесије неуспешно: %s"
