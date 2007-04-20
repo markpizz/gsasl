@@ -8,6 +8,12 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.16 (unreleased)
 
+** Fix IMAP protocol usage in the 'gsasl' command-line tool server.
+
+** Support GSSAPI server in 'gsasl' command-line tool.
+
+** Add self-test of the gsasl_check_version API.
+
 ** Translation updates.
 
 ** Update of gnulib files.
