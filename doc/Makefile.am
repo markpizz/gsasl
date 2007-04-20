@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -51,7 +51,8 @@ gsasl_TEXINFOS = fdl.texi $(gdoc_TEXINFOS) \
 gsasl-api-error-labels.texi: $(top_srcdir)/lib/src/error.c
 	$(PERL) $(srcdir)/gdoc-error $^ > $@
 
-AM_MAKEINFOFLAGS = -I $(top_builddir)/doc -I $(top_srcdir)/examples
+AM_MAKEINFOFLAGS = -I $(top_srcdir)/doc \
+	-I $(top_builddir)/doc -I $(top_srcdir)/examples
 TEXI2DVI = texi2dvi $(AM_MAKEINFOFLAGS)
 AM_MAKEINFOHTMLFLAGS = $(AM_MAKEINFOFLAGS) \
 	--no-split --number-sections --css-include=texinfo.css
