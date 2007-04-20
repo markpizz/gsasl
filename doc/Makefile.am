@@ -101,7 +101,7 @@ doit:
 			-bugsto $(PACKAGE_BUGREPORT) \
 			-includefuncprefix \
 			-seeinfo $(PACKAGE) -verbatimcopying \
-			-copyright "2002, 2003, 2004 Simon Josefsson" \
+			-copyright "2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson" \
 			-function $$i \
 			$(GDOC_SRC) > man/$$i.3 && \
 		./gdoc -texinfo -function $$i \
