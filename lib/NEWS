@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.16 (unreleased)
 
+** Translation updates.
+
 ** Fix gsasl_check_version logic.
 
 * Version 0.2.15 (released 2006-08-22)
