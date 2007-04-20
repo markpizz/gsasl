@@ -1,3 +1,234 @@
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/id.po, po/nl.po,
+	po/pl.po, po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po,
+	po/zh_CN.po, po/zh_TW.po: Generated.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.16.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Dist gpl.texi, lgpl.texi.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update copyrights.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix 'make distcheck'.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, README: Add.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS, po/id.po, po/sr.po, po/zh_TW.po: Sync with TP.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile: Fix.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile: Duplicate lib/GNUmakefile stuff, to avoid having
+	lib/GNUmakefile revert things.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Remove false positives for threadsafety in
+	vasnprintf.c.
+
+2007-04-12  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh, gl/Makefile.am, gl/alloca_.h, gl/float+.h,
+	gl/iconv_.h, gl/iconv_open-aix.gperf, gl/iconv_open-hpux.gperf,
+	gl/iconv_open-irix.gperf, gl/iconv_open-osf.gperf, gl/iconv_open.c,
+	gl/printf-args.c, gl/printf-args.h, gl/printf-parse.c,
+	gl/stdbool_.h, gl/stdio_.h, gl/stdlib_.h, gl/string_.h,
+	gl/vasnprintf.c, gl/wchar_.h, gl/wctype_.h, gl/m4/gnulib-comp.m4,
+	gl/m4/iconv.m4, gl/m4/iconv_h.m4, gl/m4/iconv_open.m4,
+	gl/m4/longdouble.m4, gl/m4/stdint.m4, gl/m4/stdio_h.m4,
+	gl/m4/vasnprintf.m4: Update.
+
+2007-03-27  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/c-ctype.c, gl/c-ctype.h, gl/c-strcase.h,
+	gl/c-strcasecmp.c, gl/c-strncasecmp.c, gl/striconv.c,
+	gl/striconv.h, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/iconv.m4, src/callbacks.c: Replace iconvme with striconv.
+
+2007-03-27  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/float+.h, gl/getaddrinfo.c, gl/iconvme.c,
+	gl/iconvme.h, gl/printf-parse.c, gl/stdint_.h, gl/stdio_.h,
+	gl/stdlib_.h, gl/string_.h, gl/vasnprintf.c, gl/m4/gnulib-comp.m4,
+	gl/m4/iconv.m4, gl/m4/iconvme.m4, gl/m4/stdint.m4,
+	gl/m4/stdio_h.m4, gl/m4/ulonglong.m4, gl/m4/vasnprintf.m4,
+	gl/m4/gnulib-cache.m4: Update.
+
+2007-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Need gnulib's builddir.
+
+2007-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Revert version, GS2 won't be in the next
+	release.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, maint-cfg.mk: More config.rpath fixes.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.cfg, Makefile.maint: Remove.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Don't use strdup.h.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, maint-cfg.mk: Work around config.rpath problem.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/onceonly_2_57.m4: Remove.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* gendocs.sh, maint.mk, build-aux/GNUmakefile,
+	build-aux/config.rpath, build-aux/gendocs.sh,
+	build-aux/link-warning.h, build-aux/maint.mk, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Use build-aux/.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump versions.  Use build-aux/.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/exit.h, gl/exitfail.c, gl/gai_strerror.c,
+	gl/getaddrinfo.c, gl/getopt_.h, gl/iconvme.c, gl/netinet_in_.h,
+	gl/printf-args.c, gl/printf-args.h, gl/printf-parse.c,
+	gl/quotearg.c, gl/snprintf.c, gl/snprintf.h, gl/socket_.h,
+	gl/stdbool_.h, gl/stdio_.h, gl/stdlib_.h, gl/strdup.c, gl/strdup.h,
+	gl/string_.h, gl/sys_select_.h, gl/unistd_.h, gl/vasnprintf.c,
+	gl/vasnprintf.h, gl/xalloc.h, gl/m4/extensions.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/netinet_in_h.m4, gl/m4/snprintf.m4,
+	gl/m4/socklen.m4, gl/m4/stdio_h.m4, gl/m4/stdlib_h.m4,
+	gl/m4/strdup.m4, gl/m4/string_h.m4, gl/m4/sys_select_h.m4,
+	gl/m4/sys_socket_h.m4, gl/m4/unistd_h.m4, gl/m4/vasnprintf.m4:
+	Update.
+
+2007-01-25  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/gettext.h, gl/iconvme.c, gl/quotearg.c,
+	gl/socket_.h, gl/strdup.h, gl/unistd_.h, gl/wchar_.h, gl/wctype_.h,
+	gl/m4/absolute-header.m4, gl/m4/eoverflow.m4,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-common.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/lib-link.m4, gl/m4/quotearg.m4,
+	gl/m4/size_max.m4, gl/m4/unistd_h.m4, gl/m4/wchar.m4,
+	gl/m4/wctype.m4, gl/m4/wint_t.m4: Update.
+
+2006-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Test gsasl_check_version too.
+
+2006-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/override/lgpl.texi.diff, gl/override/doc/gpl.texi.diff,
+	gl/override/doc/lgpl.texi.diff: Add.
+
+2006-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/asnprintf.c, gl/error.c, gl/exitfail.c,
+	gl/gai_strerror.c, gl/getaddrinfo.c, gl/getdelim.c, gl/getline.c,
+	gl/getopt.c, gl/getopt1.c, gl/getopt_.h, gl/getpass.c,
+	gl/gettext.h, gl/iconvme.c, gl/inet_ntop.c, gl/printf-args.c,
+	gl/printf-args.h, gl/printf-parse.c, gl/progname.c, gl/progname.h,
+	gl/quote.c, gl/quotearg.c, gl/quotearg.h, gl/readline.c,
+	gl/snprintf.c, gl/strdup.c, gl/vasnprintf.c, gl/xalloc-die.c,
+	gl/xalloc.h, gl/xmalloc.c, gl/m4/alloca.m4, gl/m4/getpass.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/inline.m4, gl/m4/lib-link.m4,
+	gl/m4/longlong.m4, gl/m4/signed.m4, gl/m4/size_max.m4,
+	gl/m4/sockpfaf.m4, gl/m4/vasnprintf.m4, gl/m4/xalloc.m4,
+	gl/override/lgpl.texi.diff, doc/gpl.texi, doc/lgpl.texi: Update.
+
+2006-09-13  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	doc/gpl.texi, doc/lgpl.texi: Update.
+
+2006-09-13  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add GPL.  Place concept index last.
+
+2006-09-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/error.c, gl/vasnprintf.c,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/lib-link.m4:
+	Update.
+
+2006-09-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/fdl.texi: Update.
+
+2006-08-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getaddrinfo.c, gl/m4/getdelim.m4,
+	gl/m4/getline.m4, gl/m4/gnulib-cache.m4, gl/m4/intmax_t.m4,
+	gl/m4/inttypes_h.m4, gl/m4/longlong.m4, gl/m4/readline.m4,
+	gl/m4/stdint_h.m4, gl/override/doc/gendocs_template: Update.
+
+2006-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
+	po/ro.po, po/sq.po, po/sr.po, po/sv.po, po/vi.po, po/zh_CN.po: Sync
+	with TP.
+
+2006-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Fix mem leak.
+
+2006-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Support GSASL_VALIDATE_GSSAPI callback.
+
+2006-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/imap.c: Fix last commit.
+
+2006-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/imap.c: The IMAP '+ ' prefix is only for server data.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump version.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/exitfail.m4, gl/m4/getpass.m4,
+	gl/m4/quote.m4, gl/m4/quotearg.m4, gl/m4/strdup.m4,
+	gl/m4/xalloc.m4: Update.
+
 2006-08-22  Simon Josefsson <simon@josefsson.org>
 
 	* po/de.po, po/eu.po, po/fr.po, po/ga.po, po/nl.po, po/pl.po,
