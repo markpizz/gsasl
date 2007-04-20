@@ -1,3 +1,250 @@
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Generated.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.2.16.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* po/sr.po: Sync with TP.
+
+2007-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gc-libgcrypt.c: Update.
+
+2007-04-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/alloca_.h, gl/asprintf.c, gl/float+.h,
+	gl/printf-args.c, gl/printf-args.h, gl/printf-parse.c,
+	gl/stdbool_.h, gl/stdio_.h, gl/string_.h, gl/vasnprintf.c,
+	gl/vasprintf.c, gl/wchar_.h, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/iconv.m4, gl/m4/intdiv0.m4,
+	gl/m4/intl.m4, gl/m4/longdouble.m4, gl/m4/stdint.m4,
+	gl/m4/stdio_h.m4, gl/m4/vasnprintf.m4, gl/m4/vasprintf.m4: Update.
+
+2007-03-27  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/float+.h, gl/printf-parse.c, gl/stdio_.h,
+	gl/string_.h, gl/vasnprintf.c, gl/m4/gnulib-comp.m4,
+	gl/m4/printf-posix.m4, gl/m4/stdio_h.m4, gl/m4/vasnprintf.m4,
+	gl/m4/vasprintf.m4: Update.
+
+2007-03-22  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h: Generated.
+
+2007-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/README: Add.
+
+2007-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Revert version, GS2 won't be in the next
+	release.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* digest-md5/printer.c: Don't use vasprintf.h.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/GNUmakefile, build-aux/config.rpath,
+	build-aux/link-warning.h, build-aux/maint.mk, gl/Makefile.am,
+	gl/asprintf.c, gl/gc-gnulib.c, gl/gc-libgcrypt.c, gl/gc.h,
+	gl/printf-args.c, gl/printf-args.h, gl/printf-parse.c,
+	gl/stdbool_.h, gl/stdint_.h, gl/stdio_.h, gl/strdup.c, gl/strdup.h,
+	gl/string_.h, gl/vasnprintf.c, gl/vasnprintf.h, gl/vasprintf.c,
+	gl/vasprintf.h, gl/m4/extensions.m4, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/intdiv0.m4, gl/m4/onceonly_2_57.m4,
+	gl/m4/stdio_h.m4, gl/m4/strdup.m4, gl/m4/string_h.m4,
+	gl/m4/vasnprintf.m4, gl/m4/vasprintf.m4, gl/m4/uint32_t.m4,
+	GNUmakefile, maint-cfg.mk, maint.mk: Update.
+
+2007-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump versions.  Use build-aux/.
+
+2007-01-25  Simon Josefsson <simon@josefsson.org>
+
+	* m4/libgcrypt.m4: Remove.
+
+2007-01-25  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/gc-gnulib.c, gl/gc-libgcrypt.c, gl/gettext.h,
+	gl/stdint_.h, gl/strdup.h, gl/m4/eoverflow.m4,
+	gl/m4/gc-hmac-md5.m4, gl/m4/gc-md5.m4, gl/m4/gc-random.m4,
+	gl/m4/gettext.m4, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/lib-link.m4, gl/m4/size_max.m4, gl/m4/stdint.m4,
+	gl/m4/wint_t.m4: Update.
+
+2007-01-25  Simon Josefsson <simon@josefsson.org>
+
+	* gl/wchar_.h, gl/m4/gnulib-common.m4, gl/m4/wchar.m4: Add.
+
+2006-12-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.3.0.
+
+2006-12-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/version.c: Fix typo, reported by Thadeu Lima de Souza
+	Cascardo <cascardo@minaslivre.org>.
+
+2006-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/asnprintf.c, gl/asprintf.c, gl/base64.c,
+	gl/gc-gnulib.c, gl/gc-libgcrypt.c, gl/getdelim.c, gl/getline.c,
+	gl/gettext.h, gl/hmac-md5.c, gl/md5.c, gl/memxor.c,
+	gl/printf-args.c, gl/printf-args.h, gl/printf-parse.c,
+	gl/stdint_.h, gl/strdup.c, gl/strverscmp.c, gl/vasnprintf.c,
+	gl/vasprintf.c, gl/m4/alloca.m4, gl/m4/codeset.m4,
+	gl/m4/gettext.m4, gl/m4/gnulib-comp.m4, gl/m4/intl.m4,
+	gl/m4/intldir.m4, gl/m4/intmax.m4, gl/m4/inttypes-h.m4,
+	gl/m4/inttypes-pri.m4, gl/m4/lib-link.m4, gl/m4/lock.m4,
+	gl/m4/longlong.m4, gl/m4/signed.m4, gl/m4/size_max.m4,
+	gl/m4/stdint.m4, gl/m4/ulonglong.m4, gl/m4/vasnprintf.m4,
+	gl/m4/vasprintf.m4, tests/test-gc.c: Update.
+
+2006-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/client.c, gs2/server.c: Snapshot.
+
+2006-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/gs2wrap.c: Add.
+
+2006-09-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/stdint_.h, gl/vasnprintf.c, gl/vasprintf.c,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/lib-link.m4,
+	gl/m4/stdint.m4: Update.
+
+2006-08-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/stdint_.h, gl/m4/codeset.m4, gl/m4/gc.m4,
+	gl/m4/getdelim.m4, gl/m4/getline.m4, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/hmac-md5.m4, gl/m4/intmax_t.m4,
+	gl/m4/inttypes-pri.m4, gl/m4/inttypes_h.m4, gl/m4/lock.m4,
+	gl/m4/longlong.m4, gl/m4/stdint.m4, gl/m4/stdint_h.m4: Update.
+
+2006-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
+	po/sv.po, po/vi.po: Sync with TP.
+
+2006-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/gs2parser.c: Allocate output instead.
+
+2006-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/gs2parser.c: Fix uint32 parsing.
+
+2006-08-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/error.c: Doc fix.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Disable GS2 by default.  Doc fix.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/test-parser.c: Add.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/gs2parser.c: Fix bug.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/Makefile.am: Add gs2parser to library.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/test-parser.c: Add self-tests of GS2 parser.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/Makefile.am: Add.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/gs2parser.c, gs2/gs2parser.h: Fix.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/gs2parser.c: Fix.
+
+2006-08-23  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/gs2parser.c, gs2/gs2parser.h: Add.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am, src/init.c: Add GS2.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* src/xfinish.c:
+	(gsasl_finish): Don't crash on sctx's without mech pointer, happens
+	if you call gsasl_client_start or gsasl_server_start with unknown
+	mechanism.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* gs2/mechinfo.c: Fix.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.h: Bump version.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Add.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Bump version.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac, gs2/Makefile.am, gs2/README,
+	gs2/gs2.h, gs2/mechinfo.c, gssapi/client.c, gssapi/server.c: Add
+	some GS2 infrastructure.
+
+2006-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/md5.m4, gl/m4/memxor.m4, gl/m4/strdup.m4,
+	gl/m4/strverscmp.m4: Update.
+
 2006-08-22  Simon Josefsson <simon@josefsson.org>
 
 	* po/fr.po, po/ga.po, po/nl.po, po/pl.po, po/ro.po, po/sr.po,
