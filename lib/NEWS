@@ -10,6 +10,9 @@ See the end for copying conditions.
 
 ** Now uses autoconf 2.61, automake 1.10, gettext 0.16.1.
 
+** API and ABI modifications.
+No changes since last version.
+
 * Version 0.2.15 (released 2006-08-22)
 
 ** Changed libgsasl shared library version.
