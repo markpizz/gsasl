@@ -8,6 +8,8 @@ See the end for copying conditions.
 
 ** Fix gsasl_check_version logic.
 
+** Now uses autoconf 2.61, automake 1.10, gettext 0.16.1.
+
 * Version 0.2.15 (released 2006-08-22)
 
 ** Changed libgsasl shared library version.

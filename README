@@ -1,5 +1,5 @@
 GNU SASL README -- Important introductory notes.
-Copyright (C) 2002, 2003, 2004, 2005 Simon Josefsson
+Copyright (C) 2002, 2003, 2004, 2005, 2007 Simon Josefsson
 See the end for copying conditions.
 
 This directory holds GNU SASL which is an implementation of the Simple
@@ -41,6 +41,7 @@ application currently requires POSIX for network communication.
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
 
+  * Implement GS2.
   * Security layer improvements (e.g., DES and AES in DIGEST-MD5).
   * Bug: If gsasl_decode is handed a string longer than one SASL token,
     the remaining data will be discarded.  This means if the sender
