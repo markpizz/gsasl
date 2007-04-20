@@ -32,7 +32,7 @@ TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
 	SHISHI_CONFIG=ignore-this-warning \
 	SHISHI_HOME=ignore-this-warning \
 	SHISHI_USER=ignore-this-warning \
-	THREADSAFETY_FILES=$(top_srcdir)/lib/*/*.c \
+	THREADSAFETY_FILES=`ls $(top_srcdir)/lib/*/*.c | grep -v lib/gl/vasnprintf.c` \
 	MD5FILE=$(srcdir)/cram-md5.pwd \
 	$(VALGRIND)
 
