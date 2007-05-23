@@ -1,0 +1,1513 @@
+
+
+
+NETWORK WORKING GROUP                                        N. Williams
+Internet-Draft                                                       Sun
+Intended status: Standards Track                            May 17, 2007
+Expires: November 18, 2007
+
+
+           On the Use of Channel Bindings to Secure Channels
+                draft-williams-on-channel-binding-02.txt
+
+Status of this Memo
+
+   By submitting this Internet-Draft, each author represents that any
+   applicable patent or other IPR claims of which he or she is aware
+   have been or will be disclosed, and any of which he or she becomes
+   aware will be disclosed, in accordance with Section 6 of BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF), its areas, and its working groups.  Note that
+   other groups may also distribute working documents as Internet-
+   Drafts.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   The list of current Internet-Drafts can be accessed at
+   http://www.ietf.org/ietf/1id-abstracts.txt.
+
+   The list of Internet-Draft Shadow Directories can be accessed at
+   http://www.ietf.org/shadow.html.
+
+   This Internet-Draft will expire on November 18, 2007.
+
+Copyright Notice
+
+   Copyright (C) The IETF Trust (2007).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007               [Page 1]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+Abstract
+
+   The concept of channel binding allows applications to establish that
+   the two end-points of a secure channel at one network layer are the
+   same as at a higher layer by binding authentication at the higher
+   layer to the channel at the lower layer.  This allows applications to
+   delegate session protection to lower layers, which has various
+   performance benefits.
+
+   This document discusses and formalizes the concept of channel binding
+   to secure channels.
+
+
+Table of Contents
+
+   1.          Introduction . . . . . . . . . . . . . . . . . . . . .  3
+   1.1.        Conventions used in this document  . . . . . . . . . .  4
+   2.          Definitions  . . . . . . . . . . . . . . . . . . . . .  5
+   2.1.        Properties of channel binding  . . . . . . . . . . . .  6
+   2.2.        EAP channel binding  . . . . . . . . . . . . . . . . .  8
+   3.          Authentication and channel binding semantics . . . . . 10
+   3.1.        The GSS-API and channel binding  . . . . . . . . . . . 10
+   3.2.        SASL and channel binding . . . . . . . . . . . . . . . 10
+   4.          Channel bindings specifications  . . . . . . . . . . . 12
+   4.1.        Examples of unique channel bindings  . . . . . . . . . 12
+   4.2.        Examples of end-point channel bindings . . . . . . . . 12
+   5.          Uses of channel binding  . . . . . . . . . . . . . . . 14
+   6.          Benefits of channel binding to secure channels . . . . 16
+   7.          IANA Considerations  . . . . . . . . . . . . . . . . . 17
+   7.1.        Registration Procedure . . . . . . . . . . . . . . . . 17
+   7.2.        Comments on channel bindings Registrations . . . . . . 18
+   7.3.        Change control . . . . . . . . . . . . . . . . . . . . 19
+   8.          Security Considerations  . . . . . . . . . . . . . . . 20
+   8.1.        Non-unique channel bindings and channel binding
+               re-establishment . . . . . . . . . . . . . . . . . . . 20
+   9.          References . . . . . . . . . . . . . . . . . . . . . . 22
+   9.1.        Normative References . . . . . . . . . . . . . . . . . 22
+   9.2.        Informative References . . . . . . . . . . . . . . . . 22
+   Appendix A. Acknowledgments  . . . . . . . . . . . . . . . . . . . 25
+               Author's Address . . . . . . . . . . . . . . . . . . . 26
+               Intellectual Property and Copyright Statements . . . . 27
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007               [Page 2]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+1.  Introduction
+
+   In a number of situations, it is useful for an application to be able
+   to handle authentication within the application layer, while
+   simultaneously being able to utilize session or transport security at
+   a lower network layer.  For example, IPsec [RFC4301] [RFC4303]
+   [RFC4302] is amenable to being accelerated in hardware to handle very
+   high link speeds, but IPsec key exchange protocols and the IPsec
+   architecture are not as amenable to use as a security mechanism
+   within applications, particularly applications that have users as
+   clients.  A method of combining security at both layers is therefore
+   attractive.  To enable this to be done securely, it is necessary to
+   "bind" the mechanisms together -- so as to avoid man-in-the-middle
+   vulnerabilities and enable the mechanisms to be integrated in a
+   seamless way.  This is the objective of "Channel Bindings."
+
+   The term "channel binding" as used in this document derives from the
+   GSS-API [RFC2743], which has a channel binding facility that was
+   intended for binding GSS-API authentication to secure channels at
+   lower network layers.  The purpose and benefits of the GSS-API
+   channel binding facility were not discussed at length, and some
+   details were left unspecified.  Now we find that this concept can be
+   very useful, therefore we begin with a generalization and
+   formalization of "channel binding" independent of the GSS-API.
+
+   Although inspired by and derived from the GSS-API, the notion of
+   channel binding described herein is not at all limited to use by GSS-
+   API applications.  We envision use of channel binding by applications
+   that utilize other security frameworks, such as SASL [RFC4422] and
+   even protocols that provide their own authentication mechanisms
+   (e.g., the KDC exchanges of Kerberos V [RFC4120]).  We also envision
+   use of the notion of channel binding in the analysis of security
+   protocols.
+
+   The main goal of channel binding is to be able to delegate
+   cryptographic session protection to network layers below the
+   application in hopes of being able to better leverage hardware
+   implementations of cryptographic protocols.  Section 5 describes some
+   intended uses of channel binding.  Some applications may benefit
+   additionally by reducing the amount of active cryptographic state,
+   thus reducing overhead in accessing such state and, therefore, the
+   impact of security on latency.
+
+   The critical security problem to solve in order to achieve such
+   delegation of session protection is: ensuring that there is no man-
+   in-the-middle (MITM), from the point of view the application, at the
+   lower network layer to which session protection is to be delegated.
+
+
+
+
+Williams                Expires November 18, 2007               [Page 3]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+   And there may well be a MITM, particularly if the lower network layer
+   either provides no authentication or if there is no strong connection
+   between the authentication or principals used at the application and
+   those used at the lower network layer.
+
+   Even if such MITM attacks seem particularly difficult to effect, the
+   attacks must be prevented for certain applications to be able to make
+   effective use of technologies such as IPsec [RFC2401] [RFC4301] or
+   HTTP with TLS [RFC4346] in certain contexts (e.g., when there is no
+   authentication to speak of, or when one node's set of trust anchors
+   is too weak to believe that it can authenticate its peers).
+   Additionally, secure channels that are susceptible to MITM attacks
+   because they provide no useful end-point authentication are useful
+   when combined with application-layer authentication (otherwise they
+   are only somewhat "better than nothing" -- see BTNS
+   [I-D.ietf-btns-prob-and-applic]).
+
+   For example, iSCSI [RFC3720] provides for application-layer
+   authentication (e.g., using Kerberos V), but relies on IPsec for
+   transport protection; iSCSI does not provide a binding between the
+   two. iSCSI initiators have to be careful to make sure that the name
+   of the server authenticated at the application layer and the name of
+   the peer at the IPsec layer match -- an informal form of channel
+   binding.
+
+   This document describes a solution: the use of "channel binding" (in
+   the GSS-API [RFC2743] [RFC2744] sense) to bind authentication at
+   application layers to secure sessions at lower layers in the network
+   stack.
+
+1.1.  Conventions used in this document
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007               [Page 4]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+2.  Definitions
+
+   o  Secure channel: a packet, datagram, octet stream connection, or
+      sequence of connections, between two end-points that affords
+      cryptographic integrity and, optionally, confidentiality to data
+      exchanged over it.  We assume that the channel is secure -- if an
+      attacker can successfully cryptanalyze a channel's session keys,
+      for example, then the channel is not secure.
+
+   o  Channel binding: the process of establishing that no man-in-the-
+      middle exists between two end-points authenticated at one network
+      layer but using a secure channel at a lower network layer.  This
+      term is used as a noun.
+
+   o  Channel bindings: [See historical note below.]
+
+         Generally some data which "names" a channel or one or both of
+         its end-points such that if this data can be shown, at a higher
+         network layer, to be the same at both ends of a channel then
+         there are no MITMs between the two end-points at that higher
+         network layer.  This term is used as a noun.
+
+         More formally, there are two types of channel bindings:
+
+
+
+         +  unique channel bindings:
+
+            channel bindings that name a channel in a cryptographically
+            secure manner and uniquely in time;
+
+         +  end-point channel bindings:
+
+            channel bindings that name the authenticated end-points, or
+            even a single end-point, of a channel which are, in turn,
+            securely bound to the channel, but which do not identify a
+            channel uniquely in time.
+
+   o  Cryptographic binding: (e.g., "cryptographically bound") a
+      cryptographic operation that causes an object, such as a private
+      encryption or signing key, or an established secure channel, to
+      "speak for" [Lampson91] some principal, such as a user, a
+      computer, etcetera.  For example, a PKIX certificate binds a
+      private key to the name of a principal in the trust domain of the
+      certificate's issuer such that a possessor of said private key can
+      act on behalf of the user (or other entity) named by the
+      certificate.
+
+
+
+
+Williams                Expires November 18, 2007               [Page 5]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+      Cryptographic bindings are generally asymmetric in nature (not to
+      be confused with symmetric or assymetric key cryptography) in that
+      an object is rendered capable of standing for another, but the
+      reverse is not usually the case (we don't say that a user speaks
+      for their private keys, but we do say that the user's private keys
+      speak for the user).
+
+   Note that there may be many instances of "cryptographic binding" in
+   an application of channel binding.  The credentials that authenticate
+   principals at the application layer bind private or secret keys to
+   the identities of those principals, such that said keys speak for
+   them.  A secure channel typically consists symmetric session keys
+   used to provide confidentiality and integrity protection to data sent
+   over the channel; each end-point's session keys speak for that end-
+   point of the channel.  Finally, each end-point of a channel bound to
+   authentication at the application layer speaks for the principal
+   authenticated at the application layer on the same side of the
+   channel.
+
+   The terms defined above have been in use for many years and have been
+   taken to mean, at least in some contexts, what is stated below.
+   Unfortunately this means that "channel binding" can refer to the
+   channel binding operation and, sometimes to the name of a channel,
+   and "channel bindings" -- a difference of only one letter --
+   generally refers to the name of a channel.
+
+   Note that the Extensible Authentication Protocol (EAP) [RFC3748]
+   which "channel binding" to refer to a facility appears to be similar
+   to the one described here, but it is, in fact, quite different.  See
+   Section 2.2 for more details.
+
+2.1.  Properties of channel binding
+
+   Applications, authentication frameworks (e.g., the GSS-API, SASL),
+   security mechanisms (e.g., the Kerberos V GSS-API mechanism
+   [RFC1964]) and secure channels must meet the following requirement
+   and should follow the following recommendations.
+
+   Requirements:
+
+   o  Specifications of channel bindings for any secure channels MUST
+      provide for a single, canonical octet string encoding of the
+      channel bindings.
+
+   o  The channel bindings for a given type of secure channel MUST be
+      constructed in such a way that an MITM could not easily force the
+      channel bindings of a given channel to match those of another.
+
+
+
+
+Williams                Expires November 18, 2007               [Page 6]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+   o  Unique channel bindings MUST bind not only the key exchange for
+      the secure channel, but also any negotiations and authentication
+      that may have taken place to establish the channel.
+
+   o  End-point channel bindings MUST be bound into the secure channel
+      and all its negotiations.  E.g., if an end-point channel binding
+      is the name of a certificate and this certificate is used in
+      establishng the channel to sign material, say, all the initial key
+      exchange and negotiation messages for that channel, then that
+      certificate name could be said to be bound into the channel.
+
+   o  End-point channel bindings may be identifiers which must be
+      authenticated through some infrastructure, such as a public key
+      infrastructure (PKI).  In such cases the channel binding can be no
+      stronger, cryptographically, than the infrastructure, including
+      trust establishment.  Applications MUST NOT use end-point channel
+      bindings when the end-points cannot be strongly authenticated due
+      to the configuration of the authentication service (e.g., because
+      there are too many trust anchors, or because some are of dubious
+      repute).
+
+   o  Applications MUST use application-layer session protection
+      services for confidentiality protection when the bound channel
+      does not provide confidentiality protection.
+
+   o  The integrity of a secure channel MUST NOT be weakened should
+      their channel bindings be revealed to an attacker.  That is, the
+      construction of the channel bindings for any type of secure
+      channel MUST NOT leak secret information about the channel.  End-
+      point channel bindings, however, MAY leak information about the
+      end-points of the channel (e.g., their names).
+
+   o  The channel binding operation MUST be at least integrity protected
+      in the security mechanism used at the application layer.
+
+   o  Authentication frameworks and mechanisms that support channel
+      binding MUST communicate channel binding failure to applications.
+
+   Recommendations:
+
+   o  Applications SHOULD use mutual authentication at the application
+      layer when using channel binding.
+
+   o  End-point channel bindings where the end-points are meaningful
+      names SHOULD NOT be used when the channel does not provide
+      confidentiality protection and privacy protection is desired.
+      Alternatively channels that export such channel bindings SHOULD
+      provide for the use of a digest and SHOULD NOT introduce new
+
+
+
+Williams                Expires November 18, 2007               [Page 7]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+      digest/hash agility problems as a result.
+
+   Options:
+
+   o  Authentication frameworks and mechanisms that support channel
+      binding MAY fail to establish authentication if channel binding
+      fails.
+
+   o  A security mechanism MAY exchange integrity protected channel
+      bindings.
+
+   o  A security mechanism MAY exchange integrity protected digests of
+      channel bindings.  Such mechanisms SHOULD provide for hash/digest
+      agility.
+
+   o  A security mechanism MAY use channel bindings in key exchange,
+      authentication or key derivation, prior to the exchange of
+      "authenticator" messages.
+
+2.2.  EAP channel binding
+
+   This section is informative.  This document does not update EAP
+   [RFC3748], it neither normatively describes, nor does it impose
+   requirements on any aspect of EAP or EAP methods.
+
+   EAP [RFC3748] includes a concept of channel binding desribed as
+   follows:
+
+      The communication within an EAP method of integrity-protected
+      channel properties such as endpoint identifiers which can be
+      compared to values communicated via out of band mechanisms (such
+      as via a AAA or lower layer protocol).
+
+   Section 7.15 of [RFC3748] describes the problem as one where a a
+   Network Access Server (NAS), (a.k.a. "authenticator") may like to the
+   peer (client) and cause the peer to make incorrect authorization
+   decisions (e.g., as to what traffic may transit through the NAS).
+   This is not quite like the purpose of generic channel binding (MITM
+   detection).
+
+   Section 7.15 of [RFC3748] calls for "a protected exchange of channel
+   properties such as endpoint identifiers" such that "it is possible to
+   match the channel properties provided by the authenticator via out-
+   of-band mechanisms against those exchanged within the EAP method."
+
+   This has sometimes been taken to be very similar to the generic
+   notion of channel binding provided here.  However, these is a very
+   subtle difference between the two concepts of channel binding that
+
+
+
+Williams                Expires November 18, 2007               [Page 8]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+   makes it much too difficult to put forth requirements and
+   recommendations that apply to both.  The difference is about the
+   lower-layer channel:
+
+   o  in the generic channel binding case the identities of either end
+      of this channel are irrelevant to anything other than the
+      construction of a name for that channel, in which case the
+      identities of the channel's end-points must be established a
+      priori,
+
+   o  whereas in the EAP case the identity of the NAS end of the
+      channel, and even security properties of the channel itself, may
+      be established during or after authentication of the EAP peer to
+      the EAP server.
+
+   In other words: there is a fundamental difference in mechanics
+   (timing of lower-layer channel establishment) and in purpose
+   (authentication of lower layer channel properties for authorization
+   purposes vs. MITM detection).
+
+   After some discussion we have concluded that there is no simple way
+   to obtain requirements and recommendations that apply to both,
+   generic and EAP channel binding.  Therefore EAP is out of the scope
+   of this document.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007               [Page 9]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+3.  Authentication and channel binding semantics
+
+   Some authentication frameworks and/or mechanisms provide for channel
+   binding, such as the GSS-API and some GSS-API mechanisms, whereas
+   others may not, such as SASL (however, ongoing work is adding channel
+   binding support to SASL).  Semantics may vary with respect to
+   negotiation, how the binding occurs, and handling of channel binding
+   failure (see below).
+
+   Where suitable channel binding facilities are not provided,
+   application protocols MAY include a separate, protected exchange of
+   channel bindings.  In order to do this the application-layer
+   authentication service must provide message protection services, at
+   least integrity protection.
+
+3.1.  The GSS-API and channel binding
+
+   The GSS-API [RFC2743] provides for the use of channel binding during
+   initialization of GSS-API security contexts, though GSS-API
+   mechanisms are not required to support this facility.
+
+   This channel binding facility is described in [RFC2743] and
+   [RFC2744].
+
+   GSS-API mechanisms must fail security context establishment when
+   channel binding fails, and the GSS-API provides no mechanism for the
+   negotiation of channel binding.  As a result GSS-API applications
+   must agree a priori, through negotiation or otherwise, on the use of
+   channel binding.
+
+   Fortunately, it is possible to design GSS-API pseudo-mechanisms that
+   simply wrap around existing mechanisms for the purpose of allowing
+   applications to negotiate the use of channel binding within their
+   existing methods for negotiating GSS-API mechanisms.  For example,
+   NFSv4 [RFC3530] provides its own GSS-API mechanism negotiation, as
+   does the SSHv2 protocol [RFC4462].  Such pseudo-mechanisms are being
+   proposed separately, see [I-D.ietf-kitten-stackable-pseudo-mechs].
+
+3.2.  SASL and channel binding
+
+   SASL [RFC4422] does not yet provide for the use of channel binding
+   during initialization of SASL contexts.
+
+   Work is ongoing [I-D.ietf-sasl-gs2] to specify how SASL, particularly
+   it's new bridge to the GSS-API, performs channel binding.  SASL will
+   likely differ from the GSS-API in its handling of channel binding
+   failure (i.e., when there may be a MITM) in that channel binding
+   success/failure will only affect the negotiation of SASL security
+
+
+
+Williams                Expires November 18, 2007              [Page 10]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+   layers.  I.e., when channel binding succeeds SASL should select no
+   security layers, leaving session cryptographic protection to the
+   secure channel that has been bound to.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007              [Page 11]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+4.  Channel bindings specifications
+
+   Channel bindings for various types of secure channels are not
+   described herein.  Some channel bindings specifications can be found
+   in:
+
+   +--------------------+----------------------------------------------+
+   | Secure Channel     | Reference                                    |
+   | Type               |                                              |
+   +--------------------+----------------------------------------------+
+   | SSHv2              | [I-D.williams-sshv2-channel-bindings]        |
+   |                    |                                              |
+   | TLS                | [I-D.altman-tls-channel-bindings]            |
+   |                    |                                              |
+   | IPsec              | There is no specification for IPsec channel  |
+   |                    | bindings yet, but the IETF Better Than       |
+   |                    | Nothing Security (BTNS) WG is working to     |
+   |                    | specify IPsec channels, and possibly IPsec   |
+   |                    | channel bindings.                            |
+   +--------------------+----------------------------------------------+
+
+4.1.  Examples of unique channel bindings
+
+   The following text is not normative, but is here to show how one
+   might construct channel bindings for various types of secure
+   channels.
+
+   For SSHv2 [RFC4251] the SSHv2 session ID should suffice as it is a
+   cryptographic binding of all relevant SSHv2 connection parameters:
+   key exchange and negotiation.
+
+   For TLS [RFC4346]the TLS session ID is not sufficient as it is
+   assigned by the server, and so could be assigned by an MITM to match
+   a server's.  Instead the initial, unencrypted TLS finished messages,
+   either the client's, the server's or both, are sufficient as they are
+   the output of the TLS PRF, keyed with the session key, applied to all
+   handshake material.
+
+4.2.  Examples of end-point channel bindings
+
+   The following text is not normative, but is here to show how one
+   might construct channel bindings for various types of secure
+   channels.
+
+   For SSHv2 [RFC4251] the SSHv2 host public key, when present, should
+   suffice as it is used to sign the algorithm suite negotiation and
+   Diffie-Hellman key exchange; as long the client observes the host
+   public key that corresponds to the private host key that the server
+
+
+
+Williams                Expires November 18, 2007              [Page 12]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+   used then there cannot be a MITM in the SSHv2 connection.  Note that
+   not all SSHv2 key exchanges use host public keys, therefore this
+   channel bindings construction is not as useful as the one given in
+   Section 4.1 above.
+
+   For TLS [RFC4346]the server certificate should suffice for the same
+   reasons as above.  Again, not all TLS cipher suites involve server
+   certificates, therfore the utility of this construction of channel
+   bindings is limited to scenarios where server certificates are
+   commonly used.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007              [Page 13]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+5.  Uses of channel binding
+
+   Uses for channel binding identified so far:
+
+   o  Delegating session cryptographic protection to layers where
+      hardware can reasonably be expected to support relevant
+      cryptographic protocols:
+
+      *  NFSv4 [RFC3530] with Remote Direct Data Placement (RDDP)
+         [I-D.ietf-nfsv4-nfsdirect] for zer-copy reception where network
+         interface controllers (NICs) support RDDP.  Cryptographic
+         session protection would be delegated to ESP/AH [RFC4303]
+         [RFC4302].
+
+      *  iSCSI [RFC3720] with Remote Direct Memory Access (RDMA)
+         [I-D.ietf-ips-iser].  Cryptographic session protection would be
+         delegated to ESP/AH.
+
+      *  HTTP with TLS [RFC2817] [RFC2818].  In situations involving
+         proxies users may want to bind authentication to a TLS channel
+         between the last client-side proxy and the first server-side
+         proxy ("concentrator").  There is ongoing work to expand the
+         set of choices for end-to-end authentication at the HTTP layer,
+         which coupled with channel binding to TLS would allow for
+         proxies while not forgoing protection over public internets.
+
+   o  Reducing the number of live cryptographic contexts that an
+      application must maintain:
+
+      *  NFSv4 [RFC3530] multiplexes multiple users onto individual
+         connections.  Each user is authenticated separately and user's
+         RPCs are protected with per-user GSS-API security contexts.
+         This means that large timesharing clients must often maintain
+         many cryptographic contexts per-NFSv4 conenction.  With channel
+         binding to IPsec they could maintain a much smaller number of
+         cryptographic contexts per-NFSv4 connection, thus reducing
+         memory pressure and interactions with cryptographic hardware.
+
+   For example, applications that wish to use RDDP to achieve zero-copy
+   semantics on reception may use a network layer understood by network
+   interface controllers (NIC) to offload delivery of application data
+   into pre-arranged memory buffers.  Note that in order to obtain zero-
+   copy reception semantics either application data has to be in
+   cleartext relative to this RDDP layer, or the RDDP implementation
+   must know how to implement cryptographic session protection protocols
+   used at the application layer.
+
+   There are a multitude of application layer cryptographic session
+
+
+
+Williams                Expires November 18, 2007              [Page 14]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+   protection protocols available.  It is not reasonable to expect the
+   NICs should support many such protocols.  Further, some application
+   protocols may maintain many cryptographic session contexts per-
+   connection (for example, NFSv4 does).  It is thought to be simpler to
+   push the cryptographic session protection down the network stack (to
+   IPsec), and yet be able to produce NICs that offload other operations
+   (i.e. - TCP/IP, ESP/AH, and DDP), than it would be to add support in
+   the NIC for the many session cryptographic protection protocols in
+   use in common applications at the application layer.
+
+   The following figure shows how the various network layers are
+   related:
+
+      +---------------------+
+      | Application layer   |<---+
+      |                     |<-+ |  In cleartext, relative
+      +---------------------+  | |  to each other.
+      | RDDP                |<---+
+      +---------------------+  |
+      | TCP/SCTP            |<-+
+      +---------------------+  | Channel binding of app-layer
+      | ESP/AH              |<-+ authentication to IPsec
+      +---------------------+
+      | IP                  |
+      +---------------------+
+      | ...                 |
+      +---------------------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007              [Page 15]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+6.  Benefits of channel binding to secure channels
+
+   The use of channel binding to delegate session cryptographic
+   protection include:
+
+   o  Performance improvements by avoiding double protection of
+      application data in cases where IPsec is in use and applications
+      provide their own secure channels.
+
+   o  Performance improvements by leveraging hardware-accelerated IPsec.
+
+   o  Performance improvements by allowing RDDP hardware offloading to
+      be integrated with IPsec hardware acceleration.
+
+         Where protocols layered above RDDP use privacy protection RDDP
+         offload cannot be done, thus by using channel binding to IPsec
+         the privacy protection is moved to IPsec, which is layered
+         below RDDP, so RDDP can address application protocol data
+         that's in cleartext relative to the RDDP headers.
+
+   o  Latency improvements for applications that multiplex multiple
+      users onto a single channel, such as NFS w/ RPCSEC_GSS.
+
+   Delegation of session cryptographic protection to IPsec requires
+   features not yet specified.  There is ongoing work to specify:
+
+   o  IPsec channels [I-D.ietf-btns-connection-latching];
+
+   o  Application programming interfaces (APIs) related to IPsec
+      channels [I-D.ietf-btns-ipsec-apireq];
+
+   o  Channel bindings for IPsec channels;
+
+   o  Low infrastructure IPsec authentication[I-D.ietf-btns-core].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007              [Page 16]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+7.  IANA Considerations
+
+   The IANA is hereby requested to create a new registry for channel
+   bindings specifciations for various types of channels.
+
+   The purpose of this registry is not only to ensure uniqueness of
+   values used to name channel bindings, but also to provide a
+   definitive reference to technical specifications detailing each
+   channel binding available for use on the Internet.
+
+   There is no naming convention for channel bindings: any string
+   composed of US-ASCII alphanumeric characters, period ('.') and dash
+   ('-') will suffice.
+
+   The procedure detailed in Section 7.1 is to be used for registration
+   of a value naming a specific individual mechanism.
+
+   Comments may be included in the registry as discussed in Section 7.2
+   and may be changed as discussed in Section 7.3.
+
+7.1.  Registration Procedure
+
+   Registration of a new channel binding requires expert review as
+   defined in BCP 26 [RFC2434].
+
+   Registration of a Channel binding is requested by filling in the
+   following template:
+
+   o  Subject: Registration of channel binding X
+
+   o  Channel binding unique prefix (name):
+
+   o  Channel binding type: (One of "unique" or "end-point")
+
+   o  Channel type: (E.g., TLS, IPsec, SSH, etc...)
+
+   o  Published specification (recommended, optional):
+
+   o  Channel binding is secret (requires confidentiality protection):
+      yes/no
+
+   o  Description (optional if a specification is given; required if no
+      Published specification is specified):
+
+   o  Intended usage: (One of COMMON, LIMITED USE, or OBSOLETE)
+
+   o  Person and email address to contact for further information:
+
+
+
+
+Williams                Expires November 18, 2007              [Page 17]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+   o  Owner/Change controller name and email address:
+
+   o  Expert reviewer name and contact information: (leave blank)
+
+   o  Note: (Any other information that the author deems relevant may be
+      added here.)
+
+   and sending it via electronic mail to a list to be determined [note:
+   an ietf.org list for this is needed, say, channel-binding@ietf.org]
+   and carbon copying IANA at <iana@iana.org>.  After allowing two weeks
+   for community input on the mailing list to be determined, an expert
+   will determine the appropriateness of the registration request and
+   either approve or disapprove the request with notice to the
+   requestor, the mailing list, and IANA.
+
+   If the expert approves registration, it adds her/his name to the
+   submitted registration.
+
+   The expert has the primary responsibility of making sure that channel
+   bindings for IETF specifications go through the IETF consensus
+   process and that prefixes are unique.
+
+   The review should focus on the appropriateness of the requested
+   channel binding for the proposed use, the appropriateness of the
+   proposed prefix and correctness of the channel binding type in the
+   registration.  The scope of this request review may entail
+   consideration of relevant aspects of any provided technical
+   specification, such as their IANA Considerations section.  However,
+   this review is narrowly focused on the appropriateness of the
+   requested registration and not on the overall soundness of any
+   provided technical specification.
+
+   Authors are encouraged to pursue community review by posting the
+   technical specification as an Internet-Draft and soliciting comment
+   by posting to appropriate IETF mailing lists.
+
+7.2.  Comments on channel bindings Registrations
+
+   Comments on a registered Channel bindings should first be sent to the
+   "owner" of the channel bindings and to the channel binding mailing
+   list.
+
+   Submitters of comments may, after a reasonable attempt to contact the
+   owner, request IANA to attach their comment to the channel binding
+   type registration itself by sending mail to <iana@iana.org>.  At
+   IANA's sole discretion, IANA may attach the comment to the Channel
+   binding's registration.
+
+
+
+
+Williams                Expires November 18, 2007              [Page 18]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+7.3.  Change control
+
+   Once a Channel bindings registration has been published by IANA, the
+   author may request a change to its definition.  The change request
+   follows the same procedure as the registration request.
+
+   The owner of a Channel bindings may pass responsibility for the
+   Channel bindings to another person or agency by informing IANA; this
+   can be done without discussion or review.
+
+   The IESG may reassign responsibility for a Channel bindings.  The
+   most common case of this will be to enable changes to be made to
+   mechanisms where the author of the registration has died, has moved
+   out of contact, or is otherwise unable to make changes that are
+   important to the community.
+
+   Channel bindings registrations may not be deleted; mechanisms that
+   are no longer believed appropriate for use can be declared OBSOLETE
+   by a change to their "intended usage" field; such Channel bindings
+   will be clearly marked in the lists published by IANA.
+
+   The IESG is considered to be the owner of all channel bindings that
+   are on the IETF standards track.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007              [Page 19]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+8.  Security Considerations
+
+   Security considerations appear throughout this document.  In
+   particular see Section 2.1.
+
+   When delegating session protection from one layer to another, one
+   will almost certainly be making some session security trade-offs,
+   such as using weaker cipher modes in one layer than might be used in
+   the other.  Evaluation and comparison of the relative cryptographic
+   strengths of these is difficult, may not be easily automated and is
+   far out of scope for this document.  Implementors and administrators
+   should understand these trade-offs.  Interfaces to secure channels
+   and application-layer authentication frameworks and mechanisms could
+   provide some notion of security profile so that applications may
+   avoid delegation of session protection to channels that are too weak
+   to match a required security profile.
+
+   Channel binding makes "anonymous" channels (where neither end-point
+   is strongly authenticated to the other) useful.  Implementors should
+   avoid making use of such channels without channel binding easy to
+   configure accidentally.
+
+   The security of channel binding depends on the security of the
+   channels, the construction of their channel bindings, and the
+   security of the authentication mechanism used by the application and
+   its channel binding method.
+
+   Channel bindings should be constructed in such a way that revealing
+   the channel bindings of a channel to third parties does not weaken
+   the security of the channel.  However, for end-point channel bindings
+   disclosure of the channel bindings may disclose the identities of the
+   peers.
+
+8.1.  Non-unique channel bindings and channel binding re-establishment
+
+   Applications developers may be tempted to use non-unique channel
+   bindings for fast re-authentication following channel re-
+   establishment.  Care must be taken to avoid the possibility of
+   attacks on multi-user systems.
+
+   Consider a user multiplexing protocol like NFSv4 using channel
+   binding to IPsec on a multi-user client.  If another user can connect
+   directly to port 2049 (NFS) on some server using IPsec and merely
+   assert RPCSEC_GSS credential handles, then this user will be able to
+   impersonate any user authenticated by the client to the server.  This
+   is because the new connection will have the same channel bindings as
+   the NFS client's!  To prevent this the server must require that at
+   least a host-based client principal, and perhaps all the client's
+
+
+
+Williams                Expires November 18, 2007              [Page 20]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+   user principals, re-authenticate and perform channel binding before
+   the server will allow the clients to assert RPCSEC_GSS context
+   handles.  Alternatively the protocol could: a) require that secure
+   channels provide confidentiality protection, and b) that fast re-
+   authentication cookies be difficult to guess (e.g., large numbers
+   selected randomly).
+
+   In other contexts there may not be such problems, for example, in the
+   case of application protocols that don't multiplex users over a
+   single channel and where confidentiality protection is always used in
+   the secure channel.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007              [Page 21]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+9.  References
+
+9.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+9.2.  Informative References
+
+   [I-D.altman-tls-channel-bindings]
+              Williams, N., "Channel Bindings for SSHv2",
+              draft-altman-tls-channel-bindings-00 (work in progress),
+              July 2006.
+
+   [I-D.ietf-btns-connection-latching]
+              Williams, N., "IPsec Channels: Connection Latching",
+              draft-ietf-btns-connection-latching-00 (work in progress),
+              February 2006.
+
+   [I-D.ietf-btns-core]
+              Richardson, M. and N. Williams, "Better-Than-Nothing-
+              Security: An Unauthenticated Mode of IPsec",
+              draft-ietf-btns-core-01 (work in progress), June 2006.
+
+   [I-D.ietf-btns-ipsec-apireq]
+              Richardson, M. and B. Sommerfeld, "Requirements for an
+              IPsec API", draft-ietf-btns-ipsec-apireq-00 (work in
+              progress), April 2006.
+
+   [I-D.ietf-btns-prob-and-applic]
+              Touch, J., "Problem and Applicability Statement for Better
+              Than Nothing Security  (BTNS)",
+              draft-ietf-btns-prob-and-applic-05 (work in progress),
+              February 2007.
+
+   [I-D.ietf-ips-iser]
+              Ko, M., "iSCSI Extensions for RDMA Specification",
+              draft-ietf-ips-iser-06 (work in progress), October 2005.
+
+   [I-D.ietf-kitten-stackable-pseudo-mechs]
+              Williams, N., "Stackable Generic Security Service Pseudo-
+              Mechanisms", draft-ietf-kitten-stackable-pseudo-mechs-02
+              (work in progress), June 2006.
+
+   [I-D.ietf-nfsv4-nfsdirect]
+              Callaghan, B. and T. Talpey, "NFS Direct Data Placement",
+              draft-ietf-nfsv4-nfsdirect-04 (work in progress),
+              October 2006.
+
+
+
+Williams                Expires November 18, 2007              [Page 22]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+   [I-D.ietf-sasl-gs2]
+              Josefsson, S., "Using GSS-API Mechanisms in SASL: The GS2
+              Mechanism Family", draft-ietf-sasl-gs2-06 (work in
+              progress), February 2007.
+
+   [I-D.williams-sshv2-channel-bindings]
+              Williams, N., "Channel Bindings for Secure Shell
+              Channels", draft-williams-sshv2-channel-bindings-00 (work
+              in progress), July 2006.
+
+   [Lampson91]
+              Lampson, B., Abadi, M., Burrows, M., and E. Wobber,
+              "Authentication in Distributed Systems: Theory and
+              Practive", October 1991.
+
+   [RFC1964]  Linn, J., "The Kerberos Version 5 GSS-API Mechanism",
+              RFC 1964, June 1996.
+
+   [RFC2401]  Kent, S. and R. Atkinson, "Security Architecture for the
+              Internet Protocol", RFC 2401, November 1998.
+
+   [RFC2743]  Linn, J., "Generic Security Service Application Program
+              Interface Version 2, Update 1", RFC 2743, January 2000.
+
+   [RFC2744]  Wray, J., "Generic Security Service API Version 2 :
+              C-bindings", RFC 2744, January 2000.
+
+   [RFC2817]  Khare, R. and S. Lawrence, "Upgrading to TLS Within
+              HTTP/1.1", RFC 2817, May 2000.
+
+   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818, May 2000.
+
+   [RFC3530]  Shepler, S., Callaghan, B., Robinson, D., Thurlow, R.,
+              Beame, C., Eisler, M., and D. Noveck, "Network File System
+              (NFS) version 4 Protocol", RFC 3530, April 2003.
+
+   [RFC3720]  Satran, J., Meth, K., Sapuntzakis, C., Chadalapaka, M.,
+              and E. Zeidner, "Internet Small Computer Systems Interface
+              (iSCSI)", RFC 3720, April 2004.
+
+   [RFC3748]  Aboba, B., Blunk, L., Vollbrecht, J., Carlson, J., and H.
+              Levkowetz, "Extensible Authentication Protocol (EAP)",
+              RFC 3748, June 2004.
+
+   [RFC4251]  Ylonen, T. and C. Lonvick, "The Secure Shell (SSH)
+              Protocol Architecture", RFC 4251, January 2006.
+
+   [RFC4301]  Kent, S. and K. Seo, "Security Architecture for the
+
+
+
+Williams                Expires November 18, 2007              [Page 23]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+              Internet Protocol", RFC 4301, December 2005.
+
+   [RFC4302]  Kent, S., "IP Authentication Header", RFC 4302,
+              December 2005.
+
+   [RFC4303]  Kent, S., "IP Encapsulating Security Payload (ESP)",
+              RFC 4303, December 2005.
+
+   [RFC4346]  Dierks, T. and E. Rescorla, "The Transport Layer Security
+              (TLS) Protocol Version 1.1", RFC 4346, April 2006.
+
+   [RFC4422]  Melnikov, A. and K. Zeilenga, "Simple Authentication and
+              Security Layer (SASL)", RFC 4422, June 2006.
+
+   [RFC4462]  Hutzelman, J., Salowey, J., Galbraith, J., and V. Welch,
+              "Generic Security Service Application Program Interface
+              (GSS-API) Authentication and Key Exchange for the Secure
+              Shell (SSH) Protocol", RFC 4462, May 2006.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007              [Page 24]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+Appendix A.  Acknowledgments
+
+   Thanks to Mike Eisler for his work on the Channel Conjunction
+   Mechanism I-D and for bringing the problem to a head, Sam Hartman for
+   pointing out that channel binding provide a general solution to the
+   channel binding problem, Jeff Altman for his suggestion of using the
+   TLS finished messages as the TLS channel bindings, Bill Sommerfeld,
+   Radia Perlman, Simon Josefsson, Joe Salowey, Eric Rescorla, Michael
+   Richardson, Bernard Aboba, Tom Petch, Mark Brown and many others.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007              [Page 25]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+Author's Address
+
+   Nicolas Williams
+   Sun Microsystems
+   5300 Riata Trace Ct
+   Austin, TX  78727
+   US
+
+   Email: Nicolas.Williams@sun.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires November 18, 2007              [Page 26]
+
+Internet-Draft             On Channel Bindings                  May 2007
+
+
+Full Copyright Statement
+
+   Copyright (C) The IETF Trust (2007).
+
+   This document is subject to the rights, licenses and restrictions
+   contained in BCP 78, and except as set forth therein, the authors
+   retain all their rights.
+
+   This document and the information contained herein are provided on an
+   "AS IS" basis and THE CONTRIBUTOR, THE ORGANIZATION HE/SHE REPRESENTS
+   OR IS SPONSORED BY (IF ANY), THE INTERNET SOCIETY, THE IETF TRUST AND
+   THE INTERNET ENGINEERING TASK FORCE DISCLAIM ALL WARRANTIES, EXPRESS
+   OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF
+   THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED
+   WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+
+Intellectual Property
+
+   The IETF takes no position regarding the validity or scope of any
+   Intellectual Property Rights or other rights that might be claimed to
+   pertain to the implementation or use of the technology described in
+   this document or the extent to which any license under such rights
+   might or might not be available; nor does it represent that it has
+   made any independent effort to identify any such rights.  Information
+   on the procedures with respect to rights in RFC documents can be
+   found in BCP 78 and BCP 79.
+
+   Copies of IPR disclosures made to the IETF Secretariat and any
+   assurances of licenses to be made available, or the result of an
+   attempt made to obtain a general license or permission for the use of
+   such proprietary rights by implementers or users of this
+   specification can be obtained from the IETF on-line IPR repository at
+   http://www.ietf.org/ipr.
+
+   The IETF invites any interested party to bring to its attention any
+   copyrights, patents or patent applications, or other proprietary
+   rights that may cover technology that may be required to implement
+   this standard.  Please address the information to the IETF at
+   ietf-ipr@ietf.org.
+
+
+Acknowledgment
+
+   Funding for the RFC Editor function is provided by the IETF
+   Administrative Support Activity (IASA).
+
+
+
+
+
+Williams                Expires November 18, 2007              [Page 27]
+
+
