@@ -27,6 +27,7 @@ AC_DEFUN([gl_EARLY],
   AC_REQUIRE([AC_PROG_RANLIB])
   AC_REQUIRE([AC_GNU_SOURCE])
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
+  AC_REQUIRE([AC_FUNC_FSEEKO])
 ])
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -44,6 +45,9 @@ AC_DEFUN([gl_INIT],
   AC_PROG_MKDIR_P
   gl_ERROR
   gl_EXITFAIL
+  gl_FLOAT_H
+  gl_FUNC_FSEEKO
+  gl_STDIO_MODULE_INDICATOR([fseeko])
   gl_GETADDRINFO
   gl_FUNC_GETDELIM
   gl_FUNC_GETLINE
@@ -56,6 +60,8 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_ICONV_OPEN
   gl_INET_NTOP
   gl_INLINE
+  gl_FUNC_LSEEK
+  gl_UNISTD_MODULE_INDICATOR([lseek])
   gl_HEADER_NETINET_IN
   AC_PROG_MKDIR_P
   gl_QUOTE
@@ -143,6 +149,9 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/error.h
   lib/exitfail.c
   lib/exitfail.h
+  lib/float+.h
+  lib/float_.h
+  lib/fseeko.c
   lib/gai_strerror.c
   lib/getaddrinfo.c
   lib/getaddrinfo.h
@@ -165,6 +174,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/iconv_open.c
   lib/inet_ntop.c
   lib/inet_ntop.h
+  lib/lseek.c
   lib/netinet_in_.h
   lib/printf-args.c
   lib/printf-args.h
@@ -180,7 +190,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/readline.h
   lib/size_max.h
   lib/snprintf.c
-  lib/socket_.h
   lib/stdbool_.h
   lib/stdint_.h
   lib/stdio_.h
@@ -190,6 +199,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/striconv.h
   lib/string_.h
   lib/sys_select_.h
+  lib/sys_socket_.h
   lib/unistd_.h
   lib/vasnprintf.c
   lib/vasnprintf.h
@@ -206,6 +216,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/error.m4
   m4/exitfail.m4
   m4/extensions.m4
+  m4/float_h.m4
+  m4/fseeko.m4
   m4/getaddrinfo.m4
   m4/getdelim.m4
   m4/getline.m4
@@ -223,6 +235,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lib-link.m4
   m4/lib-prefix.m4
   m4/longlong.m4
+  m4/lseek.m4
   m4/mbrtowc.m4
   m4/mbstate_t.m4
   m4/netinet_in_h.m4
