@@ -7,6 +7,8 @@ See the end for copying conditions.
 ** GNU SASL is now developed using Git instead of CVS.
 A public git mirror is available from <http://repo.or.cz/w/gsasl.git>.
 
+** Update gnulib files.
+
 ** API and ABI modifications.
 No changes since last version.
 
