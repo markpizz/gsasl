@@ -6,6 +6,11 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
+* Version 0.2.17 (unreleased)
+
+** GNU SASL is now developed using Git instead of CVS.
+A public git mirror is available from <http://repo.or.cz/w/gsasl.git>.
+
 * Version 0.2.16 (released 2007-04-20)
 
 ** Fix IMAP protocol usage in the 'gsasl' command-line tool server.
