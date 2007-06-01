@@ -52,6 +52,7 @@ AC_DEFUN([gl_INIT],
   gl_MODULE_INDICATOR([gc-md5])
   gl_GC_RANDOM
   gl_MODULE_INDICATOR([gc-random])
+  gl_FLOAT_H
   gl_FUNC_GETDELIM
   gl_FUNC_GETLINE
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
@@ -117,6 +118,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/asprintf.c
   lib/base64.c
   lib/base64.h
+  lib/float+.h
+  lib/float_.h
   lib/gc-gnulib.c
   lib/gc-libgcrypt.c
   lib/gc.h
@@ -154,6 +157,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/codeset.m4
   m4/eoverflow.m4
   m4/extensions.m4
+  m4/float_h.m4
   m4/gc-hmac-md5.m4
   m4/gc-md5.m4
   m4/gc-random.m4
