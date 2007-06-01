@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gsasl-0.2.15\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2007-04-20 15:15+0200\n"
+"POT-Creation-Date: 2006-08-21 17:52+0200\n"
 "PO-Revision-Date: 2006-09-27 20:28+0700\n"
 "Last-Translator: Tedi Heriyanto <tedi_heriyanto@yahoo.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -146,13 +146,11 @@ msgstr "mekanisme tidak tersedia: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr ""
-"Masukkan data otentikasi base64 dari klien (tekan RET bila tidak ada):\n"
+msgstr "Masukkan data otentikasi base64 dari klien (tekan RET bila tidak ada):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr ""
-"Masukkan data otentikasi base64 dari server (tekan RET bila tidak ada):\n"
+msgstr "Masukkan data otentikasi base64 dari server (tekan RET bila tidak ada):\n"
 
 #, c-format
 msgid "mechanism error: %s"
