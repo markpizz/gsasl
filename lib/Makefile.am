@@ -84,11 +84,9 @@ ChangeLog:
 htmldir = ../../www-gsasl
 
 release:
-	! git-tag -l $(tag) > /dev/null
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
 	git commit -m Generated. ChangeLog
-	git-tag -u b565716f! -m $(VERSION) $(tag)
 	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
 	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/
 	cd $(htmldir) && cvs add -kb releases/$(distdir).tar.gz{,.sig} && \
