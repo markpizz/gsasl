@@ -39,7 +39,7 @@ extern "C"
    * Used together with stringprep_check_version() to verify header file
    * and run-time library consistency.
    */
-# define GSASL_VERSION "0.2.16"
+# define GSASL_VERSION "0.2.17"
 
   /* RFC 2222: SASL mechanisms are named by strings, from 1 to 20
    * characters in length, consisting of upper-case letters, digits,
