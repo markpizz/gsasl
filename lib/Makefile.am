@@ -79,7 +79,7 @@ update-po: refresh-po
 
 ChangeLog:
 	git log --pretty --numstat --summary | git2cl > ChangeLog
-	cat .cvscopying >> ChangeLog
+	cat ../.cvscopying >> ChangeLog
 
 htmldir = ../../www-gsasl
 
