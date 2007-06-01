@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -75,23 +75,21 @@ SUBDIRS += src
 # Maintainer targets
 
 update-po: refresh-po
-	cvs add `ls po/*.po | grep -v quot.po` || true && \
-	cvs commit -m "Sync with TP." po/LINGUAS `ls po/*.po | grep -v quot.po`
+	git-update-index --add `ls po/*.po | grep -v quot.po` || true && \
+	git-commit -m "Sync with TP." po/LINGUAS `ls po/*.po | grep -v quot.po`
 
 ChangeLog:
-	cvs2cl --fsf --FSF --usermap ../.cvsusers -I ChangeLog -I .cvs \
-		-I autogen.sh
-	cat ../.cvscopying >> ChangeLog
+	git log --pretty --numstat --summary | git2cl > ChangeLog
+	cat .cvscopying >> ChangeLog
 
 htmldir = ../../www-gsasl
 
 release:
-	cvs upd -p -r HEAD NEWS > /dev/null
-	rm -f ChangeLog && cvs upd ChangeLog
-	cvs commit
+	! git-tag -l $(tag) > /dev/null
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
-	cvs commit -m "" ChangeLog
+	git commit -m Generated. ChangeLog
+	git-tag -u b565716f! -m $(VERSION) $(tag)
 	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
 	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/
 	cd $(htmldir) && cvs add -kb releases/$(distdir).tar.gz{,.sig} && \

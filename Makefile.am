@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -25,13 +25,12 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --disable-obsolete
 # Maintainer targets
 
 update-po: refresh-po
-	cvs add `ls po/*.po | grep -v quot.po` || true && \
-	cvs commit -m "Sync with TP." po/LINGUAS `ls po/*.po | grep -v quot.po`
+	git-update-index --add `ls po/*.po | grep -v quot.po` || true && \
+	git-commit -m "Sync with TP." po/LINGUAS `ls po/*.po | grep -v quot.po`
 	$(MAKE) -C lib update-po
 
 ChangeLog:
-	cvs2cl --fsf --FSF --usermap .cvsusers -I ChangeLog -I .cvs \
-		-I autogen.sh -I doc/specification -I lib/
+	git log --pretty --numstat --summary | git2cl > ChangeLog
 	cat .cvscopying >> ChangeLog
 
 htmldir = ../www-$(PACKAGE)
@@ -39,14 +38,11 @@ tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
 
 release:
 	cd lib && make release
-	cvs upd -p -r HEAD NEWS > /dev/null
-	if cvs upd -p -r $(tag) NEWS > /dev/null; then false else true; fi
-	rm -f ChangeLog && cvs upd ChangeLog
-	cvs commit
+	! git-tag -l $(tag) > /dev/null
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
-	cvs commit -m "" ChangeLog
-	cvs rtag $(tag) $(PACKAGE)
+	git commit -m Generated. ChangeLog
+	git-tag -u b565716f! -m $(VERSION) $(tag)
 	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
 	cd doc && env MAKEINFO="makeinfo -I ../examples" \
 		      TEXI2DVI="texi2dvi -I ../examples" \
