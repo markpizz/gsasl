@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson
 See the end for copying conditions.
 
-* Version 0.2.17 (unreleased)
+* Version 0.2.17 (released 2007-06-01)
 
 ** GNU SASL is now developed using Git instead of CVS.
 A public git mirror is available from <http://repo.or.cz/w/gsasl.git>.
