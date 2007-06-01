@@ -45,7 +45,7 @@ release:
 	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
 	cd doc && env MAKEINFO="makeinfo -I ../examples" \
 		      TEXI2DVI="texi2dvi -I ../examples" \
-		../gendocs.sh --html "--css-include=texinfo.css" \
+		../build-aux/gendocs.sh --html "--css-include=texinfo.css" \
 		-o ../$(htmldir)/manual/ $(PACKAGE) "GNU SASL"
 	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/
 	cp -v doc/reference/html/*.{html,png,devhelp,css} $(htmldir)/reference/
