@@ -35,12 +35,14 @@
 #include <stdio.h>
 #include <time.h>
 
+#if HAVE_WCHAR_H
 /* Include the original <wchar.h>.  */
 /* The include_next requires a split double-inclusion guard.  */
-#if @HAVE_INCLUDE_NEXT@
-# include_next <wchar.h>
-#else
-# include @ABSOLUTE_WCHAR_H@
+# if @HAVE_INCLUDE_NEXT@
+#  include_next <wchar.h>
+# else
+#  include @ABSOLUTE_WCHAR_H@
+# endif
 #endif
 
 #ifndef _GL_WCHAR_H
