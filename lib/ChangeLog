@@ -1,3 +1,53 @@
+2007-06-07  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* NEWS, lib/NEWS: Version 0.2.18.
+
+2007-06-07  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* lib/src/gsasl.h: Bump version.
+
+2007-06-07  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* lib/NEWS: Add.
+
+2007-06-07  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* gl/m4/vasnprintf.m4, gl/vasnprintf.c, gl/wchar_.h,
+	lib/gl/m4/vasnprintf.m4, lib/gl/vasnprintf.c, lib/gl/wchar_.h: 
+	Update.
+
+2007-06-05  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/configure.ac: Bump versions.
+
+2007-06-05  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* configure.ac: Bump versions.
+
+2007-06-05  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* NEWS: Add.
+
+2007-06-05  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* lib/gl/m4/intl.m4, lib/gl/m4/stdint.m4: Update.
+
+2007-06-05  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* gl/m4/lseek.m4, gl/m4/stdint.m4: Update.
+
+2007-06-01  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* Makefile.am: Fix release target.
+
+2007-06-01  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* ChangeLog: Generated.
+
+2007-06-01  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
 2007-06-01  Simon Josefsson <jas@mocca.josefsson.org>
 
 	* lib/Makefile.am: Fix ChangeLog target.
