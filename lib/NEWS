@@ -5,6 +5,7 @@ See the end for copying conditions.
 * Version 0.2.18 (unreleased)
 
 ** Update gnulib files.
+Fixes cross-compilation to uClinux.
 
 ** API and ABI modifications.
 No changes since last version.
