@@ -19,7 +19,7 @@ dnl Process this file with autoconf to produce a configure script.
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 AC_PREREQ(2.61)
-AC_INIT([gsasl], [0.2.18], [bug-gsasl@gnu.org])
+AC_INIT([gsasl], [0.2.19], [bug-gsasl@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 
 AM_INIT_AUTOMAKE([1.10 gnits])
