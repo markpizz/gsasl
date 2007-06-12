@@ -25,6 +25,7 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --disable-obsolete
 # Maintainer targets
 
 update-po: refresh-po
+	cg-add `ls po/*.po | grep -v quot.po`
 	cg-commit -m "Sync with TP." po/LINGUAS `ls po/*.po | grep -v quot.po`
 	$(MAKE) -C lib update-po
 
