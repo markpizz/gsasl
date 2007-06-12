@@ -1,16 +1,16 @@
 # Irish translations for libgsasl.
 # Copyright (C) 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libgsasl package.
-# Kevin Patrick Scannell <scannell@SLU.EDU>, 2005.
+# Kevin Patrick Scannell <scannell@SLU.EDU>, 2005, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libgsasl 0.2.8-b20050829\n"
+"Project-Id-Version: libgsasl 0.2.16\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2005-08-29 01:49+0200\n"
-"PO-Revision-Date: 2005-09-15 16:25-0500\n"
-"Last-Translator: Kevin Patrick Scannell <scannell@SLU.EDU>\n"
-"Language-Team: Irish <ga@li.org>\n"
+"POT-Creation-Date: 2007-04-20 15:15+0200\n"
+"PO-Revision-Date: 2007-04-25 16:25-0500\n"
+"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -39,8 +39,8 @@ msgstr "Earráid chriptithe íseal-leibhéil sa leabharlann SASL"
 msgid "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL library.  This is a serious internal error."
 msgstr "Níorbh fhéidir leis an leabharlann GSSAPI cuimhne a saoradh i gss_release_buffer() sa leabharlann SASL.  Is earráid inmheánach trom í seo."
 
-msgid "GSSAPI library could not understand a peer name in gss_import_name() in SASL library.  This may be due to incorrect user supplied data."
-msgstr "Níor thuig an leabharlann GSSAPI ainm comhghleacaí i gss_import_name() sa leabharlann SASL.  B'fhéidir go bhfuil sé seo mar thoradh ar sonraí mhíchearta ón úsáideoir."
+msgid "GSSAPI library could not understand a peer name in gss_import_name() in SASL library.  This is most likely due to incorrect service and/or hostnames."
+msgstr "Níor thuig leabharlann GSSAPI ainm comhghleacaí i gss_import_name() sa leabharlann SASL.  Is dócha go bhfuil sé seo mar thoradh ar ainm mhícheart ar an seirbhís nó ar an óstríomhaire."
 
 msgid "GSSAPI error in client while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
 msgstr "Earráid GSSAPI sa chliant agus comhthéacs slándála á socrú i gss_init_sec_context() sa leabharlann SASL.  Is dócha go bhfuil sé seo mar thoradh ar dintiúirí easpacha nó idirghnímh mailíseacha."
