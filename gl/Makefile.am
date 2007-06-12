@@ -502,6 +502,7 @@ string.h: string_.h
 	  sed -e 's|@''ABSOLUTE_STRING_H''@|$(ABSOLUTE_STRING_H)|g' \
 	      -e 's/@''HAVE_INCLUDE_NEXT''@/$(HAVE_INCLUDE_NEXT)/g' \
 	      -e 's|@''GNULIB_MBSLEN''@|$(GNULIB_MBSLEN)|g' \
+	      -e 's|@''GNULIB_MBSNLEN''@|$(GNULIB_MBSNLEN)|g' \
 	      -e 's|@''GNULIB_MBSCHR''@|$(GNULIB_MBSCHR)|g' \
 	      -e 's|@''GNULIB_MBSRCHR''@|$(GNULIB_MBSRCHR)|g' \
 	      -e 's|@''GNULIB_MBSSTR''@|$(GNULIB_MBSSTR)|g' \
@@ -659,6 +660,7 @@ wchar.h: wchar_.h
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''ABSOLUTE_WCHAR_H''@|$(ABSOLUTE_WCHAR_H)|g' \
 	      -e 's/@''HAVE_INCLUDE_NEXT''@/$(HAVE_INCLUDE_NEXT)/g' \
+	      -e 's/@''HAVE_WCHAR_H''@/$(HAVE_WCHAR_H)/g' \
 	    < $(srcdir)/wchar_.h; \
 	} > $@-t
 	mv $@-t $@

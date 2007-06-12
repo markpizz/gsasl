@@ -35,9 +35,10 @@
 #include <stdio.h>
 #include <time.h>
 
-#if HAVE_WCHAR_H
-/* Include the original <wchar.h>.  */
+/* Include the original <wchar.h> if it exists.
+   Some builds of uClibc lack it.  */
 /* The include_next requires a split double-inclusion guard.  */
+#if @HAVE_WCHAR_H@
 # if @HAVE_INCLUDE_NEXT@
 #  include_next <wchar.h>
 # else
