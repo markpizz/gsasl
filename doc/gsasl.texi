@@ -2108,6 +2108,11 @@ otherwise @code{GSASL_AUTHENTICATION_ERROR}.
 * GNU GPL::                          License for copying the programs.
 @end menu
 
+@node GNU Free Documentation License
+@appendixsec GNU Free Documentation License
+
+@cindex FDL, GNU Free Documentation License
+
 @include fdl.texi
 
 @node GNU LGPL
