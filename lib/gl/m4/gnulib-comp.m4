@@ -151,7 +151,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/vasprintf.c
   lib/wchar_.h
   lib/xsize.h
-  m4/absolute-header.m4
   m4/alloca.m4
   m4/base64.m4
   m4/codeset.m4
@@ -170,6 +169,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/gnulib-common.m4
   m4/hmac-md5.m4
   m4/iconv.m4
+  m4/include_next.m4
   m4/intdiv0.m4
   m4/intl.m4
   m4/intldir.m4
