@@ -1,4 +1,4 @@
-# stdint.m4 serial 26
+# stdint.m4 serial 28
 dnl Copyright (C) 2001-2007 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -45,32 +45,32 @@ AC_DEFUN([gl_STDINT_H],
   fi
   AC_SUBST([HAVE_SYS_TYPES_H])
 
-  dnl AC_INCLUDES_DEFAULT defines $ac_cv_header_stdint_h.
+  gl_CHECK_NEXT_HEADERS([stdint.h])
   if test $ac_cv_header_stdint_h = yes; then
-    gl_ABSOLUTE_HEADER([stdint.h])
-    ABSOLUTE_STDINT_H=\"$gl_cv_absolute_stdint_h\"
     HAVE_STDINT_H=1
   else
-    ABSOLUTE_STDINT_H=\"no/such/file/stdint.h\"
     HAVE_STDINT_H=0
   fi
-  AC_SUBST([ABSOLUTE_STDINT_H])
   AC_SUBST([HAVE_STDINT_H])
 
-  dnl Now see whether we need a substitute <stdint.h>.  Use
-  dnl ABSOLUTE_STDINT_H, not <stdint.h>, so that it also works during
-  dnl a "config.status --recheck" if a stdint.h has been
-  dnl created in the build directory.
+  dnl Now see whether we need a substitute <stdint.h>.
   if test $ac_cv_header_stdint_h = yes; then
     AC_CACHE_CHECK([whether stdint.h conforms to C99],
       [gl_cv_header_working_stdint_h],
       [gl_cv_header_working_stdint_h=no
        AC_COMPILE_IFELSE([
-         AC_LANG_PROGRAM([gl_STDINT_INCLUDES
-         [
+         AC_LANG_PROGRAM([[
 #define __STDC_LIMIT_MACROS 1 /* to make it work also in C++ mode */
 #define __STDC_CONSTANT_MACROS 1 /* to make it work also in C++ mode */
-#include ABSOLUTE_STDINT_H
+#define _GL_JUST_INCLUDE_SYSTEM_STDINT_H 1 /* work if build isn't clean */
+#include <stdint.h>
+/* Dragonfly defines WCHAR_MIN, WCHAR_MAX only in <wchar.h>.  */
+#if !(defined WCHAR_MIN && defined WCHAR_MAX)
+#error "WCHAR_MIN, WCHAR_MAX not defined in <stdint.h>"
+#endif
+]
+gl_STDINT_INCLUDES
+[
 #ifdef INT8_MAX
 int8_t a1 = INT8_MAX;
 int8_t a1min = INT8_MIN;

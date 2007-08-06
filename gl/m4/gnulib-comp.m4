@@ -136,8 +136,8 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/maint.mk
   doc/fdl.texi
   doc/gendocs_template
-  doc/gpl.texi
-  doc/lgpl.texi
+  doc/gpl-3.0.texi
+  doc/lgpl-2.1.texi
   lib/alloca_.h
   lib/asnprintf.c
   lib/c-ctype.c
@@ -227,6 +227,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/iconv.m4
   m4/iconv_h.m4
   m4/iconv_open.m4
+  m4/include_next.m4
   m4/inet_ntop.m4
   m4/inline.m4
   m4/intmax_t.m4
