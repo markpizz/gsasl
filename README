@@ -7,14 +7,17 @@ Authentication and Security Layer (SASL).  See doc/gsasl.{info,ps,pdf}
 for the manual.
 
 The GNU SASL library is licensed under the GNU Lesser General Public
-License (LGPL).  The GNU project typically uses the GNU General Public
-License (GPL) for libraries, and not the LGPL, but for this project we
-decided that we would get more help from the community if we used the
-LGPL, as other free SASL implementations exists.  See also
+License (LGPL) version 2.1.  See the file lib/COPYING.  The GNU
+project typically uses the GNU General Public License (GPL) for
+libraries, and not the LGPL, but for this project we decided that we
+would get more help from the community if we used the LGPL, as other
+free SASL implementations exists.  See also
 <http://www.gnu.org/licenses/why-not-lgpl.html>.
 
 The command-line application and test suite (src/, and tests/) are
-licensed under the GNU General Public License license (see COPYING).
+licensed under the GNU General Public License license version 3.0.
+See the file COPYING.
+
 The documentation (doc/) is licensed under the GNU Free Documentation
 License.
 
