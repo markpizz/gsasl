@@ -6,7 +6,7 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
-* Version 0.2.19 (unreleased)
+* Version 1.0 (unreleased)
 
 ** Command-line tools, examples, etc are now licensed under GPL version 3.
 The library is still licensed under LGPL v2.1 for compatibility
