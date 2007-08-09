@@ -8,8 +8,10 @@ OSX-URL: http://fink.sourceforge.net/pdb/package.php/gsasl
 BSD-Port-URL: http://www.freshports.org/security/gsasl/
 CVS-URL: http://josefsson.org/cgi-bin/viewcvs.cgi/gsasl/
 Mirror-Site-URL: http://josefsson.org/gsasl/
-Version: 0.2.11
+Version: 0.2.19
 Release-Focus: Minor bugfixes
 
-Ported to Windows by cross-compiling using Mingw32.  Fix memory leak
-in gsasl_simple_getpass.  Update of gnulib files.
+Command-line tools, examples, etc are now licensed under the GPL
+version 3.  Updated documentation as per license change.  New API
+gsasl_free to release memory allocated by other functions, primarily
+for MinGW builds.  Update gnulib files.  Update translations.
