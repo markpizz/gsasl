@@ -1,3 +1,205 @@
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 0.2.19.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.tmpl: Update.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Update.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Clarify license portion of blurb.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/free.c: Add Since: to mark when gsasl_free was introduced.
+
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Update.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Update version.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Document gsasl_free.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generate.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/Makefile.am: Add free.c.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/free.c: Add doc string.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Change version to
+	0.2.19, we'll need another release.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/src/free.c, lib/src/gsasl.h: Add gsasl_free().
+
+2007-08-08  Simon Josefsson <simon@josefsson.org>
+
+	* doc/specification/draft-ietf-sasl-crammd5-09.txt: Add.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Bump versions.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Bump versions.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/AUTHORS: Update PGP key.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Update PGP key.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* po/zh_CN.po: Sync with TP.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix markup.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/build-aux/config.rpath, lib/build-aux/maint.mk,
+	lib/gl/Makefile.am, lib/gl/float_.h, lib/gl/m4/absolute-header.m4,
+	lib/gl/m4/float_h.m4, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/include_next.m4,
+	lib/gl/m4/stdint.m4, lib/gl/m4/stdio_h.m4, lib/gl/m4/string_h.m4,
+	lib/gl/m4/wchar.m4, lib/gl/stdint_.h, lib/gl/stdio_.h,
+	lib/gl/string_.h, lib/gl/vasnprintf.c, lib/gl/wchar_.h: Update
+	gnulib files.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Clarify license versions.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, doc/doxygen/gdoc2doxygen, doc/gdoc-error,
+	maint-cfg.mk: Re-license to GPLv3.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac, examples/Makefile.am,
+	examples/client-callback.c, examples/client-mech.c,
+	examples/client-serverfirst.c, examples/client.c, src/Makefile.am,
+	src/callbacks.c, src/callbacks.h, src/gsasl.c, src/gsasl.ggo,
+	src/imap.c, src/imap.h, src/internal.h, src/smtp.c, src/smtp.h,
+	tests/Makefile.am, tests/cram-md5.c, tests/digest-md5.c,
+	tests/external.c, tests/gssapi.c, tests/md5file.c,
+	tests/old-cram-md5.c, tests/old-digest-md5.c, tests/old-gssapi.c,
+	tests/old-md5file.c, tests/simple.c, tests/threadsafety,
+	tests/unicode.c, tests/utils.c, tests/utils.h: Re-license to GPLv3.
+
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* README: Clarify license versions.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gpl.texi, doc/lgpl.texi: Remove unused license files.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* COPYING: Use GPLv3.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, doc/gsasl.texi, gl/override/doc/gpl.texi.diff,
+	gl/override/doc/lgpl.texi.diff: Update manual for GPLv3 change.
+
+2007-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/config.rpath, build-aux/gendocs.sh, build-aux/maint.mk,
+	doc/fdl.texi, doc/gpl-3.0.texi, doc/lgpl-2.1.texi, gl/Makefile.am,
+	gl/error.c, gl/float_.h, gl/iconv_.h, gl/m4/absolute-header.m4,
+	gl/m4/float_h.m4, gl/m4/getaddrinfo.m4, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/iconv_h.m4, gl/m4/include_next.m4,
+	gl/m4/netinet_in_h.m4, gl/m4/stdint.m4, gl/m4/stdio_h.m4,
+	gl/m4/stdlib_h.m4, gl/m4/string_h.m4, gl/m4/sys_select_h.m4,
+	gl/m4/sys_socket_h.m4, gl/m4/unistd_h.m4, gl/m4/wchar.m4,
+	gl/m4/wctype.m4, gl/netinet_in_.h, gl/stdint_.h, gl/stdio_.h,
+	gl/stdlib_.h, gl/string_.h, gl/sys_select_.h, gl/sys_socket_.h,
+	gl/unistd_.h, gl/vasnprintf.c, gl/wchar_.h, gl/wctype_.h: Update
+	gnulib files.
+
+2007-08-01  Simon Josefsson <simon@josefsson.org>
+
+	* doc/specification/draft-williams-on-channel-binding-03.txt: Add.
+
+2007-07-12  Simon Josefsson <simon@josefsson.org>
+
+	* doc/specification/draft-zeilenga-sasl-yap-01.txt: Add.
+
+2007-06-12  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Add *.po files.
+
+2007-06-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Add *.po files.
+
+2007-06-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/ga.po: Sync with TP.
+
+2007-06-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/fseeko.c, gl/m4/stdint.m4, gl/m4/string_h.m4,
+	gl/m4/vasnprintf.m4, gl/m4/wchar.m4, gl/printf-args.c,
+	gl/printf-args.h, gl/printf-parse.c, gl/printf-parse.h,
+	gl/string_.h, gl/vasnprintf.c, gl/wchar_.h, lib/gl/Makefile.am,
+	lib/gl/m4/gettext.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/intlmacosx.m4, lib/gl/m4/stdint.m4,
+	lib/gl/m4/string_h.m4, lib/gl/m4/vasnprintf.m4, lib/gl/m4/wchar.m4,
+	lib/gl/printf-args.c, lib/gl/printf-args.h, lib/gl/printf-parse.c,
+	lib/gl/printf-parse.h, lib/gl/string_.h, lib/gl/vasnprintf.c,
+	lib/gl/wchar_.h: Update gnulib files.
+
+2007-06-12  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2007-06-07  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* ChangeLog: Generated.
+
+2007-06-07  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
 2007-06-07  Simon Josefsson <jas@mocca.josefsson.org>
 
 	* NEWS, lib/NEWS: Version 0.2.18.
@@ -11330,6 +11532,10 @@
 2002-10-07  Simon Josefsson <simon@josefsson.org>
 
 	* README: gssapi works in server mode
+
+2002-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* Initial release, version 0.0.0.
 
 ----------------------------------------------------------------------
 	Copyright 2002, 2003, 2004 Simon Josefsson
