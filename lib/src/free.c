@@ -23,6 +23,18 @@
 /* Get specification. */
 #include "internal.h"
 
+/**
+ * gsasl_free:
+ * @ptr: memory pointer
+ *
+ * Invoke free(@ptr) to de-allocate memory pointer.  Typically used on
+ * strings allocated by other libgsasl functions.
+ *
+ * This is useful on Windows where libgsasl is linked to one CRT and
+ * the application is linked to another CRT.  Then malloc/free will
+ * not use the same heap.  This happens if you build libgsasl using
+ * mingw32 and the application with Visual Studio.
+ **/
 void
 gsasl_free (void *ptr)
 {
