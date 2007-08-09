@@ -66,6 +66,7 @@ Documentation License''.
 * Property Functions::          Specify username, password etc.
 * Session Functions::           Perform an authentication.
 * Utilities::                   Functions for various odd things.
+* Memory Handling::             Memory de-allocation.
 * Error Handling::              Error codes and such.
 * Examples::                    Demonstrate how to use the library.
 * Acknowledgements::            Whom to blame.
@@ -1734,6 +1735,13 @@ data in your callback by calling @code{gsasl_callback_hook_get}.
 @include texi/md5pwd.c.texi
 @include texi/crypto.c.texi
 
+@c **********************************************************
+@c ****************  Memory Handling  ***********************
+@c **********************************************************
+@node Memory Handling
+@chapter Memory Handling
+
+@include texi/free.c.texi
 
 
 @c **********************************************************
