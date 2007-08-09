@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson
 See the end for copying conditions.
 
-* Version 0.2.19 (unreleased)
+* Version 0.2.19 (released 2007-07-09)
 
 ** New API gsasl_free to release memory allocated by other functions.
 This is useful on Windows where libgsasl uses one CRT and the
