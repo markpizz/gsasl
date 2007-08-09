@@ -20,7 +20,7 @@ dnl Process this file with autoconf to produce a configure script.
 # MA 02110-1301, USA.
 
 AC_PREREQ(2.61)
-AC_INIT([libgsasl], [1.0], [bug-gsasl@gnu.org])
+AC_INIT([libgsasl], [0.2.19], [bug-gsasl@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 
 # Library code modified:                              REVISION++
