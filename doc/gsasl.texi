@@ -122,8 +122,10 @@ fits in under 60kb on an Intel x86 platform, without any modifications
 to the code.  (This figure was accurate as of version 0.0.13.)
 
 The library is licensed under the GNU Lesser General Public License
-version 2.1, and the command-line interface, self-tests and examples
-are licensed under the GNU General Public License version 3.0.
+version 2.1.  The command-line application (src/), examples
+(examples/), self-test suite (tests/) are licensed under the GNU
+General Public License license version 3.0.  The documentation (doc/)
+is licensed under the GNU Free Documentation License version 1.2.
 
 @float Illustration,fig:abstraction
 @image{abstraction,10cm,5cm}
