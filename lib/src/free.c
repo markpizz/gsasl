@@ -34,6 +34,8 @@
  * the application is linked to another CRT.  Then malloc/free will
  * not use the same heap.  This happens if you build libgsasl using
  * mingw32 and the application with Visual Studio.
+ *
+ * Since: 0.2.19
  **/
 void
 gsasl_free (void *ptr)
