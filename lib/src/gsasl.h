@@ -250,6 +250,7 @@ extern "C"
   extern int gsasl_md5 (const char *in, size_t inlen, char *out[16]);
   extern int gsasl_hmac_md5 (const char *key, size_t keylen,
 			     const char *in, size_t inlen, char *outhash[16]);
+  extern void gsasl_free (void *ptr);
 
   /* Get the mechanism API. */
 # include <gsasl-mech.h>
