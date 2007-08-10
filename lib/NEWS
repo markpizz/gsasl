@@ -4,6 +4,9 @@ See the end for copying conditions.
 
 * Version 0.2.20 (unreleased)
 
+** If GSS-API and GS2 are disabled, don't bother linking to a GSS-API library.
+Reported by Maxim Britov <maxim.britov@gmail.com>.
+
 ** API and ABI modifications.
 No changes since last version.
 
