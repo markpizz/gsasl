@@ -27,9 +27,9 @@ AC_CONFIG_AUX_DIR([build-aux])
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
-AC_SUBST(LT_CURRENT, 10)
-AC_SUBST(LT_REVISION, 5)
-AC_SUBST(LT_AGE, 3)
+AC_SUBST(LT_CURRENT, 11)
+AC_SUBST(LT_REVISION, 0)
+AC_SUBST(LT_AGE, 4)
 
 AM_INIT_AUTOMAKE([1.10 gnits])
 AC_CONFIG_HEADERS(config.h)
