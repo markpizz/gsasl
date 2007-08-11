@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.20 (unreleased)
 
+** Update gnulib files.
+
 * Version 0.2.19 (released 2007-08-09)
 
 ** Command-line tools, examples, etc are now licensed under the
