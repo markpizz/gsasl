@@ -11,6 +11,8 @@ API/ABI was added.
 ** If GSS-API and GS2 are disabled, don't bother linking to a GSS-API library.
 Reported by Maxim Britov <maxim.britov@gmail.com>.
 
+** Update gnulib files.
+
 ** API and ABI modifications.
 No changes since last version.
 
