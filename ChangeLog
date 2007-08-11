@@ -1,3 +1,53 @@
+2007-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2007-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 0.2.20.
+
+2007-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2007-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/GNUmakefile, build-aux/maint.mk,
+	lib/build-aux/GNUmakefile, lib/build-aux/maint.mk: Update gnulib
+	files.
+
+2007-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/configure.ac: Increment shared library version
+	properly.
+
+2007-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2007-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2007-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2007-08-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Don't bother looking for GSS-API library if
+	GS2/GSS-API disabled. Reported by Maxim Britov
+	<maxim.britov@gmail.com>.
+
+2007-08-09  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2007-08-09  Simon Josefsson <simon@josefsson.org>
 
 	* lib/ChangeLog: Generated.
