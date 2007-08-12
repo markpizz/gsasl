@@ -12,7 +12,7 @@
 @syncodeindex pg fn
 
 @copying
-This manual is last updated @value{UPDATED} for version
+This manual was last updated @value{UPDATED} for version
 @value{VERSION} of GNU SASL.
 
 Copyright @copyright{} 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson.
@@ -273,24 +273,24 @@ The NTLM mechanism requires the library LibNTLM,
 
 @item GSS-API
 The GSS-API mechanism requires a GSS-API library, such as GNU GSS
-(@url{http://josefsson.org/gss/}, MIT Kerberos or Heimdal.
+(@url{http://josefsson.org/gss/}), MIT Kerberos or Heimdal.
 
 @item LibIDN
 Processing of non-ASCII username and passwords requires the SASLprep
-implementation in GNU LibIDN (@url{http://josefsson.org/libidn/}.
+implementation in GNU LibIDN (@url{http://josefsson.org/libidn/}).
 This is needed for full conformance with the latest SASL protocol
 drafts, but is optional in the library for improved portability.
 
 @item Libgcrypt
 The GNU SASL library ships with its own cryptographic implementation,
-but it can use the one in libgcrypt (@url{http://www.gnupg.org/}
+but it can use the one in libgcrypt (@url{http://www.gnupg.org/})
 instead, if it is available.  This is typically useful for desktop
 machines which have libgcrypt installed.
 @end table
 
 The command-line interface to GNU SASL requires a POSIX or Windows
 platform for network connectivity.  The command-line tool can make use
-of GnuTLS (@url{http://josefsson.org/gnutls/} to support the STARTTLS
+of GnuTLS (@url{http://josefsson.org/gnutls/}) to support the STARTTLS
 modes of IMAP and SMTP, but GnuTLS is not required.
 
 Note that the library does not need a POSIX platform or network
