@@ -36,66 +36,209 @@
 /* Get token validator. */
 #include "validate.h"
 
-/* FIXME: The challenge/response functions may print "empty" fields,
-   such as "foo=bar, , , bar=foo".  It is valid, but look ugly. */
+/* Append a key/value pair to a comma'd string list.  Additionally enclose
+   the value in quotes if requested. */
+static int
+comma_append(char **dst, const char *key, const char *value, int quotes)
+{
+  char *tmp;
+  int result;
+
+  if (*dst)
+    if (value)
+      if (quotes)
+	result = asprintf (&tmp, "%s, %s=\"%s\"", *dst, key, value);
+      else
+	result = asprintf (&tmp, "%s, %s=%s", *dst, key, value);
+    else
+      result = asprintf (&tmp, "%s, %s", *dst, key);
+  else
+    if (value)
+      if (quotes)
+	result = asprintf (&tmp, "%s=\"%s\"", key, value);
+      else
+	result = asprintf (&tmp, "%s=%s", key, value);
+    else
+      result = asprintf (&tmp, "%s", key);
+
+  if (result < 0)
+    return result;
+
+  if (*dst)
+    free (*dst);
+
+  *dst = tmp;
+
+  return result;
+}
 
 char *
 digest_md5_print_challenge (digest_md5_challenge * c)
 {
   char *out = NULL;
-  char *realm = NULL, *maxbuf = NULL;
   size_t i;
 
   /* Below we assume the mandatory fields are present, verify that
-     first to avoid crashes. */
+  first to avoid crashes. */
   if (digest_md5_validate_challenge (c) != 0)
     return NULL;
 
   for (i = 0; i < c->nrealms; i++)
     {
-      char *tmp;
-      if (asprintf (&tmp, "%s, realm=\"%s\"",
-		    realm ? realm : "", c->realms[i]) < 0)
-	goto end;
-      if (realm)
-	free (realm);
-      realm = tmp;
+      if (comma_append (&out, "realm", c->realms[i], 1) < 0)
+	{
+	  free (out);
+	  return NULL;
+	}
     }
 
+  if (c->nonce)
+    if (comma_append (&out, "nonce", c->nonce, 1) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
+  if (c->qops)
+    {
+      char *tmp = NULL;
+
+      if (c->qops & DIGEST_MD5_QOP_AUTH)
+	if (comma_append (&tmp, "auth", NULL, 0) < 0)
+          {
+	    free (tmp);
+	    free (out);
+	    return NULL;
+	  }
+
+      if (c->qops & DIGEST_MD5_QOP_AUTH_INT)
+	if (comma_append (&tmp, "auth-int", NULL, 0) < 0)
+	  {
+	    free (tmp);
+	    free (out);
+	    return NULL;
+	  }
+
+      if (c->qops & DIGEST_MD5_QOP_AUTH_CONF)
+	if (comma_append (&tmp, "auth-conf", NULL, 0) < 0)
+	  {
+	    free (tmp);
+	    free (out);
+	    return NULL;
+	  }
+
+      if (comma_append (&out, "qop", tmp, 1) < 0)
+	{
+	  free (tmp);
+	  free (out);
+	  return NULL;
+	}
+
+      free (tmp);
+    }
+
+  if (c->stale)
+    if (comma_append (&out, "stale", "true", 0) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
   if (c->servermaxbuf)
-    if (asprintf (&maxbuf, "maxbuf=%lu", c->servermaxbuf) < 0)
-      goto end;
+    {
+      char *tmp;
 
-  if (asprintf (&out, "%s, nonce=\"%s\", %s%s%s%s%s, %s, "
-		"%s, %s, algorithm=md5-sess, %s%s%s%s%s%s%s%s",
-		realm ? realm : "",
-		c->nonce,
-		c->qops ? "qop=\"" : "",
-		(c->qops & DIGEST_MD5_QOP_AUTH) ? "auth, " : "",
-		(c->qops & DIGEST_MD5_QOP_AUTH_INT) ? "auth-int, " : "",
-		(c->qops & DIGEST_MD5_QOP_AUTH_CONF) ? "auth-conf" : "",
-		c->qops ? "\"" : "",
-		c->stale ? "stale=true" : "",
-		maxbuf ? maxbuf : "",
-		c->utf8 ? "charset=utf-8" : "",
-		c->ciphers ? "cipher=\"" : "",
-		(c->ciphers & DIGEST_MD5_CIPHER_3DES) ? "3des, " : "",
-		(c->ciphers & DIGEST_MD5_CIPHER_DES) ? "des, " : "",
-		(c->ciphers & DIGEST_MD5_CIPHER_RC4_40) ? "rc4-40, " : "",
-		(c->ciphers & DIGEST_MD5_CIPHER_RC4) ? "rc4, " : "",
-		(c->ciphers & DIGEST_MD5_CIPHER_RC4_56) ? "rc4-56, " : "",
-		(c->ciphers & DIGEST_MD5_CIPHER_AES_CBC) ? "aes-cbc, " : "",
-		c->ciphers ? "\"" : "") < 0)
-    out = NULL;
+      if (asprintf (&tmp, "%lu", c->servermaxbuf) < 0)
+	{
+	  free (out);
+	  return NULL;
+	}
 
-end:
-  if (realm)
-    free (realm);
-  if (maxbuf)
-    free (maxbuf);
+      if (comma_append (&out, "maxbuf", tmp, 0) < 0)
+	{
+	  free (out);
+	  return NULL;
+	}
+
+      free (tmp);
+    }
+
+  if (c->utf8)
+    if (comma_append (&out, "charset", "utf-8", 0) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
+  if (comma_append (&out, "algorithm", "md5-sess", 0) < 0)
+    {
+      free (out);
+      return NULL;
+    }
+
+  if (c->ciphers)
+    {
+      char *tmp = NULL;
+
+      if (c->ciphers & DIGEST_MD5_CIPHER_3DES)
+	if (comma_append (&tmp, "3des", NULL, 0) < 0)
+	  {
+	    free (tmp);
+	    free (out);
+	    return NULL;
+	  }
+
+      if (c->ciphers & DIGEST_MD5_CIPHER_DES)
+	if (comma_append (&tmp, "des", NULL, 0) < 0)
+	  {
+	    free (tmp);
+	    free (out);
+	    return NULL;
+	  }
+
+      if (c->ciphers & DIGEST_MD5_CIPHER_RC4_40)
+	if (comma_append (&tmp, "rc4-40", NULL, 0) < 0)
+	  {
+	    free (tmp);
+	    free (out);
+	    return NULL;
+	  }
+
+      if (c->ciphers & DIGEST_MD5_CIPHER_RC4)
+	if (comma_append (&tmp, "rc4", NULL, 0) < 0)
+	  {
+	    free (tmp);
+	    free (out);
+	    return NULL;
+	  }
+
+      if (c->ciphers & DIGEST_MD5_CIPHER_RC4_56)
+	if (comma_append (&tmp, "rc4-56", NULL, 0) < 0)
+	  {
+	    free (tmp);
+	    free (out);
+	    return NULL;
+	  }
+
+      if (c->ciphers & DIGEST_MD5_CIPHER_AES_CBC)
+	if (comma_append (&tmp, "aes-cbc", NULL, 0) < 0)
+	  {
+	    free (tmp);
+	    free (out);
+	    return NULL;
+	  }
+
+      if (comma_append (&out, "cipher", tmp, 1) < 0)
+	{
+	  free (tmp);
+	  free (out);
+	  return NULL;
+	}
+
+      free (tmp);
+    }
 
   return out;
-
 }
 
 char *
@@ -104,7 +247,6 @@ digest_md5_print_response (digest_md5_response * r)
   char *out = NULL;
   const char *qop = NULL;
   const char *cipher = NULL;
-  char *maxbuf = NULL;
 
   /* Below we assume the mandatory fields are present, verify that
      first to avoid crashes. */
@@ -117,12 +259,6 @@ digest_md5_print_response (digest_md5_response * r)
     qop = "qop=auth-int";
   else if (r->qop & DIGEST_MD5_QOP_AUTH)
     qop = "qop=auth";
-  else
-    qop = "";
-
-  if (r->clientmaxbuf)
-    if (asprintf (&maxbuf, "maxbuf=%lu", r->clientmaxbuf) < 0)
-      goto end;
 
   if (r->cipher & DIGEST_MD5_CIPHER_3DES)
     cipher = "cipher=3des";
@@ -138,32 +274,116 @@ digest_md5_print_response (digest_md5_response * r)
     cipher = "cipher=aes-cbc";
   else if (r->cipher & DIGEST_MD5_CIPHER_3DES)
     cipher = "cipher=3des";
-  else
-    cipher = "";
 
-  if (asprintf (&out, "username=\"%s\", %s%s%s, nonce=\"%s\", cnonce=\"%s\", "
-		"nc=%08lx, %s, digest-uri=\"%s\", response=%s, "
-		"%s, %s, %s, %s%s%s",
-		r->username,
-		r->realm ? "realm=\"" : "",
-		r->realm ? r->realm : "",
-		r->realm ? "\"" : "",
-		r->nonce,
-		r->cnonce,
-		r->nc,
-		qop,
-		r->digesturi,
-		r->response,
-		maxbuf ? maxbuf : "",
-		r->utf8 ? "charset=utf-8" : "",
-		cipher,
-		r->authzid ? "authzid=\"" : "",
-		r->authzid ? r->authzid : "", r->authzid ? "\"" : "") < 0)
-    out = NULL;
+  if (r->username)
+    if (comma_append (&out, "username", r->username, 1) < 0)
+      {
+	free (out);
+	return NULL;
+      }
 
-end:
-  if (maxbuf)
-    free (maxbuf);
+  if (r->realm)
+    if (comma_append (&out, "realm", r->realm, 1) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
+  if (r->nonce)
+    if (comma_append (&out, "nonce", r->nonce, 1) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
+  if (r->cnonce)
+    if (comma_append (&out, "cnonce", r->cnonce, 1) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
+  if (r->nc)
+    {
+      char *tmp;
+
+      if (asprintf (&tmp, "%08lx", r->nc) < 0)
+	{
+	  free (out);
+	  return NULL;
+	}
+
+      if (comma_append (&out, "nc", tmp, 0) < 0)
+	{
+	  free (tmp);
+	  free (out);
+	  return NULL;
+	}
+
+      free (tmp);
+    }
+
+  if (qop)
+    if (comma_append (&out, qop, NULL, 0) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
+  if (r->digesturi)
+    if (comma_append (&out, "digest-uri", r->digesturi, 1) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
+  if (r->response)
+    if (comma_append (&out, "response", r->response, 0) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
+  if (r->clientmaxbuf)
+    {
+      char *tmp;
+      
+      if (asprintf (&tmp, "%lu", r->clientmaxbuf) < 0)
+	{
+	  free (out);
+	  return NULL;
+	}
+
+      if (comma_append (&out, "maxbuf", tmp, 0) < 0)
+	{
+	  free (tmp);
+	  free (out);
+	  return NULL;
+	}
+
+      free (tmp);
+    }
+
+  if (r->utf8)
+    if (comma_append (&out, "charset", "utf-8", 0) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
+  if (cipher)
+    if (comma_append (&out, cipher, NULL, 0) < 0)
+      {
+	free (out);
+	return NULL;
+      }
+
+  if (r->authzid)
+    if (comma_append (&out, "authzid", r->authzid, 1) < 0)
+      {
+	free (out);
+	return NULL;
+      }
 
   return out;
 }
