@@ -5,6 +5,12 @@ See the end for copying conditions.
 Simon Josefsson <simon@josefsson.org>
 Designed and implemented GNU SASL.
 
+Dirk Armand Marcel Dierckx <dirk.dierckx@solidity.org>
+Implemented gsasl_client/server_suggest_mechanism.
+
+James Canete <jcanete01@shaw.ca>
+Fixed digest-md5 to not add excessive commas.
+
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 URL: http://josefsson.org/key.txt
 Comment: This 0xB565716F key is used to sign releases of GNU SASL.
