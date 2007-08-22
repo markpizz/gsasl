@@ -4,6 +4,9 @@ See the end for copying conditions.
 
 * Version 0.2.21 (unreleased)
 
+** DIGEST-MD5: Remove the extra leading, trailing, and intermediate commas.
+Patch from James Canete <jcanete01@shaw.ca>.
+
 ** API and ABI modifications.
 No changes since last version.
 
