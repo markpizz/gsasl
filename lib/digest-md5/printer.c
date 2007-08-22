@@ -39,7 +39,7 @@
 /* Append a key/value pair to a comma'd string list.  Additionally enclose
    the value in quotes if requested. */
 static int
-comma_append(char **dst, const char *key, const char *value, int quotes)
+comma_append (char **dst, const char *key, const char *value, int quotes)
 {
   char *tmp;
   int result;
@@ -52,14 +52,13 @@ comma_append(char **dst, const char *key, const char *value, int quotes)
 	result = asprintf (&tmp, "%s, %s=%s", *dst, key, value);
     else
       result = asprintf (&tmp, "%s, %s", *dst, key);
-  else
-    if (value)
-      if (quotes)
-	result = asprintf (&tmp, "%s=\"%s\"", key, value);
-      else
-	result = asprintf (&tmp, "%s=%s", key, value);
+  else if (value)
+    if (quotes)
+      result = asprintf (&tmp, "%s=\"%s\"", key, value);
     else
-      result = asprintf (&tmp, "%s", key);
+      result = asprintf (&tmp, "%s=%s", key, value);
+  else
+    result = asprintf (&tmp, "%s", key);
 
   if (result < 0)
     return result;
@@ -79,7 +78,7 @@ digest_md5_print_challenge (digest_md5_challenge * c)
   size_t i;
 
   /* Below we assume the mandatory fields are present, verify that
-  first to avoid crashes. */
+     first to avoid crashes. */
   if (digest_md5_validate_challenge (c) != 0)
     return NULL;
 
@@ -105,7 +104,7 @@ digest_md5_print_challenge (digest_md5_challenge * c)
 
       if (c->qops & DIGEST_MD5_QOP_AUTH)
 	if (comma_append (&tmp, "auth", NULL, 0) < 0)
-          {
+	  {
 	    free (tmp);
 	    free (out);
 	    return NULL;
@@ -347,7 +346,7 @@ digest_md5_print_response (digest_md5_response * r)
   if (r->clientmaxbuf)
     {
       char *tmp;
-      
+
       if (asprintf (&tmp, "%lu", r->clientmaxbuf) < 0)
 	{
 	  free (out);
