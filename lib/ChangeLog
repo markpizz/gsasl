@@ -1,3 +1,61 @@
+2007-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 0.2.21.
+
+2007-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Bump versions.
+
+2007-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* gl/fseeko.c, gl/lseek.c, gl/m4/lseek.m4: Update gnulib files.
+
+2007-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2007-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Bump versions.
+
+2007-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Add.
+
+2007-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2007-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/printer.c: Indent.
+
+2007-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/printer.c: Remove the extra leading, trailing, and
+	intermediate commas. Patch from James Canete <jcanete01@shaw.ca>.
+
+2007-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2007-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix typoes.  Tiny patch from Brad Hards
+	<bradh@frogmouth.net>.
+
+2007-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2007-08-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
 2007-08-11  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS, lib/NEWS: Version 0.2.20.
