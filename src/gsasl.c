@@ -45,7 +45,7 @@ writeln (const char *str)
 
   if (sockfd)
     {
-      ssize_t len;
+      ssize_t len = 0;
 
 #ifdef HAVE_LIBGNUTLS
       if (using_tls)
@@ -263,15 +263,14 @@ main (int argc, char *argv[])
   Gsasl *ctx = NULL;
   int res;
   char *in;
-  char *connect_hostname;
-  char *connect_service;
+  char *connect_hostname = NULL;
+  char *connect_service = NULL;
 #ifdef HAVE_LIBGNUTLS
   const int kx_prio[] = { GNUTLS_KX_RSA, GNUTLS_KX_DHE_DSS,
     GNUTLS_KX_DHE_RSA, GNUTLS_KX_ANON_DH, 0
   };
   gnutls_anon_client_credentials anoncred;
   gnutls_certificate_credentials x509cred;
-  int ret, outerr;
 #endif
 
   set_program_name (argv[0]);
@@ -733,7 +732,7 @@ main (int argc, char *argv[])
 	    }
 
 	  if (res != GSASL_OK)
-	    error (EXIT_FAILURE, 0, _("encoding error: %s"), res,
+	    error (EXIT_FAILURE, 0, _("encoding error: %s"),
 		   gsasl_strerror (res));
 	}
 
