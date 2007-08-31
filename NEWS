@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.21 (released 2007-08-22)
 
+** Fix warnings when building the tool 'gsasl'.
+
 ** Fix typos in manual.
 Tiny patch from Brad Hards <bradh@frogmouth.net>.
 
