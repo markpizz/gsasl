@@ -54,7 +54,9 @@ AC_DEFUN([gl_INIT],
   gl_MODULE_INDICATOR([gc-random])
   gl_FLOAT_H
   gl_FUNC_GETDELIM
+  gl_STDIO_MODULE_INDICATOR([getdelim])
   gl_FUNC_GETLINE
+  gl_STDIO_MODULE_INDICATOR([getline])
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.16.1])
   AC_SUBST([LIBINTL])
@@ -124,9 +126,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/gc-libgcrypt.c
   lib/gc.h
   lib/getdelim.c
-  lib/getdelim.h
   lib/getline.c
-  lib/getline.h
   lib/gettext.h
   lib/hmac-md5.c
   lib/hmac.h
