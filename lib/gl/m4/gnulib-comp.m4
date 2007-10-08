@@ -61,14 +61,20 @@ AC_DEFUN([gl_INIT],
   AM_GNU_GETTEXT_VERSION([0.16.1])
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
+  gl_FUNC_MALLOC_POSIX
+  gl_STDLIB_MODULE_INDICATOR([malloc-posix])
+  gl_FUNC_REALLOC_POSIX
+  gl_STDLIB_MODULE_INDICATOR([realloc-posix])
   gl_SIZE_MAX
   AM_STDBOOL_H
   gl_STDINT_H
   gl_STDIO_H
+  gl_STDLIB_H
   gl_FUNC_STRDUP
   gl_STRING_MODULE_INDICATOR([strdup])
   gl_HEADER_STRING_H
   gl_FUNC_STRVERSCMP
+  gl_UNISTD_H
   gl_FUNC_VASNPRINTF
   gl_FUNC_VASPRINTF
   gl_STDIO_MODULE_INDICATOR([vasprintf])
@@ -95,18 +101,31 @@ AC_DEFUN([gl_INIT],
 
 # Like AC_LIBOBJ, except that the module name goes
 # into gl_LIBOBJS instead of into LIBOBJS.
-AC_DEFUN([gl_LIBOBJ],
-  [gl_LIBOBJS="$gl_LIBOBJS $1.$ac_objext"])
+AC_DEFUN([gl_LIBOBJ], [
+  AS_LITERAL_IF([$1], [gl_LIBSOURCES([$1.c])])dnl
+  gl_LIBOBJS="$gl_LIBOBJS $1.$ac_objext"
+])
 
 # Like AC_REPLACE_FUNCS, except that the module name goes
 # into gl_LIBOBJS instead of into LIBOBJS.
-AC_DEFUN([gl_REPLACE_FUNCS],
-  [AC_CHECK_FUNCS([$1], , [gl_LIBOBJ($ac_func)])])
+AC_DEFUN([gl_REPLACE_FUNCS], [
+  m4_foreach_w([gl_NAME], [$1], [AC_LIBSOURCES(gl_NAME[.c])])dnl
+  AC_CHECK_FUNCS([$1], , [gl_LIBOBJ($ac_func)])
+])
 
-# Like AC_LIBSOURCES, except that it does nothing.
-# We rely on EXTRA_lib..._SOURCES instead.
-AC_DEFUN([gl_LIBSOURCES],
-  [])
+# Like AC_LIBSOURCES, except the directory where the source file is
+# expected is derived from the gnulib-tool parametrization,
+# and alloca is special cased (for the alloca-opt module).
+# We could also entirely rely on EXTRA_lib..._SOURCES.
+AC_DEFUN([gl_LIBSOURCES], [
+  m4_foreach([_gl_NAME], [$1], [
+    m4_if(_gl_NAME, [alloca.c], [], [
+      m4_syscmd([test -r gl/]_gl_NAME[ || test ! -d gl])dnl
+      m4_if(m4_sysval, [0], [],
+        [AC_FATAL([missing gl/]_gl_NAME)])
+    ])
+  ])
+])
 
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
@@ -115,13 +134,13 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/config.rpath
   build-aux/link-warning.h
   build-aux/maint.mk
-  lib/alloca_.h
+  lib/alloca.in.h
   lib/asnprintf.c
   lib/asprintf.c
   lib/base64.c
   lib/base64.h
   lib/float+.h
-  lib/float_.h
+  lib/float.in.h
   lib/gc-gnulib.c
   lib/gc-libgcrypt.c
   lib/gc.h
@@ -130,6 +149,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/gettext.h
   lib/hmac-md5.c
   lib/hmac.h
+  lib/malloc.c
   lib/md5.c
   lib/md5.h
   lib/memxor.c
@@ -138,19 +158,23 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/printf-args.h
   lib/printf-parse.c
   lib/printf-parse.h
+  lib/realloc.c
   lib/size_max.h
-  lib/stdbool_.h
-  lib/stdint_.h
-  lib/stdio_.h
+  lib/stdbool.in.h
+  lib/stdint.in.h
+  lib/stdio.in.h
+  lib/stdlib.in.h
   lib/strdup.c
-  lib/string_.h
+  lib/string.in.h
   lib/strverscmp.c
   lib/strverscmp.h
+  lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
   lib/vasprintf.c
-  lib/wchar_.h
+  lib/wchar.in.h
   lib/xsize.h
+  m4/absolute-header.m4
   m4/alloca.m4
   m4/base64.m4
   m4/codeset.m4
@@ -184,22 +208,26 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lib-prefix.m4
   m4/lock.m4
   m4/longlong.m4
+  m4/malloc.m4
   m4/md5.m4
   m4/memxor.m4
   m4/nls.m4
   m4/po.m4
   m4/printf-posix.m4
   m4/progtest.m4
+  m4/realloc.m4
   m4/size_max.m4
   m4/stdbool.m4
   m4/stdint.m4
   m4/stdint_h.m4
   m4/stdio_h.m4
+  m4/stdlib_h.m4
   m4/strdup.m4
   m4/string_h.m4
   m4/strverscmp.m4
   m4/uintmax_t.m4
   m4/ulonglong.m4
+  m4/unistd_h.m4
   m4/vasnprintf.m4
   m4/vasprintf.m4
   m4/visibility.m4
