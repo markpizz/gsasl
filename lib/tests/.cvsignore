@@ -1,7 +1,0 @@
-.deps
-.libs
-Makefile
-Makefile.in
-test-gc
-test-gc-hmac-md5
-test-gc-md5

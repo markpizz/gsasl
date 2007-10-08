@@ -1,8 +1,0 @@
-.deps
-.libs
-Makefile
-Makefile.in
-client
-client-callback
-client-mech
-client-serverfirst
