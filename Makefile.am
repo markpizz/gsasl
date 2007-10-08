@@ -37,7 +37,7 @@ tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
 
 release:
 	cd lib && make release
-	! git-tag -l $(tag) > /dev/null
+	! git-tag -l $(tag) | grep $(PACKAGE) > /dev/null
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
 	git commit -m Generated. ChangeLog
