@@ -64,11 +64,15 @@ AC_DEFUN([gl_INIT],
   gl_INLINE
   gl_FUNC_LSEEK
   gl_UNISTD_MODULE_INDICATOR([lseek])
+  gl_FUNC_MALLOC_POSIX
+  gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   gl_HEADER_NETINET_IN
   AC_PROG_MKDIR_P
   gl_QUOTE
   gl_QUOTEARG
   gl_FUNC_READLINE
+  gl_FUNC_REALLOC_POSIX
+  gl_STDLIB_MODULE_INDICATOR([realloc-posix])
   gl_SIZE_MAX
   gl_FUNC_SNPRINTF
   gl_STDIO_MODULE_INDICATOR([snprintf])
@@ -79,6 +83,8 @@ AC_DEFUN([gl_INIT],
   gl_STDLIB_H
   gl_FUNC_STRDUP
   gl_STRING_MODULE_INDICATOR([strdup])
+  gl_FUNC_STRERROR
+  gl_STRING_MODULE_INDICATOR([strerror])
   if test $gl_cond_libtool = false; then
     gl_ltlibdeps="$gl_ltlibdeps $LTLIBICONV"
     gl_libdeps="$gl_libdeps $LIBICONV"
@@ -115,18 +121,31 @@ AC_DEFUN([gl_INIT],
 
 # Like AC_LIBOBJ, except that the module name goes
 # into gl_LIBOBJS instead of into LIBOBJS.
-AC_DEFUN([gl_LIBOBJ],
-  [gl_LIBOBJS="$gl_LIBOBJS $1.$ac_objext"])
+AC_DEFUN([gl_LIBOBJ], [
+  AS_LITERAL_IF([$1], [gl_LIBSOURCES([$1.c])])dnl
+  gl_LIBOBJS="$gl_LIBOBJS $1.$ac_objext"
+])
 
 # Like AC_REPLACE_FUNCS, except that the module name goes
 # into gl_LIBOBJS instead of into LIBOBJS.
-AC_DEFUN([gl_REPLACE_FUNCS],
-  [AC_CHECK_FUNCS([$1], , [gl_LIBOBJ($ac_func)])])
+AC_DEFUN([gl_REPLACE_FUNCS], [
+  m4_foreach_w([gl_NAME], [$1], [AC_LIBSOURCES(gl_NAME[.c])])dnl
+  AC_CHECK_FUNCS([$1], , [gl_LIBOBJ($ac_func)])
+])
 
-# Like AC_LIBSOURCES, except that it does nothing.
-# We rely on EXTRA_lib..._SOURCES instead.
-AC_DEFUN([gl_LIBSOURCES],
-  [])
+# Like AC_LIBSOURCES, except the directory where the source file is
+# expected is derived from the gnulib-tool parametrization,
+# and alloca is special cased (for the alloca-opt module).
+# We could also entirely rely on EXTRA_lib..._SOURCES.
+AC_DEFUN([gl_LIBSOURCES], [
+  m4_foreach([_gl_NAME], [$1], [
+    m4_if(_gl_NAME, [alloca.c], [], [
+      m4_syscmd([test -r gl/]_gl_NAME[ || test ! -d gl])dnl
+      m4_if(m4_sysval, [0], [],
+        [AC_FATAL([missing gl/]_gl_NAME)])
+    ])
+  ])
+])
 
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
@@ -140,7 +159,7 @@ AC_DEFUN([gl_FILE_LIST], [
   doc/gendocs_template
   doc/gpl-3.0.texi
   doc/lgpl-2.1.texi
-  lib/alloca_.h
+  lib/alloca.in.h
   lib/asnprintf.c
   lib/c-ctype.c
   lib/c-ctype.h
@@ -152,7 +171,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/exitfail.c
   lib/exitfail.h
   lib/float+.h
-  lib/float_.h
+  lib/float.in.h
   lib/fseeko.c
   lib/gai_strerror.c
   lib/getaddrinfo.c
@@ -160,13 +179,13 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getdelim.c
   lib/getline.c
   lib/getopt.c
+  lib/getopt.in.h
   lib/getopt1.c
-  lib/getopt_.h
   lib/getopt_int.h
   lib/getpass.c
   lib/getpass.h
   lib/gettext.h
-  lib/iconv_.h
+  lib/iconv.in.h
   lib/iconv_open-aix.gperf
   lib/iconv_open-hpux.gperf
   lib/iconv_open-irix.gperf
@@ -175,7 +194,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/inet_ntop.c
   lib/inet_ntop.h
   lib/lseek.c
-  lib/netinet_in_.h
+  lib/malloc.c
+  lib/netinet_in.in.h
   lib/printf-args.c
   lib/printf-args.h
   lib/printf-parse.c
@@ -188,23 +208,25 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/quotearg.h
   lib/readline.c
   lib/readline.h
+  lib/realloc.c
   lib/size_max.h
   lib/snprintf.c
-  lib/stdbool_.h
-  lib/stdint_.h
-  lib/stdio_.h
-  lib/stdlib_.h
+  lib/stdbool.in.h
+  lib/stdint.in.h
+  lib/stdio.in.h
+  lib/stdlib.in.h
   lib/strdup.c
+  lib/strerror.c
   lib/striconv.c
   lib/striconv.h
-  lib/string_.h
-  lib/sys_select_.h
-  lib/sys_socket_.h
-  lib/unistd_.h
+  lib/string.in.h
+  lib/sys_select.in.h
+  lib/sys_socket.in.h
+  lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
-  lib/wchar_.h
-  lib/wctype_.h
+  lib/wchar.in.h
+  lib/wctype.in.h
   lib/xalloc-die.c
   lib/xalloc.h
   lib/xmalloc.c
@@ -237,12 +259,14 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lib-prefix.m4
   m4/longlong.m4
   m4/lseek.m4
+  m4/malloc.m4
   m4/mbrtowc.m4
   m4/mbstate_t.m4
   m4/netinet_in_h.m4
   m4/quote.m4
   m4/quotearg.m4
   m4/readline.m4
+  m4/realloc.m4
   m4/size_max.m4
   m4/snprintf.m4
   m4/socklen.m4
@@ -253,6 +277,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdio_h.m4
   m4/stdlib_h.m4
   m4/strdup.m4
+  m4/strerror.m4
   m4/string_h.m4
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
