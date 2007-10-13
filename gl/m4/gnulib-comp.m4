@@ -193,6 +193,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/iconv_open.c
   lib/inet_ntop.c
   lib/inet_ntop.h
+  lib/intprops.h
   lib/lseek.c
   lib/malloc.c
   lib/netinet_in.in.h

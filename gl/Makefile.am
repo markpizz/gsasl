@@ -263,6 +263,13 @@ EXTRA_libgl_la_SOURCES += inet_ntop.c
 
 ## end   gnulib module inet_ntop
 
+## begin gnulib module intprops
+
+
+EXTRA_DIST += intprops.h
+
+## end   gnulib module intprops
+
 ## begin gnulib module link-warning
 
 LINK_WARNING_H=$(top_srcdir)/build-aux/link-warning.h
