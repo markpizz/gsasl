@@ -1,5 +1,5 @@
 /* gs2parser.h --- GS2 parser.
- * Copyright (C) 2006  Simon Josefsson
+ * Copyright (C) 2006, 2007  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -33,31 +33,43 @@
 int
 gs2_parser (const char *token, size_t toklen, struct gs2_token *out)
 {
-  uint32_t ctxlen;
+  uint32_t context_length, wrap_length;
 
-  /* Packets shorter than 4 octets are invalid. */
-  if (toklen < 4)
+  if (!out)
     return -1;
 
-  ctxlen =
+  /* Messages shorter than or equal to 8 octets are invalid. */
+  if (toklen <= 8)
+    return -1;
+
+  context_length =
     (token[0] << 24) & 0xFF000000 |
     (token[1] << 16) & 0xFF0000 |
     (token[2] << 8) & 0xFF00 |
     (token[3]) & 0xFF;
 
-  /* If the length field is longer than the entire packet size, minus
-     4 octets, the packet is invalid. */
-  if (ctxlen > toklen - 4)
-    return -2;
+  wrap_length =
+    (token[4] << 24) & 0xFF000000 |
+    (token[5] << 16) & 0xFF0000 |
+    (token[6] << 8) & 0xFF00 |
+    (token[7]) & 0xFF;
 
-  if (!out)
-    return -3;
+  /* Check that lengths are not out of bounds. */
+  if (context_length > toklen || wrap_length > toklen ||
+      context_length + wrap_length + 8 != toklen)
+    return -1;
 
-  out->context_length = ctxlen;
-  out->context_token = ctxlen > 0 ? token + 4 : NULL;
+  out->context_length = context_length;
+  if (context_length > 0)
+    out->context_token = token + 8;
+  else
+    out->context_token = NULL;
 
-  out->wrap_length = toklen - 4 - ctxlen;
-  out->wrap_token = out->wrap_length > 0 ? token + 4 + ctxlen : NULL;
+  out->wrap_length = wrap_length;
+  if (wrap_length > 0)
+    out->wrap_token = token + 8 + context_length;
+  else
+    out->wrap_token = NULL;
 
   return 0;
 }
