@@ -1,5 +1,5 @@
 /* client.c --- SASL mechanism GS2, client side.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -92,7 +92,7 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
   int res;
   const char *p;
   OM_uint32 ret_flags;
-  struct gs2_token tok;
+  struct gs2_token tok = { NULL, 0, NULL, 0 };
 
   if (state->service == NULL)
     {
@@ -155,8 +155,19 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
 	return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
 
-      if (ret_flags & GSS_C_PROT_READY_FLAG)
-	puts ("prot_ready");
+      if ((ret_flags & GSS_C_PROT_READY_FLAG)
+	  || (maj_stat == GSS_S_COMPLETE))
+	{
+	  puts ("prot_ready");
+	  /* Deal with wrap token here. */
+	  /* Generate wrap token here. */
+	}
+      else if (tok.wrap_length > 0)
+	{
+	  /* Server provided wrap token but we are not ready for it.
+	     Server error. */
+	  return GSASL_MECHANISM_PARSE_ERROR;
+	}
 
       res = gs2_encode (bufdesc2.value, bufdesc2.length,
 			NULL, 0,
