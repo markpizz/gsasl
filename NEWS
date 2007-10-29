@@ -6,6 +6,10 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
+* Version 0.2.23 (unreleased)
+
+** Update gnulib files.
+
 * Version 0.2.22 (released 2007-10-08)
 
 ** Development git tree moved to savannah.
