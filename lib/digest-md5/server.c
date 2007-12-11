@@ -1,5 +1,5 @@
 /* server.c --- DIGEST-MD5 mechanism from RFC 2831, server side.
- * Copyright (C) 2002, 2003, 2004, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2006, 2007  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -153,7 +153,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
       gsasl_property_set (sctx, GSASL_AUTHZID, state->response.authzid);
       gsasl_property_set (sctx, GSASL_REALM, state->response.realm);
 
-      /* FIXME: qop, cipher, maxbuf. */
+      /* FIXME: qop, cipher, maxbuf.  Charset convert username. */
 
       /* Compute secret.  TODO: Add callback to retrieve hashed
          secret. */
