@@ -285,7 +285,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/string_h.m4
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
-  m4/ulonglong.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
   m4/wchar.m4

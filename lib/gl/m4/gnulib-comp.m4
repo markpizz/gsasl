@@ -58,7 +58,7 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_GETLINE
   gl_STDIO_MODULE_INDICATOR([getline])
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
-  AM_GNU_GETTEXT_VERSION([0.16.1])
+  AM_GNU_GETTEXT_VERSION([0.17])
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
   gl_FUNC_MALLOC_POSIX
@@ -229,7 +229,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/string_h.m4
   m4/strverscmp.m4
   m4/uintmax_t.m4
-  m4/ulonglong.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
   m4/vasprintf.m4
