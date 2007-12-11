@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.23 (unreleased)
 
+** Use gettext 0.17.
+
 ** Update gnulib files.
 
 * Version 0.2.22 (released 2007-10-08)

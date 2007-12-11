@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.23 (unreleased)
 
+** Use gettext 0.17.
+
 ** Update gnulib files.
 
 ** API and ABI modifications.

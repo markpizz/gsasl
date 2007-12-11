@@ -25,10 +25,6 @@ AM_INIT_AUTOMAKE([1.10])
 AC_CONFIG_HEADERS(config.h)
 AB_INIT
 
-# Internationalization.
-AM_GNU_GETTEXT(external)
-AM_GNU_GETTEXT_VERSION(0.16.1)
-
 # Checks for programs.
 AC_PROG_CC
 gl_EARLY
@@ -38,6 +34,10 @@ AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 AM_MISSING_PROG(DIA, dia, $missing_dir)
 AM_MISSING_PROG(EPSTOPDF, epstopdf, $missing_dir)
+
+# Internationalization.
+AM_GNU_GETTEXT(external)
+AM_GNU_GETTEXT_VERSION(0.17)
 
 # Checks for header files.
 AC_CHECK_HEADERS(sys/poll.h sys/time.h)
