@@ -1,5 +1,51 @@
 2008-01-15  Simon Josefsson <simon@josefsson.org>
 
+	* NEWS, lib/NEWS: Version 0.2.24.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/Makefile.am: Typo.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac, lib/src/Makefile.am: Create libgsasl-XX.def if
+	possible, for MinGW.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/gc-libgcrypt.c: Disable secmem.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Need gnulib.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS, lib/NEWS: Version 0.2.23.
 
 2008-01-15  Simon Josefsson <simon@josefsson.org>
