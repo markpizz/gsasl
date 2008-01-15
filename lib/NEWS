@@ -4,7 +4,7 @@ See the end for copying conditions.
 
 * Version 0.2.23 (unreleased)
 
-** CRAM-MD5: Check return value from gc_nonce().
+** CRAM-MD5: Check return value from gc_nonce().  (SECURITY)
 If GNU SASL was not built against libgcrypt, and the
 --enable-nonce-device device file did not exist, building libgsasl
 would warn you but would continue.  Further, the code in CRAM-MD5 to
