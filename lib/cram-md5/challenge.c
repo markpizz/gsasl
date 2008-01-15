@@ -1,5 +1,5 @@
 /* challenge.c --- Generate a CRAM-MD5 challenge string.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -61,21 +61,26 @@
 		    '0' + ((c) & 0x0F) - 10 :	\
 		    '0' + ((c) & 0x0F))
 
-void
+int
 cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN])
 {
   char nonce[NONCELEN];
   size_t i;
+  int rc;
 
   assert (strlen (TEMPLATE) == CRAM_MD5_CHALLENGE_LEN - 1);
 
   memcpy (challenge, TEMPLATE, CRAM_MD5_CHALLENGE_LEN);
 
-  gc_nonce (nonce, sizeof (nonce));
+  rc = gc_nonce (nonce, sizeof (nonce));
+  if (rc != GC_OK)
+    return -1;
 
   for (i = 0; i < sizeof (nonce); i++)
     {
       challenge[1 + i] = DIGIT (nonce[i]);
       challenge[11 + i] = DIGIT (nonce[i] >> 4);
     }
+
+  return 0;
 }

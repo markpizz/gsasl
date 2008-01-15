@@ -1,8 +1,17 @@
 GNU SASL LIBRARY NEWS -- History of user-visible changes.
-Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson
+Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Simon Josefsson
 See the end for copying conditions.
 
 * Version 0.2.23 (unreleased)
+
+** CRAM-MD5: Check return value from gc_nonce().
+If GNU SASL was not built against libgcrypt, and the
+--enable-nonce-device device file did not exist, building libgsasl
+would warn you but would continue.  Further, the code in CRAM-MD5 to
+generate a challenge would not generate a new nonce each time, so
+depending on what's stored on the stack, you may get the same
+challenge each time.  The function should have checked the return
+value from gc_nonce().  Reported by "Daniel Armyr" <daniel@armyr.se>.
 
 ** Use gettext 0.17.
 

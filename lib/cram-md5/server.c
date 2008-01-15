@@ -1,5 +1,5 @@
 /* server.c --- SASL CRAM-MD5 server side functions.
- * Copyright (C) 2002, 2003, 2004, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -45,12 +45,15 @@ int
 _gsasl_cram_md5_server_start (Gsasl_session * sctx, void **mech_data)
 {
   char *challenge;
+  int rc;
 
   challenge = malloc (CRAM_MD5_CHALLENGE_LEN);
   if (challenge == NULL)
     return GSASL_MALLOC_ERROR;
 
-  cram_md5_challenge (challenge);
+  rc = cram_md5_challenge (challenge);
+  if (rc)
+    return GSASL_CRYPTO_ERROR;
 
   *mech_data = challenge;
 

@@ -1,5 +1,5 @@
 /* cram-md5.c --- Test the CRAM-MD5 mechanism.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -71,6 +71,8 @@ doit (void)
   size_t s1len, s2len;
   size_t i;
   int res;
+  char *last_server_challenge = NULL;
+  size_t last_server_challenge_len;
 
   res = gsasl_init (&ctx);
   if (res != GSASL_OK)
@@ -106,6 +108,21 @@ doit (void)
       if (debug)
 	printf ("S: %.*s\n", s1len, s1);
 
+      if (last_server_challenge)
+	{
+	  if (last_server_challenge_len == s1len &&
+	      memcmp (last_server_challenge, s1, s1len) == 0)
+	    fail ("Server challenge same as last one!\n");
+
+	  free (last_server_challenge);
+	}
+
+      last_server_challenge = malloc (s1len);
+      if (!last_server_challenge)
+	fail ("malloc() failure (%d)\n", s1len);
+      memcpy (last_server_challenge, s1, s1len);
+      last_server_challenge_len = s1len;
+
       res = gsasl_step (client, s1, s1len, &s2, &s2len);
       free (s1);
       if (res != GSASL_OK)
@@ -140,6 +157,9 @@ doit (void)
       gsasl_finish (client);
       gsasl_finish (server);
     }
+
+  if (last_server_challenge)
+    free (last_server_challenge);
 
   gsasl_done (ctx);
 }

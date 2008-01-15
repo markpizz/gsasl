@@ -1,5 +1,5 @@
 /* challenge.h --- Generate a CRAM-MD5 challenge string.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -27,7 +27,8 @@
 
 /* Store zero terminated CRAM-MD5 challenge in output buffer.  The
    CHALLENGE buffer must be allocated by the caller, and must have
-   room for CRAM_MD5_CHALLENGE_LEN characters.  */
-extern void cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN]);
+   room for CRAM_MD5_CHALLENGE_LEN characters.  Returns 0 on success,
+   and -1 on randomness problems.  */
+extern int cram_md5_challenge (char challenge[CRAM_MD5_CHALLENGE_LEN]);
 
 #endif /* CHALLENGE_H */
