@@ -1,4 +1,4 @@
-# Copyright (C) 2006, 2007 Simon Josefsson.
+# Copyright (C) 2006, 2007, 2008 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -23,6 +23,8 @@ endif
 
 autoreconf:
 	test -f ./configure || autoreconf --install
+	mv build-aux/config.rpath{-,}
+	mv lib/build-aux/config.rpath{-,}
 
 bootstrap: autoreconf
 	./configure $(CFGFLAGS)
