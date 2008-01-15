@@ -2,6 +2,8 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Simon Josefsson
 See the end for copying conditions.
 
+* Version 0.2.24 (unreleased)
+
 * Version 0.2.23 (released 2008-01-15)
 
 ** CRAM-MD5: Check return value from gc_nonce().  (SECURITY)

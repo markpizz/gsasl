@@ -1,5 +1,5 @@
 /* gsasl.h --- Header file for GNU SASL Library.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -39,7 +39,7 @@ extern "C"
    * Used together with stringprep_check_version() to verify header file
    * and run-time library consistency.
    */
-# define GSASL_VERSION "0.2.23"
+# define GSASL_VERSION "0.2.24"
 
   /* RFC 2222: SASL mechanisms are named by strings, from 1 to 20
    * characters in length, consisting of upper-case letters, digits,
