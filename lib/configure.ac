@@ -31,6 +31,10 @@ AC_SUBST(LT_CURRENT, 11)
 AC_SUBST(LT_REVISION, 4)
 AC_SUBST(LT_AGE, 4)
 
+# Used when creating libgsasl-XX.def.
+SOVERSION=`expr ${LT_CURRENT} - ${LT_AGE}`
+AC_SUBST(SOVERSION)
+
 AM_INIT_AUTOMAKE([1.10])
 AC_CONFIG_HEADERS(config.h)
 
@@ -39,6 +43,14 @@ AC_PROG_CC
 gl_EARLY
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
+
+AC_MSG_CHECKING([if gcc/ld supports -Wl,--output-def])
+_gcc_ldflags_save=$LDFLAGS
+LDFLAGS="-Wl,--output-def,foo.def"
+AC_LINK_IFELSE(AC_LANG_PROGRAM([]),output_def=yes,output_def=no)
+AC_MSG_RESULT($output_def)
+LDFLAGS="$_gcc_ldflags_save"
+AM_CONDITIONAL(HAVE_LD_OUTPUT_DEF, test "$output_def" = "yes")
 
 # Internationalization.
 AM_GNU_GETTEXT(external)

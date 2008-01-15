@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -37,6 +37,13 @@ libgsasl_la_SOURCES = internal.h \
 	xstart.c xstep.c xfinish.c xcode.c \
 	base64.c md5pwd.c crypto.c \
 	saslprep.c free.c
+
+if HAVE_LD_OUTPUT_DEF
+libgsasl_la_LDFLAGS += -Wl,--output-def,libgsasl-$(SOVERSION).def
+defexecdir = $(bindir)
+defexec_DATA = libgsasl-$(SOVERSION).def
+DISTCLEANFILES += $(defexec_DATA)
+endif
 
 if OBSOLETE
 libgsasl_la_SOURCES += obsolete.c
