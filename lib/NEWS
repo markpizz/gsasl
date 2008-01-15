@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 0.2.24 (unreleased)
 
+** When libgcrypt is used, disable secure memory to make things work.
+
 * Version 0.2.23 (released 2008-01-15)
 
 ** CRAM-MD5: Check return value from gc_nonce().  (SECURITY)
