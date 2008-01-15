@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.24 (unreleased)
 
+** Link self-tests with gnulib, to fix link failures under MinGW.
+
 * Version 0.2.23 (released 2008-01-15)
 
 ** Improve CRAM-MD5 self-test to detect if challenges are the same.
