@@ -10,6 +10,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 ** Improve CRAM-MD5 self-test to detect if challenges are the same.
 
+** Improve gsasl --help and --version to conform with GNU standards.
+
 ** Use gettext 0.17.
 
 ** Update gnulib files.

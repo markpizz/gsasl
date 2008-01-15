@@ -1,5 +1,5 @@
 /* gsasl.c --- Command line interface to libgsasl.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -257,6 +257,36 @@ logout (void)
   return 1;
 }
 
+const char version_etc_copyright[] =
+  /* Do *not* mark this string for translation.  %s is a copyright
+     symbol suitable for this locale, and %d is the copyright
+     year.  */
+  "Copyright %s %d Simon Josefsson.";
+
+static void
+emit_bug_reporting_address (void)
+{
+  /* TRANSLATORS: The placeholder indicates the bug-reporting address
+     for this package.  Please add _another line_ saying
+     "Report translation bugs to <...>\n" with the address for translation
+     bugs (typically your translation team's web or email address).  */
+  printf (_("\nReport bugs to <%s>.\n"), PACKAGE_BUGREPORT);
+}
+
+static void
+usage (int status)
+{
+  if (status != EXIT_SUCCESS)
+    fprintf (stderr, _("Try `%s --help' for more information.\n"),
+	     program_name);
+  else
+    {
+      cmdline_parser_print_help ();
+      emit_bug_reporting_address ();
+    }
+  exit (status);
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -292,7 +322,17 @@ main (int argc, char *argv[])
 #endif
 
   if (cmdline_parser (argc, argv, &args_info) != 0)
-    return 1;
+    return EXIT_FAILURE;
+
+  if (args_info.version_given)
+    {
+      version_etc (stdout, "gsasl", PACKAGE_NAME, VERSION,
+		   "Simon Josefsson", (char *) NULL);
+      return EXIT_SUCCESS;
+    }
+
+  if (args_info.help_given)
+    usage (EXIT_SUCCESS);
 
   if (!(args_info.client_flag || args_info.client_given) &&
       !args_info.server_given &&

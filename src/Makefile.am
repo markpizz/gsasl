@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2007 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -32,5 +32,7 @@ localedir = $(datadir)/locale
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
-$(BUILT_SOURCES): gsasl.ggo
-	gengetopt --unamed-opts="HOST [PORT]" --input $< --file-name gsasl_cmd
+$(BUILT_SOURCES): gsasl.ggo Makefile.am
+	gengetopt --unamed-opts="HOST [PORT]" \
+		--no-handle-version --no-handle-help \
+		--input $< --file-name gsasl_cmd
