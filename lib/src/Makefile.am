@@ -42,7 +42,7 @@ if HAVE_LD_OUTPUT_DEF
 libgsasl_la_LDFLAGS += -Wl,--output-def,libgsasl-$(SOVERSION).def
 defexecdir = $(bindir)
 defexec_DATA = libgsasl-$(SOVERSION).def
-DISTCLEANFILES += $(defexec_DATA)
+DISTCLEANFILES = $(defexec_DATA)
 endif
 
 if OBSOLETE
