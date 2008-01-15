@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -75,8 +75,8 @@ SUBDIRS += src
 # Maintainer targets
 
 update-po: refresh-po
-	cg-add `ls po/*.po | grep -v quot.po`
-	cg-commit -m "Sync with TP." po/LINGUAS `ls po/*.po | grep -v quot.po`
+	git-update-index --add `ls po/*.po | grep -v quot.po` || true && \
+	git-commit -m "Sync with TP." po/LINGUAS `ls po/*.po | grep -v quot.po`
 
 ChangeLog:
 	git log --pretty --numstat --summary | git2cl > ChangeLog
