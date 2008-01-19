@@ -103,6 +103,8 @@ AC_DEFUN([gl_INIT],
   AC_PROG_MKDIR_P
   gl_HEADER_SYS_SOCKET
   AC_PROG_MKDIR_P
+  gl_HEADER_SYS_TIME_H
+  AC_PROG_MKDIR_P
   gl_UNISTD_H
   gl_FUNC_VASNPRINTF
   gl_WCHAR_H
@@ -297,6 +299,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/string.in.h
   lib/sys_select.in.h
   lib/sys_socket.in.h
+  lib/sys_time.in.h
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
@@ -359,6 +362,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/string_h.m4
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
+  m4/sys_time_h.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
   m4/wchar.m4
