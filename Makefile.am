@@ -47,8 +47,10 @@ release:
 		      TEXI2DVI="texi2dvi -I ../examples" \
 		../build-aux/gendocs.sh --html "--css-include=texinfo.css" \
 		-o ../$(htmldir)/manual/ $(PACKAGE) "GNU SASL"
-	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/
-	cp -v doc/reference/html/*.{html,png,devhelp,css} $(htmldir)/reference/
+	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig $(htmldir)/releases/
+	cp -v doc/reference/html/*.html doc/reference/html/*.png doc/reference/html/*.devhelp doc/reference/html/*.css $(htmldir)/reference/
 	cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make refman.pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf
-	cd $(htmldir) && cvs add -kb releases/$(distdir).tar.gz{,.sig} && \
+	cd $(htmldir) && \
+		cvs add -kb releases/$(distdir).tar.gz \
+			releases/$(distdir).tar.gz.sig && \
 		cvs commit -m "Update." manual/ reference/ doxygen/ releases/
