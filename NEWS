@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.25 (unreleased)
 
+** Fix non-portable use of brace expansion in makefiles.
+
 * Version 0.2.24 (released 2008-01-15)
 
 ** Link self-tests with gnulib, to fix link failures under MinGW.
