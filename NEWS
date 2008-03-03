@@ -8,6 +8,12 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.25 (unreleased)
 
+** gsasl: Fix buffering issue to avoid mixing stdout/stderr outputs.
+This would manifest itself when redirecting output to a pipe, such as
+when used with Gnus.  Reported by Enrico Scholz
+<enrico.scholz@informatik.tu-chemnitz.de>, see
+<http://thread.gmane.org/gmane.comp.gnu.gsasl.general/123>.
+
 ** Fix non-portable use of brace expansion in makefiles.
 
 * Version 0.2.24 (released 2008-01-15)

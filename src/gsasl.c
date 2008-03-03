@@ -410,6 +410,9 @@ main (int argc, char *argv[])
   if (connect_hostname && !args_info.hostname_arg)
     args_info.hostname_arg = strdup (connect_hostname);
 
+  if (!isatty (STDOUT_FILENO))
+    setvbuf (stdout, NULL, _IOLBF, BUFSIZ);
+
   res = gsasl_init (&ctx);
   if (res != GSASL_OK)
     error (EXIT_FAILURE, 0, _("initialization failure: %s"),
