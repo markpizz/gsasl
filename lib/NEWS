@@ -6,6 +6,8 @@ See the end for copying conditions.
 
 ** Fix non-portable use of brace expansion in makefiles.
 
+** Documentation improvements.
+
 ** API and ABI modifications.
 No changes since last version.
 
