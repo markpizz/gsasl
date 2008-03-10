@@ -1,5 +1,5 @@
 /* xstart.c --- Start libgsasl session.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -113,7 +113,7 @@ start (Gsasl * ctx,
  * function must be called before any other gsasl_client_*() function
  * is called.
  *
- * Return value: Returns GSASL_OK if successful, or error code.
+ * Return value: Returns %GSASL_OK if successful, or error code.
  **/
 int
 gsasl_client_start (Gsasl * ctx, const char *mech, Gsasl_session ** sctx)
@@ -131,7 +131,7 @@ gsasl_client_start (Gsasl * ctx, const char *mech, Gsasl_session ** sctx)
  * function must be called before any other gsasl_server_*() function
  * is called.
  *
- * Return value: Returns GSASL_OK if successful, or error code.
+ * Return value: Returns %GSASL_OK if successful, or error code.
  **/
 int
 gsasl_server_start (Gsasl * ctx, const char *mech, Gsasl_session ** sctx)

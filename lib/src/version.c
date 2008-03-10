@@ -1,5 +1,5 @@
 /* version.c -- Version handling.
- * Copyright (C) 2002, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2004, 2005, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -34,7 +34,7 @@
  *
  * Return value: Check that the the version of the library is at
  *   minimum the one given as a string in @req_version and return the
- *   actual version string of the library; return NULL if the
+ *   actual version string of the library; return %NULL if the
  *   condition is not met.  If %NULL is passed to this function no
  *   check is done and only the version string is returned.
  **/

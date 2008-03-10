@@ -1,5 +1,5 @@
 /* xcode.c --- Encode and decode application payload in libgsasl session.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -57,8 +57,8 @@ _gsasl_code (Gsasl_session * sctx,
  * The @output buffer is allocated by this function, and it is the
  * responsibility of caller to deallocate it by calling free(@output).
  *
- * Return value: Returns GSASL_OK if encoding was successful, otherwise
- * an error code.
+ * Return value: Returns %GSASL_OK if encoding was successful,
+ *   otherwise an error code.
  **/
 int
 gsasl_encode (Gsasl_session * sctx,
@@ -89,8 +89,8 @@ gsasl_encode (Gsasl_session * sctx,
  * The @output buffer is allocated by this function, and it is the
  * responsibility of caller to deallocate it by calling free(@output).
  *
- * Return value: Returns GSASL_OK if encoding was successful, otherwise
- * an error code.
+ * Return value: Returns %GSASL_OK if encoding was successful,
+ *   otherwise an error code.
  **/
 int
 gsasl_decode (Gsasl_session * sctx,

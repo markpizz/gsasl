@@ -1,5 +1,5 @@
 /* listmech.c --- List active client and server mechanisms.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -68,7 +68,7 @@ _gsasl_listmech (Gsasl * ctx,
  * allocated by this function, and it is the responsibility of caller
  * to deallocate it.
  *
- * Return value: Returns GSASL_OK if successful, or error code.
+ * Return value: Returns %GSASL_OK if successful, or error code.
  **/
 int
 gsasl_client_mechlist (Gsasl * ctx, char **out)
@@ -87,7 +87,7 @@ gsasl_client_mechlist (Gsasl * ctx, char **out)
  * allocated by this function, and it is the responsibility of caller
  * to deallocate it.
  *
- * Return value: Returns GSASL_OK if successful, or error code.
+ * Return value: Returns %GSASL_OK if successful, or error code.
  **/
 int
 gsasl_server_mechlist (Gsasl * ctx, char **out)

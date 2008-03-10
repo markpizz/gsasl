@@ -1,5 +1,5 @@
 /* callback.c --- Callback handling.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -32,8 +32,8 @@
  * by mechanisms to discover various parameters (such as username and
  * passwords).  The callback function will be called with a
  * Gsasl_property value indicating the requested behaviour.  For
- * example, for GSASL_ANONYMOUS_TOKEN, the function is expected to
- * invoke gsasl_property_set(CTX, GSASL_ANONYMOUS_TOKEN, "token")
+ * example, for %GSASL_ANONYMOUS_TOKEN, the function is expected to
+ * invoke gsasl_property_set(@CTX, %GSASL_ANONYMOUS_TOKEN, "token")
  * where "token" is the anonymous token the application wishes the
  * SASL mechanism to use.  See the manual for the meaning of all
  * parameters.
@@ -48,15 +48,15 @@ gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb)
 
 /**
  * gsasl_callback:
- * @ctx: handle received from gsasl_init(), may be NULL to derive it
+ * @ctx: handle received from gsasl_init(), may be %NULL to derive it
  *   from @sctx.
  * @sctx: session handle.
  * @prop: enumerated value of Gsasl_property type.
  *
  * Invoke the application callback.  The @prop value indicate what the
  * callback is expected to do.  For example, for
- * GSASL_ANONYMOUS_TOKEN, the function is expected to invoke
- * gsasl_property_set(SCTX, GSASL_ANONYMOUS_TOKEN, "token") where
+ * %GSASL_ANONYMOUS_TOKEN, the function is expected to invoke
+ * gsasl_property_set(@SCTX, %GSASL_ANONYMOUS_TOKEN, "token") where
  * "token" is the anonymous token the application wishes the SASL
  * mechanism to use.  See the manual for the meaning of all
  * parameters.
@@ -67,7 +67,7 @@ gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb)
  * should be sufficient to invoke all callbacks, both new and old.
  *
  * Return value: Returns whatever the application callback return, or
- *   GSASL_NO_CALLBACK if no application was known.
+ *   %GSASL_NO_CALLBACK if no application was known.
  *
  * Since: 0.2.0
  **/
@@ -198,7 +198,7 @@ gsasl_callback_hook_set (Gsasl * ctx, void *hook)
  * is normally used by the application to maintain a global state
  * between the main program and callbacks.
  *
- * Return value: Returns the application specific data, or NULL.
+ * Return value: Returns the application specific data, or %NULL.
  *
  * Since: 0.2.0
  **/
@@ -238,7 +238,7 @@ gsasl_session_hook_set (Gsasl_session * sctx, void *hook)
  * is normally used by the application to maintain a per-session state
  * between the main program and callbacks.
  *
- * Return value: Returns the application specific data, or NULL.
+ * Return value: Returns the application specific data, or %NULL.
  *
  * Since: 0.2.14
  **/

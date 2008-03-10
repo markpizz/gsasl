@@ -1,5 +1,5 @@
 /* init.c --- Entry point for libgsasl.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -125,7 +125,8 @@ register_builtin_mechs (Gsasl * ctx)
  * successful.  It also register all builtin SASL mechanisms, using
  * gsasl_register().
  *
- * Return value: GSASL_OK iff successful, otherwise GSASL_MALLOC_ERROR.
+ * Return value: GSASL_OK iff successful, otherwise
+ * %GSASL_MALLOC_ERROR.
  **/
 int
 gsasl_init (Gsasl ** ctx)

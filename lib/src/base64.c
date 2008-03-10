@@ -1,5 +1,5 @@
 /* base64.c --- Base64 encoding/decoding functions.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -31,8 +31,8 @@
  * @out: pointer to newly allocated output byte array
  * @outlen: pointer to size of newly allocated output byte array
  *
- * Encode data as base64.  The string is zero terminated, and OUTLEN
- * holds the length excluding the terminating zero.  The OUT buffer
+ * Encode data as base64.  The string is zero terminated, and @outlen
+ * holds the length excluding the terminating zero.  The @out buffer
  * must be deallocated by the caller.
  *
  * Return value: Returns %GSASL_OK on success, or %GSASL_MALLOC_ERROR
@@ -61,7 +61,7 @@ gsasl_base64_to (const char *in, size_t inlen, char **out, size_t * outlen)
  * @out: pointer to newly allocated output byte array
  * @outlen: pointer to size of newly allocated output byte array
  *
- * Decode Base64 data.  The OUT buffer must be deallocated by the
+ * Decode Base64 data.  The @out buffer must be deallocated by the
  * caller.
  *
  * Return value: Returns %GSASL_OK on success, %GSASL_BASE64_ERROR if

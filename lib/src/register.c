@@ -1,5 +1,5 @@
 /* register.c --- Initialize and register SASL plugin in global context.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -30,7 +30,7 @@
  * This function initialize given mechanism, and if successful, add it
  * to the list of plugins that is used by the library.
  *
- * Return value: GSASL_OK iff successful, otherwise GSASL_MALLOC_ERROR.
+ * Return value: %GSASL_OK iff successful, otherwise %GSASL_MALLOC_ERROR.
  *
  * Since: 0.2.0
  **/

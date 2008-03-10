@@ -1,5 +1,5 @@
 /* obsolete.c --- Obsolete functions kept around for backwards compatibility.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -31,9 +31,10 @@
  *
  * Write SASL names, separated by space, of mechanisms supported by
  * the libgsasl client to the output array.  To find out how large the
- * output array must be, call this function with out=NULL.
+ * output array must be, call this function with a %NULL @out
+ * parameter.
  *
- * Return value: Returns GSASL_OK if successful, or error code.
+ * Return value: Returns %GSASL_OK if successful, or error code.
  *
  * Deprecated: Use gsasl_client_mechlist() instead.
  **/
@@ -73,9 +74,10 @@ gsasl_client_listmech (Gsasl * ctx, char *out, size_t * outlen)
  *
  * Write SASL names, separated by space, of mechanisms supported by
  * the libgsasl server to the output array.  To find out how large the
- * output array must be, call this function with out=NULL.
+ * output array must be, call this function with a %NULL @out
+ * parameter.
  *
- * Return value: Returns GSASL_OK if successful, or error code.
+ * Return value: Returns %GSASL_OK if successful, or error code.
  *
  * Deprecated: Use gsasl_server_mechlist() instead.
  **/
@@ -149,11 +151,11 @@ _gsasl_step (Gsasl_session * sctx,
  * data to server (into variables output and output_len).
  *
  * The contents of the output buffer is unspecified if this functions
- * returns anything other than GSASL_NEEDS_MORE.
+ * returns anything other than %GSASL_NEEDS_MORE.
  *
- * Return value: Returns GSASL_OK if authenticated terminated
- * successfully, GSASL_NEEDS_MORE if more data is needed, or error
- * code.
+ * Return value: Returns %GSASL_OK if authenticated terminated
+ *   successfully, %GSASL_NEEDS_MORE if more data is needed, or error
+ *   code.
  *
  * Deprecated: Use gsasl_step() instead.
  **/
@@ -179,11 +181,11 @@ gsasl_client_step (Gsasl_session * sctx,
  * data to client (into variables output and output_len).
  *
  * The contents of the output buffer is unspecified if this functions
- * returns anything other than GSASL_NEEDS_MORE.
+ * returns anything other than %GSASL_NEEDS_MORE.
  *
- * Return value: Returns GSASL_OK if authenticated terminated
- * successfully, GSASL_NEEDS_MORE if more data is needed, or error
- * code.
+ * Return value: Returns %GSASL_OK if authenticated terminated
+ *   successfully, %GSASL_NEEDS_MORE if more data is needed, or error
+ *   code.
  *
  * Deprecated: Use gsasl_step() instead.
  **/
@@ -339,7 +341,7 @@ gsasl_client_application_data_set (Gsasl_session * sctx,
  * It is normally used by the application to maintain state between
  * the main program and the callback.
  *
- * Return value: Returns the application specific data, or NULL.
+ * Return value: Returns the application specific data, or %NULL.
  *
  * Deprecated: Use gsasl_callback_hook_get() or
  * gsasl_session_hook_get() instead.
@@ -394,7 +396,7 @@ gsasl_server_application_data_set (Gsasl_session * sctx,
  * It is normally used by the application to maintain state between
  * the main program and the callback.
  *
- * Return value: Returns the application specific data, or NULL.
+ * Return value: Returns the application specific data, or %NULL.
  *
  * Deprecated: Use gsasl_callback_hook_get() or
  * gsasl_session_hook_get() instead.
@@ -451,8 +453,8 @@ gsasl_ctx_get (Gsasl_session * sctx)
  * Encode data according to negotiated SASL mechanism.  This might mean
  * that data is integrity or privacy protected.
  *
- * Return value: Returns GSASL_OK if encoding was successful, otherwise
- * an error code.
+ * Return value: Returns %GSASL_OK if encoding was successful,
+ *   otherwise an error code.
  *
  * Deprecated: Use gsasl_encode() instead.
  *
@@ -491,8 +493,8 @@ gsasl_encode_inline (Gsasl_session * sctx,
  * Decode data according to negotiated SASL mechanism.  This might mean
  * that data is integrity or privacy protected.
  *
- * Return value: Returns GSASL_OK if encoding was successful, otherwise
- * an error code.
+ * Return value: Returns %GSASL_OK if encoding was successful,
+ *   otherwise an error code.
  *
  * Deprecated: Use gsasl_decode() instead.
  *
@@ -548,7 +550,7 @@ gsasl_application_data_set (Gsasl * ctx, void *appdata)
  * normally used by the application to maintain state between the main
  * program and the callback.
  *
- * Return value: Returns the application specific data, or NULL.
+ * Return value: Returns the application specific data, or %NULL.
  *
  * Deprecated: Use gsasl_callback_hook_get() instead.
  **/
@@ -586,7 +588,7 @@ gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
  * is normally used by the application to maintain state between the
  * main program and the callback.
  *
- * Return value: Returns the application specific data, or NULL.
+ * Return value: Returns the application specific data, or %NULL.
  *
  * Deprecated: Use gsasl_callback_hook_get() instead.
  **/

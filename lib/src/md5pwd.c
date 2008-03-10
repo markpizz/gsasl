@@ -1,5 +1,5 @@
 /* md5pwd.c --- Find passwords in UoW imapd MD5 type password files.
- * Copyright (C) 2002, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2004, 2005, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -39,8 +39,8 @@
  * processing.  TAB, CR, and LF denote ASCII values 9, 13, and 10,
  * respectively.
  *
- * Return value: Return GSASL_OK if output buffer contains the
- *   password, GSASL_AUTHENTICATION_ERROR if the user could not be
+ * Return value: Return %GSASL_OK if output buffer contains the
+ *   password, %GSASL_AUTHENTICATION_ERROR if the user could not be
  *   found, or other error code.
  **/
 int

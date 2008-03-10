@@ -1,5 +1,5 @@
 /* property.c --- Callback property handling.
- * Copyright (C) 2004, 2005  Simon Josefsson
+ * Copyright (C) 2004, 2005, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -200,7 +200,7 @@ gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
  * the corresponding property.  This behaviour of this function will
  * be removed when the obsolete callback interfaces are removed.
  *
- * Return value: Return data for property, or NULL if no value known.
+ * Return value: Return data for property, or %NULL if no value known.
  *
  * Since: 0.2.0
  **/
