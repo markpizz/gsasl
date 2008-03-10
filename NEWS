@@ -6,7 +6,7 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
-* Version 0.2.25 (unreleased)
+* Version 0.2.25 (released 2008-03-10)
 
 ** gsasl: Fix buffering issue to avoid mixing stdout/stderr outputs.
 This would manifest itself when redirecting output to a pipe, such as
