@@ -1,3 +1,98 @@
+2008-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 0.2.25.
+
+2008-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2008-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/base64.c, lib/src/callback.c, lib/src/init.c,
+	lib/src/listmech.c, lib/src/md5pwd.c, lib/src/obsolete.c,
+	lib/src/property.c, lib/src/register.c, lib/src/version.c,
+	lib/src/xcode.c, lib/src/xstart.c: Doc fixes.
+
+2008-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh, gl/alloca.in.h, gl/getaddrinfo.c,
+	gl/getdelim.c, gl/getopt.c, gl/m4/fseeko.m4, gl/xsize.h,
+	lib/gl/alloca.in.h, lib/gl/gc-gnulib.c, lib/gl/getdelim.c,
+	lib/gl/xsize.h: Update gnulib files.
+
+2008-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, THANKS, src/gsasl.c: Make stdout line buffered, to avoid
+	buffering problems.  Reported by Enrico Scholz
+	<enrico.scholz@informatik.tu-chemnitz.de>, see
+	<http://thread.gmane.org/gmane.comp.gnu.gsasl.general/123>.
+
+2008-02-25  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/m4/unistd_h.m4, lib/gl/unistd.in.h: 
+	Update gnulib files.
+
+2008-02-25  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/unistd_h.m4, gl/quotearg.c, gl/quotearg.h,
+	gl/unistd.in.h: Update gnulib files.
+
+2008-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/vasnprintf.m4, gl/vasnprintf.c, lib/gl/m4/md5.m4,
+	lib/gl/m4/vasnprintf.m4, lib/gl/md5.c, lib/gl/md5.h,
+	lib/gl/vasnprintf.c: Update gnulib files.
+
+2008-02-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2008-02-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-02-06  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, Makefile.am, lib/GNUmakefile, lib/Makefile.am,
+	lib/maint-cfg.mk, maint-cfg.mk: Brace expansion is not POSIX
+	portable.
+
+2008-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/sys_time_h.m4, gl/sys_time.in.h: Add gnulib modules for
+	sys/time.h and netinet/in.h and use them.
+
+2008-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, src/internal.h: Add gnulib modules for
+	sys/time.h and netinet/in.h and use them.
+
+2008-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump version.
+
+2008-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/gc-libgcrypt.c, lib/gl/m4/string_h.m4,
+	lib/gl/stdio.in.h, lib/gl/string.in.h, lib/gl/vasnprintf.h: Update
+	gnulib files.
+
+2008-01-19  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh, gl/Makefile.am, gl/error.h,
+	gl/m4/string_h.m4, gl/stdio.in.h, gl/string.in.h, gl/vasnprintf.h,
+	gl/xalloc.h: Update gnulib files.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2008-01-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
 2008-01-15  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS, lib/NEWS: Version 0.2.24.
