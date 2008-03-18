@@ -1,6 +1,6 @@
 ## DO NOT EDIT! GENERATED AUTOMATICALLY!
 ## Process this file with automake to produce Makefile.in.
-# Copyright (C) 2004-2007 Free Software Foundation, Inc.
+# Copyright (C) 2002-2008 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -34,15 +34,6 @@ libgl_la_LIBADD = $(gl_LTLIBOBJS)
 libgl_la_DEPENDENCIES = $(gl_LTLIBOBJS)
 EXTRA_libgl_la_SOURCES =
 libgl_la_LDFLAGS = $(AM_LDFLAGS)
-
-## begin gnulib module absolute-header
-
-# Use this preprocessor expression to decide whether #include_next works.
-# Do not rely on a 'configure'-time test for this, since the expression
-# might appear in an installed header, which is used by some other compiler.
-HAVE_INCLUDE_NEXT = (__GNUC__ || 60000000 <= __DECC_VER)
-
-## end   gnulib module absolute-header
 
 ## begin gnulib module alloca-opt
 
@@ -389,6 +380,26 @@ EXTRA_DIST += snprintf.c
 EXTRA_libgl_la_SOURCES += snprintf.c
 
 ## end   gnulib module snprintf
+
+## begin gnulib module stdarg
+
+BUILT_SOURCES += $(STDARG_H)
+
+# We need the following in order to create <stdarg.h> when the system
+# doesn't have one that works with the given compiler.
+stdarg.h: stdarg.in.h
+	rm -f $@-t $@
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+	  sed -e 's/@''INCLUDE_NEXT''@/$(INCLUDE_NEXT)/g' \
+	      -e 's|@''NEXT_STDARG_H''@|$(NEXT_STDARG_H)|g' \
+	      < $(srcdir)/stdarg.in.h; \
+	} > $@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += stdarg.h stdarg.h-t
+
+EXTRA_DIST += stdarg.in.h
+
+## end   gnulib module stdarg
 
 ## begin gnulib module stdbool
 
