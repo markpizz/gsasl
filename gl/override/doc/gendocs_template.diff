@@ -1,0 +1,21 @@
+--- gendocs_template.orig	2008-03-19 18:08:10.000000000 +0100
++++ gendocs_template	2008-03-19 18:09:36.000000000 +0100
+@@ -59,6 +59,18 @@
+     (%%TEXI_TGZ_SIZE%%K bytes gzipped tar file).</a></li>
+ </ul>
+ 
++<p>The manual is also available in a few experimental formats:</p>
++
++<ul>
++  <li><a href="../doxygen/">Doxygen HTML</a>.</li>
++  <li><a href="../doxygen/%%PACKAGE%%.pdf">Doxygen PDF file</a>.</li>
++</ul>
++
++<ul>
++  <li><a href="../reference/">HTML API Reference Manual (GTK-DOC)</a>.</li>
++  <li><a href="../reference/gsasl.devhelp">DevHelp API Reference Manual (GTK-DOC)</a>.</li>
++</ul>
++
+ <p>You can <a href="http://www.gnu.org/order/">buy printed copies of
+ some manuals</a> (among other items) from the Free Software Foundation;
+ this helps support FSF activities.</p>
