@@ -61,6 +61,16 @@ AC_DEFUN([gl_INIT],
   AM_GNU_GETTEXT_VERSION([0.17])
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
+  # Autoconf 2.61a.99 and earlier don't support linking a file only
+  # in VPATH builds.  But since GNUmakefile is for maintainer use
+  # only, it does not matter if we skip the link with older autoconf.
+  # Automake 1.10.1 and earlier try to remove GNUmakefile in non-VPATH
+  # builds, so use a shell variable to bypass this.
+  GNUmakefile=GNUmakefile
+  m4_if(m4_version_compare([2.61a.100],
+  	m4_defn([m4_PACKAGE_VERSION])), [1], [],
+        [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
+  	[GNUmakefile=$GNUmakefile])])
   gl_FUNC_MALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   gl_FUNC_REALLOC_POSIX
@@ -198,10 +208,8 @@ AC_DEFUN([gltests_LIBSOURCES], [
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
-  build-aux/GNUmakefile
   build-aux/config.rpath
   build-aux/link-warning.h
-  build-aux/maint.mk
   lib/alloca.in.h
   lib/asnprintf.c
   lib/asprintf.c
@@ -304,4 +312,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-gc-hmac-md5.c
   tests/test-gc-md5.c
   tests/test-gc.c
+  top/GNUmakefile
+  top/maint.mk
 ])

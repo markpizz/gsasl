@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=build-aux --libtool --macro-prefix=gl error exit fdl gendocs getaddrinfo getopt getpass gpl-3.0 lgpl-2.1 maintainer-makefile netinet_in progname quote readline strdup striconv sys_select sys_time unistd version-etc
+#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=build-aux --libtool --macro-prefix=gl --no-vc-files error exit fdl gendocs getaddrinfo getopt getpass gpl-3.0 lgpl-2.1 maintainer-makefile netinet_in progname quote readline strdup striconv sys_select sys_time unistd version-etc
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
@@ -31,3 +31,4 @@ gl_MAKEFILE_NAME([])
 gl_LIBTOOL
 gl_MACRO_PREFIX([gl])
 gl_PO_DOMAIN([])
+gl_VC_FILES([false])

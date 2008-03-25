@@ -22,6 +22,7 @@ ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 endif
 
 autoreconf:
+	mv build-aux/config.rpath build-aux/config.rpath-
 	test -f ./configure || autoreconf --install
 	mv build-aux/config.rpath- build-aux/config.rpath
 
