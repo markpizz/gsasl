@@ -39,6 +39,7 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([AC_REPLACE_FUNCS], m4_defn([gl_REPLACE_FUNCS]))
   m4_pushdef([AC_LIBSOURCES], m4_defn([gl_LIBSOURCES]))
   gl_source_base='gl'
+  gl_EOVERFLOW
   gl_FUNC_ALLOCA
   gl_FUNC_BASE64
   gl_GC
