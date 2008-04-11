@@ -16,6 +16,9 @@ Reported by marty <marty@ice.org> in
 See also <http://jabberd2.xiaoka.com/ticket/200> and
 <http://developer.pidgin.im/ticket/5213>.
 
+** DIGEST-MD5 client: convert password from UTF-8 to ISO-8859-1 before hash.
+For compatibility with server.
+
 ** API and ABI modifications.
 No changes since last version.
 

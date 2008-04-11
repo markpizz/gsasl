@@ -1,5 +1,5 @@
 /* client.c --- DIGEST-MD5 mechanism from RFC 2831, client side.
- * Copyright (C) 2002, 2003, 2004, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -89,6 +89,8 @@ _gsasl_digest_md5_client_start (Gsasl_session * sctx, void **mech_data)
   return GSASL_OK;
 }
 
+extern char *utf8tolatin1ifpossible (const char *passwd);
+
 int
 _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 			       void *mech_data,
@@ -153,6 +155,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	{
 	  const char *c;
 	  char *tmp, *tmp2;
+	  int rc;
 
 	  c = gsasl_property_get (sctx, GSASL_AUTHID);
 	  if (!c)
@@ -183,9 +186,13 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	  if (!c)
 	    return GSASL_NO_PASSWORD;
 
-	  if (asprintf (&tmp, "%s:%s:%s", state->response.username,
-			state->response.realm ?
-			state->response.realm : "", c) < 0)
+	  tmp2 = utf8tolatin1ifpossible (c);
+
+	  rc = asprintf (&tmp, "%s:%s:%s", state->response.username,
+			 state->response.realm ?
+			 state->response.realm : "", tmp2);
+	  free (tmp2);
+	  if (rc < 0)
 	    return GSASL_MALLOC_ERROR;
 
 	  rc = gsasl_md5 (tmp, strlen (tmp), &tmp2);
