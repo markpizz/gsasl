@@ -29,8 +29,8 @@
 
 #include "utils.h"
 
-#define PASSWORD "Open, Sesame"
-#define USERNAME "Ali B\xC2\xAAba"
+#define PASSWORD "Open, Ses\xC2\xAA""me"
+#define USERNAME "Ali B\xC2\xAA""ba"
 /* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
 /* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
 #define AUTHZID "joe"
