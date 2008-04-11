@@ -1,5 +1,5 @@
 /* digest-md5.c --- Test the DIGEST-MD5 mechanism.
- * Copyright (C) 2002, 2003, 2004, 2007  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2007, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -30,7 +30,7 @@
 #include "utils.h"
 
 #define PASSWORD "Open, Sesame"
-#define USERNAME "Ali Baba"
+#define USERNAME "Ali B\xC2\xAAba"
 /* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
 /* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
 #define AUTHZID "joe"

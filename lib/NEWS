@@ -4,6 +4,18 @@ See the end for copying conditions.
 
 * Version 0.2.26 (unreleased)
 
+** DIGEST-MD5 server: don't reject authentication if client doesn't use utf-8.
+Before, authentication from all non-UTF-8 clients were simply
+rejected.  When this situation occurs now, the username is translated
+into UTF-8 before being passed on to applications.  Further, the
+password retrieved from the application is converted from UTF-8 to
+ISO-8859-1 if that is possible.
+
+Reported by marty <marty@ice.org> in
+<http://lists.gnu.org/archive/html/help-gsasl/2008-03/msg00002.html>.
+See also <http://jabberd2.xiaoka.com/ticket/200> and
+<http://developer.pidgin.im/ticket/5213>.
+
 ** API and ABI modifications.
 No changes since last version.
 

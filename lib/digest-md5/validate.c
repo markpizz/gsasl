@@ -1,5 +1,5 @@
 /* validate.c --- Validate consistency of DIGEST-MD5 tokens.
- * Copyright (C) 2004, 2006  Simon Josefsson
+ * Copyright (C) 2004, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -124,7 +124,7 @@ digest_md5_validate (digest_md5_challenge * c, digest_md5_response * r)
   if (r->nc != 1)
     return -1;
 
-  if (c->utf8 != r->utf8)
+  if (!c->utf8 && r->utf8)
     return -1;
 
   if (!((c->qops ? c->qops : DIGEST_MD5_QOP_AUTH) &
