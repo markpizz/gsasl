@@ -23,11 +23,6 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --disable-obsolete
 
 # Maintainer targets
 
-update-po: refresh-po
-	git-update-index --add `ls po/*.po | grep -v quot.po` || true && \
-	git-commit -m "Sync with TP." po/LINGUAS `ls po/*.po | grep -v quot.po`
-	$(MAKE) -C lib update-po
-
 ChangeLog:
 	git log --pretty --numstat --summary | git2cl > ChangeLog
 	cat .cvscopying >> ChangeLog

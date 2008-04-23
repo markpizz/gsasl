@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Version 0.2.26 (unreleased)
 
+** Translations files not stored directly in git to avoid merge conflicts.
+This allows us to avoid use of --no-location which makes the
+translation teams happier.
+
 ** DIGEST-MD5 server: don't reject authentication if client doesn't use utf-8.
 Before, authentication from all non-UTF-8 clients were simply
 rejected.  When this situation occurs now, the username is translated

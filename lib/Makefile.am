@@ -74,10 +74,6 @@ SUBDIRS += src
 
 # Maintainer targets
 
-update-po: refresh-po
-	git-update-index --add `ls po/*.po | grep -v quot.po` || true && \
-	git-commit -m "Sync with TP." po/LINGUAS `ls po/*.po | grep -v quot.po`
-
 ChangeLog:
 	git log --pretty --numstat --summary | git2cl > ChangeLog
 	cat ../.cvscopying >> ChangeLog

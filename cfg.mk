@@ -22,11 +22,22 @@ ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 endif
 
 autoreconf:
+	for f in po/*.po.in lib/po/*.po.in; do \
+		cp $$f `echo $$f | sed 's/.in//'`; \
+	done
 	mv build-aux/config.rpath build-aux/config.rpath-
 	mv lib/build-aux/config.rpath lib/build-aux/config.rpath-
 	test -f ./configure || autoreconf --install
 	mv build-aux/config.rpath- build-aux/config.rpath
 	mv lib/build-aux/config.rpath- lib/build-aux/config.rpath
+
+update-po: refresh-po
+	$(MAKE) -C lib update-po
+	for f in `ls po/*.po | grep -v quot.po`; do \
+		cp $$f $$f.in; \
+	done
+	git-add po/*.po.in
+	git-commit -m "Sync with TP." po/LINGUAS po/*.po.in
 
 bootstrap: autoreconf
 	./configure $(CFGFLAGS)
