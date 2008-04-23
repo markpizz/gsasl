@@ -62,11 +62,16 @@ arpa/inet.h:
 	@MKDIR_P@ arpa
 	rm -f $@-t $@
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  echo '#include <sys/socket.h>'; \
+	  sed \
+	      -e 's|@''GNULIB_INET_NTOP''@|$(GNULIB_INET_NTOP)|g' \
+	      -e 's|@''GNULIB_INET_PTON''@|$(GNULIB_INET_PTON)|g' \
+	      < $(srcdir)/arpa_inet.in.h; \
 	} > $@-t
 	mv $@-t $@
 MOSTLYCLEANFILES += arpa/inet.h arpa/inet.h-t
 MOSTLYCLEANDIRS += arpa
+
+EXTRA_DIST += arpa_inet.in.h
 
 ## end   gnulib module arpa_inet
 
@@ -845,6 +850,7 @@ wctype.h: wctype.in.h
 	      -e 's|@''NEXT_WCTYPE_H''@|$(NEXT_WCTYPE_H)|g' \
 	      -e 's/@''HAVE_ISWCNTRL''@/$(HAVE_ISWCNTRL)/g' \
 	      -e 's/@''HAVE_WINT_T''@/$(HAVE_WINT_T)/g' \
+	      -e 's/@''REPLACE_ISWCNTRL''@/$(REPLACE_ISWCNTRL)/g' \
 	      < $(srcdir)/wctype.in.h; \
 	} > $@-t
 	mv $@-t $@

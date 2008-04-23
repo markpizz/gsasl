@@ -44,6 +44,7 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([AC_LIBOBJ], m4_defn([gl_LIBOBJ]))
   m4_pushdef([AC_REPLACE_FUNCS], m4_defn([gl_REPLACE_FUNCS]))
   m4_pushdef([AC_LIBSOURCES], m4_defn([gl_LIBSOURCES]))
+  gl_COMMON
   gl_source_base='gl'
   gl_EOVERFLOW
   gl_FUNC_ALLOCA
@@ -80,6 +81,7 @@ AC_DEFUN([gl_INIT],
   gl_ICONV_H
   gl_FUNC_ICONV_OPEN
   gl_INET_NTOP
+  gl_ARPA_INET_MODULE_INDICATOR([inet_ntop])
   gl_INLINE
   gl_FUNC_LSEEK
   gl_UNISTD_MODULE_INDICATOR([lseek])
@@ -144,6 +146,7 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([AC_LIBOBJ], m4_defn([gltests_LIBOBJ]))
   m4_pushdef([AC_REPLACE_FUNCS], m4_defn([gltests_REPLACE_FUNCS]))
   m4_pushdef([AC_LIBSOURCES], m4_defn([gltests_LIBSOURCES]))
+  gl_COMMON
   gl_source_base='gl/tests'
   m4_popdef([AC_LIBSOURCES])
   m4_popdef([AC_REPLACE_FUNCS])
@@ -245,6 +248,7 @@ AC_DEFUN([gl_FILE_LIST], [
   doc/gpl-3.0.texi
   doc/lgpl-2.1.texi
   lib/alloca.in.h
+  lib/arpa_inet.in.h
   lib/asnprintf.c
   lib/c-ctype.c
   lib/c-ctype.h
@@ -352,6 +356,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mbrtowc.m4
   m4/mbstate_t.m4
   m4/netinet_in_h.m4
+  m4/printf.m4
   m4/quote.m4
   m4/quotearg.m4
   m4/readline.m4
