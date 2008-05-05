@@ -1,14 +1,14 @@
 #!/usr/bin/perl
 
-## Copyright (c) 2002, 2003, 2004, 2005, 2006 Simon Josefsson    ##
-##                    added -texinfo, -listfunc                  ##
-##                    man page revamp                            ##
-##                    various improvements                       ##
-## Copyright (c) 1998 Michael Zucchi, All Rights Reserved        ##
-##                    hacked to allow -tex option --nmav         ##
-##                                                               ##
-## This software falls under the GNU Public License. Please read ##
-##              the COPYING file for more information            ##
+## Copyright (c) 2002, 2003, 2004, 2005, 2006, 2008 Simon Josefsson    ##
+##                    added -texinfo, -listfunc                        ##
+##                    man page revamp                                  ##
+##                    various improvements                             ##
+## Copyright (c) 1998 Michael Zucchi, All Rights Reserved              ##
+##                    hacked to allow -tex option --nmav               ##
+##                                                                     ##
+## This software falls under the GNU Public License. Please read       ##
+##              the COPYING file for more information                  ##
 
 #
 # This will read a 'c' file and scan for embedded comments in the
@@ -751,7 +751,8 @@ sub dump_function {
 #	    print STDERR "param = '$param', type = '$type'\n";
 	}
     } else {
-	print STDERR "warning: $lineno: Cannot understand prototype: '$prototype'\n";
+	print STDERR "warning: $lineno: Cannot understand prototype: '$prototype'\n"
+	    if (!($prototype =~ m/=/));
 	return;
     }
 
