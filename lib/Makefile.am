@@ -23,6 +23,8 @@ ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgsasl.pc
 
+EXTRA_DIST = cfg.mk maint.mk
+
 SUBDIRS = po gl tests
 
 # Plugins:
