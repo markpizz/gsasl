@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -65,8 +65,252 @@ gsasl.1: $(top_srcdir)/src/gsasl.c $(top_srcdir)/src/gsasl.ggo \
 		--name="SASL library command line interface" \
 		--output=$@ $(top_builddir)/src/gsasl$(EXEEXT)
 
-gdoc_MANS = man/gsasl_base64_to.3 man/gsasl_base64_from.3 man/gsasl_callback_set.3 man/gsasl_callback.3 man/gsasl_callback_hook_set.3 man/gsasl_callback_hook_get.3 man/gsasl_session_hook_set.3 man/gsasl_session_hook_get.3 man/gsasl_nonce.3 man/gsasl_random.3 man/gsasl_md5.3 man/gsasl_hmac_md5.3 man/gsasl_done.3 man/gsasl_strerror.3 man/gsasl_free.3 man/gsasl_init.3 man/gsasl_client_mechlist.3 man/gsasl_server_mechlist.3 man/gsasl_simple_getpass.3 man/gsasl_client_listmech.3 man/gsasl_server_listmech.3 man/gsasl_client_step.3 man/gsasl_server_step.3 man/gsasl_client_step_base64.3 man/gsasl_server_step_base64.3 man/gsasl_client_finish.3 man/gsasl_server_finish.3 man/gsasl_client_ctx_get.3 man/gsasl_client_application_data_set.3 man/gsasl_client_application_data_get.3 man/gsasl_server_ctx_get.3 man/gsasl_server_application_data_set.3 man/gsasl_server_application_data_get.3 man/gsasl_randomize.3 man/gsasl_ctx_get.3 man/gsasl_encode_inline.3 man/gsasl_decode_inline.3 man/gsasl_application_data_set.3 man/gsasl_application_data_get.3 man/gsasl_appinfo_set.3 man/gsasl_appinfo_get.3 man/gsasl_server_suggest_mechanism.3 man/gsasl_client_callback_authentication_id_set.3 man/gsasl_client_callback_authentication_id_get.3 man/gsasl_client_callback_authorization_id_set.3 man/gsasl_client_callback_authorization_id_get.3 man/gsasl_client_callback_password_set.3 man/gsasl_client_callback_password_get.3 man/gsasl_client_callback_passcode_set.3 man/gsasl_client_callback_passcode_get.3 man/gsasl_client_callback_pin_set.3 man/gsasl_client_callback_pin_get.3 man/gsasl_client_callback_service_set.3 man/gsasl_client_callback_service_get.3 man/gsasl_client_callback_anonymous_set.3 man/gsasl_client_callback_anonymous_get.3 man/gsasl_client_callback_qop_set.3 man/gsasl_client_callback_qop_get.3 man/gsasl_client_callback_maxbuf_set.3 man/gsasl_client_callback_maxbuf_get.3 man/gsasl_client_callback_realm_set.3 man/gsasl_client_callback_realm_get.3 man/gsasl_server_callback_validate_set.3 man/gsasl_server_callback_validate_get.3 man/gsasl_server_callback_retrieve_set.3 man/gsasl_server_callback_retrieve_get.3 man/gsasl_server_callback_cram_md5_set.3 man/gsasl_server_callback_cram_md5_get.3 man/gsasl_server_callback_digest_md5_set.3 man/gsasl_server_callback_digest_md5_get.3 man/gsasl_server_callback_external_set.3 man/gsasl_server_callback_external_get.3 man/gsasl_server_callback_anonymous_set.3 man/gsasl_server_callback_anonymous_get.3 man/gsasl_server_callback_realm_set.3 man/gsasl_server_callback_realm_get.3 man/gsasl_server_callback_qop_set.3 man/gsasl_server_callback_qop_get.3 man/gsasl_server_callback_maxbuf_set.3 man/gsasl_server_callback_maxbuf_get.3 man/gsasl_server_callback_cipher_set.3 man/gsasl_server_callback_cipher_get.3 man/gsasl_server_callback_securid_set.3 man/gsasl_server_callback_securid_get.3 man/gsasl_server_callback_gssapi_set.3 man/gsasl_server_callback_gssapi_get.3 man/gsasl_server_callback_service_set.3 man/gsasl_server_callback_service_get.3 man/gsasl_stringprep_nfkc.3 man/gsasl_stringprep_saslprep.3 man/gsasl_stringprep_trace.3 man/gsasl_md5pwd_get_password.3 man/gsasl_base64_encode.3 man/gsasl_base64_decode.3 man/gsasl_property_set.3 man/gsasl_property_set_raw.3 man/gsasl_property_fast.3 man/gsasl_property_get.3 man/gsasl_register.3 man/gsasl_saslprep.3 man/gsasl_client_suggest_mechanism.3 man/gsasl_client_support_p.3 man/gsasl_server_support_p.3 man/gsasl_check_version.3 man/gsasl_encode.3 man/gsasl_decode.3 man/gsasl_finish.3 man/gsasl_client_start.3 man/gsasl_server_start.3 man/gsasl_step.3 man/gsasl_step64.3
-gdoc_TEXINFOS = texi/base64.c.texi texi/callback.c.texi texi/crypto.c.texi texi/done.c.texi texi/doxygen.c.texi texi/error.c.texi texi/free.c.texi texi/init.c.texi texi/listmech.c.texi texi/md5pwd.c.texi texi/obsolete.c.texi texi/property.c.texi texi/register.c.texi texi/saslprep.c.texi texi/suggest.c.texi texi/supportp.c.texi texi/version.c.texi texi/xcode.c.texi texi/xfinish.c.texi texi/xstart.c.texi texi/xstep.c.texi texi/gsasl_base64_to.texi texi/gsasl_base64_from.texi texi/gsasl_callback_set.texi texi/gsasl_callback.texi texi/gsasl_callback_hook_set.texi texi/gsasl_callback_hook_get.texi texi/gsasl_session_hook_set.texi texi/gsasl_session_hook_get.texi texi/gsasl_nonce.texi texi/gsasl_random.texi texi/gsasl_md5.texi texi/gsasl_hmac_md5.texi texi/gsasl_done.texi texi/gsasl_strerror.texi texi/gsasl_free.texi texi/gsasl_init.texi texi/gsasl_client_mechlist.texi texi/gsasl_server_mechlist.texi texi/gsasl_simple_getpass.texi texi/gsasl_client_listmech.texi texi/gsasl_server_listmech.texi texi/gsasl_client_step.texi texi/gsasl_server_step.texi texi/gsasl_client_step_base64.texi texi/gsasl_server_step_base64.texi texi/gsasl_client_finish.texi texi/gsasl_server_finish.texi texi/gsasl_client_ctx_get.texi texi/gsasl_client_application_data_set.texi texi/gsasl_client_application_data_get.texi texi/gsasl_server_ctx_get.texi texi/gsasl_server_application_data_set.texi texi/gsasl_server_application_data_get.texi texi/gsasl_randomize.texi texi/gsasl_ctx_get.texi texi/gsasl_encode_inline.texi texi/gsasl_decode_inline.texi texi/gsasl_application_data_set.texi texi/gsasl_application_data_get.texi texi/gsasl_appinfo_set.texi texi/gsasl_appinfo_get.texi texi/gsasl_server_suggest_mechanism.texi texi/gsasl_client_callback_authentication_id_set.texi texi/gsasl_client_callback_authentication_id_get.texi texi/gsasl_client_callback_authorization_id_set.texi texi/gsasl_client_callback_authorization_id_get.texi texi/gsasl_client_callback_password_set.texi texi/gsasl_client_callback_password_get.texi texi/gsasl_client_callback_passcode_set.texi texi/gsasl_client_callback_passcode_get.texi texi/gsasl_client_callback_pin_set.texi texi/gsasl_client_callback_pin_get.texi texi/gsasl_client_callback_service_set.texi texi/gsasl_client_callback_service_get.texi texi/gsasl_client_callback_anonymous_set.texi texi/gsasl_client_callback_anonymous_get.texi texi/gsasl_client_callback_qop_set.texi texi/gsasl_client_callback_qop_get.texi texi/gsasl_client_callback_maxbuf_set.texi texi/gsasl_client_callback_maxbuf_get.texi texi/gsasl_client_callback_realm_set.texi texi/gsasl_client_callback_realm_get.texi texi/gsasl_server_callback_validate_set.texi texi/gsasl_server_callback_validate_get.texi texi/gsasl_server_callback_retrieve_set.texi texi/gsasl_server_callback_retrieve_get.texi texi/gsasl_server_callback_cram_md5_set.texi texi/gsasl_server_callback_cram_md5_get.texi texi/gsasl_server_callback_digest_md5_set.texi texi/gsasl_server_callback_digest_md5_get.texi texi/gsasl_server_callback_external_set.texi texi/gsasl_server_callback_external_get.texi texi/gsasl_server_callback_anonymous_set.texi texi/gsasl_server_callback_anonymous_get.texi texi/gsasl_server_callback_realm_set.texi texi/gsasl_server_callback_realm_get.texi texi/gsasl_server_callback_qop_set.texi texi/gsasl_server_callback_qop_get.texi texi/gsasl_server_callback_maxbuf_set.texi texi/gsasl_server_callback_maxbuf_get.texi texi/gsasl_server_callback_cipher_set.texi texi/gsasl_server_callback_cipher_get.texi texi/gsasl_server_callback_securid_set.texi texi/gsasl_server_callback_securid_get.texi texi/gsasl_server_callback_gssapi_set.texi texi/gsasl_server_callback_gssapi_get.texi texi/gsasl_server_callback_service_set.texi texi/gsasl_server_callback_service_get.texi texi/gsasl_stringprep_nfkc.texi texi/gsasl_stringprep_saslprep.texi texi/gsasl_stringprep_trace.texi texi/gsasl_md5pwd_get_password.texi texi/gsasl_base64_encode.texi texi/gsasl_base64_decode.texi texi/gsasl_property_set.texi texi/gsasl_property_set_raw.texi texi/gsasl_property_fast.texi texi/gsasl_property_get.texi texi/gsasl_register.texi texi/gsasl_saslprep.texi texi/gsasl_client_suggest_mechanism.texi texi/gsasl_client_support_p.texi texi/gsasl_server_support_p.texi texi/gsasl_check_version.texi texi/gsasl_encode.texi texi/gsasl_decode.texi texi/gsasl_finish.texi texi/gsasl_client_start.texi texi/gsasl_server_start.texi texi/gsasl_step.texi texi/gsasl_step64.texi
+gdoc_MANS =
+gdoc_MANS += man/gsasl_base64_to.3
+gdoc_MANS += man/gsasl_base64_from.3
+gdoc_MANS += man/gsasl_callback_set.3
+gdoc_MANS += man/gsasl_callback.3
+gdoc_MANS += man/gsasl_callback_hook_set.3
+gdoc_MANS += man/gsasl_callback_hook_get.3
+gdoc_MANS += man/gsasl_session_hook_set.3
+gdoc_MANS += man/gsasl_session_hook_get.3
+gdoc_MANS += man/gsasl_nonce.3
+gdoc_MANS += man/gsasl_random.3
+gdoc_MANS += man/gsasl_md5.3
+gdoc_MANS += man/gsasl_hmac_md5.3
+gdoc_MANS += man/gsasl_done.3
+gdoc_MANS += man/gsasl_strerror.3
+gdoc_MANS += man/gsasl_free.3
+gdoc_MANS += man/gsasl_init.3
+gdoc_MANS += man/gsasl_client_mechlist.3
+gdoc_MANS += man/gsasl_server_mechlist.3
+gdoc_MANS += man/gsasl_simple_getpass.3
+gdoc_MANS += man/gsasl_client_listmech.3
+gdoc_MANS += man/gsasl_server_listmech.3
+gdoc_MANS += man/gsasl_client_step.3
+gdoc_MANS += man/gsasl_server_step.3
+gdoc_MANS += man/gsasl_client_step_base64.3
+gdoc_MANS += man/gsasl_server_step_base64.3
+gdoc_MANS += man/gsasl_client_finish.3
+gdoc_MANS += man/gsasl_server_finish.3
+gdoc_MANS += man/gsasl_client_ctx_get.3
+gdoc_MANS += man/gsasl_client_application_data_set.3
+gdoc_MANS += man/gsasl_client_application_data_get.3
+gdoc_MANS += man/gsasl_server_ctx_get.3
+gdoc_MANS += man/gsasl_server_application_data_set.3
+gdoc_MANS += man/gsasl_server_application_data_get.3
+gdoc_MANS += man/gsasl_randomize.3
+gdoc_MANS += man/gsasl_ctx_get.3
+gdoc_MANS += man/gsasl_encode_inline.3
+gdoc_MANS += man/gsasl_decode_inline.3
+gdoc_MANS += man/gsasl_application_data_set.3
+gdoc_MANS += man/gsasl_application_data_get.3
+gdoc_MANS += man/gsasl_appinfo_set.3
+gdoc_MANS += man/gsasl_appinfo_get.3
+gdoc_MANS += man/gsasl_server_suggest_mechanism.3
+gdoc_MANS += man/gsasl_client_callback_authentication_id_set.3
+gdoc_MANS += man/gsasl_client_callback_authentication_id_get.3
+gdoc_MANS += man/gsasl_client_callback_authorization_id_set.3
+gdoc_MANS += man/gsasl_client_callback_authorization_id_get.3
+gdoc_MANS += man/gsasl_client_callback_password_set.3
+gdoc_MANS += man/gsasl_client_callback_password_get.3
+gdoc_MANS += man/gsasl_client_callback_passcode_set.3
+gdoc_MANS += man/gsasl_client_callback_passcode_get.3
+gdoc_MANS += man/gsasl_client_callback_pin_set.3
+gdoc_MANS += man/gsasl_client_callback_pin_get.3
+gdoc_MANS += man/gsasl_client_callback_service_set.3
+gdoc_MANS += man/gsasl_client_callback_service_get.3
+gdoc_MANS += man/gsasl_client_callback_anonymous_set.3
+gdoc_MANS += man/gsasl_client_callback_anonymous_get.3
+gdoc_MANS += man/gsasl_client_callback_qop_set.3
+gdoc_MANS += man/gsasl_client_callback_qop_get.3
+gdoc_MANS += man/gsasl_client_callback_maxbuf_set.3
+gdoc_MANS += man/gsasl_client_callback_maxbuf_get.3
+gdoc_MANS += man/gsasl_client_callback_realm_set.3
+gdoc_MANS += man/gsasl_client_callback_realm_get.3
+gdoc_MANS += man/gsasl_server_callback_validate_set.3
+gdoc_MANS += man/gsasl_server_callback_validate_get.3
+gdoc_MANS += man/gsasl_server_callback_retrieve_set.3
+gdoc_MANS += man/gsasl_server_callback_retrieve_get.3
+gdoc_MANS += man/gsasl_server_callback_cram_md5_set.3
+gdoc_MANS += man/gsasl_server_callback_cram_md5_get.3
+gdoc_MANS += man/gsasl_server_callback_digest_md5_set.3
+gdoc_MANS += man/gsasl_server_callback_digest_md5_get.3
+gdoc_MANS += man/gsasl_server_callback_external_set.3
+gdoc_MANS += man/gsasl_server_callback_external_get.3
+gdoc_MANS += man/gsasl_server_callback_anonymous_set.3
+gdoc_MANS += man/gsasl_server_callback_anonymous_get.3
+gdoc_MANS += man/gsasl_server_callback_realm_set.3
+gdoc_MANS += man/gsasl_server_callback_realm_get.3
+gdoc_MANS += man/gsasl_server_callback_qop_set.3
+gdoc_MANS += man/gsasl_server_callback_qop_get.3
+gdoc_MANS += man/gsasl_server_callback_maxbuf_set.3
+gdoc_MANS += man/gsasl_server_callback_maxbuf_get.3
+gdoc_MANS += man/gsasl_server_callback_cipher_set.3
+gdoc_MANS += man/gsasl_server_callback_cipher_get.3
+gdoc_MANS += man/gsasl_server_callback_securid_set.3
+gdoc_MANS += man/gsasl_server_callback_securid_get.3
+gdoc_MANS += man/gsasl_server_callback_gssapi_set.3
+gdoc_MANS += man/gsasl_server_callback_gssapi_get.3
+gdoc_MANS += man/gsasl_server_callback_service_set.3
+gdoc_MANS += man/gsasl_server_callback_service_get.3
+gdoc_MANS += man/gsasl_stringprep_nfkc.3
+gdoc_MANS += man/gsasl_stringprep_saslprep.3
+gdoc_MANS += man/gsasl_stringprep_trace.3
+gdoc_MANS += man/gsasl_md5pwd_get_password.3
+gdoc_MANS += man/gsasl_base64_encode.3
+gdoc_MANS += man/gsasl_base64_decode.3
+gdoc_MANS += man/gsasl_property_set.3
+gdoc_MANS += man/gsasl_property_set_raw.3
+gdoc_MANS += man/gsasl_property_fast.3
+gdoc_MANS += man/gsasl_property_get.3
+gdoc_MANS += man/gsasl_register.3
+gdoc_MANS += man/gsasl_saslprep.3
+gdoc_MANS += man/gsasl_client_suggest_mechanism.3
+gdoc_MANS += man/gsasl_client_support_p.3
+gdoc_MANS += man/gsasl_server_support_p.3
+gdoc_MANS += man/gsasl_check_version.3
+gdoc_MANS += man/gsasl_encode.3
+gdoc_MANS += man/gsasl_decode.3
+gdoc_MANS += man/gsasl_finish.3
+gdoc_MANS += man/gsasl_client_start.3
+gdoc_MANS += man/gsasl_server_start.3
+gdoc_MANS += man/gsasl_step.3
+gdoc_MANS += man/gsasl_step64.3
+
+gdoc_TEXINFOS =
+gdoc_TEXINFOS += texi/base64.c.texi
+gdoc_TEXINFOS += texi/callback.c.texi
+gdoc_TEXINFOS += texi/crypto.c.texi
+gdoc_TEXINFOS += texi/done.c.texi
+gdoc_TEXINFOS += texi/doxygen.c.texi
+gdoc_TEXINFOS += texi/error.c.texi
+gdoc_TEXINFOS += texi/free.c.texi
+gdoc_TEXINFOS += texi/init.c.texi
+gdoc_TEXINFOS += texi/listmech.c.texi
+gdoc_TEXINFOS += texi/md5pwd.c.texi
+gdoc_TEXINFOS += texi/obsolete.c.texi
+gdoc_TEXINFOS += texi/property.c.texi
+gdoc_TEXINFOS += texi/register.c.texi
+gdoc_TEXINFOS += texi/saslprep.c.texi
+gdoc_TEXINFOS += texi/suggest.c.texi
+gdoc_TEXINFOS += texi/supportp.c.texi
+gdoc_TEXINFOS += texi/version.c.texi
+gdoc_TEXINFOS += texi/xcode.c.texi
+gdoc_TEXINFOS += texi/xfinish.c.texi
+gdoc_TEXINFOS += texi/xstart.c.texi
+gdoc_TEXINFOS += texi/xstep.c.texi
+gdoc_TEXINFOS += texi/gsasl_base64_to.texi
+gdoc_TEXINFOS += texi/gsasl_base64_from.texi
+gdoc_TEXINFOS += texi/gsasl_callback_set.texi
+gdoc_TEXINFOS += texi/gsasl_callback.texi
+gdoc_TEXINFOS += texi/gsasl_callback_hook_set.texi
+gdoc_TEXINFOS += texi/gsasl_callback_hook_get.texi
+gdoc_TEXINFOS += texi/gsasl_session_hook_set.texi
+gdoc_TEXINFOS += texi/gsasl_session_hook_get.texi
+gdoc_TEXINFOS += texi/gsasl_nonce.texi
+gdoc_TEXINFOS += texi/gsasl_random.texi
+gdoc_TEXINFOS += texi/gsasl_md5.texi
+gdoc_TEXINFOS += texi/gsasl_hmac_md5.texi
+gdoc_TEXINFOS += texi/gsasl_done.texi
+gdoc_TEXINFOS += texi/gsasl_strerror.texi
+gdoc_TEXINFOS += texi/gsasl_free.texi
+gdoc_TEXINFOS += texi/gsasl_init.texi
+gdoc_TEXINFOS += texi/gsasl_client_mechlist.texi
+gdoc_TEXINFOS += texi/gsasl_server_mechlist.texi
+gdoc_TEXINFOS += texi/gsasl_simple_getpass.texi
+gdoc_TEXINFOS += texi/gsasl_client_listmech.texi
+gdoc_TEXINFOS += texi/gsasl_server_listmech.texi
+gdoc_TEXINFOS += texi/gsasl_client_step.texi
+gdoc_TEXINFOS += texi/gsasl_server_step.texi
+gdoc_TEXINFOS += texi/gsasl_client_step_base64.texi
+gdoc_TEXINFOS += texi/gsasl_server_step_base64.texi
+gdoc_TEXINFOS += texi/gsasl_client_finish.texi
+gdoc_TEXINFOS += texi/gsasl_server_finish.texi
+gdoc_TEXINFOS += texi/gsasl_client_ctx_get.texi
+gdoc_TEXINFOS += texi/gsasl_client_application_data_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_application_data_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_ctx_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_application_data_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_application_data_get.texi
+gdoc_TEXINFOS += texi/gsasl_randomize.texi
+gdoc_TEXINFOS += texi/gsasl_ctx_get.texi
+gdoc_TEXINFOS += texi/gsasl_encode_inline.texi
+gdoc_TEXINFOS += texi/gsasl_decode_inline.texi
+gdoc_TEXINFOS += texi/gsasl_application_data_set.texi
+gdoc_TEXINFOS += texi/gsasl_application_data_get.texi
+gdoc_TEXINFOS += texi/gsasl_appinfo_set.texi
+gdoc_TEXINFOS += texi/gsasl_appinfo_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_suggest_mechanism.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_authentication_id_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_authentication_id_get.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_authorization_id_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_authorization_id_get.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_password_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_password_get.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_passcode_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_passcode_get.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_pin_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_pin_get.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_service_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_service_get.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_anonymous_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_anonymous_get.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_qop_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_qop_get.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_maxbuf_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_maxbuf_get.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_realm_set.texi
+gdoc_TEXINFOS += texi/gsasl_client_callback_realm_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_validate_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_validate_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_retrieve_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_retrieve_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_cram_md5_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_cram_md5_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_digest_md5_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_digest_md5_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_external_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_external_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_anonymous_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_anonymous_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_realm_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_realm_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_qop_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_qop_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_maxbuf_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_maxbuf_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_cipher_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_cipher_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_securid_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_securid_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_gssapi_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_gssapi_get.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_service_set.texi
+gdoc_TEXINFOS += texi/gsasl_server_callback_service_get.texi
+gdoc_TEXINFOS += texi/gsasl_stringprep_nfkc.texi
+gdoc_TEXINFOS += texi/gsasl_stringprep_saslprep.texi
+gdoc_TEXINFOS += texi/gsasl_stringprep_trace.texi
+gdoc_TEXINFOS += texi/gsasl_md5pwd_get_password.texi
+gdoc_TEXINFOS += texi/gsasl_base64_encode.texi
+gdoc_TEXINFOS += texi/gsasl_base64_decode.texi
+gdoc_TEXINFOS += texi/gsasl_property_set.texi
+gdoc_TEXINFOS += texi/gsasl_property_set_raw.texi
+gdoc_TEXINFOS += texi/gsasl_property_fast.texi
+gdoc_TEXINFOS += texi/gsasl_property_get.texi
+gdoc_TEXINFOS += texi/gsasl_register.texi
+gdoc_TEXINFOS += texi/gsasl_saslprep.texi
+gdoc_TEXINFOS += texi/gsasl_client_suggest_mechanism.texi
+gdoc_TEXINFOS += texi/gsasl_client_support_p.texi
+gdoc_TEXINFOS += texi/gsasl_server_support_p.texi
+gdoc_TEXINFOS += texi/gsasl_check_version.texi
+gdoc_TEXINFOS += texi/gsasl_encode.texi
+gdoc_TEXINFOS += texi/gsasl_decode.texi
+gdoc_TEXINFOS += texi/gsasl_finish.texi
+gdoc_TEXINFOS += texi/gsasl_client_start.texi
+gdoc_TEXINFOS += texi/gsasl_server_start.texi
+gdoc_TEXINFOS += texi/gsasl_step.texi
+gdoc_TEXINFOS += texi/gsasl_step64.texi
 
 $(gdoc_MANS) $(gdoc_TEXINFOS):
 	make update-makefile
@@ -76,42 +320,45 @@ $(gdoc_MANS) $(gdoc_TEXINFOS):
 GDOC_SRC = $(top_srcdir)/lib/src/*.c
 
 update-makefile:
-	@MANS=""; \
+	MANS=""; \
 	TEXINFOS=""; \
 	for i in $(GDOC_SRC); do \
 		BASE=`basename $$i`; \
-		TEXINFOS="$$TEXINFOS texi/$$BASE.texi"; \
+		TEXINFOS="$$TEXINFOS\ngdoc_TEXINFOS += texi/$$BASE.texi"; \
 	done; \
 	FUNCS=`./gdoc -listfunc $(GDOC_SRC)`; \
 	for i in $$FUNCS; do \
-		MANS="$$MANS man/$$i.3"; \
-		TEXINFOS="$$TEXINFOS texi/$$i.texi"; \
+		MANS="$$MANS\ngdoc_MANS += man/$$i.3"; \
+		TEXINFOS="$$TEXINFOS\ngdoc_TEXINFOS += texi/$$i.texi"; \
 	done; \
-	perl -pi -e "s,^gdoc_MANS =.*,gdoc_MANS =$$MANS,;" \
-		-e "s,^gdoc_TEXINFOS =.*,gdoc_TEXINFOS =$$TEXINFOS,;" \
-		Makefile.am
+	grep -v -e '^gdoc_MANS += ' -e '^gdoc_TEXINFOS += ' Makefile.am | \
+		perl -p -e "s,^gdoc_MANS =,gdoc_MANS =$$MANS," | \
+		perl -p -e "s,^gdoc_TEXINFOS =,gdoc_TEXINFOS =$$TEXINFOS,;" \
+		> Makefile.am.new && \
+	mv Makefile.am.new Makefile.am
 
 doit:
 	@$(mkdir_p) man texi; \
+	echo -n "Creating function documentation" && \
 	for i in `./gdoc -listfunc $(GDOC_SRC)`; do \
-		echo -n "Creating documentation for $$i... " && \
 		./gdoc -man \
 			-module $(PACKAGE) -sourceversion $(VERSION) \
 			-bugsto $(PACKAGE_BUGREPORT) \
 			-includefuncprefix \
 			-seeinfo $(PACKAGE) -verbatimcopying \
-			-copyright "2002, 2003, 2004, 2005, 2006, 2007 Simon Josefsson" \
+			-copyright "2002, 2003, 2004, 2005, 2006, 2007, 2008 Simon Josefsson" \
 			-function $$i \
 			$(GDOC_SRC) > man/$$i.3 && \
 		./gdoc -texinfo -function $$i \
 			$(GDOC_SRC) > texi/$$i.texi && \
-		echo "ok"; \
+		echo -n "."; \
 	done; \
+	echo ""; \
+	echo -n "Creating file documentation" && \
 	for i in $(GDOC_SRC); do \
 		BASE=`basename $$i`; \
-		echo -n "Creating documentation for $$i... " && \
 		./gdoc -texinfo $$i > texi/$$BASE.texi && \
-		echo "ok"; \
+		echo -n "."; \
 	done
 
 .PHONY: update-makefile doit
