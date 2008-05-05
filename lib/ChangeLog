@@ -1,3 +1,189 @@
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 0.2.26.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Fix .cvscopying filename.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* .clcopying, .cvscopying, Makefile.am: Dist more, fix .cvscopying
+	filename.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Fix warnings about missing
+	--deprecated-guards.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Cosmetic fix.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Fix to avoid warnings about
+	GSASL_VALID_MECHANISM_CHARACTERS definition.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Split up manpage/texinfos to one per line, to
+	simplify diff review.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh, gl/Makefile.am, gl/arpa_inet.in.h,
+	gl/fseeko.c, gl/getaddrinfo.c, gl/inet_ntop.c, gl/inet_ntop.h,
+	gl/m4/arpa_inet_h.m4, gl/m4/gnulib-comp.m4, gl/m4/inet_ntop.m4,
+	gl/m4/stdlib_h.m4, gl/m4/string_h.m4, gl/m4/sys_socket_h.m4,
+	gl/stdio-impl.h, gl/stdlib.in.h, gl/string.in.h,
+	gl/sys_socket.in.h, lib/gl/Makefile.am, lib/gl/m4/stdlib_h.m4,
+	lib/gl/m4/string_h.m4, lib/gl/stdlib.in.h, lib/gl/string.in.h: 
+	Update gnulib files.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS, lib/NEWS, lib/digest-md5/server.c: Fix ISO-8859-1 to UTF-8
+	conversion code.  Tiny patch from Pawel Widera
+	<momat@man.poznan.pl>.
+
+2008-04-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/LINGUAS, lib/po/fr.po.in, lib/po/sk.po.in: Sync with TP.
+
+2008-04-23  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, NEWS, cfg.mk, lib/Makefile.am, lib/NEWS, lib/cfg.mk,
+	lib/po/Makevars, lib/po/fr.po, lib/po/fr.po.in, lib/po/ga.po,
+	lib/po/ga.po.in, lib/po/nl.po, lib/po/nl.po.in, lib/po/pl.po,
+	lib/po/pl.po.in, lib/po/ro.po, lib/po/ro.po.in, lib/po/sr.po,
+	lib/po/sr.po.in, lib/po/sv.po, lib/po/sv.po.in, lib/po/vi.po,
+	lib/po/vi.po.in, po/Makevars, po/de.po, po/de.po.in, po/eu.po,
+	po/eu.po.in, po/fr.po, po/fr.po.in, po/ga.po, po/ga.po.in,
+	po/id.po, po/id.po.in, po/nl.po, po/nl.po.in, po/pl.po,
+	po/pl.po.in, po/ro.po, po/ro.po.in, po/sq.po, po/sq.po.in,
+	po/sr.po, po/sr.po.in, po/sv.po, po/sv.po.in, po/vi.po,
+	po/vi.po.in, po/zh_CN.po, po/zh_CN.po.in, po/zh_TW.po,
+	po/zh_TW.po.in: Avoid *.po merge conflicts and --no-location.
+
+2008-04-23  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/arpa_inet.in.h, gl/fseeko.c,
+	gl/m4/arpa_inet_h.m4, gl/m4/extensions.m4, gl/m4/getopt.m4,
+	gl/m4/gnulib-common.m4, gl/m4/gnulib-comp.m4, gl/m4/mbstate_t.m4,
+	gl/m4/netinet_in_h.m4, gl/m4/printf.m4, gl/m4/snprintf.m4,
+	gl/m4/stdint.m4, gl/m4/stdio_h.m4, gl/m4/strerror.m4,
+	gl/m4/sys_select_h.m4, gl/m4/sys_socket_h.m4, gl/m4/wctype.m4,
+	gl/sys_socket.in.h, gl/vasnprintf.c, gl/wchar.in.h, gl/wctype.in.h,
+	lib/gl/gc-gnulib.c, lib/gl/m4/extensions.m4,
+	lib/gl/m4/gnulib-common.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/stdint.m4, lib/gl/m4/stdio_h.m4, lib/gl/vasnprintf.c,
+	lib/gl/wchar.in.h: Update gnulib files.
+
+2008-04-11  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Add.
+
+2008-04-11  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add, reporting the DIGEST-MD5 problem.
+
+2008-04-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/digest-md5/client.c: DIGEST-MD5 client: convert
+	password from UTF-8 to ISO-8859-1 before hash.  For compatibility
+	with server.
+
+2008-04-11  Simon Josefsson <simon@josefsson.org>
+
+	* tests/digest-md5.c: Test non-ASCII username/password.
+
+2008-04-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Generated.
+
+2008-04-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/digest-md5/server.c, lib/digest-md5/validate.c,
+	tests/digest-md5.c: DIGEST-MD5 server: don't reject authentication
+	if client doesn't use utf-8.  Before, authentication from all
+	non-UTF-8 clients were simply rejected.  When this situation occurs
+	now, the username is translated into UTF-8 before being passed on to
+	applications.  Further, the password retrieved from the application
+	is converted from UTF-8 to ISO-8859-1 if that is possible.  Reported by marty <marty@ice.org> in
+
+	<http://lists.gnu.org/archive/html/help-gsasl/2008-03/msg00002.html>.See also <http://jabberd2.xiaoka.com/ticket/200> and
+	<http://developer.pidgin.im/ticket/5213>.
+
+2008-04-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add native Windows build notes, based on libidn.
+
+2008-04-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/gc-gnulib.c: Update gnulib files.
+
+2008-04-10  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/fseeko.c, gl/m4/include_next.m4, gl/m4/stdint.m4,
+	lib/GNUmakefile, lib/gl/m4/gc-random.m4, lib/gl/m4/include_next.m4,
+	lib/gl/m4/stdint.m4: Update gnulib files.
+
+2008-04-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getdelim.c, gl/m4/gnulib-comp.m4,
+	gl/m4/stdlib_h.m4, gl/m4/vasnprintf.m4, gl/snprintf.c,
+	gl/stdlib.in.h, gl/vasnprintf.c, gl/wchar.in.h, lib/gl/Makefile.am,
+	lib/gl/gc-libgcrypt.c, lib/gl/gc.h, lib/gl/getdelim.c,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/stdlib_h.m4,
+	lib/gl/m4/vasnprintf.m4, lib/gl/stdlib.in.h, lib/gl/vasnprintf.c,
+	lib/gl/vasprintf.c, lib/gl/wchar.in.h: Update gnulib files.
+
+2008-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, build-aux/GNUmakefile, build-aux/maint.mk, cfg.mk,
+	gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	lib/GNUmakefile, lib/build-aux/GNUmakefile, lib/build-aux/maint.mk,
+	lib/cfg.mk, lib/gl/Makefile.am, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/maint-cfg.mk, lib/maint.mk,
+	maint-cfg.mk, maint.mk: Update gnulib files.
+
+2008-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am, doc/reference/tmpl/gsasl-unused.sgml,
+	gtk-doc.make: Update GTK-DOC build system.
+
+2008-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template, gl/override/doc/gendocs_template,
+	gl/override/doc/gendocs_template.diff: Use a patch for our gendocs
+	changes.
+
+2008-03-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/absolute-header.m4, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/include_next.m4, gl/m4/lib-link.m4,
+	gl/m4/stdarg.m4, gl/stdarg.in.h, lib/gl/Makefile.am,
+	lib/gl/m4/absolute-header.m4, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/include_next.m4,
+	lib/gl/m4/lib-link.m4: Update gnulib files.
+
+2008-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Bump version.
+
+2008-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2008-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
 2008-03-10  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS, lib/NEWS: Version 0.2.25.
