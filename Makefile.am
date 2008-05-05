@@ -18,6 +18,8 @@
 
 SUBDIRS = po gl lib src examples tests doc
 
+EXTRA_DIST = cfg.mk maint.mk .clcopying
+
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --disable-obsolete
 
@@ -25,7 +27,7 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --disable-obsolete
 
 ChangeLog:
 	git log --pretty --numstat --summary | git2cl > ChangeLog
-	cat .cvscopying >> ChangeLog
+	cat .clcopying >> ChangeLog
 
 htmldir = ../www-$(PACKAGE)
 tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
