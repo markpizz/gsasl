@@ -281,7 +281,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/iconv_open-osf.gperf
   lib/iconv_open.c
   lib/inet_ntop.c
-  lib/inet_ntop.h
   lib/intprops.h
   lib/lseek.c
   lib/malloc.c
@@ -304,6 +303,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdarg.in.h
   lib/stdbool.in.h
   lib/stdint.in.h
+  lib/stdio-impl.h
   lib/stdio.in.h
   lib/stdlib.in.h
   lib/strdup.c
