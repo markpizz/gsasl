@@ -229,7 +229,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	{
 	  /* Client provided username in ISO-8859-1 form, convert it
 	     to UTF-8 since the library is all-UTF-8. */
-	  char *username = latin1toutf8 (username);
+	  char *username = latin1toutf8 (state->response.username);
 	  if (!username)
 	    return GSASL_MALLOC_ERROR;
 	  gsasl_property_set (sctx, GSASL_AUTHID, username);

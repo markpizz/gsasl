@@ -18,7 +18,9 @@ ISO-8859-1 if that is possible.
 Reported by marty <marty@ice.org> in
 <http://lists.gnu.org/archive/html/help-gsasl/2008-03/msg00002.html>.
 See also <http://jabberd2.xiaoka.com/ticket/200> and
-<http://developer.pidgin.im/ticket/5213>.
+<http://developer.pidgin.im/ticket/5213>.  Thanks to Pawel Widera
+<momat@man.poznan.pl> for testing and fixing a silly typo in the code
+that prevented it from working.
 
 ** DIGEST-MD5 client: convert password from UTF-8 to ISO-8859-1 before hash.
 For compatibility with server.
