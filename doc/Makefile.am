@@ -359,6 +359,7 @@ doit:
 		BASE=`basename $$i`; \
 		./gdoc -texinfo $$i > texi/$$BASE.texi && \
 		echo -n "."; \
-	done
+	done; \
+	echo ""
 
 .PHONY: update-makefile doit
