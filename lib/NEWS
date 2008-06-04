@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Version 0.2.27 (unreleased)
 
+** DIGEST-MD5: Fix undefined symbol "utf8tolatin1ifpossible".
+This happened if --disable-server is used.  Reported by Martin Lambers
+<marlam@marlam.de>.
+
 ** API and ABI modifications.
 No changes since last version.
 

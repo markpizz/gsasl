@@ -34,6 +34,7 @@
 #include <string.h>
 
 /* Get tools. */
+#include "nonascii.h"
 #include "tokens.h"
 #include "parser.h"
 #include "printer.h"
@@ -88,8 +89,6 @@ _gsasl_digest_md5_client_start (Gsasl_session * sctx, void **mech_data)
 
   return GSASL_OK;
 }
-
-extern char *utf8tolatin1ifpossible (const char *passwd);
 
 int
 _gsasl_digest_md5_client_step (Gsasl_session * sctx,

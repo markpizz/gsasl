@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -32,7 +32,8 @@ libgsasl_digest_md5_la_SOURCES = digest-md5.h mechinfo.c \
 	validate.h validate.c \
 	parser.h parser.c \
 	printer.h printer.c \
-	free.h free.c
+	free.h free.c \
+	nonascii.h nonascii.c
 
 if CLIENT
 libgsasl_digest_md5_la_SOURCES += client.c

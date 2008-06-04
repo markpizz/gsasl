@@ -34,6 +34,7 @@
 #include <string.h>
 
 /* Get tools. */
+#include "nonascii.h"
 #include "tokens.h"
 #include "parser.h"
 #include "printer.h"
@@ -91,80 +92,6 @@ _gsasl_digest_md5_server_start (Gsasl_session * sctx, void **mech_data)
   *mech_data = state;
 
   return GSASL_OK;
-}
-/* C89 compliant way to cast 'char' to 'unsigned char'. */
-static inline unsigned char
-to_uchar (char ch)
-{
-  return ch;
-}
-
-char *
-latin1toutf8 (const char *str)
-{
-  char *p = malloc (2 * strlen (str) + 1);
-  if (p)
-    {
-      size_t i, j = 0;
-      for (i = 0; str[i]; i++)
-	{
-	  if (to_uchar (str[i]) < 0x80)
-	    p[j++] = str[i];
-	  else if (to_uchar (str[i]) < 0xC0)
-	    {
-	      p[j++] = 0xC2;
-	      p[j++] = str[i];
-	    }
-	  else
-	    {
-	      p[j++] = 0xC3;
-	      p[j++] = str[i] - 64;
-	    }
-	}
-      p[j] = 0x00;
-    }
-
-  return p;
-}
-
-char *
-utf8tolatin1ifpossible (const char *passwd)
-{
-  char *p;
-  size_t i;
-
-  for (i = 0; passwd[i]; i++)
-    {
-      if (to_uchar (passwd[i]) > 0x7F)
-	{
-	  if (to_uchar (passwd[i]) < 0xC0 || to_uchar (passwd[i]) > 0xC3)
-	    return strdup (passwd);
-	  i++;
-	  if (to_uchar (passwd[i]) < 0x80 || to_uchar (passwd[i]) > 0xBF)
-	    return strdup (passwd);
-	}
-    }
-
-  p = malloc (strlen (passwd) + 1);
-  if (p)
-    {
-      size_t j = 0;
-      for (i = 0; passwd[i]; i++)
-	{
-	  if (to_uchar (passwd[i]) > 0x7F)
-	    {
-	      /* p[i+1] can't be zero here */
-	      p[j++] =
-		((to_uchar (passwd[i]) & 0x3) << 6)
-		| (to_uchar (passwd[i+1]) & 0x3F);
-	      i++;
-	    }
-	  else
-	    p[j++] = passwd[i];
-	}
-      p[j] = 0x00;
-    }
-  return p;
 }
 
 int
