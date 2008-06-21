@@ -45,7 +45,7 @@ writeln (const char *str)
 
   if (sockfd)
     {
-      ssize_t len = 0;
+      ssize_t len = strlen (str);
 
 #ifdef HAVE_LIBGNUTLS
       if (using_tls)
@@ -53,13 +53,13 @@ writeln (const char *str)
 	  /* GnuTLS < 1.2.9 cannot handle data != NULL && count == 0,
 	     it will return an error. */
 	  if (len > 0)
-	    len = gnutls_record_send (session, str, strlen (str));
+	    len = gnutls_record_send (session, str, len);
 	  else
 	    len = 0;
 	}
       else
 #endif
-	len = write (sockfd, str, strlen (str));
+	len = write (sockfd, str, len);
       if (len != strlen (str))
 	return 0;
 
