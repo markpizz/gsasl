@@ -8,6 +8,11 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.27 (unreleased)
 
+** Fix SASL operations through TLS.
+Report and tiny patch from Enrico Scholz
+<enrico.scholz@informatik.tu-chemnitz.de> in
+<http://thread.gmane.org/gmane.comp.gnu.gsasl.general/149>.
+
 * Version 0.2.26 (released 2008-05-05)
 
 ** Translations files not stored directly in git to avoid merge conflicts.
