@@ -1,3 +1,231 @@
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 0.2.27.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, lib/Makefile.am: Improve release target.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Fix nl_langinfo error.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/tests/Makefile.am, gl/tests/dummy.c,
+	gl/tests/test-EOVERFLOW.c, gl/tests/test-alloca-opt.c,
+	gl/tests/test-arpa_inet.c, gl/tests/test-c-ctype.c,
+	gl/tests/test-c-strcase.sh, gl/tests/test-c-strcasecmp.c,
+	gl/tests/test-c-strncasecmp.c, gl/tests/test-fseeko.c,
+	gl/tests/test-fseeko.sh, gl/tests/test-getaddrinfo.c,
+	gl/tests/test-getdelim.c, gl/tests/test-getline.c,
+	gl/tests/test-iconv.c, gl/tests/test-lseek.c,
+	gl/tests/test-lseek.sh, gl/tests/test-netinet_in.c,
+	gl/tests/test-quotearg.c, gl/tests/test-snprintf.c,
+	gl/tests/test-stdbool.c, gl/tests/test-stdint.c,
+	gl/tests/test-stdio.c, gl/tests/test-stdlib.c,
+	gl/tests/test-strerror.c, gl/tests/test-striconv.c,
+	gl/tests/test-string.c, gl/tests/test-sys_select.c,
+	gl/tests/test-sys_socket.c, gl/tests/test-sys_time.c,
+	gl/tests/test-unistd.c, gl/tests/test-vasnprintf.c,
+	gl/tests/test-wchar.c, gl/tests/test-wctype.c, gl/tests/verify.h,
+	gltests/Makefile.am, gltests/dummy.c, gltests/test-EOVERFLOW.c,
+	gltests/test-alloca-opt.c, gltests/test-arpa_inet.c,
+	gltests/test-c-ctype.c, gltests/test-c-strcase.sh,
+	gltests/test-c-strcasecmp.c, gltests/test-c-strncasecmp.c,
+	gltests/test-fseeko.c, gltests/test-fseeko.sh,
+	gltests/test-getaddrinfo.c, gltests/test-getdelim.c,
+	gltests/test-getline.c, gltests/test-iconv.c, gltests/test-lseek.c,
+	gltests/test-lseek.sh, gltests/test-netinet_in.c,
+	gltests/test-quotearg.c, gltests/test-snprintf.c,
+	gltests/test-stdbool.c, gltests/test-stdint.c,
+	gltests/test-stdio.c, gltests/test-stdlib.c,
+	gltests/test-strerror.c, gltests/test-striconv.c,
+	gltests/test-string.c, gltests/test-sys_select.c,
+	gltests/test-sys_socket.c, gltests/test-sys_time.c,
+	gltests/test-unistd.c, gltests/test-vasnprintf.c,
+	gltests/test-wchar.c, gltests/test-wctype.c, gltests/verify.h,
+	lib/Makefile.am, lib/configure.ac, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/tests/Makefile.am,
+	lib/gl/tests/dummy.c, lib/gl/tests/intprops.h,
+	lib/gl/tests/test-EOVERFLOW.c, lib/gl/tests/test-alloca-opt.c,
+	lib/gl/tests/test-base64.c, lib/gl/tests/test-gc-hmac-md5.c,
+	lib/gl/tests/test-gc-md5.c, lib/gl/tests/test-gc.c,
+	lib/gl/tests/test-getdelim.c, lib/gl/tests/test-getline.c,
+	lib/gl/tests/test-stdbool.c, lib/gl/tests/test-stdint.c,
+	lib/gl/tests/test-stdio.c, lib/gl/tests/test-stdlib.c,
+	lib/gl/tests/test-string.c, lib/gl/tests/test-unistd.c,
+	lib/gl/tests/test-vasnprintf.c, lib/gl/tests/test-vasprintf.c,
+	lib/gl/tests/test-wchar.c, lib/gl/tests/verify.h,
+	lib/gltests/Makefile.am, lib/gltests/dummy.c,
+	lib/gltests/intprops.h, lib/gltests/test-EOVERFLOW.c,
+	lib/gltests/test-alloca-opt.c, lib/gltests/test-base64.c,
+	lib/gltests/test-gc-hmac-md5.c, lib/gltests/test-gc-md5.c,
+	lib/gltests/test-gc.c, lib/gltests/test-getdelim.c,
+	lib/gltests/test-getline.c, lib/gltests/test-stdbool.c,
+	lib/gltests/test-stdint.c, lib/gltests/test-stdio.c,
+	lib/gltests/test-stdlib.c, lib/gltests/test-string.c,
+	lib/gltests/test-unistd.c, lib/gltests/test-vasnprintf.c,
+	lib/gltests/test-vasprintf.c, lib/gltests/test-wchar.c,
+	lib/gltests/verify.h: Move gnulib self-tests from */gl/tests to
+	*/gltests.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/configure.ac: Fix paths.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Update translations.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cfg.mk: Fix PACKAGE.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/LINGUAS, lib/po/fr.po.in, lib/po/ga.po.in,
+	lib/po/nl.po.in, lib/po/pl.po.in, lib/po/ro.po.in, lib/po/sr.po.in,
+	lib/po/sv.po.in, lib/po/vi.po.in, lib/po/zh_CN.po.in: Sync with TP.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/LINGUAS: Sync with TP.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/LINGUAS: Sync with TP.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cfg.mk: Set PACKAGE for update-po.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/LINGUAS: Sync with TP.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/tests/dummy.c, lib/gl/tests/intprops.h,
+	lib/gl/tests/test-EOVERFLOW.c, lib/gl/tests/test-alloca-opt.c,
+	lib/gl/tests/test-base64.c, lib/gl/tests/test-getdelim.c,
+	lib/gl/tests/test-getline.c, lib/gl/tests/test-stdbool.c,
+	lib/gl/tests/test-stdint.c, lib/gl/tests/test-stdio.c,
+	lib/gl/tests/test-stdlib.c, lib/gl/tests/test-string.c,
+	lib/gl/tests/test-unistd.c, lib/gl/tests/test-vasnprintf.c,
+	lib/gl/tests/test-vasprintf.c, lib/gl/tests/test-wchar.c,
+	lib/gl/tests/verify.h: Update gnulib files, and include gnulib
+	self-tests.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/GNUmakefile, lib/NEWS, lib/gl/Makefile.am,
+	lib/gl/m4/gnulib-cache.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/gnulib-tool.m4, lib/gl/m4/lock.m4, lib/gl/m4/stdio_h.m4,
+	lib/gl/stdio.in.h, lib/gl/tests/Makefile.am,
+	lib/gl/tests/test-gc-hmac-md5.c, lib/gl/tests/test-gc-md5.c,
+	lib/gl/tests/test-gc.c, lib/tests/Makefile.am,
+	lib/tests/test-gc-hmac-md5.c, lib/tests/test-gc-md5.c,
+	lib/tests/test-gc.c: Update gnulib files, and include gnulib
+	self-tests.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, NEWS, doc/gendocs_template, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4,
+	gl/m4/locale-fr.m4, gl/m4/locale-tr.m4, gl/m4/stdio_h.m4,
+	gl/override/doc/gendocs_template.diff, gl/stdio.in.h,
+	gl/tests/Makefile.am, gl/tests/dummy.c, gl/tests/test-EOVERFLOW.c,
+	gl/tests/test-alloca-opt.c, gl/tests/test-arpa_inet.c,
+	gl/tests/test-c-ctype.c, gl/tests/test-c-strcase.sh,
+	gl/tests/test-c-strcasecmp.c, gl/tests/test-c-strncasecmp.c,
+	gl/tests/test-fseeko.c, gl/tests/test-fseeko.sh,
+	gl/tests/test-getaddrinfo.c, gl/tests/test-getdelim.c,
+	gl/tests/test-getline.c, gl/tests/test-iconv.c,
+	gl/tests/test-lseek.c, gl/tests/test-lseek.sh,
+	gl/tests/test-netinet_in.c, gl/tests/test-quotearg.c,
+	gl/tests/test-snprintf.c, gl/tests/test-stdbool.c,
+	gl/tests/test-stdint.c, gl/tests/test-stdio.c,
+	gl/tests/test-stdlib.c, gl/tests/test-strerror.c,
+	gl/tests/test-striconv.c, gl/tests/test-string.c,
+	gl/tests/test-sys_select.c, gl/tests/test-sys_socket.c,
+	gl/tests/test-sys_time.c, gl/tests/test-unistd.c,
+	gl/tests/test-vasnprintf.c, gl/tests/test-wchar.c,
+	gl/tests/test-wctype.c, gl/tests/verify.h: Update gnulib files, and
+	include gnulib self-tests.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/LINGUAS, lib/po/de.po.in, lib/po/eu.po.in,
+	lib/po/fr.po.in, lib/po/ga.po.in, lib/po/id.po.in, lib/po/nl.po.in,
+	lib/po/pl.po.in, lib/po/ro.po.in, lib/po/sq.po.in, lib/po/sr.po.in,
+	lib/po/sv.po.in, lib/po/vi.po.in, lib/po/zh_CN.po.in,
+	lib/po/zh_TW.po.in: Sync with TP.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-06-21  Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de>
+
+	* src/gsasl.c: Fix SASL operations through TLS SASL operations through TLS do not work as the custom 'writeln()'
+	operation would skip the gnutls_record_send() call unconditionally
+	('len' is initialized to 0 and won't be modified).  This patch initializes 'len' with the length of the string and
+	reuses this value in the following send/write calls.  Signed-off-by: Enrico Scholz
+	<enrico.scholz@informatik.tu-chemnitz.de>
+
+2008-06-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Bump version.
+
+2008-06-04  Simon Josefsson <simon@josefsson.org>
+
+	* po/nl.po.in, po/pl.po.in, po/vi.po.in, po/zh_CN.po.in: Sync with
+	TP.
+
+2008-06-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/LINGUAS, lib/po/nl.po.in, lib/po/vi.po.in,
+	lib/po/zh_CN.po.in: Sync with TP.
+
+2008-06-04  Simon Josefsson <simon@josefsson.org>
+
+	* gl/stdbool.in.h, gl/stdio-impl.h, gl/vasnprintf.c, gl/xalloc.h,
+	lib/gl/stdbool.in.h, lib/gl/vasnprintf.c, lib/maint.mk, maint.mk: 
+	Update gnulib files.
+
+2008-06-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/digest-md5/Makefile.am, lib/digest-md5/client.c,
+	lib/digest-md5/nonascii.c, lib/digest-md5/nonascii.h,
+	lib/digest-md5/server.c: DIGEST-MD5: Fix undefined symbol
+	"utf8tolatin1ifpossible".  Reported by Martin Lambers
+	<marlam@marlam.de>.
+
+2008-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getaddrinfo.h, gl/m4/gnulib-common.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/wctype.m4, gl/vasnprintf.c, gl/xalloc.h, gl/xmalloc.c,
+	lib/gl/base64.c, lib/gl/base64.h, lib/gl/m4/gnulib-common.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/vasnprintf.c: Update gnulib files.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Dist more.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Bump versions.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2008-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
 2008-05-05  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS, lib/NEWS: Version 0.2.26.
