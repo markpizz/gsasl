@@ -86,10 +86,10 @@ release:
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
 	git commit -m Generated. ChangeLog
-	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig $(htmldir)/releases/
 	git-push
 	git-push --tags
 	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
+	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig $(htmldir)/releases/
 	cd $(htmldir) && \
 		cvs add -kb releases/$(distdir).tar.gz \
 			releases/$(distdir).tar.gz.sig && \
