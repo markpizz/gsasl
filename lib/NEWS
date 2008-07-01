@@ -8,6 +8,8 @@ See the end for copying conditions.
 This happened if --disable-server is used.  Reported by Martin Lambers
 <marlam@marlam.de>.
 
+** Update gnulib files, and include gnulib self-tests.
+
 ** API and ABI modifications.
 No changes since last version.
 
