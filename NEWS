@@ -15,6 +15,8 @@ Report and tiny patch from Enrico Scholz
 
 ** Update gnulib files, and include gnulib self-tests.
 
+** Update translations.
+
 * Version 0.2.26 (released 2008-05-05)
 
 ** Translations files not stored directly in git to avoid merge conflicts.

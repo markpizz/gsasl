@@ -10,6 +10,8 @@ This happened if --disable-server is used.  Reported by Martin Lambers
 
 ** Update gnulib files, and include gnulib self-tests.
 
+** Update translations.
+
 ** API and ABI modifications.
 No changes since last version.
 
