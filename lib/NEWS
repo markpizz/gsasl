@@ -2,6 +2,11 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Simon Josefsson
 See the end for copying conditions.
 
+* Version 0.2.28 (unreleased)
+
+** API and ABI modifications.
+No changes since last version.
+
 * Version 0.2.27 (released 2008-07-01)
 
 ** DIGEST-MD5: Fix undefined symbol "utf8tolatin1ifpossible".
