@@ -1,98 +1,185 @@
-# Messages fran�ais pour GNU gsas.
-# Copyright � 2003 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Michel Robitaille <robitail@IRO.UMontreal.CA>, Traducteur depuis/since 1996.
+# Messages français pour GNU libgsasl.
+# Copyright © 2008 Free Software Foundation, Inc.
+# This file is distributed under the same license as the libgsasl package.
+# Michel Robitaille <robitail@IRO.UMontreal.CA>, traducteur depuis/since 1996.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gsasl 0.1.4\n"
+"Project-Id-Version: GNU libgsasl 0.2.16\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2004-08-08 00:42+0200\n"
-"PO-Revision-Date: 2004-08-26 08:00-0500\n"
-"Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
+"POT-Creation-Date: 2007-04-20 15:15+0200\n"
+"PO-Revision-Date: 2008-03-30 14:02+0000\n"
+"Last-Translator: François-Xavier Coudert <fxcoudert@gmail.com>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/gsasl.c:106
-#, c-format
-msgid "Chose SASL mechanism:\n"
-msgstr "Choisir le m�canisme SASL:\n"
+msgid "Libgsasl success"
+msgstr "Succès de libgsasl"
 
-#: src/gsasl.c:114
-#, c-format
-msgid "Input SASL mechanism supported by server:\n"
-msgstr "M�canisme SASL d'entr�e support� par le serveur:\n"
+msgid "SASL mechanism needs more data"
+msgstr "Le mécanisme SASL a besoin de plus de données"
 
-#: src/gsasl.c:133
-#, c-format
-msgid "Using mechanism:\n"
-msgstr "M�canisme utilis�:\n"
+msgid "Unknown SASL mechanism"
+msgstr "Mécanisme SASL inconnu"
 
-#: src/gsasl.c:150
-#, c-format
-msgid "Output from client:\n"
-msgstr "Sortie � partir du client:\n"
+msgid "SASL mechanism called too many times"
+msgstr "Mécanisme SASL appellé trop souvent"
 
-#: src/gsasl.c:152
-#, c-format
-msgid "Output from server:\n"
-msgstr "Sortie � partir du serveur:\n"
+msgid "Memory allocation error in SASL library"
+msgstr "Erreur d'allocation mémoire dans la bibliothèque SASL"
 
-#: src/gsasl.c:335 src/gsasl.c:377 src/gsasl.c:428 src/gsasl.c:470
-#: src/gsasl.c:562
-#, c-format
-msgid "Libgsasl error (%d): %s"
-msgstr "ERREUR libgsasl (%d): %s"
+msgid "Base 64 coding error in SASL library"
+msgstr "Erreur de codage en base 64 dans la bibliothèque SASL"
 
-#: src/gsasl.c:384
-#, c-format
-msgid "This client supports the following mechanisms:\n"
-msgstr "Le client supporter les m�canismes suivants:\n"
+msgid "Low-level crypto error in SASL library"
+msgstr "Erreur bas niveau de cryptographie dans la bibliothèque SASL"
 
-#: src/gsasl.c:387
-#, c-format
-msgid "This server supports the following mechanisms:\n"
-msgstr "Le serveur supporte les m�canismes suivants:\n"
+msgid "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL library.  This is a serious internal error."
+msgstr "La bibliothèque GSSAPI ne peut pas désallouer le mémoire dans gss_release_buffer() dans la bibliothèque SASL. Ceci est une erreur interne grave."
 
-#: src/gsasl.c:411
-#, c-format
-msgid "Cannot find mechanism...\n"
-msgstr "Ne peut rep�rer le m�canisme...\n"
+msgid "GSSAPI library could not understand a peer name in gss_import_name() in SASL library.  This is most likely due to incorrect service and/or hostnames."
+msgstr "La bibliothèque GSSAPI ne peut pas comprendre le nom d'un pair dans gss_import_name() dans la bibliothèque SASL. Il est probable que cela soit dû à un service ou/et des noms d'hôtes incorrects."
 
-#: src/gsasl.c:457
-#, c-format
-msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Fournir les donn�es d'authentification en base 64 � partir du serveur (appuyer sur la touche RETOUR si aucun):\n"
+msgid "GSSAPI error in client while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgstr "Erreur GSSAPI dans le client lors de la négotiation du contexte de sécurité dans gss_init_sec_context() dans la bibliothèque SASL. Cela est sans doute dû à des références ou des interactions malicieuses."
 
-#: src/gsasl.c:460
-#, c-format
-msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Fournir les donn�es d'authentification en base 64 � partir du client (appuyer sur la touche RETOUR si aucun):\n"
+msgid "GSSAPI error in server while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgstr "Erreur GSSAPI dans le client lors de la négotiation du contexte de sécurité dans gss_init_sec_context() dans la bibliothèque SASL. Cela est sans doute dû à des références insuffisantes ou des interactions malicieuses."
 
-#: src/gsasl.c:479
-#, c-format
-msgid "Client authentication finished (server trusted)...\n"
-msgstr "Authentification par le client termin�e (serveur fiable)...\n"
+msgid "GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL library.  This is most likely due to data corruption."
+msgstr "Erreur GSSAPI lors du décryptage ou du décodage des données dans gss_unwrap() dans la bibliothèque SASL. Cela est sans doute dû en raison d'une corruption des données."
 
-#: src/gsasl.c:482
-#, c-format
-msgid "Server authentication finished (client trusted)...\n"
-msgstr "Authentification par le serveur termin�e (client fiable)...\n"
+msgid "GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
+msgstr "Erreur GSSAPI lors de l'encryptage ou de l'encodage des données dans gss_wrap() dans la bibliothèque SASL."
 
-#: src/gsasl.c:497
-#, c-format
-msgid "Enter application data (EOF to finish):\n"
-msgstr "Fournir les donn�es de l'application (EOF pour terminer):\n"
+msgid "GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  This is most likely due to not having the proper Kerberos key available in /etc/krb5.keytab on the server."
+msgstr "Erreur GSSAPI lors de l'acquisition de références dans gss_acquire_cred() dans la bibliothèque SASL. Cela est sans doute dû en raison de l'utilisation d'une clé Kerberos erronée disponibles dans /etc/krb5.keytab sur le serveur."
 
-#: src/gsasl.c:536
-#, c-format
-msgid "Base64 encoded application data to send:\n"
-msgstr "Les donn�es de l'application encod�es en base 64 � transmettre:\n"
+msgid "GSSAPI error creating a display name denoting the client in gss_display_name() in SASL library.  This is probably because the client supplied bad data."
+msgstr "Erreur GSSAPI lors de la création d'un nom d'affichage pour le client dans gss_display_name() dans la bibliothèque SASL. Cela est sans doute dû à des données erronées fournies par le client."
 
-#: src/gsasl.c:567
-#, c-format
-msgid "Session finished...\n"
-msgstr "Sesstion termin�e...\n"
+msgid "Other entity requested integrity or confidentiality protection in GSSAPI mechanism but this is currently not implemented."
+msgstr "L'autre entité a fait une requête d'intégrité ou de confidentialité dans le mécanismes GSSAPI mais le soutien de cette requête n'est pas implanté."
+
+msgid "SASL mechanism could not parse input"
+msgstr "Le mécanisme SASL ne peut analyser l'entrée"
+
+msgid "Error authenticating user"
+msgstr "Erreur d'authentification de l'usager"
+
+msgid "Integrity error in application payload"
+msgstr "Erreur d'intégrité dans la charge de l'application"
+
+msgid "Client-side functionality not available in library (application error)"
+msgstr "Fonctionnalité côté client n'est pas disponible dans la bibliothèque (erreur d'application)"
+
+msgid "Server-side functionality not available in library (application error)"
+msgstr "Fonctionnalité côté serveur n'est pas disponible dans la bibliothèque (erreur d'application)"
+
+msgid "No callback specified by caller (application error)."
+msgstr "Pas de retour d'appel spécifié par l'appelent (erreur de l'application)."
+
+msgid "Authentication failed because the anonymous token was not provided."
+msgstr "Échec d'authentification parce que le jeton anonyme n'a pas été fourni."
+
+msgid "Authentication failed because the authentication identity was not provided."
+msgstr "Échec d'authentification parce que l'identité d'authentification n'a pas été fournie."
+
+msgid "Authentication failed because the authorization identity was not provided."
+msgstr "Échec d'authentification parce que l'identité d'autorisation n'a pas été fournie."
+
+msgid "Authentication failed because the password was not provided."
+msgstr "Échec d'authentification parce que le mot de passe n'a pas été fourni."
+
+msgid "Authentication failed because the passcode was not provided."
+msgstr "Échec d'authentification parce que le code de passe n'a pas été fourni."
+
+msgid "Authentication failed because the pin code was not provided."
+msgstr "Échec d'authentification parce que le code NIP n'a pas été fourni."
+
+msgid "Authentication failed because the service name was not provided."
+msgstr "Échec d'authentification parce que le nom de service n'a pas été fourni."
+
+msgid "Authentication failed because the host name was not provided."
+msgstr "Échec d'authentification parce que le nom de l'hôte n'a pas été fourni."
+
+msgid "Could not prepare internationalized (non-ASCII) string."
+msgstr "Ne peut préparer une chaîne de caractères internationalisée (non ASCII)"
+
+msgid "SASL function needs larger buffer (internal error)"
+msgstr "Une fonction SASL a besoin d'un plus grand tampon (erreur interne)"
+
+msgid "Could not open file in SASL library"
+msgstr "Ne peut ouvrir le fichier dans la bibliothèque SASL"
+
+msgid "Could not close file in SASL library"
+msgstr "Ne peut ferme le fichier dans la bibliothèques SASL"
+
+msgid "Cannot get internal library handle (library error)"
+msgstr "Ne peut obtenir un handle sur la bibliothèque interne (erreur de la bibliothèque)"
+
+msgid "SASL mechanism needs gsasl_client_callback_anonymous() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_anonymous() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_client_callback_password() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_password() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_client_callback_passcode() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_passcode() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_pin() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_client_callback_authorization_id() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_authorization_id() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_client_callback_authentication_id() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_authentification_id() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_client_callback_service() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_service() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_server_callback_validate() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_validate() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_server_callback_cram_md5() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_cram_md5() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_server_callback_digest_md5() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_digest_md5() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_server_callback_anonymous() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_anonymous() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_server_callback_external() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_external() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_server_callback_realm() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_realm() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_server_callback_securid() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_securid() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_server_callback_service() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_service() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_server_callback_gssapi() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_gssapi() (erreur de l'application)"
+
+msgid "SASL mechanism needs gsasl_server_callback_retrieve() callback (application error)"
+msgstr "Le mécanismes SASL a besoin de l'appel gsasl_client_callback_retrieve() (erreur de l'application)"
+
+msgid "Failed to perform Unicode Normalization on string."
+msgstr "Échec d'exécution de la Normalisation Unicode sur la chaîne."
+
+msgid "No more realms available (non-fatal)"
+msgstr "Aucun domaine n'est disponible (erreur non fatale)"
+
+msgid "The provided library handle was invalid (application error)"
+msgstr "Le handle de bibliothèque fourni était invalide (erreur d'application)"
+
+msgid "Libgsasl unknown error"
+msgstr "Erreur libgsasl inconnue"

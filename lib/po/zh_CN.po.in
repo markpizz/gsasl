@@ -1,254 +1,241 @@
-# gsasl 的简体中文翻译
-# Copyright (C) 2004 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gsasl package.
-# Meng Jie <zuxyhere@eastday.com>, 2004.
+# Chinese Simplified translation about libgsasl.
+# Copyright (C) 2008 Free Software Foundation, Inc.
+# This file is distributed under the same license as the libgsasl package.
 # Ji ZhengYu <zhengyuji@gmail.com>, 2008.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 0.2.26\n"
+"Project-Id-Version: libgsasl 0.2.26\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
 "POT-Creation-Date: 2008-05-05 16:25+0200\n"
-"PO-Revision-Date: 2008-05-18 12:37中国标准时间\n"
+"PO-Revision-Date: 2008-05-18 15:51中国标准时间\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <translation-team-zh-cn@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/gsasl.c:170
-#, c-format
-msgid "Choose SASL mechanism:\n"
-msgstr "选择 SASL 机制：\n"
+#: src/error.c:51
+msgid "Libgsasl success"
+msgstr "Libgsasl 成功"
 
-#: src/gsasl.c:179
-#, c-format
-msgid "Input list of SASL mechanisms supported by server:\n"
-msgstr "服务器所支持的 SASL 机制的输入列表：\n"
+#: src/error.c:55
+msgid "SASL mechanism needs more data"
+msgstr "SASL 机制需要更多数据"
 
-#: src/gsasl.c:198
-#, c-format
-msgid "Using mechanism:\n"
-msgstr "使用机制：\n"
+#: src/error.c:59
+msgid "Unknown SASL mechanism"
+msgstr "未知的 SASL 机制"
 
-#: src/gsasl.c:215
-#, c-format
-msgid "Output from server:\n"
-msgstr "服务器的输出：\n"
+#: src/error.c:63
+msgid "SASL mechanism called too many times"
+msgstr "调用 SASL 机制次数太多"
 
-#: src/gsasl.c:217
-#, c-format
-msgid "Output from client:\n"
-msgstr "客户端的输出：\n"
+#: src/error.c:67
+msgid "Memory allocation error in SASL library"
+msgstr "SASL 库中出现内存分配错误"
 
-#. TRANSLATORS: The placeholder indicates the bug-reporting address
-#. for this package.  Please add _another line_ saying
-#. "Report translation bugs to <...>\n" with the address for translation
-#. bugs (typically your translation team's web or email address).
-#: src/gsasl.c:273
-#, c-format
-msgid ""
-"\n"
-"Report bugs to <%s>.\n"
-msgstr ""
-"\n"
-"将翻译错误发送至 <translation-team-zh-cn@lists.sourceforge.net>。\n"
-"将错误报告发送至 <%s>。\n"
+#: src/error.c:71
+msgid "Base 64 coding error in SASL library"
+msgstr "SASL 库中出现 Base 64 编码错误"
 
-#: src/gsasl.c:280
-#, c-format
-msgid "Try `%s --help' for more information.\n"
-msgstr "尝试‘%s --help’以获得更多信息。\n"
+#: src/error.c:75
+msgid "Low-level crypto error in SASL library"
+msgstr "SASL 库中出现低级加密错误"
 
-#: src/gsasl.c:320
-#, c-format
-msgid "Cannot initialize Windows sockets."
-msgstr "无法初始化 Windows 端口。"
+#: src/error.c:79
+msgid "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL library.  This is a serious internal error."
+msgstr "GSSAPI 库无法回收 SASL 库中 gss_release_buffer() 函数所占的内存。这是个严重的内部错误。"
 
-#: src/gsasl.c:341
-#, c-format
-msgid ""
-"missing argument\n"
-"Try `%s --help' for more information."
-msgstr ""
-"缺少参数\n"
-"尝试‘%s --help’以获得更多信息。"
+#: src/error.c:85
+msgid "GSSAPI library could not understand a peer name in gss_import_name() in SASL library.  This is most likely due to incorrect service and/or hostnames."
+msgstr "GSSAPI 库无法解析 SASL 库中 gss_import_name() 函数中的端点名称。这极有可能是由不正确的服务或主机名造成的。"
 
-#: src/gsasl.c:347
-#, c-format
-msgid "need both --x509-cert-file and --x509-key-file"
-msgstr "既需要 --x509-cert-file 也需要 --x509-key-file"
+#: src/error.c:91
+msgid "GSSAPI error in client while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgstr "当与 SASL 库中 gss_init_sec_context() 函数中的文本进行安全协商时客户端发生了GSSAPI 错误。这极有可能是由不受信任的证书或恶意会话造成的。"
 
-#: src/gsasl.c:351
-#, c-format
-msgid "cannot use both --starttls and --no-starttls"
-msgstr "不能同时使用 --starttls 和 --no-starttls"
+#: src/error.c:97
+msgid "GSSAPI error in server while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgstr "当与 SASL 库中 gss_init_sec_context() 函数中的文本进行安全协商时服务器端发生了GSSAPI 错误。这极有可能是由不受信任的证书或恶意会话造成的。"
 
-#: src/gsasl.c:354
-#, c-format
-msgid "cannot use both --smtp and --imap"
-msgstr "不能同时使用 --smtp 和 --imap"
+#: src/error.c:103
+msgid "GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL library.  This is most likely due to data corruption."
+msgstr "当解密或解码 SASL 库中 gss_unwrap() 函数中的数据时发生了 GSSAPI 错误。这极有可能是由数据损坏造成的。"
 
-#: src/gsasl.c:418
-#, c-format
-msgid "initialization failure: %s"
-msgstr "初始化失败：%s"
+#: src/error.c:109
+msgid "GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
+msgstr "当加密或编码 SASL 库中 gss_wrap() 函数中的数据时发生了 GSSAPI 错误。"
 
-#: src/gsasl.c:433
-#, c-format
-msgid "error listing mechanisms: %s"
-msgstr "列出机制时出错：%s"
+#: src/error.c:114
+msgid "GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  This is most likely due to not having the proper Kerberos key available in /etc/krb5.keytab on the server."
+msgstr "进行 SASL 库中 gss_acquire_cred() 函数中的请求证书操作时发生了 GSSAPI 错误。这极有可能是由于在服务器的 /etc/krb5.keytab 中没有合适的 Kerberos 密钥可用造成的。"
 
-#: src/gsasl.c:440
-#, c-format
-msgid "This client supports the following mechanisms:\n"
-msgstr "这个客户端支持以下机制：\n"
+#: src/error.c:121
+msgid "GSSAPI error creating a display name denoting the client in gss_display_name() in SASL library.  This is probably because the client supplied bad data."
+msgstr "进行 SASL 库中 gss_display_name() 函数中的创建表示客户端的显示名时发生了GSSAPI 错误。这可能是因为客户端提供了错误的数据。"
 
-#: src/gsasl.c:443
-#, c-format
-msgid "This server supports the following mechanisms:\n"
-msgstr "这个服务器支持以下机制：\n"
+#: src/error.c:127
+msgid "Other entity requested integrity or confidentiality protection in GSSAPI mechanism but this is currently not implemented."
+msgstr "其它信息要求在 GSSAP 中提供完整性或私密性保护机制，但目前未实现。"
 
-#: src/gsasl.c:509
-#, c-format
-msgid "GnuTLS global initialization failed: %s"
-msgstr "GnuTLS 全局初始化失败：%s"
+#: src/error.c:133
+msgid "SASL mechanism could not parse input"
+msgstr "SASL 机制无法解析输入"
 
-#: src/gsasl.c:514
-#, c-format
-msgid "GnuTLS initialization failed: %s"
-msgstr "GnuTLS 初始化失败：%s"
+#: src/error.c:137
+msgid "Error authenticating user"
+msgstr "验证用户时发生错误"
 
-#: src/gsasl.c:519
-#, c-format
-msgid "setting GnuTLS defaults failed: %s"
-msgstr "设定 GnuTLS 默认值失败：%s"
+#: src/error.c:141
+#, fuzzy
+msgid "Integrity error in application payload"
+msgstr "程序中出现完整性错误"
 
-#: src/gsasl.c:525
-#, c-format
-msgid "allocating anonymous GnuTLS credential: %s"
-msgstr "分配匿名 GnuTLS 信任状：%s"
+#: src/error.c:145
+msgid "Client-side functionality not available in library (application error)"
+msgstr "客户端功能在库中不可用(程序错误)"
 
-#: src/gsasl.c:530
-#, c-format
-msgid "setting anonymous GnuTLS credential: %s"
-msgstr "设定匿名 GnuTLS 信任状：%s"
+#: src/error.c:150
+msgid "Server-side functionality not available in library (application error)"
+msgstr "服务器端功能在库中不可用(程序错误)"
 
-#: src/gsasl.c:535
-#, c-format
-msgid "allocating X.509 GnuTLS credential: %s"
-msgstr "分配 X.509 GnuTLS 信任状：%s"
+#: src/error.c:155
+msgid "No callback specified by caller (application error)."
+msgstr "调用函数未指定回调机制(程序错误)。"
 
-#: src/gsasl.c:543
-#, c-format
-msgid "loading X.509 GnuTLS credential: %s"
-msgstr "载入 X.509 GnuTLS 信任状：%s"
+#: src/error.c:159
+msgid "Authentication failed because the anonymous token was not provided."
+msgstr "验证失败，因为未提供匿名标记。"
 
-#: src/gsasl.c:551
-#, c-format
-msgid "no X.509 CAs found: %s"
-msgstr "找不到 X.509 CA：%s"
+#: src/error.c:164
+msgid "Authentication failed because the authentication identity was not provided."
+msgstr "验证失败，因为未提供身份验证。"
 
-#: src/gsasl.c:554
-#, c-format
-msgid "no X.509 CAs found"
-msgstr "找不到 X.509 CA"
+#: src/error.c:169
+msgid "Authentication failed because the authorization identity was not provided."
+msgstr "验证失败，因为未提供身份授权。"
 
-#: src/gsasl.c:560
-#, c-format
-msgid "setting X.509 GnuTLS credential: %s"
-msgstr "设定 X.509 GnuTLS 信任状：%s"
+#: src/error.c:174
+msgid "Authentication failed because the password was not provided."
+msgstr "验证失败，因为未提供密码。"
 
-#: src/gsasl.c:565
-#, c-format
-msgid "setting GnuTLS key exchange priority: %s"
-msgstr "设定 GnuTLS 密钥交换优先级：%s"
+#: src/error.c:179
+msgid "Authentication failed because the passcode was not provided."
+msgstr "验证失败，因为未提供 passcode。"
 
-#: src/gsasl.c:575
-#, c-format
-msgid "GnuTLS handshake failed: %s"
-msgstr "GnuTLS 握手失败：%s"
+#: src/error.c:184
+msgid "Authentication failed because the pin code was not provided."
+msgstr "验证失败，因为未提供 pin code。"
 
-#: src/gsasl.c:584
-#, c-format
-msgid "verifying peer certificate: %s"
-msgstr "验证节点证书：%s"
+#: src/error.c:189
+msgid "Authentication failed because the service name was not provided."
+msgstr "验证失败，因为未提供服务名称。"
 
-#: src/gsasl.c:588
-#, c-format
-msgid "server certificate is not trusted"
-msgstr "服务器证书不可信"
+#: src/error.c:194
+msgid "Authentication failed because the host name was not provided."
+msgstr "验证失败，因为未提供主机名。"
 
-#: src/gsasl.c:592
-#, c-format
-msgid "server certificate hasn't got a known issuer"
-msgstr "服务器证书发行者未知"
+#: src/error.c:199
+msgid "Could not prepare internationalized (non-ASCII) string."
+msgstr "无法生成国际化的(非 ACSII 码的)字符串。"
 
-#: src/gsasl.c:595
-#, c-format
-msgid "server certificate has been revoked"
-msgstr "服务器证书已被吊销"
+#: src/error.c:204
+msgid "SASL function needs larger buffer (internal error)"
+msgstr "SASL 功能需要更大的缓冲区(内部错误)"
 
-#: src/gsasl.c:599
-#, c-format
-msgid "could not verify server certificate (rc=%d)"
-msgstr "无法验证服务器证书(rc=%d)"
+#: src/error.c:208
+msgid "Could not open file in SASL library"
+msgstr "SASL 库无法打开文件"
 
-#: src/gsasl.c:621
-#, c-format
-msgid "Cannot find mechanism...\n"
-msgstr "找不到机制……\n"
+#: src/error.c:212
+msgid "Could not close file in SASL library"
+msgstr "SASL 库无法关闭文件"
 
-#: src/gsasl.c:638
-#, c-format
-msgid "mechanism unavailable: %s"
-msgstr "机制不可用：%s"
+#: src/error.c:216
+msgid "Cannot get internal library handle (library error)"
+msgstr "无法获取内存库处理函数(库错误)"
 
-#: src/gsasl.c:667
-#, c-format
-msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "输入客户端发送的 base64 编码的应用程序数据(如果没有，请按回车)：\n"
+#: src/error.c:220
+msgid "SASL mechanism needs gsasl_client_callback_anonymous() callback (application error)"
+msgstr "SASL 机制需要 gsasl_client_callback_anonymous() 函数回调(程序错误)"
 
-#: src/gsasl.c:670
-#, c-format
-msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "输入服务器发送的 base64 编码的应用程序数据(如果没有，请按回车)：\n"
+#: src/error.c:225
+msgid "SASL mechanism needs gsasl_client_callback_password() callback (application error)"
+msgstr "SASL 机制需要 gsasl_client_callback_password() 函数回调(程序错误)"
 
-#: src/gsasl.c:680
-#, c-format
-msgid "mechanism error: %s"
-msgstr "机制错误：%s"
+#: src/error.c:230
+msgid "SASL mechanism needs gsasl_client_callback_passcode() callback (application error)"
+msgstr "SASL 机制需要 gsasl_client_callback_passcode() 函数回调(程序错误)"
 
-#: src/gsasl.c:689
-#, c-format
-msgid "Server authentication finished (client trusted)...\n"
-msgstr "服务器认证完成(客户端可信)……\n"
+#: src/error.c:235
+msgid "SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
+msgstr "SASL 机制需要 gsasl_client_callback_pin() 函数回调(程序错误)"
 
-#: src/gsasl.c:692
-#, c-format
-msgid "Client authentication finished (server trusted)...\n"
-msgstr "客户端认证完成(服务器可信)……\n"
+#: src/error.c:240
+msgid "SASL mechanism needs gsasl_client_callback_authorization_id() callback (application error)"
+msgstr "SASL 机制需要 gsasl_client_callback_authorization_id() 函数回调(程序错误)"
 
-#: src/gsasl.c:707
-#, c-format
-msgid "Enter application data (EOF to finish):\n"
-msgstr "输入应用程序数据(用 EOF 结束输入)：\n"
+#: src/error.c:245
+msgid "SASL mechanism needs gsasl_client_callback_authentication_id() callback (application error)"
+msgstr "SASL 机制需要 gsasl_client_callback_authentication_id() 函数回调(程序错误)"
 
-#: src/gsasl.c:754
-#, c-format
-msgid "Base64 encoded application data to send:\n"
-msgstr "要发送的 Base64 编码的应用程序数据：\n"
+#: src/error.c:250
+msgid "SASL mechanism needs gsasl_client_callback_service() callback (application error)"
+msgstr "SASL 机制需要 gsasl_client_callback_service() 函数回调(程序错误)"
 
-#: src/gsasl.c:778
-#, c-format
-msgid "encoding error: %s"
-msgstr "编码错误：%s"
+#: src/error.c:255
+msgid "SASL mechanism needs gsasl_server_callback_validate() callback (application error)"
+msgstr "SASL 机制需要 gsasl_server_callback_validate() 函数回调(程序错误)"
 
-#: src/gsasl.c:783
-#, c-format
-msgid "Session finished...\n"
-msgstr "会话结束……\n"
+#: src/error.c:260
+msgid "SASL mechanism needs gsasl_server_callback_cram_md5() callback (application error)"
+msgstr "SASL 机制需要 gsasl_server_callback_cram_md5() 函数回调(程序错误)"
 
-#: src/gsasl.c:799
-#, c-format
-msgid "terminating GnuTLS session failed: %s"
-msgstr "终止 GnuTLS 会话失败：%s"
+#: src/error.c:266
+msgid "SASL mechanism needs gsasl_server_callback_digest_md5() callback (application error)"
+msgstr "SASL 机制需要 gsasl_server_callback_digest_md5() 函数回调(程序错误)"
+
+#: src/error.c:271
+msgid "SASL mechanism needs gsasl_server_callback_anonymous() callback (application error)"
+msgstr "SASL 机制需要 gsasl_server_callback_anonymous() 函数回调(程序错误)"
+
+#: src/error.c:276
+msgid "SASL mechanism needs gsasl_server_callback_external() callback (application error)"
+msgstr "SASL 机制需要 gsasl_server_callback_external() 函数回调(程序错误)"
+
+#: src/error.c:281
+msgid "SASL mechanism needs gsasl_server_callback_realm() callback (application error)"
+msgstr "SASL 机制需要 gsasl_server_callback_realm() 函数回调(程序错误)"
+
+#: src/error.c:286
+msgid "SASL mechanism needs gsasl_server_callback_securid() callback (application error)"
+msgstr "SASL 机制需要 gsasl_server_callback_securid() 函数回调(程序错误)"
+
+#: src/error.c:291
+msgid "SASL mechanism needs gsasl_server_callback_service() callback (application error)"
+msgstr "SASL 机制需要 gsasl_server_callback_service() 函数回调(程序错误)"
+
+#: src/error.c:296
+msgid "SASL mechanism needs gsasl_server_callback_gssapi() callback (application error)"
+msgstr "SASL 机制需要 gsasl_server_callback_gssapi() 函数回调(程序错误)"
+
+#: src/error.c:301
+msgid "SASL mechanism needs gsasl_server_callback_retrieve() callback (application error)"
+msgstr "SASL 机制需要 gsasl_server_callback_retrieve() 函数回调(程序错误)"
+
+#: src/error.c:306
+msgid "Failed to perform Unicode Normalization on string."
+msgstr "无法对字符串进行 Unicode 标准化操作。"
+
+#: src/error.c:310
+msgid "No more realms available (non-fatal)"
+msgstr "不可获得更多的领域(非严重错误)"
+
+#: src/error.c:314
+msgid "The provided library handle was invalid (application error)"
+msgstr "提供的库操作函数无效(程序错误)"
+
+#: src/error.c:319
+msgid "Libgsasl unknown error"
+msgstr "Libgsasl 未知错误"
