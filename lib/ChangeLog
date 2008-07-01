@@ -1,5 +1,13 @@
 2008-07-01  Simon Josefsson <simon@josefsson.org>
 
+	* Makefile.am, lib/Makefile.am: Reorder release target.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS, lib/NEWS: Version 0.2.27.
 
 2008-07-01  Simon Josefsson <simon@josefsson.org>
