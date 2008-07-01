@@ -21,6 +21,10 @@ ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 .DEFAULT_GOAL := bootstrap
 endif
 
+ifeq ($(PACKAGE),lib)
+PACKAGE := libgsasl
+endif
+
 autoreconf:
 	for f in po/*.po.in; do \
 		cp $$f `echo $$f | sed 's/.in//'`; \
