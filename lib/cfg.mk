@@ -21,7 +21,7 @@ ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 .DEFAULT_GOAL := bootstrap
 endif
 
-ifeq ($(PACKAGE),lib)
+ifeq ($(PACKAGE),)
 PACKAGE := libgsasl
 endif
 
