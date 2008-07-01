@@ -390,7 +390,7 @@ elif ! mv fixhdr.tmp $srcdir/src/gsasl.h; then
 fi
 
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
-		gl/Makefile tests/Makefile src/Makefile \
+		gl/Makefile gl/tests/Makefile src/Makefile \
 		anonymous/Makefile cram-md5/Makefile \
 		digest-md5/Makefile external/Makefile \
 		gssapi/Makefile gs2/Makefile kerberos_v5/Makefile \
