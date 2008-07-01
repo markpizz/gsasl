@@ -1,188 +1,186 @@
-# Swedish translations for gsasl package
-# Copyright (C) 2006 Free Software Foundation, Inc.
-# Simon Josefsson <simon@josefsson.org>, 2002.
-# Daniel Nylander <po@danielnylander.se>, 2006.
+# Traditional Chinese translation for gsasl.
+# Copyright (C) 2004, 05, 06 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gsasl package.
+# Meng Jie <zuxyhere@eastday.com>, 2004, 05.
+# Wei-Lun Chao <chaoweilun@pcmail.com.tw>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 0.2.15\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
 "POT-Creation-Date: 2006-08-21 17:52+0200\n"
-"PO-Revision-Date: 2006-08-24 18:10+0100\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"PO-Revision-Date: 2006-08-29 20:45+0800\n"
+"Last-Translator: Wei-Lun Chao <chaoweilun@pcmail.com.tw>\n"
+"Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #, c-format
 msgid "Choose SASL mechanism:\n"
-msgstr "V�lj SASL-mekanism:\n"
+msgstr "選擇 SASL 機制：\n"
 
 #, c-format
 msgid "Input list of SASL mechanisms supported by server:\n"
-msgstr "Mata in lista p� de SASL-mekanismer som st�ds av servern:\n"
+msgstr "輸入伺服器所支援的 SASL 機制清單：\n"
 
 #, c-format
 msgid "Using mechanism:\n"
-msgstr "Anv�nder mekanism:\n"
+msgstr "使用機制：\n"
 
 #, c-format
 msgid "Output from server:\n"
-msgstr "Utdata fr�n server:\n"
+msgstr "伺服器的輸出：\n"
 
 #, c-format
 msgid "Output from client:\n"
-msgstr "Utdata fr�n klient:\n"
+msgstr "客戶端的輸出：\n"
 
 msgid "Cannot initialize Windows sockets."
-msgstr "Kan inte initiera Windows-uttag."
+msgstr "無法初始化 Windows 通訊端。"
 
 #, c-format
 msgid ""
 "missing argument\n"
 "Try `%s --help' for more information."
 msgstr ""
-"saknar argument\n"
-"F�rs�k med \"%s --help\" f�r mer information."
+"缺少引數\n"
+"嘗試「%s --help」以獲得更多資訊。"
 
 msgid "need both --x509-cert-file and --x509-key-file"
-msgstr "beh�ver b�de --x509-cert-file och --x509-key-file"
+msgstr "既需要 --x509-cert-file 也需要 --x509-key-file"
 
 msgid "cannot use both --starttls and --no-starttls"
-msgstr "kan inte anv�nda b�de --starttls och --no-starttls"
+msgstr "不能同時使用 --starttls 和 --no-starttls"
 
 msgid "cannot use both --smtp and --imap"
-msgstr "kan inte anv�nda b�de --smtp och --imap"
+msgstr "不能同時使用 --smtp 和 --imap"
 
 #, c-format
 msgid "initialization failure: %s"
-msgstr "initieringsfel: %s"
+msgstr "初始化失敗：%s"
 
 #, c-format
 msgid "error listing mechanisms: %s"
-msgstr "fel vid listning av mekanismer: %s"
+msgstr "列出機制時發生錯誤：%s"
 
 #, c-format
 msgid "This client supports the following mechanisms:\n"
-msgstr "Den h�r klienten st�der f�ljande mekanismer:\n"
+msgstr "這個客戶端支援以下機制：\n"
 
 #, c-format
 msgid "This server supports the following mechanisms:\n"
-msgstr "Den h�r servern st�der f�ljande mekanismer:\n"
+msgstr "這個伺服器支援以下機制：\n"
 
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
-msgstr "GnuTLS globalt initieringsfel: %s"
+msgstr "GnuTLS 全域初始化失敗：%s"
 
 #, c-format
 msgid "GnuTLS initialization failed: %s"
-msgstr "GnuTLS initieringsfel: %s"
+msgstr "GnuTLS 初始化失敗：%s"
 
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
-msgstr "inst�llning av GnuTLS f�rvalda v�rden misslyckades: %s"
+msgstr "設定 GnuTLS 預設值失敗：%s"
 
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
-msgstr "allokerar anonym GnuTLS-beh�righet: %s"
+msgstr "配置匿名 GnuTLS 憑據：%s"
 
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
-msgstr "st�ller in anonym GnuTLS-beh�righet: %s"
+msgstr "設定匿名 GnuTLS 憑據：%s"
 
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
-msgstr "allokerar X.509 GnuTLS-beh�righet: %s"
+msgstr "配置 X.509 GnuTLS 憑據：%s"
 
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
-msgstr "l�ser in X.509 GnuTLS-beh�righet: %s"
+msgstr "載入 X.509 GnuTLS 憑據：%s"
 
 #, c-format
 msgid "no X.509 CAs found: %s"
-msgstr "inga X.509 CA hittades: %s"
+msgstr "找不到 X.509 CA：%s"
 
 msgid "no X.509 CAs found"
-msgstr "inga X.509 CA hittades"
+msgstr "找不到 X.509 CA"
 
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
-msgstr "st�ller in X.509 GnuTLS-beh�righet: %s"
+msgstr "設定 X.509 GnuTLS 憑據：%s"
 
 #, c-format
 msgid "setting GnuTLS key exchange priority: %s"
-msgstr "st�ller in GnuTLS prioritet f�r nyckelutv�xling: %s"
+msgstr "設定 GnuTLS 密鑰交換優先等級：%s"
 
 #, c-format
 msgid "GnuTLS handshake failed: %s"
-msgstr "GnuTLS handskakning misslyckades: %s"
+msgstr "GnuTLS 交握失敗：%s"
 
 #, c-format
 msgid "verifying peer certificate: %s"
-msgstr "validerar motpartscertifikat: %s"
+msgstr "驗證節點憑證：%s"
 
 msgid "server certificate is not trusted"
-msgstr "servercertifikat �r ej p�litligt"
+msgstr "伺服器憑證不可信"
 
 msgid "server certificate hasn't got a known issuer"
-msgstr "servercertifikat har inte en k�nd utgivare"
+msgstr "伺服器憑證發行者不明"
 
 msgid "server certificate has been revoked"
-msgstr "servercertifikat har �terkallats"
+msgstr "伺服器憑證已被吊銷"
 
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
-msgstr "kunde inte validera servercertifikat (rc=%d)"
+msgstr "無法驗證伺服器憑證(rc=%d)"
 
 #, c-format
 msgid "Cannot find mechanism...\n"
-msgstr "Kan inte hitta mekanism...\n"
+msgstr "找不到機制…\n"
 
 #, c-format
 msgid "mechanism unavailable: %s"
-msgstr "mekanism ej tillg�nglig: %s"
+msgstr "機制無法使用：%s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Mata in base64 autentiseringsdata fr�n klient (finns inget data, tryck ENTER):\n"
+msgstr "輸入客戶端傳送之 base64 編碼的應用程式資料(如果沒有，請按輸入鍵)：\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Mata in base64 autentiseringsdata fr�n server (finns inget data, tryck ENTER):\n"
+msgstr "輸入伺服器傳送之 base64 編碼的應用程式資料(如果沒有，請按輸入鍵)：\n"
 
 #, c-format
 msgid "mechanism error: %s"
-msgstr "mekanismfel: %s"
+msgstr "機制錯誤：%s"
 
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
-msgstr "Serverautentisering avslutad (klient verifierad)...\n"
+msgstr "伺服器認證完成(客戶端可信)…\n"
 
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
-msgstr "Klientautentisering avslutat (server verifierad)...\n"
+msgstr "客戶端認證完成(伺服器可信)…\n"
 
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
-msgstr "Mata in applikationsdata (EOF f�r att avsluta):\n"
+msgstr "輸入應用程式資料(用 EOF 結束輸入)：\n"
 
 #, c-format
 msgid "Base64 encoded application data to send:\n"
-msgstr "Base64-kodad applikationsdata att skicka:\n"
+msgstr "要傳送之 Base64 編碼的應用程式資料：\n"
 
 #, c-format
 msgid "encoding error: %s"
-msgstr "kodningsfel: %s"
+msgstr "編碼錯誤：%s"
 
 #, c-format
 msgid "Session finished...\n"
-msgstr "Session avslutad...\n"
+msgstr "作業階段結束…\n"
 
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
-msgstr "terminering av GnuTLS-session misslyckades: %s"
-
-#~ msgid "Libgsasl error (%d): %s\n"
-#~ msgstr "Libgsasl fel (%d): %s\n"
+msgstr "終止 GnuTLS 作業階段失敗：%s"

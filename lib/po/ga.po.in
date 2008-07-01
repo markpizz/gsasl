@@ -1,184 +1,191 @@
-# Irish translations for libgsasl.
-# Copyright (C) 2005 Free Software Foundation, Inc.
-# This file is distributed under the same license as the libgsasl package.
-# Kevin Patrick Scannell <scannell@SLU.EDU>, 2005, 2007.
+# Irish translations for gsasl.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gsasl package.
+# Kevin Patrick Scannell <scannell@SLU.EDU>, 2004, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libgsasl 0.2.16\n"
+"Project-Id-Version: gsasl 0.2.15\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2007-04-20 15:15+0200\n"
-"PO-Revision-Date: 2007-04-25 16:25-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"POT-Creation-Date: 2006-08-21 17:52+0200\n"
+"PO-Revision-Date: 2006-08-23 21:31-0500\n"
+"Last-Translator: Kevin Patrick Scannell <scannell@SLU.EDU>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Libgsasl success"
-msgstr "Rath ar libgsasl"
+#, c-format
+msgid "Choose SASL mechanism:\n"
+msgstr "Roghnaigh sásra SASL:\n"
 
-msgid "SASL mechanism needs more data"
-msgstr "Teastaíonn an sásra SASL tuilleadh sonraí"
+#, c-format
+msgid "Input list of SASL mechanisms supported by server:\n"
+msgstr "Iontráil liosta de shásraí SASL atá tacaithe ag an fhreastalaí:\n"
 
-msgid "Unknown SASL mechanism"
-msgstr "Sásra SASL anaithnid"
+#, c-format
+msgid "Using mechanism:\n"
+msgstr "Ag úsáid an tsásra:\n"
 
-msgid "SASL mechanism called too many times"
-msgstr "Glaodh an sásra SASL an iomarca uaire"
+#, c-format
+msgid "Output from server:\n"
+msgstr "Aschur ón fhreastalaí:\n"
 
-msgid "Memory allocation error in SASL library"
-msgstr "Earráid agus cuimhne á riar sa leabharlann SASL"
+#, c-format
+msgid "Output from client:\n"
+msgstr "Aschur ón chliant:\n"
 
-msgid "Base 64 coding error in SASL library"
-msgstr "Earráid ionchódaithe (bonn 64) sa leabharlann SASL"
+msgid "Cannot initialize Windows sockets."
+msgstr "Ní féidir soicéid Windows a thúsú."
 
-msgid "Low-level crypto error in SASL library"
-msgstr "Earráid chriptithe íseal-leibhéil sa leabharlann SASL"
+#, c-format
+msgid ""
+"missing argument\n"
+"Try `%s --help' for more information."
+msgstr ""
+"argóint ar iarraidh\n"
+"Bain triail as `%s --help' chun tuilleadh eolais a fháil."
 
-msgid "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL library.  This is a serious internal error."
-msgstr "Níorbh fhéidir leis an leabharlann GSSAPI cuimhne a saoradh i gss_release_buffer() sa leabharlann SASL.  Is earráid inmheánach trom í seo."
+msgid "need both --x509-cert-file and --x509-key-file"
+msgstr "tá gá le --x509-cert-file agus --x509-key-file araon"
 
-msgid "GSSAPI library could not understand a peer name in gss_import_name() in SASL library.  This is most likely due to incorrect service and/or hostnames."
-msgstr "Níor thuig leabharlann GSSAPI ainm comhghleacaí i gss_import_name() sa leabharlann SASL.  Is dócha go bhfuil sé seo mar thoradh ar ainm mhícheart ar an seirbhís nó ar an óstríomhaire."
+msgid "cannot use both --starttls and --no-starttls"
+msgstr "ní féidir --starttls agus --no-starttls a úsáid le chéile"
 
-msgid "GSSAPI error in client while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
-msgstr "Earráid GSSAPI sa chliant agus comhthéacs slándála á socrú i gss_init_sec_context() sa leabharlann SASL.  Is dócha go bhfuil sé seo mar thoradh ar dintiúirí easpacha nó idirghnímh mailíseacha."
+msgid "cannot use both --smtp and --imap"
+msgstr "ní féidir --smtp agus --imap a úsáid le chéile"
 
-msgid "GSSAPI error in server while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
-msgstr "Earráid GSSAPI san fhreastalaí agus comhthéacs slándála á socrú i gss_init_sec_context() sa leabharlann SASL.  Is dócha go bhfuil sé seo mar thoradh ar dintiúirí easpacha nó idirghnímh mailíseacha."
+#, c-format
+msgid "initialization failure: %s"
+msgstr "theip ar thúsú: %s"
 
-msgid "GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL library.  This is most likely due to data corruption."
-msgstr "Earráid GSSAPI agus sonraí á ndíchriptiú nó á ndíchódú i gss_unwrap() sa leabharlann SASL.  Is dócha go bhfuil sé seo mar thoradh ar sonraí truaillithe."
+#, c-format
+msgid "error listing mechanisms: %s"
+msgstr "earráid agus sásraí á dtaispeáint: %s"
 
-msgid "GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
-msgstr "Earráid GSSAPI agus sonraí á gcriptiú nó á n-ionchódú i gss_wrap() sa leabharlann SASL."
+#, c-format
+msgid "This client supports the following mechanisms:\n"
+msgstr "Tacaíonn an cliant seo na sásraí a leanas:\n"
 
-msgid "GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  This is most likely due to not having the proper Kerberos key available in /etc/krb5.keytab on the server."
-msgstr "Earráid GSSAPI agus dintiúirí á bhfáil i gss_acquire_cred() sa leabharlann SASL.  Is dócha go bhfuil sé seo mar thoradh ar easpa eochair Kerberos go cuí i etc/krb5.keytab ar an fhreastalaí."
+#, c-format
+msgid "This server supports the following mechanisms:\n"
+msgstr "Tacaíonn an freastalaí seo na sásraí a leanas:\n"
 
-msgid "GSSAPI error creating a display name denoting the client in gss_display_name() in SASL library.  This is probably because the client supplied bad data."
-msgstr "Earráid GSSAPI agus ainm taispeána don chliant á chruthú i gss_display_name() sa leabharlann SASL.  Is dócha go bhfuil sé seo mar thoradh ar sonraí truaillithe ón chliant."
+#, c-format
+msgid "GnuTLS global initialization failed: %s"
+msgstr "theip ar thúsú comhchoiteann GnuTLS: %s"
 
-msgid "Other entity requested integrity or confidentiality protection in GSSAPI mechanism but this is currently not implemented."
-msgstr "D'iarr aonán eile cosaint sláine nó rúndachta sa shásra GSSAPI ach níl an gné seo ar fáil faoi láthair."
+#, c-format
+msgid "GnuTLS initialization failed: %s"
+msgstr "theip ar thúsú GnuTLS: %s"
 
-msgid "SASL mechanism could not parse input"
-msgstr "Níorbh fhéidir leis an sásra SASL an t-ionchur a pharsáil"
+#, c-format
+msgid "setting GnuTLS defaults failed: %s"
+msgstr "theip ar shocrú na réamhshocruithe GnuTLS: %s"
 
-msgid "Error authenticating user"
-msgstr "Earráid agus úsáideoir á fhíordheimhniú"
+#, c-format
+msgid "allocating anonymous GnuTLS credential: %s"
+msgstr "dintiúr GnuTLS gan ainm á dháileadh: %s"
 
-msgid "Integrity error in application payload"
-msgstr "Earráid sláine sa phálasta feidhmchláir"
+#, c-format
+msgid "setting anonymous GnuTLS credential: %s"
+msgstr "dintiúr GnuTLS gan ainm á shocrú: %s"
 
-msgid "Client-side functionality not available in library (application error)"
-msgstr "Níl feidhmiúlacht den chliant le fáil sa leabharlann (earráid fheidhmchláir)"
+#, c-format
+msgid "allocating X.509 GnuTLS credential: %s"
+msgstr "dintiúr X.509 GnuTLS á dháileadh: %s"
 
-msgid "Server-side functionality not available in library (application error)"
-msgstr "Níl feidhmiúlacht den fhreastalaí le fáil sa leabharlann (earráid fheidhmchláir)"
+#, c-format
+msgid "loading X.509 GnuTLS credential: %s"
+msgstr "dintiúr X.509 GnuTLS á luchtú: %s"
 
-msgid "No callback specified by caller (application error)."
-msgstr "Níor thug an glaoiteoir feidhm chuí (earráid fheidhmchláir)."
+#, c-format
+msgid "no X.509 CAs found: %s"
+msgstr "níor aimsíodh aon CA X.509: %s"
 
-msgid "Authentication failed because the anonymous token was not provided."
-msgstr "Theip ar fhíordheimhniú gan ainm ós rud é nach socraíodh ceadchomhartha gan ainm."
+msgid "no X.509 CAs found"
+msgstr "níor aimsíodh aon CA X.509"
 
-msgid "Authentication failed because the authentication identity was not provided."
-msgstr "Theip ar fhíordheimhniú ós rud é nach socraíodh aitheantas fíordheimhnithe."
+#, c-format
+msgid "setting X.509 GnuTLS credential: %s"
+msgstr "dintiúr X.509 GnuTLS á shocrú: %s"
 
-msgid "Authentication failed because the authorization identity was not provided."
-msgstr "Theip ar fhíordheimhniú ós rud é nach socraíodh an t-aitheantas údáraithe."
+#, c-format
+msgid "setting GnuTLS key exchange priority: %s"
+msgstr "eochairthosaíocht GnuTLS á socrú: %s"
 
-msgid "Authentication failed because the password was not provided."
-msgstr "Theip ar fhíordheimhniú ós rud é nach tugadh an focal faire."
+#, c-format
+msgid "GnuTLS handshake failed: %s"
+msgstr "theip ar chumarsáid thionscantach GnuTLS: %s"
 
-msgid "Authentication failed because the passcode was not provided."
-msgstr "Theip ar fhíordheimhniú ós rud é nach tugadh an paschód."
+#, c-format
+msgid "verifying peer certificate: %s"
+msgstr "teastas an chomhghleacaí á fhíorú: %s"
 
-msgid "Authentication failed because the pin code was not provided."
-msgstr "Theip ar fhíordheimhniú ós rud é nach tugadh an UAP."
+# # @name STRONGAUTH_REQUIRED_HINT
+# # @loc none
+msgid "server certificate is not trusted"
+msgstr "ní chuirtear muinín sa teastas freastalaí"
 
-msgid "Authentication failed because the service name was not provided."
-msgstr "Theip ar fhíordheimhniú ós rud é nach tugadh an t-ainm seirbhíse."
+msgid "server certificate hasn't got a known issuer"
+msgstr "níl eisitheoir atá ar eolas ag an teastas freastalaí"
 
-msgid "Authentication failed because the host name was not provided."
-msgstr "Theip ar fhíordheimhniú ós rud é nach tugadh an t-óstainm."
+msgid "server certificate has been revoked"
+msgstr "aisghaireadh an teastas freastalaí"
 
-msgid "Could not prepare internationalized (non-ASCII) string."
-msgstr "Níorbh fhéidir teaghrán idirnáisiúntaithe (nach ASCII) a ullmhú."
+#, c-format
+msgid "could not verify server certificate (rc=%d)"
+msgstr "níorbh fhéidir an teastas freastalaí a fhíorú (rc=%d)"
 
-msgid "SASL function needs larger buffer (internal error)"
-msgstr "Teastaíonn feidhm SASL maolán níos mó (earráid inmheánach)"
+#, c-format
+msgid "Cannot find mechanism...\n"
+msgstr "Ní bhfuarthas an sásra...\n"
 
-msgid "Could not open file in SASL library"
-msgstr "Níorbh fhéidir comhad a oscailt sa leabharlann SASL"
+#, c-format
+msgid "mechanism unavailable: %s"
+msgstr "níl an sásra ar fáil: %s"
 
-msgid "Could not close file in SASL library"
-msgstr "Níorbh fhéidir comhad a dhúnadh sa leabharlann SASL"
+#, c-format
+msgid "Enter base64 authentication data from client (press RET if none):\n"
+msgstr "Iontráil sonraí fíordheimhnithe base64 ón chliant (RET mura bhfuil aon sonra ann):\n"
 
-msgid "Cannot get internal library handle (library error)"
-msgstr "Níorbh fhéidir lorgán leabharlainne inmheánach a fháil (earráid leabharlainne)"
+#, c-format
+msgid "Enter base64 authentication data from server (press RET if none):\n"
+msgstr "Iontráil sonraí fíordheimhnithe base64 ón fhreastalaí (RET mura bhfuil aon sonra ann):\n"
 
-msgid "SASL mechanism needs gsasl_client_callback_anonymous() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_client_callback_anonymous() (earráid fheidhmchláir)"
+#, c-format
+msgid "mechanism error: %s"
+msgstr "earráid le sásra: %s"
 
-msgid "SASL mechanism needs gsasl_client_callback_password() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_client_callback_password() (earráid fheidhmchláir)"
+# # @name STRONGAUTH_REQUIRED_HINT
+# # @loc none
+#, c-format
+msgid "Server authentication finished (client trusted)...\n"
+msgstr "Fíordheimhniú den fhreastalaí déanta (cliant iontaofa)...\n"
 
-msgid "SASL mechanism needs gsasl_client_callback_passcode() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_client_callback_passcode() (earráid fheidhmchláir)"
+#, c-format
+msgid "Client authentication finished (server trusted)...\n"
+msgstr "Fíordheimhniú den chliant déanta (freastalaí iontaofa)...\n"
 
-msgid "SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_client_callback_pin() (earráid fheidhmchláir)"
+#, c-format
+msgid "Enter application data (EOF to finish):\n"
+msgstr "Iontráil sonraí feidhmchláir (comhadchríoch nuair atá tú déanta):\n"
 
-msgid "SASL mechanism needs gsasl_client_callback_authorization_id() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_client_callback_authorization_id() (earráid fheidhmchláir)"
+#, c-format
+msgid "Base64 encoded application data to send:\n"
+msgstr "Sonraí le seoladh, ionchódaithe le bunuimhir 64:\n"
 
-msgid "SASL mechanism needs gsasl_client_callback_authentication_id() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_client_callback_authentication_id() (earráid fheidhmchláir)"
+#, c-format
+msgid "encoding error: %s"
+msgstr "earráid ionchódaithe: %s"
 
-msgid "SASL mechanism needs gsasl_client_callback_service() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_client_callback_service() (earráid fheidhmchláir)"
+#, c-format
+msgid "Session finished...\n"
+msgstr "Seisiún déanta...\n"
 
-msgid "SASL mechanism needs gsasl_server_callback_validate() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_server_callback_validate() (earráid fheidhmchláir)"
+#, c-format
+msgid "terminating GnuTLS session failed: %s"
+msgstr "theip ar chur deireadh leis an seisiún GnuTLS: %s"
 
-msgid "SASL mechanism needs gsasl_server_callback_cram_md5() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_server_callback_cram_md5() (earráid fheidhmchláir)"
-
-msgid "SASL mechanism needs gsasl_server_callback_digest_md5() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_server_callback_digest_md5() (earráid fheidhmchláir)"
-
-msgid "SASL mechanism needs gsasl_server_callback_anonymous() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_server_callback_anonymous() (earráid fheidhmchláir)"
-
-msgid "SASL mechanism needs gsasl_server_callback_external() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_server_callback_external() (earráid fheidhmchláir)"
-
-msgid "SASL mechanism needs gsasl_server_callback_realm() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_server_callback_realm() (earráid fheidhmchláir)"
-
-msgid "SASL mechanism needs gsasl_server_callback_securid() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_server_callback_securid() (earráid fheidhmchláir)"
-
-msgid "SASL mechanism needs gsasl_server_callback_service() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_server_callback_service() (earráid fheidhmchláir)"
-
-msgid "SASL mechanism needs gsasl_server_callback_gssapi() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_server_callback_gssapi() (earráid fheidhmchláir)"
-
-msgid "SASL mechanism needs gsasl_server_callback_retrieve() callback (application error)"
-msgstr "Teastaíonn an sásra SASL feidhm gsasl_server_callback_retrieve() (earráid fheidhmchláir)"
-
-msgid "Failed to perform Unicode Normalization on string."
-msgstr "Theip ar normalú Unicode ar teaghrán."
-
-msgid "No more realms available (non-fatal)"
-msgstr "Níl tuilleadh ríochtaí ar fáil (ní marfach)"
-
-msgid "The provided library handle was invalid (application error)"
-msgstr "Is neamhbhailí an lorgán leabharlainne a bhí tugtha (earráid fheidhmchláir)"
-
-msgid "Libgsasl unknown error"
-msgstr "Libgsasl: earráid anaithnid"
+#~ msgid "Libgsasl error (%d): %s"
+#~ msgstr "Earráid Libgsasl (%d): %s"

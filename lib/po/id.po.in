@@ -1,188 +1,185 @@
-# Swedish translations for gsasl package
+# translation of gsasl-0.2.15.po to Indonesian
 # Copyright (C) 2006 Free Software Foundation, Inc.
-# Simon Josefsson <simon@josefsson.org>, 2002.
-# Daniel Nylander <po@danielnylander.se>, 2006.
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Tedi Heriyanto <tedi_heriyanto@yahoo.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 0.2.15\n"
+"Project-Id-Version: gsasl-0.2.15\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
 "POT-Creation-Date: 2006-08-21 17:52+0200\n"
-"PO-Revision-Date: 2006-08-24 18:10+0100\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"PO-Revision-Date: 2006-09-27 20:28+0700\n"
+"Last-Translator: Tedi Heriyanto <tedi_heriyanto@yahoo.com>\n"
+"Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #, c-format
 msgid "Choose SASL mechanism:\n"
-msgstr "Välj SASL-mekanism:\n"
+msgstr "Pilih mekanisme SASL:\n"
 
 #, c-format
 msgid "Input list of SASL mechanisms supported by server:\n"
-msgstr "Mata in lista på de SASL-mekanismer som stöds av servern:\n"
+msgstr "Daftar input mekanisme SASL yang didukung oleh server:\n"
 
 #, c-format
 msgid "Using mechanism:\n"
-msgstr "Använder mekanism:\n"
+msgstr "Menggunakan mekanisme:\n"
 
 #, c-format
 msgid "Output from server:\n"
-msgstr "Utdata från server:\n"
+msgstr "Output dari server:\n"
 
 #, c-format
 msgid "Output from client:\n"
-msgstr "Utdata från klient:\n"
+msgstr "Output dari klien:\n"
 
 msgid "Cannot initialize Windows sockets."
-msgstr "Kan inte initiera Windows-uttag."
+msgstr "Tidak dapat menginisialisasi soket Windows."
 
 #, c-format
 msgid ""
 "missing argument\n"
 "Try `%s --help' for more information."
 msgstr ""
-"saknar argument\n"
-"Försök med \"%s --help\" för mer information."
+"argumen hilang\n"
+"Coba `%s' --help untuk informasi lebih lanjut."
 
 msgid "need both --x509-cert-file and --x509-key-file"
-msgstr "behöver både --x509-cert-file och --x509-key-file"
+msgstr "membutuhkan file --x509-cert-file dan --x509-key-file"
 
 msgid "cannot use both --starttls and --no-starttls"
-msgstr "kan inte använda både --starttls och --no-starttls"
+msgstr "tidak dapat menggunakan --starttls dan --no-starttls"
 
 msgid "cannot use both --smtp and --imap"
-msgstr "kan inte använda både --smtp och --imap"
+msgstr "tidak dapat menggunakan --smtp dan --imap"
 
 #, c-format
 msgid "initialization failure: %s"
-msgstr "initieringsfel: %s"
+msgstr "kegagalan inisialisasi: %s"
 
 #, c-format
 msgid "error listing mechanisms: %s"
-msgstr "fel vid listning av mekanismer: %s"
+msgstr "kesalahan menampilkan mekanisme: %s"
 
 #, c-format
 msgid "This client supports the following mechanisms:\n"
-msgstr "Den här klienten stöder följande mekanismer:\n"
+msgstr "Klien ini mendukung mekanisme berikut:\n"
 
 #, c-format
 msgid "This server supports the following mechanisms:\n"
-msgstr "Den här servern stöder följande mekanismer:\n"
+msgstr "Server ini mendukung mekanisme berikut:\n"
 
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
-msgstr "GnuTLS globalt initieringsfel: %s"
+msgstr "Inisialisasi global GnuTLS gagal: %s"
 
 #, c-format
 msgid "GnuTLS initialization failed: %s"
-msgstr "GnuTLS initieringsfel: %s"
+msgstr "Inisialisasi GnuTLS gagal: %s"
 
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
-msgstr "inställning av GnuTLS förvalda värden misslyckades: %s"
+msgstr "seting baku GnuTLS gagal: %s"
 
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
-msgstr "allokerar anonym GnuTLS-behörighet: %s"
+msgstr "mengalokasikan kredensial GnuTLS anonim: %s"
 
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
-msgstr "ställer in anonym GnuTLS-behörighet: %s"
+msgstr "menset kredensial GnuTLS anonim: %s"
 
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
-msgstr "allokerar X.509 GnuTLS-behörighet: %s"
+msgstr "mengalokasikan kredensial GnuTLS X.509: %s"
 
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
-msgstr "läser in X.509 GnuTLS-behörighet: %s"
+msgstr "memuatkan kredensial GnuTLS X.509: %s"
 
 #, c-format
 msgid "no X.509 CAs found: %s"
-msgstr "inga X.509 CA hittades: %s"
+msgstr "tidak ditemukan CA X.509: %s"
 
 msgid "no X.509 CAs found"
-msgstr "inga X.509 CA hittades"
+msgstr "tidak ditemukan CA X.509"
 
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
-msgstr "ställer in X.509 GnuTLS-behörighet: %s"
+msgstr "menset kredensial GnuTLS X.509: %s"
 
 #, c-format
 msgid "setting GnuTLS key exchange priority: %s"
-msgstr "ställer in GnuTLS prioritet för nyckelutväxling: %s"
+msgstr "menset prioritas pertukaran kunci GnuTLS: %s"
 
 #, c-format
 msgid "GnuTLS handshake failed: %s"
-msgstr "GnuTLS handskakning misslyckades: %s"
+msgstr "Kegagalan handshake GnuTLS: %s"
 
 #, c-format
 msgid "verifying peer certificate: %s"
-msgstr "validerar motpartscertifikat: %s"
+msgstr "verifikasi sertifikat peer: %s"
 
 msgid "server certificate is not trusted"
-msgstr "servercertifikat är ej pålitligt"
+msgstr "sertifikat server tidak dipercaya"
 
 msgid "server certificate hasn't got a known issuer"
-msgstr "servercertifikat har inte en känd utgivare"
+msgstr "sertifikat server tidak berisikan penerbit yang dikenal"
 
 msgid "server certificate has been revoked"
-msgstr "servercertifikat har återkallats"
+msgstr "sertifikat server telah dicabut"
 
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
-msgstr "kunde inte validera servercertifikat (rc=%d)"
+msgstr "tidak dapat memverifikasi sertifikat server (rc=%d)"
 
 #, c-format
 msgid "Cannot find mechanism...\n"
-msgstr "Kan inte hitta mekanism...\n"
+msgstr "Tidak dapat menemukan mekanisme...\n"
 
 #, c-format
 msgid "mechanism unavailable: %s"
-msgstr "mekanism ej tillgänglig: %s"
+msgstr "mekanisme tidak tersedia: %s"
 
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Mata in base64 autentiseringsdata från klient (finns inget data, tryck ENTER):\n"
+msgstr "Masukkan data otentikasi base64 dari klien (tekan RET bila tidak ada):\n"
 
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Mata in base64 autentiseringsdata från server (finns inget data, tryck ENTER):\n"
+msgstr "Masukkan data otentikasi base64 dari server (tekan RET bila tidak ada):\n"
 
 #, c-format
 msgid "mechanism error: %s"
-msgstr "mekanismfel: %s"
+msgstr "kesalahan mekanisme: %s"
 
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
-msgstr "Serverautentisering avslutad (klient verifierad)...\n"
+msgstr "Otentikasi server selesai (klien dipercaya)...\n"
 
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
-msgstr "Klientautentisering avslutat (server verifierad)...\n"
+msgstr "Otentikasi klien selesai (server dipercaya)...\n"
 
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
-msgstr "Mata in applikationsdata (EOF för att avsluta):\n"
+msgstr "Masukkan data aplikasi (EOF untuk mengakhiri):\n"
 
 #, c-format
 msgid "Base64 encoded application data to send:\n"
-msgstr "Base64-kodad applikationsdata att skicka:\n"
+msgstr "Data aplikasi berkode base64 yang dikirim:\n"
 
 #, c-format
 msgid "encoding error: %s"
-msgstr "kodningsfel: %s"
+msgstr "kesalahan pengkodean: %s"
 
 #, c-format
 msgid "Session finished...\n"
-msgstr "Session avslutad...\n"
+msgstr "Sesi selesai...\n"
 
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
-msgstr "terminering av GnuTLS-session misslyckades: %s"
-
-#~ msgid "Libgsasl error (%d): %s\n"
-#~ msgstr "Libgsasl fel (%d): %s\n"
+msgstr "gagal mengakhiri sesi GnuTLS: %s"

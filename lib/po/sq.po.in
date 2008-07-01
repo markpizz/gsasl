@@ -1,0 +1,97 @@
+# Përkthimi i mesazheve të gsasl në shqip
+# This file is distributed under the same license as the gsasl package.
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# Laurent Dhima <laurenti@alblinux.net>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gsasl 0.1.4\n"
+"Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
+"POT-Creation-Date: 2004-08-08 00:42+0200\n"
+"PO-Revision-Date: 2004-09-11 11:58+0200\n"
+"Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
+"Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/gsasl.c:106
+#, c-format
+msgid "Chose SASL mechanism:\n"
+msgstr "Zgjidh mekanizmin SASL:\n"
+
+#: src/gsasl.c:114
+#, c-format
+msgid "Input SASL mechanism supported by server:\n"
+msgstr "Input mekanizmit SASL të suportuar nga serveri:\n"
+
+#: src/gsasl.c:133
+#, c-format
+msgid "Using mechanism:\n"
+msgstr "Duke përdorur mekanizmin:\n"
+
+#: src/gsasl.c:150
+#, c-format
+msgid "Output from client:\n"
+msgstr "Rezultati nga klienti:\n"
+
+#: src/gsasl.c:152
+#, c-format
+msgid "Output from server:\n"
+msgstr "Rezultati nga serveri:\n"
+
+#: src/gsasl.c:335 src/gsasl.c:377 src/gsasl.c:428 src/gsasl.c:470
+#: src/gsasl.c:562
+#, c-format
+msgid "Libgsasl error (%d): %s"
+msgstr "Gabim i libgsasl (%d): %s"
+
+#: src/gsasl.c:384
+#, c-format
+msgid "This client supports the following mechanisms:\n"
+msgstr "Ky klient suporton mekanizmat në vijim:\n"
+
+#: src/gsasl.c:387
+#, c-format
+msgid "This server supports the following mechanisms:\n"
+msgstr "Ky server suporton mekanizmat në vijim:\n"
+
+#: src/gsasl.c:411
+#, c-format
+msgid "Cannot find mechanism...\n"
+msgstr "E pamundur gjetja e mekanizmit...\n"
+
+#: src/gsasl.c:457
+#, c-format
+msgid "Enter base64 authentication data from server (press RET if none):\n"
+msgstr "Shto të dhënat me bazë64 të autentifikimit nga serveri (shtyp RET nëse nuk duhen):\n"
+
+#: src/gsasl.c:460
+#, c-format
+msgid "Enter base64 authentication data from client (press RET if none):\n"
+msgstr "Shto të dhënat me bazë64 të autentifikimit nga klienti (shtyp RET nëse nuk duhen):\n"
+
+#: src/gsasl.c:479
+#, c-format
+msgid "Client authentication finished (server trusted)...\n"
+msgstr "Autentifikimi i klientit përfundoi (i besuar nga serveri)...\n"
+
+#: src/gsasl.c:482
+#, c-format
+msgid "Server authentication finished (client trusted)...\n"
+msgstr "Autentifikimi nga serveri përfundoi (klient i besuar)...\n"
+
+#: src/gsasl.c:497
+#, c-format
+msgid "Enter application data (EOF to finish):\n"
+msgstr "Shkruaj të dhënat e programit (EOF për të mbaruar):\n"
+
+#: src/gsasl.c:536
+#, c-format
+msgid "Base64 encoded application data to send:\n"
+msgstr "Të dhënat e kodifikuara me bazë64 të programit për t'u dërguar:\n"
+
+#: src/gsasl.c:567
+#, c-format
+msgid "Session finished...\n"
+msgstr "Seanca përfundoi...\n"
