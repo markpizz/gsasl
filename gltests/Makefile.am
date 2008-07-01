@@ -31,10 +31,10 @@ MAINTAINERCLEANFILES =
 
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
-  -I../.. -I$(srcdir)/../.. \
-  -I../../gl -I$(srcdir)/../../gl
+  -I.. -I$(srcdir)/.. \
+  -I../gl -I$(srcdir)/../gl
 
-LDADD = libtests.a ../../gl/libgl.la libtests.a $(LIBTESTS_LIBDEPS)
+LDADD = libtests.a ../gl/libgl.la libtests.a $(LIBTESTS_LIBDEPS)
 
 libtests_a_SOURCES =
 libtests_a_LIBADD = $(gltests_LIBOBJS)
@@ -59,13 +59,51 @@ EXTRA_DIST += test-alloca-opt.c
 
 ## end   gnulib module alloca-opt-tests
 
-## begin gnulib module base64-tests
+## begin gnulib module arpa_inet-tests
 
-TESTS += test-base64
-check_PROGRAMS += test-base64
-EXTRA_DIST += test-base64.c
+TESTS += test-arpa_inet
+check_PROGRAMS += test-arpa_inet
 
-## end   gnulib module base64-tests
+EXTRA_DIST += test-arpa_inet.c
+
+## end   gnulib module arpa_inet-tests
+
+## begin gnulib module c-ctype-tests
+
+TESTS += test-c-ctype
+check_PROGRAMS += test-c-ctype
+
+EXTRA_DIST += test-c-ctype.c
+
+## end   gnulib module c-ctype-tests
+
+## begin gnulib module c-strcase-tests
+
+TESTS += test-c-strcase.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR='@LOCALE_FR@' LOCALE_TR_UTF8='@LOCALE_TR_UTF8@'
+check_PROGRAMS += test-c-strcasecmp test-c-strncasecmp
+EXTRA_DIST += test-c-strcase.sh test-c-strcasecmp.c test-c-strncasecmp.c
+
+## end   gnulib module c-strcase-tests
+
+## begin gnulib module fseeko-tests
+
+TESTS += test-fseeko.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
+check_PROGRAMS += test-fseeko
+EXTRA_DIST += test-fseeko.c test-fseeko.sh
+
+## end   gnulib module fseeko-tests
+
+## begin gnulib module getaddrinfo-tests
+
+TESTS += test-getaddrinfo
+check_PROGRAMS += test-getaddrinfo
+test_getaddrinfo_LDADD = $(LDADD) @LIBINTL@
+
+EXTRA_DIST += test-getaddrinfo.c
+
+## end   gnulib module getaddrinfo-tests
 
 ## begin gnulib module getdelim-tests
 
@@ -85,12 +123,51 @@ EXTRA_DIST += test-getline.c
 
 ## end   gnulib module getline-tests
 
-## begin gnulib module intprops
+## begin gnulib module iconv-tests
 
+TESTS += test-iconv
+check_PROGRAMS += test-iconv
+test_iconv_LDADD = $(LDADD) @LIBICONV@
 
-EXTRA_DIST += intprops.h
+EXTRA_DIST += test-iconv.c
 
-## end   gnulib module intprops
+## end   gnulib module iconv-tests
+
+## begin gnulib module lseek-tests
+
+TESTS += test-lseek.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
+check_PROGRAMS += test-lseek
+EXTRA_DIST += test-lseek.c test-lseek.sh
+
+## end   gnulib module lseek-tests
+
+## begin gnulib module netinet_in-tests
+
+TESTS += test-netinet_in
+check_PROGRAMS += test-netinet_in
+
+EXTRA_DIST += test-netinet_in.c
+
+## end   gnulib module netinet_in-tests
+
+## begin gnulib module quotearg-tests
+
+TESTS += test-quotearg
+check_PROGRAMS += test-quotearg
+test_quotearg_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-quotearg.c
+
+## end   gnulib module quotearg-tests
+
+## begin gnulib module snprintf-tests
+
+TESTS += test-snprintf
+check_PROGRAMS += test-snprintf
+
+EXTRA_DIST += test-snprintf.c
+
+## end   gnulib module snprintf-tests
 
 ## begin gnulib module stdbool-tests
 
@@ -128,6 +205,24 @@ EXTRA_DIST += test-stdlib.c
 
 ## end   gnulib module stdlib-tests
 
+## begin gnulib module strerror-tests
+
+TESTS += test-strerror
+check_PROGRAMS += test-strerror
+EXTRA_DIST += test-strerror.c
+
+## end   gnulib module strerror-tests
+
+## begin gnulib module striconv-tests
+
+TESTS += test-striconv
+check_PROGRAMS += test-striconv
+test_striconv_LDADD = $(LDADD) @LIBICONV@
+
+EXTRA_DIST += test-striconv.c
+
+## end   gnulib module striconv-tests
+
 ## begin gnulib module string-tests
 
 TESTS += test-string
@@ -136,6 +231,33 @@ check_PROGRAMS += test-string
 EXTRA_DIST += test-string.c
 
 ## end   gnulib module string-tests
+
+## begin gnulib module sys_select-tests
+
+TESTS += test-sys_select
+check_PROGRAMS += test-sys_select
+
+EXTRA_DIST += test-sys_select.c
+
+## end   gnulib module sys_select-tests
+
+## begin gnulib module sys_socket-tests
+
+TESTS += test-sys_socket
+check_PROGRAMS += test-sys_socket
+
+EXTRA_DIST += test-sys_socket.c
+
+## end   gnulib module sys_socket-tests
+
+## begin gnulib module sys_time-tests
+
+TESTS += test-sys_time
+check_PROGRAMS += test-sys_time
+
+EXTRA_DIST += test-sys_time.c
+
+## end   gnulib module sys_time-tests
 
 ## begin gnulib module unistd-tests
 
@@ -155,15 +277,6 @@ EXTRA_DIST += test-vasnprintf.c
 
 ## end   gnulib module vasnprintf-tests
 
-## begin gnulib module vasprintf-tests
-
-TESTS += test-vasprintf
-check_PROGRAMS += test-vasprintf
-
-EXTRA_DIST += test-vasprintf.c
-
-## end   gnulib module vasprintf-tests
-
 ## begin gnulib module verify
 
 libtests_a_SOURCES += verify.h
@@ -178,6 +291,15 @@ check_PROGRAMS += test-wchar
 EXTRA_DIST += test-wchar.c
 
 ## end   gnulib module wchar-tests
+
+## begin gnulib module wctype-tests
+
+TESTS += test-wctype
+check_PROGRAMS += test-wctype
+
+EXTRA_DIST += test-wctype.c
+
+## end   gnulib module wctype-tests
 
 ## begin gnulib module dummy
 

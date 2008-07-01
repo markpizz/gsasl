@@ -104,5 +104,6 @@ AC_MSG_RESULT($opt_valgrind_tests)
 # We are done.
 AC_CONFIG_FILES(Makefile po/Makefile.in \
 		doc/Makefile doc/reference/Makefile doc/doxygen/Doxyfile \
-		gl/Makefile src/Makefile examples/Makefile tests/Makefile)
+		gl/Makefile src/Makefile examples/Makefile \
+		gltests/Makefile tests/Makefile)
 AC_OUTPUT

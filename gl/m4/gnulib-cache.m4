@@ -46,7 +46,7 @@ gl_SOURCE_BASE([gl])
 gl_M4_BASE([gl/m4])
 gl_PO_BASE([])
 gl_DOC_BASE([doc])
-gl_TESTS_BASE([gl/tests])
+gl_TESTS_BASE([gltests])
 gl_WITH_TESTS
 gl_LIB([libgl])
 gl_MAKEFILE_NAME([])

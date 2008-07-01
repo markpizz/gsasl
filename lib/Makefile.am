@@ -25,7 +25,7 @@ pkgconfig_DATA = libgsasl.pc
 
 EXTRA_DIST = cfg.mk maint.mk
 
-SUBDIRS = po gl
+SUBDIRS = po gl gltests
 
 # Plugins:
 if EXTERNAL
