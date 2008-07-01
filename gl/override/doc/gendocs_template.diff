@@ -1,5 +1,5 @@
---- gendocs_template.orig	2008-03-19 18:08:10.000000000 +0100
-+++ gendocs_template	2008-03-19 18:09:36.000000000 +0100
+--- gendocs_template.orig	2008-07-01 15:40:29.000000000 +0200
++++ gendocs_template	2008-07-01 15:40:42.000000000 +0200
 @@ -59,6 +59,18 @@
      (%%TEXI_TGZ_SIZE%%K bytes gzipped tar file).</a></li>
  </ul>
@@ -16,6 +16,6 @@
 +  <li><a href="../reference/gsasl.devhelp">DevHelp API Reference Manual (GTK-DOC)</a>.</li>
 +</ul>
 +
- <p>You can <a href="http://www.gnu.org/order/">buy printed copies of
+ <p>You can <a href="http://shop.fsf.org/">buy printed copies of
  some manuals</a> (among other items) from the Free Software Foundation;
  this helps support FSF activities.</p>

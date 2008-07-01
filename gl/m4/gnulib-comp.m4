@@ -165,6 +165,11 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gltests_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl/tests'
+  gt_LOCALE_FR
+  gt_LOCALE_TR_UTF8
+  gt_TYPE_WCHAR_T
+  gt_TYPE_WINT_T
+  AC_CHECK_FUNCS([shutdown])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]gltests_LIBSOURCES_DIR[ ||
       for gl_file in ]gltests_LIBSOURCES_LIST[ ; do
@@ -195,6 +200,8 @@ AC_DEFUN([gl_INIT],
     AC_SUBST([gltests_LIBOBJS], [$gltests_libobjs])
     AC_SUBST([gltests_LTLIBOBJS], [$gltests_ltlibobjs])
   ])
+  LIBTESTS_LIBDEPS="$gltests_libdeps"
+  AC_SUBST([LIBTESTS_LIBDEPS])
 ])
 
 # Like AC_LIBOBJ, except that the module name goes
@@ -364,6 +371,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lib-ld.m4
   m4/lib-link.m4
   m4/lib-prefix.m4
+  m4/locale-fr.m4
+  m4/locale-tr.m4
   m4/longlong.m4
   m4/lseek.m4
   m4/malloc.m4
@@ -399,6 +408,40 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/wint_t.m4
   m4/xalloc.m4
   m4/xsize.m4
+  tests/test-EOVERFLOW.c
+  tests/test-alloca-opt.c
+  tests/test-arpa_inet.c
+  tests/test-c-ctype.c
+  tests/test-c-strcase.sh
+  tests/test-c-strcasecmp.c
+  tests/test-c-strncasecmp.c
+  tests/test-fseeko.c
+  tests/test-fseeko.sh
+  tests/test-getaddrinfo.c
+  tests/test-getdelim.c
+  tests/test-getline.c
+  tests/test-iconv.c
+  tests/test-lseek.c
+  tests/test-lseek.sh
+  tests/test-netinet_in.c
+  tests/test-quotearg.c
+  tests/test-snprintf.c
+  tests/test-stdbool.c
+  tests/test-stdint.c
+  tests/test-stdio.c
+  tests/test-stdlib.c
+  tests/test-strerror.c
+  tests/test-striconv.c
+  tests/test-string.c
+  tests/test-sys_select.c
+  tests/test-sys_socket.c
+  tests/test-sys_time.c
+  tests/test-unistd.c
+  tests/test-vasnprintf.c
+  tests/test-wchar.c
+  tests/test-wctype.c
+  tests=lib/dummy.c
+  tests=lib/verify.h
   top/GNUmakefile
   top/maint.mk
 ])
