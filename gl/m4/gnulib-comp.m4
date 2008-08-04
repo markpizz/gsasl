@@ -127,10 +127,10 @@ AC_DEFUN([gl_INIT],
   gl_XALLOC
   gl_XSIZE
   m4_ifval(gl_LIBSOURCES_LIST, [
-    m4_syscmd([test ! -d ]gl_LIBSOURCES_DIR[ ||
+    m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
       for gl_file in ]gl_LIBSOURCES_LIST[ ; do
-        if test ! -r ]gl_LIBSOURCES_DIR[/$gl_file ; then
-          echo "missing file ]gl_LIBSOURCES_DIR[/$gl_file" >&2
+        if test ! -r ]m4_defn([gl_LIBSOURCES_DIR])[/$gl_file ; then
+          echo "missing file ]m4_defn([gl_LIBSOURCES_DIR])[/$gl_file" >&2
           exit 1
         fi
       done])dnl
@@ -171,10 +171,10 @@ AC_DEFUN([gl_INIT],
   gt_TYPE_WINT_T
   AC_CHECK_FUNCS([shutdown])
   m4_ifval(gltests_LIBSOURCES_LIST, [
-    m4_syscmd([test ! -d ]gltests_LIBSOURCES_DIR[ ||
+    m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
       for gl_file in ]gltests_LIBSOURCES_LIST[ ; do
-        if test ! -r ]gltests_LIBSOURCES_DIR[/$gl_file ; then
-          echo "missing file ]gltests_LIBSOURCES_DIR[/$gl_file" >&2
+        if test ! -r ]m4_defn([gltests_LIBSOURCES_DIR])[/$gl_file ; then
+          echo "missing file ]m4_defn([gltests_LIBSOURCES_DIR])[/$gl_file" >&2
           exit 1
         fi
       done])dnl
