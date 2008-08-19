@@ -29,7 +29,8 @@ EXTRA_DIST = cfg.mk maint.mk
 EXTRA_DIST += win32/libgsasl.sln win32/libgsasl.vcproj			\
 	win32/include/ac-stdint.h win32/include/alloca.h		\
 	win32/include/gen-win32-headers.pl win32/include/idn-int.h	\
-	win32/include/stdbool.h win32/include/stdint.h
+	win32/include/stdbool.h win32/include/stdint.h			\
+	win32/include/unistd.h
 
 SUBDIRS = po gl gltests
 
