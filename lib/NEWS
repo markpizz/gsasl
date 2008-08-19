@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Version 0.2.28 (unreleased)
 
+** The library can be built using Visual Studio.
+Patches provided by Adam Strzelecki <ono@java.pl>.  See the manual,
+section 'Installing under Windows', for more information.
+
 ** Update gnulib files.
 Under Windows, the randomness functions will now prefer the Intel RND
 crypto provider.  CryptAcquireContext is now invoked with the
