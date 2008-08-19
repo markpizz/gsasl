@@ -564,7 +564,8 @@ For information on how to use the DLL in other applications, see:
 
 You can build GNU SASL as a native Visual Studio C++ project.  This
 allows you to build the code for other platforms that VS supports,
-such as Windows Mobile.  You need Visual Studio 2005 or later.
+such as Windows Mobile.  You need Visual Studio 2005 or later, and a
+Perl interpreter such as ActiveState Perl.
 
 First download and unpack the archive as described in the generic
 installation instructions (@pxref{Downloading and Installing}).  Don't
@@ -579,7 +580,8 @@ Warning!  Unless you build GNU SASL linked with libgcrypt, GNU SASL
 uses the Windows function @code{CryptGenRandom} for generating
 cryptographic random data.  The function is known to have some
 security weaknesses.  See @url{http://eprint.iacr.org/2007/419} for
-more information.
+more information.  The code will attempt to use the Intel RND crypto
+provider if it is installed, see @file{lib/gl/gc-gnulib.c}.
 
 @node Bug Reports
 @section Bug Reports
