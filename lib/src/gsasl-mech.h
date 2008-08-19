@@ -23,6 +23,19 @@
 #ifndef GSASL_MECH_H
 # define GSASL_MECH_H
 
+/* GSASL Windows DLL */
+#ifndef GSASL_API
+# if defined(_WIN32) && !defined(GSASL_STATIC)
+#  ifdef GSASL_EXPORTS
+#   define GSASL_API  __declspec(dllexport)
+#  else /* GSASL_EXPORTS */
+#   define GSASL_API  __declspec(dllimport)
+#  endif /* GSASL_EXPORTS */
+# else /* _WIN32 && !GSASL_STATIC */
+#  define GSASL_API
+# endif /* _WIN32 && !GSASL_STATIC */
+#endif /* GSASL_API */
+
 /* Mechanism function prototypes. */
 typedef int (*Gsasl_init_function) (Gsasl * ctx);
 typedef void (*Gsasl_done_function) (Gsasl * ctx);
@@ -59,6 +72,6 @@ struct Gsasl_mechanism
 typedef struct Gsasl_mechanism Gsasl_mechanism;
 
 /* Register new mechanism: register.c. */
-extern int gsasl_register (Gsasl * ctx, const Gsasl_mechanism * mech);
+extern GSASL_API int gsasl_register (Gsasl * ctx, const Gsasl_mechanism * mech);
 
 #endif /* GSASL_MECH_H */

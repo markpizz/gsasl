@@ -27,6 +27,19 @@
 # include <stddef.h>		/* size_t */
 # include <unistd.h>		/* ssize_t */
 
+/* GSASL Windows DLL */
+#ifndef GSASL_API
+# if defined(_WIN32) && !defined(GSASL_STATIC)
+#  ifdef GSASL_EXPORTS
+#   define GSASL_API  __declspec(dllexport)
+#  else /* GSASL_EXPORTS */
+#   define GSASL_API  __declspec(dllimport)
+#  endif /* GSASL_EXPORTS */
+# else /* _WIN32 && !GSASL_STATIC */
+#  define GSASL_API
+# endif /* _WIN32 && !GSASL_STATIC */
+#endif /* GSASL_API */
+
 # ifdef __cplusplus
 extern "C"
 {
@@ -51,7 +64,7 @@ extern "C"
     GSASL_MIN_MECHANISM_SIZE = 1,
     GSASL_MAX_MECHANISM_SIZE = 20
   };
-  extern const char *GSASL_VALID_MECHANISM_CHARACTERS;
+  extern GSASL_API const char *GSASL_VALID_MECHANISM_CHARACTERS;
 
   /* Error codes */
   typedef enum
@@ -175,82 +188,82 @@ extern "C"
 					  Gsasl_property prop);
 
   /* Library entry and exit points: version.c, init.c, done.c */
-  extern int gsasl_init (Gsasl ** ctx);
-  extern void gsasl_done (Gsasl * ctx);
-  extern const char *gsasl_check_version (const char *req_version);
+  extern GSASL_API int gsasl_init (Gsasl ** ctx);
+  extern GSASL_API void gsasl_done (Gsasl * ctx);
+  extern GSASL_API const char *gsasl_check_version (const char *req_version);
 
   /* Callback handling: callback.c */
-  extern void gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb);
-  extern int gsasl_callback (Gsasl * ctx, Gsasl_session * sctx,
+  extern GSASL_API void gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb);
+  extern GSASL_API int gsasl_callback (Gsasl * ctx, Gsasl_session * sctx,
 			     Gsasl_property prop);
 
-  extern void gsasl_callback_hook_set (Gsasl * ctx, void *hook);
-  extern void *gsasl_callback_hook_get (Gsasl * ctx);
+  extern GSASL_API void gsasl_callback_hook_set (Gsasl * ctx, void *hook);
+  extern GSASL_API void *gsasl_callback_hook_get (Gsasl * ctx);
 
-  extern void gsasl_session_hook_set (Gsasl_session * sctx, void *hook);
-  extern void *gsasl_session_hook_get (Gsasl_session * sctx);
+  extern GSASL_API void gsasl_session_hook_set (Gsasl_session * sctx, void *hook);
+  extern GSASL_API void *gsasl_session_hook_get (Gsasl_session * sctx);
 
   /* Property handling: property.c */
-  extern void gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
+  extern GSASL_API void gsasl_property_set (Gsasl_session * sctx, Gsasl_property prop,
 				  const char *data);
-  extern void gsasl_property_set_raw (Gsasl_session * sctx,
+  extern GSASL_API void gsasl_property_set_raw (Gsasl_session * sctx,
 				      Gsasl_property prop, const char *data,
 				      size_t len);
-  extern const char *gsasl_property_get (Gsasl_session * sctx,
+  extern GSASL_API const char *gsasl_property_get (Gsasl_session * sctx,
 					 Gsasl_property prop);
-  extern const char *gsasl_property_fast (Gsasl_session * sctx,
+  extern GSASL_API const char *gsasl_property_fast (Gsasl_session * sctx,
 					  Gsasl_property prop);
 
   /* Mechanism handling: listmech.c, supportp.c, suggest.c */
-  extern int gsasl_client_mechlist (Gsasl * ctx, char **out);
-  extern int gsasl_client_support_p (Gsasl * ctx, const char *name);
-  extern const char *gsasl_client_suggest_mechanism (Gsasl * ctx,
+  extern GSASL_API int gsasl_client_mechlist (Gsasl * ctx, char **out);
+  extern GSASL_API int gsasl_client_support_p (Gsasl * ctx, const char *name);
+  extern GSASL_API const char *gsasl_client_suggest_mechanism (Gsasl * ctx,
 						     const char *mechlist);
 
-  extern int gsasl_server_mechlist (Gsasl * ctx, char **out);
-  extern int gsasl_server_support_p (Gsasl * ctx, const char *name);
+  extern GSASL_API int gsasl_server_mechlist (Gsasl * ctx, char **out);
+  extern GSASL_API int gsasl_server_support_p (Gsasl * ctx, const char *name);
 
   /* Authentication functions: xstart.c, xstep.c, xfinish.c */
-  extern int gsasl_client_start (Gsasl * ctx, const char *mech,
+  extern GSASL_API int gsasl_client_start (Gsasl * ctx, const char *mech,
 				 Gsasl_session ** sctx);
-  extern int gsasl_server_start (Gsasl * ctx, const char *mech,
+  extern GSASL_API int gsasl_server_start (Gsasl * ctx, const char *mech,
 				 Gsasl_session ** sctx);
-  extern int gsasl_step (Gsasl_session * sctx,
+  extern GSASL_API int gsasl_step (Gsasl_session * sctx,
 			 const char *input, size_t input_len,
 			 char **output, size_t * output_len);
-  extern int gsasl_step64 (Gsasl_session * sctx,
+  extern GSASL_API int gsasl_step64 (Gsasl_session * sctx,
 			   const char *b64input, char **b64output);
-  extern void gsasl_finish (Gsasl_session * sctx);
+  extern GSASL_API void gsasl_finish (Gsasl_session * sctx);
 
   /* Session functions: xcode.c */
-  extern int gsasl_encode (Gsasl_session * sctx,
+  extern GSASL_API int gsasl_encode (Gsasl_session * sctx,
 			   const char *input, size_t input_len,
 			   char **output, size_t * output_len);
-  extern int gsasl_decode (Gsasl_session * sctx,
+  extern GSASL_API int gsasl_decode (Gsasl_session * sctx,
 			   const char *input, size_t input_len,
 			   char **output, size_t * output_len);
 
   /* Error handling: error.c */
-  extern const char *gsasl_strerror (int err);
+  extern GSASL_API const char *gsasl_strerror (int err);
 
   /* Internationalized string processing: stringprep.c */
-  extern int gsasl_saslprep (const char *in, Gsasl_saslprep_flags flags,
+  extern GSASL_API int gsasl_saslprep (const char *in, Gsasl_saslprep_flags flags,
 			     char **out, int *stringpreprc);
 
   /* Utilities: base64.c, md5pwd.c, crypto.c */
-  extern int gsasl_simple_getpass (const char *filename,
+  extern GSASL_API int gsasl_simple_getpass (const char *filename,
 				   const char *username,
 				   char **key);
-  extern int gsasl_base64_to (const char *in, size_t inlen,
+  extern GSASL_API int gsasl_base64_to (const char *in, size_t inlen,
 			      char **out, size_t * outlen);
-  extern int gsasl_base64_from (const char *in, size_t inlen,
+  extern GSASL_API int gsasl_base64_from (const char *in, size_t inlen,
 				char **out, size_t * outlen);
-  extern int gsasl_nonce (char *data, size_t datalen);
-  extern int gsasl_random (char *data, size_t datalen);
-  extern int gsasl_md5 (const char *in, size_t inlen, char *out[16]);
-  extern int gsasl_hmac_md5 (const char *key, size_t keylen,
+  extern GSASL_API int gsasl_nonce (char *data, size_t datalen);
+  extern GSASL_API int gsasl_random (char *data, size_t datalen);
+  extern GSASL_API int gsasl_md5 (const char *in, size_t inlen, char *out[16]);
+  extern GSASL_API int gsasl_hmac_md5 (const char *key, size_t keylen,
 			     const char *in, size_t inlen, char *outhash[16]);
-  extern void gsasl_free (void *ptr);
+  extern GSASL_API void gsasl_free (void *ptr);
 
   /* Get the mechanism API. */
 # include <gsasl-mech.h>
