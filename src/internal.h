@@ -35,8 +35,7 @@
 
 #include <sys/types.h>
 #include <sys/socket.h>	/* for AF_INET */
-#include <sys/select.h> /* select() */
-#include <sys/time.h>	/* select() */
+#include <poll.h>       /* poll() */
 #include <unistd.h>
 #include <netinet/in.h>
 #ifdef HAVE_NETDB_H

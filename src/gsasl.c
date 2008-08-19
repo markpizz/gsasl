@@ -696,19 +696,37 @@ main (int argc, char *argv[])
       /* Transfer application payload */
       if (args_info.application_data_flag)
 	{
-	  fd_set readfds;
+	  struct pollfd pfd[2];
 
-	  FD_ZERO (&readfds);
-	  FD_SET (STDIN_FILENO, &readfds);
+	  /* Setup pollfd structs... */
+	  pfd[0].fd = STDIN_FILENO;
+	  pfd[0].events = POLLIN;
 	  if (sockfd)
-	    FD_SET (sockfd, &readfds);
+	    {
+	      pfd[1].fd = sockfd;
+	      pfd[1].events = POLLIN | POLLOUT;
+	    }
 
 	  if (!args_info.quiet_given)
 	    fprintf (stderr, _("Enter application data (EOF to finish):\n"));
 
-	  while (select (sockfd + 1, &readfds, NULL, NULL, NULL))
+	  while (1)
 	    {
-	      if (FD_ISSET (STDIN_FILENO, &readfds))
+	      int rc;
+
+	      pfd[0].revents = 0;
+	      pfd[1].revents = 0;
+
+	      rc = poll (pfd, sockfd ? 2 : 1, -1);
+	      if (rc < 0 && errno == EINTR)
+		continue;
+
+	      /* Always check for errors */
+	      if (rc < 0)
+		error (EXIT_FAILURE, errno, "poll");
+
+	      /* We got data to read from stdin.. */
+	      if ((pfd[0].revents & (POLLIN | POLLERR)) == POLLIN)
 		{
 		  char input[MAX_LINE_LENGTH];
 
@@ -760,18 +778,20 @@ main (int argc, char *argv[])
 
 		  free (out);
 		}
+	      /* If there was an error, quit.  */
+	      else if (pfd[0].revents & (POLLERR | POLLHUP))
+		break;
 
-	      if (sockfd && FD_ISSET (sockfd, &readfds))
+	      /* We got data to read from the socket.. */
+	      if (sockfd && (pfd[1].revents & (POLLIN | POLLERR)) == POLLIN)
 		{
 		  if (!readln (&in))
 		    break;
 		  free (in);
 		}
-
-	      FD_ZERO (&readfds);
-	      FD_SET (STDIN_FILENO, &readfds);
-	      if (sockfd)
-		FD_SET (sockfd, &readfds);
+	      /* If there was an error, quit.  */
+	      else if (pfd[1].revents & (POLLERR | POLLHUP))
+		break;
 	    }
 
 	  if (res != GSASL_OK)
