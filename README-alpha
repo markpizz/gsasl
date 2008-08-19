@@ -1,5 +1,5 @@
 GNU SASL README-alpha -- Important introductory notes for alpha releases.
-Copyright (C) 2003, 2004, 2007 Simon Josefsson
+Copyright (C) 2003, 2004, 2007, 2008 Simon Josefsson
 See the end for copying conditions.
 
 GNU SASL is unstable.  You should expect it to not work.  You should
@@ -14,14 +14,11 @@ is made.  Volunteers needed.
 It will not become stable without help.  Donate time or money.
 
 To compile from version controlled sources rather than a
-libgsasl-*.tar.gz archive, you may need fairly recent versions of
-perl, texinfo (4.7), GTK-DOC, gengetopt (2.12), libtool (1.5.2),
-autoconf (2.61), and automake (1.10).  Bootstrap the build environment
-with:
+gsasl-*.tar.gz archive, you may need fairly recent versions of perl,
+texinfo (4.7), GTK-DOC, gengetopt (2.12), libtool (1.5.2), autoconf
+(2.61), and automake (1.10).  Bootstrap the build environment with:
 
-  $ ./autogen.sh
-
-Then run ./configure etc as usual.
+  $ make
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
