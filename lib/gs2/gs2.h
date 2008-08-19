@@ -29,14 +29,12 @@
 
 extern Gsasl_mechanism gsasl_gs2_krb5_mechanism;
 
-extern int _gsasl_gs2_client_start (Gsasl_session * sctx,
-				    void **mech_data);
+extern int _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data);
 extern int _gsasl_gs2_client_step (Gsasl_session * sctx,
 				   void *mech_data,
 				   const char *input, size_t input_len,
 				   char **output, size_t * output_len);
-extern void _gsasl_gs2_client_finish (Gsasl_session * sctx,
-				      void *mech_data);
+extern void _gsasl_gs2_client_finish (Gsasl_session * sctx, void *mech_data);
 extern int _gsasl_gs2_client_encode (Gsasl_session * sctx,
 				     void *mech_data,
 				     const char *input, size_t input_len,
@@ -46,13 +44,11 @@ extern int _gsasl_gs2_client_decode (Gsasl_session * sctx,
 				     const char *input, size_t input_len,
 				     char **output, size_t * output_len);
 
-extern int _gsasl_gs2_server_start (Gsasl_session * sctx,
-				    void **mech_data);
+extern int _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data);
 extern int _gsasl_gs2_server_step (Gsasl_session * sctx,
 				   void *mech_data,
 				   const char *input, size_t input_len,
 				   char **output, size_t * output_len);
-extern void _gsasl_gs2_server_finish (Gsasl_session * sctx,
-				      void *mech_data);
+extern void _gsasl_gs2_server_finish (Gsasl_session * sctx, void *mech_data);
 
 #endif /* GS2_H */

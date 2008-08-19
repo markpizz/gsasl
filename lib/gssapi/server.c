@@ -236,7 +236,8 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
 	}
 
       gsasl_property_set_raw (sctx, GSASL_AUTHZID,
-			      (char*)bufdesc2.value + 4, bufdesc2.length - 4);
+			      (char *) bufdesc2.value + 4,
+			      bufdesc2.length - 4);
 
       maj_stat = gss_display_name (&min_stat, state->client,
 				   &client_name, &mech_type);

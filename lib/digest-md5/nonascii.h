@@ -23,10 +23,8 @@
 #ifndef DIGEST_MD5_NONASCII_H
 # define DIGEST_MD5_NONASCII_H
 
-extern char *
-latin1toutf8 (const char *str);
+extern char *latin1toutf8 (const char *str);
 
-extern char *
-utf8tolatin1ifpossible (const char *passwd);
+extern char *utf8tolatin1ifpossible (const char *passwd);
 
 #endif /* DIGEST_MD5_NONASCII_H */

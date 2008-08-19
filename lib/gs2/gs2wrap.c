@@ -42,7 +42,7 @@
 int
 gs2_parse_request (const char *request, size_t reqlen,
 		   int clientp,
-		   int *qop, size_t *maxbuf, size_t *cblen,
+		   int *qop, size_t * maxbuf, size_t * cblen,
 		   int *cbqops, char **cbdata, char **authzid)
 {
   size_t l;
@@ -56,13 +56,11 @@ gs2_parse_request (const char *request, size_t reqlen,
   if (maxbuf)
     *maxbuf =
       (request[1] << 16) & 0xFF0000 |
-      (request[2] << 8) & 0xFF00 |
-      (request[3]) & 0xFF;
+      (request[2] << 8) & 0xFF00 | (request[3]) & 0xFF;
 
   l = (request[4] << 24) & 0xFF000000 |
     (request[5] << 16) & 0xFF0000 |
-    (request[6] << 8) & 0xFF00 |
-    (request[7]) & 0xFF;
+    (request[6] << 8) & 0xFF00 | (request[7]) & 0xFF;
 
   if (l > 0 && reqlen == 8)
     return -2;

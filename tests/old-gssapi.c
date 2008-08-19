@@ -36,6 +36,7 @@
 static const char *USERNAME[] = {
   "foo", "BABABA", "jas", "hepp", "@"
 };
+
 size_t i;
 
 static int

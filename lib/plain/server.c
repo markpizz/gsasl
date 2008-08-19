@@ -100,8 +100,7 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
     memcpy (passwdz, passwordptr, input_len - (passwordptr - input));
     passwdz[input_len - (passwordptr - input)] = '\0';
 
-    res = gsasl_saslprep (passwdz, GSASL_ALLOW_UNASSIGNED,
-			  &passprep, NULL);
+    res = gsasl_saslprep (passwdz, GSASL_ALLOW_UNASSIGNED, &passprep, NULL);
     free (passwdz);
     if (res != GSASL_OK)
       return res;

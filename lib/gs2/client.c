@@ -78,9 +78,9 @@ _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
 
 int
 _gsasl_gs2_client_step (Gsasl_session * sctx,
-			   void *mech_data,
-			   const char *input, size_t input_len,
-			   char **output, size_t * output_len)
+			void *mech_data,
+			const char *input, size_t input_len,
+			char **output, size_t * output_len)
 {
   _gsasl_gs2_client_state *state = mech_data;
   char clientwrap[4];
@@ -155,8 +155,7 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
 	return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
 
-      if ((ret_flags & GSS_C_PROT_READY_FLAG)
-	  || (maj_stat == GSS_S_COMPLETE))
+      if ((ret_flags & GSS_C_PROT_READY_FLAG) || (maj_stat == GSS_S_COMPLETE))
 	{
 	  puts ("prot_ready");
 	  /* Deal with wrap token here. */
@@ -170,8 +169,7 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 	}
 
       res = gs2_encode (bufdesc2.value, bufdesc2.length,
-			NULL, 0,
-			output, output_len);
+			NULL, 0, output, output_len);
       if (res < 0)
 	return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
 
@@ -189,19 +187,19 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 
     case 2:
       /* [RFC 2222 section 7.2.1]:
-	 The client passes this token to GSS_Unwrap and interprets the
-	 first octet of resulting cleartext as a bit-mask specifying
-	 the security layers supported by the server and the second
-	 through fourth octets as the maximum size output_message to
-	 send to the server.  The client then constructs data, with
-	 the first octet containing the bit-mask specifying the
-	 selected security layer, the second through fourth octets
-	 containing in network byte order the maximum size
-	 output_message the client is able to receive, and the
-	 remaining octets containing the authorization identity.  The
-	 client passes the data to GSS_Wrap with conf_flag set to
-	 FALSE, and responds with the generated output_message.  The
-	 client can then consider the server authenticated. */
+         The client passes this token to GSS_Unwrap and interprets the
+         first octet of resulting cleartext as a bit-mask specifying
+         the security layers supported by the server and the second
+         through fourth octets as the maximum size output_message to
+         send to the server.  The client then constructs data, with
+         the first octet containing the bit-mask specifying the
+         selected security layer, the second through fourth octets
+         containing in network byte order the maximum size
+         output_message the client is able to receive, and the
+         remaining octets containing the authorization identity.  The
+         client passes the data to GSS_Wrap with conf_flag set to
+         FALSE, and responds with the generated output_message.  The
+         client can then consider the server authenticated. */
 
       bufdesc.length = input_len;
       bufdesc.value = (void *) input;
@@ -296,9 +294,9 @@ _gsasl_gs2_client_finish (Gsasl_session * sctx, void *mech_data)
 
 int
 _gsasl_gs2_client_encode (Gsasl_session * sctx,
-			     void *mech_data,
-			     const char *input, size_t input_len,
-			     char **output, size_t * output_len)
+			  void *mech_data,
+			  const char *input, size_t input_len,
+			  char **output, size_t * output_len)
 {
   _gsasl_gs2_client_state *state = mech_data;
   OM_uint32 min_stat, maj_stat;
@@ -351,9 +349,9 @@ _gsasl_gs2_client_encode (Gsasl_session * sctx,
 
 int
 _gsasl_gs2_client_decode (Gsasl_session * sctx,
-			     void *mech_data,
-			     const char *input, size_t input_len,
-			     char **output, size_t * output_len)
+			  void *mech_data,
+			  const char *input, size_t input_len,
+			  char **output, size_t * output_len)
 {
   _gsasl_gs2_client_state *state = mech_data;
   OM_uint32 min_stat, maj_stat;

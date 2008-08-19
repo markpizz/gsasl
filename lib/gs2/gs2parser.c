@@ -45,14 +45,12 @@ gs2_parser (const char *token, size_t toklen, struct gs2_token *out)
   context_length =
     (token[0] << 24) & 0xFF000000 |
     (token[1] << 16) & 0xFF0000 |
-    (token[2] << 8) & 0xFF00 |
-    (token[3]) & 0xFF;
+    (token[2] << 8) & 0xFF00 | (token[3]) & 0xFF;
 
   wrap_length =
     (token[4] << 24) & 0xFF000000 |
     (token[5] << 16) & 0xFF0000 |
-    (token[6] << 8) & 0xFF00 |
-    (token[7]) & 0xFF;
+    (token[6] << 8) & 0xFF00 | (token[7]) & 0xFF;
 
   /* Check that lengths are not out of bounds. */
   if (context_length > toklen || wrap_length > toklen ||
@@ -84,8 +82,7 @@ gs2_parser (const char *token, size_t toklen, struct gs2_token *out)
    negative on failures (i.e., the input is invalid). */
 int
 gs2_encode (const char *context, size_t context_length,
-	    const char *wrap, size_t wrap_length,
-	    char **out, size_t *outlen)
+	    const char *wrap, size_t wrap_length, char **out, size_t * outlen)
 {
   size_t totlen = 4 + context_length + wrap_length;
   uint32_t ctxlen;

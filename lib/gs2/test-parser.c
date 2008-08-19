@@ -1,5 +1,5 @@
 /* test-parser.c --- Self tests of GS2 parser & printer.
- * Copyright (C) 2006, 2007  Simon Josefsson
+ * Copyright (C) 2006, 2007, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -32,7 +32,8 @@
 #define DATA "\x41"
 #define DATA2 "\x42"
 
-struct {
+struct
+{
   char *name;
   char *token;
   size_t length;

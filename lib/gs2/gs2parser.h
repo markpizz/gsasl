@@ -25,7 +25,8 @@
 
 #include <string.h>
 
-struct gs2_token {
+struct gs2_token
+{
   const char *context_token;
   size_t context_length;
   const char *wrap_token;
@@ -37,6 +38,6 @@ extern int gs2_parser (const char *token, size_t toklen,
 
 extern int gs2_encode (const char *context, size_t context_length,
 		       const char *wrap, size_t wrap_length,
-		       char **out, size_t *outlen);
+		       char **out, size_t * outlen);
 
 #endif /* GS2_PARSER_H */

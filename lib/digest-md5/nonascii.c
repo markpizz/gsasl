@@ -94,7 +94,7 @@ utf8tolatin1ifpossible (const char *passwd)
 	      /* p[i+1] can't be zero here */
 	      p[j++] =
 		((to_uchar (passwd[i]) & 0x3) << 6)
-		| (to_uchar (passwd[i+1]) & 0x3F);
+		| (to_uchar (passwd[i + 1]) & 0x3F);
 	      i++;
 	    }
 	  else

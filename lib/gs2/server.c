@@ -121,9 +121,9 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
 
 int
 _gsasl_gs2_server_step (Gsasl_session * sctx,
-			   void *mech_data,
-			   const char *input, size_t input_len,
-			   char **output, size_t * output_len)
+			void *mech_data,
+			const char *input, size_t input_len,
+			char **output, size_t * output_len)
 {
   _Gsasl_gs2_server_state *state = mech_data;
   gss_buffer_desc bufdesc1, bufdesc2;
@@ -182,8 +182,7 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 	}
 
       res = gs2_encode (bufdesc2.value, bufdesc2.length,
-			NULL, 0,
-			output, output_len);
+			NULL, 0, output, output_len);
       if (res < 0)
 	return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
 
@@ -252,7 +251,8 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 	}
 
       gsasl_property_set_raw (sctx, GSASL_AUTHZID,
-			      (char*)bufdesc2.value + 4, bufdesc2.length - 4);
+			      (char *) bufdesc2.value + 4,
+			      bufdesc2.length - 4);
 
       maj_stat = gss_display_name (&min_stat, state->client,
 				   &client_name, &mech_type);
