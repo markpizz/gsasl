@@ -25,6 +25,12 @@ pkgconfig_DATA = libgsasl.pc
 
 EXTRA_DIST = cfg.mk maint.mk
 
+# Visual Studio project files.
+EXTRA_DIST += README.win32 win32/libgsasl.sln win32/libgsasl.vcproj	\
+	win32/include/ac-stdint.h win32/include/alloca.h		\
+	win32/include/gen-win32-headers.pl win32/include/idn-int.h	\
+	win32/include/stdbool.h win32/include/stdint.h
+
 SUBDIRS = po gl gltests
 
 # Plugins:
