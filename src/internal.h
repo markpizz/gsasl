@@ -21,7 +21,7 @@
 #ifndef _INTERNAL_H
 #define _INTERNAL_H
 
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
 
