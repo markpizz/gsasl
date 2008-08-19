@@ -1,5 +1,5 @@
 /* gsasl-compat.h --- Header file for obsoleted features in GNU SASL Library.
- * Copyright (C) 2002, 2003, 2004, 2005  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -29,19 +29,6 @@
 #  define __attribute__(Spec)	/* empty */
 # endif
 #endif
-
-/* GSASL Windows DLL */
-#ifndef GSASL_API
-# if defined(_WIN32) && !defined(GSASL_STATIC)
-#  ifdef GSASL_EXPORTS
-#   define GSASL_API  __declspec(dllexport)
-#  else	/* GSASL_EXPORTS */
-#   define GSASL_API  __declspec(dllimport)
-#  endif /* GSASL_EXPORTS */
-# else /* _WIN32 && !GSASL_STATIC */
-#  define GSASL_API
-# endif	/* _WIN32 && !GSASL_STATIC */
-#endif /* GSASL_API */
 
 /* Old error codes */
 enum
