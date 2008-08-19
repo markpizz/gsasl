@@ -17,6 +17,8 @@
 
 CFGFLAGS ?= --enable-gtk-doc
 
+INDENT_SOURCES = `find . -name \*.c -or -name \*.h | grep -v -e /gl -e build-aux -e /win32/`
+
 ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 .DEFAULT_GOAL := bootstrap
 endif
