@@ -24,7 +24,7 @@
 #include "striconv.h"
 #include "readline.h"
 
-#include <langinfo.h> /* For nl_langinfo. */
+#include <langinfo.h>		/* For nl_langinfo. */
 
 static char *
 locale_to_utf8 (char *str)

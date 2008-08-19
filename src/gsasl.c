@@ -314,8 +314,8 @@ main (int argc, char *argv[])
     WSADATA wsaData;
     int r;
 
-    wVersionRequested = MAKEWORD(2, 0);
-    r = WSAStartup( wVersionRequested, &wsaData);
+    wVersionRequested = MAKEWORD (2, 0);
+    r = WSAStartup (wVersionRequested, &wsaData);
     if (r)
       error (EXIT_FAILURE, 0, _("Cannot initialize Windows sockets."));
   }
@@ -603,7 +603,8 @@ main (int argc, char *argv[])
     }
 #endif
 
-  if (args_info.client_flag || args_info.client_given || args_info.server_given)
+  if (args_info.client_flag || args_info.client_given
+      || args_info.server_given)
     {
       char *out;
       char *b64output;
