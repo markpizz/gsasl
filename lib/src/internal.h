@@ -1,5 +1,5 @@
 /* internal.h --- Internal header with hidden library handle structures.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -23,7 +23,7 @@
 #ifndef INTERNAL_H
 # define INTERNAL_H
 
-# if HAVE_CONFIG_H
+# ifdef HAVE_CONFIG_H
 #  include "config.h"
 # endif
 
