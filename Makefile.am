@@ -48,8 +48,4 @@ release:
 	git-push
 	git-push --tags
 	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
-	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig $(htmldir)/releases/
-	cd $(htmldir) && \
-		cvs add -kb releases/$(distdir).tar.gz \
-			releases/$(distdir).tar.gz.sig && \
-		cvs commit -m "Update." manual/ reference/ doxygen/ releases/
+	cd $(htmldir) && cvs commit -m "Update." manual/ reference/ doxygen/
