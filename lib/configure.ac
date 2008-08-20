@@ -237,7 +237,7 @@ elif test "$gssapi_impl" != "no" ; then
     AC_MSG_NOTICE([Use --with-gssapi-impl=mit or --with-gssapi-impl=heimdal.])
     gssapi_impl=no
   else
-    AC_MSG_WARN([GNU GSS not found (see http://josefsson.org/gss/)...])
+    AC_MSG_WARN([GNU GSS not found (see http://www.gnu.org/software/gss/)...])
     AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
     if test "$KRB5_CONFIG" != "no" ; then
       AC_MSG_NOTICE([MIT/Heimdal found])
