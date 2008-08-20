@@ -37,6 +37,11 @@ doit (void)
   int res;
   const char *p;
 
+  p = gsasl_mechanism_name (NULL);
+  if (p != NULL)
+    fail ("gsasl_mechanism_name (NULL) failed: %s\n", p);
+  success ("gsasl_mechanism_name (NULL) ok\n");
+
   res = gsasl_init (&ctx);
   if (res != GSASL_OK)
     {
