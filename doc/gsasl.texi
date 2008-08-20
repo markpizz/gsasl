@@ -1762,6 +1762,7 @@ data in your callback by calling @code{gsasl_callback_hook_get}.
 @include texi/xstep.c.texi
 @include texi/xfinish.c.texi
 @include texi/xcode.c.texi
+@include texi/mechname.c.texi
 
 
 

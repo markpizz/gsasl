@@ -246,6 +246,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\mechname.c"
+				>
+			</File>
+			<File
 				RelativePath="..\src\saslprep.c"
 				>
 			</File>

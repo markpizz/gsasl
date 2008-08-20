@@ -34,7 +34,7 @@ libgsasl_la_SOURCES = internal.h \
 	init.c done.c register.c error.c version.c \
 	callback.c property.c \
 	supportp.c suggest.c listmech.c \
-	xstart.c xstep.c xfinish.c xcode.c \
+	xstart.c xstep.c xfinish.c xcode.c mechname.c \
 	base64.c md5pwd.c crypto.c \
 	saslprep.c free.c
 

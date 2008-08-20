@@ -239,13 +239,14 @@ extern "C"
 				     const char *b64input, char **b64output);
   extern GSASL_API void gsasl_finish (Gsasl_session * sctx);
 
-  /* Session functions: xcode.c */
+  /* Session functions: xcode.c, mechname.c */
   extern GSASL_API int gsasl_encode (Gsasl_session * sctx,
 				     const char *input, size_t input_len,
 				     char **output, size_t * output_len);
   extern GSASL_API int gsasl_decode (Gsasl_session * sctx,
 				     const char *input, size_t input_len,
 				     char **output, size_t * output_len);
+  extern GSASL_API const char *gsasl_mechanism_name (Gsasl_session *sctx);
 
   /* Error handling: error.c */
   extern GSASL_API const char *gsasl_strerror (int err);

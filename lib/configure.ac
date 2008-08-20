@@ -27,9 +27,9 @@ AC_CONFIG_AUX_DIR([build-aux])
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
-AC_SUBST(LT_CURRENT, 11)
-AC_SUBST(LT_REVISION, 8)
-AC_SUBST(LT_AGE, 4)
+AC_SUBST(LT_CURRENT, 12)
+AC_SUBST(LT_REVISION, 0)
+AC_SUBST(LT_AGE, 5)
 
 # Used when creating libgsasl-XX.def.
 SOVERSION=`expr ${LT_CURRENT} - ${LT_AGE}`

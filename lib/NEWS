@@ -4,6 +4,9 @@ See the end for copying conditions.
 
 * Version 0.2.28 (unreleased)
 
+** New function to get mechanism name used in current session.
+The function is gsasl_mechanism_name.
+
 ** The library can be built using Visual Studio.
 Patches provided by Adam Strzelecki <ono@java.pl>.  See the manual,
 section 'Installing under Windows', for more information.
@@ -14,7 +17,7 @@ crypto provider.  CryptAcquireContext is now invoked with the
 CRYPT_VERIFY_CONTEXT parameter.
 
 ** API and ABI modifications.
-No changes since last version.
+gsasl_mechanism_name: ADD.
 
 * Version 0.2.27 (released 2008-07-01)
 
