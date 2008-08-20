@@ -23,7 +23,6 @@ AC_CONFIG_AUX_DIR([build-aux])
 
 AM_INIT_AUTOMAKE([1.10])
 AC_CONFIG_HEADERS(config.h)
-AB_INIT
 
 # Checks for programs.
 AC_PROG_CC
