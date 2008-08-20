@@ -1,3 +1,202 @@
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 0.2.28.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: No need to check for sys/poll.h and errno.h.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/m4/autobuild.m4,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, m4/autobuild.m4: Use
+	autobuild from gnulib.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* tests/name.c: Test NULL usage.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Link to new APIs in 0.2.28.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, tests/Makefile.am, tests/name.c: Add self-test for
+	gsasl_mechanism_name.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generated.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, lib/NEWS, lib/configure.ac, lib/src/Makefile.am,
+	lib/src/gsasl.h, lib/src/mechname.c, lib/win32/libgsasl.vcproj: Add
+	gsasl_mechanism_name function.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/gc-gnulib.c: Update gnulib files.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/nonascii.c, lib/digest-md5/nonascii.h,
+	lib/gs2/client.c, lib/gs2/gs2.h, lib/gs2/gs2parser.c,
+	lib/gs2/gs2parser.h, lib/gs2/gs2wrap.c, lib/gs2/server.c,
+	lib/gs2/test-parser.c, lib/gssapi/server.c, lib/plain/server.c,
+	src/internal.h, tests/gssapi.c, tests/old-gssapi.c: Indent.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Add proper INDENT_SOURCE.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c, src/gsasl.c: Indent.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* .clcopying: Update.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/internal.h: Use #ifdef HAVE_CONFIG_H instead of #if
+	HAVE_CONFIG_H.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/anonymous/client.c, lib/anonymous/mechinfo.c,
+	lib/anonymous/server.c, lib/cram-md5/client.c,
+	lib/cram-md5/mechinfo.c, lib/cram-md5/server.c,
+	lib/digest-md5/client.c, lib/digest-md5/digesthmac.c,
+	lib/digest-md5/getsubopt.c, lib/digest-md5/mechinfo.c,
+	lib/digest-md5/nonascii.c, lib/digest-md5/parser.c,
+	lib/digest-md5/printer.c, lib/digest-md5/server.c,
+	lib/digest-md5/session.c, lib/digest-md5/validate.c,
+	lib/external/client.c, lib/external/mechinfo.c,
+	lib/external/server.c, lib/gs2/client.c, lib/gs2/mechinfo.c,
+	lib/gs2/server.c, lib/gssapi/client.c, lib/gssapi/mechinfo.c,
+	lib/gssapi/server.c, lib/login/client.c, lib/login/mechinfo.c,
+	lib/login/server.c, lib/ntlm/mechinfo.c, lib/ntlm/ntlm.c,
+	lib/plain/client.c, lib/plain/mechinfo.c, lib/plain/server.c,
+	lib/securid/client.c, lib/securid/mechinfo.c, lib/securid/server.c,
+	src/internal.h: Use #ifdef HAVE_CONFIG_H instead of #if
+	HAVE_CONFIG_H.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl-compat.h, lib/src/gsasl-mech.h: Remove duplicate
+	GSASL_API definition.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Ignore GSASL_API function decorator.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, src/gsasl.c, src/internal.h: Use poll instead of select.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Dist unistd.h for win32.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/win32/include/unistd.h: Add.
+
+2008-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha, lib/README-alpha, lib/autogen.sh: Upgrade
+	README-alpha stuff.
+
+2008-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/win32/include/gen-win32-headers.pl: Update license.  See
+	discussion in
+
+	<http://news.gmane.org/find-root.php?message_id=%3c824CED64%2dD5F3%2d4626%2dA030%2d3D5A1F25663B%40java.pl%3e>and
+
+	<http://news.gmane.org/find-root.php?message_id=%3cBB01BC68%2dA998%2d4E91%2d9501%2d7691BB7BBFC3%40java.pl%3e>.
+
+2008-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, lib/Makefile.am, lib/README.win32: Move Windows
+	instructions into the manual.
+
+2008-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2008-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Dist win32 files.
+
+2008-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl-compat.h, lib/src/gsasl-mech.h, lib/src/gsasl.h: 
+	Indent.
+
+2008-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl-compat.h, lib/src/gsasl-mech.h, lib/src/gsasl.h: Add
+	Visual Studio patches.  From Adam Strzelecki <ono@java.pl>.
+
+2008-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/README.win32, lib/win32/include/ac-stdint.h,
+	lib/win32/include/alloca.h, lib/win32/include/gen-win32-headers.pl,
+	lib/win32/include/idn-int.h, lib/win32/include/stdbool.h,
+	lib/win32/include/stdint.h, lib/win32/libgsasl.sln,
+	lib/win32/libgsasl.vcproj: Add Visual Studio patches.  From Adam
+	Strzelecki <ono@java.pl>.
+
+2008-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2008-08-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/gc-gnulib.c, lib/gl/m4/lock.m4: Update gnulib files.
+
+2008-08-06  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, lib/GNUmakefile: Update gnulib files.
+
+2008-08-04  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/m4/gnulib-comp.m4, gl/vasnprintf.c,
+	lib/GNUmakefile, lib/gl/m4/gnulib-comp.m4, lib/gl/vasnprintf.c: 
+	Update gnulib files.
+
+2008-07-02  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Bump version.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Bump versions.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Reorder release target.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: No need to git-push here.
+
+2008-07-01  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2008-07-01  Simon Josefsson <simon@josefsson.org>
 
 	* lib/ChangeLog: Generated.
@@ -12425,8 +12624,10 @@
 
 	* Initial release, version 0.0.0.
 
-----------------------------------------------------------------------
-	Copyright 2002, 2003, 2004 Simon Josefsson
+	-----
+
+	Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Simon Josefsson
+
 	Copying and distribution of this file, with or without
-	modification, are permitted in any medium without royalty
-	provided the copyright notice and this notice are preserved.
+	modification, are permitted provided the copyright notice
+	and this notice are preserved.
