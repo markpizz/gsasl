@@ -11,6 +11,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 ** gsasl: Rewrite to use poll instead of select.
 Will allow easier porting to Mingw32 in the future.
 
+** doc: Improve Windows installation instructions in the manual.
+
 ** tests: New self test of gsasl_mechanism_name function.
 
 * Version 0.2.27 (released 2008-07-01)
