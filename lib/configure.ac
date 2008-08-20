@@ -20,7 +20,7 @@ dnl Process this file with autoconf to produce a configure script.
 # MA 02110-1301, USA.
 
 AC_PREREQ(2.61)
-AC_INIT([libgsasl], [0.2.28], [bug-gsasl@gnu.org])
+AC_INIT([libgsasl], [0.2.29], [bug-gsasl@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 
 # Library code modified:                              REVISION++
@@ -28,7 +28,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 AC_SUBST(LT_CURRENT, 12)
-AC_SUBST(LT_REVISION, 0)
+AC_SUBST(LT_REVISION, 1)
 AC_SUBST(LT_AGE, 5)
 
 # Used when creating libgsasl-XX.def.
