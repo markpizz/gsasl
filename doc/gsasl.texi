@@ -273,11 +273,11 @@ The NTLM mechanism requires the library LibNTLM,
 
 @item GSS-API
 The GSS-API mechanism requires a GSS-API library, such as GNU GSS
-(@url{http://josefsson.org/gss/}), MIT Kerberos or Heimdal.
+(@url{http://www.gnu.org/software/gss/}), MIT Kerberos or Heimdal.
 
 @item LibIDN
 Processing of non-ASCII username and passwords requires the SASLprep
-implementation in GNU LibIDN (@url{http://josefsson.org/libidn/}).
+implementation in LibIDN (@url{http://www.gnu.org/software/libidn/}).
 This is needed for full conformance with the latest SASL protocol
 drafts, but is optional in the library for improved portability.
 
@@ -290,8 +290,8 @@ machines which have libgcrypt installed.
 
 The command-line interface to GNU SASL requires a POSIX or Windows
 platform for network connectivity.  The command-line tool can make use
-of GnuTLS (@url{http://josefsson.org/gnutls/}) to support the STARTTLS
-modes of IMAP and SMTP, but GnuTLS is not required.
+of GnuTLS (@url{http://www.gnutls.org/}) to support the STARTTLS modes
+of IMAP and SMTP, but GnuTLS is not required.
 
 Note that the library does not need a POSIX platform or network
 connectivity.
@@ -477,7 +477,7 @@ be mentioned here, contact the author (@pxref{Bug Reports}).
 
 The package can be downloaded from several places, including:
 
-@url{http://josefsson.org/gsasl/releases/}
+@url{ftp://alpha.gnu.org/pub/gnu/gsasl/}
 
 The latest version is stored in a file, e.g.,
 @samp{gsasl-@value{VERSION}.tar.gz} where the @samp{@value{VERSION}}
@@ -493,7 +493,7 @@ and install the package.  You will need a few basic tools, such as
 @samp{sh}, @samp{make} and @samp{cc}.
 
 @example
-$ wget -q http://josefsson.org/gsasl/releases/gsasl-@value{VERSION}.tar.gz
+$ wget -q ftp://alpha.gnu.org/pub/gnu/gsasl/gsasl-@value{VERSION}.tar.gz
 $ tar xfz gsasl-@value{VERSION}.tar.gz
 $ cd gsasl-@value{VERSION}/
 $ ./configure
