@@ -22,7 +22,7 @@
 
 #include "internal.h"
 
-#include <strverscmp.h>
+#include <string.h> /* for strverscmp */
 
 /**
  * gsasl_check_version:
