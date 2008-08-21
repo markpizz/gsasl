@@ -137,6 +137,14 @@ EXTRA_DIST += test-string.c
 
 ## end   gnulib module string-tests
 
+## begin gnulib module strverscmp-tests
+
+TESTS += test-strverscmp
+check_PROGRAMS += test-strverscmp
+EXTRA_DIST += test-strverscmp.c
+
+## end   gnulib module strverscmp-tests
+
 ## begin gnulib module unistd-tests
 
 TESTS += test-unistd

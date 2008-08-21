@@ -88,6 +88,7 @@ AC_DEFUN([gl_INIT],
   gl_STRING_MODULE_INDICATOR([strdup])
   gl_HEADER_STRING_H
   gl_FUNC_STRVERSCMP
+  gl_STRING_MODULE_INDICATOR([strverscmp])
   gl_UNISTD_H
   gl_FUNC_VASNPRINTF
   gl_FUNC_VASPRINTF
@@ -264,7 +265,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/strdup.c
   lib/string.in.h
   lib/strverscmp.c
-  lib/strverscmp.h
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
@@ -321,6 +321,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strdup.m4
   m4/string_h.m4
   m4/strverscmp.m4
+  m4/threadlib.m4
   m4/uintmax_t.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
@@ -343,6 +344,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-stdio.c
   tests/test-stdlib.c
   tests/test-string.c
+  tests/test-strverscmp.c
   tests/test-unistd.c
   tests/test-vasnprintf.c
   tests/test-vasprintf.c
