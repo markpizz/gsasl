@@ -92,6 +92,7 @@ AC_DEFUN([gl_INIT],
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   gl_HEADER_NETINET_IN
   AC_PROG_MKDIR_P
+  gl_FUNC_POLL
   gl_QUOTE
   gl_QUOTEARG
   gl_FUNC_READLINE
@@ -307,6 +308,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/lseek.c
   lib/malloc.c
   lib/netinet_in.in.h
+  lib/poll.c
+  lib/poll.in.h
   lib/printf-args.c
   lib/printf-args.h
   lib/printf-parse.c
@@ -381,6 +384,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mbrtowc.m4
   m4/mbstate_t.m4
   m4/netinet_in_h.m4
+  m4/poll.m4
   m4/printf.m4
   m4/quote.m4
   m4/quotearg.m4
