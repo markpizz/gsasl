@@ -80,22 +80,3 @@ SUBDIRS += kerberos_v5
 endif
 
 SUBDIRS += src
-
-# Maintainer targets
-
-ChangeLog:
-	git log --pretty --numstat --summary | git2cl > ChangeLog
-	cat ../.clcopying >> ChangeLog
-
-htmldir = ../../www-gsasl
-
-release:
-	rm -f ChangeLog
-	$(MAKE) ChangeLog distcheck
-	git commit -m Generated. ChangeLog
-	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
-	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig $(htmldir)/releases/
-	cd $(htmldir) && \
-		cvs add -kb releases/$(distdir).tar.gz \
-			releases/$(distdir).tar.gz.sig && \
-		cvs commit -m "Update." releases/

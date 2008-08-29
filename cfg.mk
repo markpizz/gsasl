@@ -59,7 +59,7 @@ tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
 release: upload webdocs
 
 upload:
-	cd lib && make release
+	cd lib && make upload
 	! git-tag -l $(tag) | grep $(PACKAGE) > /dev/null
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck

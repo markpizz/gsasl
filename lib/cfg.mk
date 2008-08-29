@@ -47,3 +47,14 @@ W32ROOT ?= $(HOME)/w32root
 
 mingw32: autoreconf 
 	./configure $(CFGFLAGS) --host=i586-mingw32msvc --build=`./config.guess` --prefix=$(W32ROOT)
+
+ChangeLog:
+	git2cl > ChangeLog
+	cat ../.clcopying >> ChangeLog
+
+upload:
+	rm -f ChangeLog
+	$(MAKE) ChangeLog distcheck
+	git commit -m Generated. ChangeLog
+	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
+	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig ../../releases/gsasl/
