@@ -69,7 +69,6 @@ upload:
 	git-push --tags
 	build-aux/gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
-	make webdocs
 
 webdocs:
 	cd doc && env MAKEINFO="makeinfo -I ../examples" \
