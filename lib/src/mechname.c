@@ -35,7 +35,7 @@
  * Since: 0.2.28
  **/
 const char *
-gsasl_mechanism_name (Gsasl_session *sctx)
+gsasl_mechanism_name (Gsasl_session * sctx)
 {
   if (!sctx || !sctx->mech)
     return NULL;

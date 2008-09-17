@@ -246,7 +246,7 @@ extern "C"
   extern GSASL_API int gsasl_decode (Gsasl_session * sctx,
 				     const char *input, size_t input_len,
 				     char **output, size_t * output_len);
-  extern GSASL_API const char *gsasl_mechanism_name (Gsasl_session *sctx);
+  extern GSASL_API const char *gsasl_mechanism_name (Gsasl_session * sctx);
 
   /* Error handling: error.c */
   extern GSASL_API const char *gsasl_strerror (int err);

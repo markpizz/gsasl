@@ -29,13 +29,16 @@
 
 #include "utils.h"
 
-static const struct {
+static const struct
+{
   char *sendauthzid;
   char *recvauthzid;
   int clientrc;
   int callbackrc;
   int serverrc;
-} tv[] = {
+} tv[] =
+{
+  /* *INDENT-OFF* */
   { NULL, "", GSASL_OK, GSASL_OK, GSASL_OK },
   { "", "", GSASL_OK, GSASL_OK, GSASL_OK },
   { "foo", "foo", GSASL_OK, GSASL_OK, GSASL_OK },
@@ -43,6 +46,7 @@ static const struct {
   { "foo\0bar", "foo", GSASL_OK, GSASL_OK, GSASL_OK },
   { "foo\0bar", "foo", GSASL_OK, GSASL_AUTHENTICATION_ERROR,
     GSASL_AUTHENTICATION_ERROR }
+  /* *INDENT-ON* */
 };
 
 static int

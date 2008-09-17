@@ -42,8 +42,9 @@ struct
   size_t expected_context_length;
   char *expected_wrap;
   size_t expected_wrap_length;
-} tv[] = {
-#if 1
+} tv[] =
+{
+  /* *INDENT-OFF* */
   { "string0", "foobarbaz", 0, -1 },
   { "string1", "foobarbaz", 1, -1 },
   { "string2", "foobarbaz", 2, -1 },
@@ -66,7 +67,7 @@ struct
   { "size-one-overlong3", ONE ONE DATA DATA DATA, 11, -1 },
   { "size-two", TWO TWO DATA DATA2 DATA DATA2, 12, 0,
     DATA DATA2, 2, DATA2 DATA, 2 },
-#endif
+  /* *INDENT-ON* */
 };
 
 int
@@ -96,9 +97,7 @@ main (int argc, char *argv[])
 		  tv[i].expected_context_length,
 		  tv[i].expected_context,
 		  tv[i].expected_context_length,
-		  tok.context_length,
-		  tok.context_token,
-		  tok.context_length);
+		  tok.context_length, tok.context_token, tok.context_length);
 	  abort ();
 	}
     }

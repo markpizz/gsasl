@@ -1,5 +1,5 @@
 /* mechinfo.c --- Definition of SECURID mechanism.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -48,7 +48,8 @@ Gsasl_mechanism gsasl_securid_mechanism = {
    NULL,
 #endif
    NULL,
-   NULL},
+   NULL}
+  ,
   {
    NULL,
    NULL,
