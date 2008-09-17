@@ -122,10 +122,11 @@ fits in under 60kb on an Intel x86 platform, without any modifications
 to the code.  (This figure was accurate as of version 0.0.13.)
 
 The library is licensed under the GNU Lesser General Public License
-version 2.1.  The command-line application (src/), examples
+version 2.1 or later.  The command-line application (src/), examples
 (examples/), self-test suite (tests/) are licensed under the GNU
-General Public License license version 3.0.  The documentation (doc/)
-is licensed under the GNU Free Documentation License version 1.2.
+General Public License license version 3.0 or later.  The
+documentation (doc/) is licensed under the GNU Free Documentation
+License version 1.2 or later.
 
 @float Illustration,fig:abstraction
 @image{abstraction,10cm,5cm}
@@ -175,8 +176,8 @@ a similar job.
 @table @asis
 @item It's Free Software
 Anybody can use, modify, and redistribute it under the terms of the
-GNU General Public License version 3.0.  The library can also be
-distributed under the GNU Lesser General Public License version 2.1.
+GNU General Public License version 3.0 or later.  The library uses the
+GNU Lesser General Public License version 2.1 or later.
 
 @item It's thread-safe
 No global variables are used and multiple library handles and session
