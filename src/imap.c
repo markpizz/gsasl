@@ -1,5 +1,5 @@
 /* imap.c --- Implement IMAP profile of SASL login.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -36,7 +36,7 @@ imap_greeting (void)
 int
 imap_has_starttls (void)
 {
-  char *in, *capa;
+  char *in;
   int has_tls = 0;
 
   if (!writeln (". CAPABILITY"))

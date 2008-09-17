@@ -1,5 +1,5 @@
 /* test-parser.c --- Self tests of DIGEST-MD5 parser & printer.
- * Copyright (C) 2004, 2006  Simon Josefsson
+ * Copyright (C) 2004, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -171,7 +171,7 @@ main (int argc, char *argv[])
     rc = digest_md5_parse_finish (token, 0, &f);
     if (rc == 0)
       abort ();
-    printf ("invalid? PASS\n", token);
+    printf ("invalid? PASS\n");
   }
 
   memset (buf16, 'Q', 16);
