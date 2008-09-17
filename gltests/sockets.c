@@ -1,4 +1,5 @@
-/* Test of EOVERFLOW macro.
+/* sockets.c --- wrappers for Windows socket functions
+
    Copyright (C) 2008 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -14,19 +15,43 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
+/* Written by Simon Josefsson */
+
 #include <config.h>
 
-#include <errno.h>
+/* This includes winsock2.h on MinGW. */
+#include <sys/socket.h>
 
-/* Check that it can be used as an initializer outside of a function.  */
-static int err = EOVERFLOW;
+#include "sockets.h"
 
 int
-main ()
+gl_sockets_startup (int version)
 {
-  /* snprintf() callers want to distinguish EINVAL and EOVERFLOW.  */
-  if (err == EINVAL)
+#if WINDOWS_SOCKETS
+  WSADATA data;
+  int err;
+
+  err = WSAStartup (version, &data);
+  if (err != 0)
     return 1;
+
+  if (data.wVersion < version)
+    return 2;
+#endif
+
+  return 0;
+}
+
+int
+gl_sockets_cleanup (void)
+{
+#if WINDOWS_SOCKETS
+  int err;
+
+  err = WSACleanup ();
+  if (err != 0)
+    return 1;
+#endif
 
   return 0;
 }

@@ -49,10 +49,10 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl'
-  gl_EOVERFLOW
   gl_FUNC_ALLOCA
   gl_HEADER_ARPA_INET
   AC_PROG_MKDIR_P
+  gl_HEADER_ERRNO_H
   gl_ERROR
   m4_ifdef([AM_XGETTEXT_OPTION],
     [AM_XGETTEXT_OPTION([--flag=error:3:c-format])
@@ -169,6 +169,10 @@ AC_DEFUN([gl_INIT],
   gl_source_base='gltests'
   gt_LOCALE_FR
   gt_LOCALE_TR_UTF8
+  gl_INET_PTON
+  gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
+  AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
+  gl_SOCKETS
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
   AC_CHECK_FUNCS([shutdown])
@@ -278,6 +282,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/c-strcase.h
   lib/c-strcasecmp.c
   lib/c-strncasecmp.c
+  lib/errno.in.h
   lib/error.c
   lib/error.h
   lib/exitfail.c
@@ -353,7 +358,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/alloca.m4
   m4/arpa_inet_h.m4
   m4/autobuild.m4
-  m4/eoverflow.m4
+  m4/errno_h.m4
   m4/error.m4
   m4/exitfail.m4
   m4/extensions.m4
@@ -370,6 +375,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/iconv_open.m4
   m4/include_next.m4
   m4/inet_ntop.m4
+  m4/inet_pton.m4
   m4/inline.m4
   m4/intmax_t.m4
   m4/inttypes_h.m4
@@ -392,6 +398,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/realloc.m4
   m4/size_max.m4
   m4/snprintf.m4
+  m4/sockets.m4
   m4/socklen.m4
   m4/sockpfaf.m4
   m4/stdarg.m4
@@ -414,13 +421,13 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/wint_t.m4
   m4/xalloc.m4
   m4/xsize.m4
-  tests/test-EOVERFLOW.c
   tests/test-alloca-opt.c
   tests/test-arpa_inet.c
   tests/test-c-ctype.c
   tests/test-c-strcase.sh
   tests/test-c-strcasecmp.c
   tests/test-c-strncasecmp.c
+  tests/test-errno.c
   tests/test-fseeko.c
   tests/test-fseeko.sh
   tests/test-getaddrinfo.c
@@ -430,8 +437,10 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-lseek.c
   tests/test-lseek.sh
   tests/test-netinet_in.c
+  tests/test-poll.c
   tests/test-quotearg.c
   tests/test-snprintf.c
+  tests/test-sockets.c
   tests/test-stdbool.c
   tests/test-stdint.c
   tests/test-stdio.c
@@ -446,7 +455,9 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-vasnprintf.c
   tests/test-wchar.c
   tests/test-wctype.c
-  tests=lib/dummy.c
+  tests=lib/inet_pton.c
+  tests=lib/sockets.c
+  tests=lib/sockets.h
   tests=lib/verify.h
   top/GNUmakefile
   top/maint.mk

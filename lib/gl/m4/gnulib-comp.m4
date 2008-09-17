@@ -42,7 +42,6 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl'
-  gl_EOVERFLOW
   gl_FUNC_ALLOCA
   gl_FUNC_BASE64
   gl_GC
@@ -56,6 +55,7 @@ AC_DEFUN([gl_INIT],
   gl_MODULE_INDICATOR([gc-md5])
   gl_GC_RANDOM
   gl_MODULE_INDICATOR([gc-random])
+  gl_HEADER_ERRNO_H
   gl_FLOAT_H
   gl_FUNC_GETDELIM
   gl_STDIO_MODULE_INDICATOR([getdelim])
@@ -237,6 +237,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/asprintf.c
   lib/base64.c
   lib/base64.h
+  lib/errno.in.h
   lib/float+.h
   lib/float.in.h
   lib/gc-gnulib.c
@@ -274,7 +275,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/alloca.m4
   m4/base64.m4
   m4/codeset.m4
-  m4/eoverflow.m4
+  m4/errno_h.m4
   m4/extensions.m4
   m4/float_h.m4
   m4/gc-hmac-md5.m4
@@ -331,9 +332,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/wchar_t.m4
   m4/wint_t.m4
   m4/xsize.m4
-  tests/test-EOVERFLOW.c
   tests/test-alloca-opt.c
   tests/test-base64.c
+  tests/test-errno.c
   tests/test-gc-hmac-md5.c
   tests/test-gc-md5.c
   tests/test-gc.c

@@ -42,14 +42,6 @@ libtests_a_DEPENDENCIES = $(gltests_LIBOBJS)
 EXTRA_libtests_a_SOURCES =
 AM_LIBTOOLFLAGS = --preserve-dup-deps
 
-## begin gnulib module EOVERFLOW-tests
-
-TESTS += test-EOVERFLOW
-check_PROGRAMS += test-EOVERFLOW
-EXTRA_DIST += test-EOVERFLOW.c
-
-## end   gnulib module EOVERFLOW-tests
-
 ## begin gnulib module alloca-opt-tests
 
 TESTS += test-alloca-opt
@@ -85,6 +77,15 @@ check_PROGRAMS += test-c-strcasecmp test-c-strncasecmp
 EXTRA_DIST += test-c-strcase.sh test-c-strcasecmp.c test-c-strncasecmp.c
 
 ## end   gnulib module c-strcase-tests
+
+## begin gnulib module errno-tests
+
+TESTS += test-errno
+check_PROGRAMS += test-errno
+
+EXTRA_DIST += test-errno.c
+
+## end   gnulib module errno-tests
 
 ## begin gnulib module fseeko-tests
 
@@ -133,6 +134,15 @@ EXTRA_DIST += test-iconv.c
 
 ## end   gnulib module iconv-tests
 
+## begin gnulib module inet_pton
+
+
+EXTRA_DIST += inet_pton.c
+
+EXTRA_libtests_a_SOURCES += inet_pton.c
+
+## end   gnulib module inet_pton
+
 ## begin gnulib module lseek-tests
 
 TESTS += test-lseek.sh
@@ -151,6 +161,14 @@ EXTRA_DIST += test-netinet_in.c
 
 ## end   gnulib module netinet_in-tests
 
+## begin gnulib module poll-tests
+
+TESTS += test-poll
+check_PROGRAMS += test-poll
+EXTRA_DIST += test-poll.c
+
+## end   gnulib module poll-tests
+
 ## begin gnulib module quotearg-tests
 
 TESTS += test-quotearg
@@ -168,6 +186,20 @@ check_PROGRAMS += test-snprintf
 EXTRA_DIST += test-snprintf.c
 
 ## end   gnulib module snprintf-tests
+
+## begin gnulib module sockets
+
+libtests_a_SOURCES += sockets.h sockets.c
+
+## end   gnulib module sockets
+
+## begin gnulib module sockets-tests
+
+TESTS += test-sockets
+check_PROGRAMS += test-sockets
+EXTRA_DIST += test-sockets.c
+
+## end   gnulib module sockets-tests
 
 ## begin gnulib module stdbool-tests
 
@@ -300,12 +332,6 @@ check_PROGRAMS += test-wctype
 EXTRA_DIST += test-wctype.c
 
 ## end   gnulib module wctype-tests
-
-## begin gnulib module dummy
-
-libtests_a_SOURCES += dummy.c
-
-## end   gnulib module dummy
 
 # Clean up after Solaris cc.
 clean-local:
