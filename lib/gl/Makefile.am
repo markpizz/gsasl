@@ -208,15 +208,6 @@ EXTRA_DIST += $(top_srcdir)/maint.mk
 
 ## end   gnulib module maintainer-makefile
 
-## begin gnulib module malloc-posix
-
-
-EXTRA_DIST += malloc.c
-
-EXTRA_libgl_la_SOURCES += malloc.c
-
-## end   gnulib module malloc-posix
-
 ## begin gnulib module realloc-posix
 
 
@@ -478,6 +469,7 @@ string.h: string.in.h
 	      -e 's|@''HAVE_STRVERSCMP''@|$(HAVE_STRVERSCMP)|g' \
 	      -e 's|@''REPLACE_MEMMEM''@|$(REPLACE_MEMMEM)|g' \
 	      -e 's|@''REPLACE_STRCASESTR''@|$(REPLACE_STRCASESTR)|g' \
+	      -e 's|@''REPLACE_STRDUP''@|$(REPLACE_STRDUP)|g' \
 	      -e 's|@''REPLACE_STRSTR''@|$(REPLACE_STRSTR)|g' \
 	      -e 's|@''REPLACE_STRERROR''@|$(REPLACE_STRERROR)|g' \
 	      -e 's|@''REPLACE_STRSIGNAL''@|$(REPLACE_STRSIGNAL)|g' \
@@ -581,6 +573,7 @@ wchar.h: wchar.in.h
 	      -e 's|@''NEXT_WCHAR_H''@|$(NEXT_WCHAR_H)|g' \
 	      -e 's/@''HAVE_WCHAR_H''@/$(HAVE_WCHAR_H)/g' \
 	      -e 's|@''GNULIB_WCWIDTH''@|$(GNULIB_WCWIDTH)|g' \
+	      -e 's/@''HAVE_WINT_T''@/$(HAVE_WINT_T)/g' \
 	      -e 's|@''HAVE_DECL_WCWIDTH''@|$(HAVE_DECL_WCWIDTH)|g' \
 	      -e 's|@''REPLACE_WCWIDTH''@|$(REPLACE_WCWIDTH)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \

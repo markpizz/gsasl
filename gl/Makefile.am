@@ -35,6 +35,17 @@ libgl_la_DEPENDENCIES = $(gl_LTLIBOBJS)
 EXTRA_libgl_la_SOURCES =
 libgl_la_LDFLAGS = $(AM_LDFLAGS)
 
+## begin gnulib module alloca
+
+
+EXTRA_DIST += alloca.c
+
+EXTRA_libgl_la_SOURCES += alloca.c
+
+libgl_la_LIBADD += @LTALLOCA@
+libgl_la_DEPENDENCIES += @LTALLOCA@
+## end   gnulib module alloca
+
 ## begin gnulib module alloca-opt
 
 BUILT_SOURCES += $(ALLOCA_H)
@@ -653,6 +664,15 @@ EXTRA_libgl_la_SOURCES += strdup.c
 
 ## end   gnulib module strdup
 
+## begin gnulib module strdup-posix
+
+
+EXTRA_DIST += strdup.c
+
+EXTRA_libgl_la_SOURCES += strdup.c
+
+## end   gnulib module strdup-posix
+
 ## begin gnulib module strerror
 
 
@@ -735,6 +755,7 @@ string.h: string.in.h
 	      -e 's|@''HAVE_STRVERSCMP''@|$(HAVE_STRVERSCMP)|g' \
 	      -e 's|@''REPLACE_MEMMEM''@|$(REPLACE_MEMMEM)|g' \
 	      -e 's|@''REPLACE_STRCASESTR''@|$(REPLACE_STRCASESTR)|g' \
+	      -e 's|@''REPLACE_STRDUP''@|$(REPLACE_STRDUP)|g' \
 	      -e 's|@''REPLACE_STRSTR''@|$(REPLACE_STRSTR)|g' \
 	      -e 's|@''REPLACE_STRERROR''@|$(REPLACE_STRERROR)|g' \
 	      -e 's|@''REPLACE_STRSIGNAL''@|$(REPLACE_STRSIGNAL)|g' \
@@ -793,7 +814,9 @@ sys/socket.h: sys_socket.in.h
 MOSTLYCLEANFILES += sys/socket.h sys/socket.h-t
 MOSTLYCLEANDIRS += sys
 
-EXTRA_DIST += sys_socket.in.h
+EXTRA_DIST += sys_socket.in.h winsock.c
+
+EXTRA_libgl_la_SOURCES += winsock.c
 
 ## end   gnulib module sys_socket
 
@@ -900,6 +923,7 @@ wchar.h: wchar.in.h
 	      -e 's|@''NEXT_WCHAR_H''@|$(NEXT_WCHAR_H)|g' \
 	      -e 's/@''HAVE_WCHAR_H''@/$(HAVE_WCHAR_H)/g' \
 	      -e 's|@''GNULIB_WCWIDTH''@|$(GNULIB_WCWIDTH)|g' \
+	      -e 's/@''HAVE_WINT_T''@/$(HAVE_WINT_T)/g' \
 	      -e 's|@''HAVE_DECL_WCWIDTH''@|$(HAVE_DECL_WCWIDTH)|g' \
 	      -e 's|@''REPLACE_WCWIDTH''@|$(REPLACE_WCWIDTH)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \

@@ -129,7 +129,7 @@ connect_to_socket (int blocking)
     {
 #ifdef WIN32_NATIVE
       unsigned long iMode = 1;
-      ioctlsocket (s, FIONBIO, (void *) &iMode);
+      ioctl (s, FIONBIO, (char *) &iMode);
  
 #elif defined F_GETFL
       int oldflags = fcntl (s, F_GETFL, NULL);
@@ -359,7 +359,7 @@ main ()
 {
   int result;
 
-  gl_sockets_startup (SOCKETS_2_0);
+  gl_sockets_startup (SOCKETS_1_1);
 
 #ifdef INTERACTIVE
   printf ("Please press Enter\n");

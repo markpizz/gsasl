@@ -1,5 +1,6 @@
-/* Test of <wchar.h> substitute.
-   Copyright (C) 2007-2008 Free Software Foundation, Inc.
+/* Print a message describing error code.
+   Copyright (C) 2008 Free Software Foundation, Inc.
+   Written by Bruno Haible and Simon Josefsson.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,18 +15,21 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-/* Written by Bruno Haible <bruno@clisp.org>, 2007.  */
-
 #include <config.h>
 
-#include <wchar.h>
+/* Specification.  */
+#include <stdio.h>
 
-/* Check that the types wchar_t and wint_t are defined.  */
-wchar_t a = 'c';
-wint_t b = 'x';
+#include <errno.h>
+#include <string.h>
 
-int
-main ()
+void
+perror (const char *string)
 {
-  return 0;
+  const char *errno_description = strerror (errno);
+
+  if (string != NULL && *string != '\0')
+    fprintf (stderr, "%s: %s\n", string, errno_description);
+  else
+    fprintf (stderr, "%s\n", errno_description);
 }

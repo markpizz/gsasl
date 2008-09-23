@@ -49,6 +49,10 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl'
+changequote(,)dnl
+LTALLOCA=`echo "$ALLOCA" | sed 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
+changequote([, ])dnl
+AC_SUBST([LTALLOCA])
   gl_FUNC_ALLOCA
   gl_HEADER_ARPA_INET
   AC_PROG_MKDIR_P
@@ -108,6 +112,8 @@ AC_DEFUN([gl_INIT],
   gl_STDIO_H
   gl_STDLIB_H
   gl_FUNC_STRDUP
+  gl_STRING_MODULE_INDICATOR([strdup])
+  gl_FUNC_STRDUP_POSIX
   gl_STRING_MODULE_INDICATOR([strdup])
   gl_FUNC_STRERROR
   gl_STRING_MODULE_INDICATOR([strerror])
@@ -171,6 +177,8 @@ AC_DEFUN([gl_INIT],
   gt_LOCALE_TR_UTF8
   gl_INET_PTON
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
+  gl_FUNC_PERROR
+  gl_STRING_MODULE_INDICATOR([perror])
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
   gl_SOCKETS
   gt_TYPE_WCHAR_T
@@ -274,6 +282,7 @@ AC_DEFUN([gl_FILE_LIST], [
   doc/gendocs_template
   doc/gpl-3.0.texi
   doc/lgpl-2.1.texi
+  lib/alloca.c
   lib/alloca.in.h
   lib/arpa_inet.in.h
   lib/asnprintf.c
@@ -351,6 +360,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/version-etc.h
   lib/wchar.in.h
   lib/wctype.in.h
+  lib/winsock.c
   lib/xalloc-die.c
   lib/xalloc.h
   lib/xmalloc.c
@@ -390,6 +400,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mbrtowc.m4
   m4/mbstate_t.m4
   m4/netinet_in_h.m4
+  m4/perror.m4
   m4/poll.m4
   m4/printf.m4
   m4/quote.m4
@@ -437,6 +448,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-lseek.c
   tests/test-lseek.sh
   tests/test-netinet_in.c
+  tests/test-perror.c
+  tests/test-perror.sh
   tests/test-poll.c
   tests/test-quotearg.c
   tests/test-snprintf.c
@@ -456,6 +469,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-wchar.c
   tests/test-wctype.c
   tests=lib/inet_pton.c
+  tests=lib/perror.c
   tests=lib/sockets.c
   tests=lib/sockets.h
   tests=lib/verify.h

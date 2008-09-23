@@ -75,8 +75,6 @@ AC_DEFUN([gl_INIT],
   	m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
-  gl_FUNC_MALLOC_POSIX
-  gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
   gl_SIZE_MAX
@@ -248,7 +246,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/gettext.h
   lib/hmac-md5.c
   lib/hmac.h
-  lib/malloc.c
   lib/md5.c
   lib/md5.h
   lib/memxor.c
