@@ -360,6 +360,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/version-etc.h
   lib/wchar.in.h
   lib/wctype.in.h
+  lib/winsock-select.c
   lib/winsock.c
   lib/xalloc-die.c
   lib/xalloc.h
