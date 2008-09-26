@@ -21,7 +21,7 @@ AC_PREREQ(2.61)
 AC_INIT([GNU SASL], [0.2.29], [bug-gsasl@gnu.org], [gsasl])
 AC_CONFIG_AUX_DIR([build-aux])
 
-AM_INIT_AUTOMAKE([1.10])
+AM_INIT_AUTOMAKE([1.10 -Wall -Werror -Wno-override])
 AC_CONFIG_HEADERS(config.h)
 
 # Checks for programs.

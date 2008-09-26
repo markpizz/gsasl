@@ -35,7 +35,7 @@ AC_SUBST(LT_AGE, 5)
 SOVERSION=`expr ${LT_CURRENT} - ${LT_AGE}`
 AC_SUBST(SOVERSION)
 
-AM_INIT_AUTOMAKE([1.10])
+AM_INIT_AUTOMAKE([1.10 -Wall -Werror])
 AC_CONFIG_HEADERS(config.h)
 
 # Checks for programs.
