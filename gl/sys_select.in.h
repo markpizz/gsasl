@@ -25,6 +25,10 @@
    <sys/types.h>.  */
 # include <sys/types.h>
 
+/* On OSF/1 4.0, <sys/select.h> provides only a forward declaration
+   of 'struct timeval', and no definition of this type..  */
+# include <sys/time.h>
+
 /* The include_next requires a split double-inclusion guard.  */
 # @INCLUDE_NEXT@ @NEXT_SYS_SELECT_H@
 
@@ -40,10 +44,19 @@
 # include <sys/socket.h>
 
 # if @HAVE_WINSOCK2_H@
+
+#  ifdef __cplusplus
+extern "C" {
+#  endif
+
 #  undef select
 #  define select		rpl_select
-
 extern int rpl_select (int, fd_set *, fd_set *, fd_set *, struct timeval *);
+
+#  ifdef __cplusplus
+}
+#  endif
+
 # endif
 
 #endif

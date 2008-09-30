@@ -258,6 +258,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/size_max.h
   lib/stdbool.in.h
   lib/stdint.in.h
+  lib/stdio-write.c
   lib/stdio.in.h
   lib/stdlib.in.h
   lib/strdup.c

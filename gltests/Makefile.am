@@ -183,6 +183,7 @@ EXTRA_DIST += test-perror.c test-perror.sh
 
 TESTS += test-poll
 check_PROGRAMS += test-poll
+test_poll_LDADD = $(LDADD) @LIBSOCKET@
 EXTRA_DIST += test-poll.c
 
 ## end   gnulib module poll-tests
@@ -215,6 +216,7 @@ libtests_a_SOURCES += sockets.h sockets.c
 
 TESTS += test-sockets
 check_PROGRAMS += test-sockets
+test_sockets_LDADD = $(LDADD) @LIBSOCKET@
 EXTRA_DIST += test-sockets.c
 
 ## end   gnulib module sockets-tests
@@ -286,6 +288,7 @@ EXTRA_DIST += test-string.c
 
 TESTS += test-sys_select
 check_PROGRAMS += test-sys_select
+test_sys_select_LDADD = $(LDADD) @LIBSOCKET@
 
 EXTRA_DIST += test-sys_select.c
 

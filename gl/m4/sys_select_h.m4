@@ -1,4 +1,4 @@
-# sys_select_h.m4 serial 4
+# sys_select_h.m4 serial 5
 dnl Copyright (C) 2006-2008 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -10,7 +10,8 @@ AC_DEFUN([gl_HEADER_SYS_SELECT],
   AC_CACHE_CHECK([whether <sys/select.h> is self-contained],
     [gl_cv_header_sys_select_h_selfcontained],
     [
-      AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <sys/select.h>]], [[]])],
+      AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <sys/select.h>]],
+					 [[struct timeval b;]])],
         [gl_cv_header_sys_select_h_selfcontained=yes],
         [gl_cv_header_sys_select_h_selfcontained=no])
     ])
@@ -25,6 +26,7 @@ AC_DEFUN([gl_HEADER_SYS_SELECT],
       HAVE_SYS_SELECT_H=0
     fi
     AC_SUBST([HAVE_SYS_SELECT_H])
+    gl_PREREQ_SYS_H_WINSOCK2
   fi
   AC_SUBST([SYS_SELECT_H])
   if test x$ac_cv_header_winsock2_h = xyes; then
