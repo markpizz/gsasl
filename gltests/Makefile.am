@@ -288,7 +288,6 @@ EXTRA_DIST += test-string.c
 
 TESTS += test-sys_select
 check_PROGRAMS += test-sys_select
-test_sys_select_LDADD = $(LDADD) @LIBSOCKET@
 
 EXTRA_DIST += test-sys_select.c
 
