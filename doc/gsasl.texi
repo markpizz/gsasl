@@ -1368,6 +1368,11 @@ The SecurID personal identification number (PIN).
 
 A SecurID personal identification number (PIN) suggested by the server.
 
+@item @code{GSASL_DIGEST_MD5_HASHED_PASSWORD}
+
+For the DIGEST-MD5 mechanism, this is a hashed password.  It is used
+in servers to avoid storing clear-text credentials.
+
 @end itemize
 
 Abstract properties, used to trigger the callback, typically used in
@@ -1599,9 +1604,12 @@ In the client, this mechanism is always enabled, and require the
 @code{GSASL_HOSTNAME} properties.  If set, @code{GSASL_AUTHZID} and
 @code{GSASL_REALM} will also be used.
 
-In the server, the mechanism will invoke the @code{GSASL_PASSWORD}
-callback, which may use the @code{GSASL_AUTHID}, @code{GSASL_AUTHZID}
-and @code{GSASL_REALM} properties to determine which users' password
+In the server, the mechanism will first invoke the
+@code{GSASL_DIGEST_MD5_HASHED_PASSWORD} callback to get the user's
+hashed password.  If the callback doesn't supply a hashed password,
+the @code{GSASL_PASSWORD} callback will be invoked.  Both callbacks
+may use the @code{GSASL_AUTHID}, @code{GSASL_AUTHZID} and
+@code{GSASL_REALM} properties to determine which users' password
 should be used.  The server will then compare the client response with
 a computed correct response, and accept the user accordingly.
 
