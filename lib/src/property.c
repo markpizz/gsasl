@@ -76,6 +76,9 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->realm;
       break;
 
+    case GSASL_DIGEST_MD5_HASHED_PASSWORD:
+      p = &sctx->digest_md5_hashed_password;
+
     default:
       break;
     }

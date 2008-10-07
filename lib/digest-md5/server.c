@@ -94,6 +94,50 @@ _gsasl_digest_md5_server_start (Gsasl_session * sctx, void **mech_data)
   return GSASL_OK;
 }
 
+char
+_gsasl_digest_md5_hexdigit_to_char (char hexdigit)
+{
+  /* The hex representation always contains lowercase alphabetic
+     characters.  See RFC 2831, 1.1. */
+
+  if (hexdigit >= '0' && hexdigit <= '9')
+    return hexdigit - '0';
+  if (hexdigit >= 'a' && hexdigit <= 'z')
+    return hexdigit - 'a' + 10;
+
+  return -1;
+}
+
+char
+_gsasl_digest_md5_hex_to_char (char u, char l)
+{
+  return (char) (((unsigned char) _gsasl_digest_md5_hexdigit_to_char (u)) *
+		 16 + _gsasl_digest_md5_hexdigit_to_char (l));
+}
+
+int
+_gsasl_digest_md5_set_hashed_secret (char *secret, const char *hex_secret)
+{
+  /* Convert the hex string containing the secret to a byte array */
+  const char *p;
+  char *s;
+
+  if (!hex_secret)
+    return GSASL_AUTHENTICATION_ERROR;
+
+  s = secret;
+  p = hex_secret;
+  while (*p)
+    {
+      *s = _gsasl_digest_md5_hex_to_char (p[0], p[1]);
+      s++;
+
+      p += 2;
+    }
+
+  return GSASL_OK;
+}
+
 int
 _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 			       void *mech_data,
@@ -167,32 +211,50 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 
       /* FIXME: qop, cipher, maxbuf.  */
 
-      /* Compute secret.  TODO: Add callback to retrieve hashed
-         secret. */
+      /* Compute secret. */
       {
 	const char *passwd;
-	char *tmp, *tmp2;
-	int rc;
+	const char *hashed_passwd;
 
 	passwd = gsasl_property_get (sctx, GSASL_PASSWORD);
-	if (!passwd)
-	  return GSASL_NO_PASSWORD;
+	if (passwd)
+	  {
+	    char *tmp, *tmp2;
+	    int rc;
 
-	tmp2 = utf8tolatin1ifpossible (passwd);
+	    tmp2 = utf8tolatin1ifpossible (passwd);
 
-	rc = asprintf (&tmp, "%s:%s:%s", state->response.username,
-		       state->response.realm ?
-		       state->response.realm : "", tmp2);
-	free (tmp2);
-	if (rc < 0)
-	  return GSASL_MALLOC_ERROR;
+	    rc = asprintf (&tmp, "%s:%s:%s", state->response.username,
+			   state->response.realm ?
+			   state->response.realm : "", tmp2);
+	    free (tmp2);
+	    if (rc < 0)
+	      return GSASL_MALLOC_ERROR;
 
-	rc = gsasl_md5 (tmp, strlen (tmp), &tmp2);
-	free (tmp);
-	if (rc != GSASL_OK)
-	  return rc;
-	memcpy (state->secret, tmp2, DIGEST_MD5_LENGTH);
-	free (tmp2);
+	    rc = gsasl_md5 (tmp, strlen (tmp), &tmp2);
+	    free (tmp);
+	    if (rc != GSASL_OK)
+	      return rc;
+
+	    memcpy (state->secret, tmp2, DIGEST_MD5_LENGTH);
+	    free (tmp2);
+	  }
+	/* Retrieve hashed secret */
+	else if ((hashed_passwd = gsasl_property_get
+		  (sctx, GSASL_DIGEST_MD5_HASHED_PASSWORD)) != NULL)
+	  {
+	    if (strlen (hashed_passwd) != (DIGEST_MD5_LENGTH * 2))
+	      return GSASL_AUTHENTICATION_ERROR;
+
+	    rc = _gsasl_digest_md5_set_hashed_secret (state->secret,
+						      hashed_passwd);
+	    if (rc != GSASL_OK)
+	      return rc;
+	  }
+	else
+	  {
+	    return GSASL_NO_PASSWORD;
+	  }
       }
 
       /* Check client response. */

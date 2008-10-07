@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Version 0.2.29 (unreleased)
 
+** DIGEST-MD5: Added callback to retrieve hashed secret.
+The callback is GSASL_DIGEST_MD5_HASHED_PASSWORD.  Patch from "Gazsó
+Attila" <agazso@gmail.com>.
+
 ** API and ABI modifications.
 No changes since last version.
 

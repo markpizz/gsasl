@@ -94,6 +94,7 @@ struct Gsasl_session
   char *hostname;
   char *gssapi_display_name;
   char *realm;
+  char *digest_md5_hashed_password;
 #ifndef GSASL_NO_OBSOLETE
   /* Obsolete stuff. */
   void *application_data;
