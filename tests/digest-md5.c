@@ -89,6 +89,10 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       rc = GSASL_OK;
       break;
 
+    case GSASL_DIGEST_MD5_HASHED_PASSWORD:
+      rc = GSASL_NO_CALLBACK;
+      break;
+
     default:
       fail ("Unknown callback property %d\n", prop);
       break;
