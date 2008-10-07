@@ -17,7 +17,7 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-INDENT_SOURCES = `find . -name '*.[chly]' | grep -v -e ^./gl -e ^./build-aux`
+INDENT_SOURCES = `find . -name '*.[chly]' | grep -v -e ^./gl -e ^./build-aux -e ^./win32`
 
 ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 .DEFAULT_GOAL := bootstrap
