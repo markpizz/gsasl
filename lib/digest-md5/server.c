@@ -216,8 +216,19 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	const char *passwd;
 	const char *hashed_passwd;
 
-	passwd = gsasl_property_get (sctx, GSASL_PASSWORD);
-	if (passwd)
+	hashed_passwd =
+	  gsasl_property_get (sctx, GSASL_DIGEST_MD5_HASHED_PASSWORD);
+	if (hashed_passwd)
+	  {
+	    if (strlen (hashed_passwd) != (DIGEST_MD5_LENGTH * 2))
+	      return GSASL_AUTHENTICATION_ERROR;
+
+	    rc = _gsasl_digest_md5_set_hashed_secret (state->secret,
+						      hashed_passwd);
+	    if (rc != GSASL_OK)
+	      return rc;
+	  }
+	else if ((passwd = gsasl_property_get (sctx, GSASL_PASSWORD)) != NULL)
 	  {
 	    char *tmp, *tmp2;
 	    int rc;
@@ -238,18 +249,6 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 
 	    memcpy (state->secret, tmp2, DIGEST_MD5_LENGTH);
 	    free (tmp2);
-	  }
-	/* Retrieve hashed secret */
-	else if ((hashed_passwd = gsasl_property_get
-		  (sctx, GSASL_DIGEST_MD5_HASHED_PASSWORD)) != NULL)
-	  {
-	    if (strlen (hashed_passwd) != (DIGEST_MD5_LENGTH * 2))
-	      return GSASL_AUTHENTICATION_ERROR;
-
-	    rc = _gsasl_digest_md5_set_hashed_secret (state->secret,
-						      hashed_passwd);
-	    if (rc != GSASL_OK)
-	      return rc;
 	  }
 	else
 	  {
