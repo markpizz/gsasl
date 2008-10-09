@@ -390,6 +390,12 @@ elif ! mv fixhdr.tmp $srcdir/src/gsasl.h; then
   AC_MSG_ERROR([[*** Failed to move fixhdr.tmp to src/gsasl.h...]])
 fi
 
+# Make it possible to pass -Werror when building relevant parts of
+# the library.  Normally, -Werror breaks when running autoconf tests.
+AC_ARG_VAR(WARN_CFLAGS, [Flags to enable compiler warnings])
+AC_MSG_CHECKING([what compiler warning flags we will use])
+AC_MSG_RESULT($WARN_CFLAGS)
+
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
 		gl/Makefile gltests/Makefile src/Makefile \
 		anonymous/Makefile cram-md5/Makefile \

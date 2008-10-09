@@ -101,7 +101,12 @@ AC_ARG_ENABLE(valgrind-tests,
   opt_valgrind_tests=$enableval)
 AC_MSG_RESULT($opt_valgrind_tests)
 
-# We are done.
+# Make it possible to pass -Werror when building relevant parts of
+# the library.  Normally, -Werror breaks when running autoconf tests.
+AC_ARG_VAR(WARN_CFLAGS, [Flags to enable compiler warnings])
+AC_MSG_CHECKING([what compiler warning flags we will use])
+AC_MSG_RESULT($WARN_CFLAGS)
+
 AC_CONFIG_FILES(Makefile po/Makefile.in \
 		doc/Makefile doc/reference/Makefile doc/doxygen/Doxyfile \
 		gl/Makefile src/Makefile examples/Makefile \

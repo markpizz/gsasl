@@ -20,6 +20,7 @@
 
 lib_LTLIBRARIES = libgsasl.la
 
+AM_CFLAGS = $(WARN_CFLAGS)
 AM_CPPFLAGS = -I$(srcdir)/../gl -I../gl -I$(srcdir)/..
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 
