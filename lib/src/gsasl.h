@@ -27,18 +27,13 @@
 # include <stddef.h>		/* size_t */
 # include <unistd.h>		/* ssize_t */
 
-/* GSASL Windows DLL */
+/* GSASL Windows DLL.  Only needed when this file is used in Visual
+   Studio.  Export and import happens automatically in MinGW. */
 #ifndef GSASL_API
-# if defined(_WIN32) && !defined(GSASL_STATIC)
-#  ifdef GSASL_EXPORTS
-#   define GSASL_API  __declspec(dllexport)
-#  else	/* GSASL_EXPORTS */
-#   define GSASL_API  __declspec(dllimport)
-#  endif /* GSASL_EXPORTS */
-# else /* _WIN32 && !GSASL_STATIC */
-#  define GSASL_API
-# endif	/* _WIN32 && !GSASL_STATIC */
-#endif /* GSASL_API */
+# ifdef MSVC
+#  define GSASL_API  __declspec(dllimport)
+# endif
+#endif
 
 # ifdef __cplusplus
 extern "C"

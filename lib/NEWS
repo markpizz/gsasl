@@ -8,6 +8,10 @@ See the end for copying conditions.
 The callback is GSASL_DIGEST_MD5_HASHED_PASSWORD.  Patch from "Gazsó
 Attila" <agazso@gmail.com>.
 
+** Make the library compile under MinGW again.
+
+** Perl is no longer required to build Libgsasl in Visual Studio.
+
 ** API and ABI modifications.
 No changes since last version.
 

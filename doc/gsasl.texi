@@ -553,7 +553,7 @@ For the complete list, refer to the output from @code{configure
 @subsection Installing under Windows
 
 There are two ways to build GNU SASL on Windows: via MinGW or via
-Visual Studio C++.
+Microsoft Visual Studio.
 
 With MinGW, you can build a GNU SASL DLL and use it from other
 applications.  After installing MinGW (@url{http://mingw.org/}) follow
@@ -565,14 +565,14 @@ For information on how to use the DLL in other applications, see:
 
 You can build GNU SASL as a native Visual Studio C++ project.  This
 allows you to build the code for other platforms that VS supports,
-such as Windows Mobile.  You need Visual Studio 2005 or later, and a
-Perl interpreter such as ActiveState Perl.
+such as Windows Mobile.  You need Visual Studio 2005 or later.
 
 First download and unpack the archive as described in the generic
 installation instructions (@pxref{Downloading and Installing}).  Don't
 run @code{./configure}.  Instead, start Visual Studio and open the
 project file @file{lib/win32/libgsasl.sln} inside the GNU SASL
-directory.  You should be able to build the project using VS.
+directory.  You should be able to build the project using Build
+Project.
 
 Output libraries will be written into the @code{lib/win32/lib} (or
 @code{lib/win32/lib/debug} for Debug versions) folder.
