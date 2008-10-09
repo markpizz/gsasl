@@ -32,6 +32,8 @@
 #ifndef GSASL_API
 # ifdef MSVC
 #  define GSASL_API  __declspec(dllimport)
+# else
+#  define GSASL_API
 # endif
 #endif
 
