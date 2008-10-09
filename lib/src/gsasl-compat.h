@@ -286,9 +286,9 @@ gsasl_client_callback_maxbuf_set (Gsasl * ctx,
 __attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_maxbuf
 gsasl_client_callback_maxbuf_get (Gsasl * ctx) __attribute__ ((deprecated));
-extern GSASL_API void gsasl_client_callback_realm_set (Gsasl * ctx,
-						       Gsasl_client_callback_realm
-						       cb)
+extern GSASL_API
+void gsasl_client_callback_realm_set (Gsasl * ctx,
+				      Gsasl_client_callback_realm cb)
   __attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_realm
 gsasl_client_callback_realm_get (Gsasl * ctx) __attribute__ ((deprecated));
