@@ -41,8 +41,8 @@
 const char *
 gsasl_check_version (const char *req_version)
 {
-  if (!req_version || strverscmp (req_version, PACKAGE_VERSION) <= 0)
-    return PACKAGE_VERSION;
+  if (!req_version || strverscmp (req_version, GSASL_VERSION) <= 0)
+    return GSASL_VERSION;
 
   return NULL;
 }
