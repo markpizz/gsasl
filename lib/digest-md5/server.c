@@ -94,7 +94,7 @@ _gsasl_digest_md5_server_start (Gsasl_session * sctx, void **mech_data)
   return GSASL_OK;
 }
 
-char
+static char
 _gsasl_digest_md5_hexdigit_to_char (char hexdigit)
 {
   /* The hex representation always contains lowercase alphabetic
@@ -108,14 +108,14 @@ _gsasl_digest_md5_hexdigit_to_char (char hexdigit)
   return -1;
 }
 
-char
+static char
 _gsasl_digest_md5_hex_to_char (char u, char l)
 {
   return (char) (((unsigned char) _gsasl_digest_md5_hexdigit_to_char (u)) *
 		 16 + _gsasl_digest_md5_hexdigit_to_char (l));
 }
 
-int
+static int
 _gsasl_digest_md5_set_hashed_secret (char *secret, const char *hex_secret)
 {
   /* Convert the hex string containing the secret to a byte array */
@@ -241,7 +241,6 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	else if ((passwd = gsasl_property_get (sctx, GSASL_PASSWORD)) != NULL)
 	  {
 	    char *tmp, *tmp2;
-	    int rc;
 
 	    tmp2 = utf8tolatin1ifpossible (passwd);
 

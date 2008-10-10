@@ -154,7 +154,6 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	{
 	  const char *c;
 	  char *tmp, *tmp2;
-	  int rc;
 
 	  c = gsasl_property_get (sctx, GSASL_AUTHID);
 	  if (!c)
