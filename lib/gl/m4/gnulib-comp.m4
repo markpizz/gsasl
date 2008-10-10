@@ -75,6 +75,7 @@ AC_DEFUN([gl_INIT],
   	m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
+  gl_MINMAX
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
   gl_SIZE_MAX
@@ -250,6 +251,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/md5.h
   lib/memxor.c
   lib/memxor.h
+  lib/minmax.h
   lib/printf-args.c
   lib/printf-args.h
   lib/printf-parse.c
@@ -306,6 +308,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/malloc.m4
   m4/md5.m4
   m4/memxor.m4
+  m4/minmax.m4
   m4/nls.m4
   m4/po.m4
   m4/printf-posix.m4
