@@ -46,6 +46,12 @@ gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb)
   ctx->cb = cb;
 }
 
+#ifndef GSASL_NO_OBSOLETE
+/* Declared in obsolete.c. */
+int _gsasl_obsolete_callback (Gsasl * ctx, Gsasl_session * sctx,
+			      Gsasl_property prop);
+#endif
+
 /**
  * gsasl_callback:
  * @ctx: handle received from gsasl_init(), may be %NULL to derive it
@@ -84,85 +90,7 @@ gsasl_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     return ctx->cb (ctx, sctx, prop);
 
 #ifndef GSASL_NO_OBSOLETE
-  {
-    /* Call obsolete callbacks.  Remove this when the obsolete
-     * callbacks are no longer supported.  */
-    Gsasl_server_callback_anonymous cb_anonymous;
-    Gsasl_server_callback_external cb_external;
-    Gsasl_server_callback_securid cb_securid;
-    Gsasl_server_callback_gssapi cb_gssapi;
-    Gsasl_server_callback_validate cb_validate;
-    Gsasl_server_callback_retrieve cb_retrieve;
-    char buf[BUFSIZ];
-    size_t buflen = BUFSIZ - 1;
-    int res;
-
-    switch (prop)
-      {
-      case GSASL_VALIDATE_ANONYMOUS:
-	if (!sctx->anonymous_token)
-	  break;
-	cb_anonymous = gsasl_server_callback_anonymous_get (sctx->ctx);
-	if (!cb_anonymous)
-	  break;
-	res = cb_anonymous (sctx, sctx->anonymous_token);
-	return res;
-	break;
-
-      case GSASL_VALIDATE_EXTERNAL:
-	cb_external = gsasl_server_callback_external_get (sctx->ctx);
-	if (!cb_external)
-	  break;
-	res = cb_external (sctx);
-	return res;
-	break;
-
-      case GSASL_VALIDATE_SECURID:
-	cb_securid = gsasl_server_callback_securid_get (sctx->ctx);
-	if (!cb_securid)
-	  break;
-	res = cb_securid (sctx, sctx->authid, sctx->authzid, sctx->passcode,
-			  sctx->pin, buf, &buflen);
-	if (buflen > 0 && buflen < BUFSIZ - 1)
-	  {
-	    buf[buflen] = '\0';
-	    gsasl_property_set (sctx, GSASL_SUGGESTED_PIN, buf);
-	  }
-	return res;
-	break;
-
-      case GSASL_VALIDATE_GSSAPI:
-	cb_gssapi = gsasl_server_callback_gssapi_get (sctx->ctx);
-	if (!cb_gssapi)
-	  break;
-	res = cb_gssapi (sctx, sctx->gssapi_display_name, sctx->authzid);
-	return res;
-	break;
-
-      case GSASL_VALIDATE_SIMPLE:
-	cb_validate = gsasl_server_callback_validate_get (sctx->ctx);
-	if (!cb_validate)
-	  break;
-	res = cb_validate (sctx, sctx->authzid, sctx->authid, sctx->password);
-	return res;
-	break;
-
-      case GSASL_PASSWORD:
-	cb_retrieve = gsasl_server_callback_retrieve_get (sctx->ctx);
-	if (!cb_retrieve)
-	  break;
-	res = cb_retrieve (sctx, sctx->authid, sctx->authzid,
-			   sctx->hostname, buf, &buflen);
-	if (res == GSASL_OK)
-	  gsasl_property_set_raw (sctx, GSASL_PASSWORD, buf, buflen);
-	/* FIXME else if (res == GSASL_TOO_SMALL_BUFFER)... */
-	return res;
-	break;
-
-      default:
-	break;
-      }
-  }
+  return _gsasl_obsolete_callback (ctx, sctx, prop);
 #endif
 
   return GSASL_NO_CALLBACK;
