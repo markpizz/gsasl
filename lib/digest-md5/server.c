@@ -195,19 +195,29 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 
       /* Store properties, from the client response. */
       if (state->response.utf8)
-	gsasl_property_set (sctx, GSASL_AUTHID, state->response.username);
+	{
+	  gsasl_property_set (sctx, GSASL_AUTHID, state->response.username);
+	  gsasl_property_set (sctx, GSASL_REALM, state->response.realm);
+	}
       else
 	{
-	  /* Client provided username in ISO-8859-1 form, convert it
-	     to UTF-8 since the library is all-UTF-8. */
-	  char *username = latin1toutf8 (state->response.username);
-	  if (!username)
+	  /* Client provided username/realm in ISO-8859-1 form,
+	     convert it to UTF-8 since the library is all-UTF-8. */
+	  char *tmp;
+
+	  tmp = latin1toutf8 (state->response.username);
+	  if (!tmp)
 	    return GSASL_MALLOC_ERROR;
-	  gsasl_property_set (sctx, GSASL_AUTHID, username);
-	  free (username);
+	  gsasl_property_set (sctx, GSASL_AUTHID, tmp);
+	  free (tmp);
+
+	  tmp = latin1toutf8 (state->response.realm);
+	  if (!tmp)
+	    return GSASL_MALLOC_ERROR;
+	  gsasl_property_set (sctx, GSASL_REALM, tmp);
+	  free (tmp);
 	}
       gsasl_property_set (sctx, GSASL_AUTHZID, state->response.authzid);
-      gsasl_property_set (sctx, GSASL_REALM, state->response.realm);
 
       /* FIXME: qop, cipher, maxbuf.  */
 

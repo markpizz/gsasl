@@ -8,6 +8,9 @@ See the end for copying conditions.
 The callback is GSASL_DIGEST_MD5_HASHED_PASSWORD.  Patch from "Gazsó
 Attila" <agazso@gmail.com>.
 
+** DIGEST-MD5 server: Convert realm from ISO 8859-1 to UTF-8 when needed.
+Reported by Adam Goode <adam@spicenitz.org>.
+
 ** Make the library compile under MinGW again.
 
 ** Perl is no longer required to build Libgsasl in Visual Studio.
