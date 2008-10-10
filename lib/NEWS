@@ -11,6 +11,10 @@ Attila" <agazso@gmail.com>.
 ** DIGEST-MD5 server: Convert realm from ISO 8859-1 to UTF-8 when needed.
 Reported by Adam Goode <adam@spicenitz.org>.
 
+** Obsolete base64 functions rewritten to use our new base64 functions.
+The old functions are gsasl_base64_encode and gsasl_base64_decode.
+This reduces size of the library somewhat.
+
 ** Make the library compile under MinGW again.
 
 ** Perl is no longer required to build Libgsasl in Visual Studio.
