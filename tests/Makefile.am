@@ -40,7 +40,7 @@ ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\
 
 if OBSOLETE
 ctests += simple$(EXEEXT) old-md5file$(EXEEXT) old-cram-md5$(EXEEXT)	\
-	old-digest-md5$(EXEEXT)
+	old-digest-md5$(EXEEXT) old-base64$(EXEEXT)
 endif
 
 # old-gssapi
