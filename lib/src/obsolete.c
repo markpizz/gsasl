@@ -1808,3 +1808,149 @@ gsasl_base64_decode (char const *src, char *target, size_t targsize)
 
   return copied;
 }
+
+const char *
+_gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop)
+{
+  char buf[BUFSIZ];
+  size_t buflen = BUFSIZ - 1;
+  int res;
+
+  buf[0] = '\0';
+
+  /* Translate obsolete callbacks to modern properties. */
+
+  switch (prop)
+    {
+    case GSASL_SERVICE:
+      {
+	Gsasl_client_callback_service cb_service
+	  = gsasl_client_callback_service_get (sctx->ctx);
+	if (!cb_service)
+	  break;
+	res = cb_service (sctx, buf, &buflen, NULL, 0, NULL, 0);
+	if (res != GSASL_OK)
+	  break;
+	buf[buflen] = '\0';
+	gsasl_property_set (sctx, prop, buf);
+	break;
+      }
+
+    case GSASL_HOSTNAME:
+      {
+	Gsasl_client_callback_service cb_service
+	  = gsasl_client_callback_service_get (sctx->ctx);
+	if (!cb_service)
+	  break;
+	res = cb_service (sctx, NULL, 0, buf, &buflen, NULL, 0);
+	if (res != GSASL_OK)
+	  break;
+	buf[buflen] = '\0';
+	gsasl_property_set (sctx, prop, buf);
+	break;
+      }
+
+    case GSASL_ANONYMOUS_TOKEN:
+      {
+	Gsasl_client_callback_anonymous cb_anonymous
+	  = gsasl_client_callback_anonymous_get (sctx->ctx);
+	if (!cb_anonymous)
+	  break;
+	res = cb_anonymous (sctx, buf, &buflen);
+	if (res != GSASL_OK)
+	  break;
+	buf[buflen] = '\0';
+	gsasl_property_set (sctx, prop, buf);
+	break;
+      }
+
+    case GSASL_AUTHID:
+      {
+	Gsasl_client_callback_authentication_id cb_authentication_id
+	  = gsasl_client_callback_authentication_id_get (sctx->ctx);
+	if (!cb_authentication_id)
+	  break;
+	res = cb_authentication_id (sctx, buf, &buflen);
+	if (res != GSASL_OK)
+	  break;
+	buf[buflen] = '\0';
+	gsasl_property_set (sctx, prop, buf);
+	break;
+      }
+
+    case GSASL_AUTHZID:
+      {
+	Gsasl_client_callback_authorization_id cb_authorization_id
+	  = gsasl_client_callback_authorization_id_get (sctx->ctx);
+	if (!cb_authorization_id)
+	  break;
+	res = cb_authorization_id (sctx, buf, &buflen);
+	if (res != GSASL_OK)
+	  break;
+	buf[buflen] = '\0';
+	gsasl_property_set (sctx, prop, buf);
+	break;
+      }
+
+    case GSASL_PASSWORD:
+      {
+	Gsasl_client_callback_password cb_password
+	  = gsasl_client_callback_password_get (sctx->ctx);
+	if (!cb_password)
+	  break;
+	res = cb_password (sctx, buf, &buflen);
+	if (res != GSASL_OK)
+	  break;
+	buf[buflen] = '\0';
+	gsasl_property_set (sctx, prop, buf);
+	break;
+      }
+
+    case GSASL_PASSCODE:
+      {
+	Gsasl_client_callback_passcode cb_passcode
+	  = gsasl_client_callback_passcode_get (sctx->ctx);
+	if (!cb_passcode)
+	  break;
+	res = cb_passcode (sctx, buf, &buflen);
+	if (res != GSASL_OK)
+	  break;
+	buf[buflen] = '\0';
+	gsasl_property_set (sctx, prop, buf);
+	break;
+      }
+
+    case GSASL_PIN:
+      {
+	Gsasl_client_callback_pin cb_pin
+	  = gsasl_client_callback_pin_get (sctx->ctx);
+	if (!cb_pin)
+	  break;
+	res = cb_pin (sctx, sctx->suggestedpin, buf, &buflen);
+	if (res != GSASL_OK)
+	  break;
+	buf[buflen] = '\0';
+	gsasl_property_set (sctx, prop, buf);
+	break;
+      }
+
+    case GSASL_REALM:
+      {
+	Gsasl_client_callback_realm cb_realm
+	  = gsasl_client_callback_realm_get (sctx->ctx);
+	if (!cb_realm)
+	  break;
+	res = cb_realm (sctx, buf, &buflen);
+	if (res != GSASL_OK)
+	  break;
+	buf[buflen] = '\0';
+	gsasl_property_set (sctx, prop, buf);
+	break;
+      }
+
+    default:
+      break;
+    }
+
+  return gsasl_property_fast (sctx, prop);
+}

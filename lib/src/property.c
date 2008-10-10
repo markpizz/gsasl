@@ -181,6 +181,12 @@ gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
   return NULL;
 }
 
+#ifndef GSASL_NO_OBSOLETE
+/* Declared in obsolete.c. */
+const char *
+_gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop)
+#endif
+
 /**
  * gsasl_property_get:
  * @sctx: session handle.
@@ -220,133 +226,7 @@ gsasl_property_get (Gsasl_session * sctx, Gsasl_property prop)
 
 #ifndef GSASL_NO_OBSOLETE
   if (!p)
-    {
-      Gsasl_client_callback_anonymous cb_anonymous;
-      Gsasl_client_callback_authorization_id cb_authorization_id;
-      Gsasl_client_callback_authentication_id cb_authentication_id;
-      Gsasl_client_callback_password cb_password;
-      Gsasl_client_callback_passcode cb_passcode;
-      Gsasl_client_callback_pin cb_pin;
-      Gsasl_client_callback_service cb_service;
-      Gsasl_client_callback_realm cb_realm;
-      char buf[BUFSIZ];
-      size_t buflen = BUFSIZ - 1;
-      int res;
-
-      buf[0] = '\0';
-
-      /* Call obsolete callbacks to get properties.  Remove this when
-       * the obsolete callbacks are no longer supported. */
-
-      switch (prop)
-	{
-	case GSASL_SERVICE:
-	  cb_service = gsasl_client_callback_service_get (sctx->ctx);
-	  if (!cb_service)
-	    break;
-	  res = cb_service (sctx, buf, &buflen, NULL, 0, NULL, 0);
-	  if (res != GSASL_OK)
-	    break;
-	  buf[buflen] = '\0';
-	  gsasl_property_set (sctx, prop, buf);
-	  break;
-
-	case GSASL_HOSTNAME:
-	  cb_service = gsasl_client_callback_service_get (sctx->ctx);
-	  if (!cb_service)
-	    break;
-	  res = cb_service (sctx, NULL, 0, buf, &buflen, NULL, 0);
-	  if (res != GSASL_OK)
-	    break;
-	  buf[buflen] = '\0';
-	  gsasl_property_set (sctx, prop, buf);
-	  break;
-
-	case GSASL_ANONYMOUS_TOKEN:
-	  cb_anonymous = gsasl_client_callback_anonymous_get (sctx->ctx);
-	  if (!cb_anonymous)
-	    break;
-	  res = cb_anonymous (sctx, buf, &buflen);
-	  if (res != GSASL_OK)
-	    break;
-	  buf[buflen] = '\0';
-	  gsasl_property_set (sctx, prop, buf);
-	  break;
-
-	case GSASL_AUTHID:
-	  cb_authentication_id =
-	    gsasl_client_callback_authentication_id_get (sctx->ctx);
-	  if (!cb_authentication_id)
-	    break;
-	  res = cb_authentication_id (sctx, buf, &buflen);
-	  if (res != GSASL_OK)
-	    break;
-	  buf[buflen] = '\0';
-	  gsasl_property_set (sctx, prop, buf);
-	  break;
-
-	case GSASL_AUTHZID:
-	  cb_authorization_id =
-	    gsasl_client_callback_authorization_id_get (sctx->ctx);
-	  if (!cb_authorization_id)
-	    break;
-	  res = cb_authorization_id (sctx, buf, &buflen);
-	  if (res != GSASL_OK)
-	    break;
-	  buf[buflen] = '\0';
-	  gsasl_property_set (sctx, prop, buf);
-	  break;
-
-	case GSASL_PASSWORD:
-	  cb_password = gsasl_client_callback_password_get (sctx->ctx);
-	  if (!cb_password)
-	    break;
-	  res = cb_password (sctx, buf, &buflen);
-	  if (res != GSASL_OK)
-	    break;
-	  buf[buflen] = '\0';
-	  gsasl_property_set (sctx, prop, buf);
-	  break;
-
-	case GSASL_PASSCODE:
-	  cb_passcode = gsasl_client_callback_passcode_get (sctx->ctx);
-	  if (!cb_passcode)
-	    break;
-	  res = cb_passcode (sctx, buf, &buflen);
-	  if (res != GSASL_OK)
-	    break;
-	  buf[buflen] = '\0';
-	  gsasl_property_set (sctx, prop, buf);
-	  break;
-
-	case GSASL_PIN:
-	  cb_pin = gsasl_client_callback_pin_get (sctx->ctx);
-	  if (!cb_pin)
-	    break;
-	  res = cb_pin (sctx, sctx->suggestedpin, buf, &buflen);
-	  if (res != GSASL_OK)
-	    break;
-	  buf[buflen] = '\0';
-	  gsasl_property_set (sctx, prop, buf);
-	  break;
-
-	case GSASL_REALM:
-	  cb_realm = gsasl_client_callback_realm_get (sctx->ctx);
-	  if (!cb_realm)
-	    break;
-	  res = cb_realm (sctx, buf, &buflen);
-	  if (res != GSASL_OK)
-	    break;
-	  buf[buflen] = '\0';
-	  gsasl_property_set (sctx, prop, buf);
-	  break;
-
-
-	default:
-	  break;
-	}
-      p = gsasl_property_fast (sctx, prop);
-    }
+    p = _gsasl_obsolete_property_map (sctx, prop);
 #endif
 
   return p;
