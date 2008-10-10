@@ -184,7 +184,7 @@ gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
 #ifndef GSASL_NO_OBSOLETE
 /* Declared in obsolete.c. */
 const char *
-_gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop)
+_gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop);
 #endif
 
 /**
