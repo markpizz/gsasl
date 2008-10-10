@@ -1,5 +1,5 @@
 /* digesthmac.c --- Compute DIGEST-MD5 response value.
- * Copyright (C) 2002, 2003, 2004  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -131,14 +131,14 @@ digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
   if (kic)
     {
       char hash2[MD5LEN];
-      char tmp[MD5LEN + DERIVE_CLIENT_INTEGRITY_KEY_STRING_LEN];
-      size_t tmplen = MD5LEN + DERIVE_CLIENT_INTEGRITY_KEY_STRING_LEN;
+      char q[MD5LEN + DERIVE_CLIENT_INTEGRITY_KEY_STRING_LEN];
+      size_t qlen = MD5LEN + DERIVE_CLIENT_INTEGRITY_KEY_STRING_LEN;
 
-      memcpy (tmp, hash, MD5LEN);
-      memcpy (tmp + MD5LEN, DERIVE_CLIENT_INTEGRITY_KEY_STRING,
+      memcpy (q, hash, MD5LEN);
+      memcpy (q + MD5LEN, DERIVE_CLIENT_INTEGRITY_KEY_STRING,
 	      DERIVE_CLIENT_INTEGRITY_KEY_STRING_LEN);
 
-      rc = gc_md5 (tmp, tmplen, hash2);
+      rc = gc_md5 (q, qlen, hash2);
       if (rc)
 	return rc;
 
@@ -148,13 +148,13 @@ digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
   if (kis)
     {
       char hash2[MD5LEN];
-      char tmp[MD5LEN + DERIVE_SERVER_INTEGRITY_KEY_STRING_LEN];
+      char q[MD5LEN + DERIVE_SERVER_INTEGRITY_KEY_STRING_LEN];
 
-      memcpy (tmp, hash, MD5LEN);
-      memcpy (tmp + MD5LEN, DERIVE_SERVER_INTEGRITY_KEY_STRING,
+      memcpy (q, hash, MD5LEN);
+      memcpy (q + MD5LEN, DERIVE_SERVER_INTEGRITY_KEY_STRING,
 	      DERIVE_SERVER_INTEGRITY_KEY_STRING_LEN);
 
-      rc = gc_md5 (tmp,
+      rc = gc_md5 (q,
 		   MD5LEN + DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN,
 		   hash2);
       if (rc)
@@ -167,7 +167,7 @@ digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
     {
       char hash2[MD5LEN];
       int n;
-      char tmp[MD5LEN + DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN];
+      char q[MD5LEN + DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN];
 
       if (cipher == DIGEST_MD5_CIPHER_RC4_40)
 	n = 5;
@@ -176,11 +176,11 @@ digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
       else
 	n = MD5LEN;
 
-      memcpy (tmp, hash, n);
-      memcpy (tmp + n, DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING,
+      memcpy (q, hash, n);
+      memcpy (q + n, DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING,
 	      DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN);
 
-      rc = gc_md5 (tmp, n + DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN,
+      rc = gc_md5 (q, n + DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN,
 		   hash2);
       if (rc)
 	return rc;
@@ -192,7 +192,7 @@ digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
     {
       char hash2[MD5LEN];
       int n;
-      char tmp[MD5LEN + DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING_LEN];
+      char q[MD5LEN + DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING_LEN];
 
       if (cipher == DIGEST_MD5_CIPHER_RC4_40)
 	n = 5;
@@ -201,11 +201,11 @@ digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
       else
 	n = MD5LEN;
 
-      memcpy (tmp, hash, n);
-      memcpy (tmp + n, DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING,
+      memcpy (q, hash, n);
+      memcpy (q + n, DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING,
 	      DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING_LEN);
 
-      rc = gc_md5 (tmp, n + DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING_LEN,
+      rc = gc_md5 (q, n + DERIVE_SERVER_CONFIDENTIALITY_KEY_STRING_LEN,
 		   hash2);
       if (rc)
 	return rc;
