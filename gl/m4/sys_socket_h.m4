@@ -1,4 +1,4 @@
-# sys_socket_h.m4 serial 7
+# sys_socket_h.m4 serial 10
 dnl Copyright (C) 2005-2008 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -8,6 +8,7 @@ dnl From Simon Josefsson.
 
 AC_DEFUN([gl_HEADER_SYS_SOCKET],
 [
+  AC_REQUIRE([gl_SYS_SOCKET_H_DEFAULTS])
   AC_REQUIRE([AC_C_INLINE])
 
   AC_CACHE_CHECK([whether <sys/socket.h> is self-contained],
@@ -59,9 +60,6 @@ AC_DEFUN([gl_HEADER_SYS_SOCKET],
       fi
     fi
     gl_PREREQ_SYS_H_WINSOCK2
-    if test x$ac_cv_header_winsock2_h = xyes; then
-      AC_LIBOBJ(winsock)
-    fi
     AC_SUBST([HAVE_SYS_SOCKET_H])
     AC_SUBST([HAVE_WS2TCPIP_H])
   fi
@@ -73,6 +71,8 @@ AC_DEFUN([gl_HEADER_SYS_SOCKET],
 # Sets and substitutes HAVE_WINSOCK2_H.
 AC_DEFUN([gl_PREREQ_SYS_H_WINSOCK2],
 [
+  AC_REQUIRE([gl_UNISTD_H_DEFAULTS])
+  AC_REQUIRE([gl_SYS_IOCTL_H_DEFAULTS])
   AC_CHECK_HEADERS_ONCE([sys/socket.h])
   if test $ac_cv_header_sys_socket_h != yes; then
     dnl We cannot use AC_CHECK_HEADERS_ONCE here, because that would make
@@ -83,8 +83,36 @@ AC_DEFUN([gl_PREREQ_SYS_H_WINSOCK2],
   fi
   if test "$ac_cv_header_winsock2_h" = yes; then
     HAVE_WINSOCK2_H=1
+    UNISTD_H_HAVE_WINSOCK2_H=1
+    SYS_IOCTL_H_HAVE_WINSOCK2_H=1
   else
     HAVE_WINSOCK2_H=0
   fi
   AC_SUBST([HAVE_WINSOCK2_H])
+])
+
+AC_DEFUN([gl_SYS_SOCKET_MODULE_INDICATOR],
+[
+  dnl Use AC_REQUIRE here, so that the default settings are expanded once only.
+  AC_REQUIRE([gl_SYS_SOCKET_H_DEFAULTS])
+  GNULIB_[]m4_translit([$1],[abcdefghijklmnopqrstuvwxyz./-],[ABCDEFGHIJKLMNOPQRSTUVWXYZ___])=1
+  gl_MODULE_INDICATOR([$1])
+])
+
+AC_DEFUN([gl_SYS_SOCKET_H_DEFAULTS],
+[
+  AC_REQUIRE([gl_UNISTD_H_DEFAULTS]) dnl for GNULIB_CLOSE
+  GNULIB_SOCKET=0;      AC_SUBST([GNULIB_SOCKET])
+  GNULIB_CONNECT=0;     AC_SUBST([GNULIB_CONNECT])
+  GNULIB_ACCEPT=0;      AC_SUBST([GNULIB_ACCEPT])
+  GNULIB_BIND=0;        AC_SUBST([GNULIB_BIND])
+  GNULIB_GETPEERNAME=0; AC_SUBST([GNULIB_GETPEERNAME])
+  GNULIB_GETSOCKNAME=0; AC_SUBST([GNULIB_GETSOCKNAME])
+  GNULIB_GETSOCKOPT=0;  AC_SUBST([GNULIB_GETSOCKOPT])
+  GNULIB_LISTEN=0;      AC_SUBST([GNULIB_LISTEN])
+  GNULIB_RECV=0;        AC_SUBST([GNULIB_RECV])
+  GNULIB_SEND=0;        AC_SUBST([GNULIB_SEND])
+  GNULIB_RECVFROM=0;    AC_SUBST([GNULIB_RECVFROM])
+  GNULIB_SENDTO=0;      AC_SUBST([GNULIB_SENDTO])
+  GNULIB_SETSOCKOPT=0;  AC_SUBST([GNULIB_SETSOCKOPT])
 ])

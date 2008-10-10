@@ -42,6 +42,15 @@ libtests_a_DEPENDENCIES = $(gltests_LIBOBJS)
 EXTRA_libtests_a_SOURCES =
 AM_LIBTOOLFLAGS = --preserve-dup-deps
 
+## begin gnulib module accept
+
+
+EXTRA_DIST += winsock.c
+
+EXTRA_libtests_a_SOURCES += winsock.c
+
+## end   gnulib module accept
+
 ## begin gnulib module alloca-opt-tests
 
 TESTS += test-alloca-opt
@@ -60,6 +69,15 @@ EXTRA_DIST += test-arpa_inet.c
 
 ## end   gnulib module arpa_inet-tests
 
+## begin gnulib module bind
+
+
+EXTRA_DIST += winsock.c
+
+EXTRA_libtests_a_SOURCES += winsock.c
+
+## end   gnulib module bind
+
 ## begin gnulib module c-ctype-tests
 
 TESTS += test-c-ctype
@@ -77,6 +95,24 @@ check_PROGRAMS += test-c-strcasecmp test-c-strncasecmp
 EXTRA_DIST += test-c-strcase.sh test-c-strcasecmp.c test-c-strncasecmp.c
 
 ## end   gnulib module c-strcase-tests
+
+## begin gnulib module close
+
+
+EXTRA_DIST += close.c
+
+EXTRA_libtests_a_SOURCES += close.c
+
+## end   gnulib module close
+
+## begin gnulib module connect
+
+
+EXTRA_DIST += winsock.c
+
+EXTRA_libtests_a_SOURCES += winsock.c
+
+## end   gnulib module connect
 
 ## begin gnulib module errno-tests
 
@@ -143,6 +179,15 @@ EXTRA_libtests_a_SOURCES += inet_pton.c
 
 ## end   gnulib module inet_pton
 
+## begin gnulib module listen
+
+
+EXTRA_DIST += winsock.c
+
+EXTRA_libtests_a_SOURCES += winsock.c
+
+## end   gnulib module listen
+
 ## begin gnulib module lseek-tests
 
 TESTS += test-lseek.sh
@@ -197,6 +242,15 @@ EXTRA_DIST += test-quotearg.c
 
 ## end   gnulib module quotearg-tests
 
+## begin gnulib module setsockopt
+
+
+EXTRA_DIST += winsock.c
+
+EXTRA_libtests_a_SOURCES += winsock.c
+
+## end   gnulib module setsockopt
+
 ## begin gnulib module snprintf-tests
 
 TESTS += test-snprintf
@@ -205,6 +259,15 @@ check_PROGRAMS += test-snprintf
 EXTRA_DIST += test-snprintf.c
 
 ## end   gnulib module snprintf-tests
+
+## begin gnulib module socket
+
+
+EXTRA_DIST += winsock.c
+
+EXTRA_libtests_a_SOURCES += winsock.c
+
+## end   gnulib module socket
 
 ## begin gnulib module sockets
 
