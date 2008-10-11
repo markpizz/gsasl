@@ -56,6 +56,7 @@ gsasl_finish (Gsasl_session * sctx)
   free_if_nonnull (sctx->hostname);
   free_if_nonnull (sctx->gssapi_display_name);
   free_if_nonnull (sctx->realm);
+  free_if_nonnull (sctx->digest_md5_hashed_password);
 
   free_if_nonnull (sctx);
 }

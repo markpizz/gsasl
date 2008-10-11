@@ -82,7 +82,9 @@ struct Gsasl_session
   Gsasl_mechanism *mech;
   void *mech_data;
   void *application_hook;
-  /* Properties. */
+
+  /* Properties.  If you add anything here, remember to change change
+     gsasl_finish().  */
   char *anonymous_token;
   char *authid;
   char *authzid;
@@ -95,6 +97,7 @@ struct Gsasl_session
   char *gssapi_display_name;
   char *realm;
   char *digest_md5_hashed_password;
+
 #ifndef GSASL_NO_OBSOLETE
   /* Obsolete stuff. */
   void *application_data;
