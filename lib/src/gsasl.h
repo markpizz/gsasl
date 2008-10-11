@@ -248,6 +248,7 @@ extern "C"
 
   /* Error handling: error.c */
   extern GSASL_API const char *gsasl_strerror (int err);
+  extern GSASL_API const char *gsasl_strerror_name (int err);
 
   /* Internationalized string processing: stringprep.c */
   extern GSASL_API int gsasl_saslprep (const char *in,

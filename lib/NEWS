@@ -11,7 +11,12 @@ Attila" <agazso@gmail.com>.
 ** DIGEST-MD5 server: Convert realm from ISO 8859-1 to UTF-8 when needed.
 Reported by Adam Goode <adam@spicenitz.org>.
 
-** Obsolete base64 functions rewritten to use our new base64 functions.
+** libgsasl: Add function to print name of error codes.
+For example, gsasl_strerror_name(GSASL_OK) returns "GSASL_OK".
+
+** libgsasl: Reduce complexity of gsasl_strerror.
+
+** libgsasl: Obsolete base64 functions rewritten to use new functions.
 The old functions are gsasl_base64_encode and gsasl_base64_decode.
 This reduces size of the library somewhat.
 
@@ -20,7 +25,7 @@ This reduces size of the library somewhat.
 ** Perl is no longer required to build Libgsasl in Visual Studio.
 
 ** API and ABI modifications.
-No changes since last version.
+gsasl_strerror_name: ADDED
 
 * Version 0.2.28 (released 2008-08-20)
 
