@@ -1819,15 +1819,17 @@ operation, but the result of an operation that failed properly.
 @node Error values
 @section Error values
 
-Errors are returned as an @code{int}.  Except for the OK case an
-application should always use the constants instead of their numeric
-value.  Applications are encouraged to use the constants even for OK
-as it improves readability.  Possible values are:
+Errors are returned as @code{int} values.
+
+The value of the symbol @code{GSASL_OK} is guaranteed to always be
+@code{0}, and all other error codes are guaranteed to be non-@code{0},
+so you may use that information to build boolean expressions involving
+return codes.  Otherwise, an application should not depend on the
+particular value for error codes, and are encouraged to use the
+constants even for @code{GSASL_OK} to improve readability.  Possible
+values are:
 
 @table @code
-@item @code{GSASL_OK}
-This value indicates success.  The value of this error is guaranteed
-to always be @code{0} so you may use it in boolean constructs.
 
 @include gsasl-api-error-labels.texi
 
