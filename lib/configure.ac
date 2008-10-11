@@ -397,7 +397,7 @@ AC_MSG_CHECKING([what compiler warning flags we will use])
 AC_MSG_RESULT($WARN_CFLAGS)
 
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
-		gl/Makefile gltests/Makefile src/Makefile \
+		gl/Makefile gltests/Makefile src/Makefile tests/Makefile \
 		anonymous/Makefile cram-md5/Makefile \
 		digest-md5/Makefile external/Makefile \
 		gssapi/Makefile gs2/Makefile kerberos_v5/Makefile \

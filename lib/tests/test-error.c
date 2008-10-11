@@ -21,7 +21,7 @@
  */
 
 #include <stdio.h>
-#include "error.c"
+#include "../src/error.c"
 
 int
 main (void)

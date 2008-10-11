@@ -39,9 +39,6 @@ libgsasl_la_SOURCES = internal.h \
 	base64.c md5pwd.c crypto.c \
 	saslprep.c free.c
 
-TESTS = test-error$(EXEEXT)
-check_PROGRAMS = test-error$(EXEEXT)
-
 if HAVE_LD_OUTPUT_DEF
 libgsasl_la_LDFLAGS += -Wl,--output-def,libgsasl-$(SOVERSION).def
 defexecdir = $(bindir)

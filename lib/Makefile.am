@@ -80,4 +80,4 @@ if KERBEROS_V5
 SUBDIRS += kerberos_v5
 endif
 
-SUBDIRS += src
+SUBDIRS += src tests
