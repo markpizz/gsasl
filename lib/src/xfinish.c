@@ -1,5 +1,5 @@
 /* xfinish.c --- Finish libgsasl session.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -22,6 +22,8 @@
 
 #include "internal.h"
 
+#define free_if_nonnull(p) if ((p)) free ((p))
+
 /**
  * gsasl_finish:
  * @sctx: libgsasl session handle.
@@ -43,38 +45,17 @@ gsasl_finish (Gsasl_session * sctx)
 	sctx->mech->server.finish (sctx, sctx->mech_data);
     }
 
-  if (sctx->anonymous_token)
-    free (sctx->anonymous_token);
+  free_if_nonnull (sctx->anonymous_token);
+  free_if_nonnull (sctx->authid);
+  free_if_nonnull (sctx->authzid);
+  free_if_nonnull (sctx->password);
+  free_if_nonnull (sctx->passcode);
+  free_if_nonnull (sctx->pin);
+  free_if_nonnull (sctx->suggestedpin);
+  free_if_nonnull (sctx->service);
+  free_if_nonnull (sctx->hostname);
+  free_if_nonnull (sctx->gssapi_display_name);
+  free_if_nonnull (sctx->realm);
 
-  if (sctx->authid)
-    free (sctx->authid);
-
-  if (sctx->authzid)
-    free (sctx->authzid);
-
-  if (sctx->password)
-    free (sctx->password);
-
-  if (sctx->passcode)
-    free (sctx->passcode);
-
-  if (sctx->pin)
-    free (sctx->pin);
-
-  if (sctx->suggestedpin)
-    free (sctx->suggestedpin);
-
-  if (sctx->service)
-    free (sctx->service);
-
-  if (sctx->hostname)
-    free (sctx->hostname);
-
-  if (sctx->gssapi_display_name)
-    free (sctx->gssapi_display_name);
-
-  if (sctx->realm)
-    free (sctx->realm);
-
-  free (sctx);
+  free_if_nonnull (sctx);
 }
