@@ -28,9 +28,9 @@ AC_CONFIG_MACRO_DIR([m4])
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
-AC_SUBST(LT_CURRENT, 12)
-AC_SUBST(LT_REVISION, 1)
-AC_SUBST(LT_AGE, 5)
+AC_SUBST(LT_CURRENT, 13)
+AC_SUBST(LT_REVISION, 0)
+AC_SUBST(LT_AGE, 6)
 
 # Used when creating libgsasl-XX.def.
 SOVERSION=`expr ${LT_CURRENT} - ${LT_AGE}`
