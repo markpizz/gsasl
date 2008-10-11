@@ -47,8 +47,12 @@ gsasl_TEXINFOS = fdl.texi gpl-3.0.texi lgpl-2.1.texi $(gdoc_TEXINFOS) \
 	gsasl-callback-client-service.texi gsasl-callback-server-service.texi \
 	gsasl-api-error-labels.texi
 
-gsasl-api-error-labels.texi: $(top_srcdir)/lib/src/error.c
-	$(PERL) $(srcdir)/gdoc-error $^ > $@
+AM_CPPFLAGS = -I$(top_srcdir)/lib/src
+noinst_PROGRAMS = print-errors
+print_errors_LDADD = ../lib/src/libgsasl.la
+
+gsasl-api-error-labels.texi: $(top_srcdir)/lib/src/error.c print-errors
+	$(builddir)/print-errors > $@
 
 AM_MAKEINFOFLAGS = -I $(top_srcdir)/doc \
 	-I $(top_builddir)/doc -I $(top_srcdir)/examples
