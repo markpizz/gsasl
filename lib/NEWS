@@ -24,6 +24,8 @@ This reduces size of the library somewhat.
 
 ** Perl is no longer required to build Libgsasl in Visual Studio.
 
+** Fix several compiler warnings.
+
 ** API and ABI modifications.
 gsasl_strerror_name: ADDED
 
