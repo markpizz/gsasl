@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.29 (unreleased)
 
+** doc: Error codes are now extracted using official library APIs.
+
 ** tests: Add self test of obsolete base64 functions.
 
 * Version 0.2.28 (released 2008-08-20)
