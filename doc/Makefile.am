@@ -51,8 +51,8 @@ AM_CPPFLAGS = -I$(top_srcdir)/lib/src
 noinst_PROGRAMS = print-errors
 print_errors_LDADD = ../lib/src/libgsasl.la
 
-gsasl-api-error-labels.texi: $(top_srcdir)/lib/src/error.c print-errors
-	$(builddir)/print-errors > $@
+gsasl-api-error-labels.texi: $(top_srcdir)/lib/src/error.c print-errors$(EXEEXT)
+	$(builddir)/print-errors$(EXEEXT) > $@
 
 AM_MAKEINFOFLAGS = -I $(top_srcdir)/doc \
 	-I $(top_builddir)/doc -I $(top_srcdir)/examples
