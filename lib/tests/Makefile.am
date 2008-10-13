@@ -19,6 +19,7 @@
 # MA 02110-1301, USA.
 
 AM_CFLAGS = $(WARN_CFLAGS)
+AM_CPPFLAGS = -I$(srcdir)/../gl
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 
 TESTS = test-error$(EXEEXT)
