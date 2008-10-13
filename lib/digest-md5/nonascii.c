@@ -50,12 +50,12 @@ latin1toutf8 (const char *str)
 	    p[j++] = str[i];
 	  else if (to_uchar (str[i]) < 0xC0)
 	    {
-	      p[j++] = 0xC2;
+	      p[j++] = (unsigned char) 0xC2;
 	      p[j++] = str[i];
 	    }
 	  else
 	    {
-	      p[j++] = 0xC3;
+	      p[j++] = (unsigned char) 0xC3;
 	      p[j++] = str[i] - 64;
 	    }
 	}
