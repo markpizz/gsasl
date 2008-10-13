@@ -30,8 +30,12 @@
 /* GSASL Windows DLL.  Only needed when this file is used in Visual
    Studio.  Export and import happens automatically in MinGW. */
 #ifndef GSASL_API
-# ifdef MSVC
-#  define GSASL_API  __declspec(dllimport)
+# if defined _MSC_VER && !defined GSASL_STATIC
+#  ifdef GSASL_EXPORTS
+#   define GSASL_API __declspec(dllexport)
+#  else
+#   define GSASL_API __declspec(dllimport)
+#  endif
 # else
 #  define GSASL_API
 # endif
