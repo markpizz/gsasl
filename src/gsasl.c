@@ -705,7 +705,7 @@ main (int argc, char *argv[])
 	  if (sockfd)
 	    {
 	      pfd[1].fd = sockfd;
-	      pfd[1].events = POLLIN | POLLOUT;
+	      pfd[1].events = POLLIN;
 	    }
 
 	  if (!args_info.quiet_given)
