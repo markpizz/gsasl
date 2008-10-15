@@ -94,6 +94,7 @@ AC_SUBST([LTALLOCA])
   gl_UNISTD_MODULE_INDICATOR([lseek])
   gl_FUNC_MALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
+  gl_HEADER_NETDB
   gl_HEADER_NETINET_IN
   AC_PROG_MKDIR_P
   gl_FUNC_POLL
@@ -193,6 +194,8 @@ AC_SUBST([LTALLOCA])
     AC_LIBOBJ([winsock])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([connect])
+  gl_FUNC_FCLOSE
+  gl_STDIO_MODULE_INDICATOR([fclose])
   gl_INET_PTON
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
@@ -354,6 +357,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/intprops.h
   lib/lseek.c
   lib/malloc.c
+  lib/netdb.in.h
   lib/netinet_in.in.h
   lib/poll.c
   lib/poll.in.h
@@ -407,6 +411,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/error.m4
   m4/exitfail.m4
   m4/extensions.m4
+  m4/fclose.m4
   m4/float_h.m4
   m4/fseeko.m4
   m4/getaddrinfo.m4
@@ -434,6 +439,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/malloc.m4
   m4/mbrtowc.m4
   m4/mbstate_t.m4
+  m4/netdb_h.m4
   m4/netinet_in_h.m4
   m4/perror.m4
   m4/poll.m4
@@ -483,6 +489,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-iconv.c
   tests/test-lseek.c
   tests/test-lseek.sh
+  tests/test-netdb.c
   tests/test-netinet_in.c
   tests/test-perror.c
   tests/test-perror.sh
@@ -505,6 +512,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-wchar.c
   tests/test-wctype.c
   tests=lib/close.c
+  tests=lib/fclose.c
   tests=lib/inet_pton.c
   tests=lib/perror.c
   tests=lib/sockets.c

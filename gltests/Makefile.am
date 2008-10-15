@@ -123,6 +123,15 @@ EXTRA_DIST += test-errno.c
 
 ## end   gnulib module errno-tests
 
+## begin gnulib module fclose
+
+
+EXTRA_DIST += fclose.c
+
+EXTRA_libtests_a_SOURCES += fclose.c
+
+## end   gnulib module fclose
+
 ## begin gnulib module fseeko-tests
 
 TESTS += test-fseeko.sh
@@ -196,6 +205,15 @@ check_PROGRAMS += test-lseek
 EXTRA_DIST += test-lseek.c test-lseek.sh
 
 ## end   gnulib module lseek-tests
+
+## begin gnulib module netdb-tests
+
+TESTS += test-netdb
+check_PROGRAMS += test-netdb
+
+EXTRA_DIST += test-netdb.c
+
+## end   gnulib module netdb-tests
 
 ## begin gnulib module netinet_in-tests
 
