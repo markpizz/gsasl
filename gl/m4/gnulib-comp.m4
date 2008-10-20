@@ -69,6 +69,8 @@ AC_SUBST([LTALLOCA])
     [AM_XGETTEXT_OPTION([--flag=error:3:c-format])
      AM_XGETTEXT_OPTION([--flag=error_at_line:5:c-format])])
   gl_EXITFAIL
+  gl_FUNC_FCLOSE
+  gl_STDIO_MODULE_INDICATOR([fclose])
   gl_FLOAT_H
   gl_FUNC_FSEEKO
   gl_STDIO_MODULE_INDICATOR([fseeko])
@@ -342,6 +344,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/error.h
   lib/exitfail.c
   lib/exitfail.h
+  lib/fclose.c
   lib/float+.h
   lib/float.in.h
   lib/fseeko.c
@@ -420,6 +423,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/error.m4
   m4/exitfail.m4
   m4/extensions.m4
+  m4/fclose.m4
   m4/float_h.m4
   m4/fseeko.m4
   m4/getaddrinfo.m4
