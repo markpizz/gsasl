@@ -20,7 +20,7 @@ if ENABLE_GTK_DOC
 SUBDIRS = reference
 endif
 
-EXTRA_DIST = gdoc gdoc-error \
+EXTRA_DIST = gdoc \
 	controlflow.dia controlflow2.dia abstraction.dia \
 	gsasl.html gsasl.ps gsasl.pdf texinfo.css \
 	doxygen/Doxyfile.in doxygen/gdoc2doxygen
