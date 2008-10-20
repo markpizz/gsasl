@@ -38,9 +38,7 @@
 #include <poll.h>		/* poll() */
 #include <unistd.h>
 #include <netinet/in.h>
-#ifdef HAVE_NETDB_H
-# include <netdb.h>
-#endif
+#include <netdb.h>
 #ifdef HAVE_PWD_H
 # include <pwd.h>		/* getpwnam */
 #endif

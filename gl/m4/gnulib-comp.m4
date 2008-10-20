@@ -66,6 +66,7 @@ AC_SUBST([LTALLOCA])
   gl_FUNC_FSEEKO
   gl_STDIO_MODULE_INDICATOR([fseeko])
   gl_GETADDRINFO
+  gl_NETDB_MODULE_INDICATOR([getaddrinfo])
   gl_FUNC_GETDELIM
   gl_STDIO_MODULE_INDICATOR([getdelim])
   gl_FUNC_GETLINE
@@ -337,7 +338,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/fseeko.c
   lib/gai_strerror.c
   lib/getaddrinfo.c
-  lib/getaddrinfo.h
   lib/getdelim.c
   lib/getline.c
   lib/getopt.c

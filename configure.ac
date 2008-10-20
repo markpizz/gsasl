@@ -40,7 +40,7 @@ AM_GNU_GETTEXT(external)
 AM_GNU_GETTEXT_VERSION(0.17)
 
 # Checks for header files.
-AC_CHECK_HEADERS(netdb.h pwd.h)
+AC_CHECK_HEADERS(pwd.h)
 
 # Checks for library functions.
 AC_SEARCH_LIBS(socket, socket)
