@@ -217,6 +217,13 @@ AC_SUBST([LTALLOCA])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([winsock])
+    gl_REPLACE_SYS_IOCTL_H
+  fi
+  gl_SYS_IOCTL_MODULE_INDICATOR([ioctl])
+  gl_MODULE_INDICATOR([ioctl])
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([winsock])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([listen])
   gl_FUNC_PERROR

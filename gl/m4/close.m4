@@ -21,7 +21,5 @@ AC_DEFUN([gl_REPLACE_CLOSE],
     AC_LIBOBJ([close])
   fi
   REPLACE_CLOSE=1
-  if test $GNULIB_FCLOSE = 1; then
-    gl_REPLACE_FCLOSE
-  fi
+  gl_REPLACE_FCLOSE
 ])

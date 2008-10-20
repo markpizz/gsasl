@@ -161,6 +161,15 @@ EXTRA_libtests_a_SOURCES += inet_pton.c
 
 ## end   gnulib module inet_pton
 
+## begin gnulib module ioctl
+
+
+EXTRA_DIST += winsock.c
+
+EXTRA_libtests_a_SOURCES += winsock.c
+
+## end   gnulib module ioctl
+
 ## begin gnulib module listen
 
 
