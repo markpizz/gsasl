@@ -96,24 +96,6 @@ EXTRA_DIST += test-c-strcase.sh test-c-strcasecmp.c test-c-strncasecmp.c
 
 ## end   gnulib module c-strcase-tests
 
-## begin gnulib module close
-
-
-EXTRA_DIST += close.c
-
-EXTRA_libtests_a_SOURCES += close.c
-
-## end   gnulib module close
-
-## begin gnulib module connect
-
-
-EXTRA_DIST += winsock.c
-
-EXTRA_libtests_a_SOURCES += winsock.c
-
-## end   gnulib module connect
-
 ## begin gnulib module errno-tests
 
 TESTS += test-errno
@@ -122,15 +104,6 @@ check_PROGRAMS += test-errno
 EXTRA_DIST += test-errno.c
 
 ## end   gnulib module errno-tests
-
-## begin gnulib module fclose
-
-
-EXTRA_DIST += fclose.c
-
-EXTRA_libtests_a_SOURCES += fclose.c
-
-## end   gnulib module fclose
 
 ## begin gnulib module fseeko-tests
 
@@ -277,15 +250,6 @@ check_PROGRAMS += test-snprintf
 EXTRA_DIST += test-snprintf.c
 
 ## end   gnulib module snprintf-tests
-
-## begin gnulib module socket
-
-
-EXTRA_DIST += winsock.c
-
-EXTRA_libtests_a_SOURCES += winsock.c
-
-## end   gnulib module socket
 
 ## begin gnulib module sockets
 

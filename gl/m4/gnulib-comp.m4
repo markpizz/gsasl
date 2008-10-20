@@ -56,6 +56,13 @@ AC_SUBST([LTALLOCA])
   gl_FUNC_ALLOCA
   gl_HEADER_ARPA_INET
   AC_PROG_MKDIR_P
+  gl_FUNC_CLOSE
+  gl_UNISTD_MODULE_INDICATOR([close])
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([winsock])
+  fi
+  gl_SYS_SOCKET_MODULE_INDICATOR([connect])
   gl_HEADER_ERRNO_H
   gl_ERROR
   m4_ifdef([AM_XGETTEXT_OPTION],
@@ -104,9 +111,24 @@ AC_SUBST([LTALLOCA])
   gl_FUNC_READLINE
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([winsock])
+  fi
+  gl_SYS_SOCKET_MODULE_INDICATOR([recv])
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([winsock])
+  fi
+  gl_SYS_SOCKET_MODULE_INDICATOR([shutdown])
   gl_SIZE_MAX
   gl_FUNC_SNPRINTF
   gl_STDIO_MODULE_INDICATOR([snprintf])
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([winsock])
+  fi
+  gl_SYS_SOCKET_MODULE_INDICATOR([socket])
   gl_TYPE_SOCKLEN_T
   gl_STDARG_H
   AM_STDBOOL_H
@@ -188,15 +210,6 @@ AC_SUBST([LTALLOCA])
   gl_SYS_SOCKET_MODULE_INDICATOR([bind])
   gt_LOCALE_FR
   gt_LOCALE_TR_UTF8
-  gl_FUNC_CLOSE
-  gl_UNISTD_MODULE_INDICATOR([close])
-  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
-  if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
-  fi
-  gl_SYS_SOCKET_MODULE_INDICATOR([connect])
-  gl_FUNC_FCLOSE
-  gl_STDIO_MODULE_INDICATOR([fclose])
   gl_INET_PTON
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
@@ -212,11 +225,6 @@ AC_SUBST([LTALLOCA])
     AC_LIBOBJ([winsock])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([setsockopt])
-  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
-  if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
-  fi
-  gl_SYS_SOCKET_MODULE_INDICATOR([socket])
   gl_SOCKETS
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
@@ -328,6 +336,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/c-strcase.h
   lib/c-strcasecmp.c
   lib/c-strncasecmp.c
+  lib/close.c
   lib/errno.in.h
   lib/error.c
   lib/error.h
@@ -411,7 +420,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/error.m4
   m4/exitfail.m4
   m4/extensions.m4
-  m4/fclose.m4
   m4/float_h.m4
   m4/fseeko.m4
   m4/getaddrinfo.m4
@@ -511,8 +519,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-vasnprintf.c
   tests/test-wchar.c
   tests/test-wctype.c
-  tests=lib/close.c
-  tests=lib/fclose.c
   tests=lib/inet_pton.c
   tests=lib/perror.c
   tests=lib/sockets.c
