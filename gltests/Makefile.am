@@ -329,6 +329,33 @@ EXTRA_DIST += test-string.c
 
 ## end   gnulib module string-tests
 
+## begin gnulib module sys_ioctl
+
+BUILT_SOURCES += $(SYS_IOCTL_H)
+
+# We need the following in order to create <sys/ioctl.h> when the system
+# does not have a complete one.
+sys/ioctl.h: sys_ioctl.in.h
+	@MKDIR_P@ sys
+	rm -f $@-t $@
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  sed -e 's|@''HAVE_SYS_IOCTL_H''@|$(HAVE_SYS_IOCTL_H)|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''NEXT_SYS_IOCTL_H''@|$(NEXT_SYS_IOCTL_H)|g' \
+	      -e 's|@''GNULIB_IOCTL''@|$(GNULIB_IOCTL)|g' \
+	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H)|g' \
+	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
+	      < $(srcdir)/sys_ioctl.in.h; \
+	} > $@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += sys/ioctl.h sys/ioctl.h-t
+MOSTLYCLEANDIRS += sys
+
+EXTRA_DIST += sys_ioctl.in.h
+
+## end   gnulib module sys_ioctl
+
 ## begin gnulib module sys_select-tests
 
 TESTS += test-sys_select
