@@ -53,7 +53,8 @@ print_errors_LDADD = ../lib/src/libgsasl.la
 
 gsasl-api-error-labels.texi: $(top_srcdir)/lib/src/error.c print-errors.c
 	make print-errors$(EXEEXT)
-	$(builddir)/print-errors$(EXEEXT) > $@
+	$(builddir)/print-errors$(EXEEXT) > $@.new
+	mv $@.new $@
 
 AM_MAKEINFOFLAGS = -I $(top_srcdir)/doc \
 	-I $(top_builddir)/doc -I $(top_srcdir)/examples
