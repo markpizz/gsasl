@@ -49,7 +49,6 @@
 #include "progname.h"
 #include "error.h"
 #include "getpass.h"
-#include "getaddrinfo.h"
 #include "readline.h"
 #include "quote.h"
 #include "version-etc.h"
