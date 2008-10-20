@@ -25,9 +25,6 @@
 #include <fcntl.h>
 #include <io.h>
 #include <sys/socket.h>
-#if GNULIB_IOCTL
-#include <sys/ioctl.h>
-#endif
 
 #undef socket
 #undef connect
@@ -231,28 +228,6 @@ rpl_listen (int fd, int backlog)
 {
   SOCKET sock = FD_TO_SOCKET (fd);
   int r = listen (sock, backlog);
-  if (r < 0)
-    set_winsock_errno ();
-
-  return r;
-}
-#endif
-
-#if GNULIB_IOCTL
-int
-rpl_ioctl (int fd, int req, ...)
-{
-  void *buf;
-  va_list args;
-  SOCKET sock;
-  int r;
-
-  va_start (args, req);
-  buf = va_arg (args, void *);
-  va_end (args);
-
-  sock = FD_TO_SOCKET (fd);
-  r = ioctlsocket (sock, req, buf);
   if (r < 0)
     set_winsock_errno ();
 

@@ -216,7 +216,7 @@ AC_SUBST([LTALLOCA])
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
+    AC_LIBOBJ([ioctl])
     gl_REPLACE_SYS_IOCTL_H
   fi
   gl_SYS_IOCTL_MODULE_INDICATOR([ioctl])
@@ -533,6 +533,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-wchar.c
   tests/test-wctype.c
   tests=lib/inet_pton.c
+  tests=lib/ioctl.c
   tests=lib/perror.c
   tests=lib/sockets.c
   tests=lib/sockets.h
