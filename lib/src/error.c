@@ -207,7 +207,7 @@ gsasl_strerror (int err)
 
   bindtextdomain (PACKAGE, LOCALEDIR);
 
-  if (err < 0 || err > (sizeof (errors) / sizeof (errors[0])))
+  if (err < 0 || err >= (sizeof (errors) / sizeof (errors[0])))
     return _(unknown);
 
   p = errors[err].description;
@@ -237,7 +237,7 @@ gsasl_strerror (int err)
 const char *
 gsasl_strerror_name (int err)
 {
-  if (err < 0 || err > (sizeof (errors) / sizeof (errors[0])))
+  if (err < 0 || err >= (sizeof (errors) / sizeof (errors[0])))
     return NULL;
 
   return errors[err].name;
