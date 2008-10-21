@@ -19,7 +19,7 @@
 EXTRA_DIST = cyclo-gsasl.html
 
 cyclo-gsasl.html:
-	$(PMCCABE) ${top_srcdir}/lib/*/*.[ch] \
+	$(PMCCABE) `find ${top_srcdir}/lib -name \*.[ch] | grep -v -e ../gl` \
 		| sort -nr \
 		| $(AWK) -f ${top_srcdir}/build-aux/pmccabe2html \
 			-v lang=html -v name="$(PACKAGE_NAME)" \
