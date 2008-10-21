@@ -107,6 +107,7 @@ AC_SUBST([LTALLOCA])
   gl_HEADER_NETDB
   gl_HEADER_NETINET_IN
   AC_PROG_MKDIR_P
+  gl_PMCCABE2HTML
   gl_FUNC_POLL
   gl_QUOTE
   gl_QUOTEARG
@@ -334,6 +335,8 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/config.rpath
   build-aux/gendocs.sh
   build-aux/link-warning.h
+  build-aux/pmccabe.css
+  build-aux/pmccabe2html
   doc/fdl.texi
   doc/gendocs_template
   doc/gpl-3.0.texi
@@ -467,6 +470,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/netdb_h.m4
   m4/netinet_in_h.m4
   m4/perror.m4
+  m4/pmccabe2html.m4
   m4/poll.m4
   m4/printf.m4
   m4/quote.m4

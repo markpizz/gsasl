@@ -107,7 +107,7 @@ AC_ARG_VAR(WARN_CFLAGS, [Flags to enable compiler warnings])
 AC_MSG_CHECKING([what compiler warning flags we will use])
 AC_MSG_RESULT($WARN_CFLAGS)
 
-AC_CONFIG_FILES(Makefile po/Makefile.in \
+AC_CONFIG_FILES(Makefile po/Makefile.in doc/cyclo/Makefile \
 		doc/Makefile doc/reference/Makefile doc/doxygen/Doxyfile \
 		gl/Makefile src/Makefile examples/Makefile \
 		gltests/Makefile tests/Makefile)

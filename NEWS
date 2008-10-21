@@ -13,6 +13,9 @@ Reported by Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de>.
 
 ** doc: Error codes are now extracted using official library APIs.
 
+** doc: Included cyclomatic code complexity charts of the library code.
+See doc/cyclo/.
+
 ** tests: Add self test of obsolete base64 functions.
 
 ** Update gnulib files.
