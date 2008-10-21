@@ -19,7 +19,8 @@
 # MA 02110-1301, USA.
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
-DISTCHECK_CONFIGURE_FLAGS = WARN_CFLAGS="-Wall -Werror"
+DISTCHECK_CONFIGURE_FLAGS = \
+	WARN_CFLAGS="-Wall -Werror -Wno-deprecated-declarations"
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgsasl.pc

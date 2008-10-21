@@ -22,4 +22,4 @@ EXTRA_DIST = cfg.mk maint.mk .clcopying
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --disable-obsolete \
-	WARN_CFLAGS="-Wall -Werror"
+	WARN_CFLAGS="-Wall -Werror -Wno-deprecated-declarations"
