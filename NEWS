@@ -6,7 +6,7 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
-* Version 0.2.29 (unreleased)
+* Version 0.2.29 (released 2008-10-21)
 
 ** gsasl: Don't use poll with POLLOUT to avoid busy-waiting.
 Reported by Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de>.
