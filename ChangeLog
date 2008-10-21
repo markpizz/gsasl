@@ -1,3 +1,579 @@
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, lib/Makefile.am: Disable warnings about deprecated
+	stuff.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 0.2.29.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, lib/cfg.mk: Split release target.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* doc/cyclo/Makefile.am: Exclude gnulib files from cyclomatic code
+	complexity chart.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, build-aux/pmccabe.css, build-aux/pmccabe2html,
+	configure.ac, doc/Makefile.am, doc/cyclo/Makefile.am,
+	gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/pmccabe2html.m4: Added cyclomatic code complexity charts.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* gl/close.c, gl/m4/sys_socket_h.m4, gl/socket.c,
+	gl/sys_socket.in.h, gltests/ioctl.c: Update gnulib files.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/unistd_h.m4, gl/unistd.in.h,
+	lib/gl/Makefile.am, lib/gl/m4/unistd_h.m4, lib/gl/unistd.in.h: 
+	Update gnulib files.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/error.c: Make it work with --disable-obsolete.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* tests/old-base64.c: Fix out of range problem in printf.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4, gltests/Makefile.am, gltests/ioctl.c,
+	gltests/sys_ioctl.in.h: Update gnulib files.
+
+2008-10-21  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/close.c, gl/connect.c, gl/m4/gnulib-comp.m4,
+	gl/override/tests/test-poll.c.diff, gl/recv.c, gl/shutdown.c,
+	gl/socket.c, gl/w32sock.h, gl/winsock.c, gltests/Makefile.am,
+	gltests/accept.c, gltests/bind.c, gltests/ioctl.c,
+	gltests/listen.c, gltests/setsockopt.c, gltests/sys_ioctl.in.h,
+	gltests/test-poll.c, gltests/w32sock.h, gltests/winsock.c: Update
+	gnulib files.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4, gl/winsock.c, gltests/Makefile.am,
+	gltests/ioctl.c, gltests/winsock.c: Update gnulib files.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/close.m4, gl/m4/gnulib-comp.m4, gltests/Makefile.am: Update
+	gnulib files.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4, gltests/Makefile.am, gltests/sys_ioctl.in.h: 
+	Update gnulib files.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/tests/Makefile.am: Need -I's for gsasl.h etc.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Don't garble gsasl-api-error-labels.texi if
+	print-errors fails.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Don't re-generate print-errors unless needed.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/error.c: Fix off-by-one error.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/fclose.c, gl/m4/close.m4, gl/m4/fclose.m4,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Re-enable fclose to
+	work around autoconf problem.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/close.c, gl/m4/fclose.m4,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gltests/Makefile.am,
+	gltests/close.c, gltests/fclose.c: Update gnulib files.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Remove gdoc-error.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Drop getaddrinfo.h.
+
+2008-10-20  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/arpa_inet.in.h, gl/errno.in.h,
+	gl/float.in.h, gl/gai_strerror.c, gl/getaddrinfo.c,
+	gl/getaddrinfo.h, gl/iconv.in.h, gl/m4/getaddrinfo.m4,
+	gl/m4/gnulib-common.m4, gl/m4/gnulib-comp.m4, gl/m4/netdb_h.m4,
+	gl/m4/stdlib_h.m4, gl/m4/unistd_h.m4, gl/netdb.in.h,
+	gl/netinet_in.in.h, gl/stdarg.in.h, gl/stdint.in.h, gl/stdio.in.h,
+	gl/stdlib.in.h, gl/string.in.h, gl/sys_select.in.h,
+	gl/sys_socket.in.h, gl/sys_time.in.h, gl/unistd.in.h,
+	gl/wchar.in.h, gl/wctype.in.h, gltests/test-getaddrinfo.c,
+	lib/gl/Makefile.am, lib/gl/errno.in.h, lib/gl/float.in.h,
+	lib/gl/m4/gnulib-common.m4, lib/gl/m4/stdio_h.m4,
+	lib/gl/m4/stdlib_h.m4, lib/gl/m4/unistd_h.m4, lib/gl/stdint.in.h,
+	lib/gl/stdio.in.h, lib/gl/stdlib.in.h, lib/gl/string.in.h,
+	lib/gl/unistd.in.h, lib/gl/wchar.in.h, src/internal.h: Update gnulib
+	files.
+
+2008-10-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getaddrinfo.c, gl/m4/close.m4,
+	gl/m4/fclose.m4, gl/m4/getaddrinfo.m4, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/netdb_h.m4, gl/m4/stdio_h.m4,
+	gl/m4/sys_socket_h.m4, gl/netdb.in.h, gl/stdio.in.h,
+	gl/sys_socket.in.h, gl/winsock.c, gltests/Makefile.am,
+	gltests/fclose.c, gltests/test-netdb.c, gltests/test-poll.c,
+	gltests/winsock.c: Update gnulib files.  Add netdb.h replacement.
+
+2008-10-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, THANKS: Add.
+
+2008-10-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Don't use POLLOUT, causes essentially busy-waiting.
+	Reported by Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de>.
+
+2008-10-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/nonascii.c: Fix warnings.
+
+2008-10-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/tests/Makefile.am: Need -I for gettext.h.
+
+2008-10-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h, lib/win32/libgsasl.vcproj: Fix MSVC build files.
+	Partially reverts recent changes.  Based on discussion with Adam
+	Strzelecki <adam.strzelecki@java.pl>.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Need EXEEXT.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Don't include langinfo.h when it doesn't exist.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Bump so version for new API.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/internal.h, lib/src/xfinish.c: Fix mem leak.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/xfinish.c: Reduce redundancy.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generated.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, doc/gdoc-error, doc/print-errors.c: Generate
+	gsasl-api-error-labels.texi using C program.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/tests/Makefile.am: Add.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/configure.ac, lib/src/Makefile.am,
+	lib/src/test-error.c, lib/tests/test-error.c: Move test-error.c out
+	of library source tree.
+
+2008-10-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml, lib/NEWS, lib/src/Makefile.am,
+	lib/src/error.c, lib/src/gsasl.h, lib/src/test-error.c,
+	tests/Makefile.am, tests/errors.c: Add gsasl_strerror_name.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/callback.c, lib/src/obsolete.c: Move callback mapping to
+	obsolete.c.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/property.c: Typo.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/obsolete.c, lib/src/property.c: Move callback2property
+	mapping to obsolete.c.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/client.c, lib/digest-md5/server.c: Fix warnings.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gssapi/Makefile.am: This code doesn't compile with warnings
+	enabled -- GSS-API bufdesc is broken!
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/digesthmac.c: Fix warnings.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Add.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/old-base64.c: Add self-test of obsolete
+	base64 functions.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/Makefile.am, gl/m4/close.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/sys_ioctl_h.m4, gl/m4/sys_socket_h.m4,
+	gl/m4/unistd_h.m4, gl/sys_select.in.h, gl/sys_socket.in.h,
+	gl/unistd.in.h, gl/winsock.c, gltests/Makefile.am, gltests/close.c,
+	gltests/winsock.c, lib/GNUmakefile, lib/gl/Makefile.am,
+	lib/gl/m4/unistd_h.m4, lib/gl/unistd.in.h: Update gnulib files.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/GNUmakefile, lib/gl/Makefile.am, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/minmax.m4, lib/gl/minmax.h,
+	lib/src/obsolete.c: Use internal base64 encoder instead of
+	duplicating it.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS, lib/NEWS, lib/digest-md5/server.c: DIGEST-MD5 server:
+	Convert latin-1 realm to UTF-8 when needed.  Reported by Adam Goode
+	<adam@spicenitz.org>.
+
+2008-10-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Fix.
+
+2008-10-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/securid/client.c: Fix (incorrect) -Werror warning.
+
+2008-10-09  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.ac, lib/Makefile.am,
+	lib/anonymous/Makefile.am, lib/configure.ac,
+	lib/cram-md5/Makefile.am, lib/digest-md5/Makefile.am,
+	lib/external/Makefile.am, lib/gs2/Makefile.am,
+	lib/gssapi/Makefile.am, lib/kerberos_v5/Makefile.am,
+	lib/login/Makefile.am, lib/ntlm/Makefile.am, lib/plain/Makefile.am,
+	lib/securid/Makefile.am, lib/src/Makefile.am: Do distcheck with
+	-Werror.
+
+2008-10-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl-compat.h: Work around gtk-doc parser bug.
+
+2008-10-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cfg.mk: Fix mingw32 target.
+
+2008-10-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/win32/include/config.h: Add, derived from
+	gen-win32-headers.pl.
+
+2008-10-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Map GSASL_API to nothing by default.
+
+2008-10-09  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, lib/Makefile.am, lib/NEWS, lib/src/gsasl.h,
+	lib/win32/include/gen-win32-headers.pl, lib/win32/libgsasl.vcproj: 
+	Fix MinGW again.  Avoid perl in MSVS.
+
+2008-10-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/version.c: Use GSASL_VERSION instead of PACKAGE_VERSION to
+	reduce config.h dependency.
+
+2008-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Mention new property.
+
+2008-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* tests/digest-md5.c: Ignore GSASL_DIGEST_MD5_HASHED_PASSWORD
+	property callbacks.
+
+2008-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/server.c: Try to get hashed password before real
+	password.  Patch together with "Gazsó Attila" <agazso@gmail.com>.
+
+2008-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS, lib/NEWS, lib/digest-md5/server.c, lib/src/gsasl.h,
+	lib/src/internal.h, lib/src/property.c: Support hashed passwords in
+	DIGEST-MD5 servers.
+
+2008-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cfg.mk: Fix INDENT_SOURCES.
+
+2008-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cfg.mk: Add INDENT_SOURCES.
+
+2008-10-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/c-ctype.h, gl/errno.in.h,
+	gl/m4/gnulib-comp.m4, gl/m4/sys_select_h.m4, gl/m4/unistd_h.m4,
+	gl/strerror.c, gl/sys_select.in.h, gl/unistd.in.h,
+	gl/winsock-select.c, gl/winsock.c, gltests/Makefile.am,
+	gltests/test-sys_select.c, lib/gl/Makefile.am, lib/gl/errno.in.h,
+	lib/gl/m4/unistd_h.m4, lib/gl/unistd.in.h: Update gnulib files.
+
+2008-10-02  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix mingw build rules.
+
+2008-10-02  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/unistd_h.m4, gl/poll.c, gl/sys_socket.in.h,
+	gl/unistd.in.h, gl/winsock-select.c, gl/winsock.c,
+	gltests/test-poll.c, gltests/test-sys_select.c, lib/gl/Makefile.am,
+	lib/gl/m4/unistd_h.m4, lib/gl/unistd.in.h: Update gnulib files.
+
+2008-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/arpa_inet.in.h, gl/m4/arpa_inet_h.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/iconv_h.m4, gl/m4/iconv_open.m4,
+	gl/m4/inet_ntop.m4, gl/m4/inet_pton.m4, gl/m4/sockets.m4,
+	gl/m4/stdio_h.m4, gl/m4/sys_select_h.m4, gl/m4/sys_socket_h.m4,
+	gl/m4/unistd_h.m4, gl/m4/wchar.m4, gl/stdio-write.c, gl/stdio.in.h,
+	gl/sys_select.in.h, gl/sys_socket.in.h, gl/unistd.in.h,
+	gl/winsock.c, gltests/Makefile.am, gltests/test-sys_select.c,
+	lib/gl/Makefile.am, lib/gl/m4/gnulib-comp.m4, lib/gl/m4/stdio_h.m4,
+	lib/gl/m4/unistd_h.m4, lib/gl/m4/wchar.m4, lib/gl/stdio-write.c,
+	lib/gl/stdio.in.h, lib/gl/unistd.in.h: Update gnulib files.
+
+2008-09-30  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, lib/configure.ac: Use AC_CONFIG_MACRO_DIR for modern
+	libtool.
+
+2008-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, doc/reference/Makefile.am, gtk-doc.make,
+	lib/configure.ac: Use automake warnings.  Upgrade gtk-doc makefiles.
+
+2008-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* gsasl.fms: Remove.
+
+2008-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/m4/gnulib-cache.m4: Update gnulib
+	files.
+
+2008-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/sys_select_h.m4, gl/sys_select.in.h, gl/sys_socket.in.h,
+	gl/winsock-select.c, gltests/test-sys_select.c: Update gnulib files.
+
+2008-09-23  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/alloca.c, gl/m4/gnulib-comp.m4,
+	gl/m4/perror.m4, gl/m4/strdup.m4, gl/m4/string_h.m4,
+	gl/m4/sys_socket_h.m4, gl/m4/wchar.m4, gl/poll.c, gl/string.in.h,
+	gl/sys_socket.in.h, gl/vasnprintf.c, gl/wchar.in.h, gl/wctype.in.h,
+	gl/winsock.c, gltests/Makefile.am, gltests/perror.c,
+	gltests/test-perror.c, gltests/test-perror.sh, gltests/test-poll.c,
+	gltests/test-wchar.c, gltests/test-wctype.c, lib/gl/Makefile.am,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/strdup.m4,
+	lib/gl/m4/string_h.m4, lib/gl/m4/wchar.m4, lib/gl/malloc.c,
+	lib/gl/string.in.h, lib/gl/vasnprintf.c, lib/gl/wchar.in.h,
+	lib/gltests/test-wchar.c: Update gnulib files.
+
+2008-09-17  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Revert CFLAGS, causes ./configure to be run with
+	-Werror which isn't supported.
+
+2008-09-17  Simon Josefsson <simon@josefsson.org>
+
+	* README, doc/gsasl.texi, lib/README: Fix license discussions.
+
+2008-09-17  Simon Josefsson <simon@josefsson.org>
+
+	* po/ga.po.in: Sync with TP.
+
+2008-09-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/LINGUAS, lib/po/id.po.in: Sync with TP.
+
+2008-09-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/test-parser.c, lib/securid/mechinfo.c, lib/src/gsasl.h,
+	lib/src/mechname.c, lib/src/version.c, tests/external.c: Indent.
+
+2008-09-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/test-parser.c, src/imap.c, src/smtp.c,
+	tests/external.c: Fix warnings.
+
+2008-09-17  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Add dist-check warning flags.
+
+2008-09-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/errno.in.h, gl/m4/eoverflow.m4,
+	gl/m4/errno_h.m4, gl/m4/gnulib-comp.m4, gl/m4/inet_pton.m4,
+	gl/m4/sockets.m4, gl/m4/stdio_h.m4, gl/m4/strerror.m4, gl/poll.c,
+	gl/stdio.in.h, gl/strerror.c, gl/sys_socket.in.h, gl/vasnprintf.c,
+	gltests/Makefile.am, gltests/dummy.c, gltests/inet_pton.c,
+	gltests/sockets.c, gltests/sockets.h, gltests/test-EOVERFLOW.c,
+	gltests/test-errno.c, gltests/test-poll.c, gltests/test-sockets.c,
+	gltests/test-strerror.c, lib/gl/Makefile.am, lib/gl/errno.in.h,
+	lib/gl/m4/eoverflow.m4, lib/gl/m4/errno_h.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/stdio_h.m4, lib/gl/stdio.in.h,
+	lib/gl/vasnprintf.c, lib/gltests/Makefile.am,
+	lib/gltests/test-EOVERFLOW.c, lib/gltests/test-errno.c: Update
+	gnulib files.
+
+2008-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Don't check gnulib getdelim for thread
+	unsafety: it is thread safe.
+
+2008-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/config.rpath, gl/m4/include_next.m4,
+	lib/build-aux/config.rpath, lib/gl/m4/include_next.m4: Update gnulib
+	files.
+
+2008-09-03  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/arpa_inet.in.h, gl/float.in.h, gl/iconv.in.h,
+	gl/m4/include_next.m4, gl/m4/lib-link.m4, gl/m4/lib-prefix.m4,
+	gl/netinet_in.in.h, gl/stdarg.in.h, gl/stdint.in.h, gl/stdio.in.h,
+	gl/stdlib.in.h, gl/string.in.h, gl/sys_select.in.h,
+	gl/sys_socket.in.h, gl/sys_time.in.h, gl/unistd.in.h,
+	gl/vasnprintf.c, gl/wchar.in.h, gl/wctype.in.h, lib/gl/Makefile.am,
+	lib/gl/float.in.h, lib/gl/m4/include_next.m4,
+	lib/gl/m4/lib-link.m4, lib/gl/m4/lib-prefix.m4, lib/gl/stdint.in.h,
+	lib/gl/stdio.in.h, lib/gl/stdlib.in.h, lib/gl/string.in.h,
+	lib/gl/unistd.in.h, lib/gl/vasnprintf.c, lib/gl/wchar.in.h: Update
+	gnulib files.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, lib/Makefile.am, lib/cfg.mk: Fix release target in lib/.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, cfg.mk: Move release targets.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/GNUmakefile, lib/gl/getdelim.c, lib/gl/m4/getdelim.m4,
+	lib/maint.mk: Update gnulib files.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/getdelim.c, gl/m4/getdelim.m4, gl/poll.c,
+	maint.mk: Update gnulib files.
+
+2008-08-27  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Bump version.
+
+2008-08-22  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/poll.m4, gl/poll.c, gl/poll.in.h: Need poll for mingw32.
+
+2008-08-21  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/version.c: Update gnulib usage.
+
+2008-08-21  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/string_h.m4, lib/gl/m4/strverscmp.m4,
+	lib/gl/m4/threadlib.m4, lib/gl/string.in.h, lib/gl/strverscmp.h,
+	lib/gltests/Makefile.am, lib/gltests/test-strverscmp.c: Update
+	gnulib files.
+
+2008-08-21  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/autobuild.m4, gl/m4/string_h.m4,
+	gl/string.in.h: Update gnulib files.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Fix URLs.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix URLs.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Bump versions.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Don't put archive in www direcory.
+
+2008-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2008-08-20  Simon Josefsson <simon@josefsson.org>
 
 	* lib/ChangeLog: Generated.
