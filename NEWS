@@ -15,6 +15,9 @@ Reported by Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de>.
 
 ** tests: Add self test of obsolete base64 functions.
 
+** Update gnulib files.
+Improves Windows compatibility.
+
 * Version 0.2.28 (released 2008-08-20)
 
 ** gsasl: Rewrite to use poll instead of select.
