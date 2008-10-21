@@ -216,6 +216,13 @@ AC_SUBST([LTALLOCA])
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([ioctl])
+    gl_REPLACE_SYS_IOCTL_H
+  fi
+  gl_SYS_IOCTL_MODULE_INDICATOR([ioctl])
+  gl_MODULE_INDICATOR([ioctl])
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([listen])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([listen])
@@ -230,6 +237,8 @@ AC_SUBST([LTALLOCA])
   gl_SOCKETS
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
+  gl_SYS_IOCTL_H
+  AC_PROG_MKDIR_P
   AC_CHECK_FUNCS([shutdown])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
@@ -530,11 +539,13 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/accept.c
   tests=lib/bind.c
   tests=lib/inet_pton.c
+  tests=lib/ioctl.c
   tests=lib/listen.c
   tests=lib/perror.c
   tests=lib/setsockopt.c
   tests=lib/sockets.c
   tests=lib/sockets.h
+  tests=lib/sys_ioctl.in.h
   tests=lib/verify.h
   tests=lib/w32sock.h
   top/GNUmakefile
