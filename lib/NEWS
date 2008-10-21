@@ -22,6 +22,9 @@ This reduces size of the library somewhat.
 
 ** Make the library compile under MinGW again.
 
+** Added Indonesian translation.
+Thanks to Andhika Padmawan <andhika.padmawan@gmail.com>.
+
 ** Perl is no longer required to build Libgsasl in Visual Studio.
 
 ** Fix several compiler warnings.
