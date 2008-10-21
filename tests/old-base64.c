@@ -37,7 +37,7 @@ main (void)
   int len;
 
   len = gsasl_base64_encode ("foobar", 6, target, targsize);
-  printf ("base64_encode(foobar, 6) = %d, %s\n", len, target);
+  printf ("base64_encode(foobar, 6) = %d, %.*s\n", len, len, target);
   if (len != 8 || memcmp (target, "Zm9vYmFy", len) != 0)
     {
       printf ("base64_encode failure\n");
