@@ -1,0 +1,14 @@
+--- test-poll.c.orig	2008-10-21 12:25:33.000000000 +0200
++++ test-poll.c	2008-10-21 12:25:02.000000000 +0200
+@@ -370,7 +370,11 @@
+   result = test (test_connect_first, "Unconnected socket test");
+   result += test (test_socket_pair, "Connected sockets test");
+   result += test (test_accept_first, "General socket test with fork");
++  /* GNU SASL doesn't use poll on pipes.  The pipe test breaks Wine,
++     see <http://bugs.winehq.org/show_bug.cgi?id=15272>.
++
+   result += test (test_pipe, "Pipe test");
++  */
+ 
+   exit (result);
+ }

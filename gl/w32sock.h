@@ -1,4 +1,4 @@
-/* ioctl.c --- wrappers for Windows socket ioctl function
+/* w32sock.h --- internal auxilliary functions for Windows socket functions
 
    Copyright (C) 2008 Free Software Foundation, Inc.
 
@@ -17,17 +17,16 @@
 
 /* Written by Paolo Bonzini */
 
-#include <config.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
 #include <errno.h>
+
+/* Get O_RDWR and O_BINARY.  */
 #include <fcntl.h>
+
+/* Get _get_osfhandle() and _open_osfhandle().  */
 #include <io.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
 
 #define FD_TO_SOCKET(fd)   ((SOCKET) _get_osfhandle ((fd)))
+#define SOCKET_TO_FD(fh)   (_open_osfhandle ((long) (fh), O_RDWR | O_BINARY))
 
 static inline void
 set_winsock_errno (void)
@@ -60,24 +59,4 @@ set_winsock_errno (void)
       errno = (err > 10000 && err < 10025) ? err - 10000 : err;
       break;
     }
-}
-
-int
-rpl_ioctl (int fd, int req, ...)
-{
-  void *buf;
-  va_list args;
-  SOCKET sock;
-  int r;
-
-  va_start (args, req);
-  buf = va_arg (args, void *);
-  va_end (args);
-
-  sock = FD_TO_SOCKET (fd);
-  r = ioctlsocket (sock, req, buf);
-  if (r < 0)
-    set_winsock_errno ();
-
-  return r;
 }

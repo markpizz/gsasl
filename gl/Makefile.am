@@ -118,9 +118,9 @@ EXTRA_libgl_la_SOURCES += close.c
 ## begin gnulib module connect
 
 
-EXTRA_DIST += winsock.c
+EXTRA_DIST += connect.c w32sock.h
 
-EXTRA_libgl_la_SOURCES += winsock.c
+EXTRA_libgl_la_SOURCES += connect.c
 
 ## end   gnulib module connect
 
@@ -502,18 +502,18 @@ EXTRA_libgl_la_SOURCES += realloc.c
 ## begin gnulib module recv
 
 
-EXTRA_DIST += winsock.c
+EXTRA_DIST += recv.c w32sock.h
 
-EXTRA_libgl_la_SOURCES += winsock.c
+EXTRA_libgl_la_SOURCES += recv.c
 
 ## end   gnulib module recv
 
 ## begin gnulib module shutdown
 
 
-EXTRA_DIST += winsock.c
+EXTRA_DIST += shutdown.c w32sock.h
 
-EXTRA_libgl_la_SOURCES += winsock.c
+EXTRA_libgl_la_SOURCES += shutdown.c
 
 ## end   gnulib module shutdown
 
@@ -535,9 +535,9 @@ EXTRA_libgl_la_SOURCES += snprintf.c
 ## begin gnulib module socket
 
 
-EXTRA_DIST += winsock.c
+EXTRA_DIST += socket.c w32sock.h
 
-EXTRA_libgl_la_SOURCES += winsock.c
+EXTRA_libgl_la_SOURCES += socket.c
 
 ## end   gnulib module socket
 
@@ -938,9 +938,7 @@ sys/socket.h: sys_socket.in.h
 MOSTLYCLEANFILES += sys/socket.h sys/socket.h-t
 MOSTLYCLEANDIRS += sys
 
-EXTRA_DIST += sys_socket.in.h winsock.c
-
-EXTRA_libgl_la_SOURCES += winsock.c
+EXTRA_DIST += sys_socket.in.h
 
 ## end   gnulib module sys_socket
 

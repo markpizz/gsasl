@@ -60,7 +60,7 @@ AC_SUBST([LTALLOCA])
   gl_UNISTD_MODULE_INDICATOR([close])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
+    AC_LIBOBJ([connect])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([connect])
   gl_HEADER_ERRNO_H
@@ -115,12 +115,12 @@ AC_SUBST([LTALLOCA])
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
+    AC_LIBOBJ([recv])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([recv])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
+    AC_LIBOBJ([shutdown])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([shutdown])
   gl_SIZE_MAX
@@ -128,7 +128,7 @@ AC_SUBST([LTALLOCA])
   gl_STDIO_MODULE_INDICATOR([snprintf])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
+    AC_LIBOBJ([socket])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([socket])
   gl_TYPE_SOCKLEN_T
@@ -202,12 +202,12 @@ AC_SUBST([LTALLOCA])
   gl_source_base='gltests'
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
+    AC_LIBOBJ([accept])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([accept])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
+    AC_LIBOBJ([bind])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([bind])
   gt_LOCALE_FR
@@ -216,14 +216,7 @@ AC_SUBST([LTALLOCA])
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([ioctl])
-    gl_REPLACE_SYS_IOCTL_H
-  fi
-  gl_SYS_IOCTL_MODULE_INDICATOR([ioctl])
-  gl_MODULE_INDICATOR([ioctl])
-  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
-  if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
+    AC_LIBOBJ([listen])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([listen])
   gl_FUNC_PERROR
@@ -231,14 +224,12 @@ AC_SUBST([LTALLOCA])
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock])
+    AC_LIBOBJ([setsockopt])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([setsockopt])
   gl_SOCKETS
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
-  gl_SYS_IOCTL_H
-  AC_PROG_MKDIR_P
   AC_CHECK_FUNCS([shutdown])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
@@ -348,6 +339,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/c-strcasecmp.c
   lib/c-strncasecmp.c
   lib/close.c
+  lib/connect.c
   lib/errno.in.h
   lib/error.c
   lib/error.h
@@ -395,8 +387,11 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/readline.c
   lib/readline.h
   lib/realloc.c
+  lib/recv.c
+  lib/shutdown.c
   lib/size_max.h
   lib/snprintf.c
+  lib/socket.c
   lib/stdarg.in.h
   lib/stdbool.in.h
   lib/stdint.in.h
@@ -417,9 +412,9 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/vasnprintf.h
   lib/version-etc.c
   lib/version-etc.h
+  lib/w32sock.h
   lib/wchar.in.h
   lib/wctype.in.h
-  lib/winsock.c
   lib/xalloc-die.c
   lib/xalloc.h
   lib/xmalloc.c
@@ -532,14 +527,16 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-vasnprintf.c
   tests/test-wchar.c
   tests/test-wctype.c
+  tests=lib/accept.c
+  tests=lib/bind.c
   tests=lib/inet_pton.c
-  tests=lib/ioctl.c
+  tests=lib/listen.c
   tests=lib/perror.c
+  tests=lib/setsockopt.c
   tests=lib/sockets.c
   tests=lib/sockets.h
-  tests=lib/sys_ioctl.in.h
   tests=lib/verify.h
-  tests=lib/winsock.c
+  tests=lib/w32sock.h
   top/GNUmakefile
   top/maint.mk
 ])
