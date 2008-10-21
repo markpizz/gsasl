@@ -54,9 +54,11 @@ ChangeLog:
 	git2cl > ChangeLog
 	cat ../.clcopying >> ChangeLog
 
-upload:
+prepare:
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
 	git commit -m Generated. ChangeLog
+
+upload:
 	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
 	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig ../../releases/gsasl/

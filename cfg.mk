@@ -56,26 +56,31 @@ ChangeLog:
 htmldir = ../www-$(PACKAGE)
 tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
 
-release: upload webdocs
+release: prepare upload web upload-web
 
-upload:
-	cd lib && make upload
+prepare:
+	cd lib && make prepare
 	! git-tag -l $(tag) | grep $(PACKAGE) > /dev/null
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
 	git commit -m Generated. ChangeLog
 	git-tag -u b565716f! -m $(VERSION) $(tag)
+
+upload:
+	cd lib && make upload
 	git-push
 	git-push --tags
 	build-aux/gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
 
-webdocs:
+web:
 	cd doc && env MAKEINFO="makeinfo -I ../examples" \
 		      TEXI2DVI="texi2dvi -I ../examples" \
 		../build-aux/gendocs.sh --html "--css-include=texinfo.css" \
 		-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
 	cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make refman.pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf
 	cp -v doc/reference/html/*.html doc/reference/html/*.png doc/reference/html/*.devhelp doc/reference/html/*.css $(htmldir)/reference/
+
+upload-web:
 	cd $(htmldir) && \
 		cvs commit -m "Update." manual/ reference/ doxygen/
