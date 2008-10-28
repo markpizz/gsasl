@@ -36,7 +36,8 @@ TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
 	$(VALGRIND)
 
 ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\
-	md5file$(EXEEXT) name$(EXEEXT) errors$(EXEEXT)
+	md5file$(EXEEXT) name$(EXEEXT) errors$(EXEEXT)			\
+	suggest$(EXEEXT)
 
 if OBSOLETE
 ctests += simple$(EXEEXT) old-md5file$(EXEEXT) old-cram-md5$(EXEEXT)	\
