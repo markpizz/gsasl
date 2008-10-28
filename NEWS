@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 0.2.30 (unreleased)
 
+** doc: Modernize doxygen configuration.
+
 * Version 0.2.29 (released 2008-10-21)
 
 ** gsasl: Don't use poll with POLLOUT to avoid busy-waiting.
