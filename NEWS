@@ -10,6 +10,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 ** doc: Modernize doxygen configuration.
 
+** doc: Use permissive license for man pages.
+
 * Version 0.2.29 (released 2008-10-21)
 
 ** gsasl: Don't use poll with POLLOUT to avoid busy-waiting.
