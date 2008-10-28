@@ -1,5 +1,5 @@
 /* gssapi.c --- Test the GSSAPI mechanism.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -125,7 +125,7 @@ doit (void)
 	  res1 = gsasl_step64 (server, s1, &s2);
 	  if (s1)
 	    {
-	      free (s1);
+	      gsasl_free (s1);
 	      s1 = NULL;
 	    }
 	  if (res1 != GSASL_OK && res1 != GSASL_NEEDS_MORE)
@@ -142,7 +142,7 @@ doit (void)
 	    break;
 
 	  res2 = gsasl_step64 (client, s2, &s1);
-	  free (s2);
+	  gsasl_free (s2);
 	  if (res2 != GSASL_OK && res2 != GSASL_NEEDS_MORE)
 	    {
 	      fail ("gsasl_step64 (2) failed (%d):\n%s\n", res2,
@@ -157,7 +157,7 @@ doit (void)
 
       if (s1)
 	{
-	  free (s1);
+	  gsasl_free (s1);
 	  s1 = NULL;
 	}
 

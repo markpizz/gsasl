@@ -138,7 +138,7 @@ doit (void)
 	  return;
 	}
       if (s1)
-	free (s1);
+	gsasl_free (s1);
 
       if (debug)
 	{
@@ -150,7 +150,7 @@ doit (void)
 
       res = gsasl_step (server, s2, s2len, &s1, &s1len);
       if (s2)
-	free (s2);
+	gsasl_free (s2);
       if (res != tv[n].serverrc)
 	{
 	  fail ("gsasl_step server2 (%d):\n%s\n", res, gsasl_strerror (res));
@@ -171,7 +171,7 @@ doit (void)
 	}
 
       if (s1)
-	free (s1);
+	gsasl_free (s1);
 
       gsasl_finish (client);
       gsasl_finish (server);

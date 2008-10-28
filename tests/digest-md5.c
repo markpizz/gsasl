@@ -151,7 +151,7 @@ doit (void)
       /* Client respond... */
 
       res = gsasl_step (client, s1, s1len, &s2, &s2len);
-      free (s1);
+      gsasl_free (s1);
       if (res != GSASL_NEEDS_MORE)
 	{
 	  fail ("gsasl_step(2) failed (%d):\n%s\n", res,
@@ -165,7 +165,7 @@ doit (void)
       /* Server finishes... */
 
       res = gsasl_step (server, s2, s2len, &s1, &s1len);
-      free (s2);
+      gsasl_free (s2);
       if (res != GSASL_NEEDS_MORE)
 	{
 	  fail ("gsasl_step(3) failed (%d):\n%s\n", res,
@@ -179,7 +179,7 @@ doit (void)
       /* Client finishes... */
 
       res = gsasl_step (client, s1, s1len, &s2, &s2len);
-      free (s1);
+      gsasl_free (s1);
       if (res != GSASL_OK)
 	{
 	  fail ("gsasl_step(4) failed (%d):\n%s\n", res,
@@ -200,7 +200,7 @@ doit (void)
       /* Server is done. */
 
       res = gsasl_step (server, s2, s2len, &s1, &s1len);
-      free (s2);
+      gsasl_free (s2);
       if (res != GSASL_OK)
 	{
 	  fail ("gsasl_step(5) failed (%d):\n%s\n", res,
@@ -215,7 +215,7 @@ doit (void)
 	  return;
 	}
 
-      free (s1);
+      gsasl_free (s1);
 
       if (debug)
 	printf ("\n");

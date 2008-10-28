@@ -124,7 +124,7 @@ doit (void)
       last_server_challenge_len = s1len;
 
       res = gsasl_step (client, s1, s1len, &s2, &s2len);
-      free (s1);
+      gsasl_free (s1);
       if (res != GSASL_OK)
 	{
 	  fail ("gsasl_step() failed (%d):\n%s\n", res, gsasl_strerror (res));
@@ -135,7 +135,7 @@ doit (void)
 	printf ("C: %.*s\n", s2len, s2);
 
       res = gsasl_step (server, s2, s2len, &s1, &s1len);
-      free (s2);
+      gsasl_free (s2);
       if (res != GSASL_OK)
 	{
 	  fail ("gsasl_step() failed (%d):\n%s\n", res, gsasl_strerror (res));
@@ -149,7 +149,7 @@ doit (void)
 	  return;
 	}
 
-      free (s1);
+      gsasl_free (s1);
 
       if (debug)
 	printf ("\n");
