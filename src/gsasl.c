@@ -105,7 +105,7 @@ readln (char **out)
       while (input[j - 1] != '\n' && j < MAX_LINE_LENGTH);
       input[j] = '\0';
 
-      *out = strdup (input);
+      *out = xstrdup (input);
 
       printf ("%s", *out);
     }
@@ -365,17 +365,17 @@ main (int argc, char *argv[])
     {
       if (strrchr (args_info.connect_arg, ':'))
 	{
-	  connect_hostname = strdup (args_info.connect_arg);
+	  connect_hostname = xstrdup (args_info.connect_arg);
 	  *strrchr (connect_hostname, ':') = '\0';
-	  connect_service = strdup (strrchr (args_info.connect_arg, ':') + 1);
+	  connect_service = xstrdup (strrchr (args_info.connect_arg, ':') + 1);
 	}
       else
 	{
-	  connect_hostname = strdup (args_info.connect_arg);
+	  connect_hostname = xstrdup (args_info.connect_arg);
 	  if (args_info.smtp_flag)
-	    connect_service = strdup ("smtp");
+	    connect_service = xstrdup ("smtp");
 	  else
-	    connect_service = strdup ("imap");
+	    connect_service = xstrdup ("imap");
 	}
     }
   else if (args_info.inputs_num > 0)
@@ -384,9 +384,9 @@ main (int argc, char *argv[])
       if (args_info.inputs_num > 1)
 	connect_service = args_info.inputs[1];
       else if (args_info.smtp_flag)
-	connect_service = strdup ("smtp");
+	connect_service = xstrdup ("smtp");
       else
-	connect_service = strdup ("imap");
+	connect_service = xstrdup ("imap");
     }
 
   if (connect_service && !args_info.smtp_flag && !args_info.imap_flag)
@@ -399,16 +399,16 @@ main (int argc, char *argv[])
     }
 
   if (args_info.imap_flag && !args_info.service_given)
-    args_info.service_arg = strdup ("imap");
+    args_info.service_arg = xstrdup ("imap");
 
   if (args_info.smtp_flag && !args_info.service_given)
-    args_info.service_arg = strdup ("smtp");
+    args_info.service_arg = xstrdup ("smtp");
 
   if (args_info.imap_flag || args_info.smtp_flag)
     args_info.no_client_first_flag = 1;
 
   if (connect_hostname && !args_info.hostname_arg)
-    args_info.hostname_arg = strdup (connect_hostname);
+    args_info.hostname_arg = xstrdup (connect_hostname);
 
   if (!isatty (STDOUT_FILENO))
     setvbuf (stdout, NULL, _IOLBF, BUFSIZ);

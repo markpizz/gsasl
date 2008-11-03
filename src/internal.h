@@ -52,6 +52,7 @@
 #include "readline.h"
 #include "quote.h"
 #include "version-etc.h"
+#include "xalloc.h"
 
 /* Get i18n. */
 #include <gettext.h>

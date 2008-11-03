@@ -115,7 +115,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	    {
 	      printf ("Using system username `%s' as "
 		      "authentication identity.\n", pw->pw_name);
-	      args_info.authentication_id_arg = strdup (pw->pw_name);
+	      args_info.authentication_id_arg = xstrdup (pw->pw_name);
 	    }
 	  else
 #endif
