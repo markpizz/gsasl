@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=build-aux --with-tests --lgpl=2 --libtool --macro-prefix=gl --no-vc-files base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-md5 crypto/gc-md5-tests crypto/gc-random crypto/gc-tests getline gettext maintainer-makefile minmax strdup strverscmp vasprintf
+#   gnulib-tool --import --dir=. --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=build-aux --with-tests --lgpl=2 --libtool --macro-prefix=gl --no-vc-files base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-md5 crypto/gc-md5-tests crypto/gc-random crypto/gc-tests getline gettext maintainer-makefile minmax strverscmp vasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
@@ -32,7 +32,6 @@ gl_MODULES([
   gettext
   maintainer-makefile
   minmax
-  strdup
   strverscmp
   vasprintf
 ])
