@@ -12,6 +12,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 ** doc: Use permissive license for man pages.
 
+** doc: Change license on the manual to GFDLv1.3+.
+
 * Version 0.2.29 (released 2008-10-21)
 
 ** gsasl: Don't use poll with POLLOUT to avoid busy-waiting.
