@@ -36,7 +36,7 @@ EXTRA_DIST = gdoc \
 	$(EPSTOPDF) $<
 
 info_TEXINFOS = gsasl.texi
-gsasl_TEXINFOS = fdl.texi gpl-3.0.texi lgpl-2.1.texi $(gdoc_TEXINFOS) \
+gsasl_TEXINFOS = fdl-1.3.texi gpl-3.0.texi lgpl-2.1.texi $(gdoc_TEXINFOS) \
 	controlflow.eps controlflow.png controlflow.pdf \
 	controlflow2.eps controlflow2.png controlflow2.pdf \
 	abstraction.eps abstraction.png abstraction.pdf \
