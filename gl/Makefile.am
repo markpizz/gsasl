@@ -109,7 +109,7 @@ libgl_la_SOURCES += c-strcase.h c-strcasecmp.c c-strncasecmp.c
 ## begin gnulib module close
 
 
-EXTRA_DIST += close.c
+EXTRA_DIST += close.c w32sock.h
 
 EXTRA_libgl_la_SOURCES += close.c
 
