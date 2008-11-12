@@ -84,28 +84,9 @@ GTK_DOC_CHECK(1.1)
 # Set up the library.
 AC_CONFIG_SUBDIRS(lib)
 
-# Run self-tests under valgrind?
-if test "$cross_compiling" = no; then
-  AC_CHECK_PROGS(VALGRIND, valgrind)
-fi
-if test -n "$VALGRIND" && $VALGRIND true > /dev/null 2>&1; then
-  opt_valgrind_tests=yes
-else
-  opt_valgrind_tests=no
-  VALGRIND=
-fi 
-AC_MSG_CHECKING([whether self tests are run under valgrind])
-AC_ARG_ENABLE(valgrind-tests,
-	AS_HELP_STRING([--enable-valgrind-tests],
-                       [run self tests under valgrind]),
-  opt_valgrind_tests=$enableval)
-AC_MSG_RESULT($opt_valgrind_tests)
+sj_VALGRIND
 
-# Make it possible to pass -Werror when building relevant parts of
-# the library.  Normally, -Werror breaks when running autoconf tests.
-AC_ARG_VAR(WARN_CFLAGS, [Flags to enable compiler warnings])
-AC_MSG_CHECKING([what compiler warning flags we will use])
-AC_MSG_RESULT($WARN_CFLAGS)
+gl_WARN_ADD([-Wall])
 
 AC_CONFIG_FILES(Makefile po/Makefile.in doc/cyclo/Makefile \
 		doc/Makefile doc/reference/Makefile doc/doxygen/Doxyfile \

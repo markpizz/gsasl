@@ -379,22 +379,7 @@ AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 # For gnulib stuff in gl/.
 gl_INIT
 
-# Update version number in src/gsasl.h.
-if ! sed 's/GSASL_VERSION ".*"/GSASL_VERSION "'$PACKAGE_VERSION'"/' \
-    $srcdir/src/gsasl.h > fixhdr.tmp; then
-  AC_MSG_ERROR([[*** Failed to update version number in src/gsasl.h...]])
-fi
-if cmp -s $srcdir/src/gsasl.h fixhdr.tmp 2>/dev/null; then
-  rm -f fixhdr.tmp
-elif ! mv fixhdr.tmp $srcdir/src/gsasl.h; then
-  AC_MSG_ERROR([[*** Failed to move fixhdr.tmp to src/gsasl.h...]])
-fi
-
-# Make it possible to pass -Werror when building relevant parts of
-# the library.  Normally, -Werror breaks when running autoconf tests.
-AC_ARG_VAR(WARN_CFLAGS, [Flags to enable compiler warnings])
-AC_MSG_CHECKING([what compiler warning flags we will use])
-AC_MSG_RESULT($WARN_CFLAGS)
+sj_UPDATE_HEADER_VERSION([$srcdir/src/gsasl.h])
 
 AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
 		gl/Makefile gltests/Makefile src/Makefile tests/Makefile \

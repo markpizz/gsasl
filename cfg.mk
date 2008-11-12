@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-CFGFLAGS ?= --enable-gtk-doc
+CFGFLAGS ?= --enable-gtk-doc WARN_CFLAGS="-Werror -Wno-deprecated-declarations"
 
 INDENT_SOURCES = `find . -name \*.c -or -name \*.h | grep -v -e /gl -e build-aux -e /win32/`
 
