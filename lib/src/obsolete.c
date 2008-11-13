@@ -1547,7 +1547,7 @@ gsasl_server_callback_service_get (Gsasl * ctx)
   return ctx ? ctx->cbs_service : NULL;
 }
 
-#if WITH_SASLPREP
+#if HAVE_LIBIDN
 # include <stringprep.h>
 #endif
 
@@ -1582,7 +1582,7 @@ gsasl_stringprep_nfkc (const char *in, ssize_t len)
 {
   char *out = NULL;
 
-#if WITH_SASLPREP
+#if HAVE_LIBIDN
   out = stringprep_utf8_nfkc_normalize (in, len);
 #endif
 
@@ -1612,7 +1612,7 @@ char *
 gsasl_stringprep_saslprep (const char *in, int *stringprep_rc)
 {
   char *out = NULL;
-#if WITH_SASLPREP
+#if HAVE_LIBIDN
   int rc;
 
   rc = stringprep_profile (in, &out, "SASLprep", 0);
@@ -1646,7 +1646,7 @@ char *
 gsasl_stringprep_trace (const char *in, int *stringprep_rc)
 {
   char *out = NULL;
-#if WITH_SASLPREP
+#if HAVE_LIBIDN
   int rc;
 
   rc = stringprep_profile (in, &out, "trace", 0);
