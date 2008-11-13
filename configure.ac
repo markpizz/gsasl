@@ -75,21 +75,28 @@ fi
 AC_MSG_CHECKING([if STARTTLS support via GnuTLS should be built])
 AC_MSG_RESULT($gnutls)
 
-# For gnulib stuff in gl/.
-gl_INIT
-
 # Check for gtk-doc.
 GTK_DOC_CHECK(1.1)
 
-# Set up the library.
-AC_CONFIG_SUBDIRS(lib)
+# For gnulib stuff in gl/.
+gl_INIT
 
 sj_VALGRIND
-
 gl_WARN_ADD([-Wall])
 
-AC_CONFIG_FILES(Makefile po/Makefile.in doc/cyclo/Makefile \
-		doc/Makefile doc/reference/Makefile doc/doxygen/Doxyfile \
-		gl/Makefile src/Makefile examples/Makefile \
-		gltests/Makefile tests/Makefile)
+AC_CONFIG_SUBDIRS(lib)
+
+AC_CONFIG_FILES([
+  Makefile
+  doc/Makefile
+  doc/cyclo/Makefile
+  doc/doxygen/Doxyfile
+  doc/reference/Makefile
+  examples/Makefile
+  gl/Makefile
+  gltests/Makefile
+  po/Makefile.in
+  src/Makefile
+  tests/Makefile
+])
 AC_OUTPUT
