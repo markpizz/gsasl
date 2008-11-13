@@ -45,14 +45,6 @@ gl_EARLY
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
-AC_MSG_CHECKING([if gcc/ld supports -Wl,--output-def])
-_gcc_ldflags_save=$LDFLAGS
-LDFLAGS="-Wl,--output-def,foo.def"
-AC_LINK_IFELSE(AC_LANG_PROGRAM([]),output_def=yes,output_def=no)
-AC_MSG_RESULT($output_def)
-LDFLAGS="$_gcc_ldflags_save"
-AM_CONDITIONAL(HAVE_LD_OUTPUT_DEF, test "$output_def" = "yes")
-
 # Internationalization.
 AM_GNU_GETTEXT(external)
 AM_GNU_GETTEXT_VERSION(0.17)
@@ -379,13 +371,29 @@ AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 # For gnulib stuff in gl/.
 gl_INIT
 
+sj_OUTPUT_DEF
 sj_UPDATE_HEADER_VERSION([$srcdir/src/gsasl.h])
 
-AC_CONFIG_FILES(Makefile libgsasl.pc po/Makefile.in \
-		gl/Makefile gltests/Makefile src/Makefile tests/Makefile \
-		anonymous/Makefile cram-md5/Makefile \
-		digest-md5/Makefile external/Makefile \
-		gssapi/Makefile gs2/Makefile kerberos_v5/Makefile \
-		login/Makefile ntlm/Makefile plain/Makefile \
-		securid/Makefile)
+AC_SUBST([WARN_CFLAGS])
+
+AC_CONFIG_FILES([
+  Makefile
+  anonymous/Makefile
+  cram-md5/Makefile
+  digest-md5/Makefile
+  external/Makefile
+  gl/Makefile
+  gltests/Makefile
+  gs2/Makefile
+  gssapi/Makefile
+  kerberos_v5/Makefile
+  libgsasl.pc
+  login/Makefile
+  ntlm/Makefile
+  plain/Makefile \
+  po/Makefile.in
+  securid/Makefile
+  src/Makefile
+  tests/Makefile
+])
 AC_OUTPUT

@@ -83,6 +83,7 @@ gl_INIT
 
 sj_VALGRIND
 gl_WARN_ADD([-Wall])
+export WARN_CFLAGS
 
 AC_CONFIG_SUBDIRS(lib)
 
