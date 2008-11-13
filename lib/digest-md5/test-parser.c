@@ -40,7 +40,7 @@ main (int argc, char *argv[])
   char *tmp;
 
   {
-    char *token = "nonce=4711, foo=bar, algorithm=md5-sess";
+    const char *token = "nonce=4711, foo=bar, algorithm=md5-sess";
 
     printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, 0, &c);
@@ -57,7 +57,7 @@ main (int argc, char *argv[])
   }
 
   {
-    char *token = "qop=\"auth, auth-conf\", nonce=42, algorithm=md5-sess";
+    const char *token = "qop=\"auth, auth-conf\", nonce=42, algorithm=md5-sess";
 
     printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, 0, &c);
@@ -67,7 +67,7 @@ main (int argc, char *argv[])
   }
 
   {
-    char *token = "cipher=\"des\", nonce=42, algorithm=md5-sess";
+    const char *token = "cipher=\"des\", nonce=42, algorithm=md5-sess";
 
     printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, 0, &c);
@@ -77,8 +77,8 @@ main (int argc, char *argv[])
   }
 
   {
-    char *token = "qop=\"auth, auth-conf\", nonce=42, algorithm=md5-sess, "
-      "cipher=\"des\"";
+    const char *token = "qop=\"auth, auth-conf\", nonce=42, "
+      "algorithm=md5-sess, cipher=\"des\"";
 
     printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, 0, &c);
@@ -94,7 +94,7 @@ main (int argc, char *argv[])
   }
 
   {
-    char *token = "bar=foo, foo=bar";
+    const char *token = "bar=foo, foo=bar";
 
     printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, 0, &c);
@@ -104,7 +104,7 @@ main (int argc, char *argv[])
   }
 
   {
-    char *token = "realm=foo, realm=bar, nonce=42, algorithm=md5-sess";
+    const char *token = "realm=foo, realm=bar, nonce=42, algorithm=md5-sess";
 
     printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, 0, &c);
@@ -123,7 +123,7 @@ main (int argc, char *argv[])
   /* Response */
 
   {
-    char *token = "bar=foo, foo=bar";
+    const char *token = "bar=foo, foo=bar";
 
     printf ("response `%s': ", token);
     rc = digest_md5_parse_response (token, 0, &r);
@@ -133,7 +133,7 @@ main (int argc, char *argv[])
   }
 
   {
-    char *token = "username=jas, nonce=42, cnonce=4711, nc=00000001, "
+    const char *token = "username=jas, nonce=42, cnonce=4711, nc=00000001, "
       "digest-uri=foo, response=01234567890123456789012345678901";
 
     printf ("response `%s': ", token);
@@ -153,7 +153,7 @@ main (int argc, char *argv[])
   /* Auth-response, finish. */
 
   {
-    char *token = "rspauth=\"6a204da26b9888ee40bb3052ff056a67\"";
+    const char *token = "rspauth=\"6a204da26b9888ee40bb3052ff056a67\"";
 
     printf ("finish `%s': ", token);
     rc = digest_md5_parse_finish (token, 0, &f);
@@ -165,7 +165,7 @@ main (int argc, char *argv[])
   }
 
   {
-    char *token = "bar=foo, foo=bar";
+    const char *token = "bar=foo, foo=bar";
 
     printf ("finish `%s': ", token);
     rc = digest_md5_parse_finish (token, 0, &f);

@@ -46,12 +46,6 @@ gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb)
   ctx->cb = cb;
 }
 
-#ifndef GSASL_NO_OBSOLETE
-/* Declared in obsolete.c. */
-int _gsasl_obsolete_callback (Gsasl * ctx, Gsasl_session * sctx,
-			      Gsasl_property prop);
-#endif
-
 /**
  * gsasl_callback:
  * @ctx: handle received from gsasl_init(), may be %NULL to derive it

@@ -1,5 +1,5 @@
 /* digesthmac.h --- Compute DIGEST-MD5 response value.
- * Copyright (C) 2004  Simon Josefsson
+ * Copyright (C) 2004, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -40,9 +40,10 @@
    are either NULL, or points to 16 byte arrays that will hold the
    computed keys on output.  Returns 0 on success. */
 extern int digest_md5_hmac (char *output, char secret[DIGEST_MD5_LENGTH],
-			    char *nonce, unsigned long nc, char *cnonce,
-			    digest_md5_qop qop, char *authzid,
-			    char *digesturi, int rspauth,
+			    const char *nonce, unsigned long nc,
+			    const char *cnonce, digest_md5_qop qop,
+			    const char *authzid,
+			    const char *digesturi, int rspauth,
 			    digest_md5_cipher cipher, char *kic, char *kis,
 			    char *kcc, char *kcs);
 

@@ -104,4 +104,11 @@ struct Gsasl_session
 #endif
 };
 
+#ifndef GSASL_NO_OBSOLETE
+const char *
+_gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop);
+int _gsasl_obsolete_callback (Gsasl * ctx, Gsasl_session * sctx,
+			      Gsasl_property prop);
+#endif
+
 #endif /* INTERNAL_H */

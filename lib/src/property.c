@@ -181,12 +181,6 @@ gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
   return NULL;
 }
 
-#ifndef GSASL_NO_OBSOLETE
-/* Declared in obsolete.c. */
-const char *
-_gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop);
-#endif
-
 /**
  * gsasl_property_get:
  * @sctx: session handle.

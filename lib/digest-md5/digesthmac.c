@@ -78,9 +78,9 @@
    are either NULL, or points to 16 byte arrays that will hold the
    computed keys on output.  Returns 0 on success. */
 int
-digest_md5_hmac (char *output, char secret[MD5LEN], char *nonce,
-		 unsigned long nc, char *cnonce, digest_md5_qop qop,
-		 char *authzid, char *digesturi, int rspauth,
+digest_md5_hmac (char *output, char secret[MD5LEN], const char *nonce,
+		 unsigned long nc, const char *cnonce, digest_md5_qop qop,
+		 const char *authzid, const char *digesturi, int rspauth,
 		 digest_md5_cipher cipher,
 		 char *kic, char *kis, char *kcc, char *kcs)
 {
