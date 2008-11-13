@@ -42,7 +42,7 @@ update-po: refresh-po
 	git-commit -m "Sync with TP." po/LINGUAS po/*.po.in
 
 bootstrap: autoreconf
-	WARN_CFLAGS="-Werror -Wno-error=vla -Wno-error=sign-compare -Wno-error=conversion -Wno-error=sign-conversion -Wno-switch-enum" ./configure $(CFGFLAGS)
+	WARN_CFLAGS="-Werror -Wno-error=vla -Wno-error=sign-compare -Wno-error=conversion -Wno-error=sign-conversion" ./configure $(CFGFLAGS)
 
 web-coverage:
 	rm -fv `find $(htmldir)/coverage -type f | grep -v CVS`
