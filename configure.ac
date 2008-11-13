@@ -84,7 +84,7 @@ gl_INIT
 sj_VALGRIND
 
 # Not added due to ERROR_WORKAROUNDS = -Wundef -Wswitch-enum
-for w in -Wall -W -Wformat-y2k -Wformat-nonliteral -Wformat-security -Winit-self -Wmissing-include-dirs -Wswitch-default -Wunused-parameter -Wunused -Wunknown-pragmas -Wstrict-aliasing -Wstrict-overflow -Wfloat-equal -Wdeclaration-after-statement -Wshadow -Wunsafe-loop-optimizations -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Wlogical-op -Waggregate-return -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wnested-externs -Winline -Winvalid-pch -Wlong-long -Wvla -Wvolatile-register-var -Wdisabled-optimization -Wstack-protector -Woverlength-strings -Wno-unused-parameter; do
+for w in -Wall -W -Wformat-y2k -Wformat-nonliteral -Wformat-security -Winit-self -Wmissing-include-dirs -Wswitch-default -Wunused-parameter -Wunused -Wunknown-pragmas -Wstrict-aliasing -Wstrict-overflow -Wfloat-equal -Wdeclaration-after-statement -Wshadow -Wunsafe-loop-optimizations -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wsign-conversion -Wlogical-op -Waggregate-return -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wnested-externs -Winline -Winvalid-pch -Wlong-long -Wvla -Wvolatile-register-var -Wdisabled-optimization -Wstack-protector -Woverlength-strings -Wno-unused-parameter -Wno-deprecated-declarations; do
   gl_WARN_ADD([$w])
 done
 export WARN_CFLAGS
