@@ -23,11 +23,11 @@
 #ifndef GSASL_COMPAT_H
 # define GSASL_COMPAT_H
 
-#define _GSASL_GCC_VERSION						\
-  (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-
-#if _GSASL_GCC_VERSION >= 30100
-# define GSASL_DEPRECATED __attribute__ ((__deprecated__))
+#ifndef __attribute__
+/* This feature is available in gcc versions 2.5 and later.  */
+# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
+#  define __attribute__(Spec)	/* empty */
+# endif
 #endif
 
 /* Old error codes */
@@ -58,101 +58,101 @@ enum
   GSASL_UNICODE_NORMALIZATION_ERROR = 28,
   GSASL_NO_MORE_REALMS = 34,
   GSASL_INVALID_HANDLE = 50
-} GSASL_DEPRECATED;
+} __attribute__ ((deprecated));
 
-typedef Gsasl Gsasl_ctx GSASL_DEPRECATED;
-typedef Gsasl_session Gsasl_session_ctx GSASL_DEPRECATED;
+typedef Gsasl Gsasl_ctx __attribute__ ((deprecated));
+typedef Gsasl_session Gsasl_session_ctx __attribute__ ((deprecated));
 extern GSASL_API int gsasl_client_listmech (Gsasl * ctx, char *out,
 					    size_t * outlen)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API int gsasl_server_listmech (Gsasl * ctx, char *out,
 					    size_t * outlen)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API int gsasl_client_step (Gsasl_session * sctx,
 					const char *input, size_t input_len,
 					char *output, size_t * output_len)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API int gsasl_client_step_base64 (Gsasl_session * sctx,
 					       const char *b64input,
 					       char *b64output,
 					       size_t b64output_len)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API int gsasl_server_step (Gsasl_session * sctx,
 					const char *input, size_t input_len,
 					char *output, size_t * output_len)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API int gsasl_server_step_base64 (Gsasl_session * sctx,
 					       const char *b64input,
 					       char *b64output,
 					       size_t b64output_len)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API void gsasl_client_finish (Gsasl_session * sctx)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API void gsasl_server_finish (Gsasl_session * sctx)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API Gsasl *gsasl_client_ctx_get (Gsasl_session * sctx)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API Gsasl *gsasl_server_ctx_get (Gsasl_session * sctx)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API void gsasl_client_application_data_set (Gsasl_session * sctx,
 							 void
 							 *application_data)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API void *gsasl_client_application_data_get (Gsasl_session *
 							  sctx)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API void gsasl_server_application_data_set (Gsasl_session * sctx,
 							 void
 							 *application_data)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API void *gsasl_server_application_data_get (Gsasl_session *
 							  sctx)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API int gsasl_randomize (int strong, char *data, size_t datalen)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API Gsasl *gsasl_ctx_get (Gsasl_session * sctx)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API int gsasl_encode_inline (Gsasl_session * sctx,
 					  const char *input, size_t input_len,
 					  char *output, size_t * output_len)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API int gsasl_decode_inline (Gsasl_session * sctx,
 					  const char *input, size_t input_len,
 					  char *output, size_t * output_len)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API void gsasl_application_data_set (Gsasl * ctx, void *appdata)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API void *gsasl_application_data_get (Gsasl * ctx)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API void gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API void *gsasl_appinfo_get (Gsasl_session * sctx)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API const char *gsasl_server_suggest_mechanism (Gsasl * ctx,
 							     const char
 							     *mechlist)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 
 extern GSASL_API int gsasl_base64_encode (char const *src, size_t srclength,
 					  char *target, size_t targsize)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API int gsasl_base64_decode (char const *src,
 					  char *target, size_t targsize)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 
 extern GSASL_API char *gsasl_stringprep_nfkc (const char *in, ssize_t len)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API char *gsasl_stringprep_saslprep (const char *in,
 						  int *stringprep_rc)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API char *gsasl_stringprep_trace (const char *in,
 					       int *stringprep_rc)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 
 extern GSASL_API int gsasl_md5pwd_get_password (const char *filename,
 						const char *username,
 						char *key, size_t * keylen)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 
 /* Callback prototypes */
 typedef int (*Gsasl_client_callback_anonymous) (Gsasl_session * sctx,
@@ -226,163 +226,163 @@ typedef Gsasl_cipher (*Gsasl_server_callback_cipher) (Gsasl_session * sctx);
 extern GSASL_API void
   gsasl_client_callback_authorization_id_set
   (Gsasl * ctx, Gsasl_client_callback_authorization_id cb)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_authorization_id
 gsasl_client_callback_authorization_id_get (Gsasl * ctx)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 
 extern GSASL_API void
   gsasl_client_callback_authentication_id_set
   (Gsasl * ctx, Gsasl_client_callback_authentication_id cb)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_authentication_id
 gsasl_client_callback_authentication_id_get (Gsasl * ctx)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_client_callback_anonymous_set (Gsasl * ctx,
 				     Gsasl_client_callback_anonymous cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_anonymous
 gsasl_client_callback_anonymous_get (Gsasl * ctx)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_client_callback_password_set (Gsasl * ctx,
 				    Gsasl_client_callback_password cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_password
-gsasl_client_callback_password_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_client_callback_password_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_client_callback_passcode_set (Gsasl * ctx,
 				    Gsasl_client_callback_passcode cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_passcode
-gsasl_client_callback_passcode_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_client_callback_passcode_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_client_callback_pin_set (Gsasl * ctx, Gsasl_client_callback_pin cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_pin
-gsasl_client_callback_pin_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_client_callback_pin_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_client_callback_service_set (Gsasl * ctx,
 				   Gsasl_client_callback_service cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_service
-gsasl_client_callback_service_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_client_callback_service_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_client_callback_qop_set (Gsasl * ctx, Gsasl_client_callback_qop cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_qop
-gsasl_client_callback_qop_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_client_callback_qop_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_client_callback_maxbuf_set (Gsasl * ctx,
 				  Gsasl_client_callback_maxbuf cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_maxbuf
-gsasl_client_callback_maxbuf_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_client_callback_maxbuf_get (Gsasl * ctx) __attribute__ ((deprecated));
 extern GSASL_API
 void gsasl_client_callback_realm_set (Gsasl * ctx,
 				      Gsasl_client_callback_realm cb)
-  GSASL_DEPRECATED;
+  __attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_realm
-gsasl_client_callback_realm_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_client_callback_realm_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 /* Obsolete server callbacks: callback-s.c */
 extern GSASL_API void
 gsasl_server_callback_validate_set (Gsasl * ctx,
 				    Gsasl_server_callback_validate cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_validate
-gsasl_server_callback_validate_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_validate_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_retrieve_set (Gsasl * ctx,
 				    Gsasl_server_callback_retrieve cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_retrieve
-gsasl_server_callback_retrieve_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_retrieve_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_cram_md5_set (Gsasl * ctx,
 				    Gsasl_server_callback_cram_md5 cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_cram_md5
-gsasl_server_callback_cram_md5_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_cram_md5_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_digest_md5_set (Gsasl * ctx,
 				      Gsasl_server_callback_digest_md5 cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_digest_md5
 gsasl_server_callback_digest_md5_get (Gsasl * ctx)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_external_set (Gsasl * ctx,
 				    Gsasl_server_callback_external cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_external
-gsasl_server_callback_external_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_external_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_anonymous_set (Gsasl * ctx,
 				     Gsasl_server_callback_anonymous cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_anonymous
 gsasl_server_callback_anonymous_get (Gsasl * ctx)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_realm_set (Gsasl * ctx, Gsasl_server_callback_realm cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_realm
-gsasl_server_callback_realm_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_realm_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_qop_set (Gsasl * ctx, Gsasl_server_callback_qop cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_qop
-gsasl_server_callback_qop_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_qop_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_maxbuf_set (Gsasl * ctx,
 				  Gsasl_server_callback_maxbuf cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_maxbuf
-gsasl_server_callback_maxbuf_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_maxbuf_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_cipher_set (Gsasl * ctx,
 				  Gsasl_server_callback_cipher cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_cipher
-gsasl_server_callback_cipher_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_cipher_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_securid_set (Gsasl * ctx,
 				   Gsasl_server_callback_securid cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_securid
-gsasl_server_callback_securid_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_securid_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_gssapi_set (Gsasl * ctx,
 				  Gsasl_server_callback_gssapi cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_gssapi
-gsasl_server_callback_gssapi_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_gssapi_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 extern GSASL_API void
 gsasl_server_callback_service_set (Gsasl * ctx,
 				   Gsasl_server_callback_service cb)
-GSASL_DEPRECATED;
+__attribute__ ((deprecated));
 extern GSASL_API Gsasl_server_callback_service
-gsasl_server_callback_service_get (Gsasl * ctx) GSASL_DEPRECATED;
+gsasl_server_callback_service_get (Gsasl * ctx) __attribute__ ((deprecated));
 
 #endif /* GSASL_COMPAT_H */
