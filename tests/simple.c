@@ -525,7 +525,7 @@ doit (void)
 	      i, sasltv[i].mech, j);
       else if (j != (size_t) -1 && res == GSASL_NEEDS_MORE)
 	fail ("SASL entry %d mechanism %s step %d table ended prematurely\n",
-	      i, sasltv[i].mech, j, res, gsasl_strerror (res));
+	      i, sasltv[i].mech, j);
       else if (j != (size_t) -1 && res != GSASL_OK)
 	fail ("SASL entry %d mechanism %s step %d failed (%d):\n%s\n",
 	      i, sasltv[i].mech, j, res, gsasl_strerror (res));
