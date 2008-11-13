@@ -18,6 +18,7 @@
 
 dist_noinst_DATA = cram-md5.pwd
 
+AM_CFLAGS = $(WARN_CFLAGS)
 AM_CPPFLAGS = -I$(top_srcdir)/gl -I$(top_builddir)/gl \
 	 -I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src
 AM_LDFLAGS = -no-install

@@ -1,5 +1,5 @@
 /* utils.h --- Prototypes for self test utilities.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -29,8 +29,10 @@ extern int debug;
 extern int error_count;
 extern int break_on_error;
 
-extern void fail (const char *format, ...);
-extern void success (const char *format, ...);
+extern void fail (const char *format, ...)
+  __attribute__ ((format (printf, 1, 2)));
+extern void success (const char *format, ...)
+  __attribute__ ((format (printf, 1, 2)));
 extern void escapeprint (const char *str, size_t len);
 extern void hexprint (const char *str, size_t len);
 extern void binprint (const char *str, size_t len);

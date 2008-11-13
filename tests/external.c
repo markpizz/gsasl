@@ -31,8 +31,8 @@
 
 static const struct
 {
-  char *sendauthzid;
-  char *recvauthzid;
+  const char *sendauthzid;
+  const char *recvauthzid;
   int clientrc;
   int callbackrc;
   int serverrc;
@@ -52,8 +52,8 @@ static const struct
 static int
 callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 {
-  static int c = 0;
-  static int s = 0;
+  static unsigned c = 0;
+  static unsigned s = 0;
   int rc = GSASL_NO_CALLBACK;
 
   c = c % sizeof (tv) / sizeof (tv[0]);
@@ -101,7 +101,7 @@ doit (void)
 
   for (i = 0; i < 2 * (sizeof (tv) / sizeof (tv[0])); i++)
     {
-      int n = i % sizeof (tv) / sizeof (tv[0]);
+      size_t n = i % sizeof (tv) / sizeof (tv[0]);
 
       res = gsasl_server_start (ctx, "EXTERNAL", &server);
       if (res != GSASL_OK)

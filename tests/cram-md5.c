@@ -72,7 +72,7 @@ doit (void)
   size_t i;
   int res;
   char *last_server_challenge = NULL;
-  size_t last_server_challenge_len;
+  size_t last_server_challenge_len = 0;
 
   res = gsasl_init (&ctx);
   if (res != GSASL_OK)

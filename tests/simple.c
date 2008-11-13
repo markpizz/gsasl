@@ -1,5 +1,5 @@
 /* simple.c --- Test the simple SASL mechanisms.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -40,18 +40,18 @@
 struct sasltv
 {
   int clientp;
-  char *mech;
-  char *step[MAXSTEP];
-  char *password;
-  char *authzid;
-  char *authid;
-  char *service;
-  char *hostname;
-  char *servicename;
-  char *anonymous;
-  char *passcode;
-  char *suggestpin;
-  char *pin;
+  const char *mech;
+  const char *step[MAXSTEP];
+  const char *password;
+  const char *authzid;
+  const char *authid;
+  const char *service;
+  const char *hostname;
+  const char *servicename;
+  const char *anonymous;
+  const char *passcode;
+  const char *suggestpin;
+  const char *pin;
   int securidrc;
 };
 static struct sasltv sasltv[] = {
@@ -501,7 +501,7 @@ doit (void)
 	      fail
 		("SASL entry %d mechanism %s client step %d length error\n",
 		 i, sasltv[i].mech, j);
-	      j = -1;
+	      j = (size_t) -1;
 	      break;
 	    }
 
@@ -512,7 +512,7 @@ doit (void)
 		      sasltv[i].step[j + 1] : "");
 	      fail ("SASL entry %d mechanism %s client step %d data error\n",
 		    i, sasltv[i].mech, j);
-	      j = -1;
+	      j = (size_t) -1;
 	      break;
 	    }
 
@@ -520,13 +520,13 @@ doit (void)
 	    break;
 	}
 
-      if ((int) j != -1 && res == GSASL_OK && sasltv[i].step[j + 2])
+      if (j != (size_t) -1 && res == GSASL_OK && sasltv[i].step[j + 2])
 	fail ("SASL entry %d mechanism %s step %d code ended prematurely\n",
 	      i, sasltv[i].mech, j);
-      else if ((int) j != -1 && res == GSASL_NEEDS_MORE)
+      else if (j != (size_t) -1 && res == GSASL_NEEDS_MORE)
 	fail ("SASL entry %d mechanism %s step %d table ended prematurely\n",
 	      i, sasltv[i].mech, j, res, gsasl_strerror (res));
-      else if ((int) j != -1 && res != GSASL_OK)
+      else if (j != (size_t) -1 && res != GSASL_OK)
 	fail ("SASL entry %d mechanism %s step %d failed (%d):\n%s\n",
 	      i, sasltv[i].mech, j, res, gsasl_strerror (res));
       else

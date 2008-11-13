@@ -37,7 +37,7 @@
 void
 doit (void)
 {
-  char *md5file;
+  const char *md5file;
   char *key;
   int res;
 
