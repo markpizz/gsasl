@@ -85,8 +85,8 @@ sj_VALGRIND
 
 # Disable useless warnings.
 W=
-W="$W -Wsystem-headers"         # Don't let system headers trigger warnings.
-W="$W -Wpadded"                 # Our structs are not padded.
+W="$W -Wsystem-headers"         # Don't let system headers trigger warnings
+W="$W -Wpadded"                 # Our structs are not padded
 W="$W -Wundef"                  # warns on '#if GNULIB_PORTCHECK' etc in gnulib
 W="$W -Wc++-compat"             # We don't care strongly about C++ compilers
 W="$W -Wswitch-enum"            # Too many warnings for now
