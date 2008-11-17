@@ -53,6 +53,8 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
 
   /* Parse input. */
   {
+    size_t tmplen;
+
     authidptr = memchr (input, 0, input_len - 1);
     if (authidptr)
       {
@@ -69,7 +71,8 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
     /* As the NUL (U+0000) character is used as a deliminator, the NUL
        (U+0000) character MUST NOT appear in authzid, authcid, or passwd
        productions. */
-    if (memchr (passwordptr, 0, input_len - (passwordptr - input)))
+    tmplen = input_len - (size_t) (passwordptr - input);
+    if (memchr (passwordptr, 0, tmplen))
       return GSASL_MECHANISM_PARSE_ERROR;
   }
 
@@ -93,12 +96,14 @@ _gsasl_plain_server_step (Gsasl_session * sctx,
 
   /* Store passwd, after preparing it... */
   {
+    size_t passwdzlen = input_len - (size_t) (passwordptr - input);
+
     /* Need to zero terminate password... */
-    passwdz = malloc (input_len - (passwordptr - input) + 1);
+    passwdz = malloc (passwdzlen + 1);
     if (passwdz == NULL)
       return GSASL_MALLOC_ERROR;
-    memcpy (passwdz, passwordptr, input_len - (passwordptr - input));
-    passwdz[input_len - (passwordptr - input)] = '\0';
+    memcpy (passwdz, passwordptr, passwdzlen);
+    passwdz[passwdzlen] = '\0';
 
     res = gsasl_saslprep (passwdz, GSASL_ALLOW_UNASSIGNED, &passprep, NULL);
     free (passwdz);
