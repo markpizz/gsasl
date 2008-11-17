@@ -83,10 +83,29 @@ gl_INIT
 
 sj_VALGRIND
 
-# Not added due to ERROR_WORKAROUNDS = -Wundef -Wswitch-enum
-for w in -Wall -W -Wformat-y2k -Wformat-nonliteral -Wformat-security -Winit-self -Wmissing-include-dirs -Wswitch-default -Wunused -Wunknown-pragmas -Wstrict-aliasing -Wstrict-overflow -Wfloat-equal -Wdeclaration-after-statement -Wshadow -Wunsafe-loop-optimizations -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wsign-conversion -Wlogical-op -Waggregate-return -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wnested-externs -Winline -Winvalid-pch -Wlong-long -Wvla -Wvolatile-register-var -Wdisabled-optimization -Wstack-protector -Woverlength-strings -Wno-deprecated-declarations -Wno-missing-field-initializers -Wno-unused-parameter; do
+# Disable useless warnings.
+W=
+W="$W -Wsystem-headers"         # Don't let system headers trigger warnings.
+W="$W -Wpadded"                 # Our structs are not padded.
+W="$W -Wundef"                  # warns on '#if GNULIB_PORTCHECK' etc in gnulib
+W="$W -Wc++-compat"             # We don't care strongly about C++ compilers
+W="$W -Wswitch-enum"            # Too many warnings for now
+W="$W -Wconversion"             # Too many warnings for now
+W="$W -Wsign-conversion"        # Too many warnings for now
+W="$W -Wtraditional"            # Warns on #elif which we use often
+W="$W -Wtraditional-conversion" # Too many warnings for now
+W="$W -Wunreachable-code"       # Too many false positives
+gl_WARN_SUPPORTED([WARNINGS])
+gl_WARN_COMPLEMENT(WARNINGS, [$WARNINGS], [$W])
+
+for w in $WARNINGS; do
   gl_WARN_ADD([$w])
 done
+gl_WARN_ADD([-Wno-missing-field-initializers])
+gl_WARN_ADD([-Wno-unused-parameter])
+gl_WARN_ADD([-Wno-sign-compare])
+gl_WARN_ADD([-Wno-deprecated-declarations])
+gl_WARN_ADD([-fdiagnostics-show-option])
 export WARN_CFLAGS
 
 AC_CONFIG_SUBDIRS(lib)
