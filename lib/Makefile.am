@@ -34,7 +34,7 @@ EXTRA_DIST += win32/libgsasl.sln win32/libgsasl.vcproj		\
 	win32/include/stdint.h win32/include/unistd.h		\
 	win32/include/config.h
 
-SUBDIRS = po gl gltests
+SUBDIRS = po gl
 
 # Plugins:
 if EXTERNAL
@@ -81,4 +81,4 @@ if KERBEROS_V5
 SUBDIRS += kerberos_v5
 endif
 
-SUBDIRS += src tests
+SUBDIRS += src tests gltests
