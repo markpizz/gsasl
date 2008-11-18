@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = po gl lib src examples gltests tests doc
+SUBDIRS = lib po gl src examples tests doc gltests
 
 EXTRA_DIST = cfg.mk maint.mk .clcopying
 
