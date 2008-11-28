@@ -22,5 +22,7 @@ AM_CFLAGS = $(WARN_CFLAGS)
 AM_CPPFLAGS = -I$(srcdir)/../src -I$(srcdir)/../gl
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 
+LDADD = $(LTLIBINTL)
+
 TESTS = test-error$(EXEEXT)
 check_PROGRAMS = test-error$(EXEEXT)
