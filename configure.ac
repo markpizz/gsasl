@@ -83,22 +83,20 @@ gl_INIT
 
 sj_VALGRIND
 
-# Disable useless warnings.
-W=
-W="$W -Wsystem-headers"         # Don't let system headers trigger warnings
-W="$W -Wpadded"                 # Our structs are not padded
-W="$W -Wundef"                  # warns on '#if GNULIB_PORTCHECK' etc in gnulib
-W="$W -Wc++-compat"             # We don't care strongly about C++ compilers
-W="$W -Wswitch-enum"            # Too many warnings for now
-W="$W -Wconversion"             # Too many warnings for now
-W="$W -Wsign-conversion"        # Too many warnings for now
-W="$W -Wtraditional"            # Warns on #elif which we use often
-W="$W -Wtraditional-conversion" # Too many warnings for now
-W="$W -Wunreachable-code"       # Too many false positives
-gl_WARN_SUPPORTED([WARNINGS])
-gl_WARN_COMPLEMENT(WARNINGS, [$WARNINGS], [$W])
-
-for w in $WARNINGS; do
+# Add many warnings, except some...
+nw="$nw -Wsystem-headers"         # Don't let system headers trigger warnings
+nw="$nw -Wpadded"                 # Our structs are not padded
+nw="$nw -Wundef"                  # warns on '#if GNULIB_FOO' etc in gnulib
+nw="$nw -Wc++-compat"             # We don't care strongly about C++ compilers
+nw="$nw -Wswitch-enum"            # Too many warnings for now
+nw="$nw -Wconversion"             # Too many warnings for now
+nw="$nw -Wsign-conversion"        # Too many warnings for now
+nw="$nw -Wtraditional"            # Warns on #elif which we use often
+nw="$nw -Wtraditional-conversion" # Too many warnings for now
+nw="$nw -Wunreachable-code"       # Too many false positives
+gl_MANYWARN_ALL_GCC([ws])
+gl_MANYWARN_COMPLEMENT(ws, [$ws], [$nw])
+for w in $ws; do
   gl_WARN_ADD([$w])
 done
 gl_WARN_ADD([-Wno-missing-field-initializers])
