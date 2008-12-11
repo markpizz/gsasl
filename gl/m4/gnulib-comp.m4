@@ -467,6 +467,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/longlong.m4
   m4/lseek.m4
   m4/malloc.m4
+  m4/manywarnings.m4
   m4/mbrtowc.m4
   m4/mbstate_t.m4
   m4/netdb_h.m4
