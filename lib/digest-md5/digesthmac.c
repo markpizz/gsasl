@@ -49,8 +49,6 @@
 #define A2_POST ":00000000000000000000000000000000"
 #define COLON ":"
 #define MD5LEN 16
-#define RESPONSE_LENGTH 32
-#define RSPAUTH_LENGTH RESPONSE_LENGTH
 #define DERIVE_CLIENT_INTEGRITY_KEY_STRING \
   "Digest session key to client-to-server signing key magic constant"
 #define DERIVE_CLIENT_INTEGRITY_KEY_STRING_LEN 65
