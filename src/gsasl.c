@@ -1,5 +1,5 @@
 /* gsasl.c --- Command line interface to libgsasl.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -326,7 +326,10 @@ main (int argc, char *argv[])
 
   if (args_info.version_given)
     {
-      version_etc (stdout, "gsasl", PACKAGE_NAME, VERSION,
+      const char *p = PACKAGE_NAME;
+      if (strcmp (gsasl_check_version (NULL), PACKAGE_VERSION) != 0)
+	p = PACKAGE_STRING;
+      version_etc (stdout, "gsasl", p, gsasl_check_version (NULL),
 		   "Simon Josefsson", (char *) NULL);
       return EXIT_SUCCESS;
     }
