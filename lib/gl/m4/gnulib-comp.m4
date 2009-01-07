@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2008 Free Software Foundation, Inc.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -76,6 +76,7 @@ AC_DEFUN([gl_INIT],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
   gl_MINMAX
+  gl_MULTIARCH
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
   gl_SIZE_MAX
@@ -306,6 +307,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/md5.m4
   m4/memxor.m4
   m4/minmax.m4
+  m4/multiarch.m4
   m4/nls.m4
   m4/po.m4
   m4/printf-posix.m4

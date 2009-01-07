@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2008 Free Software Foundation, Inc.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -101,10 +101,18 @@ AC_SUBST([LTALLOCA])
   gl_INET_NTOP
   gl_ARPA_INET_MODULE_INDICATOR([inet_ntop])
   gl_INLINE
+  gl_LOCALCHARSET
+  LOCALCHARSET_TESTS_ENVIRONMENT="CHARSETALIASDIR=\"\$(top_builddir)/$gl_source_base\""
+  AC_SUBST([LOCALCHARSET_TESTS_ENVIRONMENT])
   gl_FUNC_LSEEK
   gl_UNISTD_MODULE_INDICATOR([lseek])
   gl_FUNC_MALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
+  gl_FUNC_MBRTOWC
+  gl_WCHAR_MODULE_INDICATOR([mbrtowc])
+  gl_FUNC_MBSINIT
+  gl_WCHAR_MODULE_INDICATOR([mbsinit])
+  gl_MULTIARCH
   gl_HEADER_NETDB
   gl_HEADER_NETINET_IN
   AC_PROG_MKDIR_P
@@ -228,6 +236,11 @@ AC_SUBST([LTALLOCA])
     AC_LIBOBJ([listen])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([listen])
+  gt_LOCALE_FR
+  gt_LOCALE_FR_UTF8
+  gt_LOCALE_JA
+  gt_LOCALE_ZH_CN
+  gt_LOCALE_FR_UTF8
   gl_FUNC_PERROR
   gl_STRING_MODULE_INDICATOR([perror])
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
@@ -242,6 +255,8 @@ AC_SUBST([LTALLOCA])
   gl_SYS_IOCTL_H
   AC_PROG_MKDIR_P
   AC_CHECK_FUNCS([shutdown])
+  gl_FUNC_WCTOB
+  gl_WCHAR_MODULE_INDICATOR([wctob])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
       for gl_file in ]gltests_LIBSOURCES_LIST[ ; do
@@ -352,6 +367,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/c-strcasecmp.c
   lib/c-strncasecmp.c
   lib/close.c
+  lib/config.charset
   lib/connect.c
   lib/errno.in.h
   lib/error.c
@@ -381,8 +397,12 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/iconv_open.c
   lib/inet_ntop.c
   lib/intprops.h
+  lib/localcharset.c
+  lib/localcharset.h
   lib/lseek.c
   lib/malloc.c
+  lib/mbrtowc.c
+  lib/mbsinit.c
   lib/netdb.in.h
   lib/netinet_in.in.h
   lib/poll.c
@@ -401,6 +421,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/readline.h
   lib/realloc.c
   lib/recv.c
+  lib/ref-add.sin
+  lib/ref-del.sin
   lib/shutdown.c
   lib/size_max.h
   lib/snprintf.c
@@ -413,6 +435,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdio.in.h
   lib/stdlib.in.h
   lib/strdup.c
+  lib/streq.h
   lib/strerror.c
   lib/striconv.c
   lib/striconv.h
@@ -423,6 +446,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
+  lib/verify.h
   lib/version-etc.c
   lib/version-etc.h
   lib/w32sock.h
@@ -436,6 +460,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/arpa_inet_h.m4
   m4/autobuild.m4
   m4/close.m4
+  m4/codeset.m4
   m4/errno_h.m4
   m4/error.m4
   m4/exitfail.m4
@@ -448,6 +473,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getline.m4
   m4/getopt.m4
   m4/getpass.m4
+  m4/glibc21.m4
   m4/gnulib-common.m4
   m4/hostent.m4
   m4/iconv.m4
@@ -462,14 +488,19 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lib-ld.m4
   m4/lib-link.m4
   m4/lib-prefix.m4
+  m4/localcharset.m4
   m4/locale-fr.m4
+  m4/locale-ja.m4
   m4/locale-tr.m4
+  m4/locale-zh.m4
   m4/longlong.m4
   m4/lseek.m4
   m4/malloc.m4
   m4/manywarnings.m4
   m4/mbrtowc.m4
+  m4/mbsinit.m4
   m4/mbstate_t.m4
+  m4/multiarch.m4
   m4/netdb_h.m4
   m4/netinet_in_h.m4
   m4/perror.m4
@@ -504,6 +535,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/warnings.m4
   m4/wchar.m4
   m4/wchar_t.m4
+  m4/wctob.m4
   m4/wctype.m4
   m4/wint_t.m4
   m4/xalloc.m4
@@ -523,6 +555,13 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-iconv.c
   tests/test-lseek.c
   tests/test-lseek.sh
+  tests/test-mbrtowc.c
+  tests/test-mbrtowc1.sh
+  tests/test-mbrtowc2.sh
+  tests/test-mbrtowc3.sh
+  tests/test-mbrtowc4.sh
+  tests/test-mbsinit.c
+  tests/test-mbsinit.sh
   tests/test-netdb.c
   tests/test-netinet_in.c
   tests/test-perror.c
@@ -555,8 +594,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/sockets.c
   tests=lib/sockets.h
   tests=lib/sys_ioctl.in.h
-  tests=lib/verify.h
   tests=lib/w32sock.h
+  tests=lib/wctob.c
   top/GNUmakefile
   top/maint.mk
 ])

@@ -1,6 +1,6 @@
 ## DO NOT EDIT! GENERATED AUTOMATICALLY!
 ## Process this file with automake to produce Makefile.in.
-# Copyright (C) 2002-2008 Free Software Foundation, Inc.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -118,7 +118,7 @@ EXTRA_DIST += test-fseeko.c test-fseeko.sh
 
 TESTS += test-getaddrinfo
 check_PROGRAMS += test-getaddrinfo
-test_getaddrinfo_LDADD = $(LDADD) @LIBINTL@
+test_getaddrinfo_LDADD = $(LDADD) @GETADDRINFO_LIB@ @LIBINTL@
 
 EXTRA_DIST += test-getaddrinfo.c
 
@@ -187,6 +187,31 @@ check_PROGRAMS += test-lseek
 EXTRA_DIST += test-lseek.c test-lseek.sh
 
 ## end   gnulib module lseek-tests
+
+## begin gnulib module mbrtowc-tests
+
+TESTS += test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.sh
+TESTS_ENVIRONMENT += \
+  EXEEXT='@EXEEXT@' \
+  LOCALE_FR='@LOCALE_FR@' \
+  LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
+  LOCALE_JA='@LOCALE_JA@' \
+  LOCALE_ZH_CN='@LOCALE_ZH_CN@'
+check_PROGRAMS += test-mbrtowc
+
+EXTRA_DIST += test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.sh test-mbrtowc.c
+
+## end   gnulib module mbrtowc-tests
+
+## begin gnulib module mbsinit-tests
+
+TESTS += test-mbsinit.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
+check_PROGRAMS += test-mbsinit
+
+EXTRA_DIST += test-mbsinit.sh test-mbsinit.c
+
+## end   gnulib module mbsinit-tests
 
 ## begin gnulib module netdb-tests
 
@@ -410,12 +435,6 @@ EXTRA_DIST += test-vasnprintf.c
 
 ## end   gnulib module vasnprintf-tests
 
-## begin gnulib module verify
-
-libtests_a_SOURCES += verify.h
-
-## end   gnulib module verify
-
 ## begin gnulib module wchar-tests
 
 TESTS += test-wchar
@@ -424,6 +443,15 @@ check_PROGRAMS += test-wchar
 EXTRA_DIST += test-wchar.c
 
 ## end   gnulib module wchar-tests
+
+## begin gnulib module wctob
+
+
+EXTRA_DIST += wctob.c
+
+EXTRA_libtests_a_SOURCES += wctob.c
+
+## end   gnulib module wctob
 
 ## begin gnulib module wctype-tests
 
