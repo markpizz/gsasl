@@ -11,7 +11,7 @@ GTKDOC_RUN = $(LIBTOOL) --mode=execute
 else
 GTKDOC_CC = $(CC) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 GTKDOC_LD = $(CC) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
-GTKDOC_RUN = sh -c
+GTKDOC_RUN =
 endif
 
 # We set GPATH here; this gives us semantics for GNU make
@@ -55,6 +55,8 @@ endif
 
 docs: html-build.stamp
 
+$(REPORT_FILES): sgml-build.stamp
+
 #### scan ####
 
 scan-build.stamp: $(HFILE_GLOB) $(CFILE_GLOB)
@@ -86,9 +88,8 @@ tmpl-build.stamp: $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES) $(DOC_MODULE)-sections
 tmpl.stamp: tmpl-build.stamp
 	@true
 
-tmpl/*.sgml:
+$(srcdir)/tmpl/*.sgml:
 	@true
-
 
 #### xml ####
 
@@ -117,7 +118,7 @@ html-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	cd $(srcdir)/html && gtkdoc-mkhtml $(mkhtml_options) $(MKHTML_OPTIONS) $(DOC_MODULE) ../$(DOC_MAIN_SGML_FILE)
 	test "x$(HTML_IMAGES)" = "x" || ( cd $(srcdir) && cp $(HTML_IMAGES) html )
 	@echo 'gtk-doc: Fixing cross-references'
-	cd $(srcdir) && gtkdoc-fixxref --module-dir=html --html-dir=$(HTML_DIR) $(FIXXREF_OPTIONS)
+	cd $(srcdir) && gtkdoc-fixxref --module=$(DOC_MODULE) --module-dir=html --html-dir=$(HTML_DIR) $(FIXXREF_OPTIONS)
 	touch html-build.stamp
 
 ##############
@@ -135,22 +136,36 @@ maintainer-clean-local: clean
 	cd $(srcdir) && rm -rf xml html
 
 install-data-local:
-	-installfiles=`echo $(srcdir)/html/*`; \
+	installfiles=`echo $(srcdir)/html/*`; \
 	if test "$$installfiles" = '$(srcdir)/html/*'; \
 	then echo '-- Nothing to install' ; \
 	else \
-	  $(mkinstalldirs) $(DESTDIR)$(TARGET_DIR); \
+	  if test -n "$(DOC_MODULE_VERSION)"; then \
+	    installdir="$(DESTDIR)$(TARGET_DIR)-$(DOC_MODULE_VERSION)"; \
+	  else \
+	    installdir="$(DESTDIR)$(TARGET_DIR)"; \
+	  fi; \
+	  $(mkinstalldirs) $${installdir} ; \
 	  for i in $$installfiles; do \
 	    echo '-- Installing '$$i ; \
-	    $(INSTALL_DATA) $$i $(DESTDIR)$(TARGET_DIR); \
+	    $(INSTALL_DATA) $$i $${installdir}; \
 	  done; \
-	  which gtkdoc-rebase >/dev/null && \
-	    gtkdoc-rebase --relative --dest-dir=$(DESTDIR) --html-dir=$(DESTDIR)$(TARGET_DIR) ; \
+	  if test -n "$(DOC_MODULE_VERSION)"; then \
+	    mv -f $${installdir}/$(DOC_MODULE).devhelp2 \
+	      $${installdir}/$(DOC_MODULE)-$(DOC_MODULE_VERSION).devhelp2; \
+	    mv -f $${installdir}/$(DOC_MODULE).devhelp \
+	      $${installdir}/$(DOC_MODULE)-$(DOC_MODULE_VERSION).devhelp; \
+	  fi; \
+	  $(GTKDOC_REBASE) --relative --dest-dir=$(DESTDIR) --html-dir=$${installdir}; \
 	fi
-	
 
 uninstall-local:
-	rm -f $(DESTDIR)$(TARGET_DIR)/*
+	if test -n "$(DOC_MODULE_VERSION)"; then \
+	  installdir="$(DESTDIR)$(TARGET_DIR)-$(DOC_MODULE_VERSION)"; \
+	else \
+	  installdir="$(DESTDIR)$(TARGET_DIR)"; \
+	fi; \
+	rm -rf $${installdir}
 
 #
 # Require gtk-doc when making dist
@@ -173,6 +188,6 @@ dist-hook: dist-check-gtkdoc dist-hook-local
 	-cp $(srcdir)/$(DOC_MODULE).types $(distdir)/
 	-cp $(srcdir)/$(DOC_MODULE)-sections.txt $(distdir)/
 	cd $(distdir) && rm -f $(DISTCLEANFILES)
-	-gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
+	$(GTKDOC_REBASE) --online --relative --html-dir=$(distdir)/html
 
 .PHONY : dist-hook-local docs
