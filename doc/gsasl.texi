@@ -2024,6 +2024,7 @@ terminal.
                                   PEM format.  Used together with
                                   --x509-key-file to specify the
                                   certificate/key pair.
+      --priority                Cipher priority string.
 @end verbatim
 
 @majorheading Other Options

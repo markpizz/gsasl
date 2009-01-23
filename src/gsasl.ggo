@@ -1,4 +1,4 @@
-# Copyright (C) 2002, 2003, 2004, 2005, 2007 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009 Simon Josefsson.
 #
 # This file is part of GNU SASL.
 #
@@ -56,6 +56,7 @@ option "no-starttls" - "Unconditionally disable STARTTLS." flag off
 option "x509-ca-file" - "File containing one or more X.509 Certificate Authorities certificates in PEM format, used to verify the certificate received from the server.  If not specified, no verification of the remote server certificate will be done." string typestr="FILE" no
 option "x509-cert-file" - "File containing client X.509 certificate in PEM format.  Used together with --x509-key-file to specify the certificate/key pair." string typestr="FILE" no
 option "x509-key-file" - "Private key for the client X.509 certificate in PEM format.  Used together with --x509-key-file to specify the certificate/key pair." string typestr="FILE" no
+option "priority" - "Cipher priority string." string no
 
 section "Other options"
 option "verbose" - "Produce verbose output." flag off

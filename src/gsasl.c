@@ -299,9 +299,6 @@ main (int argc, char *argv[])
   char *connect_hostname = NULL;
   char *connect_service = NULL;
 #ifdef HAVE_LIBGNUTLS
-  const int kx_prio[] = { GNUTLS_KX_RSA, GNUTLS_KX_DHE_DSS,
-    GNUTLS_KX_DHE_RSA, GNUTLS_KX_ANON_DH, 0
-  };
   gnutls_anon_client_credentials anoncred;
   gnutls_certificate_credentials x509cred;
 #endif
@@ -560,16 +557,19 @@ main (int argc, char *argv[])
 	    error (EXIT_FAILURE, 0, _("no X.509 CAs found"));
 	}
 
-      res =
-	gnutls_credentials_set (session, GNUTLS_CRD_CERTIFICATE, x509cred);
+      res = gnutls_credentials_set (session, GNUTLS_CRD_CERTIFICATE,
+				    x509cred);
       if (res < 0)
 	error (EXIT_FAILURE, 0, _("setting X.509 GnuTLS credential: %s"),
 	       gnutls_strerror (res));
 
-      res = gnutls_kx_set_priority (session, kx_prio);
-      if (res < 0)
-	error (EXIT_FAILURE, 0, _("setting GnuTLS key exchange priority: %s"),
-	       gnutls_strerror (res));
+      if (args_info.priority)
+	{
+	  res = gnutls_priority_set_direct (session, args_info.priority, NULL);
+	  if (res < 0)
+	    error (EXIT_FAILURE, 0, _("setting GnuTLS cipher priority: %s"),
+		   gnutls_strerror (res));
+	}
 
       gnutls_transport_set_ptr (session, (gnutls_transport_ptr) sockfd);
 
