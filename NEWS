@@ -12,7 +12,7 @@ SASL.  That include the manual, the command line tool, and self tests.
 Can be used to change TLS settings, which may be needed to talk to
 some servers.
 
-** gsasl: Print web page links, per new GNU coding standard.
+** gsasl: Print web page links in --help, per new GNU coding standard.
 
 ** doc: Modernize doxygen configuration.
 
