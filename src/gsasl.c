@@ -361,6 +361,7 @@ main (int argc, char *argv[])
       !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
     {
       cmdline_parser_print_help ();
+      emit_bug_reporting_address ();
       return EXIT_SUCCESS;
     }
 
