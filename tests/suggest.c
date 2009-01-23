@@ -33,7 +33,7 @@
 void
 doit (void)
 {
-  Gsasl_ctx *ctx = NULL;
+  Gsasl *ctx = NULL;
   const char *str;
   const char *p;
   int res;
