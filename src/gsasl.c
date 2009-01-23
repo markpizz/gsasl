@@ -264,19 +264,6 @@ const char version_etc_copyright[] =
   "Copyright %s %d Simon Josefsson.";
 
 static void
-emit_bug_reporting_address (void)
-{
-  /* TRANSLATORS: The placeholder indicates the bug-reporting address
-     for this package.  Please add _another line_ saying
-     "Report translation bugs to <...>\n" with the address for translation
-     bugs (typically your translation team's web or email address).  */
-  printf (_("\nReport bugs to <%s>.\n"), PACKAGE_BUGREPORT);
-  printf (_("%s home page: http://www.gnu.org/software/%s/\n"),
-	  PACKAGE_NAME, PACKAGE);
-  printf (_("General help using GNU software: http://www.gnu.org/gethelp/\n"));
-}
-
-static void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
