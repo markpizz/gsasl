@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Version 0.2.30 (unreleased)
 
+** Fix several compiler warnings.
+
+** Update gnulib files.
+
 * Version 0.2.29 (released 2008-10-21)
 
 ** DIGEST-MD5 server: Added callback to retrieve hashed secret.
