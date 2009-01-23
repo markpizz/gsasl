@@ -1,27 +1,28 @@
 body { 
 	margin: 2%;
 	padding: 0 5%;
-	background: #f2f2f9;
+	background: #ffffff;
 }
 h1,h2,h3,h4,h5 {
-    padding: 0.5em 0 0 5%;
-    font-family: Tahoma, Verdana, sans-serif;
     font-weight: bold;
+    padding: 5px 5px 5px 5px;
+    background-color: #c2e0ff;
+    color: #336699;
 }
 h1 {
-    padding: 0.5em 0 0.5em 5%;
+    padding: 2em 2em 2em 5%;
     color: white;
-    background: #3366cc;
-    border-bottom: solid 1px black;
+    background: #336699;
+    text-align: center;
+    letter-spacing: 3px;
 }
 h2 { text-decoration: underline; }
-h4 { font-style: italic; }
 pre {
   margin: 0 5%;
   padding: 0.5em;
 }
 pre.example {
-  border: solid 1px #aaaaff;
+  border: solid 1px;
   background: #eeeeff;
   padding-bottom: 1em;
 }
@@ -31,20 +32,11 @@ pre.verbatim {
   padding-bottom: 1em;
 }
 div.node {
-  background: #ffeeee;
   margin: 0 -5% 0 -2%;
   padding: 0.5em 0.5em;
-  border: solid 1px #ffaaaa;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   font-weight: bold;
-  color: #770000;
-}
-.node a {
-  color: #770000;
-}
-.node a:visited {
-  color: #550000;
 }
 dd, li {
   padding-top: 0.1em;
