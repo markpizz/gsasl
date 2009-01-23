@@ -301,7 +301,8 @@ connectivity.
 @section Supported Platforms
 
 GNU SASL has at some point in time been tested on the following
-platforms.
+platforms.  Daily online build reports are available at
+@url{http://autobuild.josefsson.org/gsasl/}.
 
 @enumerate
 
