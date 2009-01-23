@@ -1,4 +1,4 @@
-# Copyright (C) 2006, 2007, 2008 Simon Josefsson.
+# Copyright (C) 2006, 2007, 2008, 2009 Simon Josefsson
 #
 # This file is part of GNU SASL Library.
 #
@@ -60,5 +60,5 @@ prepare:
 	git commit -m Generated. ChangeLog
 
 upload:
-	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
+	gnupload --to ftp.gnu.org:gsasl $(distdir).tar.gz
 	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig ../../releases/gsasl/
