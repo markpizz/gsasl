@@ -563,12 +563,16 @@ main (int argc, char *argv[])
 	error (EXIT_FAILURE, 0, _("setting X.509 GnuTLS credential: %s"),
 	       gnutls_strerror (res));
 
-      if (args_info.priority)
+      if (args_info.priority_arg)
 	{
-	  res = gnutls_priority_set_direct (session, args_info.priority, NULL);
+	  const char *err_pos;
+
+	  res = gnutls_priority_set_direct (session, args_info.priority_arg,
+					    &err_pos);
 	  if (res < 0)
-	    error (EXIT_FAILURE, 0, _("setting GnuTLS cipher priority: %s"),
-		   gnutls_strerror (res));
+	    error (EXIT_FAILURE, 0,
+		   _("setting GnuTLS cipher priority (%s): %s\n"),
+		   gnutls_strerror (res), err_pos);
 	}
 
       gnutls_transport_set_ptr (session, (gnutls_transport_ptr) sockfd);
