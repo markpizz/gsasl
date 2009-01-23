@@ -1,5 +1,5 @@
 /* nonascii.h --- Prototypes for UTF-8 vs Latin-1 conversion for DIGEST-MD5
- * Copyright (C) 2002, 2003, 2004, 2006, 2007, 2008  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
