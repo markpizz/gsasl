@@ -32,7 +32,7 @@ MAINTAINERCLEANFILES =
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I../.. -I$(srcdir)/../.. \
-  -I../../lib/gl -I$(srcdir)/../../lib/gl
+  -I../gl -I$(srcdir)/../gl
 
 LDADD = libtests.a ../gl/libgl.la libtests.a $(LIBTESTS_LIBDEPS)
 
