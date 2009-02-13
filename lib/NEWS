@@ -4,8 +4,16 @@ See the end for copying conditions.
 
 * Version 1.1 (unreleased)
 
+** libgsasl: Added C pre-processor expressions for version handling.
+The new symbols GSASL_VERSION_MAJOR, GSASL_VERSION_MINOR,
+GSASL_VERSION_PATCH, and GSASL_VERSION_NUMBER can be used in numeric
+comparisons to test version level.
+
 ** API and ABI modifications.
-No changes since last version.
+GSASL_VERSION_MAJOR: ADDED
+GSASL_VERSION_MINOR: ADDED
+GSASL_VERSION_PATCH: ADDED
+GSASL_VERSION_NUMBER: ADDED
 
 * Version 1.0 (released 2009-01-23)
 

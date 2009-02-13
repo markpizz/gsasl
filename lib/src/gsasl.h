@@ -55,6 +55,12 @@ extern "C"
    */
 # define GSASL_VERSION "1.1"
 
+#define GSASL_VERSION_MAJOR 1
+#define GSASL_VERSION_MINOR 1
+#define GSASL_VERSION_PATCH 0
+
+#define GSASL_VERSION_NUMBER 010100
+
   /* RFC 2222: SASL mechanisms are named by strings, from 1 to 20
    * characters in length, consisting of upper-case letters, digits,
    * hyphens, and/or underscores.  SASL mechanism names must be

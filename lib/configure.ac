@@ -374,6 +374,16 @@ gl_INIT
 sj_OUTPUT_DEF
 sj_UPDATE_HEADER_VERSION([$srcdir/src/gsasl.h])
 
+MAJOR_VERSION=`echo $PACKAGE_VERSION | sed 's/\(.*\)\..*/\1/g'`
+MINOR_VERSION=`echo $PACKAGE_VERSION | sed 's/.*\.\(.*\)/\1/g'`
+NUMBER_VERSION=`printf "0x%02x%02x00" $MAJOR_VERSION $MINOR_VERSION`
+sj_UPDATE_HEADER([$srcdir/src/gsasl.h],
+		 "s/VERSION_MAJOR .*/VERSION_MAJOR $MAJOR_VERSION/")
+sj_UPDATE_HEADER([$srcdir/src/gsasl.h],
+		 "s/VERSION_MINOR .*/VERSION_MINOR $MINOR_VERSION/")
+sj_UPDATE_HEADER([$srcdir/src/gsasl.h],
+		 "s/VERSION_NUMBER .*/VERSION_NUMBER $NUMBER_VERSION/")
+
 AC_SUBST([WARN_CFLAGS])
 
 AC_CONFIG_FILES([
