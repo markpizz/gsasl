@@ -61,6 +61,8 @@ extern "C"
    * Pre-processor symbol with a decimal value that describe the major
    * level of the header file version number.  For example, when the
    * header version is 1.2.3 this symbol will be 1.
+   *
+   * Since: 1.1
    */
 # define GSASL_VERSION_MAJOR 1
 
@@ -70,6 +72,8 @@ extern "C"
    * Pre-processor symbol with a decimal value that describe the minor
    * level of the header file version number.  For example, when the
    * header version is 1.2.3 this symbol will be 2.
+   *
+   * Since: 1.1
    */
 # define GSASL_VERSION_MINOR 1
 
@@ -79,6 +83,8 @@ extern "C"
    * Pre-processor symbol with a decimal value that describe the patch
    * level of the header file version number.  For example, when the
    * header version is 1.2.3 this symbol will be 3.
+   *
+   * Since: 1.1
    */
 # define GSASL_VERSION_PATCH 0
 
@@ -88,6 +94,8 @@ extern "C"
    * Pre-processor symbol with a hexadecimal value describing the
    * header file version number.  For example, when the header version
    * is 1.2.3 this symbol will have the value 0x010203.
+   *
+   * Since: 1.1
    */
 # define GSASL_VERSION_NUMBER 0x010100
 
