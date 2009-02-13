@@ -49,17 +49,47 @@ extern "C"
   /**
    * GSASL_VERSION
    *
-   * String defined via CPP denoting the header file version number.
-   * Used together with stringprep_check_version() to verify header file
-   * and run-time library consistency.
+   * Pre-processor symbol with a string that describe the header file
+   * version number.  Used together with stringprep_check_version() to
+   * verify header file and run-time library consistency.
    */
 # define GSASL_VERSION "1.1"
 
-#define GSASL_VERSION_MAJOR 1
-#define GSASL_VERSION_MINOR 1
-#define GSASL_VERSION_PATCH 0
+  /**
+   * GSASL_VERSION_MAJOR
+   *
+   * Pre-processor symbol with a decimal value that describe the major
+   * level of the header file version number.  For example, when the
+   * header version is 1.2.3 this symbol will be 1.
+   */
+# define GSASL_VERSION_MAJOR 1
 
-#define GSASL_VERSION_NUMBER 0x010100
+  /**
+   * GSASL_VERSION_MINOR
+   *
+   * Pre-processor symbol with a decimal value that describe the minor
+   * level of the header file version number.  For example, when the
+   * header version is 1.2.3 this symbol will be 2.
+   */
+# define GSASL_VERSION_MINOR 1
+
+  /**
+   * GSASL_VERSION_PATCH
+   *
+   * Pre-processor symbol with a decimal value that describe the patch
+   * level of the header file version number.  For example, when the
+   * header version is 1.2.3 this symbol will be 3.
+   */
+# define GSASL_VERSION_PATCH 0
+
+  /**
+   * GSASL_VERSION_NUMBER
+   *
+   * Pre-processor symbol with a hexadecimal value describing the
+   * header file version number.  For example, when the header version
+   * is 1.2.3 this symbol will have the value 0x010203.
+   */
+# define GSASL_VERSION_NUMBER 0x010100
 
   /* RFC 2222: SASL mechanisms are named by strings, from 1 to 20
    * characters in length, consisting of upper-case letters, digits,
