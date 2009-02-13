@@ -96,6 +96,15 @@ EXTRA_DIST += test-c-strcase.sh test-c-strcasecmp.c test-c-strncasecmp.c
 
 ## end   gnulib module c-strcase-tests
 
+## begin gnulib module environ-tests
+
+TESTS += test-environ
+check_PROGRAMS += test-environ
+
+EXTRA_DIST += test-environ.c
+
+## end   gnulib module environ-tests
+
 ## begin gnulib module errno-tests
 
 TESTS += test-errno
@@ -142,6 +151,22 @@ EXTRA_DIST += test-getline.c
 
 ## end   gnulib module getline-tests
 
+## begin gnulib module gettext
+
+# This is for those projects which use "gettextize --intl" to put a source-code
+# copy of libintl into their package. In such projects, every Makefile.am needs
+# -I$(top_builddir)/intl, so that <libintl.h> can be found in this directory.
+# For the Makefile.ams in other directories it is the maintainer's
+# responsibility; for the one from gnulib we do it here.
+# This option has no effect when the user disables NLS (because then the intl
+# directory contains no libintl.h file) or when the project does not use
+# "gettextize --intl".
+AM_CPPFLAGS += -I$(top_builddir)/intl
+
+EXTRA_DIST += $(top_srcdir)/build-aux/config.rpath
+
+## end   gnulib module gettext
+
 ## begin gnulib module iconv-tests
 
 TESTS += test-iconv
@@ -187,6 +212,23 @@ check_PROGRAMS += test-lseek
 EXTRA_DIST += test-lseek.c test-lseek.sh
 
 ## end   gnulib module lseek-tests
+
+## begin gnulib module malloca
+
+libtests_a_SOURCES += malloca.c
+
+EXTRA_DIST += malloca.h malloca.valgrind
+
+## end   gnulib module malloca
+
+## begin gnulib module malloca-tests
+
+TESTS += test-malloca
+check_PROGRAMS += test-malloca
+
+EXTRA_DIST += test-malloca.c
+
+## end   gnulib module malloca-tests
 
 ## begin gnulib module mbrtowc-tests
 
@@ -260,12 +302,22 @@ EXTRA_DIST += test-poll.c
 
 ## begin gnulib module quotearg-tests
 
-TESTS += test-quotearg
+TESTS += test-quotearg.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)' LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
 check_PROGRAMS += test-quotearg
 test_quotearg_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-quotearg.c
+EXTRA_DIST += test-quotearg.sh test-quotearg.c locale/fr/LC_MESSAGES/test-quotearg.po locale/fr/LC_MESSAGES/test-quotearg.mo
 
 ## end   gnulib module quotearg-tests
+
+## begin gnulib module setenv
+
+
+EXTRA_DIST += setenv.c
+
+EXTRA_libtests_a_SOURCES += setenv.c
+
+## end   gnulib module setenv
 
 ## begin gnulib module setsockopt
 
@@ -425,6 +477,15 @@ check_PROGRAMS += test-unistd
 EXTRA_DIST += test-unistd.c
 
 ## end   gnulib module unistd-tests
+
+## begin gnulib module unsetenv
+
+
+EXTRA_DIST += unsetenv.c
+
+EXTRA_libtests_a_SOURCES += unsetenv.c
+
+## end   gnulib module unsetenv
 
 ## begin gnulib module vasnprintf-tests
 

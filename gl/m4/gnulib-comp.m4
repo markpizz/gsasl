@@ -221,6 +221,10 @@ AC_SUBST([LTALLOCA])
   gl_SYS_SOCKET_MODULE_INDICATOR([bind])
   gt_LOCALE_FR
   gt_LOCALE_TR_UTF8
+  gl_ENVIRON
+  gl_UNISTD_MODULE_INDICATOR([environ])
+  dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
+  AM_GNU_GETTEXT_VERSION([0.17])
   gl_INET_PTON
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
@@ -235,6 +239,7 @@ AC_SUBST([LTALLOCA])
     AC_LIBOBJ([listen])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([listen])
+  gl_MALLOCA
   gt_LOCALE_FR
   gt_LOCALE_FR_UTF8
   gt_LOCALE_JA
@@ -243,6 +248,10 @@ AC_SUBST([LTALLOCA])
   gl_FUNC_PERROR
   gl_STRING_MODULE_INDICATOR([perror])
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
+  gt_LOCALE_FR
+  gt_LOCALE_FR_UTF8
+  gl_FUNC_SETENV
+  gl_STDLIB_MODULE_INDICATOR([setenv])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([setsockopt])
@@ -254,6 +263,8 @@ AC_SUBST([LTALLOCA])
   gl_SYS_IOCTL_H
   AC_PROG_MKDIR_P
   AC_CHECK_FUNCS([shutdown])
+  gl_FUNC_UNSETENV
+  gl_STDLIB_MODULE_INDICATOR([unsetenv])
   gl_FUNC_WCTOB
   gl_WCHAR_MODULE_INDICATOR([wctob])
   m4_ifval(gltests_LIBSOURCES_LIST, [
@@ -455,11 +466,14 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/xalloc.h
   lib/xmalloc.c
   lib/xsize.h
+  m4/00gnulib.m4
   m4/alloca.m4
   m4/arpa_inet_h.m4
   m4/autobuild.m4
   m4/close.m4
   m4/codeset.m4
+  m4/eealloc.m4
+  m4/environ.m4
   m4/errno_h.m4
   m4/error.m4
   m4/exitfail.m4
@@ -472,6 +486,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getline.m4
   m4/getopt.m4
   m4/getpass.m4
+  m4/gettext.m4
+  m4/glibc2.m4
   m4/glibc21.m4
   m4/gnulib-common.m4
   m4/hostent.m4
@@ -482,8 +498,15 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/inet_ntop.m4
   m4/inet_pton.m4
   m4/inline.m4
+  m4/intdiv0.m4
+  m4/intl.m4
+  m4/intldir.m4
+  m4/intlmacosx.m4
+  m4/intmax.m4
   m4/intmax_t.m4
+  m4/inttypes-pri.m4
   m4/inttypes_h.m4
+  m4/lcmessage.m4
   m4/lib-ld.m4
   m4/lib-link.m4
   m4/lib-prefix.m4
@@ -492,9 +515,11 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/locale-ja.m4
   m4/locale-tr.m4
   m4/locale-zh.m4
+  m4/lock.m4
   m4/longlong.m4
   m4/lseek.m4
   m4/malloc.m4
+  m4/malloca.m4
   m4/manywarnings.m4
   m4/mbrtowc.m4
   m4/mbsinit.m4
@@ -502,15 +527,20 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/multiarch.m4
   m4/netdb_h.m4
   m4/netinet_in_h.m4
+  m4/nls.m4
   m4/perror.m4
   m4/pmccabe2html.m4
+  m4/po.m4
   m4/poll.m4
+  m4/printf-posix.m4
   m4/printf.m4
+  m4/progtest.m4
   m4/quote.m4
   m4/quotearg.m4
   m4/readline.m4
   m4/realloc.m4
   m4/servent.m4
+  m4/setenv.m4
   m4/size_max.m4
   m4/snprintf.m4
   m4/sockets.m4
@@ -529,8 +559,11 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
   m4/sys_time_h.m4
+  m4/threadlib.m4
+  m4/uintmax_t.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
+  m4/visibility.m4
   m4/warnings.m4
   m4/wchar.m4
   m4/wchar_t.m4
@@ -539,12 +572,15 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/wint_t.m4
   m4/xalloc.m4
   m4/xsize.m4
+  tests/locale/fr/LC_MESSAGES/test-quotearg.mo
+  tests/locale/fr/LC_MESSAGES/test-quotearg.po
   tests/test-alloca-opt.c
   tests/test-arpa_inet.c
   tests/test-c-ctype.c
   tests/test-c-strcase.sh
   tests/test-c-strcasecmp.c
   tests/test-c-strncasecmp.c
+  tests/test-environ.c
   tests/test-errno.c
   tests/test-fseeko.c
   tests/test-fseeko.sh
@@ -554,6 +590,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-iconv.c
   tests/test-lseek.c
   tests/test-lseek.sh
+  tests/test-malloca.c
   tests/test-mbrtowc.c
   tests/test-mbrtowc1.sh
   tests/test-mbrtowc2.sh
@@ -567,6 +604,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-perror.sh
   tests/test-poll.c
   tests/test-quotearg.c
+  tests/test-quotearg.sh
   tests/test-snprintf.c
   tests/test-sockets.c
   tests/test-stdbool.c
@@ -588,11 +626,16 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/inet_pton.c
   tests=lib/ioctl.c
   tests=lib/listen.c
+  tests=lib/malloca.c
+  tests=lib/malloca.h
+  tests=lib/malloca.valgrind
   tests=lib/perror.c
+  tests=lib/setenv.c
   tests=lib/setsockopt.c
   tests=lib/sockets.c
   tests=lib/sockets.h
   tests=lib/sys_ioctl.in.h
+  tests=lib/unsetenv.c
   tests=lib/w32sock.h
   tests=lib/wctob.c
   top/GNUmakefile
