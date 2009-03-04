@@ -27,19 +27,17 @@
 # include <stddef.h>		/* size_t */
 # include <unistd.h>		/* ssize_t */
 
-/* GSASL Windows DLL.  Only needed when this file is used in Visual
-   Studio.  Export and import happens automatically in MinGW. */
-#ifndef GSASL_API
-# if defined _MSC_VER && !defined GSASL_STATIC
-#  ifdef GSASL_EXPORTS
+# ifndef GSASL_API
+#  if defined GSASL_BUILDING && defined HAVE_VISIBILITY && HAVE_VISIBILITY
+#   define GSASL_API __attribute__((__visibility__("default")))
+#  elif defined GSASL_BUILDING && defined _MSC_VER && ! defined GSASL_STATIC
 #   define GSASL_API __declspec(dllexport)
-#  else
+#  elif defined _MSC_VER && ! defined GSASL_STATIC
 #   define GSASL_API __declspec(dllimport)
+#  else
+#   define GSASL_API
 #  endif
-# else
-#  define GSASL_API
 # endif
-#endif
 
 # ifdef __cplusplus
 extern "C"
