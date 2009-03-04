@@ -66,7 +66,7 @@ AC_ARG_WITH(gnutls,
 	gnutls=$withval, gnutls=yes)
 if test "$gnutls" != "no"; then
   AC_LIB_HAVE_LINKFLAGS(gnutls,, [#include <gnutls/gnutls.h>],
-    [gnutls_certificate_verify_peers2 (0, 0);])
+    [gnutls_priority_set_direct (0, 0, 0);])
 fi
 if test "$ac_cv_libgnutls" != yes; then
   gnutls=no
