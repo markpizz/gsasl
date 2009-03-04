@@ -14,6 +14,11 @@ Currently only GNU LD and the Solaris linker supports it.  This helps
 Debian package tools to produce better dependencies.  For platforms
 that don't support it, we use Libtool -export-symbols-regex as before.
 
+** libgsasl: Compiled with -fvisibility=hidden by default if supported.
+Currently only GCC supports it for ELF targets.  This hides internal
+symbols and has other advantages, see
+<http://gcc.gnu.org/wiki/Visibility>.
+
 ** API and ABI modifications.
 GSASL_VERSION_MAJOR: ADDED
 GSASL_VERSION_MINOR: ADDED
