@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2006, 2008 Simon Josefsson.
+# Copyright (C) 2006, 2008, 2009 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #
@@ -18,7 +18,7 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-AM_CFLAGS = $(WARN_CFLAGS)
+AM_CFLAGS = $(WARN_CFLAGS) $(CFLAG_VISIBILITY)
 AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl
 
 EXTRA_DIST = README
