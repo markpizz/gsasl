@@ -223,6 +223,7 @@ AC_SUBST([LTALLOCA])
   gt_LOCALE_TR_UTF8
   gl_ENVIRON
   gl_UNISTD_MODULE_INDICATOR([environ])
+  gl_FUNC_UNGETC_WORKS
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.17])
   gl_INET_PTON
@@ -561,6 +562,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sys_time_h.m4
   m4/threadlib.m4
   m4/uintmax_t.m4
+  m4/ungetc.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
   m4/visibility.m4
@@ -584,6 +586,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-errno.c
   tests/test-fseeko.c
   tests/test-fseeko.sh
+  tests/test-fseeko2.sh
   tests/test-getaddrinfo.c
   tests/test-getdelim.c
   tests/test-getline.c
