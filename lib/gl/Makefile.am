@@ -28,6 +28,7 @@ MAINTAINERCLEANFILES =
 EXTRA_DIST += m4/gnulib-cache.m4
 
 AM_CPPFLAGS =
+AM_CFLAGS =
 
 noinst_LTLIBRARIES += libgl.la
 
@@ -614,6 +615,16 @@ EXTRA_DIST += asprintf.c vasprintf.c
 EXTRA_libgl_la_SOURCES += asprintf.c vasprintf.c
 
 ## end   gnulib module vasprintf
+
+## begin gnulib module visibility
+
+# The value of $(CFLAG_VISIBILITY) needs to be added to the CFLAGS for the
+# compilation of all sources that make up the library. This line here does it
+# only for the gnulib part of it. The developer is responsible for adding
+# $(CFLAG_VISIBILITY) to the Makefile.ams of the other portions of the library.
+AM_CFLAGS += $(CFLAG_VISIBILITY)
+
+## end   gnulib module visibility
 
 ## begin gnulib module wchar
 

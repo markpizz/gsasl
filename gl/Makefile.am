@@ -28,6 +28,7 @@ MAINTAINERCLEANFILES =
 EXTRA_DIST += m4/gnulib-cache.m4
 
 AM_CPPFLAGS =
+AM_CFLAGS =
 
 noinst_LTLIBRARIES += libgl.la
 
