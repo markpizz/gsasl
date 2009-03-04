@@ -9,6 +9,11 @@ The new symbols GSASL_VERSION_MAJOR, GSASL_VERSION_MINOR,
 GSASL_VERSION_PATCH, and GSASL_VERSION_NUMBER can be used in numeric
 comparisons to test version level.
 
+** libgsasl: Use a LD version script on platforms where it is supported.
+Currently only GNU LD and the Solaris linker supports it.  This helps
+Debian package tools to produce better dependencies.  For platforms
+that don't support it, we use Libtool -export-symbols-regex as before.
+
 ** API and ABI modifications.
 GSASL_VERSION_MAJOR: ADDED
 GSASL_VERSION_MINOR: ADDED

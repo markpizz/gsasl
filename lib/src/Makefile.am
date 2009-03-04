@@ -28,15 +28,22 @@ EXTRA_DIST = doxygen.c
 include_HEADERS = gsasl.h gsasl-mech.h gsasl-compat.h
 
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
-	-export-symbols-regex '^(gsasl|GSASL).*' -no-undefined
+	-no-undefined
 libgsasl_la_LIBADD = ../gl/libgl.la @LTLIBINTL@ @LTLIBIDN@
-libgsasl_la_SOURCES = internal.h \
+libgsasl_la_SOURCES = libgsasl.map \
+	internal.h \
 	init.c done.c register.c error.c version.c \
 	callback.c property.c \
 	supportp.c suggest.c listmech.c \
 	xstart.c xstep.c xfinish.c xcode.c mechname.c \
 	base64.c md5pwd.c crypto.c \
 	saslprep.c free.c
+
+if HAVE_LD_VERSION_SCRIPT
+libgsasl_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libgsasl.map
+else
+libgsasl_la_LDFLAGS += -export-symbols-regex '^(gsasl|GSASL).*'
+endif
 
 if HAVE_LD_OUTPUT_DEF
 libgsasl_la_LDFLAGS += -Wl,--output-def,libgsasl-$(SOVERSION).def
