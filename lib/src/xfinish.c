@@ -22,8 +22,6 @@
 
 #include "internal.h"
 
-#define free_if_nonnull(p) if ((p)) free ((p))
-
 /**
  * gsasl_finish:
  * @sctx: libgsasl session handle.
@@ -45,18 +43,18 @@ gsasl_finish (Gsasl_session * sctx)
 	sctx->mech->server.finish (sctx, sctx->mech_data);
     }
 
-  free_if_nonnull (sctx->anonymous_token);
-  free_if_nonnull (sctx->authid);
-  free_if_nonnull (sctx->authzid);
-  free_if_nonnull (sctx->password);
-  free_if_nonnull (sctx->passcode);
-  free_if_nonnull (sctx->pin);
-  free_if_nonnull (sctx->suggestedpin);
-  free_if_nonnull (sctx->service);
-  free_if_nonnull (sctx->hostname);
-  free_if_nonnull (sctx->gssapi_display_name);
-  free_if_nonnull (sctx->realm);
-  free_if_nonnull (sctx->digest_md5_hashed_password);
+  free (sctx->anonymous_token);
+  free (sctx->authid);
+  free (sctx->authzid);
+  free (sctx->password);
+  free (sctx->passcode);
+  free (sctx->pin);
+  free (sctx->suggestedpin);
+  free (sctx->service);
+  free (sctx->hostname);
+  free (sctx->gssapi_display_name);
+  free (sctx->realm);
+  free (sctx->digest_md5_hashed_password);
 
-  free_if_nonnull (sctx);
+  free (sctx);
 }
