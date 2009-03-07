@@ -52,6 +52,18 @@ server_cb_retrieve (Gsasl_session_ctx * xctx,
   return GSASL_OK;
 }
 
+static Gsasl_qop
+server_cb_qop (Gsasl_session_ctx * xctx)
+{
+  int i = *(int*) gsasl_appinfo_get (xctx);
+  if (i == 1 || i == 3)
+    return GSASL_QOP_AUTH;
+  else if (i == 2)
+    return GSASL_QOP_AUTH | GSASL_QOP_AUTH_INT;
+  else
+    return 0;
+}
+
 static int
 client_callback_service (Gsasl_session_ctx * ctx,
 			 char *srv,
@@ -119,6 +131,8 @@ doit (void)
 
   gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);
 
+  gsasl_server_callback_qop_set (ctx, server_cb_qop);
+
   gsasl_client_callback_service_set (ctx, client_callback_service);
 
   gsasl_client_callback_authentication_id_set (ctx,
@@ -140,6 +154,8 @@ doit (void)
 	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
 	  return;
 	}
+
+      gsasl_appinfo_set (server, (void*) &i);
 
       /* Server begins... */
 

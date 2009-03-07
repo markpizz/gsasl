@@ -138,6 +138,51 @@ _gsasl_digest_md5_set_hashed_secret (char *secret, const char *hex_secret)
   return GSASL_OK;
 }
 
+static int
+qopstr2qop (char *qopstr)
+{
+  int qops = 0;
+  enum
+  {
+    /* the order must match the following struct */
+    QOP_AUTH = 0,
+    QOP_AUTH_INT,
+    QOP_AUTH_CONF
+  };
+  const char *const qop_opts[] = {
+    /* the order must match the previous enum */
+    "qop-auth",
+    "qop-int",
+    "qop-conf",
+    NULL
+  };
+  char *subsubopts;
+  char *val;
+
+  subsubopts = qopstr;
+  while (*subsubopts != '\0')
+    switch (digest_md5_getsubopt (&subsubopts, qop_opts, &val))
+      {
+      case QOP_AUTH:
+	qops |= DIGEST_MD5_QOP_AUTH;
+	break;
+
+      case QOP_AUTH_INT:
+	qops |= DIGEST_MD5_QOP_AUTH_INT;
+	break;
+
+      case QOP_AUTH_CONF:
+	qops |= DIGEST_MD5_QOP_AUTH_CONF;
+	break;
+
+      default:
+	/* ignore unrecognized options */
+	break;
+      }
+
+  return qops;
+}
+
 int
 _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 			       void *mech_data,
@@ -173,7 +218,31 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	  }
       }
 
-      /* FIXME: qop, cipher, maxbuf, more realms. */
+      /* Set QOP */
+      {
+	const char *qopstr = gsasl_property_get (sctx, GSASL_QOP);
+
+	if (qopstr)
+	  {
+	    char *qop = strdup (qopstr);
+	    int qops;
+
+	    if (!qop)
+	      return GSASL_MALLOC_ERROR;
+
+	    qops = qopstr2qop (qop);
+	    free (qop);
+
+	    /* We don't support confidentiality right now. */
+	    if (qops & DIGEST_MD5_QOP_AUTH_CONF)
+	      return GSASL_AUTHENTICATION_ERROR;
+
+	    if (qops)
+	      state->challenge.qops = qops;
+	  }
+      }
+
+      /* FIXME: cipher, maxbuf, more realms. */
 
       /* Create challenge. */
       *output = digest_md5_print_challenge (&state->challenge);

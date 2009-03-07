@@ -93,6 +93,16 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       rc = GSASL_NO_CALLBACK;
       break;
 
+    case GSASL_QOP:
+      rc = GSASL_OK;
+      if (flip2 == 0)
+	rc = GSASL_NO_CALLBACK;
+      else if (flip2 == 1)
+	gsasl_property_set (sctx, prop, "qop-auth");
+      else if (flip2 == 2)
+	gsasl_property_set (sctx, prop, "qop-auth,qop-int");
+      break;
+
     default:
       fail ("Unknown callback property %d\n", prop);
       break;

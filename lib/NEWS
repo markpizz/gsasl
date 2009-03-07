@@ -4,6 +4,19 @@ See the end for copying conditions.
 
 * Version 1.1 (unreleased)
 
+** libgsasl: Add new property GSASL_QOP.
+The property is queried for when a server wants to know what quality
+of protection (qop) value to use.  The property holds comma separated
+strings denoting the set of qops to use, for example "qop-auth" and
+"qop-auth, qop-int".
+
+** DIGEST-MD5 server: Now queries application for QOP value.
+This makes it possible for applications to advertise support for
+authentication only and/or authentication plus integrity.  Before, the
+server always advertised support for both.  Note that confidentiality
+is not supported, and if you request it you will get an error.
+Suggested by Andery Melnikov <temnota.am@gmail.com>.
+
 ** libgsasl: Added C pre-processor expressions for version handling.
 The new symbols GSASL_VERSION_MAJOR, GSASL_VERSION_MINOR,
 GSASL_VERSION_PATCH, and GSASL_VERSION_NUMBER can be used in numeric

@@ -2045,6 +2045,29 @@ _gsasl_obsolete_callback (Gsasl * ctx, Gsasl_session * sctx,
 	break;
       }
 
+    case GSASL_QOP:
+      {
+	Gsasl_server_callback_qop cb_qop
+	  = gsasl_server_callback_qop_get (sctx->ctx);
+	Gsasl_qop qop;
+	const char *qops[] = {
+	  /* 0 */ "",
+	  /* 1 */ "qop-auth",
+	  /* 2 */ "qop-int",
+	  /* 3 */ "qop-auth, qop-int",
+	  /* 4 */ "qop-conf",
+	  /* 5 */ "qop-auth, qop-conf",
+	  /* 6 */ "qop-int, qop-conf",
+	  /* 7 */ "qop-auth, qop-int, qop-conf"
+	};
+	if (!cb_qop)
+	  break;
+	qop = cb_qop (sctx);
+	gsasl_property_set (sctx, GSASL_QOP, qops[qop & 0x07]);
+	return GSASL_OK;
+	break;
+      }
+
     default:
       break;
     }

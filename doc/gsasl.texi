@@ -1374,6 +1374,13 @@ A SecurID personal identification number (PIN) suggested by the server.
 For the DIGEST-MD5 mechanism, this is a hashed password.  It is used
 in servers to avoid storing clear-text credentials.
 
+@item @code{GSASL_QOP}
+
+For the DIGEST-MD5 mechanism, this holds the set of quality of
+protection values to advertise in server mode.  The property holds
+comma separated strings denoting the set of qops to use, for example
+"qop-auth" and "qop-auth, qop-int".
+
 @end itemize
 
 Abstract properties, used to trigger the callback, typically used in
@@ -1614,10 +1621,17 @@ may use the @code{GSASL_AUTHID}, @code{GSASL_AUTHZID} and
 should be used.  The server will then compare the client response with
 a computed correct response, and accept the user accordingly.
 
-Currently only the authentication quality of service is implemented.
-In other words, payload integrity or privacy protection are not
-supported.  Consequently, there are no properties for the maximum
-buffer size, quality of protection, and cipher fields.
+The server also uses the @code{GSASL_QOP} callback to get the set of
+quality of protection values to use.  By default, it advertise support
+for both authentication (@code{qop-auth}) and authentication plus
+integrity (@code{qop-int}).  You can use the callback to, for example,
+make the server advertise support for only authentication.
+
+Currently only the authentication quality of service is implemented in
+client mode.  In other words, payload integrity or privacy protection
+are not supported.  Consequently, there are no properties for the
+maximum buffer size and cipher fields.  The server supports the
+integrity mode.
 
 @node NTLM
 @section The NTLM mechanism
