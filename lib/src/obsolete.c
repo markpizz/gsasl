@@ -22,6 +22,10 @@
 
 #include "internal.h"
 
+#if USE_DIGEST_MD5
+# include "qop.h"
+#endif
+
 /**
  * gsasl_client_listmech:
  * @ctx: libgsasl handle.
@@ -1948,6 +1952,26 @@ _gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop)
 	break;
       }
 
+#if USE_DIGEST_MD5
+    case GSASL_QOP:
+      {
+	Gsasl_client_callback_qop cb_qop
+	  = gsasl_client_callback_qop_get (sctx->ctx);
+	int serverqops;
+	Gsasl_qop qop;
+	if (!cb_qop)
+	  break;
+	serverqops = digest_md5_qopstr2qops (sctx->qops);
+	if (serverqops == -1)
+	  return GSASL_MALLOC_ERROR;
+	qop = cb_qop (sctx, serverqops);
+	if (qop & 0x07)
+	  gsasl_property_set (sctx, prop, digest_md5_qops2qopstr (qop));
+	break;
+      }
+      break;
+#endif
+
     default:
       break;
     }
@@ -2045,28 +2069,21 @@ _gsasl_obsolete_callback (Gsasl * ctx, Gsasl_session * sctx,
 	break;
       }
 
+#if USE_DIGEST_MD5
     case GSASL_QOPS:
       {
 	Gsasl_server_callback_qop cb_qop
 	  = gsasl_server_callback_qop_get (sctx->ctx);
 	Gsasl_qop qops;
-	const char *qopstr[] = {
-	  /* 0 */ "",
-	  /* 1 */ "qop-auth",
-	  /* 2 */ "qop-int",
-	  /* 3 */ "qop-auth, qop-int",
-	  /* 4 */ "qop-conf",
-	  /* 5 */ "qop-auth, qop-conf",
-	  /* 6 */ "qop-int, qop-conf",
-	  /* 7 */ "qop-auth, qop-int, qop-conf"
-	};
 	if (!cb_qop)
 	  break;
 	qops = cb_qop (sctx);
-	gsasl_property_set (sctx, GSASL_QOPS, qopstr[qops & 0x07]);
+	if (qops & 0x07)
+	  gsasl_property_set (sctx, GSASL_QOPS, digest_md5_qops2qopstr(qops));
 	return GSASL_OK;
 	break;
       }
+#endif
 
     default:
       break;

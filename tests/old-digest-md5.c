@@ -64,6 +64,14 @@ server_cb_qop (Gsasl_session_ctx * xctx)
     return 0;
 }
 
+static Gsasl_qop
+client_cb_qop (Gsasl_session * sctx, Gsasl_qop serverqops)
+{
+  if (serverqops & GSASL_QOP_AUTH_INT)
+    return GSASL_QOP_AUTH_INT;
+  return GSASL_QOP_AUTH;
+}
+
 static int
 client_callback_service (Gsasl_session_ctx * ctx,
 			 char *srv,
@@ -142,6 +150,9 @@ doit (void)
 
   for (i = 0; i < 5; i++)
     {
+      if (i > 2)
+	gsasl_client_callback_qop_set (ctx, client_cb_qop);
+
       res = gsasl_server_start (ctx, "DIGEST-MD5", &server);
       if (res != GSASL_OK)
 	{

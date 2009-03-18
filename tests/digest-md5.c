@@ -38,6 +38,8 @@
 #define HOSTNAME "hostname"
 #define REALM "realm"
 
+size_t i;
+
 static int
 callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 {
@@ -95,12 +97,60 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
     case GSASL_QOPS:
       rc = GSASL_OK;
-      if (flip2 == 0)
-	rc = GSASL_NO_CALLBACK;
-      else if (flip2 == 1)
-	gsasl_property_set (sctx, prop, "qop-auth");
-      else if (flip2 == 2)
-	gsasl_property_set (sctx, prop, "qop-auth,qop-int");
+      switch (i)
+	{
+	case 0:
+	  gsasl_property_set (sctx, prop, "qop-auth");
+	  break;
+
+	case 1:
+	  rc = GSASL_NO_CALLBACK;
+	  break;
+
+	case 2:
+	  gsasl_property_set (sctx, prop, "qop-int");
+	  break;
+
+	case 3:
+	  gsasl_property_set (sctx, prop, "qop-auth");
+	  break;
+
+	case 4:
+	  rc = GSASL_NO_CALLBACK;
+	  break;
+
+	default:
+	  break;
+	}
+      break;
+
+    case GSASL_QOP:
+      rc = GSASL_OK;
+      switch (i)
+	{
+	case 0:
+	  rc = GSASL_NO_CALLBACK;
+	  break;
+
+	case 1:
+	  gsasl_property_set (sctx, prop, "qop-auth");
+	  break;
+
+	case 2:
+	  gsasl_property_set (sctx, prop, "qop-int");
+	  break;
+
+	case 3:
+	  gsasl_property_set (sctx, prop, "qop-auth");
+	  break;
+
+	case 4:
+	  gsasl_property_set (sctx, prop, "qop-int");
+	  break;
+
+	default:
+	  break;
+	}
       break;
 
     default:
@@ -118,7 +168,6 @@ doit (void)
   Gsasl_session *server = NULL, *client = NULL;
   char *s1, *s2;
   size_t s1len, s2len;
-  size_t i;
   int res;
 
   res = gsasl_init (&ctx);

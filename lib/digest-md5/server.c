@@ -42,6 +42,7 @@
 #include "session.h"
 #include "digesthmac.h"
 #include "validate.h"
+#include "qop.h"
 
 #define NONCE_ENTROPY_BYTES 16
 
@@ -138,51 +139,6 @@ _gsasl_digest_md5_set_hashed_secret (char *secret, const char *hex_secret)
   return GSASL_OK;
 }
 
-static int
-qopstr2qops (char *qopstr)
-{
-  int qops = 0;
-  enum
-  {
-    /* the order must match the following struct */
-    QOP_AUTH = 0,
-    QOP_AUTH_INT,
-    QOP_AUTH_CONF
-  };
-  const char *const qop_opts[] = {
-    /* the order must match the previous enum */
-    "qop-auth",
-    "qop-int",
-    "qop-conf",
-    NULL
-  };
-  char *subsubopts;
-  char *val;
-
-  subsubopts = qopstr;
-  while (*subsubopts != '\0')
-    switch (digest_md5_getsubopt (&subsubopts, qop_opts, &val))
-      {
-      case QOP_AUTH:
-	qops |= DIGEST_MD5_QOP_AUTH;
-	break;
-
-      case QOP_AUTH_INT:
-	qops |= DIGEST_MD5_QOP_AUTH_INT;
-	break;
-
-      case QOP_AUTH_CONF:
-	qops |= DIGEST_MD5_QOP_AUTH_CONF;
-	break;
-
-      default:
-	/* ignore unrecognized options */
-	break;
-      }
-
-  return qops;
-}
-
 int
 _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 			       void *mech_data,
@@ -224,14 +180,10 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 
 	if (qopstr)
 	  {
-	    char *qopsdup = strdup (qopstr);
-	    int qops;
+	    int qops = digest_md5_qopstr2qops (qopstr);
 
-	    if (!qopsdup)
+	    if (qops == -1)
 	      return GSASL_MALLOC_ERROR;
-
-	    qops = qopstr2qops (qopsdup);
-	    free (qopsdup);
 
 	    /* We don't support confidentiality right now. */
 	    if (qops & DIGEST_MD5_QOP_AUTH_CONF)

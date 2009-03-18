@@ -197,6 +197,7 @@ extern "C"
     GSASL_REALM = 11,
     GSASL_DIGEST_MD5_HASHED_PASSWORD = 12,
     GSASL_QOPS = 13,
+    GSASL_QOP = 14,
     /* Server validation callback properties. */
     GSASL_VALIDATE_SIMPLE = 500,
     GSASL_VALIDATE_EXTERNAL = 501,

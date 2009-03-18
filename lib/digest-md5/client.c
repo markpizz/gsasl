@@ -41,6 +41,7 @@
 #include "free.h"
 #include "session.h"
 #include "digesthmac.h"
+#include "qop.h"
 
 #define CNONCE_ENTROPY_BYTES 16
 
@@ -129,11 +130,30 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	else
 	  gsasl_property_set (sctx, GSASL_REALM, NULL);
 
-	/* FIXME: qop, cipher, maxbuf. */
+	/* FIXME: cipher, maxbuf. */
 
 	/* Create response token. */
 	state->response.utf8 = 1;
-	state->response.qop = 1;
+
+	gsasl_property_set (sctx, GSASL_QOPS,
+			    digest_md5_qops2qopstr (state->challenge.qops));
+
+	{
+	  const char *qop = gsasl_property_get (sctx, GSASL_QOP);
+
+	  if (!qop && (state->challenge.qops & GSASL_QOP_AUTH_INT))
+	    state->response.qop = GSASL_QOP_AUTH_INT;
+	  else if (!qop)
+	    state->response.qop = GSASL_QOP_AUTH;
+	  else if (strcmp (qop, "qop-int") == 0)
+	    state->response.qop = GSASL_QOP_AUTH_INT;
+	  else if (strcmp (qop, "qop-auth") == 0)
+	    state->response.qop = GSASL_QOP_AUTH;
+	  else
+	    /* We don't support confidentiality or unknown
+	       keywords. */
+	    return GSASL_AUTHENTICATION_ERROR;
+	}
 
 	state->response.nonce = strdup (state->challenge.nonce);
 	if (!state->response.nonce)

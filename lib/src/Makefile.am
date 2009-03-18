@@ -54,6 +54,9 @@ endif
 
 if OBSOLETE
 libgsasl_la_SOURCES += obsolete.c
+if DIGEST_MD5
+AM_CPPFLAGS += -I$(srcdir)/../digest-md5
+endif
 endif
 
 # Plugins:

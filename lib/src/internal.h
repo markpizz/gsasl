@@ -84,7 +84,7 @@ struct Gsasl_session
   void *application_hook;
 
   /* Properties.  If you add anything here, remember to change change
-     gsasl_finish().  */
+     gsasl_finish() in xfinish.c and map() in property.c.  */
   char *anonymous_token;
   char *authid;
   char *authzid;
@@ -98,6 +98,7 @@ struct Gsasl_session
   char *realm;
   char *digest_md5_hashed_password;
   char *qops;
+  char *qop;
 
 #ifndef GSASL_NO_OBSOLETE
   /* Obsolete stuff. */

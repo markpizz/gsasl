@@ -32,7 +32,8 @@ libgsasl_digest_md5_la_SOURCES = digest-md5.h mechinfo.c \
 	parser.h parser.c \
 	printer.h printer.c \
 	free.h free.c \
-	nonascii.h nonascii.c
+	nonascii.h nonascii.c \
+	qop.h qop.c
 
 if CLIENT
 libgsasl_digest_md5_la_SOURCES += client.c
