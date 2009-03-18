@@ -164,6 +164,17 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       rc = GSASL_OK;
       break;
 
+    case GSASL_QOP:
+      if (args_info.quality_of_protection_arg == NULL)
+	args_info.quality_of_protection_arg = readutf8line
+	  ("Enter quality of protection (optional, e.g. 'qop-int'): ");
+      if (args_info.quality_of_protection_arg
+	  && *args_info.quality_of_protection_arg)
+	gsasl_property_set (sctx, GSASL_QOP,
+			    args_info.quality_of_protection_arg);
+      rc = GSASL_OK;
+      break;
+
     case GSASL_VALIDATE_GSSAPI:
       {
 	char *str;

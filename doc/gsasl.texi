@@ -2016,12 +2016,13 @@ terminal.
   -p, --password=STRING      Password for authentication (insecure for
                              non-testing purposes).
       --passcode=NUMBER      Passcode for authentication (SECURID only).
-      --quality-of-protection=<auth | auth-int | auth-conf>
-                             How application payload will be protected.  "auth"
-                             means no protection, "auth-int" means integrity
-                             protection, "auth-conf" means integrity and
-                             confidentialiy protection.  Currently only used by
-                             DIGEST-MD5, where the default is "auth-conf".
+      --quality-of-protection=<qop-auth | qop-int | qop-conf>
+                             How application payload will be protected.
+                             "qop-auth" means no protection,
+                             "qop-int" means integrity protection,
+                             "qop-conf" means confidentiality.
+                             Currently only used by DIGEST-MD5, where the
+                             default is "qop-int".
   -r, --realm=STRING         Realm. Defaults to hostname.
       --service=STRING       Set the requested service name (should be a
                              registered GSSAPI host based service name).

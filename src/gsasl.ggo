@@ -48,7 +48,7 @@ option "hostname" - "Set the name of the server with the requested service." str
 option "service-name" - "Set the generic server name in case of a replicated server (DIGEST-MD5 only)." string no
 option "enable-cram-md5-validate" - "Validate CRAM-MD5 challenge and response interactively." flag off
 option "disable-cleartext-validate" - "Disable cleartext validate hook, forcing server to prompt for password." flag off
-option "quality-of-protection" - "How application payload will be protected. 'auth' means no protection, 'auth-int' means integrity protection, 'auth-conf' means integrity and confidentialiy protection.  Currently only used by DIGEST-MD5, where the default is 'auth-conf'." string typestr="TYPE" no
+option "quality-of-protection" - "How application payload will be protected. 'qop-auth' means no protection, 'qop-int' means integrity protection, 'qop-conf' means integrity and confidentialiy protection.  Currently only used by DIGEST-MD5, where the default is 'qop-int'." string typestr="TYPE" no
 
 section "STARTTLS options"
 option "starttls" - "Force use of STARTTLS.  The default is to use STARTTLS when available." flag off
