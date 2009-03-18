@@ -93,7 +93,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       rc = GSASL_NO_CALLBACK;
       break;
 
-    case GSASL_QOP:
+    case GSASL_QOPS:
       rc = GSASL_OK;
       if (flip2 == 0)
 	rc = GSASL_NO_CALLBACK;

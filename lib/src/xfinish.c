@@ -55,7 +55,7 @@ gsasl_finish (Gsasl_session * sctx)
   free (sctx->gssapi_display_name);
   free (sctx->realm);
   free (sctx->digest_md5_hashed_password);
-  free (sctx->qop);
+  free (sctx->qops);
 
   free (sctx);
 }

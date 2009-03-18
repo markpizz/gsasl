@@ -80,8 +80,8 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->digest_md5_hashed_password;
       break;
 
-    case GSASL_QOP:
-      p = &sctx->qop;
+    case GSASL_QOPS:
+      p = &sctx->qops;
       break;
 
     default:

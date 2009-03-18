@@ -139,7 +139,7 @@ _gsasl_digest_md5_set_hashed_secret (char *secret, const char *hex_secret)
 }
 
 static int
-qopstr2qop (char *qopstr)
+qopstr2qops (char *qopstr)
 {
   int qops = 0;
   enum
@@ -220,18 +220,18 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 
       /* Set QOP */
       {
-	const char *qopstr = gsasl_property_get (sctx, GSASL_QOP);
+	const char *qopstr = gsasl_property_get (sctx, GSASL_QOPS);
 
 	if (qopstr)
 	  {
-	    char *qop = strdup (qopstr);
+	    char *qopsdup = strdup (qopstr);
 	    int qops;
 
-	    if (!qop)
+	    if (!qopsdup)
 	      return GSASL_MALLOC_ERROR;
 
-	    qops = qopstr2qop (qop);
-	    free (qop);
+	    qops = qopstr2qops (qopsdup);
+	    free (qopsdup);
 
 	    /* We don't support confidentiality right now. */
 	    if (qops & DIGEST_MD5_QOP_AUTH_CONF)

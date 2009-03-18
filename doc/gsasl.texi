@@ -1374,12 +1374,13 @@ A SecurID personal identification number (PIN) suggested by the server.
 For the DIGEST-MD5 mechanism, this is a hashed password.  It is used
 in servers to avoid storing clear-text credentials.
 
-@item @code{GSASL_QOP}
+@item @code{GSASL_QOPS}
 
-For the DIGEST-MD5 mechanism, this holds the set of quality of
-protection values to advertise in server mode.  The property holds
-comma separated strings denoting the set of qops to use, for example
-"qop-auth" and "qop-auth, qop-int".
+For the DIGEST-MD5 mechanism, this property is queried for to get the
+set of quality of protection values to advertise in server mode.  The
+property holds strings with comma separated keywords denoting the set
+of qops to use, for example @code{qop-auth, qop-int}.  Valid keywords
+are @code{qop-auth}, @code{qop-int}, and @code{qop-conf}.
 
 @end itemize
 
@@ -1621,7 +1622,7 @@ may use the @code{GSASL_AUTHID}, @code{GSASL_AUTHZID} and
 should be used.  The server will then compare the client response with
 a computed correct response, and accept the user accordingly.
 
-The server also uses the @code{GSASL_QOP} callback to get the set of
+The server also uses the @code{GSASL_QOPS} callback to get the set of
 quality of protection values to use.  By default, it advertise support
 for both authentication (@code{qop-auth}) and authentication plus
 integrity (@code{qop-int}).  You can use the callback to, for example,

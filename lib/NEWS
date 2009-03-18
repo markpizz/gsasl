@@ -4,11 +4,12 @@ See the end for copying conditions.
 
 * Version 1.1 (unreleased)
 
-** libgsasl: Add new property GSASL_QOP.
-The property is queried for when a server wants to know what quality
-of protection (qop) value to use.  The property holds comma separated
-strings denoting the set of qops to use, for example "qop-auth" and
-"qop-auth, qop-int".
+** libgsasl: Add new property GSASL_QOPS.
+For the DIGEST-MD5 mechanism, this property is queried for to get the
+set of quality of protection values to advertise in server mode.  The
+property holds strings with comma separated keywords denoting the set
+of qops to use, for example "qop-auth, qop-int".  Valid keywords are
+"qop-auth", "qop-int", and "qop-conf".
 
 ** DIGEST-MD5 server: Now queries application for QOP value.
 This makes it possible for applications to advertise support for
