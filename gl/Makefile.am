@@ -667,6 +667,15 @@ EXTRA_libgl_la_SOURCES += recv.c
 
 ## end   gnulib module recv
 
+## begin gnulib module select
+
+
+EXTRA_DIST += select.c
+
+EXTRA_libgl_la_SOURCES += select.c
+
+## end   gnulib module select
+
 ## begin gnulib module shutdown
 
 
@@ -1058,6 +1067,7 @@ sys/select.h: sys_select.in.h
 	      -e 's|@''HAVE_SYS_SELECT_H''@|$(HAVE_SYS_SELECT_H)|g' \
 	      -e 's|@''GNULIB_SELECT''@|$(GNULIB_SELECT)|g' \
 	      -e 's|@''HAVE_WINSOCK2_H''@|$(HAVE_WINSOCK2_H)|g' \
+	      -e 's|@''REPLACE_SELECT''@|$(REPLACE_SELECT)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/sys_select.in.h; \
 	} > $@-t

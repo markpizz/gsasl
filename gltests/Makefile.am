@@ -167,6 +167,24 @@ EXTRA_DIST += $(top_srcdir)/build-aux/config.rpath
 
 ## end   gnulib module gettext
 
+## begin gnulib module gettimeofday
+
+
+EXTRA_DIST += gettimeofday.c
+
+EXTRA_libtests_a_SOURCES += gettimeofday.c
+
+## end   gnulib module gettimeofday
+
+## begin gnulib module gettimeofday-tests
+
+TESTS += test-gettimeofday
+check_PROGRAMS += test-gettimeofday
+
+EXTRA_DIST += test-gettimeofday.c
+
+## end   gnulib module gettimeofday-tests
+
 ## begin gnulib module iconv-tests
 
 TESTS += test-iconv
@@ -309,6 +327,20 @@ test_quotearg_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-quotearg.sh test-quotearg.c locale/fr/LC_MESSAGES/test-quotearg.po locale/fr/LC_MESSAGES/test-quotearg.mo
 
 ## end   gnulib module quotearg-tests
+
+## begin gnulib module select-tests
+
+TESTS += test-select test-select-in.sh test-select-out.sh
+# test-select-stdin has to be run by hand.
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
+check_PROGRAMS += test-select test-select-fd test-select-stdin
+test_select_LDADD = $(LDADD) @LIBSOCKET@
+test_select_fd_LDADD = $(LDADD) @LIBSOCKET@
+test_select_stdin_LDADD = $(LDADD) @LIBSOCKET@
+
+EXTRA_DIST += test-select.c test-select-fd.c test-select-in.sh test-select-out.sh test-select-stdin.c
+
+## end   gnulib module select-tests
 
 ## begin gnulib module setenv
 

@@ -127,6 +127,8 @@ AC_SUBST([LTALLOCA])
     AC_LIBOBJ([recv])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([recv])
+  gl_FUNC_SELECT
+  gl_SYS_SELECT_MODULE_INDICATOR([select])
   gl_SERVENT
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
@@ -226,6 +228,7 @@ AC_SUBST([LTALLOCA])
   gl_FUNC_UNGETC_WORKS
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.17])
+  gl_FUNC_GETTIMEOFDAY
   gl_INET_PTON
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
@@ -251,6 +254,7 @@ AC_SUBST([LTALLOCA])
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
   gt_LOCALE_FR
   gt_LOCALE_FR_UTF8
+  AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
   gl_FUNC_SETENV
   gl_STDLIB_MODULE_INDICATOR([setenv])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
@@ -434,6 +438,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/recv.c
   lib/ref-add.sin
   lib/ref-del.sin
+  lib/select.c
   lib/shutdown.c
   lib/size_max.h
   lib/snprintf.c
@@ -488,6 +493,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getopt.m4
   m4/getpass.m4
   m4/gettext.m4
+  m4/gettimeofday.m4
   m4/glibc2.m4
   m4/glibc21.m4
   m4/gnulib-common.m4
@@ -540,6 +546,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/quotearg.m4
   m4/readline.m4
   m4/realloc.m4
+  m4/select.m4
   m4/servent.m4
   m4/setenv.m4
   m4/size_max.m4
@@ -590,6 +597,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-getaddrinfo.c
   tests/test-getdelim.c
   tests/test-getline.c
+  tests/test-gettimeofday.c
   tests/test-iconv.c
   tests/test-lseek.c
   tests/test-lseek.sh
@@ -608,6 +616,11 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-poll.c
   tests/test-quotearg.c
   tests/test-quotearg.sh
+  tests/test-select-fd.c
+  tests/test-select-in.sh
+  tests/test-select-out.sh
+  tests/test-select-stdin.c
+  tests/test-select.c
   tests/test-snprintf.c
   tests/test-sockets.c
   tests/test-stdbool.c
@@ -626,6 +639,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-wctype.c
   tests=lib/accept.c
   tests=lib/bind.c
+  tests=lib/gettimeofday.c
   tests=lib/inet_pton.c
   tests=lib/ioctl.c
   tests=lib/listen.c
