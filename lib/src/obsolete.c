@@ -1963,7 +1963,7 @@ _gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop)
 	  break;
 	serverqops = digest_md5_qopstr2qops (sctx->qops);
 	if (serverqops == -1)
-	  return GSASL_MALLOC_ERROR;
+	  return NULL;
 	qop = cb_qop (sctx, serverqops);
 	if (qop & 0x07)
 	  gsasl_property_set (sctx, prop, digest_md5_qops2qopstr (qop));
