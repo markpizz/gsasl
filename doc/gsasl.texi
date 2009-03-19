@@ -479,7 +479,7 @@ be mentioned here, contact the author (@pxref{Bug Reports}).
 
 The package can be downloaded from several places, including:
 
-@url{ftp://alpha.gnu.org/pub/gnu/gsasl/}
+@url{ftp://ftp.gnu.org/pub/gnu/gsasl/}
 
 The latest version is stored in a file, e.g.,
 @samp{gsasl-@value{VERSION}.tar.gz} where the @samp{@value{VERSION}}
@@ -495,7 +495,7 @@ and install the package.  You will need a few basic tools, such as
 @samp{sh}, @samp{make} and @samp{cc}.
 
 @example
-$ wget -q ftp://alpha.gnu.org/pub/gnu/gsasl/gsasl-@value{VERSION}.tar.gz
+$ wget -q ftp://ftp.gnu.org/pub/gnu/gsasl/gsasl-@value{VERSION}.tar.gz
 $ tar xfz gsasl-@value{VERSION}.tar.gz
 $ cd gsasl-@value{VERSION}/
 $ ./configure
@@ -909,19 +909,19 @@ Libgsasl.  The following illustrate this scenario.
 
 @example
 AC_ARG_ENABLE(gsasl,
-	AC_HELP_STRING([--disable-gsasl], [don't use GNU SASL]),
-	gsasl=$enableval)
+  AC_HELP_STRING([--disable-gsasl], [don't use GNU SASL]),
+  gsasl=$enableval)
 if test "$gsal" != "no" ; then
-	PKG_CHECK_MODULES(GSASL, libgsasl >= @value{VERSION},
-			[gsasl=yes],
-                        [gsasl=no])
-	if test "$gsasl" != "yes" ; then
-		sal=no
-		AC_MSG_WARN([Cannot find GNU SASL, disabling])
-	else
-		gsasl=yes
-		AC_DEFINE(USE_GSASL, 1, [Define to 1 if you want GNU SASL.])
-	fi
+  PKG_CHECK_MODULES(GSASL, libgsasl >= @value{VERSION},
+    [gsasl=yes],
+    [gsasl=no])
+  if test "$gsasl" != "yes" ; then
+    gsasl=no
+    AC_MSG_WARN([Cannot find GNU SASL, disabling])
+  else
+    gsasl=yes
+    AC_DEFINE(USE_GSASL, 1, [Define to 1 if you want GNU SASL.])
+  fi
 fi
 AC_MSG_CHECKING([if GNU SASL should be used])
 AC_MSG_RESULT($gsasl)
@@ -936,17 +936,17 @@ Libtool dependency tracking to include the proper dependency libraries
 
 @example
 AC_CHECK_HEADER(gsasl.h,
-	AC_CHECK_LIB(gsasl, gsasl_check_version,
-		[gsasl=yes AC_SUBST(GSASL_LIBS, -lgsasl)],
-		gsasl=no),
-	gsasl=no)
+  AC_CHECK_LIB(gsasl, gsasl_check_version,
+    [gsasl=yes AC_SUBST(GSASL_LIBS, -lgsasl)],
+    gsasl=no),
+  gsasl=no)
 AC_ARG_ENABLE(gsasl,
-	AC_HELP_STRING([--disable-gsasl], [don't use GNU SASL]),
-	gsasl=$enableval)
+  AC_HELP_STRING([--disable-gsasl], [don't use GNU SASL]),
+  gsasl=$enableval)
 if test "$gsasl" != "no" ; then
-	AC_DEFINE(USE_SASL, 1, [Define to 1 if you want GNU SASL.])
+  AC_DEFINE(USE_SASL, 1, [Define to 1 if you want GNU SASL.])
 else
-	AC_MSG_WARN([Cannot find GNU SASL, diabling])
+  AC_MSG_WARN([Cannot find GNU SASL, diabling])
 fi
 AC_MSG_CHECKING([if GNU SASL should be used])
 AC_MSG_RESULT($gsasl)
@@ -957,6 +957,8 @@ AC_MSG_RESULT($gsasl)
 @c **********************************************************
 @node Using the Library
 @chapter Using the Library
+@cindex Overview
+@cindex Library Overview
 
 Your application's use of the library can be roughly modeled into the
 following steps: initialize the library, optionally specify the
@@ -1575,6 +1577,7 @@ interpretation of a hypothetical LOGIN specification.
 
 @node CRAM-MD5
 @section The CRAM-MD5 mechanism
+@cindex CRAM-MD5
 
 The CRAM-MD5 is a widely used, but officially deprecated (apparently
 in favor of DIGEST-MD5), challenge-response mechanism that transfer
@@ -1605,6 +1608,7 @@ rely on.
 
 @node DIGEST-MD5
 @section The DIGEST-MD5 mechanism
+@cindex DIGEST-MD5
 
 The DIGEST-MD5 mechanism is based on repeated hashing using MD5, which
 after the MD5 break may be argued to be weaker than HMAC-MD5, but
@@ -1645,6 +1649,7 @@ otherwise @code{qop-auth} is used.
 
 @node NTLM
 @section The NTLM mechanism
+@cindex NTLM
 
 The NTLM is a non-standard mechanism.  Do not use it in new
 applications, and do not expect it to be secure.  Currently only the
@@ -1658,6 +1663,7 @@ arbitrary values in that field.
 
 @node SECURID
 @section The SECURID mechanism
+@cindex SECURID
 
 The SECURID mechanism uses authentication and authorization identity
 together with a passcode from a hardware token to authenticate users.
@@ -1685,6 +1691,7 @@ find out the client selected PIN code.
 
 @node GSSAPI
 @section The GSSAPI mechanism
+@cindex GSSAPI
 
 GSS-API is a framework, similar to SASL, for authentication.  The
 GSSAPI mechanism only support the Kerberos 5 GSS-API mechanism,
@@ -1708,6 +1715,7 @@ XXX: explain more about quality of service, maximum buffer size, etc.
 
 @node KERBEROS_V5
 @section The KERBEROS_V5 mechanism
+@cindex KERBEROS_V5
 
 The KERBEROS_V5 is an experimental mechanism, the protocol
 specification is available on the GNU SASL homepage.  It can operate
