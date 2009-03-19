@@ -113,10 +113,10 @@ digest_md5_encode (const char *input, size_t input_len,
   return 0;
 }
 
-#define C2I(buf) ((buf[0] & 0xFF) |		\
-		  ((buf[1] & 0xFF) << 8) |	\
-		  ((buf[2] & 0xFF) << 16) |	\
-		  ((buf[3] & 0xFF) << 24))
+#define C2I(buf) ((buf[3] & 0xFF) |		\
+		  ((buf[2] & 0xFF) << 8) |	\
+		  ((buf[1] & 0xFF) << 16) |	\
+		  ((buf[0] & 0xFF) << 24))
 
 int
 digest_md5_decode (const char *input, size_t input_len,
