@@ -43,7 +43,7 @@ application currently requires POSIX for network communication.
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
 
-  * Implement GS2.
+  * Implement SCRAM and GS2.
   * Security layer improvements (e.g., DES and AES in DIGEST-MD5).
   * Bug: If gsasl_decode is handed a string longer than one SASL token,
     the remaining data will be discarded.  This means if the sender
@@ -60,7 +60,6 @@ please let me know so work duplication can be avoided.
   + Provide standard callbacks for tty, GTK, gpg-agent etc.  Probably
     should be a separate library.
   + Port applications to use libgsasl
-  + More SASL mechanisms
   - Cleanup code, possibly by using some string abstraction library.
   - Privacy separation (authenticate in one process, pass state to another).
   - Improve documentation
