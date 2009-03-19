@@ -276,6 +276,102 @@ doit (void)
 
       gsasl_free (s1);
 
+      /* Encode data in client. */
+
+      res = gsasl_encode (client, "foo", 3, &s1, &s1len);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_encode failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	{
+	  if (s1len == 3 && memcmp (s1, "foo", 3) == 0)
+	    printf ("C: %.*s\n", s1len, s1);
+	  else
+	    {
+	      char *out;
+	      size_t outlen;
+
+	      res = gsasl_base64_to (s1, s1len, &out, &outlen);
+	      if (res != GSASL_OK)
+		{
+		  fail ("gsasl_base64_to failed (%d):\n%s\n", res,
+			gsasl_strerror (res));
+		  return;
+		}
+
+	      printf ("C: %.*s\n", outlen, out);
+	      free (out);
+	    }
+	}
+
+      /* Decode data in server. */
+
+      res = gsasl_decode (server, s1, s1len, &s2, &s2len);
+      free (s1);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_decode failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	printf ("S: %.*s\n", s2len, s2);
+
+      free (s2);
+
+      /* Encode data in server. */
+
+      res = gsasl_encode (server, "bar", 3, &s1, &s1len);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_encode(2) failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	{
+	  if (s1len == 3 && memcmp (s1, "bar", 3) == 0)
+	    printf ("S: %.*s\n", s1len, s1);
+	  else
+	    {
+	      char *out;
+	      size_t outlen;
+
+	      res = gsasl_base64_to (s1, s1len, &out, &outlen);
+	      if (res != GSASL_OK)
+		{
+		  fail ("gsasl_base64_to(2) failed (%d):\n%s\n", res,
+			gsasl_strerror (res));
+		  return;
+		}
+
+	      printf ("S: %.*s\n", outlen, out);
+	      free (out);
+	    }
+	}
+
+      /* Decode data in client. */
+
+      res = gsasl_decode (client, s1, s1len, &s2, &s2len);
+      free (s1);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_decode failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	printf ("C: %.*s\n", s2len, s2);
+
+      free (s2);
+
       if (debug)
 	printf ("\n");
 
