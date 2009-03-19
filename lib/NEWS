@@ -7,6 +7,9 @@ See the end for copying conditions.
 ** DIGEST-MD5 client: Add support for client integrity layer.
 The layer is used by default if the server supports it.
 
+** DIGEST-MD5: Decoding of integrity protected sessions now work.
+Reported by Andery Melnikov <temnota.am@gmail.com>.
+
 ** libgsasl: Add new property GSASL_QOPS.
 The DIGEST-MD5 server query for this property to get the set of
 quality of protection (QOP) values to advertise.  The property holds
