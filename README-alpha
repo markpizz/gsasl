@@ -2,17 +2,6 @@ GNU SASL README-alpha -- Important introductory notes for alpha releases.
 Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
 See the end for copying conditions.
 
-GNU SASL is unstable.  You should expect it to not work.  You should
-expect it to have security problems.  The API will likely change.
-This is the development release.  A proper release will be made in due
-time.  Let me repeat that, GNU SASL IS MOST LIKELY INSECURE. DO NOT
-USE IN A PRODUCTION ENVIRONMENT!
-
-The code will go through a security review before the stable release
-is made.  Volunteers needed.
-
-It will not become stable without help.  Donate time or money.
-
 To compile from version controlled sources rather than a
 gsasl-*.tar.gz archive, you may need fairly recent versions of perl,
 texinfo (4.7), GTK-DOC, gengetopt (2.12), libtool (1.5.2), autoconf
