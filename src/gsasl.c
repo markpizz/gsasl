@@ -696,6 +696,8 @@ main (int argc, char *argv[])
       if (args_info.application_data_flag)
 	{
 	  struct pollfd pfd[2];
+	  char *sockbuf = NULL;
+	  size_t sockpos = 0;
 
 	  /* Setup pollfd structs... */
 	  pfd[0].fd = STDIN_FILENO;
@@ -727,29 +729,34 @@ main (int argc, char *argv[])
 	      /* We got data to read from stdin.. */
 	      if ((pfd[0].revents & (POLLIN | POLLERR)) == POLLIN)
 		{
-		  char input[MAX_LINE_LENGTH];
+		  char *line = NULL;
+		  size_t n;
+		  ssize_t len;
 
-		  input[0] = '\0';
-		  if (fgets (input, MAX_LINE_LENGTH - 2, stdin) == NULL)
+		  len = getline (&line, &n, stdin);
+		  if (len < 0)
 		    break;
 		  if (args_info.imap_flag || args_info.smtp_flag)
 		    {
-		      int pos = strlen (input);
-		      input[pos - 1] = '\r';
-		      input[pos] = '\n';
-		      input[pos + 1] = '\0';
+		      int pos = strlen (line);
+		      char *tmp = realloc (line, pos + 1);
+		      if (!tmp)
+			error (EXIT_FAILURE, errno, "realloc");
+		      line = tmp;
+		      line[pos - 1] = '\r';
+		      line[pos] = '\n';
+		      line[pos + 1] = '\0';
 		    }
 		  else
-		    input[strlen (input) - 1] = '\0';
+		    line[strlen (line) - 1] = '\0';
 
-		  res = gsasl_encode (xctx, input, strlen (input),
+		  res = gsasl_encode (xctx, line, strlen (line),
 				      &out, &output_len);
 		  if (res != GSASL_OK)
 		    break;
 
 		  if (sockfd)
 		    {
-		      ssize_t len;
 #ifdef HAVE_LIBGNUTLS
 		      if (using_tls)
 			len = gnutls_record_send (session, out, output_len);
@@ -757,10 +764,10 @@ main (int argc, char *argv[])
 #endif
 			len = write (sockfd, out, output_len);
 		      if (len != output_len)
-			return 0;
+			error (EXIT_FAILURE, errno, "write");
 		    }
-		  else if (!(strlen (input) == output_len &&
-			     memcmp (input, out, output_len) == 0))
+		  else if (!(strlen (line) == output_len &&
+			     memcmp (line, out, output_len) == 0))
 		    {
 		      res = gsasl_base64_to (out, output_len,
 					     &b64output, &b64output_len);
@@ -775,6 +782,7 @@ main (int argc, char *argv[])
 		      free (b64output);
 		    }
 
+		  free (line);
 		  free (out);
 		}
 	      /* If there was an error, quit.  */
@@ -784,9 +792,38 @@ main (int argc, char *argv[])
 	      /* We got data to read from the socket.. */
 	      if (sockfd && (pfd[1].revents & (POLLIN | POLLERR)) == POLLIN)
 		{
-		  if (!readln (&in))
+		  ssize_t len;
+		  char *tmp;
+
+		  tmp = realloc (sockbuf, sockpos + 1);
+		  if (!tmp)
+		    error (EXIT_FAILURE, errno, "realloc");
+		  sockbuf = tmp;
+
+#ifdef HAVE_LIBGNUTLS
+		  if (using_tls)
+		    len = gnutls_record_recv (session, &sockbuf[sockpos], 1);
+		  else
+#endif
+		    len = recv (sockfd, &sockbuf[sockpos], 1, 0);
+		  if (len <= 0)
 		    break;
-		  free (in);
+
+		  sockpos++;
+
+		  res = gsasl_decode (xctx, sockbuf, sockpos,
+				      &out, &output_len);
+		  if (res == GSASL_NEEDS_MORE)
+		    continue;
+		  if (res != GSASL_OK)
+		    break;
+
+		  free (sockbuf);
+		  sockbuf = NULL;
+		  sockpos = 0;
+
+		  printf("%.*s", output_len, out);
+		  free (out);
 		}
 	      /* If there was an error, quit.  */
 	      else if (pfd[1].revents & (POLLERR | POLLHUP))

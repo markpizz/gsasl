@@ -8,6 +8,9 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.1 (unreleased)
 
+** gsasl: Reading integrity protected data from server now works.
+Before it didn't decode data.
+
 ** gsasl: The --quality-of-protection parameter now works.
 It was just a dummy before.  Only relevant for DIGEST-MD5.  Note that
 the parameter value have been modified to match the library keywords.
