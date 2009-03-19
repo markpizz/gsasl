@@ -147,14 +147,13 @@ digest_md5_hmac (char *output, char secret[MD5LEN], const char *nonce,
     {
       char hash2[MD5LEN];
       char q[MD5LEN + DERIVE_SERVER_INTEGRITY_KEY_STRING_LEN];
+      size_t qlen = MD5LEN + DERIVE_SERVER_INTEGRITY_KEY_STRING_LEN;
 
       memcpy (q, hash, MD5LEN);
       memcpy (q + MD5LEN, DERIVE_SERVER_INTEGRITY_KEY_STRING,
 	      DERIVE_SERVER_INTEGRITY_KEY_STRING_LEN);
 
-      rc = gc_md5 (q,
-		   MD5LEN + DERIVE_CLIENT_CONFIDENTIALITY_KEY_STRING_LEN,
-		   hash2);
+      rc = gc_md5 (q, qlen, hash2);
       if (rc)
 	return rc;
 
