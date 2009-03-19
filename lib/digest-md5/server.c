@@ -295,7 +295,8 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 			      state->response.cnonce, state->response.qop,
 			      state->response.authzid,
 			      state->response.digesturi, 0,
-			      state->response.cipher, NULL, NULL, NULL, NULL);
+			      state->response.cipher,
+			      state->kic, state->kis, state->kcc, state->kcs);
 	if (rc)
 	  return GSASL_AUTHENTICATION_ERROR;
 
