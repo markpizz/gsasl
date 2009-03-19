@@ -36,13 +36,10 @@ TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
 	MD5FILE=$(srcdir)/cram-md5.pwd \
 	$(VALGRIND)
 
-ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\
-	md5file$(EXEEXT) name$(EXEEXT) errors$(EXEEXT)			\
-	suggest$(EXEEXT)
+ctests = external cram-md5 digest-md5 md5file name errors suggest
 
 if OBSOLETE
-ctests += simple$(EXEEXT) old-md5file$(EXEEXT) old-cram-md5$(EXEEXT)	\
-	old-digest-md5$(EXEEXT) old-base64$(EXEEXT)
+ctests += simple old-md5file old-cram-md5 old-digest-md5 old-base64
 endif
 
 # old-gssapi

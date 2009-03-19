@@ -33,6 +33,7 @@ int gl_sockets_cleanup (void);
    Winsock wrappers but needs to pass on the socket handle to some
    other library that only accepts sockets. */
 #if WINDOWS_SOCKETS
+#include <sys/socket.h>
 static inline SOCKET
 gl_fd_to_handle (int fd)
 {
