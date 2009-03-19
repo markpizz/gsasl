@@ -15,6 +15,9 @@ Before it didn't decode data.
 It was just a dummy before.  Only relevant for DIGEST-MD5.  Note that
 the parameter value have been modified to match the library keywords.
 
+** Only detect sufficiently recent GnuTLS versions.
+Version 2.2.x or later is required.
+
 * Version 1.0 (released 2009-01-23)
 
 ** gsasl: New parameter --priority to specify GnuTLS priority strings.
