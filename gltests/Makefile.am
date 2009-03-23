@@ -34,7 +34,7 @@ AM_CPPFLAGS = \
   -I.. -I$(srcdir)/.. \
   -I../gl -I$(srcdir)/../gl
 
-LDADD = libtests.a ../gl/libgl.la libtests.a $(LIBTESTS_LIBDEPS) @LIBSOCKET@
+LDADD = libtests.a ../gl/libgl.la libtests.a $(LIBTESTS_LIBDEPS)
 
 libtests_a_SOURCES =
 libtests_a_LIBADD = $(gltests_LIBOBJS)
