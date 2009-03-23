@@ -27,7 +27,8 @@ LDADD = ../lib/src/libgsasl.la ../gl/libgl.la libutils.la
 noinst_LTLIBRARIES = libutils.la
 libutils_la_SOURCES = utils.h utils.c
 
-TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
+TESTS_ENVIRONMENT = \
+	SHISHI_KEYS=$(srcdir)/gssapi.key \
 	SHISHI_TICKETS=$(srcdir)/gssapi.tkt \
 	SHISHI_CONFIG=ignore-this-warning \
 	SHISHI_HOME=ignore-this-warning \
@@ -36,10 +37,13 @@ TESTS_ENVIRONMENT = SHISHI_KEYS=$(srcdir)/gssapi.key \
 	MD5FILE=$(srcdir)/cram-md5.pwd \
 	$(VALGRIND)
 
-ctests = external cram-md5 digest-md5 md5file name errors suggest
+ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\
+	md5file$(EXEEXT) name$(EXEEXT) errors$(EXEEXT)			\
+	suggest$(EXEEXT)
 
 if OBSOLETE
-ctests += simple old-md5file old-cram-md5 old-digest-md5 old-base64
+ctests += simple$(EXEEXT) old-md5file$(EXEEXT) old-cram-md5$(EXEEXT)	\
+	old-digest-md5$(EXEEXT) old-base64$(EXEEXT)
 endif
 
 # old-gssapi
