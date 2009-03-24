@@ -161,7 +161,6 @@ AC_SUBST([LTALLOCA])
   gl_HEADER_SYS_SELECT
   AC_PROG_MKDIR_P
   gl_HEADER_SYS_SOCKET
-  gl_MODULE_INDICATOR([sys_socket])
   AC_PROG_MKDIR_P
   gl_HEADER_SYS_TIME_H
   AC_PROG_MKDIR_P
@@ -381,6 +380,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/c-strcase.h
   lib/c-strcasecmp.c
   lib/c-strncasecmp.c
+  lib/close-hook.c
+  lib/close-hook.h
   lib/close.c
   lib/config.charset
   lib/connect.c

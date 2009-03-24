@@ -110,11 +110,19 @@ libgl_la_SOURCES += c-strcase.h c-strcasecmp.c c-strncasecmp.c
 ## begin gnulib module close
 
 
-EXTRA_DIST += close.c w32sock.h
+EXTRA_DIST += close.c
 
 EXTRA_libgl_la_SOURCES += close.c
 
 ## end   gnulib module close
+
+## begin gnulib module close-hook
+
+libgl_la_SOURCES += close-hook.c
+
+EXTRA_DIST += close-hook.h
+
+## end   gnulib module close-hook
 
 ## begin gnulib module configmake
 
