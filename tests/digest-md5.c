@@ -145,7 +145,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	  break;
 
 	case 4:
-	  gsasl_property_set (sctx, prop, "qop-int");
+	  gsasl_property_set (sctx, prop, "qop-auth");
 	  break;
 
 	default:

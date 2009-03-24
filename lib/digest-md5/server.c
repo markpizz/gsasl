@@ -84,7 +84,7 @@ _gsasl_digest_md5_server_start (Gsasl_session * sctx, void **mech_data)
       return GSASL_MALLOC_ERROR;
     }
 
-  state->challenge.qops = DIGEST_MD5_QOP_AUTH | DIGEST_MD5_QOP_AUTH_INT;
+  state->challenge.qops = DIGEST_MD5_QOP_AUTH;
   state->challenge.ciphers = 0;
 
   state->challenge.nonce = p;
@@ -240,7 +240,7 @@ _gsasl_digest_md5_server_step (Gsasl_session * sctx,
 	}
       gsasl_property_set (sctx, GSASL_AUTHZID, state->response.authzid);
 
-      /* FIXME: qop, cipher, maxbuf.  */
+      /* FIXME: cipher, maxbuf.  */
 
       /* Compute secret. */
       {

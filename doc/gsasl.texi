@@ -1636,16 +1636,15 @@ a computed correct response, and accept the user accordingly.
 
 The server uses the @code{GSASL_QOPS} callback to get the set of
 quality of protection values to use.  By default, it advertise support
-for both authentication (@code{qop-auth}) and authentication plus
-integrity (@code{qop-int}).  You can use the callback to, for example,
-make the server advertise support for only authentication.
+for authentication (@code{qop-auth}) only.  You can use the callback
+to, for example, make the server advertise support for authentication
+with integrity layers.
 
 The client uses the @code{GSASL_QOP} callback to get the quality of
 protection value to request.  The client must chose be one of the QOP
 values offered by the server (which may be inspected through the
 @code{GSASL_QOPS} property).  If the client does not return a value,
-by default, @code{qop-int} is used when the server supports it and
-otherwise @code{qop-auth} is used.
+@code{qop-auth} is used by default.
 
 @node NTLM
 @section The NTLM mechanism

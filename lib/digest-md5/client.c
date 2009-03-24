@@ -141,9 +141,7 @@ _gsasl_digest_md5_client_step (Gsasl_session * sctx,
 	{
 	  const char *qop = gsasl_property_get (sctx, GSASL_QOP);
 
-	  if (!qop && (state->challenge.qops & GSASL_QOP_AUTH_INT))
-	    state->response.qop = GSASL_QOP_AUTH_INT;
-	  else if (!qop)
+	  if (!qop)
 	    state->response.qop = GSASL_QOP_AUTH;
 	  else if (strcmp (qop, "qop-int") == 0)
 	    state->response.qop = GSASL_QOP_AUTH_INT;
