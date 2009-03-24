@@ -49,38 +49,46 @@ doit (void)
       return;
     }
 
-  res = gsasl_server_start (ctx, "CRAM-MD5", &server);
-  if (res != GSASL_OK)
-    fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
-  else
+  if (gsasl_server_support_p (ctx, "CRAM-MD5"))
     {
-      p = gsasl_mechanism_name (server);
-
-      if (!p)
-	fail ("gsasl_mechanism_name() returned NULL.\n");
-      else if (strcmp ("CRAM-MD5", p) == 0)
-	success ("gsasl_mechanism_name() returned correct %s\n", p);
+      res = gsasl_server_start (ctx, "CRAM-MD5", &server);
+      if (res != GSASL_OK)
+	fail ("gsasl_server_start() failed (%d):\n%s\n",
+	      res, gsasl_strerror (res));
       else
-	fail ("gsasl_mechanism_name() returned incorrect %s", p);
+	{
+	  p = gsasl_mechanism_name (server);
 
-      gsasl_finish (server);
+	  if (!p)
+	    fail ("gsasl_mechanism_name() returned NULL.\n");
+	  else if (strcmp ("CRAM-MD5", p) == 0)
+	    success ("gsasl_mechanism_name() returned correct %s\n", p);
+	  else
+	    fail ("gsasl_mechanism_name() returned incorrect %s", p);
+
+	  gsasl_finish (server);
+	}
     }
 
-  res = gsasl_client_start (ctx, "PLAIN", &client);
-  if (res != GSASL_OK)
-    fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
-  else
+  if (gsasl_client_support_p (ctx, "PLAIN"))
     {
-      p = gsasl_mechanism_name (client);
-
-      if (!p)
-	fail ("gsasl_mechanism_name() returned NULL.\n");
-      else if (strcmp ("PLAIN", p) == 0)
-	success ("gsasl_mechanism_name() returned correct %s\n", p);
+      res = gsasl_client_start (ctx, "PLAIN", &client);
+      if (res != GSASL_OK)
+	fail ("gsasl_client_start() failed (%d):\n%s\n",
+	      res, gsasl_strerror (res));
       else
-	fail ("gsasl_mechanism_name() returned incorrect %s", p);
+	{
+	  p = gsasl_mechanism_name (client);
 
-      gsasl_finish (client);
+	  if (!p)
+	    fail ("gsasl_mechanism_name() returned NULL.\n");
+	  else if (strcmp ("PLAIN", p) == 0)
+	    success ("gsasl_mechanism_name() returned correct %s\n", p);
+	  else
+	    fail ("gsasl_mechanism_name() returned incorrect %s", p);
+
+	  gsasl_finish (client);
+	}
     }
 
   gsasl_done (ctx);

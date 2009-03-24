@@ -100,6 +100,14 @@ doit (void)
       return;
     }
 
+  if (!gsasl_client_support_p (ctx, "CRAM-MD5")
+      || !gsasl_server_support_p (ctx, "CRAM-MD5"))
+    {
+      gsasl_done (ctx);
+      fail("No support for CRAM-MD5.\n");
+      exit(77);
+    }
+
   gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);
 
   gsasl_client_callback_authentication_id_set (ctx,

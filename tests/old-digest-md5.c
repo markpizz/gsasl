@@ -130,11 +130,12 @@ doit (void)
       return;
     }
 
-  if (!gsasl_client_support_p (ctx, "DIGEST-MD5") ||
-      !gsasl_server_support_p (ctx, "DIGEST-MD5"))
+  if (!gsasl_client_support_p (ctx, "DIGEST-MD5")
+      || !gsasl_server_support_p (ctx, "DIGEST-MD5"))
     {
-      printf ("No support for DIGEST-MD5...\n");
-      return;
+      gsasl_done (ctx);
+      fail("No support for DIGEST-MD5.\n");
+      exit(77);
     }
 
   gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);

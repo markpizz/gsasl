@@ -97,6 +97,14 @@ doit (void)
       return;
     }
 
+  if (!gsasl_client_support_p (ctx, "EXTERNAL")
+      || !gsasl_server_support_p (ctx, "EXTERNAL"))
+    {
+      gsasl_done (ctx);
+      fail("No support for EXTERNAL.\n");
+      exit(77);
+    }
+
   gsasl_callback_set (ctx, callback);
 
   for (i = 0; i < 2 * (sizeof (tv) / sizeof (tv[0])); i++)
