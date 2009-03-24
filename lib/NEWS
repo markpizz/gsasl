@@ -5,10 +5,10 @@ See the end for copying conditions.
 * Version 1.1 (unreleased)
 
 ** DIGEST-MD5 client: Add support for client integrity layer.
-The layer is not used by default, the client needs to request it
+The layer is not used by default, the application needs to request it
 specifically in a callback or by setting the GSASL_QOP property.
 
-** DIGEST-MD5: Decoding of integrity protected sessions now work.
+** DIGEST-MD5: Decoding of integrity protected sessions now works better.
 Reported by Andery Melnikov <temnota.am@gmail.com>.
 
 ** libgsasl: Add new property GSASL_QOPS.
@@ -28,7 +28,7 @@ property).  The GSSAPI mechanism may be enhanced to use this property
 as well in the future.
 
 ** DIGEST-MD5 client: Now queries application for QOP value
-This makes it possible for client application to request support for
+This makes it possible for client applications to request support for
 authentication only and/or authentication plus integrity.  Before, the
 client only supported authentication.  Note that confidentiality is
 not supported, and if you request it you will get an error.
@@ -41,7 +41,7 @@ both.  Note that confidentiality is not supported, and if you request
 it you will get an error.  Suggested by Andery Melnikov
 <temnota.am@gmail.com>.
 
-** DIGEST-MD5 server: No longer advertise support for integrity by default.
+** DIGEST-MD5 server: No longer advertises support for integrity by default.
 You can request it specifically through a callback or setting the
 GSASL_QOPS property.
 
