@@ -690,6 +690,7 @@ main (int argc, char *argv[])
 	  else
 	    fprintf (stderr, _("Client authentication "
 			       "finished (server trusted)...\n"));
+	  fflush (stderr);
 	}
 
       /* Transfer application payload */
@@ -709,7 +710,10 @@ main (int argc, char *argv[])
 	    }
 
 	  if (!args_info.quiet_given)
-	    fprintf (stderr, _("Enter application data (EOF to finish):\n"));
+	    {
+	      fprintf (stderr, _("Enter application data (EOF to finish):\n"));
+	      fflush (stderr);
+	    }
 
 	  while (1)
 	    {
@@ -736,16 +740,21 @@ main (int argc, char *argv[])
 		  len = getline (&line, &n, stdin);
 		  if (len < 0)
 		    break;
+
 		  if (args_info.imap_flag || args_info.smtp_flag)
 		    {
 		      int pos = strlen (line);
-		      char *tmp = realloc (line, pos + 1);
-		      if (!tmp)
-			error (EXIT_FAILURE, errno, "realloc");
-		      line = tmp;
-		      line[pos - 1] = '\r';
-		      line[pos] = '\n';
-		      line[pos + 1] = '\0';
+
+		      if (pos < 2 || strcmp (&line[pos-2], "\r\n") != 0)
+			{
+			  char *tmp = realloc (line, pos + 1);
+			  if (!tmp)
+			    error (EXIT_FAILURE, errno, "realloc");
+			  line = tmp;
+			  line[pos - 1] = '\r';
+			  line[pos] = '\n';
+			  line[pos + 1] = '\0';
+			}
 		    }
 		  else
 		    line[strlen (line) - 1] = '\0';
