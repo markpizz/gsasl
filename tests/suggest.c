@@ -45,33 +45,66 @@ doit (void)
       return;
     }
 
-  str = "FOO BAR CRAM-MD5 BAR FOO";
+  str = "FOO BAR FOO";
   p = gsasl_client_suggest_mechanism (ctx, str);
   if (debug)
-    printf ("gsasl_client_suggest_mechanism(%s) = %s\n", str, p);
-  if (strcmp (p, "CRAM-MD5") != 0)
-    fail ("FAIL: not cram-md5?!\n");
+    printf ("gsasl_client_suggest_mechanism(%s) = %s\n", str,
+	    p ? p : "(null)");
+  if (p)
+    fail ("FAIL: not null?!\n");
 
-  str = "FOO PLAIN CRAM-MD5 BAR FOO";
-  p = gsasl_client_suggest_mechanism (ctx, str);
-  if (debug)
-    printf ("gsasl_client_suggest_mechanism(%s) = %s\n", str, p);
-  if (strcmp (p, "CRAM-MD5") != 0)
-    fail ("FAIL: not cram-md5?!\n");
+  if (gsasl_client_support_p (ctx, "EXTERNAL"))
+    {
+      str = "FOO BAR EXTERNAL BAR FOO";
+      p = gsasl_client_suggest_mechanism (ctx, str);
+      if (debug)
+	printf ("gsasl_client_suggest_mechanism(%s) = %s\n", str, p);
+      if (!p || strcmp (p, "EXTERNAL") != 0)
+	fail ("FAIL: not external?!\n");
+    }
 
-  str = "FOO PLAIN BAR FOO";
-  p = gsasl_client_suggest_mechanism (ctx, str);
-  if (debug)
-    printf ("gsasl_client_suggest_mechanism(%s) = %s\n", str, p);
-  if (strcmp (p, "PLAIN") != 0)
-    fail ("FAIL: not plain?!\n");
+  if (gsasl_client_support_p (ctx, "CRAM-MD5"))
+    {
+      str = "FOO BAR CRAM-MD5 BAR FOO";
+      p = gsasl_client_suggest_mechanism (ctx, str);
+      if (debug)
+	printf ("gsasl_client_suggest_mechanism(%s) = %s\n", str, p);
+      if (!p || strcmp (p, "CRAM-MD5") != 0)
+	fail ("FAIL: not cram-md5?!\n");
+    }
 
-  str = "FOO PLAIN CRAM-MD5 DIGEST-MD5 FOO";
-  p = gsasl_client_suggest_mechanism (ctx, str);
-  if (debug)
-    printf ("gsasl_client_suggest_mechanism(%s) = %s\n", str, p);
-  if (strcmp (p, "CRAM-MD5") != 0)
-    fail ("FAIL: not cram-md5?!\n");
+  if (gsasl_client_support_p (ctx, "PLAIN")
+      && gsasl_client_support_p (ctx, "CRAM-MD5"))
+    {
+      str = "FOO PLAIN CRAM-MD5 BAR FOO";
+      p = gsasl_client_suggest_mechanism (ctx, str);
+      if (debug)
+	printf ("gsasl_client_suggest_mechanism(%s) = %s\n", str, p);
+      if (!p || strcmp (p, "CRAM-MD5") != 0)
+	fail ("FAIL: not cram-md5?!\n");
+    }
+
+  if (gsasl_client_support_p (ctx, "PLAIN"))
+    {
+      str = "FOO PLAIN BAR FOO";
+      p = gsasl_client_suggest_mechanism (ctx, str);
+      if (debug)
+	printf ("gsasl_client_suggest_mechanism(%s) = %s\n", str, p);
+      if (!p || strcmp (p, "PLAIN") != 0)
+	fail ("FAIL: not plain?!\n");
+    }
+
+  if (gsasl_client_support_p (ctx, "PLAIN")
+      && gsasl_client_support_p (ctx, "CRAM-MD5")
+      && gsasl_client_support_p (ctx, "DIGEST-MD5"))
+    {
+      str = "FOO PLAIN CRAM-MD5 DIGEST-MD5 FOO";
+      p = gsasl_client_suggest_mechanism (ctx, str);
+      if (debug)
+	printf ("gsasl_client_suggest_mechanism(%s) = %s\n", str, p);
+      if (!p || strcmp (p, "CRAM-MD5") != 0)
+	fail ("FAIL: not cram-md5?!\n");
+    }
 
   gsasl_done (ctx);
 }
