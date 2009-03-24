@@ -234,7 +234,7 @@ getpass (const char *prompt)
 	}
     }
 
-  if (prompt)
+  if (prompt && !use_getc)
     {
       fputs ("\r\n", stderr);
       fflush (stderr);
