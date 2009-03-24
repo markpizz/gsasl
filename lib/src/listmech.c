@@ -32,7 +32,7 @@ _gsasl_listmech (Gsasl * ctx,
   size_t i;
   int rc;
 
-  list = calloc (n_mechs, GSASL_MAX_MECHANISM_SIZE + 1);
+  list = calloc (n_mechs + 1, GSASL_MAX_MECHANISM_SIZE + 1);
   if (!list)
     return GSASL_MALLOC_ERROR;
 
