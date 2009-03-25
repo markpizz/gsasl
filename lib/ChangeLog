@@ -1,3 +1,332 @@
+2009-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gltests/Makefile.am: Fixup broken generated paths.
+
+2009-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 1.1.
+
+2009-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2009-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* lib/README-alpha: Remove.
+
+2009-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Copy cyclo chart to webdir.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Fixes.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, lib/NEWS, lib/digest-md5/client.c,
+	lib/digest-md5/server.c, tests/digest-md5.c: DIGEST-MD5: Disable
+	integrity layers by default.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c, tests/digest-md5.c, tests/external.c,
+	tests/name.c, tests/old-cram-md5.c, tests/old-digest-md5.c: Make
+	self tests work with --disable-client.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/listmech.c: Make sure return string is zero terminated
+	even if there are no mechanisms.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* tests/suggest.c: Make more robust when some client mechanisms are
+	disabled.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/suggest.c: Doc fix.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Mingw fixes.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/override/lib/getpass.c.diff: Add.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getpass.c: Avoid newline.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getpass.c: Apply local getpass fix.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/readline.c: Update gnulib files.
+
+2009-03-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/close-hook.c, gl/close-hook.h, gl/close.c,
+	gl/m4/close.m4, gl/m4/gnulib-comp.m4, gl/unistd.in.h,
+	gltests/Makefile.am, gltests/sockets.c, lib/gl/unistd.in.h: Update
+	gnulib files.
+
+2009-03-23  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Use EXEEXT for Mingw.
+
+2009-03-23  Simon Josefsson <simon@josefsson.org>
+
+	* gl/vasnprintf.c, gltests/Makefile.am, gltests/sockets.c,
+	gltests/sockets.h, lib/gl/vasnprintf.c: Update gnulib files.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/override/tests/test-select-in.sh.diff: Add.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* gltests/Makefile.am, gltests/sockets.h,
+	gltests/test-select-in.sh, tests/Makefile.am: Mingw fixes.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Need -lws2_32 for mingw.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Reduce.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* README: Fix.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* tests/digest-md5.c: Test encode/decode.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/qop.c, lib/digest-md5/qop.h: Add.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/server.c: Derive session keys properly.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, src/gsasl.c: gsasl: Decode data when integrity protected.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/session.c: Fix integrity decoding.  Reported by
+	Andery Melnikov <temnota.am@gmail.com>.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/digesthmac.c: Fix computation of Kic.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/gsasl.texi, src/callbacks.c, src/gsasl.ggo: Fix gsasl
+	--quality-of-protection flag.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/obsolete.c: Fix error.
+
+2009-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, lib/NEWS, lib/digest-md5/Makefile.am,
+	lib/digest-md5/client.c, lib/digest-md5/server.c,
+	lib/src/Makefile.am, lib/src/gsasl.h, lib/src/internal.h,
+	lib/src/obsolete.c, lib/src/property.c, lib/src/xfinish.c,
+	tests/digest-md5.c, tests/old-digest-md5.c: Add GSASL_QOP.  Make
+	DIGEST-MD5 client support integrity and QOP callback.
+
+2009-03-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, lib/NEWS, lib/digest-md5/server.c,
+	lib/src/gsasl.h, lib/src/internal.h, lib/src/obsolete.c,
+	lib/src/property.c, lib/src/xfinish.c, tests/digest-md5.c: Rename
+	GSASL_QOP to GSASL_QOPS as it denotes a set of qops.
+
+2009-03-18  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/Makefile.am, gl/m4/gettimeofday.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/quotearg.m4, gl/m4/select.m4,
+	gl/m4/sys_select_h.m4, gl/select.c, gl/sys_select.in.h,
+	gl/xmalloc.c, gltests/Makefile.am, gltests/gettimeofday.c,
+	gltests/test-gettimeofday.c, gltests/test-select-fd.c,
+	gltests/test-select-in.sh, gltests/test-select-out.sh,
+	gltests/test-select-stdin.c, gltests/test-select.c, maint.mk: Update
+	gnulib files.
+
+2009-03-07  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2009-03-07  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, lib/NEWS, lib/digest-md5/server.c,
+	lib/src/gsasl.h, lib/src/internal.h, lib/src/obsolete.c,
+	lib/src/property.c, lib/src/xfinish.c, tests/digest-md5.c,
+	tests/old-digest-md5.c: Add GSASL_QOP property.  Make DIGEST-MD5
+	server use it.  Update self-tests.
+
+2009-03-07  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/xfinish.c: Free(NULL) works fine on all modern platforms,
+	reportedly.
+
+2009-03-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Fix.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Don't use GnuTLS unless it has
+	gnutls_priority_set_direct.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Clarify.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, lib/gl/Makefile.am: Update gnulib files.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/anonymous/Makefile.am, lib/cram-md5/Makefile.am,
+	lib/external/Makefile.am, lib/gs2/Makefile.am,
+	lib/gssapi/Makefile.am, lib/kerberos_v5/Makefile.am,
+	lib/login/Makefile.am, lib/ntlm/Makefile.am, lib/plain/Makefile.am,
+	lib/securid/Makefile.am: Add more CFLAG_VISIBILITY.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/Makefile.am, lib/src/Makefile.am, lib/src/gsasl.h: 
+	Use visibility module from gnulib.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/src/Makefile.am, lib/src/libgsasl.map: Use a linker
+	version script.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/ld-version-script.m4: Import
+	ld-version-script and visibility gnulib modules.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* gl/fseeko.c, gl/gai_strerror.c, gl/m4/gnulib-common.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/include_next.m4, gl/m4/mbrtowc.m4,
+	gl/m4/printf.m4, gl/m4/stdarg.m4, gl/m4/stdint.m4,
+	gl/m4/stdlib_h.m4, gl/m4/ungetc.m4, gl/m4/vasnprintf.m4,
+	gl/mbrtowc.c, gl/stdint.in.h, gl/sys_socket.in.h, gl/vasnprintf.c,
+	gltests/Makefile.am, gltests/setsockopt.c, gltests/test-fseeko.c,
+	gltests/test-fseeko2.sh, gltests/test-getaddrinfo.c,
+	lib/gl/m4/gnulib-common.m4, lib/gl/m4/include_next.m4,
+	lib/gl/m4/stdint.m4, lib/gl/m4/stdlib_h.m4,
+	lib/gl/m4/vasnprintf.m4, lib/gl/stdint.in.h, lib/gl/vasnprintf.c: 
+	Update gnulib files.
+
+2009-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Doc fix.
+
+2009-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Add 1.1 symbols.
+
+2009-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Doc fix.
+
+2009-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Generated.
+
+2009-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/configure.ac, lib/src/gsasl.h: Add
+	GSASL_VERSION_MAJOR, GSASL_VERSION_MINOR, GSASL_VERSION_PATCH, and
+	GSASL_VERSION_NUMBER.
+
+2009-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/m4/update-header-version.m4: Support arbitrary sed
+	expressions.
+
+2009-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/config.charset, gl/localcharset.c,
+	gl/m4/00gnulib.m4, gl/m4/close.m4, gl/m4/eealloc.m4,
+	gl/m4/environ.m4, gl/m4/extensions.m4, gl/m4/gettext.m4,
+	gl/m4/glibc2.m4, gl/m4/gnulib-common.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/intdiv0.m4, gl/m4/intl.m4, gl/m4/intldir.m4,
+	gl/m4/intlmacosx.m4, gl/m4/intmax.m4, gl/m4/inttypes-pri.m4,
+	gl/m4/lcmessage.m4, gl/m4/locale-fr.m4, gl/m4/locale-ja.m4,
+	gl/m4/locale-zh.m4, gl/m4/lock.m4, gl/m4/malloca.m4, gl/m4/nls.m4,
+	gl/m4/pmccabe2html.m4, gl/m4/po.m4, gl/m4/printf-posix.m4,
+	gl/m4/progtest.m4, gl/m4/setenv.m4, gl/m4/sockets.m4,
+	gl/m4/stdlib_h.m4, gl/m4/threadlib.m4, gl/m4/uintmax_t.m4,
+	gl/m4/visibility.m4, gl/mbrtowc.c, gl/stdlib.in.h,
+	gl/version-etc.c, gltests/Makefile.am,
+	gltests/locale/fr/LC_MESSAGES/test-quotearg.po, gltests/malloca.c,
+	gltests/malloca.h, gltests/malloca.valgrind, gltests/setenv.c,
+	gltests/sockets.h, gltests/test-environ.c,
+	gltests/test-getaddrinfo.c, gltests/test-malloca.c,
+	gltests/test-mbrtowc4.sh, gltests/test-quotearg.c,
+	gltests/test-quotearg.sh, gltests/test-sockets.c,
+	gltests/unsetenv.c, lib/gl/Makefile.am, lib/gl/m4/00gnulib.m4,
+	lib/gl/m4/extensions.m4, lib/gl/m4/gnulib-common.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/stdlib_h.m4,
+	lib/gl/stdlib.in.h, lib/gltests/Makefile.am: Update gnulib files.
+
+2009-02-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Bump version.
+
+2009-01-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Bump versions.
+
+2009-01-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cfg.mk: Use ftp.gnu.org as upload target.
+
+2009-01-23  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2009-01-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
 2009-01-23  Simon Josefsson <simon@josefsson.org>
 
 	* doc/gsasl.texi: Link to autobuild.josefsson.org.
