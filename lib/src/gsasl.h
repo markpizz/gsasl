@@ -48,7 +48,7 @@ extern "C"
    * GSASL_VERSION
    *
    * Pre-processor symbol with a string that describe the header file
-   * version number.  Used together with stringprep_check_version() to
+   * version number.  Used together with gsasl_check_version() to
    * verify header file and run-time library consistency.
    */
 # define GSASL_VERSION "1.1"
