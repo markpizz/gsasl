@@ -33,8 +33,8 @@ AC_SUBST(LT_REVISION, 3)
 AC_SUBST(LT_AGE, 6)
 
 # Used when creating libgsasl-XX.def.
-SOVERSION=`expr ${LT_CURRENT} - ${LT_AGE}`
-AC_SUBST(SOVERSION)
+DLL_VERSION=`expr ${LT_CURRENT} - ${LT_AGE}`
+AC_SUBST(DLL_VERSION)
 
 AM_INIT_AUTOMAKE([1.10 -Wall -Werror])
 AC_CONFIG_HEADERS(config.h)
