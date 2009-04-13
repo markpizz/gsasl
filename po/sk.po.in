@@ -1,56 +1,55 @@
-# Swedish translations for gsasl package
-# Copyright (C) 2006, 2009 Free Software Foundation, Inc.
+# Slovak translation of gsasl
+# Copyright (C) 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
-# Simon Josefsson <simon@josefsson.org>, 2002.
-# Daniel Nylander <po@danielnylander.se>, 2006, 2009.
+# Ivan Masár <helix84@centrum.sk>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 1.1\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
 "POT-Creation-Date: 2009-03-25 16:06+0100\n"
-"PO-Revision-Date: 2009-03-28 16:51+0100\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"PO-Revision-Date: 2009-04-08 13:18+0100\n"
+"Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
+"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
 
 #: src/gsasl.c:170
 #, c-format
 msgid "Choose SASL mechanism:\n"
-msgstr "Välj SASL-mekanism:\n"
+msgstr "Vyberte mechanizmus SASL:\n"
 
 #: src/gsasl.c:179
 #, c-format
 msgid "Input list of SASL mechanisms supported by server:\n"
-msgstr "Mata in lista på de SASL-mekanismer som stöds av servern:\n"
+msgstr "Vstupný zoznam mechanizmov SASL, ktoré server podporuje:\n"
 
 #: src/gsasl.c:198
 #, c-format
 msgid "Using mechanism:\n"
-msgstr "Använder mekanism:\n"
+msgstr "Používa sa mechanizmus:\n"
 
 #: src/gsasl.c:215
 #, c-format
 msgid "Output from server:\n"
-msgstr "Utdata från server:\n"
+msgstr "Výstup zo servera:\n"
 
 #: src/gsasl.c:217
 #, c-format
 msgid "Output from client:\n"
-msgstr "Utdata från klient:\n"
+msgstr "Výstup od klienta:\n"
 
 #: src/gsasl.c:270
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Prova \"%s --help\" för mer information.\n"
+msgstr "Viac informácií získate pomocou „%s --help“.\n"
 
 #: src/gsasl.c:307
 #, c-format
 msgid "Cannot initialize Windows sockets."
-msgstr "Kan inte initiera Windows-uttag."
+msgstr "Nepodarilo sa inicializovať Windows sockets."
 
 #: src/gsasl.c:331
 #, c-format
@@ -58,188 +57,185 @@ msgid ""
 "missing argument\n"
 "Try `%s --help' for more information."
 msgstr ""
-"saknar argument\n"
-"Försök med \"%s --help\" för mer information."
+"chýba argument\n"
+"Viac informácií získate pomocou „%s --help“."
 
 #: src/gsasl.c:337
 #, c-format
 msgid "need both --x509-cert-file and --x509-key-file"
-msgstr "behöver både --x509-cert-file och --x509-key-file"
+msgstr "vyžadujú sa oba argumenty: --x509-cert-file aj --x509-key-file"
 
 #: src/gsasl.c:341
 #, c-format
 msgid "cannot use both --starttls and --no-starttls"
-msgstr "kan inte använda både --starttls och --no-starttls"
+msgstr "nemožno použiť súčasne --starttls a --no-starttls"
 
 #: src/gsasl.c:344
 #, c-format
 msgid "cannot use both --smtp and --imap"
-msgstr "kan inte använda både --smtp och --imap"
+msgstr "nemožno použiť súčasne --smtp a --imap"
 
 #: src/gsasl.c:409
 #, c-format
 msgid "initialization failure: %s"
-msgstr "initieringsfel: %s"
+msgstr "chyba inicializácie: %s"
 
 #: src/gsasl.c:424
 #, c-format
 msgid "error listing mechanisms: %s"
-msgstr "fel vid listning av mekanismer: %s"
+msgstr "chyba pri výpise zoznamu mechanizmov: %s"
 
 #: src/gsasl.c:431
 #, c-format
 msgid "This client supports the following mechanisms:\n"
-msgstr "Den här klienten stöder följande mekanismer:\n"
+msgstr "Tento klient podporuje nasledovné mechanizmy:\n"
 
 #: src/gsasl.c:434
 #, c-format
 msgid "This server supports the following mechanisms:\n"
-msgstr "Den här servern stöder följande mekanismer:\n"
+msgstr "Tento server podporuje nasledovné mechanizmy:\n"
 
 #: src/gsasl.c:500
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
-msgstr "GnuTLS globalt initieringsfel: %s"
+msgstr "globálna inicializácia GnuTLS zlyhala: %s"
 
 #: src/gsasl.c:505
 #, c-format
 msgid "GnuTLS initialization failed: %s"
-msgstr "GnuTLS initieringsfel: %s"
+msgstr "inicializácia GnuTLS zlyhala: %s"
 
 #: src/gsasl.c:510
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
-msgstr "inställning av GnuTLS förvalda värden misslyckades: %s"
+msgstr "nastavenie predvolených hodnôt GnuTLS zlyhalo: %s"
 
 #: src/gsasl.c:516
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
-msgstr "allokerar anonym GnuTLS-behörighet: %s"
+msgstr "vyhradzujú sa anonymné overovacie údaje GnuTLS: %s"
 
 #: src/gsasl.c:521
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
-msgstr "ställer in anonym GnuTLS-behörighet: %s"
+msgstr "nastavujú sa anonymné overovacie údaje GnuTLS: %s"
 
 #: src/gsasl.c:526
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
-msgstr "allokerar X.509 GnuTLS-behörighet: %s"
+msgstr "vyhradzujú sa X.509 overovacie údaje GnuTLS: %s"
 
 #: src/gsasl.c:534
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
-msgstr "läser in X.509 GnuTLS-behörighet: %s"
+msgstr "načítavajú sa X.509 overovacie údaje GnuTLS: %s"
 
 #: src/gsasl.c:542
 #, c-format
 msgid "no X.509 CAs found: %s"
-msgstr "inga X.509 CA hittades: %s"
+msgstr "neboli nájdené žiadne X.509 certifikačné autority: %s"
 
 #: src/gsasl.c:545
 #, c-format
 msgid "no X.509 CAs found"
-msgstr "inga X.509 CA hittades"
+msgstr "neboli nájdené žiadne X.509 certifikačné autority"
 
 #: src/gsasl.c:551
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
-msgstr "ställer in X.509 GnuTLS-behörighet: %s"
+msgstr "nastavujú sa X.509 overovacie údaje GnuTLS: %s"
 
 #: src/gsasl.c:562
 #, c-format
 msgid "setting GnuTLS cipher priority (%s): %s\n"
-msgstr "ställer in prioritet för GnuTLS-chiffer (%s): %s\n"
+msgstr "nastavuje sa priorita šifier GnuTLS (%s): %s\n"
 
 #: src/gsasl.c:573
 #, c-format
 msgid "GnuTLS handshake failed: %s"
-msgstr "GnuTLS handskakning misslyckades: %s"
+msgstr "zlyhal GnuTLS handshake: %s"
 
 #: src/gsasl.c:582
 #, c-format
 msgid "verifying peer certificate: %s"
-msgstr "validerar motpartscertifikat: %s"
+msgstr "overuje sa certifikát druhej strany: %s"
 
 #: src/gsasl.c:586
 #, c-format
 msgid "server certificate is not trusted"
-msgstr "servercertifikat är ej pålitligt"
+msgstr "certifikát servera nie je dôveryhodný"
 
 #: src/gsasl.c:590
 #, c-format
 msgid "server certificate hasn't got a known issuer"
-msgstr "servercertifikat har inte en känd utgivare"
+msgstr "certifikát servera nemá známeho vydavateľa"
 
 #: src/gsasl.c:593
 #, c-format
 msgid "server certificate has been revoked"
-msgstr "servercertifikat har återkallats"
+msgstr "certifikát servera bol odvolaný"
 
 #: src/gsasl.c:597
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
-msgstr "kunde inte validera servercertifikat (rc=%d)"
+msgstr "certifikát servera sa nepodarilo overiť (rc=%d)"
 
 #: src/gsasl.c:620
 #, c-format
 msgid "Cannot find mechanism...\n"
-msgstr "Kan inte hitta mekanism...\n"
+msgstr "Nepodarilo sa nájsť mechanizmus...\n"
 
 #: src/gsasl.c:637
 #, c-format
 msgid "mechanism unavailable: %s"
-msgstr "mekanism ej tillgänglig: %s"
+msgstr "mechanizmus nie je dostupný: %s"
 
 #: src/gsasl.c:666
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Mata in base64 autentiseringsdata från klient (finns inget data, tryck ENTER):\n"
+msgstr "Zadajte overovacie údaje v base64 od klienta (ak žiadne, stlačte Enter):\n"
 
 #: src/gsasl.c:669
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Mata in base64 autentiseringsdata från server (finns inget data, tryck ENTER):\n"
+msgstr "Zadajte overovacie údaje v base64 od servera (ak žiadne, stlačte Enter):\n"
 
 #: src/gsasl.c:679
 #, c-format
 msgid "mechanism error: %s"
-msgstr "mekanismfel: %s"
+msgstr "chyba mechanizmu: %s"
 
 #: src/gsasl.c:688
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
-msgstr "Serverautentisering avslutad (klient verifierad)...\n"
+msgstr "Overenie u servera dokončené (klient je dôveryhodný)...\n"
 
 #: src/gsasl.c:691
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
-msgstr "Klientautentisering avslutat (server verifierad)...\n"
+msgstr "Overenie u klienta dokončené (server je dôveryhodný)...\n"
 
 #: src/gsasl.c:714
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
-msgstr "Mata in applikationsdata (EOF för att avsluta):\n"
+msgstr "Zadajte dáta aplikácie (ukončite pomocou EOF):\n"
 
 #: src/gsasl.c:787
 #, c-format
 msgid "Base64 encoded application data to send:\n"
-msgstr "Base64-kodad applikationsdata att skicka:\n"
+msgstr "Dáta aplikácie v base64, ktoré sa majú poslať:\n"
 
 #: src/gsasl.c:843
 #, c-format
 msgid "encoding error: %s"
-msgstr "kodningsfel: %s"
+msgstr "chyba kódovania: %s"
 
 #: src/gsasl.c:848
 #, c-format
 msgid "Session finished...\n"
-msgstr "Session avslutad...\n"
+msgstr "Relácia dokončená...\n"
 
 #: src/gsasl.c:864
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
-msgstr "terminering av GnuTLS-session misslyckades: %s"
-
-#~ msgid "Libgsasl error (%d): %s\n"
-#~ msgstr "Libgsasl fel (%d): %s\n"
+msgstr "ukončenie relácie GnuTLS zlyhalo: %s"
