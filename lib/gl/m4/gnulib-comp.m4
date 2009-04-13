@@ -75,6 +75,7 @@ AC_DEFUN([gl_INIT],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
   gl_LD_VERSION_SCRIPT
+  gl_VISIBILITY
   gl_MINMAX
   AC_REQUIRE([gl_MULTIARCH])
   gl_FUNC_REALLOC_POSIX
@@ -94,7 +95,6 @@ AC_DEFUN([gl_INIT],
   m4_ifdef([AM_XGETTEXT_OPTION],
     [AM_XGETTEXT_OPTION([--flag=asprintf:2:c-format])
      AM_XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
-  gl_VISIBILITY
   gl_WCHAR_H
   gl_XSIZE
   m4_ifval(gl_LIBSOURCES_LIST, [
