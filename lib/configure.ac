@@ -371,7 +371,6 @@ AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 # For gnulib stuff in gl/.
 gl_INIT
 
-sj_OUTPUT_DEF
 sj_UPDATE_HEADER_VERSION([$srcdir/src/gsasl.h])
 
 MAJOR_VERSION=`echo $PACKAGE_VERSION | sed 's/\(.*\)\..*/\1/g'`

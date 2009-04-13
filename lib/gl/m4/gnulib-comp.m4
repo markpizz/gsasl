@@ -74,6 +74,7 @@ AC_DEFUN([gl_INIT],
   	m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
+  gl_LD_OUTPUT_DEF
   gl_LD_VERSION_SCRIPT
   gl_VISIBILITY
   gl_MINMAX
@@ -300,6 +301,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/inttypes-pri.m4
   m4/inttypes_h.m4
   m4/lcmessage.m4
+  m4/ld-output-def.m4
   m4/ld-version-script.m4
   m4/lib-ld.m4
   m4/lib-link.m4
