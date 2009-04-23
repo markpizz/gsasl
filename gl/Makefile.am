@@ -144,7 +144,7 @@ EXTRA_DIST += close-hook.h
 # The Automake-defined pkg* macros are appended, in the order
 # listed in the Automake 1.10a+ documentation.
 configmake.h: Makefile
-	rm -f $@-t $@
+	rm -f $@-t
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  echo '#define PREFIX "$(prefix)"'; \
 	  echo '#define EXEC_PREFIX "$(exec_prefix)"'; \
@@ -174,7 +174,12 @@ configmake.h: Makefile
 	  echo '#define PKGLIBDIR "$(pkglibdir)"'; \
 	  echo '#define PKGLIBEXECDIR "$(pkglibexecdir)"'; \
 	} | sed '/""/d' > $@-t
-	mv $@-t $@
+	if test -f $@ && cmp $@-t $@ > /dev/null; then \
+	  rm -f $@-t; \
+	else \
+	  rm -f $@; mv $@-t $@; \
+	fi
+
 BUILT_SOURCES += configmake.h
 CLEANFILES += configmake.h configmake.h-t
 
