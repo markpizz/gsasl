@@ -139,6 +139,8 @@ AC_DEFUN([gl_INIT],
   gl_source_base='lib/gltests'
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
+  abs_aux_dir=`cd "$ac_aux_dir"; pwd`
+  AC_SUBST([abs_aux_dir])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
       for gl_file in ]gltests_LIBSOURCES_LIST[ ; do
@@ -232,6 +234,8 @@ AC_DEFUN([gltests_LIBSOURCES], [
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/config.rpath
   build-aux/link-warning.h
+  build-aux/useless-if-before-free
+  build-aux/vc-list-files
   lib/alloca.in.h
   lib/asnprintf.c
   lib/asprintf.c
@@ -353,6 +357,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-unistd.c
   tests/test-vasnprintf.c
   tests/test-vasprintf.c
+  tests/test-vc-list-files-cvs.sh
+  tests/test-vc-list-files-git.sh
   tests/test-wchar.c
   tests=lib/dummy.c
   tests=lib/intprops.h

@@ -269,6 +269,8 @@ AC_SUBST([LTALLOCA])
   AC_CHECK_FUNCS([shutdown])
   gl_FUNC_UNSETENV
   gl_STDLIB_MODULE_INDICATOR([unsetenv])
+  abs_aux_dir=`cd "$ac_aux_dir"; pwd`
+  AC_SUBST([abs_aux_dir])
   gl_FUNC_WCTOB
   gl_WCHAR_MODULE_INDICATOR([wctob])
   m4_ifval(gltests_LIBSOURCES_LIST, [
@@ -367,6 +369,8 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/link-warning.h
   build-aux/pmccabe.css
   build-aux/pmccabe2html
+  build-aux/useless-if-before-free
+  build-aux/vc-list-files
   doc/fdl-1.3.texi
   doc/gendocs_template
   doc/gpl-3.0.texi
@@ -636,6 +640,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-sys_time.c
   tests/test-unistd.c
   tests/test-vasnprintf.c
+  tests/test-vc-list-files-cvs.sh
+  tests/test-vc-list-files-git.sh
   tests/test-wchar.c
   tests/test-wctype.c
   tests=lib/accept.c

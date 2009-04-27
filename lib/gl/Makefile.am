@@ -608,6 +608,13 @@ EXTRA_DIST += unistd.in.h
 
 ## end   gnulib module unistd
 
+## begin gnulib module useless-if-before-free
+
+
+EXTRA_DIST += $(top_srcdir)/build-aux/useless-if-before-free
+
+## end   gnulib module useless-if-before-free
+
 ## begin gnulib module vasnprintf
 
 
@@ -625,6 +632,13 @@ EXTRA_DIST += asprintf.c vasprintf.c
 EXTRA_libgl_la_SOURCES += asprintf.c vasprintf.c
 
 ## end   gnulib module vasprintf
+
+## begin gnulib module vc-list-files
+
+
+EXTRA_DIST += $(top_srcdir)/build-aux/vc-list-files
+
+## end   gnulib module vc-list-files
 
 ## begin gnulib module wchar
 
