@@ -63,8 +63,7 @@ comma_append (char **dst, const char *key, const char *value, int quotes)
   if (result < 0)
     return result;
 
-  if (*dst)
-    free (*dst);
+  free (*dst);
 
   *dst = tmp;
 

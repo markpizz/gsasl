@@ -64,15 +64,15 @@ endif
 
 if GSSAPI
 SUBDIRS += gssapi
-endif			
+endif
 
 if GS2
 SUBDIRS += gs2
-endif			
+endif
 
 if SECURID
 SUBDIRS += securid
-endif			
+endif
 
 if KERBEROS_V5
 SUBDIRS += kerberos_v5

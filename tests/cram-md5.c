@@ -166,8 +166,7 @@ doit (void)
       gsasl_finish (server);
     }
 
-  if (last_server_challenge)
-    free (last_server_challenge);
+  free (last_server_challenge);
 
   gsasl_done (ctx);
 }

@@ -164,6 +164,5 @@ _gsasl_securid_client_finish (Gsasl_session * sctx, void *mech_data)
 {
   int *step = mech_data;
 
-  if (step)
-    free (step);
+  free (step);
 }

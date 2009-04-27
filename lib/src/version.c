@@ -32,7 +32,7 @@
  *
  * See %GSASL_VERSION for a suitable @req_version string.
  *
- * Return value: Check that the the version of the library is at
+ * Return value: Check that the version of the library is at
  *   minimum the one given as a string in @req_version and return the
  *   actual version string of the library; return %NULL if the
  *   condition is not met.  If %NULL is passed to this function no

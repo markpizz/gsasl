@@ -89,8 +89,7 @@ gsasl_simple_getpass (const char *filename, const char *username, char **key)
       fclose (fh);
     }
 
-  if (line)
-    free (line);
+  free (line);
 
   return GSASL_AUTHENTICATION_ERROR;
 }

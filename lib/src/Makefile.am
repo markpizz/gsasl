@@ -29,7 +29,7 @@ include_HEADERS = gsasl.h gsasl-mech.h gsasl-compat.h
 
 libgsasl_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
 	-no-undefined
-libgsasl_la_LIBADD = ../gl/libgl.la @LTLIBINTL@ @LTLIBIDN@
+libgsasl_la_LIBADD = ../gl/libgl.la $(LTLIBINTL) $(LTLIBIDN)
 libgsasl_la_SOURCES = libgsasl.map \
 	internal.h \
 	init.c done.c register.c error.c version.c \
@@ -90,15 +90,15 @@ endif
 
 if GSSAPI
 libgsasl_la_LIBADD += ../gssapi/libgsasl-gssapi.la
-endif			
+endif
 
 if GS2
 libgsasl_la_LIBADD += ../gs2/libgsasl-gs2.la
-endif			
+endif
 
 if SECURID
 libgsasl_la_LIBADD += ../securid/libgsasl-securid.la
-endif			
+endif
 
 if KERBEROS_V5
 libgsasl_la_LIBADD += ../kerberos_v5/libgsasl-kerberos_v5.la

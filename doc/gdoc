@@ -100,14 +100,14 @@
 #  * my_function - does my stuff
 #  * @my_arg: its mine damnit
 #  *
-#  * Does my stuff explained. 
+#  * Does my stuff explained.
 #  */
 #
 #  or, could also use:
 # /**
 #  * my_function - does my stuff
 #  * @my_arg: its mine damnit
-#  * Description: Does my stuff explained. 
+#  * Description: Does my stuff explained.
 #  */
 # etc.
 #
@@ -294,7 +294,7 @@ sub dump_section {
 #  parameters => %parameter descriptions
 #  sectionlist => @list of sections
 #  sections => %descriont descriptions
-#  
+#
 
 sub repstr {
     $pattern = shift;

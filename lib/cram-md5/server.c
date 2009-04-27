@@ -128,6 +128,5 @@ _gsasl_cram_md5_server_finish (Gsasl_session * sctx, void *mech_data)
 {
   char *challenge = mech_data;
 
-  if (challenge)
-    free (challenge);
+  free (challenge);
 }

@@ -20,7 +20,7 @@
 
 AM_CFLAGS = $(WARN_CFLAGS) $(CFLAG_VISIBILITY)
 # -Igl is for strdup.
-AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl 
+AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl
 
 noinst_LTLIBRARIES = libgsasl-kerberos_v5.la
 libgsasl_kerberos_v5_la_SOURCES = kerberos_v5.h shared.h

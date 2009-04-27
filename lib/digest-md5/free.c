@@ -39,10 +39,8 @@ digest_md5_free_challenge (digest_md5_challenge * c)
 
   for (i = 0; i < c->nrealms; i++)
     free (c->realms[i]);
-  if (c->realms)
-    free (c->realms);
-  if (c->nonce)
-    free (c->nonce);
+  free (c->realms);
+  free (c->nonce);
 
   memset (c, 0, sizeof (*c));
 }
@@ -50,18 +48,12 @@ digest_md5_free_challenge (digest_md5_challenge * c)
 void
 digest_md5_free_response (digest_md5_response * r)
 {
-  if (r->username)
-    free (r->username);
-  if (r->realm)
-    free (r->realm);
-  if (r->nonce)
-    free (r->nonce);
-  if (r->cnonce)
-    free (r->cnonce);
-  if (r->digesturi)
-    free (r->digesturi);
-  if (r->authzid)
-    free (r->authzid);
+  free (r->username);
+  free (r->realm);
+  free (r->nonce);
+  free (r->cnonce);
+  free (r->digesturi);
+  free (r->authzid);
 
   memset (r, 0, sizeof (*r));
 }

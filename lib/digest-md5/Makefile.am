@@ -46,5 +46,5 @@ endif
 LDADD = libgsasl-digest_md5.la ../gl/libgl.la
 
 ctests = test-parser$(EXEEXT)
-TESTS = $(ctests)	
+TESTS = $(ctests)
 check_PROGRAMS = $(ctests)

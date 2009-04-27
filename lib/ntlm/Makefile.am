@@ -27,4 +27,4 @@ if CLIENT
 libgsasl_ntlm_la_SOURCES += ntlm.c
 endif
 
-libgsasl_ntlm_la_LIBADD = @LTLIBNTLM@
+libgsasl_ntlm_la_LIBADD = $(LTLIBNTLM)

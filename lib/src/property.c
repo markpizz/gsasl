@@ -144,8 +144,7 @@ gsasl_property_set_raw (Gsasl_session * sctx, Gsasl_property prop,
 
   if (p)
     {
-      if (*p)
-	free (*p);
+      free (*p);
       if (data)
 	{
 	  *p = malloc (len + 1);

@@ -51,7 +51,7 @@ AC_ARG_ENABLE(obsolete,
   AS_HELP_STRING([--disable-obsolete], [disable backwards compatibility code]),
     obsolete=$enableval)
 if test "$obsolete" = "no"; then
-  AC_DEFINE(GSASL_NO_OBSOLETE, 1,
+  AC_DEFINE([GSASL_NO_OBSOLETE], 1,
     [Define to 1 if you don't want backwards compatibility code.])
 else
   obsolete=yes

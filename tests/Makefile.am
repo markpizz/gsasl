@@ -48,6 +48,6 @@ endif
 
 # old-gssapi
 
-TESTS = threadsafety $(ctests)	
+TESTS = threadsafety $(ctests)
 check_PROGRAMS = $(ctests)
 dist_check_SCRIPTS = threadsafety

@@ -1,0 +1,11 @@
+^build-aux/pmccabe.css
+^build-aux/pmccabe2html
+^doc/specification/
+^doc/.*.eps
+^doc/.*.png
+^gl/
+^lib/gl/
+po/eu.po.in
+po/vi.po.in
+ChangeLog
+Doxyfile

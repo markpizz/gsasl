@@ -136,6 +136,5 @@ _gsasl_ntlm_client_finish (Gsasl_session * sctx, void *mech_data)
 {
   _Gsasl_ntlm_state *state = mech_data;
 
-  if (state)
-    free (state);
+  free (state);
 }

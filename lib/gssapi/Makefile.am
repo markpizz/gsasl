@@ -31,4 +31,4 @@ if SERVER
 libgsasl_gssapi_la_SOURCES += server.c
 endif
 
-libgsasl_gssapi_la_LIBADD = @LTLIBGSS@
+libgsasl_gssapi_la_LIBADD = $(LTLIBGSS)

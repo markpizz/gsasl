@@ -42,7 +42,6 @@ gsasl_done (Gsasl * ctx)
     if (ctx->client_mechs[i].client.done)
       ctx->client_mechs[i].client.done (ctx);
 
-  if (ctx->client_mechs)
     free (ctx->client_mechs);
 #endif
 
@@ -51,8 +50,7 @@ gsasl_done (Gsasl * ctx)
     if (ctx->server_mechs[i].server.done)
       ctx->server_mechs[i].server.done (ctx);
 
-  if (ctx->server_mechs)
-    free (ctx->server_mechs);
+  free (ctx->server_mechs);
 #endif
 
   free (ctx);

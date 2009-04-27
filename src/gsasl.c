@@ -304,7 +304,7 @@ main (int argc, char *argv[])
     wVersionRequested = MAKEWORD (2, 0);
     r = WSAStartup (wVersionRequested, &wsaData);
     if (r)
-      error (EXIT_FAILURE, 0, _("Cannot initialize Windows sockets."));
+      error (EXIT_FAILURE, 0, _("cannot initialize Windows sockets"));
   }
 #endif
 
@@ -327,9 +327,10 @@ main (int argc, char *argv[])
   if (!(args_info.client_flag || args_info.client_given) &&
       !args_info.server_given &&
       !args_info.client_mechanisms_flag && !args_info.server_mechanisms_flag)
-    error (EXIT_FAILURE, 0,
-	   _("missing argument\nTry `%s --help' for more information."),
-	   program_name);
+    {
+      error (0, 0, _("missing argument"));
+      usage (EXIT_FAILURE);
+    }
 
   if ((args_info.x509_cert_file_arg && !args_info.x509_key_file_arg) ||
       (!args_info.x509_cert_file_arg && args_info.x509_key_file_arg))

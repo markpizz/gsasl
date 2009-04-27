@@ -15,7 +15,7 @@ call to krb5_kuserok(), such as:
 
 @example
 int
-callback_gssapi (Gsasl_session_ctx *ctx, 
+callback_gssapi (Gsasl_session_ctx *ctx,
 		 char *clientname,
 		 char *authentication_id)
 @{
@@ -23,9 +23,9 @@ callback_gssapi (Gsasl_session_ctx *ctx,
 
   krb5_principal p;
   krb5_context kcontext;
-  
+
   krb5_init_context (&kcontext);
-  
+
   if (krb5_parse_name (kcontext, clientname, &p) != 0)
     return -1;
   if (krb5_kuserok (kcontext, p, authentication_id))

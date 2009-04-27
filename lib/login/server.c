@@ -153,9 +153,7 @@ _gsasl_login_server_finish (Gsasl_session * sctx, void *mech_data)
   if (!state)
     return;
 
-  if (state->username)
-    free (state->username);
-  if (state->password)
-    free (state->password);
+  free (state->username);
+  free (state->password);
   free (state);
 }

@@ -47,7 +47,7 @@ bootstrap: autoreconf
 
 W32ROOT ?= $(HOME)/w32root
 
-mingw32: autoreconf 
+mingw32: autoreconf
 	./configure $(CFGFLAGS) --host=i586-mingw32msvc --build=`build-aux/config.guess` --prefix=$(W32ROOT)
 
 ChangeLog:

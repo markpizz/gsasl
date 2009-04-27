@@ -1,5 +1,5 @@
 /* kerberos_v5.c --- Implementation of experimental SASL mechanism KERBEROS_V5.
- * Copyright (C) 2003, 2004  Simon Josefsson
+ * Copyright (C) 2003, 2004, 2009  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -1038,12 +1038,10 @@ _gsasl_kerberos_v5_server_finish (Gsasl_session * sctx, void *mech_data)
   struct _Gsasl_kerberos_v5_server_state *state = mech_data;
 
   shishi_done (state->sh);
-  if (state->username)
-    free (state->username);
-  if (state->password)
-    free (state->password);
-  if (state->random)
-    free (state->random);
+
+  free (state->username);
+  free (state->password);
+  free (state->random);
   free (state);
 
   return GSASL_OK;
