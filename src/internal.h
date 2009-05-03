@@ -67,4 +67,11 @@ extern int readln (char **out);
 #include "gsasl_cmd.h"
 extern struct gengetopt_args_info args_info;
 
+/* This feature is available in gcc versions 2.5 and later.  */
+#if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
+# define GSASL_ATTR_NO_RETRUN
+#else
+# define GSASL_ATTR_NO_RETRUN __attribute__ ((__noreturn__))
+#endif
+
 #endif /* _INTERNAL_H */

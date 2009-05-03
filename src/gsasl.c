@@ -264,6 +264,9 @@ const char version_etc_copyright[] =
   "Copyright %s %d Simon Josefsson.";
 
 static void
+usage (int status) GSASL_ATTR_NO_RETRUN;
+
+static void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
