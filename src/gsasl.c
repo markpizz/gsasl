@@ -130,6 +130,7 @@ greeting (void)
   return 1;
 }
 
+#ifdef HAVE_LIBGNUTLS
 static int
 has_starttls (void)
 {
@@ -151,6 +152,7 @@ starttls (void)
 
   return 1;
 }
+#endif
 
 static int
 select_mechanism (char **mechlist)
