@@ -15,23 +15,26 @@ We require several tools to build the software, including:
 - Gperf <http://www.gnu.org/software/gperf/>
 - help2man <http://www.gnu.org/software/help2man/>
 - Gengetopt <http://www.gnu.org/software/gengetopt/>
-- GnuTLS <http://www.gnu.org/software/gnutls/> (for TLS support)
 - Tar <http://www.gnu.org/software/tar/>
 - Gzip <http://www.gnu.org/software/gzip/>
 - Texlive & epsf <http://www.tug.org/texlive/> (for PDF manual)
 - CVS <http://www.gnu.org/software/cvs/> (for gettext autopoint)
 - GTK-DOC <http://www.gtk.org/gtk-doc/> (for API manual)
-- dia <http://live.gnome.org/Dia/> (for images in manual)
 - Git <http://git.or.cz/>
 - Perl <http://www.cpan.org/>
 - Valgrind <http://valgrind.org/> (optional)
+- dia <http://live.gnome.org/Dia/> (for images in manual)
+- GnuTLS <http://www.gnu.org/software/gnutls/> (for TLS support)
 
 The required software is typically disitributed with your operating
 system, and the instructions for installing them differ.  Here are
 some hints:
 
 gNewSense/Debian/Ubuntu:
-sudo apt-get install git-core autoconf automake libtool gettext cvs texinfo help2man valgrind texlive texlive-generic-recommended texlive-extra-utils gtk-doc-tools dia libgnutls-dev
+sudo apt-get install git-core autoconf automake libtool gettext cvs 
+sudo apt-get install texinfo texlive texlive-generic-recommended texlive-extra-utils
+sudo apt-get install help2man gtk-doc-tools valgrind
+sudo apt-get install dia libgnutls-dev
 
 To download the version controlled sources:
 
