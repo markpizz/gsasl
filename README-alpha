@@ -1,13 +1,53 @@
-GNU SASL README-alpha -- Important introductory notes for alpha releases.
-Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
+GNU SASL README-alpha -- Information for developers.            -*- outline -*-
+Copyright (C) 2009 Simon Josefsson
 See the end for copying conditions.
 
-To compile from version controlled sources rather than a
-gsasl-*.tar.gz archive, you may need fairly recent versions of perl,
-texinfo (4.7), GTK-DOC, gengetopt (2.12), libtool (1.5.2), autoconf
-(2.61), and automake (1.10).  Bootstrap the build environment with:
+This file contains instructions for developers and advanced users that
+wants to build from version controlled sources.
 
-  $ make
+We require several tools to build the software, including:
+
+- Automake <http://www.gnu.org/software/automake/>
+- Autoconf <http://www.gnu.org/software/autoconf/>
+- Libtool <http://www.gnu.org/software/libtool/>
+- Gettext <http://www.gnu.org/software/gettext/>
+- Texinfo <http://www.gnu.org/software/texinfo/>
+- Gperf <http://www.gnu.org/software/gperf/>
+- help2man <http://www.gnu.org/software/help2man/>
+- Gengetopt <http://www.gnu.org/software/gengetopt/>
+- GnuTLS <http://www.gnu.org/software/gnutls/> (for TLS support)
+- Tar <http://www.gnu.org/software/tar/>
+- Gzip <http://www.gnu.org/software/gzip/>
+- Texlive & epsf <http://www.tug.org/texlive/> (for PDF manual)
+- CVS <http://www.gnu.org/software/cvs/> (for gettext autopoint)
+- GTK-DOC <http://www.gtk.org/gtk-doc/> (for API manual)
+- dia <http://live.gnome.org/Dia/> (for images in manual)
+- Git <http://git.or.cz/>
+- Perl <http://www.cpan.org/>
+- Valgrind <http://valgrind.org/> (optional)
+
+The required software is typically disitributed with your operating
+system, and the instructions for installing them differ.  Here are
+some hints:
+
+gNewSense/Debian/Ubuntu:
+sudo apt-get install git-core autoconf automake libtool gettext cvs texinfo help2man valgrind texlive texlive-generic-recommended texlive-extra-utils gtk-doc-tools dia libgnutls-dev
+
+To download the version controlled sources:
+
+$ git clone git://git.savannah.gnu.org/gsasl.git
+$ cd gsasl
+
+The next step is to run autoreconf, ./configure, etc:
+
+$ make bootstrap
+
+Then build the project normally:
+
+$ make
+$ make check
+
+Happy hacking!
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
