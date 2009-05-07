@@ -34,7 +34,7 @@ gNewSense/Debian/Ubuntu:
 sudo apt-get install git-core autoconf automake libtool gettext cvs 
 sudo apt-get install texinfo texlive texlive-generic-recommended texlive-extra-utils
 sudo apt-get install help2man gtk-doc-tools valgrind
-sudo apt-get install dia libgnutls-dev
+sudo apt-get install dia libgnutls-dev gengetopt
 
 To download the version controlled sources:
 
