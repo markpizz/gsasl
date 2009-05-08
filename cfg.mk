@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+WFLAGS ?= WARN_CFLAGS=-Werror
 CFGFLAGS ?= --enable-gtk-doc
 
 INDENT_SOURCES = `find . -name \*.c -or -name \*.h | grep -v -e /gl -e build-aux -e /win32/`
@@ -47,7 +48,7 @@ update-po: refresh-po
 	git-commit -m "Sync with TP." po/LINGUAS po/*.po.in
 
 bootstrap: autoreconf
-	WARN_CFLAGS=-Werror ./configure $(CFGFLAGS)
+	$(WFLAGS) ./configure $(CFGFLAGS)
 
 web-coverage:
 	rm -fv `find $(htmldir)/coverage -type f | grep -v CVS`
