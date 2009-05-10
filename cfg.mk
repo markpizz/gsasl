@@ -33,10 +33,8 @@ autoreconf:
 	for f in po/*.po.in lib/po/*.po.in; do \
 		cp $$f `echo $$f | sed 's/.in//'`; \
 	done
-	mv build-aux/config.rpath build-aux/config.rpath-
 	mv lib/build-aux/config.rpath lib/build-aux/config.rpath-
 	test -f ./configure || autoreconf --install
-	mv build-aux/config.rpath- build-aux/config.rpath
 	mv lib/build-aux/config.rpath- lib/build-aux/config.rpath
 
 update-po: refresh-po
