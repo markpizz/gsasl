@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=lib/gl/override --lib=libgl --source-base=lib/gl --m4-base=lib/gl/m4 --doc-base=doc --tests-base=lib/gltests --aux-dir=build-aux --with-tests --avoid=vc-list-files-tests --lgpl=2 --libtool --macro-prefix=gl --no-vc-files base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-md5 crypto/gc-md5-tests crypto/gc-random crypto/gc-tests getline gettext lib-msvc-compat lib-symbol-versions lib-symbol-visibility maintainer-makefile minmax strverscmp vasprintf
+#   gnulib-tool --import --dir=. --local-dir=lib/gl/override --lib=libgl --source-base=lib/gl --m4-base=lib/gl/m4 --doc-base=doc --tests-base=lib/gltests --aux-dir=lib/build-aux --with-tests --avoid=vc-list-files-tests --lgpl=2 --libtool --macro-prefix=gl --no-vc-files base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-md5 crypto/gc-md5-tests crypto/gc-random crypto/gc-tests getline gettext lib-msvc-compat lib-symbol-versions lib-symbol-visibility maintainer-makefile minmax strverscmp vasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([lib/gl/override])

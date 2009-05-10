@@ -163,7 +163,7 @@ EXTRA_DIST += test-getline.c
 # "gettextize --intl".
 AM_CPPFLAGS += -I$(top_builddir)/intl
 
-EXTRA_DIST += $(top_srcdir)/build-aux/config.rpath
+EXTRA_DIST += $(top_srcdir)/lib/build-aux/config.rpath
 
 ## end   gnulib module gettext
 

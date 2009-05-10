@@ -375,6 +375,7 @@ AC_DEFUN([gl_FILE_LIST], [
   doc/gendocs_template
   doc/gpl-3.0.texi
   doc/lgpl-2.1.texi
+  lib/alignof.h
   lib/alloca.c
   lib/alloca.in.h
   lib/arpa_inet.in.h
