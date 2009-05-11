@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+build_aux = lib/build-aux
+
 WFLAGS ?= WARN_CFLAGS=-Werror
 CFGFLAGS ?= --enable-gtk-doc
 
@@ -33,9 +35,9 @@ autoreconf:
 	for f in po/*.po.in lib/po/*.po.in; do \
 		cp $$f `echo $$f | sed 's/.in//'`; \
 	done
-	mv lib/build-aux/config.rpath lib/build-aux/config.rpath-
+	mv $(build_aux)/config.rpath $(build_aux)/config.rpath-
 	test -f ./configure || autoreconf --install
-	mv lib/build-aux/config.rpath- lib/build-aux/config.rpath
+	mv $(build_aux)/config.rpath- $(build_aux)/config.rpath
 
 update-po: refresh-po
 	$(MAKE) -C lib update-po
@@ -63,7 +65,7 @@ upload-web-coverage:
 W32ROOT ?= $(HOME)/gnutls4win/inst
 
 mingw32: autoreconf
-	./configure $(CFGFLAGS) --host=i586-mingw32msvc --build=`build-aux/config.guess` --prefix=$(W32ROOT)
+	./configure $(CFGFLAGS) --host=i586-mingw32msvc --build=`$(build_aux)/config.guess` --prefix=$(W32ROOT)
 
 ChangeLog:
 	git2cl > ChangeLog
@@ -92,7 +94,7 @@ upload:
 web:
 	cd doc && env MAKEINFO="makeinfo -I ../examples" \
 		      TEXI2DVI="texi2dvi -I ../examples" \
-		../build-aux/gendocs.sh --html "--css-include=texinfo.css" \
+		$(build_aux)/gendocs.sh --html "--css-include=texinfo.css" \
 		-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
 	cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make refman.pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf
 	cp -v doc/reference/html/*.html doc/reference/html/*.png doc/reference/html/*.devhelp doc/reference/html/*.css $(htmldir)/reference/
