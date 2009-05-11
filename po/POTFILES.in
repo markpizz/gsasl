@@ -2,7 +2,6 @@
 gl/error.c
 gl/gai_strerror.c
 gl/getopt.c
-gl/m4/gettext.m4
 gl/quotearg.c
 gl/version-etc.c
 gl/xalloc-die.c
