@@ -15,10 +15,10 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=lib/gl/override --lib=libgl --source-base=lib/gl --m4-base=lib/gl/m4 --doc-base=doc --tests-base=lib/gltests --aux-dir=lib/build-aux --with-tests --avoid=vc-list-files-tests --lgpl=2 --libtool --macro-prefix=gl --no-vc-files base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-md5 crypto/gc-md5-tests crypto/gc-random crypto/gc-tests getline gettext lib-msvc-compat lib-symbol-versions lib-symbol-visibility maintainer-makefile minmax strverscmp vasprintf
+#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=build-aux --with-tests --avoid=vc-list-files-tests --lgpl=2 --libtool --macro-prefix=gl --no-vc-files base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-md5 crypto/gc-md5-tests crypto/gc-random crypto/gc-tests getline gettext lib-msvc-compat lib-symbol-versions lib-symbol-visibility maintainer-makefile minmax strverscmp vasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
-gl_LOCAL_DIR([lib/gl/override])
+gl_LOCAL_DIR([gl/override])
 gl_MODULES([
   base64
   crypto/gc
@@ -39,11 +39,11 @@ gl_MODULES([
   vasprintf
 ])
 gl_AVOID([vc-list-files-tests])
-gl_SOURCE_BASE([lib/gl])
-gl_M4_BASE([lib/gl/m4])
+gl_SOURCE_BASE([gl])
+gl_M4_BASE([gl/m4])
 gl_PO_BASE([])
 gl_DOC_BASE([doc])
-gl_TESTS_BASE([lib/gltests])
+gl_TESTS_BASE([gltests])
 gl_WITH_TESTS
 gl_LIB([libgl])
 gl_LGPL([2])

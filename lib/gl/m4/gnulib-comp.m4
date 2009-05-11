@@ -40,7 +40,7 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_LIST], [])
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
-  gl_source_base='lib/gl'
+  gl_source_base='gl'
   gl_FUNC_ALLOCA
   gl_FUNC_BASE64
   gl_GC
@@ -136,7 +136,7 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gltests_LIBSOURCES_LIST], [])
   m4_pushdef([gltests_LIBSOURCES_DIR], [])
   gl_COMMON
-  gl_source_base='lib/gltests'
+  gl_source_base='gltests'
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
   m4_ifval(gltests_LIBSOURCES_LIST, [
@@ -194,7 +194,7 @@ AC_DEFUN([gl_REPLACE_FUNCS], [
 AC_DEFUN([gl_LIBSOURCES], [
   m4_foreach([_gl_NAME], [$1], [
     m4_if(_gl_NAME, [alloca.c], [], [
-      m4_define([gl_LIBSOURCES_DIR], [lib/gl])
+      m4_define([gl_LIBSOURCES_DIR], [gl])
       m4_append([gl_LIBSOURCES_LIST], _gl_NAME, [ ])
     ])
   ])
@@ -221,7 +221,7 @@ AC_DEFUN([gltests_REPLACE_FUNCS], [
 AC_DEFUN([gltests_LIBSOURCES], [
   m4_foreach([_gl_NAME], [$1], [
     m4_if(_gl_NAME, [alloca.c], [], [
-      m4_define([gltests_LIBSOURCES_DIR], [lib/gltests])
+      m4_define([gltests_LIBSOURCES_DIR], [gltests])
       m4_append([gltests_LIBSOURCES_LIST], _gl_NAME, [ ])
     ])
   ])

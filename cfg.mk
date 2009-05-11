@@ -48,6 +48,10 @@ update-po: refresh-po
 bootstrap: autoreconf
 	$(WFLAGS) ./configure $(CFGFLAGS)
 
+glimport:
+	gnulib-tool --m4-base gl/m4 --import
+	cd lib && gnulib-tool --m4-base gl/m4 --import
+
 web-coverage:
 	rm -fv `find $(htmldir)/coverage -type f | grep -v CVS`
 	cp -rv doc/coverage/* $(htmldir)/coverage/
