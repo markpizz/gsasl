@@ -18,12 +18,12 @@
 EXTRA_DIST = cyclo-gsasl.html
 
 cyclo-gsasl.html:
-	$(PMCCABE) `find ${top_srcdir}/lib -name \*.[ch] | grep -v -e ../gl` \
+	$(PMCCABE) `find $(top_srcdir)/lib -name \*.[ch] | grep -v -e ../gl` \
 		| sort -nr \
-		| $(AWK) -f ${top_srcdir}/build-aux/pmccabe2html \
+		| $(AWK) -f $(top_srcdir)/lib/build-aux/pmccabe2html \
 			-v lang=html -v name="$(PACKAGE_NAME)" \
 			-v vcurl="http://git.savannah.gnu.org/gitweb/?p=gsasl.git;a=blob;f=%FILENAME%;hb=HEAD" \
 			-v url="http://www.gnu.org/software/gsasl/" \
-			-v css=../../build-aux/pmccabe.css \
+			-v css=../../lib/build-aux/pmccabe.css \
 			> tmp
 	mv tmp $@
