@@ -26,9 +26,9 @@
 
 /**
  * gsasl_check_version:
- * @req_version: version string to compare with, or NULL.
+ * @req_version: version string to compare with, or %NULL.
  *
- * Check library version.
+ * Check GNU SASL Library version.
  *
  * See %GSASL_VERSION for a suitable @req_version string.
  *
