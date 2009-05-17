@@ -20,6 +20,8 @@
 # This is reported not to work with make-3.79.1
 # ME := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
 ME := maint.mk
+
+# Override this in cfg.mk if you use a non-standard build-aux directory.
 build_aux ?= $(srcdir)/build-aux
 
 # Do not save the original name or timestamp in the .tar.gz file.
@@ -112,7 +114,7 @@ define _prohibit_regexp
 endef
 
 sc_avoid_if_before_free:
-	@$(build_aux)/useless-if-before-free			\
+	@$(build_aux)/useless-if-before-free				\
 		$(useless_free_options)					\
 	    $$($(VC_LIST_EXCEPT) | grep -v useless-if-before-free) &&	\
 	  { echo '$(ME): found useless "if" before "free" above' 1>&2;	\
@@ -636,11 +638,12 @@ built_programs = $$(cd src && MAKEFLAGS= $(MAKE) -s built_programs.list)
 
 rel-files = $(DIST_ARCHIVES)
 
+gnulib_dir ?= gnulib
 gnulib-version = $$(cd $(gnulib_dir) && git describe)
 bootstrap-tools ?= autoconf,automake,gnulib
 
 announcement: NEWS ChangeLog $(rel-files)
-	@$(build_aux)/announce-gen				\
+	@$(build_aux)/announce-gen					\
 	    --release-type=$(RELEASE_TYPE)				\
 	    --package=$(PACKAGE)					\
 	    --prev=$(PREV_VERSION)					\

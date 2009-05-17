@@ -51,6 +51,15 @@ EXTRA_libtests_a_SOURCES += accept.c
 
 ## end   gnulib module accept
 
+## begin gnulib module alignof-tests
+
+TESTS += test-alignof
+check_PROGRAMS += test-alignof
+
+EXTRA_DIST += test-alignof.c
+
+## end   gnulib module alignof-tests
+
 ## begin gnulib module alloca-opt-tests
 
 TESTS += test-alloca-opt

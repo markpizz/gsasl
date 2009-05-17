@@ -589,6 +589,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/xsize.m4
   tests/locale/fr/LC_MESSAGES/test-quotearg.mo
   tests/locale/fr/LC_MESSAGES/test-quotearg.po
+  tests/test-alignof.c
   tests/test-alloca-opt.c
   tests/test-arpa_inet.c
   tests/test-c-ctype.c
