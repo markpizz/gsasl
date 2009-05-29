@@ -4,6 +4,12 @@ See the end for copying conditions.
 
 * Version 1.2 (unreleased)
 
+** Include a copy of the GPLv3 license in the archive.
+Some parts, such as the gnulib self-tests, are licensed under the
+GPLv3.  The library remains licensed under LGPLv2.1+ though.  Reported
+by Vincent Untz <vuntz@opensuse.org> in
+<http://permalink.gmane.org/gmane.comp.gnu.gsasl.general/225>.
+
 ** API and ABI modifications.
 No changes since last version.
 
