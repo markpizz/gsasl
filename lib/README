@@ -13,6 +13,13 @@ would get more help from the community if we used the LGPLv2.1+, as
 other free SASL implementations exists.  See also
 <http://www.gnu.org/licenses/why-not-lgpl.html>.
 
+Some parts, such as the gnulib self-tests (gltests/) are licensed
+under the GNU General Public License (GPL) version 3.0 (or later).
+See the file COPYING.
+
+The manual is not included in this directory, see the full GNU SASL
+archive.
+
 Currently there is some support for the following mechanisms:
 
   - CRAM-MD5 (RFC 2195)
