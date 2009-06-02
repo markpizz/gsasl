@@ -27,12 +27,12 @@ Documentation License''.
 @end quotation
 @end copying
 
-@dircategory GNU Libraries
+@dircategory Software libraries
 @direntry
-* libgsasl: (gsasl).	Simple Authentication and Security Layer Library.
+* GNU SASL: (gsasl).	GNU Simple Authentication and Security Layer Library.
 @end direntry
 
-@dircategory GNU utilities
+@dircategory Security
 @direntry
 * gsasl: (gsasl)Invoking gsasl.		Command line interface to GNU SASL.
 @end direntry

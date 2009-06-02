@@ -8,6 +8,12 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.2 (unreleased)
 
+** doc: Improved sections for the info manual.
+We now follow the advice given by the texinfo manual on which
+directory categories to use.  In particular, libgsasl moved from the
+'GNU Libraries' section to the 'Software libraries' as GNU SASL, and
+'Invoking gsasl' moved from 'GNU utilities' to 'Security'.
+
 ** Building with many warning flags now requires --enable-gcc-warnings.
 This avoids crying wolf for normal compiles.
 
