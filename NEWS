@@ -8,6 +8,9 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.2 (unreleased)
 
+** Building with many warning flags now requires --enable-gcc-warnings.
+This avoids crying wolf for normal compiles.
+
 * Version 1.1 (released 2009-03-25)
 
 ** gsasl: Reading integrity protected data from server now works.

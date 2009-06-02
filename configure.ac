@@ -23,7 +23,7 @@ AC_CONFIG_AUX_DIR([lib/build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([1.10 -Wall -Werror -Wno-override])
-AC_CONFIG_HEADERS(config.h)
+AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CC
@@ -83,30 +83,48 @@ gl_INIT
 
 sj_VALGRIND
 
-# Add many warnings, except some...
-nw="$nw -Wsystem-headers"         # Don't let system headers trigger warnings
-nw="$nw -Wpadded"                 # Our structs are not padded
-nw="$nw -Wundef"                  # warns on '#if GNULIB_FOO' etc in gnulib
-nw="$nw -Wc++-compat"             # We don't care strongly about C++ compilers
-nw="$nw -Wswitch-enum"            # Too many warnings for now
-nw="$nw -Wconversion"             # Too many warnings for now
-nw="$nw -Wsign-conversion"        # Too many warnings for now
-nw="$nw -Wtraditional"            # Warns on #elif which we use often
-nw="$nw -Wtraditional-conversion" # Too many warnings for now
-nw="$nw -Wunreachable-code"       # Too many false positives
-gl_MANYWARN_ALL_GCC([ws])
-gl_MANYWARN_COMPLEMENT(ws, [$ws], [$nw])
-for w in $ws; do
-  gl_WARN_ADD([$w])
-done
-gl_WARN_ADD([-Wno-missing-field-initializers])
-gl_WARN_ADD([-Wno-unused-parameter])
-gl_WARN_ADD([-Wno-sign-compare])
-gl_WARN_ADD([-Wno-deprecated-declarations])
-gl_WARN_ADD([-fdiagnostics-show-option])
+AC_ARG_ENABLE([gcc-warnings],
+  [AS_HELP_STRING([--enable-gcc-warnings],
+		  [turn on lots of GCC warnings (for developers)])],
+  [case $enableval in
+     yes|no) ;;
+     *)      AC_MSG_ERROR([bad value $enableval for gcc-warnings option]) ;;
+   esac
+   gl_gcc_warnings=$enableval],
+  [gl_gcc_warnings=no]
+)
+
+if test "$gl_gcc_warnings" = yes; then
+  gl_WARN_ADD([-Werror], [WERROR_CFLAGS])
+
+  nw="$nw -Wsystem-headers"         # Don't let system headers trigger warnings
+  nw="$nw -Wpadded"                 # Our structs are not padded
+  nw="$nw -Wundef"                  # warns on '#if GNULIB_FOO' etc in gnulib
+  nw="$nw -Wc++-compat"             # We don't care strongly about C++ compilers
+  nw="$nw -Wswitch-enum"            # Too many warnings for now
+  nw="$nw -Wconversion"             # Too many warnings for now
+  nw="$nw -Wsign-conversion"        # Too many warnings for now
+  nw="$nw -Wtraditional"            # Warns on #elif which we use often
+  nw="$nw -Wtraditional-conversion" # Too many warnings for now
+  nw="$nw -Wunreachable-code"       # Too many false positives
+
+  gl_MANYWARN_ALL_GCC([ws])
+  gl_MANYWARN_COMPLEMENT(ws, [$ws], [$nw])
+  for w in $ws; do
+    gl_WARN_ADD([$w])
+  done
+
+  gl_WARN_ADD([-Wno-missing-field-initializers])
+  gl_WARN_ADD([-Wno-unused-parameter])
+  gl_WARN_ADD([-Wno-sign-compare])
+  gl_WARN_ADD([-Wno-deprecated-declarations])
+  gl_WARN_ADD([-fdiagnostics-show-option])
+fi
+
+# Export things for lib/configure.ac.
 export WARN_CFLAGS
 
-AC_CONFIG_SUBDIRS(lib)
+AC_CONFIG_SUBDIRS([lib])
 
 AC_CONFIG_FILES([
   Makefile

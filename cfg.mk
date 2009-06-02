@@ -15,10 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-build_aux = lib/build-aux
+WFLAGS ?= --enable-gcc-warnings
+ADDFLAGS ?=
+CFGFLAGS ?= --enable-gtk-doc $(ADDFLAGS) $(WFLAGS)
 
-WFLAGS ?= WARN_CFLAGS=-Werror
-CFGFLAGS ?= --enable-gtk-doc
+build_aux = lib/build-aux
 
 INDENT_SOURCES = `find . -name \*.c -or -name \*.h | grep -v -e /gl -e build-aux -e /win32/`
 
@@ -48,7 +49,7 @@ update-po: refresh-po
 	git-commit -m "Sync with TP." po/LINGUAS po/*.po.in
 
 bootstrap: autoreconf
-	$(WFLAGS) ./configure $(CFGFLAGS)
+	./configure $(CFGFLAGS)
 
 glimport:
 	gnulib-tool --m4-base gl/m4 --import
