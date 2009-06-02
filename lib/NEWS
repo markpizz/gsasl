@@ -4,6 +4,13 @@ See the end for copying conditions.
 
 * Version 1.2 (unreleased)
 
+** libgsasl: The library needs at most around 250 bytes of stack frame size.
+This is useful for embedded platforms with limited amount of RAM.
+Some functions that required a large stack has been rewritten, in
+order to achieve this goal.  The 250 byte limit is now part of the
+regression test suite, so hopefully no function will ever require more
+than that amount of stack space in the future.
+
 ** libgsasl: Obsolete gsasl_md5pwd_get_password rewritten to use modern API.
 
 ** Include a copy of the GPLv3 license in the archive.
