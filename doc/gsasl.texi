@@ -193,6 +193,10 @@ It should work on all Unix like operating systems, including Windows.
 The library itself should be portable to any C89 system, not even
 POSIX is required.
 
+@item It's small
+The library has been rewritten with embedded platforms in mind.  For
+example, no API consumes more than around 250 bytes of stack space.
+
 @end table
 
 Note that the library do not implement any policy to decide whether a
