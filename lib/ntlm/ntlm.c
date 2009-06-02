@@ -64,9 +64,6 @@ _gsasl_ntlm_client_step (Gsasl_session * sctx,
 			 char **output, size_t * output_len)
 {
   _Gsasl_ntlm_state *state = mech_data;
-  tSmbNtlmAuthRequest request;
-  tSmbNtlmAuthChallenge challenge;
-  tSmbNtlmAuthResponse response;
   const char *domain = gsasl_property_get (sctx, GSASL_REALM);
   const char *authid = gsasl_property_get (sctx, GSASL_AUTHID);
   const char *password;
@@ -78,50 +75,85 @@ _gsasl_ntlm_client_step (Gsasl_session * sctx,
   switch (state->step)
     {
     case 0:
-      /* Isn't this just the IMAP continuation char?  Not part of SASL mech.
-         if (input_len != 1 && *input != '+')
-         return GSASL_MECHANISM_PARSE_ERROR; */
+      {
+	tSmbNtlmAuthRequest *request;
 
-      buildSmbNtlmAuthRequest (&request, authid, domain);
+	request = malloc (sizeof (*request));
+	if (!request)
+	  return GSASL_MALLOC_ERROR;
 
-      *output_len = SmbLength (&request);
-      *output = malloc (*output_len);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-      memcpy (*output, &request, *output_len);
+	buildSmbNtlmAuthRequest (request, authid, domain);
 
-      /* dumpSmbNtlmAuthRequest(stdout, &request); */
+	*output_len = SmbLength (request);
+	*output = malloc (*output_len);
+	if (!*output)
+	  {
+	    free (request);
+	    return GSASL_MALLOC_ERROR;
+	  }
+	memcpy (*output, request, *output_len);
 
-      state->step++;
-      res = GSASL_NEEDS_MORE;
-      break;
+	free (request);
+
+	/* dumpSmbNtlmAuthRequest(stdout, &request); */
+
+	state->step++;
+	res = GSASL_NEEDS_MORE;
+	break;
+      }
 
     case 1:
-      if (input_len > sizeof (challenge))
-	return GSASL_MECHANISM_PARSE_ERROR;
+      {
+	tSmbNtlmAuthChallenge *challenge;
+	tSmbNtlmAuthResponse *response;
 
-      /* Hand crafted challenge for parser testing:
-         TlRMTVNTUAAAAAAAAAAAAAAAAAAAAGFiY2RlZmdoMDEyMzQ1Njc4ODY2NDQwMTIz */
+	if (input_len > sizeof (*challenge))
+	  return GSASL_MECHANISM_PARSE_ERROR;
 
-      memcpy (&challenge, input, input_len);
+	challenge = malloc (sizeof (*challenge));
+	if (!challenge)
+	  return GSASL_MALLOC_ERROR;
 
-      password = gsasl_property_get (sctx, GSASL_PASSWORD);
-      if (!password)
-	return GSASL_NO_PASSWORD;
+	/* Hand crafted challenge for parser testing:
+	   TlRMTVNTUAAAAAAAAAAAAAAAAAAAAGFiY2RlZmdoMDEyMzQ1Njc4ODY2NDQwMTIz */
 
-      buildSmbNtlmAuthResponse (&challenge, &response, authid, password);
+	memcpy (challenge, input, input_len);
 
-      *output_len = SmbLength (&response);
-      *output = malloc (*output_len);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-      memcpy (*output, &response, *output_len);
+	password = gsasl_property_get (sctx, GSASL_PASSWORD);
+	if (!password)
+	  {
+	    free (challenge);
+	    return GSASL_NO_PASSWORD;
+	  }
 
-      /* dumpSmbNtlmAuthResponse(stdout, &response); */
+	response = malloc (sizeof (*response));
+	if (!response)
+	  {
+	    free (challenge);
+	    return GSASL_MALLOC_ERROR;
+	  }
 
-      state->step++;
-      res = GSASL_OK;
-      break;
+	buildSmbNtlmAuthResponse (challenge, response, authid, password);
+
+	free (challenge);
+
+	*output_len = SmbLength (response);
+	*output = malloc (*output_len);
+	if (!*output)
+	  {
+	    free (response);
+	    return GSASL_MALLOC_ERROR;
+	  }
+	memcpy (*output, response, *output_len);
+
+	free (response);
+
+	/* dumpSmbNtlmAuthResponse(stdout, &response); */
+
+	state->step++;
+	res = GSASL_OK;
+	break;
+      }
 
     default:
       res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
