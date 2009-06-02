@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 1.2 (unreleased)
 
+** libgsasl: Obsolete gsasl_md5pwd_get_password rewritten to use modern API.
+
 ** Include a copy of the GPLv3 license in the archive.
 Some parts, such as the gnulib self-tests, are licensed under the
 GPLv3.  The library remains licensed under LGPLv2.1+ though.  Reported

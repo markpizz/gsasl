@@ -1691,54 +1691,36 @@ int
 gsasl_md5pwd_get_password (const char *filename,
 			   const char *username, char *key, size_t * keylen)
 {
-  char matchbuf[BUFSIZ];
-  char line[BUFSIZ];
+  char *tmp;
+  size_t tmplen;
+  int res;
   FILE *fh;
 
   fh = fopen (filename, "r");
   if (fh == NULL)
     return GSASL_FOPEN_ERROR;
+  fclose (fh);
 
-  sprintf (matchbuf, "%s\t", username);
+  res = gsasl_simple_getpass (filename, username, &tmp);
+  if (res != GSASL_OK)
+    return res;
 
-  while (!feof (fh))
+  tmplen = strlen (tmp);
+
+  if (*keylen < tmplen + 1)
     {
-      if (fgets (line, BUFSIZ, fh) == NULL)
-	break;
-
-      if (line[0] == '#')
-	continue;
-
-      while (strlen (line) > 0 && (line[strlen (line) - 1] == '\n' ||
-				   line[strlen (line) - 1] == '\r'))
-	line[strlen (line) - 1] = '\0';
-
-      if (strlen (line) <= strlen (matchbuf))
-	continue;
-
-      if (strncmp (matchbuf, line, strlen (matchbuf)) == 0)
-	{
-	  if (*keylen < strlen (line) - strlen (matchbuf))
-	    {
-	      fclose (fh);
-	      return GSASL_TOO_SMALL_BUFFER;
-	    }
-
-	  *keylen = strlen (line) - strlen (matchbuf);
-
-	  if (key)
-	    memcpy (key, &line[strlen (matchbuf)], *keylen);
-
-	  fclose (fh);
-
-	  return GSASL_OK;
-	}
+      free (tmp);
+      return GSASL_TOO_SMALL_BUFFER;
     }
 
-  if (fclose (fh) != 0)
-    return GSASL_FCLOSE_ERROR;
+  *keylen = tmplen;
 
-  return GSASL_AUTHENTICATION_ERROR;
+  if (key)
+    memcpy (key, tmp, tmplen);
+
+  free (key);
+
+  return GSASL_OK;
 }
 
 #include <minmax.h>
