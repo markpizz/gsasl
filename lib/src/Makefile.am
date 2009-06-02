@@ -19,7 +19,8 @@
 
 lib_LTLIBRARIES = libgsasl.la
 
-AM_CFLAGS = $(WARN_CFLAGS) $(CFLAG_VISIBILITY)
+AM_CFLAGS = $(WERROR_CFLAGS) $(WSTACK_CFLAGS) $(WARN_CFLAGS)
+AM_CFLAGS += $(CFLAG_VISIBILITY)
 AM_CPPFLAGS = -I$(srcdir)/../gl -I../gl -I$(srcdir)/.. -DGSASL_BUILDING
 DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
 
