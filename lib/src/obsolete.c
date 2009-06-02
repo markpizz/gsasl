@@ -1795,11 +1795,9 @@ gsasl_base64_decode (char const *src, char *target, size_t targsize)
   return copied;
 }
 
-const char *
-_gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop)
+static const char *
+pmap (Gsasl_session * sctx, Gsasl_property prop, char *buf, size_t buflen)
 {
-  char buf[BUFSIZ];
-  size_t buflen = BUFSIZ - 1;
   int res;
 
   buf[0] = '\0';
@@ -1961,12 +1959,27 @@ _gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop)
   return gsasl_property_fast (sctx, prop);
 }
 
+const char *
+_gsasl_obsolete_property_map (Gsasl_session * sctx, Gsasl_property prop)
+{
+  const char *ret;
+  char *buf;
+
+  buf = malloc (BUFSIZ);
+  if (!buf)
+    return NULL;
+
+  ret = pmap (sctx, prop, buf, BUFSIZ - 1);
+
+  free (buf);
+
+  return ret;
+}
+
 int
 _gsasl_obsolete_callback (Gsasl * ctx, Gsasl_session * sctx,
 			  Gsasl_property prop)
 {
-  char buf[BUFSIZ];
-  size_t buflen = BUFSIZ - 1;
   int res;
 
   /* Call obsolete callbacks. */
@@ -2001,11 +2014,14 @@ _gsasl_obsolete_callback (Gsasl * ctx, Gsasl_session * sctx,
       {
 	Gsasl_server_callback_securid cb_securid
 	  = gsasl_server_callback_securid_get (sctx->ctx);
+#define MAX_SECURID 32 /* See RFC 2808. */
+	char buf[MAX_SECURID + 1];
+	size_t buflen = MAX_SECURID;
 	if (!cb_securid)
 	  break;
 	res = cb_securid (sctx, sctx->authid, sctx->authzid, sctx->passcode,
 			  sctx->pin, buf, &buflen);
-	if (buflen > 0 && buflen < BUFSIZ - 1)
+	if (buflen > 0 && buflen < MAX_SECURID)
 	  {
 	    buf[buflen] = '\0';
 	    gsasl_property_set (sctx, GSASL_SUGGESTED_PIN, buf);
@@ -2040,13 +2056,19 @@ _gsasl_obsolete_callback (Gsasl * ctx, Gsasl_session * sctx,
       {
 	Gsasl_server_callback_retrieve cb_retrieve
 	  = gsasl_server_callback_retrieve_get (sctx->ctx);
+	char *buf;
+	size_t buflen = BUFSIZ - 1;
 	if (!cb_retrieve)
 	  break;
+	buf = malloc (BUFSIZ);
+	if (!buf)
+	  return GSASL_MALLOC_ERROR;
 	res = cb_retrieve (sctx, sctx->authid, sctx->authzid,
 			   sctx->hostname, buf, &buflen);
 	if (res == GSASL_OK)
 	  gsasl_property_set_raw (sctx, GSASL_PASSWORD, buf, buflen);
 	/* FIXME else if (res == GSASL_TOO_SMALL_BUFFER)... */
+	free (buf);
 	return res;
 	break;
       }
