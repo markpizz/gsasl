@@ -17,6 +17,12 @@ directory categories to use.  In particular, libgsasl moved from the
 ** Building with many warning flags now requires --enable-gcc-warnings.
 This avoids crying wolf for normal compiles.
 
+** New configure parameters to set packaging specific information.
+The parameters are --with-packager, --with-packager-version, and
+--with-packager-bug-reports.  See
+<http://article.gmane.org/gmane.comp.lib.gnulib.bugs/17791> for more
+details.
+
 * Version 1.1 (released 2009-03-25)
 
 ** gsasl: Reading integrity protected data from server now works.
