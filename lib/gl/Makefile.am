@@ -221,6 +221,15 @@ EXTRA_DIST += $(top_srcdir)/maint.mk
 
 ## end   gnulib module maintainer-makefile
 
+## begin gnulib module memchr
+
+
+EXTRA_DIST += memchr.c
+
+EXTRA_libgl_la_SOURCES += memchr.c
+
+## end   gnulib module memchr
+
 ## begin gnulib module minmax
 
 libgl_la_SOURCES += minmax.h

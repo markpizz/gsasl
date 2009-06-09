@@ -560,6 +560,15 @@ EXTRA_libgl_la_SOURCES += mbsinit.c
 
 ## end   gnulib module mbsinit
 
+## begin gnulib module memchr
+
+
+EXTRA_DIST += memchr.c
+
+EXTRA_libgl_la_SOURCES += memchr.c
+
+## end   gnulib module memchr
+
 ## begin gnulib module netdb
 
 BUILT_SOURCES += $(NETDB_H)

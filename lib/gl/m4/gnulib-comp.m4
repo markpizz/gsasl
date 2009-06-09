@@ -77,6 +77,7 @@ AC_DEFUN([gl_INIT],
   gl_LD_OUTPUT_DEF
   gl_LD_VERSION_SCRIPT
   gl_VISIBILITY
+  gl_FUNC_MEMCHR
   gl_MINMAX
   gl_MULTIARCH
   gl_FUNC_REALLOC_POSIX
@@ -137,6 +138,11 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gltests_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gltests'
+  gl_FUNC_GETPAGESIZE
+  gl_UNISTD_MODULE_INDICATOR([getpagesize])
+  gl_FUNC_MMAP_ANON
+  AC_CHECK_HEADERS_ONCE([sys/mman.h])
+  AC_CHECK_FUNCS_ONCE([mprotect])
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
   m4_ifval(gltests_LIBSOURCES_LIST, [
@@ -252,6 +258,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/hmac.h
   lib/md5.c
   lib/md5.h
+  lib/memchr.c
   lib/memxor.c
   lib/memxor.h
   lib/minmax.h
@@ -287,6 +294,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/gc.m4
   m4/getdelim.m4
   m4/getline.m4
+  m4/getpagesize.m4
   m4/gettext.m4
   m4/glibc2.m4
   m4/glibc21.m4
@@ -312,8 +320,10 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/longlong.m4
   m4/malloc.m4
   m4/md5.m4
+  m4/memchr.m4
   m4/memxor.m4
   m4/minmax.m4
+  m4/mmap-anon.m4
   m4/multiarch.m4
   m4/nls.m4
   m4/po.m4
@@ -346,6 +356,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-gc.c
   tests/test-getdelim.c
   tests/test-getline.c
+  tests/test-memchr.c
   tests/test-stdbool.c
   tests/test-stdint.c
   tests/test-stdio.c
@@ -356,7 +367,9 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-vasnprintf.c
   tests/test-vasprintf.c
   tests/test-wchar.c
+  tests/zerosize-ptr.h
   tests=lib/dummy.c
+  tests=lib/getpagesize.c
   tests=lib/intprops.h
   tests=lib/verify.h
   top/GNUmakefile

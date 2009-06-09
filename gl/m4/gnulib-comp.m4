@@ -111,6 +111,7 @@ AC_SUBST([LTALLOCA])
   gl_WCHAR_MODULE_INDICATOR([mbrtowc])
   gl_FUNC_MBSINIT
   gl_WCHAR_MODULE_INDICATOR([mbsinit])
+  gl_FUNC_MEMCHR
   gl_MULTIARCH
   gl_HEADER_NETDB
   gl_HEADER_NETINET_IN
@@ -226,6 +227,8 @@ AC_SUBST([LTALLOCA])
   gl_ENVIRON
   gl_UNISTD_MODULE_INDICATOR([environ])
   gl_FUNC_UNGETC_WORKS
+  gl_FUNC_GETPAGESIZE
+  gl_UNISTD_MODULE_INDICATOR([getpagesize])
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.17])
   gl_FUNC_GETTIMEOFDAY
@@ -249,6 +252,9 @@ AC_SUBST([LTALLOCA])
   gt_LOCALE_JA
   gt_LOCALE_ZH_CN
   gt_LOCALE_FR_UTF8
+  gl_FUNC_MMAP_ANON
+  AC_CHECK_HEADERS_ONCE([sys/mman.h])
+  AC_CHECK_FUNCS_ONCE([mprotect])
   gl_FUNC_PERROR
   gl_STRING_MODULE_INDICATOR([perror])
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
@@ -425,6 +431,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/malloc.c
   lib/mbrtowc.c
   lib/mbsinit.c
+  lib/memchr.c
   lib/netdb.in.h
   lib/netinet_in.in.h
   lib/poll.c
@@ -498,6 +505,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getdelim.m4
   m4/getline.m4
   m4/getopt.m4
+  m4/getpagesize.m4
   m4/getpass.m4
   m4/gettext.m4
   m4/gettimeofday.m4
@@ -538,6 +546,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mbrtowc.m4
   m4/mbsinit.m4
   m4/mbstate_t.m4
+  m4/memchr.m4
+  m4/mmap-anon.m4
   m4/multiarch.m4
   m4/netdb_h.m4
   m4/netinet_in_h.m4
@@ -618,6 +628,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-mbrtowc4.sh
   tests/test-mbsinit.c
   tests/test-mbsinit.sh
+  tests/test-memchr.c
   tests/test-netdb.c
   tests/test-netinet_in.c
   tests/test-perror.c
@@ -648,8 +659,10 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-vc-list-files-git.sh
   tests/test-wchar.c
   tests/test-wctype.c
+  tests/zerosize-ptr.h
   tests=lib/accept.c
   tests=lib/bind.c
+  tests=lib/getpagesize.c
   tests=lib/gettimeofday.c
   tests=lib/inet_pton.c
   tests=lib/ioctl.c
