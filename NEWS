@@ -12,6 +12,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 Reported by Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de> in
 <http://thread.gmane.org/gmane.comp.gnu.gsasl.general/230>.
 
+** doc: Rewritten introduction material.
+
 ** doc: Improved sections for the info manual.
 We now follow the advice given by the texinfo manual on which
 directory categories to use.  In particular, libgsasl moved from the
