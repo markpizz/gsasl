@@ -1061,7 +1061,7 @@ void client (Gsasl *ctx)
   gsasl_property_set (session, GSASL_PASSWORD, "secret");
 
   /* Do it. */
-  client_authenticate (ctx, session);
+  client_authenticate (session);
 
   /* Cleanup. */
   gsasl_finish (session);
@@ -1077,7 +1077,7 @@ authentication loop, and end by cleaning up.  Let's continue with the
 implementation of @code{client_authenticate}.
 
 @example
-void client_authenticate (Gsasl * ctx, Gsasl_session * session)
+void client_authenticate (Gsasl_session * session)
 @{
   char buf[BUFSIZ] = "";
   char *p;
