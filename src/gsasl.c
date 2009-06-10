@@ -744,28 +744,30 @@ main (int argc, char *argv[])
 		  ssize_t len;
 
 		  len = getline (&line, &n, stdin);
-		  if (len < 0)
+		  if (len <= 0)
 		    break;
 
 		  if (args_info.imap_flag || args_info.smtp_flag)
 		    {
-		      int pos = strlen (line);
-
-		      if (pos < 2 || strcmp (&line[pos-2], "\r\n") != 0)
+		      if (len < 2 || strcmp (&line[len-2], "\r\n") != 0)
 			{
-			  char *tmp = realloc (line, pos + 2);
+			  char *tmp = realloc (line, len + 2);
 			  if (!tmp)
 			    error (EXIT_FAILURE, errno, "realloc");
 			  line = tmp;
-			  line[pos - 1] = '\r';
-			  line[pos] = '\n';
-			  line[pos + 1] = '\0';
+			  line[len - 1] = '\r';
+			  line[len] = '\n';
+			  line[len + 1] = '\0';
+			  len++;
 			}
 		    }
 		  else
-		    line[strlen (line) - 1] = '\0';
+		    {
+		      len--;
+		      line[len] = '\0';
+		    }
 
-		  res = gsasl_encode (xctx, line, strlen (line),
+		  res = gsasl_encode (xctx, line, len,
 				      &out, &output_len);
 		  if (res != GSASL_OK)
 		    break;
