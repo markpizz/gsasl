@@ -1718,7 +1718,7 @@ gsasl_md5pwd_get_password (const char *filename,
   if (key)
     memcpy (key, tmp, tmplen);
 
-  free (key);
+  free (tmp);
 
   return GSASL_OK;
 }
