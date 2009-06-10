@@ -39,15 +39,15 @@ client_authenticate (Gsasl_session * session)
       printf ("Input base64 encoded data from server:\n");
       fgets (buf, sizeof (buf) - 1, stdin);
       if (buf[strlen (buf) - 1] == '\n')
-	buf[strlen (buf) - 1] = '\0';
+        buf[strlen (buf) - 1] = '\0';
 
       rc = gsasl_step64 (session, buf, &p);
 
       if (rc == GSASL_NEEDS_MORE || rc == GSASL_OK)
-	{
-	  printf ("Output:\n%s\n", p);
-	  free (p);
-	}
+        {
+          printf ("Output:\n%s\n", p);
+          free (p);
+        }
     }
   while (rc == GSASL_NEEDS_MORE);
 
