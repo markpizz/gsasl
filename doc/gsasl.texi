@@ -56,7 +56,7 @@ Documentation License''.
 @end ifnottex
 
 @menu
-* Introduction::                How to use this manual.
+* Introduction::                Information about protocol and implementation.
 * Preparation::                 What you should do before using the library.
 * Using the Library::           High level overview of how to use the library.
 * Properties::                  How to specify username, password, etc.
@@ -91,18 +91,79 @@ Indices
 @node Introduction
 @chapter Introduction
 
+This manual can be used in several ways.  If read from the beginning
+to the end, it gives the reader an understanding of the SASL framework
+and the GNU SASL implementation, and how the GNU SASL library is used
+in an application.  Forward references are included where necessary.
+Later on, the manual can be used as a reference manual to get just the
+information needed about any particular interface of the library.
+Experienced programmers might want to start looking at the examples at
+the end of the manual, and then only read up those parts of the
+interface which are unclear.
+
+@menu
+* SASL Overview::
+* Implementation::
+* Features::
+* Requirements::
+* Supported Platforms::
+* Getting help::
+* Commercial Support::
+* Downloading and Installing::
+* Bug Reports::
+* Contributing::
+@end menu
+
+@node SASL Overview
+@section SASL Overview
+
+SASL is a framework for application protocols, such as @acronym{SMTP}
+or @acronym{IMAP}, to add authentication support.  For example, SASL
+is used to prove to the server who you are when you access an
+@acronym{IMAP} server to read your e-mail.
+
+The SASL framework does not specify the technology used to perform the
+authentication, that is the responsibility for each SASL mechanism.
+Popular SASL mechanisms include CRAM-MD5 and GSSAPI (for Kerberos V5).
+
+Typically a SASL negotiation works as follows.  First the client
+requests authentication (possibly implicitly by connecting to the
+server).  The server responds with a list of supported mechanisms.
+The client chose one of the mechanisms.  The client and server then
+exchange data, one round-trip at a time, until authentication either
+succeeds or fails.
+
+For example, in @acronym{SMTP} communication happens like this:
+
+@smallexample
+250-mail.example.com Hello pc.example.org [192.168.1.42], pleased to meet you
+250-AUTH DIGEST-MD5 CRAM-MD5 LOGIN PLAIN
+250 HELP
+AUTH CRAM-MD5
+334 PDk5MDgwNDEzMDUwNTUyMTE1NDQ5LjBAbG9jYWxob3N0Pg==
+amFzIDBkZDRkODZkMDVjNjI4ODRkYzc3OTcwODE4ZGI5MGY3
+235 2.0.0 OK Authenticated
+@end smallexample
+
+Here the first three lines are sent by the server and contains the
+list of supported mechanisms (DIGEST-MD5, CRAM-MD5, etc).  The next
+line is sent by the client to select the CRAM-MD5 mechanism.  The
+server replies with a challenge.  The client replies with a response.
+The server accepts the authentication and the exchange can continue.
+
+@node Implementation
+@section Implementation
+
 GNU SASL is an implementation of the Simple Authentication and
 Security Layer framework and a few common SASL mechanisms.
-@acronym{SASL} is used by network servers (e.g., @acronym{IMAP},
-@acronym{SMTP}) to request authentication from clients, and in clients
-to authenticate against servers.
 
-GNU SASL consists of a library (`libgsasl'), a command line utility
-(`gsasl') to access the library from the shell, and a manual.  The
-library includes support for the framework (with authentication
-functions and application data privacy and integrity functions) and at
-least partial support for the CRAM-MD5, EXTERNAL, GSSAPI, ANONYMOUS,
-PLAIN, SECURID, DIGEST-MD5, LOGIN, and NTLM mechanisms.
+GNU SASL consists of a library (@code{libgsasl}), a command line
+utility (@code{gsasl}) to access the library from the shell, and a
+manual.  The library includes support for the framework (with
+authentication functions and application data privacy and integrity
+functions) and at least partial support for the CRAM-MD5, EXTERNAL,
+GSSAPI, ANONYMOUS, PLAIN, SECURID, DIGEST-MD5, LOGIN, and NTLM
+mechanisms.
 
 The library is easily ported because it does not do network
 communication by itself, but rather leaves it up to the calling
@@ -121,12 +182,9 @@ that support client and server mode, and the IMAP and SMTP protocols,
 fits in under 60kb on an Intel x86 platform, without any modifications
 to the code.  (This figure was accurate as of version 0.0.13.)
 
-The library is licensed under the GNU Lesser General Public License
-version 2.1 or later.  The command-line application (src/), examples
-(examples/), self-test suite (tests/) are licensed under the GNU
-General Public License license version 3.0 or later.  The
-documentation (doc/) is licensed under the GNU Free Documentation
-License version 1.3 or later.
+The design of the library and the intended interaction between
+applications and the library through the official API is illustrated
+below.
 
 @float Illustration,fig:abstraction
 @image{abstraction,10cm,5cm}
@@ -135,37 +193,6 @@ License version 1.3 or later.
 mechanisms through an abstract interface.}
 
 @end float
-
-@menu
-* Getting Started::
-* Features::
-* SASL Overview::
-* Requirements::
-* Supported Platforms::
-* Getting help::
-* Commercial Support::
-* Downloading and Installing::
-* Bug Reports::
-* Contributing::
-@end menu
-
-@node Getting Started
-@section Getting Started
-
-This manual documents the GNU SASL Library programming interface.  All
-functions and data types provided by the library are explained.
-
-The reader is assumed to possess basic familiarity with SASL and
-network programming in C or C++.
-
-This manual can be used in several ways.  If read from the beginning
-to the end, it gives a good introduction into the library and how it
-can be used in an application.  Forward references are included where
-necessary.  Later on, the manual can be used as a reference manual to
-get just the information needed about any particular interface of the
-library.  Experienced programmers might want to start looking at the
-examples at the end of the manual, and then only read up those parts
-of the interface which are unclear.
 
 @node Features
 @section Features
@@ -202,67 +229,6 @@ example, no API consumes more than around 250 bytes of stack space.
 Note that the library do not implement any policy to decide whether a
 certain user is ``authenticated'' or ``authorized'' or not.  Rather,
 it uses a callback into the application to answer these questions.
-
-@node SASL Overview
-@section SASL Overview
-
-This section describes SASL from a protocol point of view.
-
-The Simple Authentication and Security Layer (SASL) is a method for
-adding authentication support to connection-based protocols.  A
-protocol includes a command for identifying and authenticating a user
-to a server and for optionally negotiating a security layer for
-subsequent protocol interactions.
-
-The command has a required argument identifying a SASL mechanism.
-SASL mechanisms are named by strings, from 1 to 20 characters in
-length, consisting of upper-case letters, digits, hyphens, and/or
-underscores.
-
-If a server supports the requested mechanism, it initiates an
-authentication protocol exchange.  This consists of a series of
-server challenges and client responses that are specific to the
-requested mechanism.  The challenges and responses are defined by the
-mechanisms as binary tokens of arbitrary length.  The protocol's
-profile then specifies how these binary tokens are then encoded for
-transfer over the connection.
-
-After receiving the authentication command or any client response, a
-server may issue a challenge, indicate failure, or indicate
-completion.  The protocol's profile specifies how the server
-indicates which of the above it is doing.
-
-After receiving a challenge, a client may issue a response or abort
-the exchange.  The protocol's profile specifies how the client
-indicates which of the above it is doing.
-
-During the authentication protocol exchange, the mechanism performs
-authentication, transmits an authorization identity (frequently known
-as a userid) from the client to server, and negotiates the use of a
-mechanism-specific security layer.  If the use of a security layer is
-agreed upon, then the mechanism must also define or negotiate the
-maximum cipher-text buffer size that each side is able to receive.
-
-The transmitted authorization identity may be different than the
-identity in the client's authentication credentials.  This permits
-agents such as proxy servers to authenticate using their own
-credentials, yet request the access privileges of the identity for
-which they are proxying.  With any mechanism, transmitting an
-authorization identity of the empty string directs the server to
-derive an authorization identity from the client's authentication
-credentials.
-
-If use of a security layer is negotiated, it is applied to all
-subsequent data sent over the connection.  The security layer takes
-effect immediately following the last response of the authentication
-exchange for data sent by the client and the completion indication
-for data sent by the server.  Once the security layer is in effect,
-the protocol stream is processed by the security layer into buffers
-of cipher-text.  Each buffer is transferred over the connection as a
-stream of octets prepended with a four octet field in network byte
-order that represents the length of the following buffer.  The length
-of the cipher-text buffer must be no larger than the maximum size
-that was defined or negotiated by the other side.
 
 @node Requirements
 @section Requirements
