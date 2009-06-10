@@ -1,11 +1,12 @@
-^build-aux/pmccabe.css
-^build-aux/pmccabe2html
-^doc/specification/
 ^doc/.*.eps
 ^doc/.*.png
+^doc/specification/
 ^gl/
+^lib/build-aux/pmccabe.css
+^lib/build-aux/pmccabe2html
 ^lib/gl/
-po/eu.po.in
-po/vi.po.in
+^m4/pkg.m4
 ChangeLog
 Doxyfile
+po/eu.po.in
+po/vi.po.in
