@@ -131,8 +131,8 @@ requests authentication (possibly implicitly by connecting to the
 server).  The server responds with a list of supported mechanisms.
 The client chose one of the mechanisms.  The client and server then
 exchange data, one round-trip at a time, until authentication either
-succeeds or fails.  After that, the client and server has some
-assurance of the user at the other end.
+succeeds or fails.  After that, the client and server knows more about
+who is on the other end of the channel.
 
 For example, in @acronym{SMTP} communication happens like this:
 
