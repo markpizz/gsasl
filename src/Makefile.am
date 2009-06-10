@@ -19,6 +19,7 @@
 AM_CFLAGS = $(WERROR_CFLAGS) $(WARN_CFLAGS)
 AM_CPPFLAGS = -I$(top_srcdir)/gl -I$(top_builddir)/gl \
 	 -I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src
+AM_CPPFLAGS += -DLOCALEDIR=\"$(datadir)/locale\"
 
 bin_PROGRAMS = gsasl
 
@@ -30,8 +31,6 @@ gsasl_LDADD = ../lib/src/libgsasl.la ../gl/libgl.la \
 	$(LTLIBREADLINE) $(LTLIBGNUTLS) $(LIBSOCKET)
 
 localedir = $(datadir)/locale
-
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 $(BUILT_SOURCES): gsasl.ggo Makefile.am
 	gengetopt --unamed-opts="HOST [PORT]" \

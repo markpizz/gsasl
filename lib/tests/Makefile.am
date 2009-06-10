@@ -19,7 +19,7 @@
 
 AM_CFLAGS = $(WERROR_CFLAGS) $(WSTACK_CFLAGS) $(WARN_CFLAGS)
 AM_CPPFLAGS = -I$(srcdir)/../src -I$(srcdir)/../gl
-DEFS = -DLOCALEDIR=\"$(datadir)/locale\" @DEFS@
+AM_CPPFLAGS += -DLOCALEDIR=\"$(datadir)/locale\"
 
 LDADD = $(LTLIBINTL)
 

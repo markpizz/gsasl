@@ -30,7 +30,7 @@ endif
 local-checks-to-skip = sc_prohibit_strcmp sc_error_message_uppercase	\
 	sc_prohibit_have_config_h sc_require_config_h			\
 	sc_require_config_h_first sc_unmarked_diagnostics		\
-	sc_GPL_version sc_immutable_NEWS sc_makefile_check sc_copyright_check
+	sc_GPL_version sc_immutable_NEWS sc_copyright_check
 
 autoreconf:
 	for f in po/*.po.in lib/po/*.po.in; do \
