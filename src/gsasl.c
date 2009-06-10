@@ -753,7 +753,7 @@ main (int argc, char *argv[])
 
 		      if (pos < 2 || strcmp (&line[pos-2], "\r\n") != 0)
 			{
-			  char *tmp = realloc (line, pos + 1);
+			  char *tmp = realloc (line, pos + 2);
 			  if (!tmp)
 			    error (EXIT_FAILURE, errno, "realloc");
 			  line = tmp;
