@@ -131,7 +131,8 @@ requests authentication (possibly implicitly by connecting to the
 server).  The server responds with a list of supported mechanisms.
 The client chose one of the mechanisms.  The client and server then
 exchange data, one round-trip at a time, until authentication either
-succeeds or fails.
+succeeds or fails.  After that, the client and server has some
+assurance of the user at the other end.
 
 For example, in @acronym{SMTP} communication happens like this:
 
@@ -149,7 +150,8 @@ Here the first three lines are sent by the server and contains the
 list of supported mechanisms (DIGEST-MD5, CRAM-MD5, etc).  The next
 line is sent by the client to select the CRAM-MD5 mechanism.  The
 server replies with a challenge.  The client replies with a response.
-The server accepts the authentication and the exchange can continue.
+The server accepts the authentication, and knows it is talking to a
+authenticated user, and the application protocol can continue.
 
 @node Implementation
 @section Implementation
