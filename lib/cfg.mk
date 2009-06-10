@@ -39,8 +39,8 @@ update-po: refresh-po
 	for f in `ls po/*.po | grep -v quot.po`; do \
 		cp $$f $$f.in; \
 	done
-	git-add po/*.po.in
-	git-commit -m "Sync with TP." po/LINGUAS po/*.po.in
+	git add po/*.po.in
+	git commit -m "Sync with TP." po/LINGUAS po/*.po.in
 
 bootstrap: autoreconf
 	./configure $(CFGFLAGS)
