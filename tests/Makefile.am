@@ -33,7 +33,7 @@ TESTS_ENVIRONMENT = \
 	SHISHI_CONFIG=ignore-this-warning \
 	SHISHI_HOME=ignore-this-warning \
 	SHISHI_USER=ignore-this-warning \
-	THREADSAFETY_FILES=`ls $(top_srcdir)/lib/*/*.c | grep -v -e lib/gl/vasnprintf.c -e lib/gl/getdelim.c` \
+	THREADSAFETY_FILES=`ls $(top_srcdir)/lib/*/*.c | $(GREP) -v -e lib/gl/vasnprintf.c -e lib/gl/getdelim.c` \
 	MD5FILE=$(srcdir)/cram-md5.pwd \
 	$(VALGRIND)
 
