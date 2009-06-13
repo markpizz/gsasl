@@ -141,11 +141,11 @@ static struct sasltv sasltv[] = {
    GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE}
 };
 
-int
+static int
 cb (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 {
   int rc = GSASL_NO_CALLBACK;
-  int i;
+  int i = 0;
 
   if (gsasl_callback_hook_get (ctx))
     i = *(int *) gsasl_callback_hook_get (ctx);
