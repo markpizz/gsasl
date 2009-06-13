@@ -60,6 +60,8 @@ AC_DEFUN([gl_INIT],
   gl_STDIO_MODULE_INDICATOR([getdelim])
   gl_FUNC_GETLINE
   gl_STDIO_MODULE_INDICATOR([getline])
+  gl_FUNC_GETPAGESIZE
+  gl_UNISTD_MODULE_INDICATOR([getpagesize])
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.17])
   AC_SUBST([LIBINTL])
@@ -78,6 +80,7 @@ AC_DEFUN([gl_INIT],
   gl_LD_VERSION_SCRIPT
   gl_VISIBILITY
   gl_FUNC_MEMCHR
+  gl_STRING_MODULE_INDICATOR([memchr])
   gl_MINMAX
   gl_MULTIARCH
   gl_FUNC_REALLOC_POSIX
@@ -138,11 +141,6 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gltests_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gltests'
-  gl_FUNC_GETPAGESIZE
-  gl_UNISTD_MODULE_INDICATOR([getpagesize])
-  gl_FUNC_MMAP_ANON
-  AC_CHECK_HEADERS_ONCE([sys/mman.h])
-  AC_CHECK_FUNCS_ONCE([mprotect])
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
   m4_ifval(gltests_LIBSOURCES_LIST, [
@@ -253,6 +251,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/gc.h
   lib/getdelim.c
   lib/getline.c
+  lib/getpagesize.c
   lib/gettext.h
   lib/hmac-md5.c
   lib/hmac.h
@@ -369,7 +368,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-wchar.c
   tests/zerosize-ptr.h
   tests=lib/dummy.c
-  tests=lib/getpagesize.c
   tests=lib/intprops.h
   tests=lib/verify.h
   top/GNUmakefile

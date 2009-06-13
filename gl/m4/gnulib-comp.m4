@@ -80,6 +80,8 @@ AC_SUBST([LTALLOCA])
   gl_FUNC_GETLINE
   gl_STDIO_MODULE_INDICATOR([getline])
   gl_GETOPT
+  gl_FUNC_GETPAGESIZE
+  gl_UNISTD_MODULE_INDICATOR([getpagesize])
   gl_FUNC_GETPASS
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
@@ -112,6 +114,7 @@ AC_SUBST([LTALLOCA])
   gl_FUNC_MBSINIT
   gl_WCHAR_MODULE_INDICATOR([mbsinit])
   gl_FUNC_MEMCHR
+  gl_STRING_MODULE_INDICATOR([memchr])
   gl_MULTIARCH
   gl_HEADER_NETDB
   gl_HEADER_NETINET_IN
@@ -227,8 +230,6 @@ AC_SUBST([LTALLOCA])
   gl_ENVIRON
   gl_UNISTD_MODULE_INDICATOR([environ])
   gl_FUNC_UNGETC_WORKS
-  gl_FUNC_GETPAGESIZE
-  gl_UNISTD_MODULE_INDICATOR([getpagesize])
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.17])
   gl_FUNC_GETTIMEOFDAY
@@ -252,9 +253,6 @@ AC_SUBST([LTALLOCA])
   gt_LOCALE_JA
   gt_LOCALE_ZH_CN
   gt_LOCALE_FR_UTF8
-  gl_FUNC_MMAP_ANON
-  AC_CHECK_HEADERS_ONCE([sys/mman.h])
-  AC_CHECK_FUNCS_ONCE([mprotect])
   gl_FUNC_PERROR
   gl_STRING_MODULE_INDICATOR([perror])
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
@@ -414,6 +412,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getopt.in.h
   lib/getopt1.c
   lib/getopt_int.h
+  lib/getpagesize.c
   lib/getpass.c
   lib/getpass.h
   lib/gettext.h
@@ -662,7 +661,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/zerosize-ptr.h
   tests=lib/accept.c
   tests=lib/bind.c
-  tests=lib/getpagesize.c
   tests=lib/gettimeofday.c
   tests=lib/inet_pton.c
   tests=lib/ioctl.c

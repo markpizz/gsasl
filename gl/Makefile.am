@@ -338,6 +338,15 @@ EXTRA_libgl_la_SOURCES += getopt.c getopt1.c
 
 ## end   gnulib module getopt
 
+## begin gnulib module getpagesize
+
+
+EXTRA_DIST += getpagesize.c
+
+EXTRA_libgl_la_SOURCES += getpagesize.c
+
+## end   gnulib module getpagesize
+
 ## begin gnulib module getpass
 
 
@@ -1030,6 +1039,7 @@ string.h: string.in.h
 	      -e 's|@''GNULIB_MBSSPN''@|$(GNULIB_MBSSPN)|g' \
 	      -e 's|@''GNULIB_MBSSEP''@|$(GNULIB_MBSSEP)|g' \
 	      -e 's|@''GNULIB_MBSTOK_R''@|$(GNULIB_MBSTOK_R)|g' \
+	      -e 's|@''GNULIB_MEMCHR''@|$(GNULIB_MEMCHR)|g' \
 	      -e 's|@''GNULIB_MEMMEM''@|$(GNULIB_MEMMEM)|g' \
 	      -e 's|@''GNULIB_MEMPCPY''@|$(GNULIB_MEMPCPY)|g' \
 	      -e 's|@''GNULIB_MEMRCHR''@|$(GNULIB_MEMRCHR)|g' \
@@ -1066,6 +1076,7 @@ string.h: string.in.h
 	      -e 's|@''HAVE_DECL_STRERROR''@|$(HAVE_DECL_STRERROR)|g' \
 	      -e 's|@''HAVE_DECL_STRSIGNAL''@|$(HAVE_DECL_STRSIGNAL)|g' \
 	      -e 's|@''HAVE_STRVERSCMP''@|$(HAVE_STRVERSCMP)|g' \
+	      -e 's|@''REPLACE_MEMCHR''@|$(REPLACE_MEMCHR)|g' \
 	      -e 's|@''REPLACE_MEMMEM''@|$(REPLACE_MEMMEM)|g' \
 	      -e 's|@''REPLACE_STRCASESTR''@|$(REPLACE_STRCASESTR)|g' \
 	      -e 's|@''REPLACE_STRDUP''@|$(REPLACE_STRDUP)|g' \
