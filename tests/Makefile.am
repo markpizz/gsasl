@@ -39,7 +39,7 @@ TESTS_ENVIRONMENT = \
 
 ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\
 	md5file$(EXEEXT) name$(EXEEXT) errors$(EXEEXT)			\
-	suggest$(EXEEXT) simple$(EXEEXT)
+	suggest$(EXEEXT) simple$(EXEEXT) crypto$(EXEEXT)
 
 if OBSOLETE
 ctests += old-simple$(EXEEXT) old-md5file$(EXEEXT) old-cram-md5$(EXEEXT)	\
