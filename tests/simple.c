@@ -145,10 +145,15 @@ static int
 cb (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 {
   int rc = GSASL_NO_CALLBACK;
-  int i = 0;
+  int i = 0, j = 0;
 
   if (gsasl_callback_hook_get (ctx))
     i = *(int *) gsasl_callback_hook_get (ctx);
+  if (gsasl_session_hook_get (sctx))
+    j = *(int *) gsasl_session_hook_get (sctx);
+
+  if (j < 0 || j > 5)
+    fail ("j out of bounds: %d\n", j);
 
   switch (prop)
     {
