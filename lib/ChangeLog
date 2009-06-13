@@ -1,3 +1,427 @@
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 1.2.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getpagesize.c, gl/m4/gnulib-comp.m4,
+	gl/m4/memchr.m4, gl/m4/string_h.m4, gl/string.in.h,
+	gltests/Makefile.am, gltests/getpagesize.c, lib/gl/Makefile.am,
+	lib/gl/getpagesize.c, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/memchr.m4, lib/gl/m4/string_h.m4, lib/gl/string.in.h,
+	lib/gltests/Makefile.am, lib/gltests/getpagesize.c: Update gnulib
+	files.
+
+2009-06-12  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Use $(GREP) instead of grep directly, for
+	non-GNU systems.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, lib/src/Makefile.am, lib/tests/Makefile.am,
+	src/Makefile.am: Fix syntax-check error.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cfg.mk: Fix git-* usage.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* examples/client-callback.c, examples/client-mech.c,
+	examples/client-serverfirst.c, examples/client.c: Don't use TAB for
+	info manual.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Fix whitespace.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_po_check: Fix.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_trailing_blank: Add.
+
+2009-06-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Rewrite manual somewhat to give better
+	introduction to concepts.
+
+2009-06-10  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2009-06-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, examples/client-callback.c,
+	examples/client-mech.c, examples/client-serverfirst.c,
+	examples/client.c: Drop ctx parameter from client_authenticate
+	function.  Suggested by Marco Maggi <marco.maggi-ipsu@poste.it>.
+
+2009-06-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-06-10  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Don't write out of bounds on (impossible?) empty
+	reads.  Handle NUL in input.
+
+2009-06-10  Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de>
+
+	* src/gsasl.c: fix insufficient memory allocation in imap/smtp code There was written 'line[pos + 1]' although only space for 'pos + 1'
+	elements was allocated.  Signed-off-by: Enrico Scholz
+	<enrico.scholz@informatik.tu-chemnitz.de>
+
+2009-06-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/obsolete.c: Fix typo.
+
+2009-06-09  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/getpagesize.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/memchr.m4, gl/m4/mmap-anon.m4, gl/memchr.c,
+	gltests/Makefile.am, gltests/getpagesize.c, gltests/test-alignof.c,
+	gltests/test-memchr.c, gltests/zerosize-ptr.h, lib/gl/Makefile.am,
+	lib/gl/m4/getpagesize.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/memchr.m4, lib/gl/m4/mmap-anon.m4, lib/gl/memchr.c,
+	lib/gltests/Makefile.am, lib/gltests/getpagesize.c,
+	lib/gltests/test-memchr.c, lib/gltests/zerosize-ptr.h: Update gnulib
+	files.
+
+2009-06-05  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-06-05  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix.
+
+2009-06-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4, gl/m4/version-etc.m4, gl/version-etc.c: 
+	Update gnulib files.
+
+2009-06-03  Simon Josefsson <simon@josefsson.org>
+
+	* gl/alignof.h, gltests/test-alignof.c: Update gnulib files.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/gsasl.texi: Doc category fixes.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* examples/Makefile.am, src/Makefile.am, tests/Makefile.am: Some
+	code not ready for stack space limit.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, examples/Makefile.am, lib/anonymous/Makefile.am,
+	lib/cram-md5/Makefile.am, lib/digest-md5/Makefile.am,
+	lib/external/Makefile.am, lib/gs2/Makefile.am,
+	lib/kerberos_v5/Makefile.am, lib/login/Makefile.am,
+	lib/ntlm/Makefile.am, lib/plain/Makefile.am,
+	lib/securid/Makefile.am, lib/src/Makefile.am,
+	lib/tests/Makefile.am, src/Makefile.am, tests/Makefile.am: More
+	warnings.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/obsolete.c: Decrease stack usage.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/src/obsolete.c: libgsasl: Obsolete
+	gsasl_md5pwd_get_password rewritten to use modern API.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ntlm/ntlm.c: Reduce stack usage.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, cfg.mk, configure.ac, gl/m4/manywarnings.m4,
+	lib/configure.ac: Fix warning flags.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/README: Fix.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* README, lib/COPYING, lib/COPYING.LIB, lib/NEWS, lib/README: 
+	Clarify license in libgsasl.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* .prev-version, lib/.prev-version: Add.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/README: Clarify license.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* README: Point to LGPL license file.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/include_next.m4, gl/m4/size_max.m4,
+	lib/gl/m4/include_next.m4, lib/gl/m4/size_max.m4: Update gnulib
+	files.
+
+2009-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getdelim.c, gl/m4/sys_socket_h.m4,
+	gl/sys_socket.in.h, gltests/test-sys_socket.c, lib/gl/getdelim.c,
+	lib/maint.mk, maint.mk: Update gnulib files.
+
+2009-05-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/alignof.h, gl/m4/gnulib-comp.m4, gltests/Makefile.am,
+	gltests/malloca.h, gltests/test-alignof.c, lib/maint.mk, maint.mk: 
+	Update gnulib files.
+
+2009-05-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/version.c: Doc fix.
+
+2009-05-11  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, maint.mk: Fix build-aux for gnulib.
+
+2009-05-11  Simon Josefsson <simon@josefsson.org>
+
+	* po/POTFILES.in: Drop gettext.m4.
+
+2009-05-11  Simon Josefsson <simon@josefsson.org>
+
+	* m4/pkg.m4: Add.
+
+2009-05-11  Simon Josefsson <simon@josefsson.org>
+
+	* m4/gtk-doc.m4: Update gtk-doc m4.
+
+2009-05-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/cyclo/Makefile.am: Fix build-aux paths.
+
+2009-05-11  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, gltests/test-vc-list-files-git.sh, lib/GNUmakefile,
+	lib/gl/Makefile.am, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gltests/Makefile.am, lib/maint.mk: 
+	Update gnulib files.
+
+2009-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix.
+
+2009-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/config.rpath, build-aux/gendocs.sh,
+	build-aux/link-warning.h, build-aux/pmccabe.css,
+	build-aux/pmccabe2html, build-aux/useless-if-before-free,
+	build-aux/vc-list-files, configure.ac, gl/Makefile.am,
+	gl/alignof.h, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/sys_socket_h.m4, gl/sys_socket.in.h, gltests/Makefile.am,
+	gltests/malloca.h, gltests/test-sys_socket.c,
+	lib/build-aux/gendocs.sh, lib/build-aux/pmccabe.css,
+	lib/build-aux/pmccabe2html, lib/gl/Makefile.am,
+	lib/gl/m4/gnulib-cache.m4: Update gnulib files.
+
+2009-05-08  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Make it easier to ignore -Werror.
+
+2009-05-07  Simon Josefsson <simon@josefsson.org>
+
+	* lib/build-aux/useless-if-before-free, lib/build-aux/vc-list-files: 
+	Update gnulib files.
+
+2009-05-07  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/build-aux/config.rpath, lib/gl/build-aux/link-warning.h,
+	lib/gl/build-aux/useless-if-before-free,
+	lib/gl/build-aux/vc-list-files: Update gnulib files.
+
+2009-05-07  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Fix.
+
+2009-05-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gltests/Makefile.am,
+	lib/gltests/test-vc-list-files-cvs.sh,
+	lib/gltests/test-vc-list-files-git.sh: Don't duplicate non-working
+	test.
+
+2009-05-06  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/errno_h.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/multiarch.m4, gl/m4/vasnprintf.m4, lib/gl/m4/errno_h.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/multiarch.m4,
+	lib/gl/m4/vasnprintf.m4, maint.mk: Update gnulib files.
+
+2009-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Fix.
+
+2009-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Add.
+
+2009-05-05  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Fix warnings when not using TLS.
+
+2009-05-03  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c, src/internal.h: Fix warning.
+
+2009-05-03  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/gettext.h, gl/m4/wchar.m4, gl/wchar.in.h,
+	lib/gl/Makefile.am, lib/gl/gettext.h, lib/gl/m4/wchar.m4,
+	lib/gl/wchar.in.h, maint.mk: Update gnulib files.
+
+2009-04-27  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_avoid_if_before_free, .x-sc_cast_of_alloca_return_value,
+	.x-sc_cast_of_x_alloc_return_value, .x-sc_file_system,
+	.x-sc_m4_quote_check, .x-sc_makefile_check, .x-sc_po_check,
+	.x-sc_program_name, .x-sc_prohibit_HAVE_MBRTOWC,
+	.x-sc_prohibit_atoi_atof, .x-sc_space_tab, .x-sc_the_the,
+	.x-sc_trailing_blank, .x-sc_useless_cpp_parens, cfg.mk,
+	configure.ac, doc/gdoc, doc/gsasl-callback-gssapi.texi,
+	doc/reference/gsasl-docs.sgml, doc/texinfo.css, gtk-doc.make,
+	lib/COPYING, lib/Makefile.am, lib/cfg.mk, lib/cram-md5/server.c,
+	lib/digest-md5/Makefile.am, lib/digest-md5/free.c,
+	lib/digest-md5/printer.c, lib/gs2/Makefile.am,
+	lib/gssapi/Makefile.am, lib/kerberos_v5/Makefile.am,
+	lib/kerberos_v5/kerberos_v5.c, lib/kerberos_v5/server.c,
+	lib/libgsasl.pc.in, lib/login/server.c, lib/ntlm/Makefile.am,
+	lib/ntlm/ntlm.c, lib/securid/client.c, lib/src/Makefile.am,
+	lib/src/done.c, lib/src/md5pwd.c, lib/src/property.c,
+	lib/src/saslprep.c, lib/src/version.c, lib/src/xstep.c,
+	m4/valgrind.m4, po/POTFILES.in, src/Makefile.am, src/gsasl.c,
+	tests/Makefile.am, tests/cram-md5.c: Fix syntax-check nits.
+
+2009-04-27  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/useless-if-before-free, build-aux/vc-list-files,
+	gl/Makefile.am, gl/getopt1.c, gl/m4/gnulib-comp.m4,
+	gl/m4/lib-link.m4, gl/m4/lib-prefix.m4, gl/vasnprintf.c,
+	gltests/Makefile.am, gltests/test-vc-list-files-cvs.sh,
+	gltests/test-vc-list-files-git.sh, lib/gl/Makefile.am,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/lib-link.m4,
+	lib/gl/m4/lib-prefix.m4, lib/gl/vasnprintf.c,
+	lib/gltests/Makefile.am, lib/gltests/test-vc-list-files-cvs.sh,
+	lib/gltests/test-vc-list-files-git.sh, maint.mk: Update gnulib
+	files.
+
+2009-04-24  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template, gl/Makefile.am, gl/m4/mbrtowc.m4,
+	gl/m4/wctob.m4, maint.mk: Update gnulib files.
+
+2009-04-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac, lib/src/Makefile.am: Fix var name.
+
+2009-04-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac, lib/gl/Makefile.am, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/ld-output-def.m4,
+	lib/m4/output-def.m4: Update gnulib files.
+
+2009-04-14  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS, po/sk.po.in, po/sv.po.in: Sync with TP.
+
+2009-04-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/sk.po.in, lib/po/sv.po.in: Sync with TP.
+
+2009-04-14  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh, doc/gendocs_template, doc/lgpl-2.1.texi,
+	gl/Makefile.am, gl/m4/inet_ntop.m4, lib/gl/Makefile.am,
+	lib/gl/m4/gnulib-cache.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/ld-version-script.m4, lib/gltests/Makefile.am, maint.mk: 
+	Update gnulib files.
+
+2009-04-01  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Make sure NLS is enabled.
+
+2009-03-31  Simon Josefsson <simon@josefsson.org>
+
+	* gltests/test-getaddrinfo.c, gltests/test-sockets.c: Update gnulib
+	files.
+
+2009-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Bump versions.
+
+2009-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* po/fr.po.in, po/ga.po.in, po/id.po.in, po/nl.po.in, po/pl.po.in,
+	po/zh_CN.po.in: Sync with TP.
+
+2009-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/ga.po.in, lib/po/id.po.in, lib/po/nl.po.in,
+	lib/po/pl.po.in, lib/po/zh_CN.po.in: Sync with TP.
+
+2009-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Bump versions.
+
+2009-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Fix typo.
+
+2009-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2009-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
 2009-03-25  Simon Josefsson <simon@josefsson.org>
 
 	* lib/gltests/Makefile.am: Fixup broken generated paths.
