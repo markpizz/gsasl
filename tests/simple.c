@@ -390,6 +390,24 @@ doit (void)
 	printf ("PASS: simple %s %s %d\n", sasltv[i].mech,
 		sasltv[i].clientp ? "client" : "server", i);
 
+      {
+	size_t outlen;
+
+	res = gsasl_encode (sctx, "foo", 3, &out, &outlen);
+	if (res != GSASL_OK)
+	  fail ("gsasl_encode %d: %s\n", res, gsasl_strerror (res));
+	if (outlen != 3 && memcmp (out, "foo", outlen) != 0)
+	  fail ("gsasl_encode memcmp: %.*s\n", outlen, out);
+	gsasl_free (out); out = NULL;
+
+	res = gsasl_decode (sctx, "foo", 3, &out, &outlen);
+	if (res != GSASL_OK)
+	  fail ("gsasl_decode %d: %s\n", res, gsasl_strerror (res));
+	if (outlen != 3 && memcmp (out, "foo", outlen) != 0)
+	  fail ("gsasl_decode memcmp: %.*s\n", outlen, out);
+	gsasl_free (out); out = NULL;
+      }
+
       gsasl_finish (sctx);
 
       if (debug)
