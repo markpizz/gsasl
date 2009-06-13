@@ -39,10 +39,10 @@ TESTS_ENVIRONMENT = \
 
 ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\
 	md5file$(EXEEXT) name$(EXEEXT) errors$(EXEEXT)			\
-	suggest$(EXEEXT)
+	suggest$(EXEEXT) simple$(EXEEXT)
 
 if OBSOLETE
-ctests += simple$(EXEEXT) old-md5file$(EXEEXT) old-cram-md5$(EXEEXT)	\
+ctests += old-simple$(EXEEXT) old-md5file$(EXEEXT) old-cram-md5$(EXEEXT)	\
 	old-digest-md5$(EXEEXT) old-base64$(EXEEXT)
 endif
 
