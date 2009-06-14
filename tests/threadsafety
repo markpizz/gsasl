@@ -23,7 +23,7 @@ if test -z "$FILES"; then
     exit 1
 fi
 
-# http://www.opengroup.org/onlinepubs/009695399/functions/xsh_chap02_09.html
+# http://www.opengroup.org/onlinepubs/9699919799/functions/V2_chap02.html#tag_15_09_01
 UNSAFE=""
 UNSAFE="$UNSAFE asctime"
 UNSAFE="$UNSAFE basename"
@@ -42,14 +42,11 @@ UNSAFE="$UNSAFE dbm_store"
 UNSAFE="$UNSAFE dirname"
 UNSAFE="$UNSAFE dlerror"
 UNSAFE="$UNSAFE drand48"
-UNSAFE="$UNSAFE ecvt"
 UNSAFE="$UNSAFE encrypt"
 UNSAFE="$UNSAFE endgrent"
 UNSAFE="$UNSAFE endpwent"
 UNSAFE="$UNSAFE endutxent"
-UNSAFE="$UNSAFE fcvt"
 UNSAFE="$UNSAFE ftw"
-UNSAFE="$UNSAFE gcvt"
 UNSAFE="$UNSAFE getc_unlocked"
 UNSAFE="$UNSAFE getchar_unlocked"
 UNSAFE="$UNSAFE getdate"
@@ -57,8 +54,6 @@ UNSAFE="$UNSAFE getenv"
 UNSAFE="$UNSAFE getgrent"
 UNSAFE="$UNSAFE getgrgid"
 UNSAFE="$UNSAFE getgrnam"
-UNSAFE="$UNSAFE gethostbyaddr"
-UNSAFE="$UNSAFE gethostbyname"
 UNSAFE="$UNSAFE gethostent"
 UNSAFE="$UNSAFE getlogin"
 UNSAFE="$UNSAFE getnetbyaddr"
@@ -105,11 +100,22 @@ UNSAFE="$UNSAFE setkey"
 UNSAFE="$UNSAFE setpwent"
 UNSAFE="$UNSAFE setutxent"
 UNSAFE="$UNSAFE strerror"
+UNSAFE="$UNSAFE strsignal"
 UNSAFE="$UNSAFE strtok"
+UNSAFE="$UNSAFE system"
 UNSAFE="$UNSAFE ttyname"
 UNSAFE="$UNSAFE unsetenv"
 UNSAFE="$UNSAFE wcstombs"
 UNSAFE="$UNSAFE wctomb"
+
+# Functions mentioned on
+# http://www.opengroup.org/onlinepubs/009695399/functions/xsh_chap02_09.html
+# but not in list above, i.e., legacy functions removed between issue 6 and 7.
+UNSAFE="$UNSAFE ecvt"
+UNSAFE="$UNSAFE fcvt"
+UNSAFE="$UNSAFE gcvt"
+UNSAFE="$UNSAFE gethostbyaddr"
+UNSAFE="$UNSAFE gethostbyname"
 
 set -- $UNSAFE
 cmd="-e [^_0-9a-z]($1"
