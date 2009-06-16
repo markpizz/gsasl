@@ -233,7 +233,7 @@ EXTRA_DIST += $(top_srcdir)/maint.mk
 ## begin gnulib module memchr
 
 
-EXTRA_DIST += memchr.c
+EXTRA_DIST += memchr.c memchr.valgrind
 
 EXTRA_libgl_la_SOURCES += memchr.c
 

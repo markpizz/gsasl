@@ -431,6 +431,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/mbrtowc.c
   lib/mbsinit.c
   lib/memchr.c
+  lib/memchr.valgrind
   lib/netdb.in.h
   lib/netinet_in.in.h
   lib/poll.c

@@ -258,6 +258,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/md5.c
   lib/md5.h
   lib/memchr.c
+  lib/memchr.valgrind
   lib/memxor.c
   lib/memxor.h
   lib/minmax.h
