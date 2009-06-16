@@ -38,6 +38,11 @@ doit (void)
   char *md5;
   size_t tmplen;
   int rc;
+  Gsasl *ctx;
+
+  rc = gsasl_init (&ctx);
+  if (rc != GSASL_OK)
+    fail ("gsasl_init %d: %s\n", rc, gsasl_strerror (rc));
 
   memset (tmp, 42, SIZE);
   memcpy (savetmp, tmp, SIZE);
@@ -77,4 +82,6 @@ doit (void)
     fail ("gsasl_hmac_md5 memcmp fail\n");
   success("gsasl_hmac_md5\n");
   gsasl_free (md5);
+
+  gsasl_done (ctx);
 }
