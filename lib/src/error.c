@@ -197,6 +197,9 @@ static struct {
  *
  * This string can be used to output a diagnostic message to the user.
  *
+ * This function is one of few in the library that can be used without
+ * a successful call to gsasl_init().
+ *
  * Return value: Returns a pointer to a statically allocated string
  *   containing an explanation of the error code @err.
  **/
@@ -228,6 +231,9 @@ gsasl_strerror (int err)
  * returns the string "GSASL_OK".
  *
  * This string can be used to output a diagnostic message to the user.
+ *
+ * This function is one of few in the library that can be used without
+ * a successful call to gsasl_init().
  *
  * Return value: Returns a pointer to a statically allocated string
  *   containing a string version of the error code @err, or %NULL if
