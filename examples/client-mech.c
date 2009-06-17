@@ -32,7 +32,7 @@ client_authenticate (Gsasl_session * session)
   char *p;
   int rc;
 
-  /* This loop mimic a protocol where the server get to send data first. */
+  /* This loop mimics a protocol where the server send data first. */
 
   do
     {
@@ -72,12 +72,12 @@ client_mechanism (Gsasl * ctx)
   char mechlist[BUFSIZ] = "";
   const char *suggestion;
 
-  printf ("Enter list of mechanism that server support, separate by SPC:\n");
+  printf ("Enter list of server supported mechanisms, separate by SPC:\n");
   fgets (mechlist, sizeof (mechlist) - 1, stdin);
 
   suggestion = gsasl_client_suggest_mechanism (ctx, mechlist);
   if (suggestion)
-    printf ("Library suggest use of `%s'.\n", suggestion);
+    printf ("Library suggests use of `%s'.\n", suggestion);
 
   printf ("Enter mechanism to use:\n");
   fgets (mech, sizeof (mech) - 1, stdin);

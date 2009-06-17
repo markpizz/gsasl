@@ -32,7 +32,7 @@ client_authenticate (Gsasl_session * session)
   char *p;
   int rc;
 
-  /* This loop mimic a protocol where the client send data first. */
+  /* This loop mimics a protocol where the client send data first. */
 
   do
     {

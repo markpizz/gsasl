@@ -29,7 +29,7 @@ PLAIN, SECURID, DIGEST-MD5, LOGIN, and NTLM mechanisms.
 The library is easily ported because it does not do network
 communication by itself, but rather leaves it up to the calling
 application.  The library is flexible with regards to the
-authorization infrastructure used, as it utilize a callback into the
+authorization infrastructure used, as it utilizes a callback into the
 application to decide whether a user is authorized or not.
     </para>
 
