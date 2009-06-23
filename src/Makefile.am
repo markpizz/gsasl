@@ -23,14 +23,17 @@ AM_CPPFLAGS += -DLOCALEDIR=\"$(datadir)/locale\"
 
 bin_PROGRAMS = gsasl
 
-BUILT_SOURCES = gsasl_cmd.c gsasl_cmd.h
-gsasl_SOURCES = gsasl.c $(BUILT_SOURCES) gsasl.ggo \
+gsasl_SOURCES = gsasl.c \
 	imap.c imap.h smtp.c smtp.h \
 	callbacks.h callbacks.c internal.h
 gsasl_LDADD = ../lib/src/libgsasl.la ../gl/libgl.la \
-	$(LTLIBREADLINE) $(LTLIBGNUTLS) $(LIBSOCKET)
+	$(LTLIBREADLINE) $(LTLIBGNUTLS) $(LIBSOCKET) \
+	libgsasl_cmd.la
 
-localedir = $(datadir)/locale
+noinst_LTLIBRARIES = libgsasl_cmd.la
+BUILT_SOURCES = gsasl_cmd.c gsasl_cmd.h
+libgsasl_cmd_la_SOURCES = $(BUILT_SOURCES) gsasl.ggo
+libgsasl_cmd_la_CFLAGS =
 
 $(BUILT_SOURCES): gsasl.ggo Makefile.am
 	gengetopt --unamed-opts="HOST [PORT]" \
