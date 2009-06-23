@@ -35,6 +35,7 @@ TESTS_ENVIRONMENT = \
 	SHISHI_USER=ignore-this-warning \
 	THREADSAFETY_FILES=`ls $(top_srcdir)/lib/*/*.c | $(GREP) -v -e lib/gl/vasnprintf.c -e lib/gl/getdelim.c` \
 	MD5FILE=$(srcdir)/cram-md5.pwd \
+	EGREP="$(EGREP)" \
 	$(VALGRIND)
 
 ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\

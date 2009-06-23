@@ -17,15 +17,17 @@
 
 FILES="$@"
 FILES=${FILES:-$THREADSAFETY_FILES}
+EGREP=${EGREP:-egrep}
 
 if test -z "$FILES"; then
     echo "Usage: $0 [FILE...]"
     exit 1
 fi
 
+UNSAFE=""
+
 # Thread unsafe functions according to latest POSIX, see:
 # http://www.opengroup.org/onlinepubs/9699919799/functions/V2_chap02.html#tag_15_09_01
-UNSAFE=""
 UNSAFE="$UNSAFE asctime"
 UNSAFE="$UNSAFE basename"
 UNSAFE="$UNSAFE catgets"
@@ -166,7 +168,7 @@ while test "$1"; do
 done
 cmd="${cmd})[^=_0-9a-z]*\("
 
-if egrep $cmd $FILES; then
+if $EGREP $cmd $FILES; then
     exit 1
 fi
 
