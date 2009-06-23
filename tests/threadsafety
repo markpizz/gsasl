@@ -109,6 +109,12 @@ UNSAFE="$UNSAFE unsetenv"
 UNSAFE="$UNSAFE wcstombs"
 UNSAFE="$UNSAFE wctomb"
 
+# Additional functions that aren't thread-safe if passed a NULL argument
+UNSAFE="$UNSAFE ctermid"
+UNSAFE="$UNSAFE tmpname"
+UNSAFE="$UNSAFE wcrtomb"
+UNSAFE="$UNSAFE wcsrtombs"
+
 # Legacy functions removed between issue 6 and 7, see:
 # http://www.opengroup.org/onlinepubs/009695399/functions/xsh_chap02_09.html#tag_02_09_01
 UNSAFE="$UNSAFE ecvt"
@@ -116,6 +122,40 @@ UNSAFE="$UNSAFE fcvt"
 UNSAFE="$UNSAFE gcvt"
 UNSAFE="$UNSAFE gethostbyaddr"
 UNSAFE="$UNSAFE gethostbyname"
+
+# Other (potentially) thread unsafe functions, see:
+# http://blog.josefsson.org/2009/06/23/thread-safe-functions/
+UNSAFE="$UNSAFE erand48"
+UNSAFE="$UNSAFE ether_aton"
+UNSAFE="$UNSAFE ether_ntoa"
+UNSAFE="$UNSAFE fgetgrent"
+UNSAFE="$UNSAFE fgetpwent"
+UNSAFE="$UNSAFE fgetspent"
+UNSAFE="$UNSAFE getaliasbyname"
+UNSAFE="$UNSAFE getaliasent"
+UNSAFE="$UNSAFE gethostbyname2"
+UNSAFE="$UNSAFE getmntent"
+UNSAFE="$UNSAFE getnetgrent"
+UNSAFE="$UNSAFE getrpcbyname"
+UNSAFE="$UNSAFE getrpcbynumber"
+UNSAFE="$UNSAFE getrpcent"
+UNSAFE="$UNSAFE getspent"
+UNSAFE="$UNSAFE getspnam"
+UNSAFE="$UNSAFE getutent"
+UNSAFE="$UNSAFE getutid"
+UNSAFE="$UNSAFE getutline"
+UNSAFE="$UNSAFE initstate"
+UNSAFE="$UNSAFE jrand48"
+UNSAFE="$UNSAFE lcong48"
+UNSAFE="$UNSAFE nrand48"
+UNSAFE="$UNSAFE qecvt"
+UNSAFE="$UNSAFE qfcvt"
+UNSAFE="$UNSAFE random"
+UNSAFE="$UNSAFE seed48"
+UNSAFE="$UNSAFE setstate"
+UNSAFE="$UNSAFE sgetspent"
+UNSAFE="$UNSAFE srand48"
+UNSAFE="$UNSAFE srandom"
 
 set -- $UNSAFE
 cmd="-e [^_0-9a-z]($1"
