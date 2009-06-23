@@ -23,6 +23,7 @@ if test -z "$FILES"; then
     exit 1
 fi
 
+# Thread unsafe functions according to latest POSIX, see:
 # http://www.opengroup.org/onlinepubs/9699919799/functions/V2_chap02.html#tag_15_09_01
 UNSAFE=""
 UNSAFE="$UNSAFE asctime"
@@ -108,9 +109,8 @@ UNSAFE="$UNSAFE unsetenv"
 UNSAFE="$UNSAFE wcstombs"
 UNSAFE="$UNSAFE wctomb"
 
-# Functions mentioned on
-# http://www.opengroup.org/onlinepubs/009695399/functions/xsh_chap02_09.html
-# but not in list above, i.e., legacy functions removed between issue 6 and 7.
+# Legacy functions removed between issue 6 and 7, see:
+# http://www.opengroup.org/onlinepubs/009695399/functions/xsh_chap02_09.html#tag_02_09_01
 UNSAFE="$UNSAFE ecvt"
 UNSAFE="$UNSAFE fcvt"
 UNSAFE="$UNSAFE gcvt"
