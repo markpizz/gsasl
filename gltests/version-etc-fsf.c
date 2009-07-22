@@ -1,5 +1,5 @@
-/* Test of <stdlib.h> substitute.
-   Copyright (C) 2007, 2009 Free Software Foundation, Inc.
+/* Variable with FSF copyright information, for version-etc.
+   Copyright (C) 1999-2006 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,30 +14,17 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-/* Written by Bruno Haible <bruno@clisp.org>, 2007.  */
+/* Written by Jim Meyering. */
 
 #include <config.h>
 
-#include <stdlib.h>
+/* Specification.  */
+#include "version-etc.h"
 
-#include "verify.h"
+/* Default copyright goes to the FSF. */
 
-int exitcode;
-
-/* Check that NULL can be passed through varargs as a pointer type,
-   per POSIX 2008.  */
-verify (sizeof NULL == sizeof (void *));
-
-int
-main ()
-{
-  /* Check that some macros are defined and different integer constants.  */
-  switch (exitcode)
-    {
-    case EXIT_SUCCESS:
-    case EXIT_FAILURE:
-      break;
-    }
-
-  return 0;
-}
+const char version_etc_copyright[] =
+  /* Do *not* mark this string for translation.  %s is a copyright
+     symbol suitable for this locale, and %d is the copyright
+     year.  */
+  "Copyright %s %d Free Software Foundation, Inc.";

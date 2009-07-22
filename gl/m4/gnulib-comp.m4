@@ -657,6 +657,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-vasnprintf.c
   tests/test-vc-list-files-cvs.sh
   tests/test-vc-list-files-git.sh
+  tests/test-version-etc.c
+  tests/test-version-etc.sh
   tests/test-wchar.c
   tests/test-wctype.c
   tests/zerosize-ptr.h
@@ -676,6 +678,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/sockets.h
   tests=lib/sys_ioctl.in.h
   tests=lib/unsetenv.c
+  tests=lib/version-etc-fsf.c
   tests=lib/w32sock.h
   tests=lib/wctob.c
   top/GNUmakefile

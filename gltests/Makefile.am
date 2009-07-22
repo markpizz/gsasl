@@ -556,6 +556,22 @@ EXTRA_DIST += test-vc-list-files-git.sh test-vc-list-files-cvs.sh
 
 ## end   gnulib module vc-list-files-tests
 
+## begin gnulib module version-etc-fsf
+
+libtests_a_SOURCES += version-etc-fsf.c
+
+## end   gnulib module version-etc-fsf
+
+## begin gnulib module version-etc-tests
+
+TESTS += test-version-etc.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
+check_PROGRAMS += test-version-etc
+test_version_etc_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-version-etc.c test-version-etc.sh
+
+## end   gnulib module version-etc-tests
+
 ## begin gnulib module wchar-tests
 
 TESTS += test-wchar
