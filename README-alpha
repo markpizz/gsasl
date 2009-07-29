@@ -26,7 +26,7 @@ We require several tools to build the software, including:
 - dia <http://live.gnome.org/Dia/> (for images in manual)
 - GnuTLS <http://www.gnu.org/software/gnutls/> (for TLS support)
 
-The required software is typically disitributed with your operating
+The required software is typically distributed with your operating
 system, and the instructions for installing them differ.  Here are
 some hints:
 
