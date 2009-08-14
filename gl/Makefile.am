@@ -319,7 +319,7 @@ EXTRA_libgl_la_SOURCES += getline.c
 
 ## end   gnulib module getline
 
-## begin gnulib module getopt
+## begin gnulib module getopt-posix
 
 BUILT_SOURCES += $(GETOPT_H)
 
@@ -336,7 +336,7 @@ EXTRA_DIST += getopt.c getopt.in.h getopt1.c getopt_int.h
 
 EXTRA_libgl_la_SOURCES += getopt.c getopt1.c
 
-## end   gnulib module getopt
+## end   gnulib module getopt-posix
 
 ## begin gnulib module getpagesize
 
@@ -748,6 +748,14 @@ EXTRA_DIST += socket.c w32sock.h
 EXTRA_libgl_la_SOURCES += socket.c
 
 ## end   gnulib module socket
+
+## begin gnulib module sockets
+
+libgl_la_SOURCES += sockets.h sockets.c
+
+EXTRA_DIST += w32sock.h
+
+## end   gnulib module sockets
 
 ## begin gnulib module stdarg
 
@@ -1225,6 +1233,7 @@ unistd.h: unistd.in.h
 	      -e 's|@''GNULIB_LSEEK''@|$(GNULIB_LSEEK)|g' \
 	      -e 's|@''GNULIB_READLINK''@|$(GNULIB_READLINK)|g' \
 	      -e 's|@''GNULIB_SLEEP''@|$(GNULIB_SLEEP)|g' \
+	      -e 's|@''GNULIB_UNISTD_H_GETOPT''@|$(GNULIB_UNISTD_H_GETOPT)|g' \
 	      -e 's|@''GNULIB_UNISTD_H_SIGPIPE''@|$(GNULIB_UNISTD_H_SIGPIPE)|g' \
 	      -e 's|@''GNULIB_WRITE''@|$(GNULIB_WRITE)|g' \
 	      -e 's|@''HAVE_DUP2''@|$(HAVE_DUP2)|g' \
@@ -1253,6 +1262,7 @@ unistd.h: unistd.in.h
 	      -e 's|@''REPLACE_LSEEK''@|$(REPLACE_LSEEK)|g' \
 	      -e 's|@''REPLACE_WRITE''@|$(REPLACE_WRITE)|g' \
 	      -e 's|@''UNISTD_H_HAVE_WINSOCK2_H''@|$(UNISTD_H_HAVE_WINSOCK2_H)|g' \
+	      -e 's|@''UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS''@|$(UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/unistd.in.h; \
 	} > $@-t

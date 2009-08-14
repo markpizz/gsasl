@@ -65,8 +65,8 @@ AC_SUBST([LTALLOCA])
   gl_HEADER_ERRNO_H
   gl_ERROR
   m4_ifdef([AM_XGETTEXT_OPTION],
-    [AM_XGETTEXT_OPTION([--flag=error:3:c-format])
-     AM_XGETTEXT_OPTION([--flag=error_at_line:5:c-format])])
+    [AM_][XGETTEXT_OPTION([--flag=error:3:c-format])
+     AM_][XGETTEXT_OPTION([--flag=error_at_line:5:c-format])])
   gl_EXITFAIL
   gl_FUNC_FCLOSE
   gl_STDIO_MODULE_INDICATOR([fclose])
@@ -79,7 +79,9 @@ AC_SUBST([LTALLOCA])
   gl_STDIO_MODULE_INDICATOR([getdelim])
   gl_FUNC_GETLINE
   gl_STDIO_MODULE_INDICATOR([getline])
-  gl_GETOPT
+  gl_FUNC_GETOPT_GNU
+  gl_MODULE_INDICATOR([getopt-gnu])
+  gl_FUNC_GETOPT_POSIX
   gl_FUNC_GETPAGESIZE
   gl_UNISTD_MODULE_INDICATOR([getpagesize])
   gl_FUNC_GETPASS
@@ -146,7 +148,17 @@ AC_SUBST([LTALLOCA])
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([socket])
   fi
+  # When this module is used, sockets may actually occur as file descriptors,
+  # hence it is worth warning if the modules 'close' and 'ioctl' are not used.
+  m4_ifdef([gl_UNISTD_H_DEFAULTS], [AC_REQUIRE([gl_UNISTD_H_DEFAULTS])])
+  m4_ifdef([gl_SYS_IOCTL_H_DEFAULTS], [AC_REQUIRE([gl_SYS_IOCTL_H_DEFAULTS])])
+  AC_REQUIRE([gl_PREREQ_SYS_H_WINSOCK2])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS=1
+    SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS=1
+  fi
   gl_SYS_SOCKET_MODULE_INDICATOR([socket])
+  gl_SOCKETS
   gl_TYPE_SOCKLEN_T
   gl_STDARG_H
   AM_STDBOOL_H
@@ -237,6 +249,9 @@ AC_SUBST([LTALLOCA])
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
+    dnl Even if the 'socket' module is not used here, another part of the
+    dnl application may use it and pass file descriptors that refer to
+    dnl sockets to the ioctl() function. So enable the support for sockets.
     AC_LIBOBJ([ioctl])
     gl_REPLACE_SYS_IOCTL_H
   fi
@@ -266,7 +281,6 @@ AC_SUBST([LTALLOCA])
     AC_LIBOBJ([setsockopt])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([setsockopt])
-  gl_SOCKETS
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
   gl_SYS_IOCTL_H
@@ -457,6 +471,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/size_max.h
   lib/snprintf.c
   lib/socket.c
+  lib/sockets.c
+  lib/sockets.h
   lib/stdarg.in.h
   lib/stdbool.in.h
   lib/stdint.in.h
@@ -616,6 +632,9 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-getaddrinfo.c
   tests/test-getdelim.c
   tests/test-getline.c
+  tests/test-getopt.c
+  tests/test-getopt.h
+  tests/test-getopt_long.h
   tests/test-gettimeofday.c
   tests/test-iconv.c
   tests/test-lseek.c
@@ -674,8 +693,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/perror.c
   tests=lib/setenv.c
   tests=lib/setsockopt.c
-  tests=lib/sockets.c
-  tests=lib/sockets.h
   tests=lib/sys_ioctl.in.h
   tests=lib/unsetenv.c
   tests=lib/version-etc-fsf.c

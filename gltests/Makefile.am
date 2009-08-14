@@ -160,6 +160,14 @@ EXTRA_DIST += test-getline.c
 
 ## end   gnulib module getline-tests
 
+## begin gnulib module getopt-posix-tests
+
+TESTS += test-getopt
+check_PROGRAMS += test-getopt
+EXTRA_DIST += test-getopt.c test-getopt.h test-getopt_long.h
+
+## end   gnulib module getopt-posix-tests
+
 ## begin gnulib module gettext
 
 # This is for those projects which use "gettextize --intl" to put a source-code
@@ -386,14 +394,6 @@ EXTRA_DIST += test-snprintf.c
 
 ## end   gnulib module snprintf-tests
 
-## begin gnulib module sockets
-
-libtests_a_SOURCES += sockets.h sockets.c
-
-EXTRA_DIST += w32sock.h
-
-## end   gnulib module sockets
-
 ## begin gnulib module sockets-tests
 
 TESTS += test-sockets
@@ -482,6 +482,7 @@ sys/ioctl.h: sys_ioctl.in.h
 	      -e 's|@''NEXT_SYS_IOCTL_H''@|$(NEXT_SYS_IOCTL_H)|g' \
 	      -e 's|@''GNULIB_IOCTL''@|$(GNULIB_IOCTL)|g' \
 	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H)|g' \
+	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/sys_ioctl.in.h; \
 	} > $@-t
