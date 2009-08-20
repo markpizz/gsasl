@@ -87,6 +87,7 @@ AC_DEFUN([gl_INIT],
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
   gl_SIZE_MAX
   AM_STDBOOL_H
+  gl_STDDEF_H
   gl_STDINT_H
   gl_STDIO_H
   gl_STDLIB_H
@@ -269,6 +270,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/realloc.c
   lib/size_max.h
   lib/stdbool.in.h
+  lib/stddef.in.h
   lib/stdint.in.h
   lib/stdio-write.c
   lib/stdio.in.h
@@ -332,6 +334,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/realloc.m4
   m4/size_max.m4
   m4/stdbool.m4
+  m4/stddef_h.m4
   m4/stdint.m4
   m4/stdint_h.m4
   m4/stdio_h.m4
@@ -358,6 +361,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-getline.c
   tests/test-memchr.c
   tests/test-stdbool.c
+  tests/test-stddef.c
   tests/test-stdint.c
   tests/test-stdio.c
   tests/test-stdlib.c
