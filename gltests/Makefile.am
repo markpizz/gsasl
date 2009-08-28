@@ -164,6 +164,7 @@ EXTRA_DIST += test-getline.c
 
 TESTS += test-getopt
 check_PROGRAMS += test-getopt
+test_getopt_LDADD = $(LDADD) $(LIBINTL)
 EXTRA_DIST += test-getopt.c test-getopt.h test-getopt_long.h
 
 ## end   gnulib module getopt-posix-tests
@@ -482,8 +483,8 @@ BUILT_SOURCES += $(SYS_IOCTL_H)
 # We need the following in order to create <sys/ioctl.h> when the system
 # does not have a complete one.
 sys/ioctl.h: sys_ioctl.in.h
-	@MKDIR_P@ sys
-	rm -f $@-t $@
+	$(AM_V_at)@MKDIR_P@ sys
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''HAVE_SYS_IOCTL_H''@|$(HAVE_SYS_IOCTL_H)|g' \
 	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
@@ -494,7 +495,7 @@ sys/ioctl.h: sys_ioctl.in.h
 	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/sys_ioctl.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += sys/ioctl.h sys/ioctl.h-t
 MOSTLYCLEANDIRS += sys

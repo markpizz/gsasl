@@ -63,9 +63,10 @@ BUILT_SOURCES += $(ALLOCA_H)
 # We need the following in order to create <alloca.h> when the system
 # doesn't have one that works with the given compiler.
 alloca.h: alloca.in.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/alloca.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv -f $@-t $@
 MOSTLYCLEANFILES += alloca.h alloca.h-t
 
@@ -80,8 +81,8 @@ BUILT_SOURCES += $(ARPA_INET_H)
 # We need the following in order to create <arpa/inet.h> when the system
 # doesn't have one.
 arpa/inet.h: arpa_inet.in.h
-	@MKDIR_P@ arpa
-	rm -f $@-t $@
+	$(AM_V_at)@MKDIR_P@ arpa
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -93,7 +94,7 @@ arpa/inet.h: arpa_inet.in.h
 	      -e 's|@''HAVE_DECL_INET_PTON''@|$(HAVE_DECL_INET_PTON)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/arpa_inet.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += arpa/inet.h arpa/inet.h-t
 MOSTLYCLEANDIRS += arpa
@@ -151,7 +152,7 @@ EXTRA_DIST += close-hook.h
 # The Automake-defined pkg* macros are appended, in the order
 # listed in the Automake 1.10a+ documentation.
 configmake.h: Makefile
-	rm -f $@-t
+	$(AM_V_GEN)rm -f $@-t && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  echo '#define PREFIX "$(prefix)"'; \
 	  echo '#define EXEC_PREFIX "$(exec_prefix)"'; \
@@ -180,7 +181,7 @@ configmake.h: Makefile
 	  echo '#define PKGINCLUDEDIR "$(pkgincludedir)"'; \
 	  echo '#define PKGLIBDIR "$(pkglibdir)"'; \
 	  echo '#define PKGLIBEXECDIR "$(pkglibexecdir)"'; \
-	} | sed '/""/d' > $@-t
+	} | sed '/""/d' > $@-t && \
 	if test -f $@ && cmp $@-t $@ > /dev/null; then \
 	  rm -f $@-t; \
 	else \
@@ -208,7 +209,7 @@ BUILT_SOURCES += $(ERRNO_H)
 # We need the following in order to create <errno.h> when the system
 # doesn't have one that is POSIX compliant.
 errno.h: errno.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -220,7 +221,7 @@ errno.h: errno.in.h
 	      -e 's|@''EOVERFLOW_HIDDEN''@|$(EOVERFLOW_HIDDEN)|g' \
 	      -e 's|@''EOVERFLOW_VALUE''@|$(EOVERFLOW_VALUE)|g' \
 	      < $(srcdir)/errno.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += errno.h errno.h-t
 
@@ -262,13 +263,13 @@ BUILT_SOURCES += $(FLOAT_H)
 # We need the following in order to create <float.h> when the system
 # doesn't have one that works with the given compiler.
 float.h: float.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
 	      -e 's|@''NEXT_FLOAT_H''@|$(NEXT_FLOAT_H)|g' \
 	      < $(srcdir)/float.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += float.h float.h-t
 
@@ -326,9 +327,10 @@ BUILT_SOURCES += $(GETOPT_H)
 # We need the following in order to create <getopt.h> when the system
 # doesn't have one that works with the given compiler.
 getopt.h: getopt.in.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/getopt.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv -f $@-t $@
 MOSTLYCLEANFILES += getopt.h getopt.h-t
 
@@ -392,7 +394,7 @@ BUILT_SOURCES += $(ICONV_H)
 # We need the following in order to create <iconv.h> when the system
 # doesn't have one that works with the given compiler.
 iconv.h: iconv.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -402,7 +404,7 @@ iconv.h: iconv.in.h
 	      -e 's|@''REPLACE_ICONV_OPEN''@|$(REPLACE_ICONV_OPEN)|g' \
 	      -e 's|@''REPLACE_ICONV_UTF''@|$(REPLACE_ICONV_UTF)|g' \
 	      < $(srcdir)/iconv.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += iconv.h iconv.h-t
 
@@ -511,14 +513,14 @@ uninstall-localcharset: all-local
 	fi
 
 charset.alias: config.charset
-	rm -f t-$@ $@
-	$(SHELL) $(srcdir)/config.charset '$(host)' > t-$@
+	$(AM_V_GEN)rm -f t-$@ $@ && \
+	$(SHELL) $(srcdir)/config.charset '$(host)' > t-$@ && \
 	mv t-$@ $@
 
 SUFFIXES += .sed .sin
 .sin.sed:
-	rm -f t-$@ $@
-	sed -e '/^#/d' -e 's/@''PACKAGE''@/$(PACKAGE)/g' $< > t-$@
+	$(AM_V_GEN)rm -f t-$@ $@ && \
+	sed -e '/^#/d' -e 's/@''PACKAGE''@/$(PACKAGE)/g' $< > t-$@ && \
 	mv t-$@ $@
 
 CLEANFILES += charset.alias ref-add.sed ref-del.sed
@@ -585,7 +587,7 @@ BUILT_SOURCES += $(NETDB_H)
 # We need the following in order to create <netdb.h> when the system
 # doesn't have one that works with the given compiler.
 netdb.h: netdb.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -598,7 +600,7 @@ netdb.h: netdb.in.h
 	      -e 's|@''HAVE_DECL_GETADDRINFO''@|$(HAVE_DECL_GETADDRINFO)|g' \
 	      -e 's|@''HAVE_DECL_GETNAMEINFO''@|$(HAVE_DECL_GETNAMEINFO)|g' \
 	      < $(srcdir)/netdb.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += netdb.h netdb.h-t
 
@@ -613,15 +615,15 @@ BUILT_SOURCES += $(NETINET_IN_H)
 # We need the following in order to create <netinet/in.h> when the system
 # doesn't have one.
 netinet/in.h: netinet_in.in.h
-	@MKDIR_P@ netinet
-	rm -f $@-t $@
+	$(AM_V_at)@MKDIR_P@ netinet
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
 	      -e 's|@''NEXT_NETINET_IN_H''@|$(NEXT_NETINET_IN_H)|g' \
 	      -e 's|@''HAVE_NETINET_IN_H''@|$(HAVE_NETINET_IN_H)|g' \
 	      < $(srcdir)/netinet_in.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += netinet/in.h netinet/in.h-t
 MOSTLYCLEANDIRS += netinet
@@ -644,9 +646,10 @@ BUILT_SOURCES += $(POLL_H)
 # We need the following in order to create <poll.h> when the system
 # doesn't have one.
 poll.h: poll.in.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/poll.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv -f $@-t $@
 MOSTLYCLEANFILES += poll.h poll.h-t
 
@@ -764,13 +767,13 @@ BUILT_SOURCES += $(STDARG_H)
 # We need the following in order to create <stdarg.h> when the system
 # doesn't have one that works with the given compiler.
 stdarg.h: stdarg.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
 	      -e 's|@''NEXT_STDARG_H''@|$(NEXT_STDARG_H)|g' \
 	      < $(srcdir)/stdarg.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += stdarg.h stdarg.h-t
 
@@ -785,10 +788,10 @@ BUILT_SOURCES += $(STDBOOL_H)
 # We need the following in order to create <stdbool.h> when the system
 # doesn't have one that works.
 stdbool.h: stdbool.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's/@''HAVE__BOOL''@/$(HAVE__BOOL)/g' < $(srcdir)/stdbool.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += stdbool.h stdbool.h-t
 
@@ -803,7 +806,7 @@ BUILT_SOURCES += $(STDDEF_H)
 # We need the following in order to create <stddef.h> when the system
 # doesn't have one that works with the given compiler.
 stddef.h: stddef.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -811,7 +814,7 @@ stddef.h: stddef.in.h
 	      -e 's|@''HAVE_WCHAR_T''@|$(HAVE_WCHAR_T)|g' \
 	      -e 's|@''REPLACE_NULL''@|$(REPLACE_NULL)|g' \
 	      < $(srcdir)/stddef.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += stddef.h stddef.h-t
 
@@ -826,7 +829,7 @@ BUILT_SOURCES += $(STDINT_H)
 # We need the following in order to create <stdint.h> when the system
 # doesn't have one that works with the given compiler.
 stdint.h: stdint.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's/@''HAVE_STDINT_H''@/$(HAVE_STDINT_H)/g' \
 	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
@@ -853,7 +856,7 @@ stdint.h: stdint.in.h
 	      -e 's/@''HAVE_SIGNED_WINT_T''@/$(HAVE_SIGNED_WINT_T)/g' \
 	      -e 's/@''WINT_T_SUFFIX''@/$(WINT_T_SUFFIX)/g' \
 	      < $(srcdir)/stdint.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += stdint.h stdint.h-t
 
@@ -868,7 +871,7 @@ BUILT_SOURCES += stdio.h
 # We need the following in order to create <stdio.h> when the system
 # doesn't have one that works with the given compiler.
 stdio.h: stdio.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -946,7 +949,7 @@ stdio.h: stdio.in.h
 	      -e 's|@''REPLACE_PERROR''@|$(REPLACE_PERROR)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/stdio.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += stdio.h stdio.h-t
 
@@ -963,7 +966,7 @@ BUILT_SOURCES += stdlib.h
 # We need the following in order to create <stdlib.h> when the system
 # doesn't have one that works with the given compiler.
 stdlib.h: stdlib.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -976,6 +979,7 @@ stdlib.h: stdlib.in.h
 	      -e 's|@''GNULIB_GETLOADAVG''@|$(GNULIB_GETLOADAVG)|g' \
 	      -e 's|@''GNULIB_GETSUBOPT''@|$(GNULIB_GETSUBOPT)|g' \
 	      -e 's|@''GNULIB_MKDTEMP''@|$(GNULIB_MKDTEMP)|g' \
+	      -e 's|@''GNULIB_MKOSTEMP''@|$(GNULIB_MKOSTEMP)|g' \
 	      -e 's|@''GNULIB_MKSTEMP''@|$(GNULIB_MKSTEMP)|g' \
 	      -e 's|@''GNULIB_PUTENV''@|$(GNULIB_PUTENV)|g' \
 	      -e 's|@''GNULIB_RANDOM_R''@|$(GNULIB_RANDOM_R)|g' \
@@ -990,6 +994,7 @@ stdlib.h: stdlib.in.h
 	      -e 's|@''HAVE_GETSUBOPT''@|$(HAVE_GETSUBOPT)|g' \
 	      -e 's|@''HAVE_MALLOC_POSIX''@|$(HAVE_MALLOC_POSIX)|g' \
 	      -e 's|@''HAVE_MKDTEMP''@|$(HAVE_MKDTEMP)|g' \
+	      -e 's|@''HAVE_MKOSTEMP''@|$(HAVE_MKOSTEMP)|g' \
 	      -e 's|@''HAVE_REALLOC_POSIX''@|$(HAVE_REALLOC_POSIX)|g' \
 	      -e 's|@''HAVE_RANDOM_R''@|$(HAVE_RANDOM_R)|g' \
 	      -e 's|@''HAVE_RPMATCH''@|$(HAVE_RPMATCH)|g' \
@@ -1007,7 +1012,7 @@ stdlib.h: stdlib.in.h
 	      -e 's|@''VOID_UNSETENV''@|$(VOID_UNSETENV)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/stdlib.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += stdlib.h stdlib.h-t
 
@@ -1056,7 +1061,7 @@ BUILT_SOURCES += string.h
 # We need the following in order to create <string.h> when the system
 # doesn't have one that works with the given compiler.
 string.h: string.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -1121,7 +1126,7 @@ string.h: string.in.h
 	      -e 's|@''REPLACE_STRSIGNAL''@|$(REPLACE_STRSIGNAL)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/string.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += string.h string.h-t
 
@@ -1136,8 +1141,8 @@ BUILT_SOURCES += $(SYS_SELECT_H)
 # We need the following in order to create <sys/select.h> when the system
 # doesn't have one that works with the given compiler.
 sys/select.h: sys_select.in.h
-	@MKDIR_P@ sys
-	rm -f $@-t $@
+	$(AM_V_at)@MKDIR_P@ sys
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -1148,7 +1153,7 @@ sys/select.h: sys_select.in.h
 	      -e 's|@''REPLACE_SELECT''@|$(REPLACE_SELECT)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/sys_select.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += sys/select.h sys/select.h-t
 MOSTLYCLEANDIRS += sys
@@ -1164,7 +1169,8 @@ BUILT_SOURCES += $(SYS_SOCKET_H)
 # We need the following in order to create <sys/socket.h> when the system
 # doesn't have one that works with the given compiler.
 sys/socket.h: sys_socket.in.h
-	@MKDIR_P@ sys
+	$(AM_V_at)@MKDIR_P@ sys
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -1185,13 +1191,15 @@ sys/socket.h: sys_socket.in.h
 	      -e 's|@''GNULIB_SENDTO''@|$(GNULIB_SENDTO)|g' \
 	      -e 's|@''GNULIB_SETSOCKOPT''@|$(GNULIB_SETSOCKOPT)|g' \
 	      -e 's|@''GNULIB_SHUTDOWN''@|$(GNULIB_SHUTDOWN)|g' \
+	      -e 's|@''GNULIB_ACCEPT4''@|$(GNULIB_ACCEPT4)|g' \
 	      -e 's|@''HAVE_WINSOCK2_H''@|$(HAVE_WINSOCK2_H)|g' \
 	      -e 's|@''HAVE_WS2TCPIP_H''@|$(HAVE_WS2TCPIP_H)|g' \
 	      -e 's|@''HAVE_STRUCT_SOCKADDR_STORAGE''@|$(HAVE_STRUCT_SOCKADDR_STORAGE)|g' \
 	      -e 's|@''HAVE_SA_FAMILY_T''@|$(HAVE_SA_FAMILY_T)|g' \
+	      -e 's|@''HAVE_ACCEPT4''@|$(HAVE_ACCEPT4)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/sys_socket.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv -f $@-t $@
 MOSTLYCLEANFILES += sys/socket.h sys/socket.h-t
 MOSTLYCLEANDIRS += sys
@@ -1207,8 +1215,8 @@ BUILT_SOURCES += $(SYS_TIME_H)
 # We need the following in order to create <sys/time.h> when the system
 # doesn't have one that works with the given compiler.
 sys/time.h: sys_time.in.h
-	@MKDIR_P@ sys
-	rm -f $@-t $@
+	$(AM_V_at)@MKDIR_P@ sys
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's/@''HAVE_SYS_TIME_H''@/$(HAVE_SYS_TIME_H)/g' \
 	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
@@ -1217,7 +1225,7 @@ sys/time.h: sys_time.in.h
 	      -e 's/@''REPLACE_GETTIMEOFDAY''@/$(REPLACE_GETTIMEOFDAY)/g' \
 	      -e 's/@''HAVE_STRUCT_TIMEVAL''@/$(HAVE_STRUCT_TIMEVAL)/g' \
 	      < $(srcdir)/sys_time.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += sys/time.h sys/time.h-t
 
@@ -1232,7 +1240,7 @@ BUILT_SOURCES += unistd.h
 # We need the following in order to create an empty placeholder for
 # <unistd.h> when the system doesn't have one.
 unistd.h: unistd.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''HAVE_UNISTD_H''@|$(HAVE_UNISTD_H)|g' \
 	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
@@ -1241,6 +1249,7 @@ unistd.h: unistd.in.h
 	      -e 's|@''GNULIB_CHOWN''@|$(GNULIB_CHOWN)|g' \
 	      -e 's|@''GNULIB_CLOSE''@|$(GNULIB_CLOSE)|g' \
 	      -e 's|@''GNULIB_DUP2''@|$(GNULIB_DUP2)|g' \
+	      -e 's|@''GNULIB_DUP3''@|$(GNULIB_DUP3)|g' \
 	      -e 's|@''GNULIB_ENVIRON''@|$(GNULIB_ENVIRON)|g' \
 	      -e 's|@''GNULIB_EUIDACCESS''@|$(GNULIB_EUIDACCESS)|g' \
 	      -e 's|@''GNULIB_FCHDIR''@|$(GNULIB_FCHDIR)|g' \
@@ -1256,12 +1265,14 @@ unistd.h: unistd.in.h
 	      -e 's|@''GNULIB_LCHOWN''@|$(GNULIB_LCHOWN)|g' \
 	      -e 's|@''GNULIB_LINK''@|$(GNULIB_LINK)|g' \
 	      -e 's|@''GNULIB_LSEEK''@|$(GNULIB_LSEEK)|g' \
+	      -e 's|@''GNULIB_PIPE2''@|$(GNULIB_PIPE2)|g' \
 	      -e 's|@''GNULIB_READLINK''@|$(GNULIB_READLINK)|g' \
 	      -e 's|@''GNULIB_SLEEP''@|$(GNULIB_SLEEP)|g' \
 	      -e 's|@''GNULIB_UNISTD_H_GETOPT''@|$(GNULIB_UNISTD_H_GETOPT)|g' \
 	      -e 's|@''GNULIB_UNISTD_H_SIGPIPE''@|$(GNULIB_UNISTD_H_SIGPIPE)|g' \
 	      -e 's|@''GNULIB_WRITE''@|$(GNULIB_WRITE)|g' \
 	      -e 's|@''HAVE_DUP2''@|$(HAVE_DUP2)|g' \
+	      -e 's|@''HAVE_DUP3''@|$(HAVE_DUP3)|g' \
 	      -e 's|@''HAVE_EUIDACCESS''@|$(HAVE_EUIDACCESS)|g' \
 	      -e 's|@''HAVE_FSYNC''@|$(HAVE_FSYNC)|g' \
 	      -e 's|@''HAVE_FTRUNCATE''@|$(HAVE_FTRUNCATE)|g' \
@@ -1271,6 +1282,7 @@ unistd.h: unistd.in.h
 	      -e 's|@''HAVE_GETPAGESIZE''@|$(HAVE_GETPAGESIZE)|g' \
 	      -e 's|@''HAVE_GETUSERSHELL''@|$(HAVE_GETUSERSHELL)|g' \
 	      -e 's|@''HAVE_LINK''@|$(HAVE_LINK)|g' \
+	      -e 's|@''HAVE_PIPE2''@|$(HAVE_PIPE2)|g' \
 	      -e 's|@''HAVE_READLINK''@|$(HAVE_READLINK)|g' \
 	      -e 's|@''HAVE_SLEEP''@|$(HAVE_SLEEP)|g' \
 	      -e 's|@''HAVE_DECL_ENVIRON''@|$(HAVE_DECL_ENVIRON)|g' \
@@ -1290,7 +1302,7 @@ unistd.h: unistd.in.h
 	      -e 's|@''UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS''@|$(UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/unistd.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += unistd.h unistd.h-t
 
@@ -1340,7 +1352,7 @@ BUILT_SOURCES += $(WCHAR_H)
 # We need the following in order to create <wchar.h> when the system
 # version does not work standalone.
 wchar.h: wchar.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
@@ -1383,7 +1395,7 @@ wchar.h: wchar.in.h
 	      -e 's|@''REPLACE_WCWIDTH''@|$(REPLACE_WCWIDTH)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	    < $(srcdir)/wchar.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += wchar.h wchar.h-t
 
@@ -1398,7 +1410,7 @@ BUILT_SOURCES += $(WCTYPE_H)
 # We need the following in order to create <wctype.h> when the system
 # doesn't have one that works with the given compiler.
 wctype.h: wctype.in.h
-	rm -f $@-t $@
+	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's/@''HAVE_WCTYPE_H''@/$(HAVE_WCTYPE_H)/g' \
 	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
@@ -1408,7 +1420,7 @@ wctype.h: wctype.in.h
 	      -e 's/@''HAVE_WINT_T''@/$(HAVE_WINT_T)/g' \
 	      -e 's/@''REPLACE_ISWCNTRL''@/$(REPLACE_ISWCNTRL)/g' \
 	      < $(srcdir)/wctype.in.h; \
-	} > $@-t
+	} > $@-t && \
 	mv $@-t $@
 MOSTLYCLEANFILES += wctype.h wctype.h-t
 

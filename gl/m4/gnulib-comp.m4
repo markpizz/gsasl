@@ -123,6 +123,7 @@ AC_SUBST([LTALLOCA])
   AC_PROG_MKDIR_P
   gl_PMCCABE2HTML
   gl_FUNC_POLL
+  AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
   gl_QUOTE
   gl_QUOTEARG
   gl_FUNC_READLINE
