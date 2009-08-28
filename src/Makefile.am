@@ -27,7 +27,7 @@ gsasl_SOURCES = gsasl.c \
 	imap.c imap.h smtp.c smtp.h \
 	callbacks.h callbacks.c internal.h
 gsasl_LDADD = ../lib/src/libgsasl.la ../gl/libgl.la \
-	$(LTLIBREADLINE) $(LTLIBGNUTLS) $(LIBSOCKET) \
+	$(LTLIBREADLINE) $(LTLIBGNUTLS) $(LIBSOCKET) $(LTLIBINTL) \
 	libgsasl_cmd.la
 
 noinst_LTLIBRARIES = libgsasl_cmd.la
