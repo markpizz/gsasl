@@ -11,6 +11,10 @@ SASL.  That include the manual, the command line tool, and self tests.
 ** gsasl: Fix libintl-related build errors on MinGW.
 Tiny patch from "carlo.bramix" <carlo.bramix@libero.it>.
 
+** doc: Typo fixes to manual.
+Based on report by Marco Maggi <marco.maggi-ipsu@poste.it> in
+<http://thread.gmane.org/gmane.comp.gnu.gsasl.general/222>.
+
 ** tests: Rewrite basic self test using modern API.
 
 ** tests: New self-test 'crypto' to increase code coverage.
