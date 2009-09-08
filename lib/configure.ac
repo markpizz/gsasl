@@ -152,6 +152,18 @@ AC_MSG_CHECKING([if DIGEST-MD5 should be used])
 AC_MSG_RESULT($digest_md5)
 AM_CONDITIONAL(DIGEST_MD5, test x$digest_md5 = xyes)
 
+# SCRAM-SHA1
+AC_ARG_ENABLE(scram-sha1,
+  AS_HELP_STRING([--disable-scram-sha1], [use the SCRAM-SHA1 mechanism]),
+  scram_sha1=$enableval, scram_sha1=no)
+if test "$scram_sha1" != "no" ; then
+  scram_sha1=yes
+  AC_DEFINE(USE_SCRAM_SHA1, 1, [Define to 1 if you want SCRAM-SHA1.])
+fi
+AC_MSG_CHECKING([if SCRAM-SHA1 should be used])
+AC_MSG_RESULT($scram_sha1)
+AM_CONDITIONAL(SCRAM_SHA1, test x$scram_sha1 = xyes)
+
 # GS2, first part
 AC_ARG_ENABLE(gs2,
   AS_HELP_STRING([--enable-gs2], [use the GS2 mechanism]),
@@ -390,6 +402,7 @@ AC_CONFIG_FILES([
   anonymous/Makefile
   cram-md5/Makefile
   digest-md5/Makefile
+  scram/Makefile
   external/Makefile
   gl/Makefile
   gltests/Makefile
