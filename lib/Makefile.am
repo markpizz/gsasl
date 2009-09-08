@@ -58,7 +58,7 @@ if DIGEST_MD5
 SUBDIRS += digest-md5
 endif
 
-if SCRAM_SHA1
+if SCRAM
 SUBDIRS += scram
 endif
 

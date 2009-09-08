@@ -27,13 +27,18 @@
 /* Get specification. */
 #include "scram.h"
 
-Gsasl_mechanism gsasl_cram_md5_mechanism = {
+#ifdef USE_SCRAM_SHA1
+Gsasl_mechanism gsasl_scram_sha1_mechanism = {
   GSASL_SCRAM_SHA1_NAME,
   {
     NULL,
     NULL,
     NULL,
+#ifdef USE_CLIENT
+    _gsasl_scram_client_step,
+#else
     NULL,
+#endif
     NULL,
     NULL,
     NULL
@@ -48,3 +53,32 @@ Gsasl_mechanism gsasl_cram_md5_mechanism = {
     NULL
   }
 };
+#endif
+
+#ifdef USE_SCRAM_SHA1_PLUS
+Gsasl_mechanism gsasl_scram_sha1_plus_mechanism = {
+  GSASL_SCRAM_SHA1_PLUS_NAME,
+  {
+    NULL,
+    NULL,
+    NULL,
+#ifdef USE_CLIENT
+    _gsasl_scram_client_step,
+#else
+    NULL,
+#endif
+    NULL,
+    NULL,
+    NULL
+  },
+  {
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  }
+};
+#endif

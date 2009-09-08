@@ -85,6 +85,10 @@ if DIGEST_MD5
 libgsasl_la_LIBADD += ../digest-md5/libgsasl-digest_md5.la
 endif
 
+if SCRAM
+libgsasl_la_LIBADD += ../scram/libgsasl-scram.la
+endif
+
 if NTLM
 libgsasl_la_LIBADD += ../ntlm/libgsasl-ntlm.la
 endif

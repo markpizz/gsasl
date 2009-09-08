@@ -34,6 +34,7 @@
 #include "plain/plain.h"
 #include "securid/securid.h"
 #include "digest-md5/digest-md5.h"
+#include "scram/scram.h"
 
 #include "login/login.h"
 #include "ntlm/x-ntlm.h"
@@ -100,6 +101,18 @@ register_builtin_mechs (Gsasl * ctx)
   if (rc != GSASL_OK)
     return rc;
 #endif /* USE_CRAM_MD5 */
+
+#ifdef USE_SCRAM_SHA1
+  rc = gsasl_register (ctx, &gsasl_scram_sha1_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_SCRAM_SHA1 */
+
+#ifdef USE_SCRAM_SHA1_PLUS
+  rc = gsasl_register (ctx, &gsasl_scram_sha1_plus_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_SCRAM_SHA1_PLUS */
 
 #ifdef USE_GSSAPI
   rc = gsasl_register (ctx, &gsasl_gssapi_mechanism);

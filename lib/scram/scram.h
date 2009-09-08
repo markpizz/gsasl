@@ -25,8 +25,16 @@
 
 #include <gsasl.h>
 
-#define GSASL_SCRAM_SHA1_NAME "SCRAM-SHA1"
+#define GSASL_SCRAM_SHA1_NAME "SCRAM-SHA-1"
+#define GSASL_SCRAM_SHA1_PLUS_NAME "SCRAM-SHA-1-PLUS"
 
 extern Gsasl_mechanism gsasl_scram_sha1_mechanism;
+extern Gsasl_mechanism gsasl_scram_sha1_plus_mechanism;
+
+int
+_gsasl_scram_client_step (Gsasl_session * sctx,
+			  void *mech_data,
+			  const char *input, size_t input_len,
+			  char **output, size_t * output_len);
 
 #endif /* SCRAM_H */

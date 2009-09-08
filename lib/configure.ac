@@ -152,17 +152,30 @@ AC_MSG_CHECKING([if DIGEST-MD5 should be used])
 AC_MSG_RESULT($digest_md5)
 AM_CONDITIONAL(DIGEST_MD5, test x$digest_md5 = xyes)
 
-# SCRAM-SHA1
+# SCRAM-SHA-1 and SCRAM-SHA-1-PLUS
 AC_ARG_ENABLE(scram-sha1,
-  AS_HELP_STRING([--disable-scram-sha1], [use the SCRAM-SHA1 mechanism]),
+  AS_HELP_STRING([--enable-scram-sha1], [use the SCRAM-SHA-1 mechanism]),
   scram_sha1=$enableval, scram_sha1=no)
 if test "$scram_sha1" != "no" ; then
   scram_sha1=yes
-  AC_DEFINE(USE_SCRAM_SHA1, 1, [Define to 1 if you want SCRAM-SHA1.])
+  AC_DEFINE(USE_SCRAM_SHA1, 1, [Define to 1 if you want SCRAM-SHA-1.])
 fi
-AC_MSG_CHECKING([if SCRAM-SHA1 should be used])
+AC_MSG_CHECKING([if SCRAM-SHA-1 should be used])
 AC_MSG_RESULT($scram_sha1)
-AM_CONDITIONAL(SCRAM_SHA1, test x$scram_sha1 = xyes)
+
+AC_ARG_ENABLE(scram-sha1-plus,
+  AS_HELP_STRING([--enable-scram-sha1-plus],
+                 [use the SCRAM-SHA-1-PLUS mechanism]),
+  scram_sha1_plus=$enableval, scram_sha1_plus=no)
+if test "$scram_sha1_plus" != "no" ; then
+  scram_sha1_plus=yes
+  AC_DEFINE(USE_SCRAM_SHA1_PLUS, 1,
+    [Define to 1 if you want SCRAM-SHA-1-PLUS.])
+fi
+AC_MSG_CHECKING([if SCRAM-SHA-1-PLUS should be used])
+AC_MSG_RESULT($scram_sha1_plus)
+
+AM_CONDITIONAL(SCRAM, test "$scram_sha1$scram_sha1_plus" != "nono")
 
 # GS2, first part
 AC_ARG_ENABLE(gs2,
