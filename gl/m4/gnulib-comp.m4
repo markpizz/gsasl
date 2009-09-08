@@ -437,6 +437,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/iconv_open-hpux.gperf
   lib/iconv_open-irix.gperf
   lib/iconv_open-osf.gperf
+  lib/iconv_open-solaris.gperf
   lib/iconv_open.c
   lib/inet_ntop.c
   lib/intprops.h

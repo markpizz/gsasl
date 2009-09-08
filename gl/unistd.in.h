@@ -106,6 +106,15 @@
 # define STDERR_FILENO 2
 #endif
 
+/* Ensure *_OK functions exist.  */
+#ifndef F_OK
+# define F_OK 0
+# define X_OK 1
+# define W_OK 2
+# define R_OK 4
+#endif
+
+
 /* Declare overridden functions.  */
 
 #ifdef __cplusplus
@@ -137,6 +146,72 @@ extern int chown (const char *file, uid_t uid, gid_t gid);
      chown (f, u, g))
 #endif
 
+
+#if @GNULIB_FCHOWNAT@
+# if @REPLACE_FCHOWNAT@
+#  undef fchownat
+#  define fchownat rpl_fchownat
+# endif
+# if !@HAVE_FCHOWNAT@ || @REPLACE_FCHOWNAT@
+extern int fchownat (int fd, char const *file, uid_t owner, gid_t group, int flag);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef fchownat
+# define fchownat(d,n,o,g,f)			    \
+    (GL_LINK_WARNING ("fchownat is not portable - " \
+                      "use gnulib module openat for portability"), \
+     fchownat (d, n, o, g, f))
+#endif
+
+
+#if @GNULIB_UNLINKAT@
+# if !@HAVE_UNLINKAT@
+extern int unlinkat (int fd, char const *file, int flag);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef unlinkat
+# define unlinkat(d,n,f)                         \
+    (GL_LINK_WARNING ("unlinkat is not portable - " \
+                      "use gnulib module openat for portability"), \
+     unlinkat (d, n, f))
+#endif
+
+
+#if @GNULIB_FACCESSAT@
+# if !@HAVE_FACCESSAT@
+int faccessat (int fd, char const *file, int mode, int flag);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef faccessat
+# define faccessat(d,n,m,f)			    \
+    (GL_LINK_WARNING ("faccessat is not portable - " \
+                      "use gnulib module faccessat for portability"), \
+     faccessat (d, n, m, f))
+#endif
+
+#if @GNULIB_SYMLINKAT@
+# if !@HAVE_SYMLINKAT@
+int symlinkat (char const *contents, int fd, char const *file);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef symlinkat
+# define symlinkat(c,d,n)			     \
+    (GL_LINK_WARNING ("symlinkat is not portable - " \
+                      "use gnulib module symlinkat for portability"), \
+     symlinkat (c, d, n))
+#endif
+
+#if @GNULIB_READLINKAT@
+# if !@HAVE_READLINKAT@
+ssize_t readlinkat (int fd, char const *file, char *buf, size_t len);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef readlinkat
+# define readlinkat(d,n,b,l)			     \
+    (GL_LINK_WARNING ("readlinkat is not portable - " \
+                      "use gnulib module symlinkat for portability"), \
+     readlinkat (d, n, b, l))
+#endif
 
 #if @GNULIB_CLOSE@
 # if @REPLACE_CLOSE@
@@ -248,11 +323,11 @@ extern int fchdir (int /*fd*/);
 #  define dup rpl_dup
 extern int dup (int);
 
-#  if @REPLACE_DUP2@
-#   undef dup2
-#  endif
-#  define dup2 rpl_dup2_fchdir
-extern int dup2 (int, int);
+/* Gnulib internal hooks needed to maintain the fchdir metadata.  */
+extern int _gl_register_fd (int fd, const char *filename);
+extern void _gl_unregister_fd (int fd);
+extern int _gl_register_dup (int oldfd, int newfd);
+extern const char *_gl_directory_name (int fd);
 
 # endif
 #elif defined GNULIB_POSIXCHECK
@@ -618,12 +693,6 @@ extern unsigned int sleep (unsigned int n);
 # undef write
 # define write rpl_write
 extern ssize_t write (int fd, const void *buf, size_t count);
-#endif
-
-
-#ifdef FCHDIR_REPLACEMENT
-/* gnulib internal function.  */
-extern void _gl_unregister_fd (int fd);
 #endif
 
 

@@ -74,8 +74,8 @@ export LC_ALL = C
 _cfg_mk := $(shell test -f $(srcdir)/cfg.mk && echo '$(srcdir)/cfg.mk')
 
 # Collect the names of rules starting with `sc_'.
-syntax-check-rules := $(shell sed -n 's/^\(sc_[a-zA-Z0-9_-]*\):.*/\1/p' \
-			$(srcdir)/$(ME) $(_cfg_mk))
+syntax-check-rules := $(sort $(shell sed -n 's/^\(sc_[a-zA-Z0-9_-]*\):.*/\1/p' \
+			$(srcdir)/$(ME) $(_cfg_mk)))
 .PHONY: $(syntax-check-rules)
 
 local-checks-available = \
@@ -291,6 +291,11 @@ sc_prohibit_argmatch_without_use:
 sc_prohibit_root_dev_ino_without_use:
 	@h='"root-dev-ino.h"' \
 	re='(\<ROOT_DEV_INO_(CHECK|WARN)\>|\<get_root_dev_ino *\()' \
+	  $(_header_without_use)
+
+sc_prohibit_openat_without_use:
+	@h='"openat.h"' \
+	re='\<(openat_(permissive|needs_fchdir|(save|restore)_fail)|l?(stat|ch(own|mod))at|(euid)?accessat)\>' \
 	  $(_header_without_use)
 
 # Prohibit the inclusion of c-ctype.h without an actual use.
@@ -618,21 +623,6 @@ vc-diff-check:
 	  rm vc-diffs;						\
 	fi
 
-cvs-check: vc-diff-check
-
-ALL_RECURSIVE_TARGETS += maintainer-distcheck
-maintainer-distcheck:
-	$(MAKE) distcheck
-	$(MAKE) taint-distcheck
-	$(MAKE) my-distcheck
-
-
-# Don't make a distribution if checks fail.
-# Also, make sure the NEWS file is up-to-date.
-ALL_RECURSIVE_TARGETS += vc-dist
-vc-dist: $(local-check) cvs-check maintainer-distcheck
-	XZ_OPT=9ev $(MAKE) dist
-
 # Use this to make sure we don't run these programs when building
 # from a virgin tgz file, below.
 null_AM_MAKEFLAGS = \
@@ -708,8 +698,10 @@ alpha beta major: $(local-check) writable-files no-submodule-changes
 	  && { echo $(VERSION) | grep -E '^[0-9]+(\.[0-9]+)+$$'	\
 	       || { echo "invalid version string: $(VERSION)" 1>&2; exit 1;};}\
 	  || :
-	$(MAKE) vc-dist
+	$(MAKE) vc-diff-check
 	$(MAKE) news-date-check
+	$(MAKE) distcheck
+	$(MAKE) dist XZ_OPT=-9ev
 	$(MAKE) -s announcement RELEASE_TYPE=$@ > /tmp/announce-$(my_distdir)
 	if test -d $(release_archive_dir); then			\
 	  ln $(rel-files) $(release_archive_dir);		\
