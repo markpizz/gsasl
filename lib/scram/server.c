@@ -34,6 +34,7 @@
 #include <string.h>
 
 #include "tokens.h"
+#include "parser.h"
 
 #define SNONCE_ENTROPY_BYTES 16
 
@@ -96,6 +97,20 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 
   switch (state->step)
     {
+    case 0:
+      {
+	if (scram_parse_client_first (input, input_len, &state->cf) < 0)
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	if (scram_valid_client_first (state->cf) < 0)
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	state->step++;
+	return GSASL_NEEDS_MORE;
+	break;
+      }
+
+
     default:
       break;
     }
