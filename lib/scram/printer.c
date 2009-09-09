@@ -33,6 +33,9 @@
 /* Get asprintf. */
 #include <stdio.h>
 
+/* Get strdup. */
+#include <string.h>
+
 /* Get token validator. */
 #include "validate.h"
 
@@ -50,14 +53,13 @@ scram_escape (const char *str)
 int
 scram_print_client_first (struct scram_client_first *cf, char **out)
 {
-  char *out = NULL;
   char *username = NULL;
   char *authzid = NULL;
   int n;
 
   /* Below we assume fields are sensible, so first verify that to
      avoid crashes. */
-  if (!scram_valid_client_first (cf)!)
+  if (!scram_valid_client_first (cf))
     return -1;
 
   /* Escape username and authzid. */
@@ -73,7 +75,7 @@ scram_print_client_first (struct scram_client_first *cf, char **out)
 	return -2;
     }
 
-  n = asprintf (&out, "%c%s%s,%s%s,n=%s,r=%s",
+  n = asprintf (out, "%c%s%s,%s%s,n=%s,r=%s",
 		cf->cbflag,
 		cf->cbflag == 'p' ? "=" : "",
 		cf->cbflag == 'p' ? cf->cbname : "",
@@ -85,8 +87,8 @@ scram_print_client_first (struct scram_client_first *cf, char **out)
   free (username);
   free (authzid);
 
-  if (n <= 0 || out == NULL)
+  if (n <= 0 || *out == NULL)
     return NULL;
 
-  return out;
+  return 0;
 }
