@@ -27,6 +27,11 @@ libgsasl_scram_la_SOURCES = scram.h mechinfo.c \
 	printer.h printer.c \
 	validate.h validate.c
 
+
 if CLIENT
 libgsasl_scram_la_SOURCES += client.c
+endif
+
+if SERVER
+libgsasl_scram_la_SOURCES += server.c
 endif

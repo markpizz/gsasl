@@ -118,7 +118,8 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 
 	gsasl_free (cf.username);
 
-	return GSASL_OK;
+	state->step++;
+	return GSASL_NEEDS_MORE;
 	break;
       }
 

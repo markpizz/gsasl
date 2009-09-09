@@ -48,9 +48,15 @@ Gsasl_mechanism gsasl_scram_sha1_mechanism = {
   {
     NULL,
     NULL,
+#ifdef USE_SERVER
+    _gsasl_scram_sha1_server_start,
+    _gsasl_scram_sha1_server_step,
+    _gsasl_scram_sha1_server_finish,
+#else
     NULL,
     NULL,
     NULL,
+#endif
     NULL,
     NULL
   }
