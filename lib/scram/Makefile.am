@@ -24,7 +24,7 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl
 noinst_LTLIBRARIES = libgsasl-scram.la
 libgsasl_scram_la_SOURCES = scram.h mechinfo.c \
 	tokens.h \
-	printer.h \
+	printer.h printer.c \
 	validate.h validate.c
 
 if CLIENT

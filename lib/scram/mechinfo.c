@@ -33,13 +33,15 @@ Gsasl_mechanism gsasl_scram_sha1_mechanism = {
   {
     NULL,
     NULL,
-    NULL,
 #ifdef USE_CLIENT
-    _gsasl_scram_client_step,
+    _gsasl_scram_sha1_client_start,
+    _gsasl_scram_sha1_client_step,
+    _gsasl_scram_sha1_client_finish,
 #else
     NULL,
-#endif
     NULL,
+    NULL,
+#endif
     NULL,
     NULL
   },
@@ -62,11 +64,7 @@ Gsasl_mechanism gsasl_scram_sha1_plus_mechanism = {
     NULL,
     NULL,
     NULL,
-#ifdef USE_CLIENT
-    _gsasl_scram_client_step,
-#else
     NULL,
-#endif
     NULL,
     NULL,
     NULL
