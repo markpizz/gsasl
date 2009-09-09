@@ -57,12 +57,15 @@ scram_valid_client_first (struct scram_client_first *cf)
   if (cf->username == NULL || *cf->username == '\0')
     return false;
 
-  /* FIXME check that client nonce is valid UTF-8 and does not contain
-     '=' or NUL. */
-
   /* We require a non-zero client nonce. */
   if (cf->client_nonce == NULL || *cf->client_nonce == '\0')
     return false;
+
+  /* Nonce cannot contain ','. */
+  if (strchr (cf->client_nonce, ','))
+    return false;
+
+  /* FIXME check that client nonce is valid UTF-8. */
 
   return true;
 }
