@@ -26,6 +26,7 @@
 /* Get token types. */
 #include "tokens.h"
 
-extern char *scram_print_client_first (struct scram_client_first * cf);
+extern int
+scram_print_client_first (struct scram_client_first *cf, char **out);
 
 #endif /* SCRAM_PRINTER_H */
