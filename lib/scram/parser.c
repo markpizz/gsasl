@@ -121,5 +121,7 @@ scram_parse_client_first (const char *str, size_t len,
     str = p;
   }
 
+  /* FIXME check that any extension fields follow valid syntax. */
+
   return 0;
 }
