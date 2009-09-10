@@ -111,12 +111,12 @@ scram_parse_client_first (const char *str, size_t len,
 
     len = p - str;
 
-    cf->username = malloc (len + 1);
-    if (!cf->username)
+    cf->client_nonce = malloc (len + 1);
+    if (!cf->client_nonce)
       return -1;
 
-    memcpy (cf->username, str, len);
-    cf->username[len] = '\0';
+    memcpy (cf->client_nonce, str, len);
+    cf->client_nonce[len] = '\0';
 
     str = p;
   }
