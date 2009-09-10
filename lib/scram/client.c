@@ -156,6 +156,9 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  return GSASL_AUTHENTICATION_ERROR;
 
 	state->cl.nonce = strdup (state->sf.nonce);
+	if (!state->cl.nonce)
+	  return GSASL_MALLOC_ERROR;
+
 	state->cl.proof = strdup ("proof");
 
 	rc = scram_print_client_final (&state->cl, output);
