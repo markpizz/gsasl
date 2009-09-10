@@ -172,6 +172,7 @@ _gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data)
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
   scram_free_client_final (&state->cl);
+  scram_free_server_final (&state->sl);
 
   free (state);
 }

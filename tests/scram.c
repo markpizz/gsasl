@@ -165,7 +165,21 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n\n", s2len, s2);
+	printf ("S: %.*s\n", s2len, s2);
+
+      /* Let client parse server final... */
+
+      res = gsasl_step (client, s2, s2len, &s1, &s1len);
+      gsasl_free (s2);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_step[%d](5) failed (%d):\n%s\n", i, res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	printf ("C: %.*s\n\n", s1len, s1);
 
       gsasl_finish (client);
       gsasl_finish (server);
