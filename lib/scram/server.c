@@ -169,6 +169,9 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	if (scram_parse_client_final (input, &state->cl) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
+	if (strcmp (state->cl.nonce, state->sf.nonce) != 0)
+	  return GSASL_AUTHENTICATION_ERROR;
+
 	state->sl.verifier = strdup ("verifier");
 
 	rc = scram_print_server_final (&state->sl, output);

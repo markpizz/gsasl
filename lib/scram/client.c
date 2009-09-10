@@ -150,6 +150,11 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	if (scram_parse_server_first (input, &state->sf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
+	if (strlen (state->sf.nonce) < strlen (state->cf.client_nonce) ||
+	    memcmp (state->cf.client_nonce, state->sf.nonce,
+		    strlen (state->cf.client_nonce)) != 0)
+	  return GSASL_AUTHENTICATION_ERROR;
+
 	state->cl.nonce = strdup (state->sf.nonce);
 	state->cl.proof = strdup ("proof");
 
