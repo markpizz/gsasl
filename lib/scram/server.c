@@ -27,8 +27,11 @@
 /* Get specification. */
 #include "scram.h"
 
-/* Get malloc, free. */
+/* Get malloc, free, strtoul. */
 #include <stdlib.h>
+
+/* Get ULONG_MAX. */
+#include <limits.h>
 
 /* Get memcpy, strdup, strlen. */
 #include <string.h>
@@ -37,12 +40,14 @@
 #include "parser.h"
 #include "printer.h"
 
+#define DEFAULT_SALT_BYTES 8
 #define SNONCE_ENTROPY_BYTES 16
 
 struct scram_server_state
 {
   int step;
   char snonce[SNONCE_ENTROPY_BYTES + 1];
+  char salt[DEFAULT_SALT_BYTES + 1];
   struct scram_client_first cf;
   struct scram_server_first sf;
   struct scram_client_final cl;
@@ -75,6 +80,23 @@ _gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data)
 
       if (state->snonce[i] == ',')
 	state->snonce[i]++;
+    }
+
+  rc = gsasl_nonce (state->salt, DEFAULT_SALT_BYTES);
+  if (rc != GSASL_OK)
+    return rc;
+
+  state->salt[DEFAULT_SALT_BYTES] = '\0';
+
+  for (i = 0; i < DEFAULT_SALT_BYTES; i++)
+    {
+      state->salt[i] &= 0x7f;
+
+      if (state->salt[i] == '\0')
+	state->salt[i]++;
+
+      if (state->salt[i] == ',')
+	state->salt[i]++;
     }
 
   *mech_data = state;
@@ -120,9 +142,21 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	  state->sf.nonce[cnlen + SNONCE_ENTROPY_BYTES] = '\0';
 	}
 
-	/* FIXME */
-	state->sf.iter = 128;
-	state->sf.salt = strdup ("salt");
+	{
+	  const char *p = gsasl_property_get (sctx, GSASL_SCRAM_ITER);
+	  if (p)
+	    state->sf.iter = strtoul (p, NULL, 10);
+	  if (!p || state->sf.iter == 0 || state->sf.iter == ULONG_MAX)
+	    state->sf.iter = 4096;
+	}
+
+	{
+	  const char *p = gsasl_property_get (sctx, GSASL_SCRAM_SALT);
+	  if (p)
+	    state->sf.salt = strdup (p);
+	  else
+	    state->sf.salt = strdup (state->salt);
+	}
 
 	rc = scram_print_server_first (&state->sf, output);
 	if (rc != 0)
