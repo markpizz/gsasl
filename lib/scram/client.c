@@ -42,6 +42,7 @@ struct scram_client_state
 {
   int step;
   char cnonce[CNONCE_ENTROPY_BYTES + 1];
+  struct scram_server_first sf;
 };
 
 int
@@ -51,11 +52,9 @@ _gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data)
   size_t i;
   int rc;
 
-  state = (struct scram_client_state *) malloc (sizeof (*state));
+  state = (struct scram_client_state *) calloc (sizeof (*state), 1);
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
-
-  state->step = 0;
 
   rc = gsasl_nonce (state->cnonce, CNONCE_ENTROPY_BYTES);
   if (rc != GSASL_OK)
@@ -88,6 +87,9 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
   struct scram_client_state *state = mech_data;
   int res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
 
+  *output = NULL;
+  *output_len = 0;
+
   switch (state->step)
     {
     case 0:
@@ -117,6 +119,19 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	*output_len = strlen (*output);
 
 	gsasl_free (cf.username);
+
+	state->step++;
+	return GSASL_NEEDS_MORE;
+	break;
+      }
+
+    case 1:
+      {
+	if (strlen (input) != input_len)
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	if (scram_parse_server_first (input, &state->sf) < 0)
+	  return GSASL_MECHANISM_PARSE_ERROR;
 
 	state->step++;
 	return GSASL_NEEDS_MORE;

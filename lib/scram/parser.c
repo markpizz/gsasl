@@ -123,5 +123,111 @@ scram_parse_client_first (const char *str,
 
   /* FIXME check that any extension fields follow valid syntax. */
 
+  if (scram_valid_client_first (cf) < 0)
+    return -1;
+
+  return 0;
+}
+
+int
+scram_parse_server_first (const char *str,
+			  struct scram_server_first *sf)
+{
+  /* Minimum server first string is 'r=ab,s=biws,i=1'. */
+  if (strlen (str) < 15)
+    return -1;
+
+  if (*str++ != 'r')
+    return -1;
+
+  if (*str++ != '=')
+    return -1;
+
+  {
+    char *p;
+    size_t len;
+
+    p = strchr (str, ',');
+    if (!p)
+      return -1;
+
+    len = p - str;
+
+    sf->nonce = malloc (len + 1);
+    if (!sf->nonce)
+      return -1;
+
+    memcpy (sf->nonce, str, len);
+    sf->nonce[len] = '\0';
+
+    str = p;
+  }
+
+  if (*str++ != ',')
+    return -1;
+
+  if (*str++ != 's')
+    return -1;
+
+  if (*str++ != '=')
+    return -1;
+
+  {
+    char *p;
+    size_t len;
+
+    p = strchr (str, ',');
+    if (!p)
+      return -1;
+
+    len = p - str;
+
+    sf->salt = malloc (len + 1);
+    if (!sf->salt)
+      return -1;
+
+    memcpy (sf->salt, str, len);
+    sf->salt[len] = '\0';
+
+    /* FIXME check that salt is valid base64. */
+
+    str = p;
+  }
+
+  if (*str++ != ',')
+    return -1;
+
+  if (*str++ != 'i')
+    return -1;
+
+  if (*str++ != '=')
+    return -1;
+
+  {
+    const char *p;
+
+    sf->iter = 0;
+    for (p = str; *p >= '0' && *p <= '9'; p++)
+      {
+	size_t last_iter = sf->iter;
+
+	sf->iter = sf->iter * 10 + (*p - '0');
+
+	/* Protect against wrap arounds. */
+	if (sf->iter < last_iter)
+	  return -1;
+      }
+
+    if (*p != ',' && *p != '\0')
+      return -1;
+
+    str = p;
+  }
+
+  /* FIXME check that any extension fields follow valid syntax. */
+
+  if (scram_valid_server_first (sf) < 0)
+    return -1;
+
   return 0;
 }

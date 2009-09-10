@@ -29,4 +29,7 @@
 extern int scram_parse_client_first (const char *str,
 				     struct scram_client_first *cf);
 
+extern int scram_parse_server_first (const char *str,
+				     struct scram_server_first *cf);
+
 #endif /* SCRAM_PARSER_H */

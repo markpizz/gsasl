@@ -35,7 +35,7 @@
 
 #include "tokens.h"
 #include "parser.h"
-#include "validate.h"
+#include "printer.h"
 
 #define SNONCE_ENTROPY_BYTES 16
 
@@ -104,9 +104,6 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	if (scram_parse_client_first (input, &state->cf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
-	if (scram_valid_client_first (&state->cf) < 0)
-	  return GSASL_MECHANISM_PARSE_ERROR;
-
 	/* Create new nonce. */
 	{
 	  size_t cnlen = strlen (state->cf.client_nonce);
@@ -134,7 +131,6 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	return GSASL_NEEDS_MORE;
 	break;
       }
-
 
     default:
       break;
