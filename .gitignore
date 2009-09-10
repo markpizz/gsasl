@@ -33,7 +33,6 @@ examples/client
 examples/client-callback
 examples/client-mech
 examples/client-serverfirst
-gl/
 lib/aclocal.m4
 lib/autom4te.cache/
 lib/build-aux/config.guess
@@ -54,7 +53,6 @@ lib/libtool
 lib/po/
 lib/stamp-h1
 libtool
-m4/
 po/
 src/gsasl
 src/gsasl_cmd.c
