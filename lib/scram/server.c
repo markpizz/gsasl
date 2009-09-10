@@ -35,6 +35,7 @@
 
 #include "tokens.h"
 #include "parser.h"
+#include "validate.h"
 
 #define SNONCE_ENTROPY_BYTES 16
 
@@ -53,12 +54,9 @@ _gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data)
   size_t i;
   int rc;
 
-  state = (struct scram_server_state *) malloc (sizeof (*state));
+  state = (struct scram_server_state *) calloc (sizeof (*state), 1);
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
-
-  state->step = 0;
-  state->cnonce = NULL;
 
   rc = gsasl_nonce (state->snonce, SNONCE_ENTROPY_BYTES);
   if (rc != GSASL_OK)
@@ -102,7 +100,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	if (scram_parse_client_first (input, input_len, &state->cf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
-	if (scram_valid_client_first (state->cf) < 0)
+	if (scram_valid_client_first (&state->cf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
 	state->step++;
