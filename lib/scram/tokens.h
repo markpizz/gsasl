@@ -42,6 +42,13 @@ struct scram_server_first
   size_t iter;
 };
 
+struct scram_client_final
+{
+  char *cbind;
+  char *nonce;
+  char *proof;
+};
+
 extern void scram_free_client_first (struct scram_client_first * cf);
 
 extern void scram_free_server_first (struct scram_server_first * sf);

@@ -48,3 +48,13 @@ scram_free_server_first (struct scram_server_first * sf)
 
   memset (sf, 0, sizeof (*sf));
 }
+
+void
+scram_free_client_final (struct scram_client_final * cf)
+{
+  free (cf->cbind);
+  free (cf->nonce);
+  free (cf->proof);
+
+  memset (cf, 0, sizeof (*cf));
+}

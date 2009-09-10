@@ -44,6 +44,7 @@ struct scram_client_state
   int step;
   struct scram_client_first cf;
   struct scram_server_first sf;
+  struct scram_client_final cl;
 };
 
 int
@@ -134,6 +135,18 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	if (scram_parse_server_first (input, &state->sf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
+	state->cl.nonce = strdup (state->sf.nonce);
+
+	/* FIXME */
+	state->cl.cbind = strdup ("cbind");
+	state->cl.proof = strdup ("proof");
+
+	rc = scram_print_client_final (&state->cl, output);
+	if (rc != 0)
+	  return GSASL_MALLOC_ERROR;
+
+	*output_len = strlen (*output);
+
 	state->step++;
 	return GSASL_NEEDS_MORE;
 	break;
@@ -156,6 +169,7 @@ _gsasl_scram_sha1_client_finish (Gsasl_session * sctx, void *mech_data)
 
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
+  scram_free_client_final (&state->cl);
 
   free (state);
 }

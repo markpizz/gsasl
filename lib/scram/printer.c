@@ -88,7 +88,7 @@ scram_print_client_first (struct scram_client_first *cf, char **out)
   free (authzid);
 
   if (n <= 0 || *out == NULL)
-    return NULL;
+    return -1;
 
   return 0;
 }
@@ -106,12 +106,35 @@ scram_print_server_first (struct scram_server_first *sf, char **out)
   if (!scram_valid_server_first (sf))
     return -1;
 
-  /* FIXME base64 salt here? */
+  /* FIXME base64 salt here */
 
   n = asprintf (out, "r=%s,s=%s,i=%d",
 		sf->nonce, sf->salt, sf->iter);
   if (n <= 0 || *out == NULL)
-    return NULL;
+    return -1;
+
+  return 0;
+}
+
+/* Print SCRAM client-final token into newly allocated output string
+   OUT.  Returns 0 on success, -1 on invalid token, and -2 on memory
+   allocation errors. */
+int
+scram_print_client_final (struct scram_client_final *cf, char **out)
+{
+  int n;
+
+  /* Below we assume fields are sensible, so first verify that to
+     avoid crashes. */
+  if (!scram_valid_client_final (cf))
+    return -1;
+
+  /* FIXME base64 cbind/proof */
+
+  n = asprintf (out, "c=%s,r=%s,p=%s",
+		cf->cbind, cf->nonce, cf->proof);
+  if (n <= 0 || *out == NULL)
+    return -1;
 
   return 0;
 }
