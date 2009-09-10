@@ -35,6 +35,8 @@
 /* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
 #define AUTHZID "joe"
 
+size_t i;
+
 static int
 callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 {
@@ -59,6 +61,22 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       rc = GSASL_OK;
       break;
 
+    case GSASL_SCRAM_ITER:
+      if (i == 1 || i == 3)
+	{
+	  gsasl_property_set (sctx, prop, "1234");
+	  rc = GSASL_OK;
+	}
+      break;
+
+    case GSASL_SCRAM_SALT:
+      if (i == 2 || i == 3)
+	{
+	  gsasl_property_set (sctx, prop, "salt");
+	  rc = GSASL_OK;
+	}
+      break;
+
     default:
       fail ("Unknown callback property %d\n", prop);
       break;
@@ -74,7 +92,6 @@ doit (void)
   Gsasl_session *server = NULL, *client = NULL;
   char *s1, *s2;
   size_t s1len, s2len;
-  size_t i;
   int res;
 
   res = gsasl_init (&ctx);
