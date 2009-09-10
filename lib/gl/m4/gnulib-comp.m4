@@ -57,6 +57,8 @@ AC_DEFUN([gl_INIT],
   gl_GC_PBKDF2_SHA1
   gl_GC_RANDOM
   gl_MODULE_INDICATOR([gc-random])
+  gl_GC_SHA1
+  gl_MODULE_INDICATOR([gc-sha1])
   gl_HEADER_ERRNO_H
   gl_FLOAT_H
   gl_FUNC_GETDELIM
@@ -310,6 +312,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/gc-md5.m4
   m4/gc-pbkdf2-sha1.m4
   m4/gc-random.m4
+  m4/gc-sha1.m4
   m4/gc.m4
   m4/getdelim.m4
   m4/getline.m4
@@ -379,6 +382,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-gc-hmac-sha1.c
   tests/test-gc-md5.c
   tests/test-gc-pbkdf2-sha1.c
+  tests/test-gc-sha1.c
   tests/test-gc.c
   tests/test-getdelim.c
   tests/test-getline.c
