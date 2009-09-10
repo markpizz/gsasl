@@ -74,6 +74,7 @@ doit (void)
   Gsasl_session *server = NULL, *client = NULL;
   char *s1, *s2;
   size_t s1len, s2len;
+  size_t i;
   int res;
 
   res = gsasl_init (&ctx);
