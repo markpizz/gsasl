@@ -88,6 +88,14 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->qop;
       break;
 
+    case GSASL_SCRAM_ITER:
+      p = &sctx->scram_iter;
+      break;
+
+    case GSASL_SCRAM_SALT:
+      p = &sctx->scram_salt;
+      break;
+
     default:
       break;
     }

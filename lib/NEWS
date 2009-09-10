@@ -4,8 +4,12 @@ See the end for copying conditions.
 
 * Version 1.3 (unreleased)
 
+** libgsasl: Implement SCRAM-SHA-1.
+New properties are GSASL_SCRAM_ITER and GSASL_SCRAM_SALT.
+
 ** API and ABI modifications.
-No changes since last version.
+GSASL_SCRAM_ITER: ADDED.
+GSASL_SCRAM_SALT: ADDED.
 
 * Version 1.2 (released 2009-06-13)
 

@@ -99,6 +99,8 @@ struct Gsasl_session
   char *digest_md5_hashed_password;
   char *qops;
   char *qop;
+  char *scram_iter;
+  char *scram_salt;
 
 #ifndef GSASL_NO_OBSOLETE
   /* Obsolete stuff. */
