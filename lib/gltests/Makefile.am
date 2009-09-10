@@ -59,6 +59,24 @@ EXTRA_DIST += test-base64.c
 
 ## end   gnulib module base64-tests
 
+## begin gnulib module crypto/gc-hmac-sha1-tests
+
+TESTS += test-gc-hmac-sha1
+check_PROGRAMS += test-gc-hmac-sha1
+
+EXTRA_DIST += test-gc-hmac-sha1.c
+
+## end   gnulib module crypto/gc-hmac-sha1-tests
+
+## begin gnulib module crypto/gc-pbkdf2-sha1-tests
+
+TESTS += test-gc-pbkdf2-sha1
+check_PROGRAMS += test-gc-pbkdf2-sha1
+
+EXTRA_DIST += test-gc-pbkdf2-sha1.c
+
+## end   gnulib module crypto/gc-pbkdf2-sha1-tests
+
 ## begin gnulib module errno-tests
 
 TESTS += test-errno

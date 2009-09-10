@@ -50,8 +50,11 @@ AC_DEFUN([gl_INIT],
   fi
   gl_GC_HMAC_MD5
   gl_MODULE_INDICATOR([gc-hmac-md5])
+  gl_GC_HMAC_SHA1
+  gl_MODULE_INDICATOR([gc-hmac-sha1])
   gl_GC_MD5
   gl_MODULE_INDICATOR([gc-md5])
+  gl_GC_PBKDF2_SHA1
   gl_GC_RANDOM
   gl_MODULE_INDICATOR([gc-random])
   gl_HEADER_ERRNO_H
@@ -253,12 +256,14 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/float.in.h
   lib/gc-gnulib.c
   lib/gc-libgcrypt.c
+  lib/gc-pbkdf2-sha1.c
   lib/gc.h
   lib/getdelim.c
   lib/getline.c
   lib/getpagesize.c
   lib/gettext.h
   lib/hmac-md5.c
+  lib/hmac-sha1.c
   lib/hmac.h
   lib/md5.c
   lib/md5.h
@@ -274,6 +279,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/rawmemchr.c
   lib/rawmemchr.valgrind
   lib/realloc.c
+  lib/sha1.c
+  lib/sha1.h
   lib/size_max.h
   lib/stdbool.in.h
   lib/stddef.in.h
@@ -299,7 +306,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/extensions.m4
   m4/float_h.m4
   m4/gc-hmac-md5.m4
+  m4/gc-hmac-sha1.m4
   m4/gc-md5.m4
+  m4/gc-pbkdf2-sha1.m4
   m4/gc-random.m4
   m4/gc.m4
   m4/getdelim.m4
@@ -310,6 +319,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/glibc21.m4
   m4/gnulib-common.m4
   m4/hmac-md5.m4
+  m4/hmac-sha1.m4
   m4/iconv.m4
   m4/include_next.m4
   m4/intdiv0.m4
@@ -341,6 +351,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/progtest.m4
   m4/rawmemchr.m4
   m4/realloc.m4
+  m4/sha1.m4
   m4/size_max.m4
   m4/stdbool.m4
   m4/stddef_h.m4
@@ -365,7 +376,9 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-base64.c
   tests/test-errno.c
   tests/test-gc-hmac-md5.c
+  tests/test-gc-hmac-sha1.c
   tests/test-gc-md5.c
+  tests/test-gc-pbkdf2-sha1.c
   tests/test-gc.c
   tests/test-getdelim.c
   tests/test-getline.c
