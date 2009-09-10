@@ -97,3 +97,46 @@ gsasl_hmac_md5 (const char *key, size_t keylen,
     return GSASL_MALLOC_ERROR;
   return gc_hmac_md5 (key, keylen, in, inlen, *outhash);
 }
+
+/**
+ * gsasl_sha1:
+ * @in: input character array of data to hash.
+ * @inlen: length of input character array of data to hash.
+ * @out: newly allocated character array with hash of data.
+ *
+ * Compute hash of data using SHA1.  The @out buffer must be
+ * deallocated by the caller.
+ *
+ * Return value: Returns %GSASL_OK iff successful.
+ **/
+int
+gsasl_sha1 (const char *in, size_t inlen, char *out[20])
+{
+  *out = malloc (20);
+  if (!*out)
+    return GSASL_MALLOC_ERROR;
+  return gc_sha1 (in, inlen, *out);
+}
+
+/**
+ * gsasl_hmac_sha1:
+ * @key: input character array with key to use.
+ * @keylen: length of input character array with key to use.
+ * @in: input character array of data to hash.
+ * @inlen: length of input character array of data to hash.
+ * @outhash: newly allocated character array with keyed hash of data.
+ *
+ * Compute keyed checksum of data using HMAC-SHA1.  The @outhash buffer
+ * must be deallocated by the caller.
+ *
+ * Return value: Returns %GSASL_OK iff successful.
+ **/
+int
+gsasl_hmac_sha1 (const char *key, size_t keylen,
+		const char *in, size_t inlen, char *outhash[20])
+{
+  *outhash = malloc (20);
+  if (!*outhash)
+    return GSASL_MALLOC_ERROR;
+  return gc_hmac_sha1 (key, keylen, in, inlen, *outhash);
+}

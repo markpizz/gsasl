@@ -7,9 +7,14 @@ See the end for copying conditions.
 ** libgsasl: Implement SCRAM-SHA-1.
 New properties are GSASL_SCRAM_ITER and GSASL_SCRAM_SALT.
 
+** libgsasl: Add helper APIs for SHA-1 and HMAC-SHA-1.
+New functions are gsasl_sha1 and gsasl_hmac_sha1.
+
 ** API and ABI modifications.
 GSASL_SCRAM_ITER: ADDED.
 GSASL_SCRAM_SALT: ADDED.
+gsasl_sha1: ADDED.
+gsasl_hmac_sha1: ADDED.
 
 * Version 1.2 (released 2009-06-13)
 

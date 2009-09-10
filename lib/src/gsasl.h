@@ -320,6 +320,11 @@ extern "C"
   extern GSASL_API int gsasl_hmac_md5 (const char *key, size_t keylen,
 				       const char *in, size_t inlen,
 				       char *outhash[16]);
+  extern GSASL_API int gsasl_sha1 (const char *in, size_t inlen,
+				   char *out[20]);
+  extern GSASL_API int gsasl_hmac_sha1 (const char *key, size_t keylen,
+					const char *in, size_t inlen,
+					char *outhash[20]);
   extern GSASL_API void gsasl_free (void *ptr);
 
   /* Get the mechanism API. */
