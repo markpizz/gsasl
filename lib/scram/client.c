@@ -33,15 +33,21 @@
 /* Get memcpy, strlen. */
 #include <string.h>
 
+/* Get bool. */
+#include <stdbool.h>
+
 #include "tokens.h"
 #include "parser.h"
 #include "printer.h"
+#include "gc.h"
+#include "memxor.h"
 
 #define CNONCE_ENTROPY_BYTES 18
 
 struct scram_client_state
 {
   int step;
+  char *cfmb; /* client first message bare */
   struct scram_client_first cf;
   struct scram_server_first sf;
   struct scram_client_final cl;
@@ -77,6 +83,47 @@ _gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data)
   *mech_data = state;
 
   return GSASL_OK;
+}
+
+static char
+hexdigit_to_char (char hexdigit)
+{
+  if (hexdigit >= '0' && hexdigit <= '9')
+    return hexdigit - '0';
+  if (hexdigit >= 'a' && hexdigit <= 'f')
+    return hexdigit - 'a' + 10;
+  return 0;
+}
+
+static char
+hex_to_char (char u, char l)
+{
+  return (char) (((unsigned char) hexdigit_to_char (u)) * 16
+		 + hexdigit_to_char (l));
+}
+
+static void
+sha1_hex_to_byte (char *saltedpassword, const char *p)
+{
+  while (*p)
+    {
+      *saltedpassword = hex_to_char (p[0], p[1]);
+      p++;
+
+      saltedpassword += 2;
+    }
+}
+
+static bool
+hex_p (const char *hexstr)
+{
+  static char hexalpha[] = "0123456789abcdef";
+
+  for (; *hexstr; hexstr++)
+    if (!strchr (hexalpha, *hexstr))
+      return false;
+
+  return true;
 }
 
 int
@@ -123,7 +170,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 
 	*output_len = strlen (*output);
 
-	/* Save "cbind" for next step. */
+	/* Save "cbind" and "bare" for next step. */
 	p = strchr (*output, ',');
 	if (!p)
 	    return GSASL_AUTHENTICATION_ERROR;
@@ -135,6 +182,10 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	rc = gsasl_base64_to (*output, p - *output, &state->cl.cbind, NULL);
 	if (rc != 0)
 	  return rc;
+
+	state->cfmb = strdup (p);
+	if (!state->cfmb)
+	  return GSASL_MALLOC_ERROR;
 
 	/* We are done. */
 	state->step++;
@@ -155,11 +206,92 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 		    strlen (state->cf.client_nonce)) != 0)
 	  return GSASL_AUTHENTICATION_ERROR;
 
+	/* Save salt/iter as properties, so that client callback can
+	   access them. */
+	{
+	  char *str = NULL;
+	  int n;
+	  n = asprintf (&str, "%d", state->sf.iter);
+	  if (n < 0 || str == NULL)
+	    return GSASL_MALLOC_ERROR;
+	  gsasl_property_set (sctx, GSASL_SCRAM_ITER, str);
+	}
+
+	gsasl_property_set (sctx, GSASL_SCRAM_SALT, state->sf.salt);
+
 	state->cl.nonce = strdup (state->sf.nonce);
 	if (!state->cl.nonce)
 	  return GSASL_MALLOC_ERROR;
 
-	state->cl.proof = strdup ("proof");
+	{
+	  char saltedpassword[20];
+	  char *clientkey;
+	  char *storedkey;
+	  char *authmessage;
+	  char *clientsignature;
+	  char clientproof[20];
+	  const char *p;
+
+	  p = gsasl_property_get (sctx, GSASL_SCRAM_SALTED_PASSWORD);
+	  if (p && strlen (p) == 40 && hex_p (p))
+	    sha1_hex_to_byte (saltedpassword, p);
+	  else if ((p = gsasl_property_get (sctx, GSASL_PASSWORD)) != NULL)
+	    {
+	      Gc_rc err;
+
+	      /* SaltedPassword := Hi(password, salt) */
+	      err = gc_pbkdf2_sha1 (p, strlen (p),
+				    state->sf.salt, strlen (state->sf.salt),
+				    state->sf.iter, saltedpassword, 20);
+	      if (err != GC_OK)
+		return GSASL_MALLOC_ERROR;
+	    }
+	  else
+	    return GSASL_NO_PASSWORD;
+
+	  /* ClientKey := HMAC(SaltedPassword, "Client Key") */
+#define CLIENT_KEY "Client key"
+	  rc = gsasl_hmac_sha1 (saltedpassword, 20,
+				CLIENT_KEY, strlen (CLIENT_KEY),
+				&clientkey);
+	  if (rc != 0)
+	    return rc;
+
+	  /* StoredKey := H(ClientKey) */
+	  rc = gsasl_sha1 (clientkey, 20, &storedkey);
+	  if (rc != 0)
+	    return rc;
+
+	  /* Get client-final-message-without-proof. */
+	  state->cl.proof = strdup ("p");
+	  rc = scram_print_client_final (&state->cl, output);
+	  if (rc != 0)
+	    return GSASL_MALLOC_ERROR;
+	  free (state->cl.proof);
+
+	  /* Compute AuthMessage */
+	  asprintf (&authmessage, "%s,%.*s,%.*s",
+		    state->cfmb,
+		    input_len, input,
+		    strlen (*output) - 4,
+		    *output);
+
+	  /* ClientSignature := HMAC(StoredKey, AuthMessage) */
+	  rc = gsasl_hmac_sha1 (storedkey, 20,
+				authmessage, strlen (authmessage),
+				&clientsignature);
+	  free (authmessage);
+	  if (rc != 0)
+	    return rc;
+
+	  /* ClientProof := ClientKey XOR ClientSignature */
+	  memcpy (clientproof, clientkey, 20);
+	  memxor (clientproof, clientsignature, 20);
+
+	  rc = gsasl_base64_to (clientproof, 20, &state->cl.proof, NULL);
+	  if (rc != 0)
+	    return rc;
+	}
 
 	rc = scram_print_client_final (&state->cl, output);
 	if (rc != 0)
@@ -202,6 +334,7 @@ _gsasl_scram_sha1_client_finish (Gsasl_session * sctx, void *mech_data)
   if (!state)
     return;
 
+  free (state->cfmb);
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
   scram_free_client_final (&state->cl);

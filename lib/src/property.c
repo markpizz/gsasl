@@ -96,6 +96,10 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->scram_salt;
       break;
 
+    case GSASL_SCRAM_SALTED_PASSWORD:
+      p = &sctx->scram_salted_password;
+      break;
+
     default:
       break;
     }

@@ -101,6 +101,7 @@ struct Gsasl_session
   char *qop;
   char *scram_iter;
   char *scram_salt;
+  char *scram_salted_password;
 
 #ifndef GSASL_NO_OBSOLETE
   /* Obsolete stuff. */

@@ -200,6 +200,7 @@ extern "C"
     GSASL_QOP = 14,
     GSASL_SCRAM_ITER = 15,
     GSASL_SCRAM_SALT = 16,
+    GSASL_SCRAM_SALTED_PASSWORD = 17,
     /* Server validation callback properties. */
     GSASL_VALIDATE_SIMPLE = 500,
     GSASL_VALIDATE_EXTERNAL = 501,
