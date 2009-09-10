@@ -42,9 +42,9 @@
 struct scram_server_state
 {
   int step;
-  char *cnonce;
   char snonce[SNONCE_ENTROPY_BYTES + 1];
   struct scram_client_first cf;
+  struct scram_server_first sf;
 };
 
 int
@@ -89,6 +89,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 {
   struct scram_server_state *state = mech_data;
   int res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
+  int rc;
 
   *output = NULL;
   *output_len = 0;
@@ -97,11 +98,37 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
     {
     case 0:
       {
-	if (scram_parse_client_first (input, input_len, &state->cf) < 0)
+	if (strlen (input) != input_len)
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	if (scram_parse_client_first (input, &state->cf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
 	if (scram_valid_client_first (&state->cf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	/* Create new nonce. */
+	{
+	  size_t cnlen = strlen (state->cf.client_nonce);
+
+	  state->sf.nonce = malloc (cnlen + SNONCE_ENTROPY_BYTES + 1);
+	  if (!state->sf.nonce)
+	    return GSASL_MALLOC_ERROR;
+
+	  memcpy (state->sf.nonce, state->cf.client_nonce, cnlen);
+	  memcpy (state->sf.nonce + cnlen, state->snonce,
+		  SNONCE_ENTROPY_BYTES);
+	  state->sf.nonce[cnlen + SNONCE_ENTROPY_BYTES] = '\0';
+	}
+
+	/* FIXME */
+	state->sf.iter = 128;
+	state->sf.salt = strdup ("salt");
+
+	rc = scram_print_server_first (&state->sf, output);
+	if (rc != 0)
+	  return GSASL_MALLOC_ERROR;
+	*output_len = strlen (*output);
 
 	state->step++;
 	return GSASL_NEEDS_MORE;
@@ -123,7 +150,9 @@ _gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data)
 
   if (!state)
     return;
+  
+  scram_free_client_first (&state->cf);
+  scram_free_server_first (&state->sf);
 
-  free (state->cnonce);
   free (state);
 }

@@ -1,4 +1,4 @@
-/* validate.h --- Validate consistency of SCRAM tokens.
+/* tokens.c --- Free allocated data in SCRAM tokens.
  * Copyright (C) 2009  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
@@ -20,17 +20,31 @@
  *
  */
 
-#ifndef SCRAM_VALIDATE_H
-# define SCRAM_VALIDATE_H
-
-/* Get token types. */
+/* Get prototypes. */
 #include "tokens.h"
 
-/* Get bool. */
-#include <stdbool.h>
+/* Get free. */
+#include <stdlib.h>
 
-extern bool scram_valid_client_first (struct scram_client_first *cf);
+/* Get memset. */
+#include <string.h>
 
-extern bool scram_valid_server_first (struct scram_server_first *sf);
+void
+scram_free_client_first (struct scram_client_first * cf)
+{
+  free (cf->cbname);
+  free (cf->authzid);
+  free (cf->username);
+  free (cf->client_nonce);
 
-#endif /* SCRAM_VALIDATE_H */
+  memset (cf, 0, sizeof (*cf));
+}
+
+void
+scram_free_server_first (struct scram_server_first * sf)
+{
+  free (sf->nonce);
+  free (sf->salt);
+
+  memset (sf, 0, sizeof (*sf));
+}

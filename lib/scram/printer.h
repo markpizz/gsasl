@@ -29,4 +29,7 @@
 extern int
 scram_print_client_first (struct scram_client_first *cf, char **out);
 
+extern int
+scram_print_server_first (struct scram_server_first *cf, char **out);
+
 #endif /* SCRAM_PRINTER_H */

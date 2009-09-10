@@ -26,7 +26,7 @@
 /* Get token types. */
 #include "tokens.h"
 
-extern int scram_parse_client_first (const char *str, size_t len,
+extern int scram_parse_client_first (const char *str,
 				     struct scram_client_first *cf);
 
 #endif /* SCRAM_PARSER_H */

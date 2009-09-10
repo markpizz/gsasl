@@ -35,4 +35,15 @@ struct scram_client_first
   char *client_nonce;
 };
 
+struct scram_server_first
+{
+  char *nonce;
+  char *salt;
+  size_t iter;
+};
+
+extern void scram_free_client_first (struct scram_client_first * cf);
+
+extern void scram_free_server_first (struct scram_server_first * sf);
+
 #endif /* SCRAM_TOKENS_H */

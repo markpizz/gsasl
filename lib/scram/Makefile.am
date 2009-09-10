@@ -23,7 +23,7 @@ AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl
 
 noinst_LTLIBRARIES = libgsasl-scram.la
 libgsasl_scram_la_SOURCES = scram.h mechinfo.c \
-	tokens.h \
+	tokens.h tokens.c \
 	validate.h validate.c \
 	parser.h parser.c \
 	printer.h printer.c

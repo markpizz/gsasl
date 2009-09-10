@@ -92,3 +92,26 @@ scram_print_client_first (struct scram_client_first *cf, char **out)
 
   return 0;
 }
+
+/* Print SCRAM server-first token into newly allocated output string
+   OUT.  Returns 0 on success, -1 on invalid token, and -2 on memory
+   allocation errors. */
+int
+scram_print_server_first (struct scram_server_first *sf, char **out)
+{
+  int n;
+
+  /* Below we assume fields are sensible, so first verify that to
+     avoid crashes. */
+  if (!scram_valid_server_first (sf))
+    return -1;
+
+  /* FIXME base64 salt here? */
+
+  n = asprintf (out, "r=%s,s=%s,i=%d",
+		sf->nonce, sf->salt, sf->iter);
+  if (n <= 0 || *out == NULL)
+    return NULL;
+
+  return 0;
+}

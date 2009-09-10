@@ -37,11 +37,11 @@
 #include "validate.h"
 
 int
-scram_parse_client_first (const char *str, size_t len,
+scram_parse_client_first (const char *str,
 			  struct scram_client_first *cf)
 {
   /* Minimum client first string is 'n,,n=a,r=b'. */
-  if (len < 10)
+  if (strlen (str) < 10)
     return -1;
 
   if (*str != 'p' && *str != 'n' && *str != 'y')

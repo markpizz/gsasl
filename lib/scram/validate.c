@@ -69,3 +69,30 @@ scram_valid_client_first (struct scram_client_first *cf)
 
   return true;
 }
+
+bool
+scram_valid_server_first (struct scram_server_first *sf)
+{
+  /* We require a non-zero nonce. */
+  if (sf->nonce == NULL || *sf->nonce == '\0')
+    return false;
+
+  /* Nonce cannot contain ','. */
+  if (strchr (sf->nonce, ','))
+    return false;
+
+  /* FIXME check that nonce is valid UTF-8. */
+
+  /* We require a non-zero salt. */
+  if (sf->salt == NULL || *sf->salt == '\0')
+    return false;
+
+  /* FIXME check that salt is valid base64. */
+  if (strchr (sf->salt, ','))
+    return false;
+
+  if (sf->iter == 0)
+    return false;
+
+  return true;
+}
