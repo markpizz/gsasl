@@ -53,7 +53,6 @@ _gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data)
 {
   struct scram_client_state *state;
   char buf[CNONCE_ENTROPY_BYTES];
-  size_t i;
   int rc;
 
   state = (struct scram_client_state *) calloc (sizeof (*state), 1);
@@ -117,11 +116,27 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  state->cf.authzid = strdup (p);
 
 	rc = scram_print_client_first (&state->cf, output);
-	if (rc != 0)
+	if (rc == -2)
 	  return GSASL_MALLOC_ERROR;
+	else if (rc != 0)
+	  return GSASL_AUTHENTICATION_ERROR;
 
 	*output_len = strlen (*output);
 
+	/* Save "cbind" for next step. */
+	p = strchr (*output, ',');
+	if (!p)
+	    return GSASL_AUTHENTICATION_ERROR;
+	p++;
+	p = strchr (p, ',');
+	if (!p)
+	    return GSASL_AUTHENTICATION_ERROR;
+	p++;
+	rc = gsasl_base64_to (*output, p - *output, &state->cl.cbind, NULL);
+	if (rc != 0)
+	  return rc;
+
+	/* We are done. */
 	state->step++;
 	return GSASL_NEEDS_MORE;
 	break;
@@ -136,9 +151,6 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
 	state->cl.nonce = strdup (state->sf.nonce);
-
-	/* FIXME */
-	state->cl.cbind = strdup ("cbind");
 	state->cl.proof = strdup ("proof");
 
 	rc = scram_print_client_final (&state->cl, output);
