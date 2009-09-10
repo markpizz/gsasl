@@ -96,6 +96,9 @@ doit (void)
 
   for (i = 0; i < 5; i++)
     {
+      if (debug)
+	printf ("Iteration %d ...\n", i);
+
       res = gsasl_server_start (ctx, "SCRAM-SHA-1", &server);
       if (res != GSASL_OK)
 	{
@@ -162,7 +165,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n", s2len, s2);
+	printf ("C: %.*s\n\n", s2len, s2);
 
       gsasl_finish (client);
       gsasl_finish (server);
