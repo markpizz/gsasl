@@ -30,7 +30,7 @@
 /* Get malloc, free. */
 #include <stdlib.h>
 
-/* Get memcpy, strlen. */
+/* Get memcpy, strlen, strchrnul. */
 #include <string.h>
 
 /* Get validator. */
@@ -40,5 +40,86 @@ int
 scram_parse_client_first (const char *str, size_t len,
 			  struct scram_client_first *cf)
 {
-  return -1;
+  /* Minimum client first string is 'n,,n=a,r=b'. */
+  if (len < 10)
+    return -1;
+
+  if (*str != 'p' && *str != 'n' && *str != 'y')
+    return -1;
+
+  cf->cbflag = *str++;
+  if (cf->cbflag == 'p')
+    {
+      /* FIXME parse cbname */
+      return -1;
+    }
+
+  if (*str++ != ',')
+    return -1;
+
+  if (*str == 'a')
+    {
+      /* FIXME parse authzid */
+      return -1;
+    }
+
+  if (*str++ != ',')
+    return -1;
+
+  if (*str++ != 'n')
+    return -1;
+
+  if (*str++ != '=')
+    return -1;
+
+  {
+    char *p;
+    size_t len;
+
+    p = strchr (str, ',');
+    if (!p)
+      return -1;
+
+    len = p - str;
+
+    cf->username = malloc (len + 1);
+    if (!cf->username)
+      return -1;
+
+    memcpy (cf->username, str, len);
+    cf->username[len] = '\0';
+
+    str = p;
+  }
+
+  if (*str++ != ',')
+    return -1;
+
+  if (*str++ != 'r')
+    return -1;
+
+  if (*str++ != '=')
+    return -1;
+
+  {
+    char *p;
+    size_t len;
+
+    p = strchrnul (str, ',');
+    if (!p)
+      return -1;
+
+    len = p - str;
+
+    cf->username = malloc (len + 1);
+    if (!cf->username)
+      return -1;
+
+    memcpy (cf->username, str, len);
+    cf->username[len] = '\0';
+
+    str = p;
+  }
+
+  return 0;
 }
