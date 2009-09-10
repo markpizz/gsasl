@@ -59,8 +59,25 @@ scram_parse_client_first (const char *str,
 
   if (*str == 'a')
     {
-      /* FIXME parse authzid */
-      return -1;
+      char *p;
+      size_t len;
+
+      p = strchr (str, ',');
+      if (!p)
+	return -1;
+
+      len = p - str;
+
+      cf->authzid = malloc (len + 1);
+      if (!cf->authzid)
+	return -1;
+
+      memcpy (cf->authzid, str, len);
+      cf->authzid[len] = '\0';
+
+      /* FIXME decode authzid */
+
+      str = p;
     }
 
   if (*str++ != ',')
@@ -88,6 +105,8 @@ scram_parse_client_first (const char *str,
 
     memcpy (cf->username, str, len);
     cf->username[len] = '\0';
+
+    /* FIXME decode username */
 
     str = p;
   }
@@ -189,7 +208,7 @@ scram_parse_server_first (const char *str,
     memcpy (sf->salt, str, len);
     sf->salt[len] = '\0';
 
-    /* FIXME base64 salt */
+    /* FIXME base64 decode salt */
 
     str = p;
   }

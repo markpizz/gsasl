@@ -57,12 +57,15 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     case GSASL_AUTHZID:
-      gsasl_property_set (sctx, prop, AUTHZID);
-      rc = GSASL_OK;
+      if (i & 0x01)
+	{
+	  gsasl_property_set (sctx, prop, AUTHZID);
+	  rc = GSASL_OK;
+	}
       break;
 
     case GSASL_SCRAM_ITER:
-      if (i == 1 || i == 3)
+      if (i & 0x02)
 	{
 	  gsasl_property_set (sctx, prop, "1234");
 	  rc = GSASL_OK;
@@ -70,7 +73,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     case GSASL_SCRAM_SALT:
-      if (i == 2 || i == 3)
+      if (i & 0x04)
 	{
 	  gsasl_property_set (sctx, prop, "salt");
 	  rc = GSASL_OK;
@@ -111,7 +114,7 @@ doit (void)
 
   gsasl_callback_set (ctx, callback);
 
-  for (i = 0; i < 5; i++)
+  for (i = 0; i <= 7; i++)
     {
       if (debug)
 	printf ("Iteration %d ...\n", i);

@@ -112,6 +112,10 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	if (rc != GSASL_OK)
 	  return rc;
 
+	p = gsasl_property_get (sctx, GSASL_AUTHZID);
+	if (p)
+	  state->cf.authzid = strdup (p);
+
 	rc = scram_print_client_first (&state->cf, output);
 	if (rc != 0)
 	  return GSASL_MALLOC_ERROR;
