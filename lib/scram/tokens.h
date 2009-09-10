@@ -49,8 +49,17 @@ struct scram_client_final
   char *proof;
 };
 
+struct scram_server_final
+{
+  char *verifier;
+};
+
 extern void scram_free_client_first (struct scram_client_first * cf);
 
 extern void scram_free_server_first (struct scram_server_first * sf);
+
+extern void scram_free_client_final (struct scram_client_final * cl);
+
+extern void scram_free_server_final (struct scram_server_final * sl);
 
 #endif /* SCRAM_TOKENS_H */

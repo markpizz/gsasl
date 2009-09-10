@@ -45,6 +45,7 @@ struct scram_client_state
   struct scram_client_first cf;
   struct scram_server_first sf;
   struct scram_client_final cl;
+  struct scram_server_final sl;
 };
 
 int
@@ -149,6 +150,21 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 
 	state->step++;
 	return GSASL_NEEDS_MORE;
+	break;
+      }
+
+    case 2:
+      {
+	if (strlen (input) != input_len)
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	if (scram_parse_server_final (input, &state->sl) < 0)
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	/* FIXME verify verifier. */
+
+	state->step++;
+	return GSASL_OK;
 	break;
       }
 

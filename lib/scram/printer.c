@@ -120,19 +120,41 @@ scram_print_server_first (struct scram_server_first *sf, char **out)
    OUT.  Returns 0 on success, -1 on invalid token, and -2 on memory
    allocation errors. */
 int
-scram_print_client_final (struct scram_client_final *cf, char **out)
+scram_print_client_final (struct scram_client_final *cl, char **out)
 {
   int n;
 
   /* Below we assume fields are sensible, so first verify that to
      avoid crashes. */
-  if (!scram_valid_client_final (cf))
+  if (!scram_valid_client_final (cl))
     return -1;
 
   /* FIXME base64 cbind/proof */
 
   n = asprintf (out, "c=%s,r=%s,p=%s",
-		cf->cbind, cf->nonce, cf->proof);
+		cl->cbind, cl->nonce, cl->proof);
+  if (n <= 0 || *out == NULL)
+    return -1;
+
+  return 0;
+}
+
+/* Print SCRAM server-final token into newly allocated output string
+   OUT.  Returns 0 on success, -1 on invalid token, and -2 on memory
+   allocation errors. */
+int
+scram_print_server_final (struct scram_server_final *sl, char **out)
+{
+  int n;
+
+  /* Below we assume fields are sensible, so first verify that to
+     avoid crashes. */
+  if (!scram_valid_server_final (sl))
+    return -1;
+
+  /* FIXME base64 verifier */
+
+  n = asprintf (out, "v=%s", sl->verifier);
   if (n <= 0 || *out == NULL)
     return -1;
 

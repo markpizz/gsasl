@@ -45,6 +45,8 @@ struct scram_server_state
   char snonce[SNONCE_ENTROPY_BYTES + 1];
   struct scram_client_first cf;
   struct scram_server_first sf;
+  struct scram_client_final cl;
+  struct scram_server_final sl;
 };
 
 int
@@ -132,6 +134,26 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	break;
       }
 
+    case 1:
+      {
+	if (strlen (input) != input_len)
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	if (scram_parse_client_final (input, &state->cl) < 0)
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	state->sl.verifier = strdup ("verifier");
+
+	rc = scram_print_server_final (&state->sl, output);
+	if (rc != 0)
+	  return GSASL_MALLOC_ERROR;
+	*output_len = strlen (*output);
+
+	state->step++;
+	return GSASL_OK;
+	break;
+      }
+
     default:
       break;
     }
@@ -149,6 +171,7 @@ _gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data)
   
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
+  scram_free_client_final (&state->cl);
 
   free (state);
 }

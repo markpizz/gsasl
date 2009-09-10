@@ -98,32 +98,46 @@ scram_valid_server_first (struct scram_server_first *sf)
 }
 
 bool
-scram_valid_client_final (struct scram_client_final *cf)
+scram_valid_client_final (struct scram_client_final *cl)
 {
   /* We require a non-zero cbind. */
-  if (cf->cbind == NULL || *cf->cbind == '\0')
+  if (cl->cbind == NULL || *cl->cbind == '\0')
     return false;
 
   /* FIXME check that cbind is valid base64. */
-  if (strchr (cf->cbind, ','))
+  if (strchr (cl->cbind, ','))
     return false;
 
   /* We require a non-zero nonce. */
-  if (cf->nonce == NULL || *cf->nonce == '\0')
+  if (cl->nonce == NULL || *cl->nonce == '\0')
     return false;
 
   /* Nonce cannot contain ','. */
-  if (strchr (cf->nonce, ','))
+  if (strchr (cl->nonce, ','))
     return false;
 
   /* FIXME check that nonce is valid UTF-8. */
 
   /* We require a non-zero proof. */
-  if (cf->proof == NULL || *cf->proof == '\0')
+  if (cl->proof == NULL || *cl->proof == '\0')
     return false;
 
   /* FIXME check that proof is valid base64. */
-  if (strchr (cf->proof, ','))
+  if (strchr (cl->proof, ','))
+    return false;
+
+  return true;
+}
+
+bool
+scram_valid_server_final (struct scram_server_final *sl)
+{
+  /* We require a non-zero verifier. */
+  if (sl->verifier == NULL || *sl->verifier == '\0')
+    return false;
+
+  /* FIXME check that verifier is valid base64. */
+  if (strchr (sl->verifier, ','))
     return false;
 
   return true;

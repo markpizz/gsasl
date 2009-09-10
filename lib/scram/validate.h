@@ -33,6 +33,8 @@ extern bool scram_valid_client_first (struct scram_client_first *cf);
 
 extern bool scram_valid_server_first (struct scram_server_first *sf);
 
-extern bool scram_valid_client_final (struct scram_client_final *cf);
+extern bool scram_valid_client_final (struct scram_client_final *cl);
+
+extern bool scram_valid_server_final (struct scram_server_final *sl);
 
 #endif /* SCRAM_VALIDATE_H */

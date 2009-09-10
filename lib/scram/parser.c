@@ -231,3 +231,131 @@ scram_parse_server_first (const char *str,
 
   return 0;
 }
+
+int
+scram_parse_client_final (const char *str,
+			  struct scram_client_final *cl)
+{
+  /* Minimum client final string is 'c=biws,r=ab,p=ab=='. */
+  if (strlen (str) < 18)
+    return -1;
+
+  if (*str++ != 'c')
+    return -1;
+
+  if (*str++ != '=')
+    return -1;
+
+  {
+    char *p;
+    size_t len;
+
+    p = strchr (str, ',');
+    if (!p)
+      return -1;
+
+    len = p - str;
+
+    cl->cbind = malloc (len + 1);
+    if (!cl->cbind)
+      return -1;
+
+    memcpy (cl->cbind, str, len);
+    cl->cbind[len] = '\0';
+
+    /* FIXME base64 decode cbind */
+
+    str = p;
+  }
+
+  if (*str++ != ',')
+    return -1;
+
+  if (*str++ != 'r')
+    return -1;
+
+  if (*str++ != '=')
+    return -1;
+
+  {
+    char *p;
+    size_t len;
+
+    p = strchr (str, ',');
+    if (!p)
+      return -1;
+
+    len = p - str;
+
+    cl->nonce = malloc (len + 1);
+    if (!cl->nonce)
+      return -1;
+
+    memcpy (cl->nonce, str, len);
+    cl->nonce[len] = '\0';
+
+    str = p;
+  }
+
+  /* FIXME check that any extension fields follow valid syntax. */
+
+  if (*str++ != ',')
+    return -1;
+
+  if (*str++ != 'p')
+    return -1;
+
+  if (*str++ != '=')
+    return -1;
+
+  {
+    size_t len = strlen (str);
+
+    cl->proof = malloc (len + 1);
+    if (!cl->proof)
+      return -1;
+
+    memcpy (cl->proof, str, len);
+    cl->proof[len] = '\0';
+
+    /* FIXME base64 decode proof */
+  }
+
+  if (scram_valid_client_final (cl) < 0)
+    return -1;
+
+  return 0;
+}
+
+int
+scram_parse_server_final (const char *str,
+			  struct scram_server_final *sl)
+{
+  /* Minimum client final string is 'v=ab=='. */
+  if (strlen (str) < 6)
+    return -1;
+
+  if (*str++ != 'v')
+    return -1;
+
+  if (*str++ != '=')
+    return -1;
+
+  {
+    size_t len = strlen (str);
+
+    sl->verifier = malloc (len + 1);
+    if (!sl->verifier)
+      return -1;
+
+    memcpy (sl->verifier, str, len);
+    sl->verifier[len] = '\0';
+
+    /* FIXME base64 decode verifier */
+  }
+
+  if (scram_valid_server_final (sl) < 0)
+    return -1;
+
+  return 0;
+}

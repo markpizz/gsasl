@@ -50,11 +50,19 @@ scram_free_server_first (struct scram_server_first * sf)
 }
 
 void
-scram_free_client_final (struct scram_client_final * cf)
+scram_free_client_final (struct scram_client_final * cl)
 {
-  free (cf->cbind);
-  free (cf->nonce);
-  free (cf->proof);
+  free (cl->cbind);
+  free (cl->nonce);
+  free (cl->proof);
 
-  memset (cf, 0, sizeof (*cf));
+  memset (cl, 0, sizeof (*cl));
+}
+
+void
+scram_free_server_final (struct scram_server_final * sl)
+{
+  free (sl->verifier);
+
+  memset (sl, 0, sizeof (*sl));
 }
