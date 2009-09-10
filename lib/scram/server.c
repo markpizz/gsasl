@@ -36,18 +36,21 @@
 /* Get memcpy, strdup, strlen. */
 #include <string.h>
 
+/* Get MAX. */
+#include "minmax.h"
+
 #include "tokens.h"
 #include "parser.h"
 #include "printer.h"
 
-#define DEFAULT_SALT_BYTES 8
+#define DEFAULT_SALT_BYTES 12
 #define SNONCE_ENTROPY_BYTES 18
 
 struct scram_server_state
 {
   int step;
   char *snonce;
-  char salt[DEFAULT_SALT_BYTES + 1];
+  char *salt;
   struct scram_client_first cf;
   struct scram_server_first sf;
   struct scram_client_final cl;
@@ -58,8 +61,7 @@ int
 _gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data)
 {
   struct scram_server_state *state;
-  char buf[SNONCE_ENTROPY_BYTES];
-  size_t i;
+  char buf[MAX (SNONCE_ENTROPY_BYTES, DEFAULT_SALT_BYTES)];
   int rc;
 
   state = (struct scram_server_state *) calloc (sizeof (*state), 1);
@@ -68,33 +70,31 @@ _gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data)
 
   rc = gsasl_nonce (buf, SNONCE_ENTROPY_BYTES);
   if (rc != GSASL_OK)
-    return rc;
+    goto end;
 
   rc = gsasl_base64_to (buf, SNONCE_ENTROPY_BYTES,
 			&state->snonce, NULL);
   if (rc != GSASL_OK)
-    return rc;
+    goto end;
 
-  rc = gsasl_nonce (state->salt, DEFAULT_SALT_BYTES);
+  rc = gsasl_nonce (buf, DEFAULT_SALT_BYTES);
   if (rc != GSASL_OK)
-    return rc;
+    goto end;
 
-  state->salt[DEFAULT_SALT_BYTES] = '\0';
-
-  for (i = 0; i < DEFAULT_SALT_BYTES; i++)
-    {
-      state->salt[i] &= 0x7f;
-
-      if (state->salt[i] == '\0')
-	state->salt[i]++;
-
-      if (state->salt[i] == ',')
-	state->salt[i]++;
-    }
+  rc = gsasl_base64_to (buf, DEFAULT_SALT_BYTES,
+			&state->salt, NULL);
+  if (rc != GSASL_OK)
+    goto end;
 
   *mech_data = state;
 
   return GSASL_OK;
+
+ end:
+  free (state->salt);
+  free (state->snonce);
+  free (state);
+  return rc;
 }
 
 int
@@ -197,6 +197,7 @@ _gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data)
     return;
   
   free (state->snonce);
+  free (state->salt);
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
   scram_free_client_final (&state->cl);

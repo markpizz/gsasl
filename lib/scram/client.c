@@ -62,12 +62,18 @@ _gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data)
 
   rc = gsasl_nonce (buf, CNONCE_ENTROPY_BYTES);
   if (rc != GSASL_OK)
-    return rc;
+    {
+      free (state);
+      return rc;
+    }
 
   rc = gsasl_base64_to (buf, CNONCE_ENTROPY_BYTES,
 			&state->cf.client_nonce, NULL);
   if (rc != GSASL_OK)
-    return rc;
+    {
+      free (state);
+      return rc;
+    }
 
   *mech_data = state;
 
