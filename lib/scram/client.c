@@ -37,7 +37,7 @@
 #include "parser.h"
 #include "printer.h"
 
-#define CNONCE_ENTROPY_BYTES 16
+#define CNONCE_ENTROPY_BYTES 18
 
 struct scram_client_state
 {
@@ -52,6 +52,7 @@ int
 _gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data)
 {
   struct scram_client_state *state;
+  char buf[CNONCE_ENTROPY_BYTES];
   size_t i;
   int rc;
 
@@ -59,26 +60,14 @@ _gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data)
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
-  state->cf.client_nonce = malloc (CNONCE_ENTROPY_BYTES + 1);
-  if (!state->cf.client_nonce)
-    return GSASL_MALLOC_ERROR;
-
-  rc = gsasl_nonce (state->cf.client_nonce, CNONCE_ENTROPY_BYTES);
+  rc = gsasl_nonce (buf, CNONCE_ENTROPY_BYTES);
   if (rc != GSASL_OK)
     return rc;
 
-  state->cf.client_nonce[CNONCE_ENTROPY_BYTES] = '\0';
-
-  for (i = 0; i < CNONCE_ENTROPY_BYTES; i++)
-    {
-      state->cf.client_nonce[i] &= 0x7f;
-
-      if (state->cf.client_nonce[i] == '\0')
-	state->cf.client_nonce[i]++;
-
-      if (state->cf.client_nonce[i] == ',')
-	state->cf.client_nonce[i]++;
-    }
+  rc = gsasl_base64_to (buf, CNONCE_ENTROPY_BYTES,
+			&state->cf.client_nonce, NULL);
+  if (rc != GSASL_OK)
+    return rc;
 
   *mech_data = state;
 

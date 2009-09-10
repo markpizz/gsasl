@@ -41,12 +41,12 @@
 #include "printer.h"
 
 #define DEFAULT_SALT_BYTES 8
-#define SNONCE_ENTROPY_BYTES 16
+#define SNONCE_ENTROPY_BYTES 18
 
 struct scram_server_state
 {
   int step;
-  char snonce[SNONCE_ENTROPY_BYTES + 1];
+  char *snonce;
   char salt[DEFAULT_SALT_BYTES + 1];
   struct scram_client_first cf;
   struct scram_server_first sf;
@@ -58,6 +58,7 @@ int
 _gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data)
 {
   struct scram_server_state *state;
+  char buf[SNONCE_ENTROPY_BYTES];
   size_t i;
   int rc;
 
@@ -65,22 +66,14 @@ _gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data)
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
-  rc = gsasl_nonce (state->snonce, SNONCE_ENTROPY_BYTES);
+  rc = gsasl_nonce (buf, SNONCE_ENTROPY_BYTES);
   if (rc != GSASL_OK)
     return rc;
 
-  state->snonce[SNONCE_ENTROPY_BYTES] = '\0';
-
-  for (i = 0; i < SNONCE_ENTROPY_BYTES; i++)
-    {
-      state->snonce[i] &= 0x7f;
-
-      if (state->snonce[i] == '\0')
-	state->snonce[i]++;
-
-      if (state->snonce[i] == ',')
-	state->snonce[i]++;
-    }
+  rc = gsasl_base64_to (buf, SNONCE_ENTROPY_BYTES,
+			&state->snonce, NULL);
+  if (rc != GSASL_OK)
+    return rc;
 
   rc = gsasl_nonce (state->salt, DEFAULT_SALT_BYTES);
   if (rc != GSASL_OK)
@@ -203,6 +196,7 @@ _gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data)
   if (!state)
     return;
   
+  free (state->snonce);
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
   scram_free_client_final (&state->cl);
