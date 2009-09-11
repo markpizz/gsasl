@@ -14,6 +14,7 @@ New functions are gsasl_sha1 and gsasl_hmac_sha1.
 ** API and ABI modifications.
 GSASL_SCRAM_ITER: ADDED.
 GSASL_SCRAM_SALT: ADDED.
+GSASL_SCRAM_SALTED_PASSWORD: ADDED.
 gsasl_sha1: ADDED.
 gsasl_hmac_sha1: ADDED.
 

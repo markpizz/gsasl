@@ -62,27 +62,3 @@ Gsasl_mechanism gsasl_scram_sha1_mechanism = {
   }
 };
 #endif
-
-#ifdef USE_SCRAM_SHA1_PLUS
-Gsasl_mechanism gsasl_scram_sha1_plus_mechanism = {
-  GSASL_SCRAM_SHA1_PLUS_NAME,
-  {
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-  },
-  {
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-  }
-};
-#endif

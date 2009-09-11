@@ -108,12 +108,6 @@ register_builtin_mechs (Gsasl * ctx)
     return rc;
 #endif /* USE_SCRAM_SHA1 */
 
-#ifdef USE_SCRAM_SHA1_PLUS
-  rc = gsasl_register (ctx, &gsasl_scram_sha1_plus_mechanism);
-  if (rc != GSASL_OK)
-    return rc;
-#endif /* USE_SCRAM_SHA1_PLUS */
-
 #ifdef USE_GSSAPI
   rc = gsasl_register (ctx, &gsasl_gssapi_mechanism);
   if (rc != GSASL_OK)
