@@ -215,6 +215,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	{
 	  char *storedkey;
 	  char *serverkey;
+	  char *authmessage;
 	  const char *p;
 
 	  /* Get StoredKey */
@@ -264,32 +265,30 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	  else
 	    return GSASL_NO_PASSWORD;
 
+	  /* Compute AuthMessage */
+	  {
+	    size_t len;
+
+	    /* Get client-final-message-without-proof. */
+	    p = strstr (input, ",p=");
+	    if (!p)
+	      return GSASL_MECHANISM_PARSE_ERROR;
+	    len = p - input;
+
+	    asprintf (&authmessage, "%s,%.*s,%.*s",
+		      state->cfmb_str,
+		      strlen (state->sf_str), state->sf_str,
+		      len, input);
+	  }
+
 	  /* Check client proof. */
 	  {
-	    char *authmessage;
 	    char *clientsignature;
-
-	    /* Compute AuthMessage */
-	    {
-	      size_t len;
-
-	      /* Get client-final-message-without-proof. */
-	      p = strstr (input, ",p=");
-	      if (!p)
-		return GSASL_MECHANISM_PARSE_ERROR;
-	      len = p - input;
-
-	      asprintf (&authmessage, "%s,%.*s,%.*s",
-			state->cfmb_str,
-			strlen (state->sf_str), state->sf_str,
-			len, input);
-	    }
 
 	    /* ClientSignature := HMAC(StoredKey, AuthMessage) */
 	    rc = gsasl_hmac_sha1 (storedkey, 20,
 				  authmessage, strlen (authmessage),
 				  &clientsignature);
-	    free (authmessage);
 	    if (rc != 0)
 	      return rc;
 
@@ -315,11 +314,25 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 
 	  /* Generate server verifier. */
 	  {
-	    state->sl.verifier = strdup ("verifier");
+	    char *serversignature;
+
+	    /* ServerSignature := HMAC(ServerKey, AuthMessage) */
+	    rc = gsasl_hmac_sha1 (storedkey, 20,
+				  authmessage, strlen (authmessage),
+				  &serversignature);
+	    if (rc != 0)
+	      return rc;
+
+	    rc = gsasl_base64_to (serversignature, 20,
+				  &state->sl.verifier, NULL);
+	    free (serversignature);
+	    if (rc != 0)
+	      return rc;
 	  }
 
 	  free (storedkey);
 	  free (serverkey);
+	  free (authmessage);
 	}
 
 	rc = scram_print_server_final (&state->sl, output);
