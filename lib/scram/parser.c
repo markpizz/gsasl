@@ -363,8 +363,6 @@ scram_parse_server_final (const char *str,
 
     memcpy (sl->verifier, str, len);
     sl->verifier[len] = '\0';
-
-    /* FIXME base64 decode verifier */
   }
 
   if (scram_valid_server_final (sl) < 0)

@@ -148,8 +148,6 @@ scram_print_server_final (struct scram_server_final *sl, char **out)
   if (!scram_valid_server_final (sl))
     return -1;
 
-  /* FIXME base64 verifier */
-
   n = asprintf (out, "v=%s", sl->verifier);
   if (n <= 0 || *out == NULL)
     return -1;
