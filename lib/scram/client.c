@@ -48,6 +48,7 @@ struct scram_client_state
 {
   int step;
   char *cfmb; /* client first message bare */
+  char *serversignature;
   struct scram_client_first cf;
   struct scram_server_first sf;
   struct scram_client_final cl;
@@ -145,7 +146,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
       {
 	const char *p;
 
-	/* FIXME */
+	/* We don't support channel bindings. */
 	state->cf.cbflag = 'n';
 
 	p = gsasl_property_get (sctx, GSASL_AUTHID);
@@ -292,7 +293,6 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  rc = gsasl_hmac_sha1 (storedkey, 20,
 				authmessage, strlen (authmessage),
 				&clientsignature);
-	  free (authmessage);
 	  free (storedkey);
 	  if (rc != 0)
 	    return rc;
@@ -307,6 +307,35 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  rc = gsasl_base64_to (clientproof, 20, &state->cl.proof, NULL);
 	  if (rc != 0)
 	    return rc;
+
+	  /* Generate ServerSignature, for comparison in next step. */
+	  {
+	    char *serverkey;
+	    char *serversignature;
+
+	    /* ServerKey := HMAC(SaltedPassword, "Server Key") */
+#define SERVER_KEY "Server Key"
+	    rc = gsasl_hmac_sha1 (saltedpassword, 20,
+				  SERVER_KEY, strlen (SERVER_KEY),
+				  &serverkey);
+	    if (rc != 0)
+	      return rc;
+
+	    /* ServerSignature := HMAC(ServerKey, AuthMessage) */
+	    rc = gsasl_hmac_sha1 (serverkey, 20,
+				  authmessage, strlen (authmessage),
+				  &serversignature);
+	    if (rc != 0)
+	      return rc;
+
+	    rc = gsasl_base64_to (serversignature, 20,
+				  &state->serversignature, NULL);
+	    free (serversignature);
+	    if (rc != 0)
+	      return rc;
+	  }
+
+	  free (authmessage);
 	}
 
 	rc = scram_print_client_final (&state->cl, output);
@@ -328,7 +357,8 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	if (scram_parse_server_final (input, &state->sl) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
-	/* FIXME verify verifier. */
+	if (strcmp (state->sl.verifier, state->serversignature) != 0)
+	  return GSASL_AUTHENTICATION_ERROR;
 
 	state->step++;
 	return GSASL_OK;

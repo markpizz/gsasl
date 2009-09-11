@@ -125,6 +125,10 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	if (scram_parse_client_first (input, &state->cf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
+	/* We don't support channel bindings. */
+	if (state->cf.cbflag != 'n')
+	  return GSASL_AUTHENTICATION_ERROR;
+
 	{
 	  const char *p;
 
@@ -317,7 +321,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	    char *serversignature;
 
 	    /* ServerSignature := HMAC(ServerKey, AuthMessage) */
-	    rc = gsasl_hmac_sha1 (storedkey, 20,
+	    rc = gsasl_hmac_sha1 (serverkey, 20,
 				  authmessage, strlen (authmessage),
 				  &serversignature);
 	    if (rc != 0)
