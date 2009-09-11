@@ -80,6 +80,9 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	}
       break;
 
+    case GSASL_SCRAM_SALTED_PASSWORD:
+      break;
+
     default:
       fail ("Unknown callback property %d\n", prop);
       break;
