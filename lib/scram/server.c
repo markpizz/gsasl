@@ -129,6 +129,16 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	if (state->cf.cbflag != 'n')
 	  return GSASL_AUTHENTICATION_ERROR;
 
+	/* Check that username doesn't fail SASLprep. */
+	{
+	  char *tmp;
+	  rc = gsasl_saslprep (state->cf.username, GSASL_ALLOW_UNASSIGNED,
+			       &tmp, NULL);
+	  if (rc != GSASL_OK || *tmp == '\0')
+	    return GSASL_AUTHENTICATION_ERROR;
+	  gsasl_free (tmp);
+	}
+
 	{
 	  const char *p;
 
