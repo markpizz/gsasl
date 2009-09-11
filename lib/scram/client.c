@@ -206,6 +206,10 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 		    strlen (state->cf.client_nonce)) != 0)
 	  return GSASL_AUTHENTICATION_ERROR;
 
+	state->cl.nonce = strdup (state->sf.nonce);
+	if (!state->cl.nonce)
+	  return GSASL_MALLOC_ERROR;
+
 	/* Save salt/iter as properties, so that client callback can
 	   access them. */
 	{
@@ -215,14 +219,12 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  if (n < 0 || str == NULL)
 	    return GSASL_MALLOC_ERROR;
 	  gsasl_property_set (sctx, GSASL_SCRAM_ITER, str);
+	  free (str);
 	}
 
 	gsasl_property_set (sctx, GSASL_SCRAM_SALT, state->sf.salt);
 
-	state->cl.nonce = strdup (state->sf.nonce);
-	if (!state->cl.nonce)
-	  return GSASL_MALLOC_ERROR;
-
+	/* Generate ClientProof. */
 	{
 	  char saltedpassword[20];
 	  char *clientkey;
@@ -232,6 +234,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  char clientproof[20];
 	  const char *p;
 
+	  /* Get SaltedPassword. */
 	  p = gsasl_property_get (sctx, GSASL_SCRAM_SALTED_PASSWORD);
 	  if (p && strlen (p) == 40 && hex_p (p))
 	    sha1_hex_to_byte (saltedpassword, p);
@@ -250,6 +253,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	      err = gc_pbkdf2_sha1 (p, strlen (p),
 				    salt, saltlen,
 				    state->sf.iter, saltedpassword, 20);
+	      free (salt);
 	      if (err != GC_OK)
 		return GSASL_MALLOC_ERROR;
 	    }
@@ -257,7 +261,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	    return GSASL_NO_PASSWORD;
 
 	  /* ClientKey := HMAC(SaltedPassword, "Client Key") */
-#define CLIENT_KEY "Client key"
+#define CLIENT_KEY "Client Key"
 	  rc = gsasl_hmac_sha1 (saltedpassword, 20,
 				CLIENT_KEY, strlen (CLIENT_KEY),
 				&clientkey);
@@ -282,18 +286,23 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 		    input_len, input,
 		    strlen (*output) - 4,
 		    *output);
+	  free (*output);
 
 	  /* ClientSignature := HMAC(StoredKey, AuthMessage) */
 	  rc = gsasl_hmac_sha1 (storedkey, 20,
 				authmessage, strlen (authmessage),
 				&clientsignature);
 	  free (authmessage);
+	  free (storedkey);
 	  if (rc != 0)
 	    return rc;
 
 	  /* ClientProof := ClientKey XOR ClientSignature */
 	  memcpy (clientproof, clientkey, 20);
 	  memxor (clientproof, clientsignature, 20);
+
+	  free (clientkey);
+	  free (clientsignature);
 
 	  rc = gsasl_base64_to (clientproof, 20, &state->cl.proof, NULL);
 	  if (rc != 0)
