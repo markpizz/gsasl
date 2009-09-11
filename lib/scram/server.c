@@ -55,6 +55,9 @@ struct scram_server_state
   char *sf_str; /* copy of server first message */
   char *snonce;
   char *clientproof;
+  char *storedkey;
+  char *serverkey;
+  char *authmessage;
   struct scram_client_first cf;
   struct scram_server_first sf;
   struct scram_client_final cl;
@@ -227,12 +230,9 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	}
 
 	{
-	  char *storedkey;
-	  char *serverkey;
-	  char *authmessage;
 	  const char *p;
 
-	  /* Get StoredKey */
+	  /* Get StoredKey and ServerKey */
 	  if ((p = gsasl_property_get (sctx, GSASL_PASSWORD)))
 	    {
 	      Gc_rc err;
@@ -263,7 +263,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 		return rc;
 
 	      /* StoredKey := H(ClientKey) */
-	      rc = gsasl_sha1 (clientkey, 20, &storedkey);
+	      rc = gsasl_sha1 (clientkey, 20, &state->storedkey);
 	      free (clientkey);
 	      if (rc != 0)
 		return rc;
@@ -272,7 +272,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 #define SERVER_KEY "Server Key"
 	      rc = gsasl_hmac_sha1 (saltedpassword, 20,
 				    SERVER_KEY, strlen (SERVER_KEY),
-				    &serverkey);
+				    &state->serverkey);
 	      if (rc != 0)
 		return rc;
 	    }
@@ -282,6 +282,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	  /* Compute AuthMessage */
 	  {
 	    size_t len;
+	    int n;
 
 	    /* Get client-final-message-without-proof. */
 	    p = strstr (input, ",p=");
@@ -289,41 +290,39 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	      return GSASL_MECHANISM_PARSE_ERROR;
 	    len = p - input;
 
-	    asprintf (&authmessage, "%s,%.*s,%.*s",
-		      state->cfmb_str,
-		      strlen (state->sf_str), state->sf_str,
-		      len, input);
+	    n = asprintf (&state->authmessage, "%s,%.*s,%.*s",
+			  state->cfmb_str,
+			  strlen (state->sf_str), state->sf_str,
+			  len, input);
+	    if (n <= 0 || !state->authmessage)
+	      return GSASL_MALLOC_ERROR;
 	  }
 
 	  /* Check client proof. */
 	  {
 	    char *clientsignature;
+	    char *maybe_storedkey;
 
 	    /* ClientSignature := HMAC(StoredKey, AuthMessage) */
-	    rc = gsasl_hmac_sha1 (storedkey, 20,
-				  authmessage, strlen (authmessage),
+	    rc = gsasl_hmac_sha1 (state->storedkey, 20,
+				  state->authmessage,
+				  strlen (state->authmessage),
 				  &clientsignature);
 	    if (rc != 0)
 	      return rc;
 
-	    /* Derive ClientKey from input and check against
-	       StoredKey. */
-	    {
-	      char *maybe_storedkey;
+	    /* ClientKey := ClientProof XOR ClientSignature */
+	    memxor (clientsignature, state->clientproof, 20);
 
-	      /* ClientKey := ClientProof XOR ClientSignature */
-	      memxor (clientsignature, state->clientproof, 20);
+	    rc = gsasl_sha1 (clientsignature, 20, &maybe_storedkey);
+	    free (clientsignature);
+	    if (rc != 0)
+	      return rc;
 
-	      rc = gsasl_sha1 (clientsignature, 20, &maybe_storedkey);
-	      free (clientsignature);
-	      if (rc != 0)
-		return rc;
-
-	      rc = memcmp (storedkey, maybe_storedkey, 20);
-	      free (maybe_storedkey);
-	      if (rc != 0)
-		return GSASL_AUTHENTICATION_ERROR;
-	    }
+	    rc = memcmp (state->storedkey, maybe_storedkey, 20);
+	    free (maybe_storedkey);
+	    if (rc != 0)
+	      return GSASL_AUTHENTICATION_ERROR;
 	  }
 
 	  /* Generate server verifier. */
@@ -331,8 +330,9 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	    char *serversignature;
 
 	    /* ServerSignature := HMAC(ServerKey, AuthMessage) */
-	    rc = gsasl_hmac_sha1 (serverkey, 20,
-				  authmessage, strlen (authmessage),
+	    rc = gsasl_hmac_sha1 (state->serverkey, 20,
+				  state->authmessage,
+				  strlen (state->authmessage),
 				  &serversignature);
 	    if (rc != 0)
 	      return rc;
@@ -343,10 +343,6 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	    if (rc != 0)
 	      return rc;
 	  }
-
-	  free (storedkey);
-	  free (serverkey);
-	  free (authmessage);
 	}
 
 	rc = scram_print_server_final (&state->sl, output);
@@ -378,6 +374,9 @@ _gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data)
   free (state->sf_str);
   free (state->snonce);
   free (state->clientproof);
+  free (state->storedkey);
+  free (state->serverkey);
+  free (state->authmessage);
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
   scram_free_client_final (&state->cl);
