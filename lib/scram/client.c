@@ -238,10 +238,17 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  else if ((p = gsasl_property_get (sctx, GSASL_PASSWORD)) != NULL)
 	    {
 	      Gc_rc err;
+	      char *salt;
+	      size_t saltlen;
+
+	      rc = gsasl_base64_from (state->sf.salt, strlen (state->sf.salt),
+				      &salt, &saltlen);
+	      if (rc != 0)
+		return rc;
 
 	      /* SaltedPassword := Hi(password, salt) */
 	      err = gc_pbkdf2_sha1 (p, strlen (p),
-				    state->sf.salt, strlen (state->sf.salt),
+				    salt, saltlen,
 				    state->sf.iter, saltedpassword, 20);
 	      if (err != GC_OK)
 		return GSASL_MALLOC_ERROR;

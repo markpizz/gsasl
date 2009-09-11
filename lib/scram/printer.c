@@ -106,8 +106,6 @@ scram_print_server_first (struct scram_server_first *sf, char **out)
   if (!scram_valid_server_first (sf))
     return -1;
 
-  /* FIXME base64 salt here */
-
   n = asprintf (out, "r=%s,s=%s,i=%d",
 		sf->nonce, sf->salt, sf->iter);
   if (n <= 0 || *out == NULL)

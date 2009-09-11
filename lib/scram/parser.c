@@ -208,8 +208,6 @@ scram_parse_server_first (const char *str,
     memcpy (sf->salt, str, len);
     sf->salt[len] = '\0';
 
-    /* FIXME base64 decode salt */
-
     str = p;
   }
 
