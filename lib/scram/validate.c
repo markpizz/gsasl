@@ -65,8 +65,6 @@ scram_valid_client_first (struct scram_client_first *cf)
   if (strchr (cf->client_nonce, ','))
     return false;
 
-  /* FIXME check that client nonce is valid UTF-8. */
-
   return true;
 }
 
@@ -80,8 +78,6 @@ scram_valid_server_first (struct scram_server_first *sf)
   /* Nonce cannot contain ','. */
   if (strchr (sf->nonce, ','))
     return false;
-
-  /* FIXME check that nonce is valid UTF-8. */
 
   /* We require a non-zero salt. */
   if (sf->salt == NULL || *sf->salt == '\0')
@@ -115,8 +111,6 @@ scram_valid_client_final (struct scram_client_final *cl)
   /* Nonce cannot contain ','. */
   if (strchr (cl->nonce, ','))
     return false;
-
-  /* FIXME check that nonce is valid UTF-8. */
 
   /* We require a non-zero proof. */
   if (cl->proof == NULL || *cl->proof == '\0')
