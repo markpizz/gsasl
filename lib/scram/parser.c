@@ -280,8 +280,6 @@ scram_parse_client_final (const char *str,
     memcpy (cl->cbind, str, len);
     cl->cbind[len] = '\0';
 
-    /* FIXME base64 decode cbind */
-
     str = p;
   }
 
@@ -334,8 +332,6 @@ scram_parse_client_final (const char *str,
 
     memcpy (cl->proof, str, len);
     cl->proof[len] = '\0';
-
-    /* FIXME base64 decode proof */
   }
 
   if (scram_valid_client_final (cl) < 0)

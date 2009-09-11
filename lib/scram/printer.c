@@ -127,8 +127,6 @@ scram_print_client_final (struct scram_client_final *cl, char **out)
   if (!scram_valid_client_final (cl))
     return -1;
 
-  /* FIXME base64 cbind/proof */
-
   n = asprintf (out, "c=%s,r=%s,p=%s",
 		cl->cbind, cl->nonce, cl->proof);
   if (n <= 0 || *out == NULL)
