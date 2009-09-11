@@ -75,7 +75,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     case GSASL_SCRAM_SALT:
       if (i & 0x04)
 	{
-	  gsasl_property_set (sctx, prop, "salt");
+	  gsasl_property_set (sctx, prop, "c2FsdA==");
 	  rc = GSASL_OK;
 	}
       break;
