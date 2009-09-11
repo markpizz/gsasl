@@ -49,6 +49,7 @@ struct scram_client_state
   int step;
   char *cfmb; /* client first message bare */
   char *serversignature;
+  char *authmessage;
   struct scram_client_first cf;
   struct scram_server_first sf;
   struct scram_client_final cl;
@@ -230,7 +231,6 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  char saltedpassword[20];
 	  char *clientkey;
 	  char *storedkey;
-	  char *authmessage;
 	  char *clientsignature;
 	  char clientproof[20];
 	  const char *p;
@@ -261,6 +261,28 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  else
 	    return GSASL_NO_PASSWORD;
 
+	  /* Get client-final-message-without-proof. */
+	  {
+	    char *cfmwp;
+	    int n;
+
+	    state->cl.proof = strdup ("p");
+	    rc = scram_print_client_final (&state->cl, &cfmwp);
+	    if (rc != 0)
+	      return GSASL_MALLOC_ERROR;
+	    free (state->cl.proof);
+
+	    /* Compute AuthMessage */
+	    n = asprintf (&state->authmessage, "%s,%.*s,%.*s",
+			  state->cfmb,
+			  input_len, input,
+			  strlen (cfmwp) - 4,
+			  cfmwp);
+	    free (cfmwp);
+	    if (n <= 0 || !state->authmessage)
+	      return GSASL_MALLOC_ERROR;
+	  }
+
 	  /* ClientKey := HMAC(SaltedPassword, "Client Key") */
 #define CLIENT_KEY "Client Key"
 	  rc = gsasl_hmac_sha1 (saltedpassword, 20,
@@ -272,30 +294,22 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  /* StoredKey := H(ClientKey) */
 	  rc = gsasl_sha1 (clientkey, 20, &storedkey);
 	  if (rc != 0)
-	    return rc;
-
-	  /* Get client-final-message-without-proof. */
-	  state->cl.proof = strdup ("p");
-	  rc = scram_print_client_final (&state->cl, output);
-	  if (rc != 0)
-	    return GSASL_MALLOC_ERROR;
-	  free (state->cl.proof);
-
-	  /* Compute AuthMessage */
-	  asprintf (&authmessage, "%s,%.*s,%.*s",
-		    state->cfmb,
-		    input_len, input,
-		    strlen (*output) - 4,
-		    *output);
-	  free (*output);
+	    {
+	      free (clientkey);
+	      return rc;
+	    }
 
 	  /* ClientSignature := HMAC(StoredKey, AuthMessage) */
 	  rc = gsasl_hmac_sha1 (storedkey, 20,
-				authmessage, strlen (authmessage),
+				state->authmessage,
+				strlen (state->authmessage),
 				&clientsignature);
 	  free (storedkey);
 	  if (rc != 0)
-	    return rc;
+	    {
+	      free (clientkey);
+	      return rc;
+	    }
 
 	  /* ClientProof := ClientKey XOR ClientSignature */
 	  memcpy (clientproof, clientkey, 20);
@@ -323,7 +337,8 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 
 	    /* ServerSignature := HMAC(ServerKey, AuthMessage) */
 	    rc = gsasl_hmac_sha1 (serverkey, 20,
-				  authmessage, strlen (authmessage),
+				  state->authmessage,
+				  strlen (state->authmessage),
 				  &serversignature);
 	    if (rc != 0)
 	      return rc;
@@ -334,8 +349,6 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	    if (rc != 0)
 	      return rc;
 	  }
-
-	  free (authmessage);
 	}
 
 	rc = scram_print_client_final (&state->cl, output);
@@ -381,6 +394,7 @@ _gsasl_scram_sha1_client_finish (Gsasl_session * sctx, void *mech_data)
     return;
 
   free (state->cfmb);
+  free (state->authmessage);
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
   scram_free_client_final (&state->cl);
