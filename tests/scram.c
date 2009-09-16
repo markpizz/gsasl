@@ -35,6 +35,8 @@
 /* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
 #define AUTHZID "joe"
 
+#define EXPECTED_USERNAME "Ali Baba"
+
 size_t i;
 
 static int
@@ -65,6 +67,10 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     case GSASL_SCRAM_ITER:
+      if (strcmp (gsasl_property_fast (sctx, GSASL_AUTHID),
+		  EXPECTED_USERNAME) != 0)
+	fail ("Username mismatch: %s",
+	      gsasl_property_fast (sctx, GSASL_AUTHID));
       if (i & 0x02)
 	{
 	  gsasl_property_set (sctx, prop, "1234");
@@ -81,6 +87,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     case GSASL_SCRAM_SALTED_PASSWORD:
+      /* No support for this yet. */
       break;
 
     default:
