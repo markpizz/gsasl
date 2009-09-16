@@ -37,107 +37,123 @@
 #include "validate.h"
 
 int
-scram_parse_client_first (const char *str,
+scram_parse_client_first (const char *str, size_t len,
 			  struct scram_client_first *cf)
 {
   /* Minimum client first string is 'n,,n=a,r=b'. */
   if (strlen (str) < 10)
     return -1;
 
-  if (*str != 'p' && *str != 'n' && *str != 'y')
+  if (len == 0 || *str != 'n')
+      /* FIXME parse non-'n' cbflags */
     return -1;
+  cf->cbflag = *str;
+  str++, len--;
 
-  cf->cbflag = *str++;
-  if (cf->cbflag == 'p')
-    {
-      /* FIXME parse cbname */
-      return -1;
-    }
-
-  if (*str++ != ',')
+  if (len == 0 || *str != ',')
     return -1;
+  str++, len--;
 
+  if (len == 0)
+    return -1;
   if (*str == 'a')
     {
-      char *p;
-      size_t len;
+      const char *p;
+      size_t l;
 
-      p = strchr (str, ',');
+      p = memchr (str, ',', len);
       if (!p)
 	return -1;
 
-      len = p - str;
+      l = p - str;
+      if (len < l)
+	return -1;
 
-      cf->authzid = malloc (len + 1);
+      cf->authzid = malloc (l + 1);
       if (!cf->authzid)
 	return -1;
 
-      memcpy (cf->authzid, str, len);
-      cf->authzid[len] = '\0';
+      memcpy (cf->authzid, str, l);
+      cf->authzid[l] = '\0';
 
       /* FIXME decode authzid */
 
       str = p;
+      len -= l;
     }
 
-  if (*str++ != ',')
+  if (len == 0 || *str != ',')
     return -1;
+  str++, len--;
 
-  if (*str++ != 'n')
+  if (len == 0 || *str != 'n')
     return -1;
+  str++, len--;
 
-  if (*str++ != '=')
+  if (len == 0 || *str != '=')
     return -1;
+  str++, len--;
 
   {
-    char *p;
-    size_t len;
+    const char *p;
+    size_t l;
 
-    p = strchr (str, ',');
+    p = memchr (str, ',', len);
     if (!p)
       return -1;
 
-    len = p - str;
+    l = p - str;
+    if (len < l)
+      return -1;
 
-    cf->username = malloc (len + 1);
+    cf->username = malloc (l + 1);
     if (!cf->username)
       return -1;
 
-    memcpy (cf->username, str, len);
-    cf->username[len] = '\0';
+    memcpy (cf->username, str, l);
+    cf->username[l] = '\0';
 
     /* FIXME decode username */
 
     str = p;
+    len -= l;
   }
 
-  if (*str++ != ',')
+  if (len == 0 || *str != ',')
     return -1;
+  str++, len--;
 
-  if (*str++ != 'r')
+  if (len == 0 || *str != 'r')
     return -1;
+  str++, len--;
 
-  if (*str++ != '=')
+  if (len == 0 || *str != '=')
     return -1;
+  str++, len--;
 
   {
-    char *p;
-    size_t len;
+    const char *p;
+    size_t l;
 
-    p = strchrnul (str, ',');
+    p = memchr (str, ',', len);
+    if (!p)
+      p = str + len;
     if (!p)
       return -1;
 
-    len = p - str;
+    l = p - str;
+    if (len < l)
+      return -1;
 
-    cf->client_nonce = malloc (len + 1);
+    cf->client_nonce = malloc (l + 1);
     if (!cf->client_nonce)
       return -1;
 
-    memcpy (cf->client_nonce, str, len);
-    cf->client_nonce[len] = '\0';
+    memcpy (cf->client_nonce, str, l);
+    cf->client_nonce[l] = '\0';
 
     str = p;
+    len -= l;
   }
 
   /* FIXME check that any extension fields follow valid syntax. */
@@ -149,97 +165,105 @@ scram_parse_client_first (const char *str,
 }
 
 int
-scram_parse_server_first (const char *str,
+scram_parse_server_first (const char *str, size_t len,
 			  struct scram_server_first *sf)
 {
   /* Minimum server first string is 'r=ab,s=biws,i=1'. */
   if (strlen (str) < 15)
     return -1;
 
-  if (*str++ != 'r')
+  if (len == 0 || *str != 'r')
     return -1;
+  str++, len--;
 
-  if (*str++ != '=')
+  if (len == 0 || *str != '=')
     return -1;
-
-  {
-    char *p;
-    size_t len;
-
-    p = strchr (str, ',');
-    if (!p)
-      return -1;
-
-    len = p - str;
-
-    sf->nonce = malloc (len + 1);
-    if (!sf->nonce)
-      return -1;
-
-    memcpy (sf->nonce, str, len);
-    sf->nonce[len] = '\0';
-
-    str = p;
-  }
-
-  if (*str++ != ',')
-    return -1;
-
-  if (*str++ != 's')
-    return -1;
-
-  if (*str++ != '=')
-    return -1;
-
-  {
-    char *p;
-    size_t len;
-
-    p = strchr (str, ',');
-    if (!p)
-      return -1;
-
-    len = p - str;
-
-    sf->salt = malloc (len + 1);
-    if (!sf->salt)
-      return -1;
-
-    memcpy (sf->salt, str, len);
-    sf->salt[len] = '\0';
-
-    str = p;
-  }
-
-  if (*str++ != ',')
-    return -1;
-
-  if (*str++ != 'i')
-    return -1;
-
-  if (*str++ != '=')
-    return -1;
+  str++, len--;
 
   {
     const char *p;
+    size_t l;
 
-    sf->iter = 0;
-    for (p = str; *p >= '0' && *p <= '9'; p++)
-      {
-	size_t last_iter = sf->iter;
-
-	sf->iter = sf->iter * 10 + (*p - '0');
-
-	/* Protect against wrap arounds. */
-	if (sf->iter < last_iter)
-	  return -1;
-      }
-
-    if (*p != ',' && *p != '\0')
+    p = memchr (str, ',', len);
+    if (!p)
       return -1;
 
+    l = p - str;
+    if (len < l)
+      return -1;
+
+    sf->nonce = malloc (l + 1);
+    if (!sf->nonce)
+      return -1;
+
+    memcpy (sf->nonce, str, l);
+    sf->nonce[l] = '\0';
+
     str = p;
+    len -= l;
   }
+
+  if (len == 0 || *str != ',')
+    return -1;
+  str++, len--;
+
+  if (len == 0 || *str != 's')
+    return -1;
+  str++, len--;
+
+  if (len == 0 || *str != '=')
+    return -1;
+  str++, len--;
+
+  {
+    const char *p;
+    size_t l;
+
+    p = memchr (str, ',', len);
+    if (!p)
+      return -1;
+
+    l = p - str;
+    if (len < l)
+      return -1;
+
+    sf->salt = malloc (l + 1);
+    if (!sf->salt)
+      return -1;
+
+    memcpy (sf->salt, str, l);
+    sf->salt[l] = '\0';
+
+    str = p;
+    len -= l;
+  }
+
+  if (len == 0 || *str != ',')
+    return -1;
+  str++, len--;
+
+  if (len == 0 || *str != 'i')
+    return -1;
+  str++, len--;
+
+  if (len == 0 || *str != '=')
+    return -1;
+  str++, len--;
+
+  sf->iter = 0;
+  for (; len > 0 && *str >= '0' && *str <= '9'; str++, len--)
+    {
+      size_t last_iter = sf->iter;
+
+      sf->iter = sf->iter * 10 + (*str - '0');
+
+      /* Protect against wrap arounds. */
+      if (sf->iter < last_iter)
+	return -1;
+    }
+
+  if (len > 0 && *str != ',')
+    return -1;
 
   /* FIXME check that any extension fields follow valid syntax. */
 
@@ -250,89 +274,103 @@ scram_parse_server_first (const char *str,
 }
 
 int
-scram_parse_client_final (const char *str,
+scram_parse_client_final (const char *str, size_t len,
 			  struct scram_client_final *cl)
 {
   /* Minimum client final string is 'c=biws,r=ab,p=ab=='. */
   if (strlen (str) < 18)
     return -1;
 
-  if (*str++ != 'c')
+  if (len == 0 || *str != 'c')
     return -1;
+  str++, len--;
 
-  if (*str++ != '=')
+  if (len == 0 || *str != '=')
     return -1;
+  str++, len--;
 
   {
-    char *p;
-    size_t len;
+    const char *p;
+    size_t l;
 
-    p = strchr (str, ',');
+    p = memchr (str, ',', len);
     if (!p)
       return -1;
 
-    len = p - str;
+    l = p - str;
+    if (len < l)
+      return -1;
 
-    cl->cbind = malloc (len + 1);
+    cl->cbind = malloc (l + 1);
     if (!cl->cbind)
       return -1;
 
-    memcpy (cl->cbind, str, len);
-    cl->cbind[len] = '\0';
+    memcpy (cl->cbind, str, l);
+    cl->cbind[l] = '\0';
 
     str = p;
+    len -= l;
   }
 
-  if (*str++ != ',')
+  if (len == 0 || *str != ',')
     return -1;
+  str++, len--;
 
-  if (*str++ != 'r')
+  if (len == 0 || *str != 'r')
     return -1;
+  str++, len--;
 
-  if (*str++ != '=')
+  if (len == 0 || *str != '=')
     return -1;
+  str++, len--;
 
   {
-    char *p;
-    size_t len;
+    const char *p;
+    size_t l;
 
-    p = strchr (str, ',');
+    p = memchr (str, ',', len);
     if (!p)
       return -1;
 
-    len = p - str;
+    l = p - str;
+    if (len < l)
+      return -1;
 
-    cl->nonce = malloc (len + 1);
+    cl->nonce = malloc (l + 1);
     if (!cl->nonce)
       return -1;
 
-    memcpy (cl->nonce, str, len);
-    cl->nonce[len] = '\0';
+    memcpy (cl->nonce, str, l);
+    cl->nonce[l] = '\0';
 
     str = p;
+    len -= l;
   }
 
   /* FIXME check that any extension fields follow valid syntax. */
 
-  if (*str++ != ',')
+  if (len == 0 || *str != ',')
+    return -1;
+  str++, len--;
+
+  if (len == 0 || *str != 'p')
+    return -1;
+  str++, len--;
+
+  if (len == 0 || *str != '=')
+    return -1;
+  str++, len--;
+
+  /* Sanity check proof. */
+  if (memchr (str, '\0', len))
     return -1;
 
-  if (*str++ != 'p')
+  cl->proof = malloc (len + 1);
+  if (!cl->proof)
     return -1;
 
-  if (*str++ != '=')
-    return -1;
-
-  {
-    size_t len = strlen (str);
-
-    cl->proof = malloc (len + 1);
-    if (!cl->proof)
-      return -1;
-
-    memcpy (cl->proof, str, len);
-    cl->proof[len] = '\0';
-  }
+  memcpy (cl->proof, str, len);
+  cl->proof[len] = '\0';
 
   if (scram_valid_client_final (cl) < 0)
     return -1;
@@ -341,29 +379,31 @@ scram_parse_client_final (const char *str,
 }
 
 int
-scram_parse_server_final (const char *str,
+scram_parse_server_final (const char *str, size_t len,
 			  struct scram_server_final *sl)
 {
   /* Minimum client final string is 'v=ab=='. */
   if (strlen (str) < 6)
     return -1;
 
-  if (*str++ != 'v')
+  if (len == 0 || *str != 'v')
+    return -1;
+  str++, len--;
+
+  if (len == 0 || *str != '=')
+    return -1;
+  str++, len--;
+
+  /* Sanity check proof. */
+  if (memchr (str, '\0', len))
     return -1;
 
-  if (*str++ != '=')
+  sl->verifier = malloc (len + 1);
+  if (!sl->verifier)
     return -1;
 
-  {
-    size_t len = strlen (str);
-
-    sl->verifier = malloc (len + 1);
-    if (!sl->verifier)
-      return -1;
-
-    memcpy (sl->verifier, str, len);
-    sl->verifier[len] = '\0';
-  }
+  memcpy (sl->verifier, str, len);
+  sl->verifier[len] = '\0';
 
   if (scram_valid_server_final (sl) < 0)
     return -1;

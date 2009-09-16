@@ -26,16 +26,16 @@
 /* Get token types. */
 #include "tokens.h"
 
-extern int scram_parse_client_first (const char *str,
+extern int scram_parse_client_first (const char *str, size_t len,
 				     struct scram_client_first *cf);
 
-extern int scram_parse_server_first (const char *str,
+extern int scram_parse_server_first (const char *str, size_t len,
 				     struct scram_server_first *cf);
 
-extern int scram_parse_client_final (const char *str,
+extern int scram_parse_client_final (const char *str, size_t len,
 				     struct scram_client_final *cl);
 
-extern int scram_parse_server_final (const char *str,
+extern int scram_parse_server_final (const char *str, size_t len,
 				     struct scram_server_final *sl);
 
 #endif /* SCRAM_PARSER_H */

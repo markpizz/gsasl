@@ -122,10 +122,10 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
     {
     case 0:
       {
-	if (strlen (input) != input_len)
-	  return GSASL_MECHANISM_PARSE_ERROR;
+	if (input_len == 0)
+	  return GSASL_NEEDS_MORE;
 
-	if (scram_parse_client_first (input, &state->cf) < 0)
+	if (scram_parse_client_first (input, input_len, &state->cf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
 	/* We don't support channel bindings. */
@@ -146,18 +146,20 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	  const char *p;
 
 	  /* Save "bare" for next step. */
-	  p = strchr (input, ',');
+	  p = memchr (input, ',', input_len);
 	  if (!p)
 	    return GSASL_AUTHENTICATION_ERROR;
 	  p++;
-	  p = strchr (p, ',');
+	  p = memchr (p, ',', input_len - (p - input));
 	  if (!p)
 	    return GSASL_AUTHENTICATION_ERROR;
 	  p++;
 
-	  state->cfmb_str = strdup (p);
+	  state->cfmb_str = malloc (input_len - (p - input) + 1);
 	  if (!state->cfmb_str)
 	    return GSASL_MALLOC_ERROR;
+	  memcpy (state->cfmb_str, p, input_len - (p - input));
+	  state->cfmb_str[input_len - (p - input)] = '\0';
 	}
 
 	/* Create new nonce. */
@@ -207,10 +209,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 
     case 1:
       {
-	if (strlen (input) != input_len)
-	  return GSASL_MECHANISM_PARSE_ERROR;
-
-	if (scram_parse_client_final (input, &state->cl) < 0)
+	if (scram_parse_client_final (input, input_len, &state->cl) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
 	if (strcmp (state->cl.nonce, state->sf.nonce) != 0)
@@ -285,7 +284,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	    int n;
 
 	    /* Get client-final-message-without-proof. */
-	    p = strstr (input, ",p=");
+	    p = memmem (input, input_len, ",p=", 3);
 	    if (!p)
 	      return GSASL_MECHANISM_PARSE_ERROR;
 	    len = p - input;

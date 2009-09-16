@@ -197,10 +197,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 
     case 1:
       {
-	if (strlen (input) != input_len)
-	  return GSASL_MECHANISM_PARSE_ERROR;
-
-	if (scram_parse_server_first (input, &state->sf) < 0)
+	if (scram_parse_server_first (input, input_len, &state->sf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
 	if (strlen (state->sf.nonce) < strlen (state->cf.client_nonce) ||
@@ -364,10 +361,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 
     case 2:
       {
-	if (strlen (input) != input_len)
-	  return GSASL_MECHANISM_PARSE_ERROR;
-
-	if (scram_parse_server_final (input, &state->sl) < 0)
+	if (scram_parse_server_final (input, input_len, &state->sl) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
 	if (strcmp (state->sl.verifier, state->serversignature) != 0)
