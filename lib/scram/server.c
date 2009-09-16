@@ -176,6 +176,8 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	  state->sf.nonce[cnlen + SNONCE_ENTROPY_BYTES] = '\0';
 	}
 
+	gsasl_property_set (sctx, GSASL_AUTHID, state->cf.username);
+
 	{
 	  const char *p = gsasl_property_get (sctx, GSASL_SCRAM_ITER);
 	  if (p)
