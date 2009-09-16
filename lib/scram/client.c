@@ -337,12 +337,13 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 				  state->authmessage,
 				  strlen (state->authmessage),
 				  &serversignature);
+	    gsasl_free (serverkey);
 	    if (rc != 0)
 	      return rc;
 
 	    rc = gsasl_base64_to (serversignature, 20,
 				  &state->serversignature, NULL);
-	    free (serversignature);
+	    gsasl_free (serversignature);
 	    if (rc != 0)
 	      return rc;
 	  }
@@ -388,6 +389,7 @@ _gsasl_scram_sha1_client_finish (Gsasl_session * sctx, void *mech_data)
     return;
 
   free (state->cfmb);
+  free (state->serversignature);
   free (state->authmessage);
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
