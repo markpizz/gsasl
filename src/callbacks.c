@@ -190,6 +190,9 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       }
       break;
 
+    case GSASL_SCRAM_SALTED_PASSWORD:
+      break;
+
     default:
       printf ("Mechanism requested unsupported property `%d'.\n", prop);
       break;
