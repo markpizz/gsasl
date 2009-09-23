@@ -658,9 +658,8 @@ main (int argc, char *argv[])
 	  if (res != GSASL_NEEDS_MORE && res != GSASL_OK)
 	    break;
 
-	  if (res == GSASL_NEEDS_MORE || *out)
-	    if (!step_send (out))
-	      return 1;
+	  if (!step_send (out))
+	    return 1;
 
 	  if (res != GSASL_NEEDS_MORE)
 	    break;
