@@ -120,6 +120,14 @@ EXTRA_DIST += intprops.h
 
 ## end   gnulib module intprops
 
+## begin gnulib module link-warning
+
+LINK_WARNING_H=$(top_srcdir)/build-aux/link-warning.h
+
+EXTRA_DIST += $(top_srcdir)/build-aux/link-warning.h
+
+## end   gnulib module link-warning
+
 ## begin gnulib module memchr-tests
 
 TESTS += test-memchr
@@ -127,6 +135,15 @@ check_PROGRAMS += test-memchr
 EXTRA_DIST += test-memchr.c zerosize-ptr.h
 
 ## end   gnulib module memchr-tests
+
+## begin gnulib module memmem-tests
+
+TESTS += test-memmem
+check_PROGRAMS += test-memmem
+
+EXTRA_DIST += test-memmem.c zerosize-ptr.h
+
+## end   gnulib module memmem-tests
 
 ## begin gnulib module rawmemchr-tests
 

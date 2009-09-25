@@ -86,6 +86,9 @@ AC_DEFUN([gl_INIT],
   gl_VISIBILITY
   gl_FUNC_MEMCHR
   gl_STRING_MODULE_INDICATOR([memchr])
+  gl_FUNC_MEMMEM
+  gl_FUNC_MEMMEM_SIMPLE
+  gl_STRING_MODULE_INDICATOR([memmem])
   gl_MINMAX
   gl_MULTIARCH
   gl_FUNC_RAWMEMCHR
@@ -151,6 +154,10 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gltests_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gltests'
+  gl_FUNC_MMAP_ANON
+  AC_CHECK_HEADERS_ONCE([sys/mman.h])
+  AC_CHECK_FUNCS_ONCE([mprotect])
+  AC_CHECK_DECLS_ONCE([alarm])
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
   m4_ifval(gltests_LIBSOURCES_LIST, [
@@ -271,6 +278,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/md5.h
   lib/memchr.c
   lib/memchr.valgrind
+  lib/memmem.c
   lib/memxor.c
   lib/memxor.h
   lib/minmax.h
@@ -290,6 +298,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdio-write.c
   lib/stdio.in.h
   lib/stdlib.in.h
+  lib/str-two-way.h
   lib/strchrnul.c
   lib/strchrnul.valgrind
   lib/string.in.h
@@ -344,6 +353,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/malloc.m4
   m4/md5.m4
   m4/memchr.m4
+  m4/memmem.m4
   m4/memxor.m4
   m4/minmax.m4
   m4/mmap-anon.m4
@@ -387,6 +397,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-getdelim.c
   tests/test-getline.c
   tests/test-memchr.c
+  tests/test-memmem.c
   tests/test-rawmemchr.c
   tests/test-stdbool.c
   tests/test-stddef.c
