@@ -241,17 +241,26 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	      size_t saltlen;
 	      char saltedpassword[20];
 	      char *clientkey;
+	      char *preppasswd;
+
+	      rc = gsasl_saslprep (p, 0, &preppasswd, NULL);
+	      if (rc != GSASL_OK)
+		return rc;
 
 	      rc = gsasl_base64_from (state->sf.salt, strlen (state->sf.salt),
 				      &salt, &saltlen);
 	      if (rc != 0)
-		return rc;
+		{
+		  gsasl_free (preppasswd);
+		  return rc;
+		}
 
 	      /* SaltedPassword := Hi(password, salt) */
-	      err = gc_pbkdf2_sha1 (p, strlen (p),
+	      err = gc_pbkdf2_sha1 (preppasswd, strlen (preppasswd),
 				    salt, saltlen,
 				    state->sf.iter, saltedpassword, 20);
-	      free (salt);
+	      gsasl_free (preppasswd);
+	      gsasl_free (salt);
 	      if (err != GC_OK)
 		return GSASL_MALLOC_ERROR;
 
