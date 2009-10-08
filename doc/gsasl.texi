@@ -1704,13 +1704,12 @@ values offered by the server (which may be inspected through the
 @section The SCRAM-SHA-1 mechanism
 @cindex SCRAM
 
-The SCRAM-SHA-1 mechanism is designed to provide most of the same
-features as CRAM-MD5 and DIGEST-MD5 but use modern cryptographic
-algorithms such as HMAC-SHA-1 and PKCS#5 PBKDF2.  It supports
+The SCRAM-SHA-1 mechanism is designed to provide (almost) the same
+capabilities as CRAM-MD5 and DIGEST-MD5 but use modern cryptographic
+techniques such as HMAC-SHA-1 and PKCS#5 PBKDF2.  SCRAM-SHA-1 supports
 authorization identities.  Like CRAM-MD5 and DIGEST-MD5, only a hashed
 password is transferred.  Consequently, SCRAM-SHA-1 needs access to
-the correct password (although it may be hashed) to verify the client
-response.
+the correct password to verify the client response.
 
 In the client, this mechanism is always enabled, and it requires the
 @code{GSASL_AUTHID} property, and either @code{GSASL_PASSWORD} or
