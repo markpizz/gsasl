@@ -174,8 +174,8 @@ utility (@code{gsasl}) to access the library from the shell, and a
 manual.  The library includes support for the framework (with
 authentication functions and application data privacy and integrity
 functions) and at least partial support for the CRAM-MD5, EXTERNAL,
-GSSAPI, ANONYMOUS, PLAIN, SECURID, DIGEST-MD5, LOGIN, and NTLM
-mechanisms.
+GSSAPI, ANONYMOUS, PLAIN, SECURID, DIGEST-MD5, SCRAM-SHA-1, LOGIN, and
+NTLM mechanisms.
 
 The library is easily ported because it does not do network
 communication by itself, but rather leaves it up to the calling
@@ -443,7 +443,7 @@ memory or size optimization.
 If you are interested, please write to:
 
 @verbatim
-Simon Josefsson Datakonsult
+Simon Josefsson Datakonsult AB
 Hagagatan 24
 113 47 Stockholm
 Sweden
@@ -517,6 +517,7 @@ want to limit the size of the library.
 @itemx --disable-digest-md5
 @itemx --disable-gssapi
 @itemx --enable-kerberos_v5
+@itemx --disable-scram-sha1
 Disable or enable individual mechanisms (@pxref{Mechanisms}).
 
 @item --without-stringprep
@@ -1297,11 +1298,57 @@ mechanism require in order to work.
 @node Properties
 @chapter Properties
 
-@c FIXME: Write introductions to properties.  Discuss differences
-@c between client and server properties.  Discuss validating
-@c meta-properties.
+The library uses a concept called ``properties'' to request and pass
+data between the application and the individual authentication
+mechanisms.  The application can set property values using the
+@code{gsasl_property_set} function.  If a mechanism needs a property
+value the application has not yet provided, this is handled through a
+callback.  The application provides a callback, using
+@code{gsasl_callback_set}, which will be invoked with a property
+parameter.  The callback should set the property before returning, or
+fail.  For more information, see @xref{Callback Functions}.
 
-Properties with associated data:
+There are two kind of properties.  The first, a ``data property'' is
+the simplest to understand because it normally refers to short
+strings.  For example, the property called @code{GSASL_AUTHID}
+correspond to the username string, e.g., @code{simon}.
+
+The latter properties, called ``logical properties'', are used by the
+server to make a authentication decision, and is used as a way to get
+the application callback invoked.  For example, the property
+@code{GSASL_VALIDATE_SIMPLE} is used by the server-side part of
+mechanisms like @code{PLAIN}.  The purpose is to ask the server
+application to decide whether the user should be authenticated
+successfully or not.  The callback typically look at other property
+fields, such as @code{GSASL_AUTHID} and @code{GSASL_PASSWORD}, and
+compare those values with external information (for example data
+stored in a database or on a LDAP server) and then return OK or not.
+
+@quotation Warning
+Don't expect that all mechanisms invoke one of the logical properties
+in the server mode.  For example, the CRAM-MD5 and SCRAM-SHA-1
+mechanisms will use the data properties (i.e., username and password)
+provided by the application to internally decide whether to
+successfully authenticate the user.  User authorization decisions
+needs to be made by the application outside of the SASL mechanism
+negotiation.
+@end quotation
+
+The logical properties are currently only used by servers, but data
+properties are used by both client and servers.  It makes sense to
+think about the latter category as @samp{server properties} but the
+reverse is not valid nor useful.
+
+The semantics associated with a data property is different when it is
+used in client context and in the server context.  For example, in the
+client context, the application is expected to set the property
+@code{GSASL_AUTHID} to signal to the mechanism the username to use,
+but in the server context, the @code{GSASL_AUTHID} property is set by
+the mechanism and can be used by the application (in the callback) to
+find out what username the client provided.
+
+Below is a list of all properties and an explanation for each.  First
+is the list of data properties:
 
 @itemize
 
@@ -1375,10 +1422,32 @@ keywords for @code{GSASL_QOPS}.  The client must chose one of the QOP
 values offered by the server (which may be inspected through the
 @code{GSASL_QOPS} property).
 
+@item @code{GSASL_SCRAM_SALTED_PASSWORD}
+
+The SCRAM-SHA-1 client requests this property from the application,
+and the value should be 40 character long hex-encoded string with the
+user's hashed password.  Note that the value is different for the same
+password for each value of the @code{GSASL_SCRAM_ITER} and
+@code{GSASL_SCRAM_ITER} properties.  The property can be used to avoid
+storing a clear-text credential in the client.  If the property is not
+available, the client will ask for the @code{GSASL_PASSWORD} property
+instead.
+
+@item @code{GSASL_SCRAM_ITER}
+@item @code{GSASL_SCRAM_ITER}
+
+In the server, the application can set these properties to influence
+the hash iteration count and hash salt to use when deriving the
+password.  The default hash iteration count is 4096 and normally you
+should not need to use a lower setting.  The salt should be a random
+string.  In the client, the SCRAM-SHA-1 mechanism set these properties
+before asking for asking the application to provide a
+@code{GSASL_SCRAM_SALTED_PASSWORD} value.
+
 @end itemize
 
-Abstract properties, used to trigger the callback, typically used in
-servers to validate client credentials:
+Next follows a list of data properties used to trigger the callback,
+typically used in servers to validate client credentials:
 
 @itemize
 
@@ -1431,7 +1500,7 @@ The client callback queries the user for a username and password.  The
 server callback hands the username and password into any local policy
 deciding authentication system (such as @file{/etc/passwd} via PAM).
 
-Mechanism such as @samp{CRAM-MD5} and @samp{DIGEST-MD5} uses hashed
+Mechanism such as @samp{CRAM-MD5} and @samp{SCRAM-SHA-1} uses hashed
 passwords.  The client callback behaviour is the same as for PLAIN.
 However, the server does not receive the plain text password over the
 network but rather a hash of it.  Existing policy deciding systems
@@ -1456,6 +1525,7 @@ entirely dependent on callbacks.
 * LOGIN::                   Non-standard clear text username and password.
 * CRAM-MD5::                Challenge-Response Authentication Mechanism.
 * DIGEST-MD5::              Digest Authentication.
+* SCRAM-SHA-1::             SCRAM-SHA-1 authentication.
 * NTLM::                    Microsoft NTLM authentication.
 * SECURID::                 Authentication using tokens.
 * GSSAPI::                  GSSAPI (Kerberos 5) authentication.
@@ -1629,6 +1699,41 @@ protection value to request.  The client must choose one of the QOP
 values offered by the server (which may be inspected through the
 @code{GSASL_QOPS} property).  If the client does not return a value,
 @code{qop-auth} is used by default.
+
+@node SCRAM-SHA-1
+@section The SCRAM-SHA-1 mechanism
+@cindex SCRAM
+
+The SCRAM-SHA-1 mechanism is designed to provide most of the same
+features as CRAM-MD5 and DIGEST-MD5 but use modern cryptographic
+algorithms such as HMAC-SHA-1 and PKCS#5 PBKDF2.  It supports
+authorization identities.  Like CRAM-MD5 and DIGEST-MD5, only a hashed
+password is transferred.  Consequently, SCRAM-SHA-1 needs access to
+the correct password (although it may be hashed) to verify the client
+response.
+
+In the client, this mechanism is always enabled, and it requires the
+@code{GSASL_AUTHID} property, and either @code{GSASL_PASSWORD} or
+@code{GSASL_SCRAM_SALTED_PASSWORD}.  If set, @code{GSASL_AUTHZID} will
+be used by the client.  To be able to return the proper
+@code{GSASL_SCRAM_SALTED_PASSWORD} value, the client needs to check
+the @code{GSASL_SCRAM_ITER} and @code{GSASL_SCRAM_SALT} values which
+are available when the @code{GSASL_SCRAM_SALTED_PASSWORD} property is
+queried for.
+
+In the server, the mechanism will require the @code{GSASL_PASSWORD}
+callback property, which may use the @code{GSASL_AUTHID} property to
+determine which users' password should be used.  The
+@code{GSASL_AUTHID} will be in normalized form.  The server will then
+normalize the returned password, and compare the client response with
+the computed correct response, and accept the user accordingly.  The
+server may also set the @code{GSASL_SCRAM_ITER} and
+@code{GSASL_SCRAM_SALT} properties to influence the values to be used
+by clients to derive a key from a password.
+
+@cindex channel binding
+Currently channel bindings are not supported, so there is no support
+for SCRAM-SHA-1-PLUS.
 
 @node NTLM
 @section The NTLM mechanism
