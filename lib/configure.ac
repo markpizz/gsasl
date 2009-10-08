@@ -155,7 +155,7 @@ AM_CONDITIONAL(DIGEST_MD5, test x$digest_md5 = xyes)
 # SCRAM-SHA-1
 AC_ARG_ENABLE(scram-sha1,
   AS_HELP_STRING([--enable-scram-sha1], [use the SCRAM-SHA-1 mechanism]),
-  scram_sha1=$enableval, scram_sha1=no)
+  scram_sha1=$enableval)
 if test "$scram_sha1" != "no" ; then
   scram_sha1=yes
   AC_DEFINE(USE_SCRAM_SHA1, 1, [Define to 1 if you want SCRAM-SHA-1.])
