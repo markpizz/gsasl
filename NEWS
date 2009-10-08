@@ -6,6 +6,8 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
+* Version 1.3.90 (unreleased) [experimental]
+
 * Version 1.3 (released 2009-10-08)
 
 ** Experimental support for SCRAM-SHA-1 added.
