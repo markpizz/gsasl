@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.3 (unreleased)
 
+** Support for SCRAM-SHA-1 added.
+
 ** gsasl: Fix libintl-related build errors on MinGW.
 Tiny patch from "carlo.bramix" <carlo.bramix@libero.it>.
 
