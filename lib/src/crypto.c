@@ -108,6 +108,8 @@ gsasl_hmac_md5 (const char *key, size_t keylen,
  * deallocated by the caller.
  *
  * Return value: Returns %GSASL_OK iff successful.
+ *
+ * Since: 1.3
  **/
 int
 gsasl_sha1 (const char *in, size_t inlen, char *out[20])
@@ -130,6 +132,8 @@ gsasl_sha1 (const char *in, size_t inlen, char *out[20])
  * must be deallocated by the caller.
  *
  * Return value: Returns %GSASL_OK iff successful.
+ *
+ * Since: 1.3
  **/
 int
 gsasl_hmac_sha1 (const char *key, size_t keylen,
