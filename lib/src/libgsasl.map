@@ -139,3 +139,10 @@ LIBGSASL_1.1 {
   local:
     *;
 };
+
+LIBGSASL_1.4
+{
+  global:
+    gsasl_sha1;
+    gsasl_hmac_sha1;
+} LIBGSASL_1.1;
