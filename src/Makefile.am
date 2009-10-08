@@ -33,6 +33,7 @@ gsasl_LDADD = ../lib/src/libgsasl.la ../gl/libgl.la \
 noinst_LTLIBRARIES = libgsasl_cmd.la
 BUILT_SOURCES = gsasl_cmd.c gsasl_cmd.h
 libgsasl_cmd_la_SOURCES = $(BUILT_SOURCES) gsasl.ggo
+libgsasl_cmd_la_LIBADD = ../gl/libgl.la
 libgsasl_cmd_la_CFLAGS =
 
 $(BUILT_SOURCES): gsasl.ggo Makefile.am
