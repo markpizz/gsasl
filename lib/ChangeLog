@@ -1,3 +1,618 @@
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 1.3.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Don't use non-ascii in self-test in case gsasl is
+	built without libidn.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Fix build error on mingw.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Update.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Add new symbols since 1.3 section.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/crypto.c: Doc fix.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Simplify DISTCHECK_CONFIGURE_FLAGS, scram is now
+	enabled by default.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/init.c: Make SCRAM lowest priority for now.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Enable SCRAM by default.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Improve, including new SCRAM coverage.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getopt.in.h, gl/getopt_int.h, gl/m4/getopt.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/stdio_h.m4, gl/m4/unistd_h.m4,
+	gl/progname.c, gl/stdio.in.h, gl/unistd.in.h,
+	gltests/test-getopt.c, gltests/test-getopt_long.h,
+	gltests/test-quotearg.c, lib/gl/Makefile.am, lib/gl/m4/stdio_h.m4,
+	lib/gl/m4/unistd_h.m4, lib/gl/stdio.in.h, lib/gl/unistd.in.h,
+	lib/maint.mk, maint.mk: Update gnulib files.
+
+2009-10-07  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/server.c: SCRAM: Normalize password
+	using SASLprep.
+
+2009-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/getdelim.m4, gl/m4/stdio_h.m4,
+	gl/m4/stdlib_h.m4, gl/m4/unistd_h.m4, gl/stdio.in.h,
+	gl/stdlib.in.h, gl/unistd.in.h, gltests/Makefile.am,
+	lib/gl/Makefile.am, lib/gl/m4/getdelim.m4,
+	lib/gl/m4/gnulib-cache.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/memmem.m4, lib/gl/m4/stdio_h.m4, lib/gl/m4/stdlib_h.m4,
+	lib/gl/m4/unistd_h.m4, lib/gl/memmem.c, lib/gl/stdio.in.h,
+	lib/gl/stdlib.in.h, lib/gl/str-two-way.h, lib/gl/unistd.in.h,
+	lib/gltests/Makefile.am, lib/gltests/test-memmem.c, lib/maint.mk,
+	maint.mk: Update gnulib files.
+
+2009-09-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Revert check for empty final token (incorrect
+	change).
+
+2009-09-16  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Silence debug warning.
+
+2009-09-16  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Don't print empty tokens after success.
+
+2009-09-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/server.c: SCRAM: Store username property in server.
+
+2009-09-16  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Also check that AUTHID is set and correct in
+	callback.
+
+2009-09-16  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2009-09-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c: SCRAM: Fix memleak.
+
+2009-09-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/parser.c, lib/scram/parser.h,
+	lib/scram/server.c: SCRAM: Handle non-zero terminated strings.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/validate.c: SCRAM: Drop FIXME, specification changed to
+	not use UTF-8 for nonces.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c, lib/scram/printer.c: SCRAM: Drop FIXMEs, we
+	solved it differently.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c, lib/scram/printer.c: SCRAM: Drop FIXMEs, we
+	solved it differently.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c: SCRAM: Cleanup and memory leak fixing.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/server.c: SCRAM: Cleanup and memory leak fixing.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/server.c: SCRAM: Check that username doesn't fail
+	SASLprep (as required).
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Enable SCRAM-SHA-1 during distcheck testing.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Silence warning.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getaddrinfo.m4, gl/m4/getline.m4, gl/m4/getopt.m4,
+	gl/m4/poll.m4, gl/m4/readline.m4, gl/m4/select.m4,
+	gl/m4/sockets.m4, gl/m4/socklen.m4, gl/m4/sockpfaf.m4,
+	gl/m4/wctype.m4, lib/build-aux/gendocs.sh, lib/gl/m4/getline.m4: 
+	Update gnulib files.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/configure.ac, lib/scram/mechinfo.c,
+	lib/scram/scram.h, lib/src/init.c: SCRAM: Drop unfinished
+	SCRAM-SHA-1-PLUS support.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/server.c: SCRAM: Check server
+	signature.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/server.c: SCRAM: Generate server signature.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/server.c: SCRAM: Check clientproof
+	on server side.  Fix mem leaks.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Use b64 salt.
+
+2009-09-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/parser.c, lib/scram/printer.c: 
+	SCRAM: Base64 decode salt.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, lib/NEWS, lib/scram/client.c, lib/src/gsasl.h,
+	lib/src/internal.h, lib/src/property.c, lib/src/xfinish.c: SCRAM:
+	Compute proof.  Add property GSASL_SCRAM_SALTED_PASSWORD.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/m4/gc-sha1.m4,
+	lib/gl/m4/gnulib-cache.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gltests/Makefile.am, lib/gltests/test-gc-sha1.c: Add SHA-1
+	gnulib modules.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/src/crypto.c, lib/src/gsasl.h: Add SHA-1 APIs.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/gc-pbkdf2-sha1.c, lib/gl/hmac-sha1.c,
+	lib/gl/m4/gc-hmac-sha1.m4, lib/gl/m4/gc-pbkdf2-sha1.m4,
+	lib/gl/m4/gnulib-cache.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/hmac-sha1.m4, lib/gl/m4/sha1.m4, lib/gl/sha1.c,
+	lib/gl/sha1.h, lib/gltests/Makefile.am,
+	lib/gltests/test-gc-hmac-sha1.c, lib/gltests/test-gc-pbkdf2-sha1.c: 
+	Add crypto/gc-pbkdf2-sha1 gnulib module.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c: Check errors.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/server.c: SCRAM: Compare nonces.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c: SCRAM: Correct cbind in client final.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/parser.c, tests/scram.c: SCRAM:
+	Print/parse authzid.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Test iter/salt too.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/server.c: SCRAM: Use printable salt.
+	Fix mem leak
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/server.c: SCRAM: Use printable
+	nonces.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/server.c: SCRAM: Support iter/salt setting better.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/src/gsasl.h, lib/src/internal.h,
+	lib/src/property.c, lib/src/xfinish.c: SCRAM: Add properties.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/server.c, tests/scram.c: SCRAM: Fix
+	self-test and memory leak.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Improve output.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/parser.c, lib/scram/parser.h,
+	lib/scram/printer.c, lib/scram/printer.h, lib/scram/server.c,
+	lib/scram/tokens.c, lib/scram/tokens.h, lib/scram/validate.c,
+	lib/scram/validate.h: SCRAM: Protocol works (but no crypto).
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/parser.c, lib/scram/printer.c,
+	lib/scram/printer.h, lib/scram/tokens.c, lib/scram/tokens.h,
+	lib/scram/validate.c, lib/scram/validate.h: SCRAM: Client final
+	sending works (but no crypto).
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c: SCRAM: Cleanup.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c, lib/scram/parser.c, lib/scram/parser.h,
+	lib/scram/server.c: SCRAM: Parsing of server first works.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/Makefile.am, lib/scram/parser.c, lib/scram/parser.h,
+	lib/scram/printer.c, lib/scram/printer.h, lib/scram/server.c,
+	lib/scram/tokens.c, lib/scram/tokens.h, lib/scram/validate.c,
+	lib/scram/validate.h: SCRAM: Printing server first works.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/server.c: SCRAM: Server can parse client first.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c: Add.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c: Fix typo.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Drop some things.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/string_h.m4, gl/m4/unistd_h.m4,
+	gl/m4/wctype.m4, gl/string.in.h, gl/unistd.in.h, gl/wctype.in.h,
+	lib/gl/m4/rawmemchr.m4, lib/gl/m4/strchrnul.m4: Add gnulib strchrnul
+	module.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/rawmemchr.c, lib/gl/rawmemchr.valgrind,
+	lib/gl/strchrnul.c, lib/gl/strchrnul.valgrind: Add gnulib strchrnul
+	module.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/string_h.m4,
+	lib/gl/m4/unistd_h.m4, lib/gl/string.in.h, lib/gl/unistd.in.h,
+	lib/gltests/Makefile.am, lib/gltests/test-rawmemchr.c,
+	lib/gltests/test-strchrnul.c: Add gnulib strchrnul module.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c: Parse more.
+
+2009-09-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Make it build.
+
+2009-09-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/Makefile.am, lib/scram/parser.c, lib/scram/parser.h,
+	lib/scram/server.c: Add skeleton parser.
+
+2009-09-09  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2009-09-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/Makefile.am, lib/scram/client.c, lib/scram/mechinfo.c,
+	lib/scram/scram.h, lib/scram/server.c, tests/Makefile.am,
+	tests/scram.c: Improve SCRAM, initial server skeleton and self test.
+
+2009-09-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c: Improve SCRAM, client now sends first token.
+
+2009-09-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/Makefile.am, lib/scram/mechinfo.c, lib/scram/scram.h: 
+	Improve SCRAM, client now sends first token.
+
+2009-09-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/printer.c: Fixes.
+
+2009-09-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/validate.c: Add check.
+
+2009-09-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/printer.c, lib/scram/printer.h: Add SCRAM printer
+	functionality.
+
+2009-09-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/Makefile.am, lib/scram/printer.h, lib/scram/tokens.h,
+	lib/scram/validate.c, lib/scram/validate.h: Add SCRAM stuff.
+
+2009-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/configure.ac, lib/scram/Makefile.am,
+	lib/scram/mechinfo.c, lib/scram/scram.h, lib/src/Makefile.am,
+	lib/src/init.c: Add SCRAM skeleton.
+
+2009-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/configure.ac, lib/scram/Makefile.am,
+	lib/scram/mechinfo.c, lib/scram/scram.h: Add SCRAM skeleton.
+
+2009-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/close.c, gl/iconv_open-solaris.gperf,
+	gl/iconv_open.c, gl/inet_ntop.c, gl/m4/gnulib-comp.m4,
+	gl/m4/iconv_open.m4, gl/m4/stdio_h.m4, gl/m4/string_h.m4,
+	gl/m4/unistd_h.m4, gl/stdio.in.h, gl/string.in.h, gl/unistd.in.h,
+	gl/wctype.in.h, gltests/Makefile.am, gltests/inet_pton.c,
+	gltests/test-wctype.c, lib/gl/Makefile.am, lib/gl/m4/stdio_h.m4,
+	lib/gl/m4/string_h.m4, lib/gl/m4/unistd_h.m4, lib/gl/stdio.in.h,
+	lib/gl/string.in.h, lib/gl/unistd.in.h, lib/maint.mk, maint.mk: 
+	Update gnulib files.
+
+2009-08-28  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-08-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-comp.m4, gl/m4/stdlib_h.m4,
+	gl/m4/sys_socket_h.m4, gl/m4/unistd_h.m4, gl/progname.c,
+	gl/quotearg.c, gl/quotearg.h, gl/stdlib.in.h, gl/sys_socket.in.h,
+	gl/unistd.in.h, gl/vasnprintf.c, gltests/Makefile.am,
+	gltests/test-quotearg.c, lib/gl/Makefile.am, lib/gl/m4/stddef_h.m4,
+	lib/gl/m4/stdlib_h.m4, lib/gl/m4/unistd_h.m4, lib/gl/stddef.in.h,
+	lib/gl/stdlib.in.h, lib/gl/unistd.in.h, lib/gl/vasnprintf.c,
+	lib/gltests/test-stddef.c: Update gnulib files.
+
+2009-08-28  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, THANKS, src/Makefile.am: Fix libintl-related build errors on
+	MinGW.  Tiny patch from "carlo.bramix" <carlo.bramix@libero.it>.
+
+2009-08-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-comp.m4, gl/m4/stddef_h.m4,
+	gl/m4/stdio_h.m4, gl/m4/wchar.m4, gl/poll.c, gl/select.c,
+	gl/stddef.in.h, gl/stdio.in.h, gl/stdlib.in.h, gl/string.in.h,
+	gl/unistd.in.h, gltests/Makefile.am, gltests/test-stddef.c,
+	gltests/test-stdio.c, gltests/test-stdlib.c, gltests/test-string.c,
+	gltests/test-unistd.c, gltests/test-wchar.c, lib/gl/Makefile.am,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/stdio_h.m4, lib/gl/m4/wchar.m4,
+	lib/gl/stdio.in.h, lib/gl/stdlib.in.h, lib/gl/string.in.h,
+	lib/gl/unistd.in.h, lib/gltests/Makefile.am,
+	lib/gltests/test-stdio.c, lib/gltests/test-stdlib.c,
+	lib/gltests/test-string.c, lib/gltests/test-unistd.c,
+	lib/gltests/test-wchar.c, lib/maint.mk, maint.mk: Update gnulib
+	files.
+
+2009-08-14  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/fseeko.c, gl/m4/close.m4, gl/m4/fclose.m4,
+	gl/m4/getopt.m4, gl/m4/gnulib-comp.m4, gl/m4/iconv.m4,
+	gl/m4/sys_ioctl_h.m4, gl/m4/sys_select_h.m4, gl/m4/sys_socket_h.m4,
+	gl/m4/threadlib.m4, gl/m4/unistd_h.m4, gl/socket.c, gl/sockets.c,
+	gl/sockets.h, gl/stdio-write.c, gl/sys_select.in.h, gl/unistd.in.h,
+	gl/vasnprintf.c, gltests/Makefile.am, gltests/gettimeofday.c,
+	gltests/sockets.c, gltests/sockets.h, gltests/sys_ioctl.in.h,
+	gltests/test-getopt.c, gltests/test-getopt.h,
+	gltests/test-getopt_long.h, gltests/test-poll.c,
+	gltests/test-select.c, gltests/test-stdio.c, gltests/test-stdlib.c,
+	gltests/test-string.c, gltests/test-sys_select.c,
+	gltests/test-unistd.c, gltests/test-version-etc.sh,
+	lib/gl/Makefile.am, lib/gl/gc-gnulib.c, lib/gl/gc-libgcrypt.c,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/iconv.m4,
+	lib/gl/m4/threadlib.m4, lib/gl/m4/unistd_h.m4, lib/gl/md5.h,
+	lib/gl/stdio-write.c, lib/gl/unistd.in.h, lib/gl/vasnprintf.c,
+	lib/gltests/test-stdio.c, lib/gltests/test-stdlib.c,
+	lib/gltests/test-string.c, lib/gltests/test-unistd.c, lib/maint.mk,
+	maint.mk: Update gnulib files.
+
+2009-07-29  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Typo.
+
+2009-07-22  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/errno.in.h, gl/error.c, gl/m4/errno_h.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/lib-link.m4, gl/m4/mbrtowc.m4,
+	gl/m4/memchr.m4, gl/m4/stdio_h.m4, gl/m4/unistd_h.m4,
+	gl/stdio.in.h, gl/strerror.c, gl/unistd.in.h, gl/version-etc.c,
+	gl/version-etc.h, gltests/Makefile.am, gltests/test-stdio.c,
+	gltests/test-stdlib.c, gltests/test-string.c,
+	gltests/test-unistd.c, gltests/test-version-etc.c,
+	gltests/test-version-etc.sh, gltests/version-etc-fsf.c,
+	lib/build-aux/vc-list-files, lib/gl/Makefile.am, lib/gl/errno.in.h,
+	lib/gl/m4/errno_h.m4, lib/gl/m4/lib-link.m4, lib/gl/m4/memchr.m4,
+	lib/gl/m4/stdio_h.m4, lib/gl/m4/unistd_h.m4, lib/gl/md5.h,
+	lib/gl/stdio.in.h, lib/gl/unistd.in.h, lib/gltests/test-stdio.c,
+	lib/gltests/test-stdlib.c, lib/gltests/test-string.c,
+	lib/gltests/test-unistd.c, lib/maint.mk, maint.mk: Update gnulib
+	files.
+
+2009-06-23  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Add more non-keyword characters.
+
+2009-06-23  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Add more non-keyword characters.
+
+2009-06-23  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/threadsafety: Fix portability of EGREP
+	usage.
+
+2009-06-23  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Ignore more non-keyword characters.
+
+2009-06-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Build gsasl_cmd without warning/error flags.
+
+2009-06-23  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Catch more functions.
+
+2009-06-23  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Doc fix.
+
+2009-06-17  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi, doc/reference/gsasl-docs.sgml,
+	examples/client-callback.c, examples/client-mech.c,
+	examples/client-serverfirst.c, examples/client.c: Fix typos.  Based
+	on report by Marco Maggi <marco.maggi-ipsu@poste.it> in
+	<http://thread.gmane.org/gmane.comp.gnu.gsasl.general/222>.
+
+2009-06-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-comp.m4, gl/m4/memchr.m4,
+	gl/memchr.valgrind, gl/string.in.h, lib/gl/Makefile.am,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/memchr.m4,
+	lib/gl/memchr.valgrind, lib/gl/string.in.h: Update gnulib files.
+
+2009-06-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/error.c, lib/src/version.c: Doc fix.
+
+2009-06-16  Simon Josefsson <simon@josefsson.org>
+
+	* tests/crypto.c: Initialize gsasl, to get crypto functions to work.
+
+2009-06-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Merge in issue 7 functions.
+
+2009-06-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/threadsafety: Make list of functions easier to read.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* tests/crypto.c: Fix.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Test encode/decode.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, tests/Makefile.am, tests/crypto.c: Add.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Check gsasl_session_hook_get too.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Fix warnings.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* tests/old-simple.c: Fix.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Based on old-simple.c, but rewritten using modern
+	APIs.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/old-simple.c, tests/simple.c: Rename
+	obsolete API checks to old-*.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Clarify which tokens GNU SASL generated.
+	Suggested by Marco Maggi <marco.maggi-ipsu@poste.it> in
+	<http://permalink.gmane.org/gmane.comp.gnu.gsasl.general/233>.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix path.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2009-06-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
 2009-06-13  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS, lib/NEWS: Version 1.2.
