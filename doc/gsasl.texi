@@ -1436,6 +1436,8 @@ instead.
 @item @code{GSASL_SCRAM_ITER}
 @item @code{GSASL_SCRAM_ITER}
 
+@cindex iteration count
+@cindex salt
 In the server, the application can set these properties to influence
 the hash iteration count and hash salt to use when deriving the
 password.  The default hash iteration count is 4096 and normally you
