@@ -4,6 +4,12 @@ See the end for copying conditions.
 
 * Version 1.3.90 (unreleased) [experimental]
 
+** libgsasl: Properly increment libtool version to reflect newly added ABIs.
+This was accidentally forgotten in the last release.
+
+** libgsasl: Export gsasl_sha1 and gsasl_hmac_sha1 in linker version script.
+This was accidentally forgotten in the last release.
+
 ** API and ABI modifications.
 No changes since last version.
 
