@@ -28,9 +28,9 @@ AC_CONFIG_MACRO_DIR([m4])
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
-AC_SUBST(LT_CURRENT, 13)
-AC_SUBST(LT_REVISION, 5)
-AC_SUBST(LT_AGE, 6)
+AC_SUBST(LT_CURRENT, 14)
+AC_SUBST(LT_REVISION, 0)
+AC_SUBST(LT_AGE, 7)
 
 # Used when creating libgsasl-XX.def.
 DLL_VERSION=`expr ${LT_CURRENT} - ${LT_AGE}`
