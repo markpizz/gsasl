@@ -23,10 +23,6 @@
 #include "imap.h"
 #include "smtp.h"
 
-#ifdef HAVE_WS2TCPIP_H
-# include <ws2tcpip.h>
-#endif
-
 #ifdef HAVE_LIBGNUTLS
 # include <gnutls/gnutls.h>
 gnutls_session session;
@@ -299,19 +295,6 @@ main (int argc, char *argv[])
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
-
-#ifdef HAVE_WS2TCPIP_H
-  {
-    WORD wVersionRequested;
-    WSADATA wsaData;
-    int r;
-
-    wVersionRequested = MAKEWORD (2, 0);
-    r = WSAStartup (wVersionRequested, &wsaData);
-    if (r)
-      error (EXIT_FAILURE, 0, _("cannot initialize Windows sockets"));
-  }
-#endif
 
   if (cmdline_parser (argc, argv, &args_info) != 0)
     return EXIT_FAILURE;
