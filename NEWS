@@ -10,6 +10,9 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 ** tests/crypto: Also test newly added SHA-1 interfaces.
 
+** i18n: Added Finnish translation.
+Thanks to Jorma Karvonen <karvonen.jorma@gmail.com>.
+
 * Version 1.3 (released 2009-10-08)
 
 ** Experimental support for SCRAM-SHA-1 added.

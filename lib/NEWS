@@ -10,6 +10,12 @@ This was accidentally forgotten in the last release.
 ** libgsasl: Export gsasl_sha1 and gsasl_hmac_sha1 in linker version script.
 This was accidentally forgotten in the last release.
 
+** i18n: Added Finnish translation.
+Thanks to Jorma Karvonen <karvonen.jorma@gmail.com>.
+
+** i18n: Updated Vietnamese translation.
+Thanks to Clytie Siddall <clytie@riverland.net.au>.
+
 ** API and ABI modifications.
 No changes since last version.
 
