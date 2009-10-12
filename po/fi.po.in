@@ -1,56 +1,55 @@
-# Vietnamese Translation for GSASL.
+# Finnish messages for gsasl.
 # Copyright © 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
-# Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
+# Jorma Karvonen <karvonen.jorma@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 1.1\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
 "POT-Creation-Date: 2009-03-25 16:06+0100\n"
-"PO-Revision-Date: 2009-09-19 21:37+0930\n"
-"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
-"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
+"PO-Revision-Date: 2009-10-06 20:16+0200\n"
+"Last-Translator: Jorma Karvonen <karvonen.jorma@gmail.com>\n"
+"Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.8\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: src/gsasl.c:170
 #, c-format
 msgid "Choose SASL mechanism:\n"
-msgstr "Chọn cơ cấu SASL:\n"
+msgstr "Valitse SASL-mekanismi:\n"
 
 #: src/gsasl.c:179
 #, c-format
 msgid "Input list of SASL mechanisms supported by server:\n"
-msgstr "Nh92p danh sách các cơ cấu SASL được máy phục vụ hỗ trợ :\n"
+msgstr "Palvelin tukee SASL-mekanismin syöteluetteloa:\n"
 
 #: src/gsasl.c:198
 #, c-format
 msgid "Using mechanism:\n"
-msgstr "Đang dùng cơ cấu : \n"
+msgstr "Käytetään mekanismia:\n"
 
 #: src/gsasl.c:215
 #, c-format
 msgid "Output from server:\n"
-msgstr "Kết xuất từ máy phục vụ :\n"
+msgstr "Tuloste palvelimelta:\n"
 
 #: src/gsasl.c:217
 #, c-format
 msgid "Output from client:\n"
-msgstr "Kết xuất từ ứng dụng khách:\n"
+msgstr "Tuloste asiakkaalta:\n"
 
 #: src/gsasl.c:270
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Hãy chạy lệnh « %s --help » (trợ giúp) để xem thông tin thêm.\n"
+msgstr "Lisätietoja käskyllä ”%s --help”.\n"
 
 #: src/gsasl.c:307
 #, c-format
 msgid "Cannot initialize Windows sockets."
-msgstr "Không thể sở khởi ổ cắm kiểu Windows."
+msgstr "Ei voi alustaa Windows-pistokkeita."
 
 #: src/gsasl.c:331
 #, c-format
@@ -58,185 +57,185 @@ msgid ""
 "missing argument\n"
 "Try `%s --help' for more information."
 msgstr ""
-"thiếu đối số\n"
-"Hãy chạy lệnh « %s --help » (trợ giúp) để xem thông tin thêm."
+"puuttuva argumentti\n"
+"Lisätietoja komennolla ”%s --help”."
 
 #: src/gsasl.c:337
 #, c-format
 msgid "need both --x509-cert-file and --x509-key-file"
-msgstr "cần thiết cả « --x509-cert-file » (tập tin chứng nhận) lẫn « --x509-key-file » (tập tin khóa)"
+msgstr "tarvitsee sekä valitsimen --x509-cert-file että valitsimen --x509-key-file"
 
 #: src/gsasl.c:341
 #, c-format
 msgid "cannot use both --starttls and --no-starttls"
-msgstr "không thể dùng tùy chọn « --starttls » (có) với « --no-starttls » (không)"
+msgstr "ei voi käyttää sekä valitsinta --starttls että valitsinta --no-starttls"
 
 #: src/gsasl.c:344
 #, c-format
 msgid "cannot use both --smtp and --imap"
-msgstr "không thể dùng tùy chọn « --smtp » với « --imap » (hai giao thức khác nhau)"
+msgstr "ei voi käyttää sekä valitsinta --smtp että valitsinta --imap"
 
 #: src/gsasl.c:409
 #, c-format
 msgid "initialization failure: %s"
-msgstr "lỗi sở khởi: %s"
+msgstr "alustusvirhe: %s"
 
 #: src/gsasl.c:424
 #, c-format
 msgid "error listing mechanisms: %s"
-msgstr "gặp lỗi khi liệt kê cơ cấu : %s"
+msgstr "virheluettelomekanismit: %s"
 
 #: src/gsasl.c:431
 #, c-format
 msgid "This client supports the following mechanisms:\n"
-msgstr "Ứng dụng khách này hỗ trợ các cơ cấu theo đây:\n"
+msgstr "Tämä asiakas tukee seuraavia mekanismeja:\n"
 
 #: src/gsasl.c:434
 #, c-format
 msgid "This server supports the following mechanisms:\n"
-msgstr "Máy phục vụ này hỗ trợ các cơ cấu theo đây:\n"
+msgstr "Tämä palvelin tukee seuraavia mekanismeja:\n"
 
 #: src/gsasl.c:500
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
-msgstr "Lỗi sở khởi toàn cục GnuTLS: %s"
+msgstr "GnuTLS-yleisalustus epäonnistui: %s"
 
 #: src/gsasl.c:505
 #, c-format
 msgid "GnuTLS initialization failed: %s"
-msgstr "Lỗi sở khởi GnuTLS: %s"
+msgstr "GnuTLS-alustus epäonnistui: %s"
 
 #: src/gsasl.c:510
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
-msgstr "lỗi đặt các giá trị mặc định cho GnuTLS: %s"
+msgstr "GnuTLS-oletusten asetus epäonnistui: %s"
 
 #: src/gsasl.c:516
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
-msgstr "đang cấp phát thông tin xác thực GnuTLS kiểu vô danh: %s"
+msgstr "varataan anonyymi GnuTLS-valtuutus: %s"
 
 #: src/gsasl.c:521
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
-msgstr "đang đặt thông tin xác thực GnuTLS kiểu vô danh: %s"
+msgstr "asetetaan anonyymi GnuTLS-valtuutus: %s"
 
 #: src/gsasl.c:526
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
-msgstr "đang cấp phát thông tin xác thực GnuTLS kiểu X.509: %s"
+msgstr "varataan X.509 GnuTLS-valtuutus: %s"
 
 #: src/gsasl.c:534
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
-msgstr "đang tải thông tin xác thực GnuTLS kiểu X.509: %s"
+msgstr "ladataan X.509 GnuTLS-valtuutus: %s"
 
 #: src/gsasl.c:542
 #, c-format
 msgid "no X.509 CAs found: %s"
-msgstr "không tìm thấy Nhà Cầm Quyền Chứng Nhận X.509 nào: %s"
+msgstr "ei löytynyt X.509-varmennusviranomaisia: %s"
 
 #: src/gsasl.c:545
 #, c-format
 msgid "no X.509 CAs found"
-msgstr "không tìm thấy Nhà Cầm Quyền Chứng Nhận X.509 nào"
+msgstr "ei löytynyt X.509-varmennusviranomaisia"
 
 #: src/gsasl.c:551
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
-msgstr "đang đặt thông tin xác thực GnuTLS kiểu X509: %s"
+msgstr "asetetaan X.509 GnuTLS-valtuutus: %s"
 
 #: src/gsasl.c:562
 #, c-format
 msgid "setting GnuTLS cipher priority (%s): %s\n"
-msgstr "đang đặt ưu tiên mật mã GnuTLS (%s): %s\n"
+msgstr "asetetaan GnuTLS-salausprioriteetti (%s): %s\n"
 
 #: src/gsasl.c:573
 #, c-format
 msgid "GnuTLS handshake failed: %s"
-msgstr "lỗi thiết lập quan hệ GnuTLS: %s"
+msgstr "GnuTLS-kättely epäonnistui: %s"
 
 #: src/gsasl.c:582
 #, c-format
 msgid "verifying peer certificate: %s"
-msgstr "đang thẩm tra chứng nhận ngang hàng: %s"
+msgstr "todenna vertaisvarmenne: %s"
 
 #: src/gsasl.c:586
 #, c-format
 msgid "server certificate is not trusted"
-msgstr "chứng nhận của máy phục vụ không phải là tin cây"
+msgstr "palvelinvarmenne ei ole luotettava"
 
 #: src/gsasl.c:590
 #, c-format
 msgid "server certificate hasn't got a known issuer"
-msgstr "chứng nhận của máy phục vụ không có nhà phát hành đã biết"
+msgstr "palvelinvarmenteen julkaisija ei ole tunnettu"
 
 #: src/gsasl.c:593
 #, c-format
 msgid "server certificate has been revoked"
-msgstr "chứng nhận của máy phục vụ đã bị hủy bỏ"
+msgstr "palvelinvarmenne on peruttu"
 
 #: src/gsasl.c:597
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
-msgstr "không thể thẩm tra chứng nhận của máy phục vụ (rc=%d)"
+msgstr "ei voitu todentaa palvelinvarmennetta (rc=%d)"
 
 #: src/gsasl.c:620
 #, c-format
 msgid "Cannot find mechanism...\n"
-msgstr "Không tìm thấy cơ cấu...\n"
+msgstr "Mekanismia ei löydy...\n"
 
 #: src/gsasl.c:637
 #, c-format
 msgid "mechanism unavailable: %s"
-msgstr "cơ cấu không sẵn sàng: %s"
+msgstr "mekanismi on tavoittamattomissa: %s"
 
 #: src/gsasl.c:666
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Nhập dữ liệu xác thực cơ số 64 từ ứng dụng khách (ấn phím RETURN nếu không có):\n"
+msgstr "Kirjoita base64-varmennedataa asiakkaalta (paina RET, jos ei mitään):\n"
 
 #: src/gsasl.c:669
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Nhập dữ liệu xác thực cơ số 64 từ máy phục vụ (ấn phím RETURN nếu không có):\n"
+msgstr "Kirjoita base64-varmennedataa palvelimelta (paina RET, jos ei mitään):\n"
 
 #: src/gsasl.c:679
 #, c-format
 msgid "mechanism error: %s"
-msgstr "gặp lỗi cơ cấu : %s"
+msgstr "mekanismivirhe: %s"
 
 #: src/gsasl.c:688
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
-msgstr "Việc xác thực máy phục vụ đã xong (ứng dụng khách được tin)...\n"
+msgstr "Palvelinvarmennus päättynyt (asiakas luotettu)...\n"
 
 #: src/gsasl.c:691
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
-msgstr "Việc xác thực ứng dụng khách đã xong (máy phục vụ được tin)...\n"
+msgstr "Asiakasvarmennus päättynyt (palvelin luotettu)...\n"
 
 #: src/gsasl.c:714
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
-msgstr "Nhập dữ liệu ứng dụng (EOF [kết thức tập tin] để xong): \n"
+msgstr "Kirjoita sovellusdataa (Päätä EOF-merkillä):\n"
 
 #: src/gsasl.c:787
 #, c-format
 msgid "Base64 encoded application data to send:\n"
-msgstr "Dữ liệu ứng dụng đã mã hóa cơ số 64 cần gởi:\n"
+msgstr "Base64-koodattua sovellusdataa lähetettävänä:\n"
 
 #: src/gsasl.c:843
 #, c-format
 msgid "encoding error: %s"
-msgstr "gặp lỗi mã hóa: %s"
+msgstr "koodausvirhe: %s"
 
 #: src/gsasl.c:848
 #, c-format
 msgid "Session finished...\n"
-msgstr "Phiên chạy đã xong...\n"
+msgstr "Istunto päättyi...\n"
 
 #: src/gsasl.c:864
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
-msgstr "lỗi kết thức phiên chạy GnuTLS: %s"
+msgstr "GnuTLS-istunnon päättäminen epäonnistui: %s"
