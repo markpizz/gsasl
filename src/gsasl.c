@@ -30,6 +30,8 @@ bool using_tls = false;
 #endif
 
 #define MAX_LINE_LENGTH BUFSIZ
+#define INPUT_BUFSIZE	BUFSIZ
+#define MAX_INPUT_SIZE	0x100000
 
 struct gengetopt_args_info args_info;
 int sockfd = 0;
@@ -795,26 +797,31 @@ main (int argc, char *argv[])
 		  ssize_t len;
 		  char *tmp;
 
-		  tmp = realloc (sockbuf, sockpos + 1);
+		  tmp = realloc (sockbuf, sockpos + INPUT_BUFSIZE);
 		  if (!tmp)
 		    error (EXIT_FAILURE, errno, "realloc");
 		  sockbuf = tmp;
 
 #ifdef HAVE_LIBGNUTLS
 		  if (using_tls)
-		    len = gnutls_record_recv (session, &sockbuf[sockpos], 1);
+		    len = gnutls_record_recv (session, &sockbuf[sockpos],
+					      INPUT_BUFSIZE);
 		  else
 #endif
-		    len = recv (sockfd, &sockbuf[sockpos], 1, 0);
+		    len = recv (sockfd, &sockbuf[sockpos], INPUT_BUFSIZE, 0);
 		  if (len <= 0)
 		    break;
 
-		  sockpos++;
+		  sockpos += len;
 
 		  res = gsasl_decode (xctx, sockbuf, sockpos,
 				      &out, &output_len);
-		  if (res == GSASL_NEEDS_MORE)
+		  if (res == GSASL_NEEDS_MORE) {
+		    if (sockpos > MAX_INPUT_SIZE)
+		      error (EXIT_FAILURE, 0,
+			     _("SASL record too large: %zu\n"), sockpos);
 		    continue;
+		  }
 		  if (res != GSASL_OK)
 		    break;
 
