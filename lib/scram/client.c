@@ -30,7 +30,7 @@
 /* Get malloc, free. */
 #include <stdlib.h>
 
-/* Get memcpy, strlen. */
+/* Get memcpy, strlen, strchr. */
 #include <string.h>
 
 /* Get bool. */
@@ -110,19 +110,18 @@ sha1_hex_to_byte (char *saltedpassword, const char *p)
   while (*p)
     {
       *saltedpassword = hex_to_char (p[0], p[1]);
-      p++;
-
-      saltedpassword += 2;
+      p += 2;
+      saltedpassword++;
     }
 }
 
 static bool
 hex_p (const char *hexstr)
 {
-  static char hexalpha[] = "0123456789abcdef";
+  static const char hexalpha[] = "0123456789abcdef";
 
   for (; *hexstr; hexstr++)
-    if (!strchr (hexalpha, *hexstr))
+    if (strchr (hexalpha, *hexstr) == NULL)
       return false;
 
   return true;
