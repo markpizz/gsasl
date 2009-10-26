@@ -288,7 +288,7 @@ AC_SUBST([LTALLOCA])
   gt_TYPE_WINT_T
   gl_SYS_IOCTL_H
   AC_PROG_MKDIR_P
-  AC_CHECK_FUNCS([shutdown])
+  AC_CHECK_FUNCS_ONCE([shutdown])
   gl_FUNC_UNSETENV
   gl_STDLIB_MODULE_INDICATOR([unsetenv])
   abs_aux_dir=`cd "$ac_aux_dir"; pwd`
@@ -520,6 +520,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/exitfail.m4
   m4/extensions.m4
   m4/fclose.m4
+  m4/fcntl_h.m4
   m4/float_h.m4
   m4/fseeko.m4
   m4/getaddrinfo.m4
