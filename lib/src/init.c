@@ -54,12 +54,6 @@ register_builtin_mechs (Gsasl * ctx)
 {
   int rc = GSASL_OK;
 
-#ifdef USE_SCRAM_SHA1
-  rc = gsasl_register (ctx, &gsasl_scram_sha1_mechanism);
-  if (rc != GSASL_OK)
-    return rc;
-#endif /* USE_SCRAM_SHA1 */
-
 #ifdef USE_ANONYMOUS
   rc = gsasl_register (ctx, &gsasl_anonymous_mechanism);
   if (rc != GSASL_OK)
@@ -107,6 +101,12 @@ register_builtin_mechs (Gsasl * ctx)
   if (rc != GSASL_OK)
     return rc;
 #endif /* USE_CRAM_MD5 */
+
+#ifdef USE_SCRAM_SHA1
+  rc = gsasl_register (ctx, &gsasl_scram_sha1_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_SCRAM_SHA1 */
 
 #ifdef USE_GSSAPI
   rc = gsasl_register (ctx, &gsasl_gssapi_mechanism);
