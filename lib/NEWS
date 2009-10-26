@@ -10,6 +10,9 @@ This was accidentally forgotten in the last release.
 ** libgsasl: Export gsasl_sha1 and gsasl_hmac_sha1 in linker version script.
 This was accidentally forgotten in the last release.
 
+** libgsasl: Fix crash in SCRAM-SHA-1 client when the application provides
+** a value for GSASL_SCRAM_SALTED_PASSWORD.
+
 ** i18n: Added Finnish translation.
 Thanks to Jorma Karvonen <karvonen.jorma@gmail.com>.
 
