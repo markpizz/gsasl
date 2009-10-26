@@ -87,7 +87,17 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     case GSASL_SCRAM_SALTED_PASSWORD:
-      /* No support for this yet. */
+      if (i & 0x04 && i & 0x08) /* Only works with fixed salt. */
+	{
+	  const char *str[] = {
+	    "06bfd2d70a0fa425c20473722a93700df39f3cbd",
+	    "f1e6c0e5a207367176ac42c7799b67ae3e097d7e",
+	  };
+	  /* >>1 to mask out authzid. */
+	  size_t pos = (i & ~0x04 & ~0x08) >> 1;
+	  gsasl_property_set (sctx, prop, str[pos]);
+	  rc = GSASL_OK;
+	}
       break;
 
     default:
@@ -124,7 +134,7 @@ doit (void)
 
   gsasl_callback_set (ctx, callback);
 
-  for (i = 0; i <= 7; i++)
+  for (i = 0; i <= 15; i++)
     {
       if (debug)
 	printf ("Iteration %d ...\n", i);
