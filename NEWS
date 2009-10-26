@@ -10,6 +10,9 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 ** tests/crypto: Also test newly added SHA-1 interfaces.
 
+** tests/scram: Also test GSASL_SCRAM_SALTED_PASSWORD case.
+This code path triggered a crash in v1.3.
+
 ** i18n: Added Finnish translation.
 Thanks to Jorma Karvonen <karvonen.jorma@gmail.com>.
 
