@@ -121,7 +121,6 @@ AC_SUBST([LTALLOCA])
   gl_HEADER_NETDB
   gl_HEADER_NETINET_IN
   AC_PROG_MKDIR_P
-  gl_PMCCABE2HTML
   gl_FUNC_POLL
   AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
   AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
@@ -575,7 +574,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/netinet_in_h.m4
   m4/nls.m4
   m4/perror.m4
-  m4/pmccabe2html.m4
   m4/po.m4
   m4/poll.m4
   m4/printf-posix.m4
