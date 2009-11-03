@@ -1,0 +1,11 @@
+--- gl/m4/gc.m4.orig	2009-11-03 08:24:39.000000000 +0100
++++ gl/m4/gc.m4	2009-11-03 08:24:45.000000000 +0100
+@@ -8,7 +8,7 @@
+ [
+   AC_ARG_WITH([libgcrypt],
+     AS_HELP_STRING([--with-libgcrypt], [use libgcrypt for low-level crypto]),
+-    libgcrypt=$withval, libgcrypt=no)
++    libgcrypt=$withval, libgcrypt=yes)
+   if test "$libgcrypt" != no; then
+     AC_LIB_HAVE_LINKFLAGS([gcrypt], [], [#include <gcrypt.h>])
+   fi

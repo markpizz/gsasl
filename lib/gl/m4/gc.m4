@@ -8,7 +8,7 @@ AC_DEFUN([gl_GC],
 [
   AC_ARG_WITH([libgcrypt],
     AS_HELP_STRING([--with-libgcrypt], [use libgcrypt for low-level crypto]),
-    libgcrypt=$withval, libgcrypt=no)
+    libgcrypt=$withval, libgcrypt=yes)
   if test "$libgcrypt" != no; then
     AC_LIB_HAVE_LINKFLAGS([gcrypt], [], [#include <gcrypt.h>])
   fi
