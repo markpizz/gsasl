@@ -382,6 +382,7 @@ AC_MSG_RESULT($obsolete)
 AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 
 # For gnulib stuff in gl/.
+libgcrypt=yes
 gl_INIT
 
 sj_UPDATE_HEADER_VERSION([$srcdir/src/gsasl.h])
