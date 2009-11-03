@@ -23,6 +23,7 @@ doc/doxygen/Doxyfile
 doc/gsasl-api-error-labels.texi
 doc/gsasl.1
 doc/gsasl.info
+doc/gsasl.info-1
 doc/man/
 doc/print-errors
 doc/reference/
@@ -69,6 +70,7 @@ gltests/test-malloca
 gltests/test-mbrtowc
 gltests/test-mbsinit
 gltests/test-memchr
+gltests/test-memmem
 gltests/test-netdb
 gltests/test-netinet_in
 gltests/test-perror
