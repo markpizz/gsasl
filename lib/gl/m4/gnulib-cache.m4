@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=build-aux --with-tests --avoid=vc-list-files-tests --lgpl=2 --libtool --macro-prefix=gl --no-vc-files base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-hmac-sha1 crypto/gc-md5 crypto/gc-md5-tests crypto/gc-pbkdf2-sha1 crypto/gc-random crypto/gc-sha1 crypto/gc-tests getline gettext lib-msvc-compat lib-symbol-versions lib-symbol-visibility maintainer-makefile memmem minmax strchrnul strverscmp vasprintf
+#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=build-aux --with-tests --avoid=vc-list-files-tests --lgpl=2 --libtool --macro-prefix=gl --no-vc-files base64 crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-md5-tests crypto/gc-hmac-sha1 crypto/gc-md5 crypto/gc-md5-tests crypto/gc-pbkdf2-sha1 crypto/gc-random crypto/gc-sha1 crypto/gc-tests getline gettext lib-msvc-compat lib-symbol-versions lib-symbol-visibility maintainer-makefile memmem memxor minmax strchrnul strverscmp vasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
@@ -38,6 +38,7 @@ gl_MODULES([
   lib-symbol-visibility
   maintainer-makefile
   memmem
+  memxor
   minmax
   strchrnul
   strverscmp
