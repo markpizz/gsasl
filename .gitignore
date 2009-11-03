@@ -70,7 +70,6 @@ gltests/test-malloca
 gltests/test-mbrtowc
 gltests/test-mbsinit
 gltests/test-memchr
-gltests/test-memmem
 gltests/test-netdb
 gltests/test-netinet_in
 gltests/test-perror
@@ -128,6 +127,7 @@ lib/gltests/test-gc-sha1
 lib/gltests/test-getdelim
 lib/gltests/test-getline
 lib/gltests/test-memchr
+lib/gltests/test-memmem
 lib/gltests/test-rawmemchr
 lib/gltests/test-stdbool
 lib/gltests/test-stddef
