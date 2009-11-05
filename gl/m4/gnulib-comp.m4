@@ -247,8 +247,10 @@ AC_SUBST([LTALLOCA])
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.17])
   gl_FUNC_GETTIMEOFDAY
+  AC_C_BIGENDIAN
   gl_INET_PTON
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
+  AC_C_BIGENDIAN
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
     dnl Even if the 'socket' module is not used here, another part of the
@@ -642,6 +644,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-getopt_long.h
   tests/test-gettimeofday.c
   tests/test-iconv.c
+  tests/test-inet_ntop.c
+  tests/test-inet_pton.c
   tests/test-lseek.c
   tests/test-lseek.sh
   tests/test-malloca.c
