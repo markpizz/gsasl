@@ -305,6 +305,8 @@ gsasl_server_finish (Gsasl_session * sctx)
  * gsasl_client_ctx_get:
  * @sctx: libgsasl client handle
  *
+ * Get the libgsasl handle given a libgsasl client handle.
+ *
  * Return value: Returns the libgsasl handle given a libgsasl client handle.
  *
  * Deprecated: This function is not useful with the new 0.2.0 API.
@@ -359,6 +361,8 @@ gsasl_client_application_data_get (Gsasl_session * sctx)
 /**
  * gsasl_server_ctx_get:
  * @sctx: libgsasl server handle
+ *
+ * Get the libgsasl handle given a libgsasl server handle.
  *
  * Return value: Returns the libgsasl handle given a libgsasl server handle.
  *
@@ -435,6 +439,8 @@ gsasl_randomize (int strong, char *data, size_t datalen)
 /**
  * gsasl_ctx_get:
  * @sctx: libgsasl session handle
+ *
+ * Get the libgsasl handle given a libgsasl session handle.
  *
  * Return value: Returns the libgsasl handle given a libgsasl session handle.
  *
@@ -608,6 +614,9 @@ gsasl_appinfo_get (Gsasl_session * sctx)
  * @mechlist: input character array with SASL mechanism names,
  *   separated by invalid characters (e.g. SPC).
  *
+ * Get name of "best" SASL mechanism supported by the libgsasl server
+ * which is present in the input string.
+ *
  * Return value: Returns name of "best" SASL mechanism supported by
  * the libgsasl server which is present in the input string.
  *
@@ -645,6 +654,9 @@ gsasl_client_callback_authentication_id_set (Gsasl * ctx,
 /**
  * gsasl_client_callback_authentication_id_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_client_callback_authentication_id_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_client_callback_authentication_id_set().
@@ -686,6 +698,9 @@ gsasl_client_callback_authorization_id_set (Gsasl * ctx,
  * gsasl_client_callback_authorization_id_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_client_callback_authorization_id_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_client_callback_authorization_id_set().
  *
@@ -725,6 +740,9 @@ gsasl_client_callback_password_set (Gsasl * ctx,
 /**
  * gsasl_client_callback_password_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_client_callback_password_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_client_callback_password_set().
@@ -766,6 +784,9 @@ gsasl_client_callback_passcode_set (Gsasl * ctx,
  * gsasl_client_callback_passcode_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_client_callback_passcode_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_client_callback_passcode_set().
  *
@@ -806,6 +827,9 @@ gsasl_client_callback_pin_set (Gsasl * ctx, Gsasl_client_callback_pin cb)
 /**
  * gsasl_client_callback_pin_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_client_callback_pin_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_client_callback_pin_set().
@@ -849,6 +873,9 @@ gsasl_client_callback_service_set (Gsasl * ctx,
  * gsasl_client_callback_service_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_client_callback_service_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_client_callback_service_set().
  *
@@ -889,6 +916,9 @@ gsasl_client_callback_anonymous_set (Gsasl * ctx,
  * gsasl_client_callback_anonymous_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_client_callback_anonymous_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_client_callback_anonymous_set().
  *
@@ -926,6 +956,9 @@ gsasl_client_callback_qop_set (Gsasl * ctx, Gsasl_client_callback_qop cb)
 /**
  * gsasl_client_callback_qop_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_client_callback_qop_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_client_callback_qop_set().
@@ -969,6 +1002,9 @@ gsasl_client_callback_maxbuf_set (Gsasl * ctx,
  * gsasl_client_callback_maxbuf_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_client_callback_maxbuf_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_client_callback_maxbuf_set().
  *
@@ -1007,6 +1043,9 @@ gsasl_client_callback_realm_set (Gsasl * ctx, Gsasl_client_callback_realm cb)
 /**
  * gsasl_client_callback_realm_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_client_callback_realm_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_client_callback_realm_set().
@@ -1048,6 +1087,9 @@ gsasl_server_callback_validate_set (Gsasl * ctx,
  * gsasl_server_callback_validate_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_validate_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_validate_set().
  *
@@ -1087,6 +1129,9 @@ gsasl_server_callback_retrieve_set (Gsasl * ctx,
 /**
  * gsasl_server_callback_retrieve_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_retrieve_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_retrieve_set().
@@ -1128,6 +1173,9 @@ gsasl_server_callback_cram_md5_set (Gsasl * ctx,
  * gsasl_server_callback_cram_md5_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_cram_md5_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_cram_md5_set().
  *
@@ -1168,6 +1216,9 @@ gsasl_server_callback_digest_md5_set (Gsasl * ctx,
  * gsasl_server_callback_digest_md5_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_digest_md5_set().
+ *
  * Return value: Return the callback earlier set by calling
  * gsasl_server_callback_digest_md5_set().
  *
@@ -1206,6 +1257,9 @@ gsasl_server_callback_external_set (Gsasl * ctx,
 /**
  * gsasl_server_callback_external_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_external_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_external_set().
@@ -1246,6 +1300,9 @@ gsasl_server_callback_anonymous_set (Gsasl * ctx,
  * gsasl_server_callback_anonymous_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_anonymous_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_anonymous_set().
  *
@@ -1284,6 +1341,9 @@ gsasl_server_callback_realm_set (Gsasl * ctx, Gsasl_server_callback_realm cb)
 /**
  * gsasl_server_callback_realm_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_realm_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_realm_set().
@@ -1324,6 +1384,9 @@ gsasl_server_callback_qop_set (Gsasl * ctx, Gsasl_server_callback_qop cb)
 /**
  * gsasl_server_callback_qop_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_qop_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_qop_set().
@@ -1367,6 +1430,9 @@ gsasl_server_callback_maxbuf_set (Gsasl * ctx,
  * gsasl_server_callback_maxbuf_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_maxbuf_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_maxbuf_set().
  *
@@ -1407,6 +1473,9 @@ gsasl_server_callback_cipher_set (Gsasl * ctx,
 /**
  * gsasl_server_callback_cipher_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_cipher_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_cipher_set().
@@ -1454,6 +1523,9 @@ gsasl_server_callback_securid_set (Gsasl * ctx,
  * gsasl_server_callback_securid_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_securid_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_securid_set().
  *
@@ -1496,6 +1568,9 @@ gsasl_server_callback_gssapi_set (Gsasl * ctx,
  * gsasl_server_callback_gssapi_get:
  * @ctx: libgsasl handle.
  *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_gssapi_set().
+ *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_gssapi_set().
  *
@@ -1536,6 +1611,9 @@ gsasl_server_callback_service_set (Gsasl * ctx,
 /**
  * gsasl_server_callback_service_get:
  * @ctx: libgsasl handle.
+ *
+ * Get the callback earlier set by calling
+ * gsasl_server_callback_service_set().
  *
  * Return value: Returns the callback earlier set by calling
  * gsasl_server_callback_service_set().
