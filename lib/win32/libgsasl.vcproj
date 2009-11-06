@@ -472,6 +472,10 @@
 					RelativePath="..\digest-md5\validate.c"
 					>
 				</File>
+				<File
+					RelativePath="..\digest-md5\qop.c"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="external"
@@ -952,6 +956,10 @@
 				</File>
 				<File
 					RelativePath="..\gl\md5.c"
+					>
+				</File>
+				<File
+					RelativePath="..\gl\memmem.c"
 					>
 				</File>
 				<File
