@@ -63,6 +63,8 @@
 #define USE_SERVER 1
 #define USE_SCRAM_SHA1 1
 
+#define GSASL_NO_OBSOLETE 1
+
 #define restrict
 #define __attribute__(x)
 

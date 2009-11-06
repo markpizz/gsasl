@@ -234,10 +234,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\obsolete.c"
-				>
-			</File>
-			<File
 				RelativePath="..\src\property.c"
 				>
 			</File>
