@@ -1,5 +1,97 @@
 2009-11-06  Simon Josefsson <simon@josefsson.org>
 
+	* NEWS, lib/NEWS: Version 1.3.91.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix header.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_prohibit_getopt_without_use,
+	.x-sc_prohibit_magic_number_exit, lib/scram/server.c: Fix
+	syntax-check nits.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cfg.mk: Prepare for alpha release.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/cyclo/Makefile.am: Fix paths.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/cyclo/Makefile.am: Update usage.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getpagesize.c, gl/m4/getpagesize.m4,
+	gl/m4/gnulib-comp.m4, lib/build-aux/pmccabe2html,
+	lib/gl/Makefile.am, lib/gl/getpagesize.c, lib/gl/m4/gnulib-comp.m4,
+	lib/gltests/Makefile.am, lib/gltests/getpagesize.c: Update gnulib
+	files.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/win32/libgsasl.vcproj: More fixes.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/win32/libgsasl.vcproj: Further fixes.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/win32/include/config.h, lib/win32/libgsasl.vcproj: Disable
+	obsolete APIs for Windows builds.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/rawmemchr.m4,
+	lib/gl/m4/strchrnul.m4, lib/gl/rawmemchr.c,
+	lib/gl/rawmemchr.valgrind, lib/gl/strchrnul.c,
+	lib/gl/strchrnul.valgrind, lib/gltests/Makefile.am,
+	lib/gltests/test-rawmemchr.c, lib/gltests/test-strchrnul.c: Update
+	gnulib files.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/win32/include/config.h: Add new definitions.  Suggested by Lothar May <lothar.imap@googlemail.com> in
+	<http://permalink.gmane.org/gmane.comp.gnu.gsasl.general/254>.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/win32/libgsasl.vcproj: Add more files.  Suggested by Lothar May <lothar.imap@googlemail.com> in
+	<http://permalink.gmane.org/gmane.comp.gnu.gsasl.general/254>.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c: Doc fix.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS, lib/NEWS: Version 1.3.90.
 
 2009-11-06  Simon Josefsson <simon@josefsson.org>
