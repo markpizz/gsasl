@@ -1,7 +1,4 @@
 \input texinfo   @c -*- mode: texinfo; coding: us-ascii; -*-
-@c This file is part of GNU SASL.
-@c See below for copyright and license.
-
 @setfilename gsasl.info
 @include version.texi
 @settitle GNU Simple Authentication and Security Layer @value{VERSION}
