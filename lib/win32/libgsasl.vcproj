@@ -469,10 +469,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\digest-md5\test-parser.c"
-					>
-				</File>
-				<File
 					RelativePath="..\digest-md5\validate.c"
 					>
 				</File>
@@ -763,22 +759,112 @@
 				<File
 					RelativePath="..\scram\client.c"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\scram\mechinfo.c"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\scram\parser.c"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\scram\printer.c"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\scram\server.c"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\scram\tokens.c"
@@ -787,6 +873,24 @@
 				<File
 					RelativePath="..\scram\validate.c"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 			<Filter
