@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.3.91 (unreleased) [experimental]
 
+** doc: Fix doc/cyclo/ output.
+
 * Version 1.3.90 (released 2009-11-06) [experimental]
 
 ** tests/crypto: Also test newly added SHA-1 interfaces.
