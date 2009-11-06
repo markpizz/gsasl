@@ -762,6 +762,38 @@
 				</File>
 			</Filter>
 			<Filter
+				Name="scram"
+				>
+				<File
+					RelativePath="..\scram\client.c"
+					>
+				</File>
+				<File
+					RelativePath="..\scram\mechinfo.c"
+					>
+				</File>
+				<File
+					RelativePath="..\scram\parser.c"
+					>
+				</File>
+				<File
+					RelativePath="..\scram\printer.c"
+					>
+				</File>
+				<File
+					RelativePath="..\scram\server.c"
+					>
+				</File>
+				<File
+					RelativePath="..\scram\tokens.c"
+					>
+				</File>
+				<File
+					RelativePath="..\scram\validate.c"
+					>
+				</File>
+			</Filter>
+			<Filter
 				Name="gl"
 				>
 				<File
@@ -799,6 +831,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\gl\gc-pbkdf2-sha1.c"
+					>
+				</File>
+				<File
 					RelativePath="..\gl\getdelim.c"
 					>
 				</File>
@@ -808,6 +844,10 @@
 				</File>
 				<File
 					RelativePath="..\gl\hmac-md5.c"
+					>
+				</File>
+				<File
+					RelativePath="..\gl\hmac-sha1.c"
 					>
 				</File>
 				<File
@@ -828,6 +868,10 @@
 				</File>
 				<File
 					RelativePath="..\gl\realloc.c"
+					>
+				</File>
+				<File
+					RelativePath="..\gl\sha1.c"
 					>
 				</File>
 				<File
