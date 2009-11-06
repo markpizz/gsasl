@@ -1,3 +1,185 @@
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 1.3.90.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/getaddrinfo.m4, gltests/Makefile.am, lib/maint.mk, maint.mk: 
+	Update gnulib files.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Prepare for alpha release.
+
+2009-11-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4: Update gnulib files.
+
+2009-11-05  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/obsolete.c: Doc fix.
+
+2009-11-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-comp.m4, gl/m4/inet_ntop.m4,
+	gl/m4/inet_pton.m4, gl/m4/stdlib_h.m4, gl/stdlib.in.h,
+	gltests/Makefile.am, gltests/test-getaddrinfo.c,
+	gltests/test-inet_ntop.c, gltests/test-inet_pton.c,
+	gltests/test-sys_socket.c, lib/gl/Makefile.am,
+	lib/gl/m4/stdlib_h.m4, lib/gl/stdlib.in.h: Update gnulib files.
+
+2009-11-03  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Fix.
+
+2009-11-03  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2009-11-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2009-11-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gl/Makefile.am, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4: Unconditionally add memxor module, SCRAM
+	needs it.
+
+2009-11-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac, lib/gl/m4/gc.m4, lib/gl/override/m4/gc.m4.diff: 
+	Fix libgcrypt detection.
+
+2009-11-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Enable libgcrypt by default when available.
+
+2009-11-02  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getopt.c, gl/m4/fseeko.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/pmccabe2html.m4, gl/m4/ungetc.m4, gl/sockets.c,
+	gl/stdio.in.h, gltests/test-arpa_inet.c,
+	gltests/test-getaddrinfo.c, gltests/test-getdelim.c,
+	gltests/test-getline.c, gltests/test-getopt.c,
+	gltests/test-getopt.h, gltests/test-getopt_long.h,
+	gltests/test-gettimeofday.c, gltests/test-memchr.c,
+	gltests/test-netinet_in.c, gltests/test-quotearg.c,
+	gltests/test-select-stdin.c, gltests/test-select.c,
+	gltests/test-sockets.c, gltests/test-stddef.c,
+	gltests/test-stdint.c, gltests/test-stdio.c, gltests/test-stdlib.c,
+	gltests/test-strerror.c, gltests/test-string.c,
+	gltests/test-sys_select.c, gltests/test-sys_socket.c,
+	gltests/test-sys_time.c, gltests/test-unistd.c,
+	gltests/test-version-etc.c, gltests/test-wchar.c,
+	gltests/test-wctype.c, lib/build-aux/pmccabe2html,
+	lib/build-aux/useless-if-before-free, lib/gl/md5.c, lib/gl/sha1.c,
+	lib/gl/stdio.in.h, lib/gltests/test-base64.c,
+	lib/gltests/test-getdelim.c, lib/gltests/test-getline.c,
+	lib/gltests/test-memchr.c, lib/gltests/test-rawmemchr.c,
+	lib/gltests/test-stddef.c, lib/gltests/test-stdint.c,
+	lib/gltests/test-stdio.c, lib/gltests/test-stdlib.c,
+	lib/gltests/test-strchrnul.c, lib/gltests/test-string.c,
+	lib/gltests/test-strverscmp.c, lib/gltests/test-unistd.c,
+	lib/gltests/test-wchar.c, lib/maint.mk, maint.mk: Update gnulib
+	files.
+
+2009-10-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-10-26  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Also test when app provides a
+	GSASL_SCRAM_SALTED_PASSWORD.
+
+2009-10-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/client.c: Fix crash in code when application provides a
+	GSASL_SCRAM_SALTED_PASSWORD.
+
+2009-10-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2009-10-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/init.c: Prefer SCRAM-SHA-1 over CRAM-MD5 and DIGEST-MD5.
+
+2009-10-26  Simon Josefsson <simon@josefsson.org>
+
+	* gl/localcharset.c, gl/m4/fcntl_h.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/localcharset.m4: Update gnulib files.
+
+2009-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add concept index nodes for iteration count and
+	salt.
+
+2009-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Drop Windows compatibility stuff, should be taken
+	care of gnulib now.
+
+2009-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/unistd.in.h,
+	lib/gl/unistd.in.h: Update gnulib files.
+
+2009-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Add NEWS entries.
+
+2009-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS, po/fi.po.in, po/vi.po.in: Sync with TP.
+
+2009-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/LINGUAS, lib/po/fi.po.in, lib/po/vi.po.in: Sync with TP.
+
+2009-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2009-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-10-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Bump libtool version to indicate newly added
+	ABIs.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac, lib/src/gsasl.h: Start to use X.Y.Z versioning
+	scheme.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* tests/crypto.c: Test new SHA-1 APIs.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/libgsasl.map: Add new APIs to linker script.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Bump versions.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/build-aux/gendocs.sh: Chmod.
+
+2009-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2009-10-08  Simon Josefsson <simon@josefsson.org>
 
 	* lib/ChangeLog: Generated.
