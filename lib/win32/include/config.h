@@ -15,6 +15,8 @@
 #define GNULIB_GC_HMAC_MD5 1
 #define GNULIB_GC_MD5 1
 #define GNULIB_GC_RANDOM 1
+#define GNULIB_GC_SHA1 1
+#define GNULIB_GC_HMAC_SHA1 1
 #define HAVE_ALLOCA 1
 #define HAVE_DECL_GETDELIM 0
 #define HAVE_DECL_GETLINE 0
@@ -59,6 +61,7 @@
 #define USE_PLAIN 1
 #define USE_SECURID 1
 #define USE_SERVER 1
+#define USE_SCRAM_SHA1 1
 
 #define restrict
 #define __attribute__(x)
