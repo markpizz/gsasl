@@ -30,7 +30,7 @@
 /* Get malloc, free. */
 #include <stdlib.h>
 
-/* Get memcpy, strlen, strchrnul. */
+/* Get memcpy, strlen. */
 #include <string.h>
 
 /* Get validator. */
