@@ -82,8 +82,6 @@ AC_SUBST([LTALLOCA])
   gl_FUNC_GETOPT_GNU
   gl_MODULE_INDICATOR([getopt-gnu])
   gl_FUNC_GETOPT_POSIX
-  gl_FUNC_GETPAGESIZE
-  gl_UNISTD_MODULE_INDICATOR([getpagesize])
   gl_FUNC_GETPASS
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
@@ -431,7 +429,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getopt.in.h
   lib/getopt1.c
   lib/getopt_int.h
-  lib/getpagesize.c
   lib/getpass.c
   lib/getpass.h
   lib/gettext.h
@@ -529,7 +526,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getdelim.m4
   m4/getline.m4
   m4/getopt.m4
-  m4/getpagesize.m4
   m4/getpass.m4
   m4/gettext.m4
   m4/gettimeofday.m4

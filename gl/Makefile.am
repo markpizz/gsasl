@@ -345,15 +345,6 @@ EXTRA_libgl_la_SOURCES += getopt.c getopt1.c
 
 ## end   gnulib module getopt-posix
 
-## begin gnulib module getpagesize
-
-
-EXTRA_DIST += getpagesize.c
-
-EXTRA_libgl_la_SOURCES += getpagesize.c
-
-## end   gnulib module getpagesize
-
 ## begin gnulib module getpass
 
 
