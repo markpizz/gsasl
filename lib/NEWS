@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Version 1.3.91 (unreleased) [experimental]
 
+** Fix Visual Studio project files to work with SCRAM.
+Suggested by Lothar May <lothar.imap@googlemail.com> in
+<http://thread.gmane.org/gmane.comp.gnu.gsasl.general/254>.
+
 ** API and ABI modifications.
 No changes since last version.
 
