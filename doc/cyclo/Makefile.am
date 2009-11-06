@@ -15,15 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-EXTRA_DIST = cyclo-gsasl.html
+EXTRA_DIST = cyclo-$(PACKAGE).html
 
-cyclo-gsasl.html:
+cyclo-$(PACKAGE).html:
 	$(PMCCABE) `find $(top_srcdir)/lib -name \*.[ch] | grep -v -e ../gl` \
 		| sort -nr \
-		| $(AWK) -f $(top_srcdir)/lib/build-aux/pmccabe2html \
+		| $(AWK) -f ${top_srcdir}/build-aux/pmccabe2html \
 			-v lang=html -v name="$(PACKAGE_NAME)" \
-			-v vcurl="http://git.savannah.gnu.org/gitweb/?p=gsasl.git;a=blob;f=%FILENAME%;hb=HEAD" \
-			-v url="http://www.gnu.org/software/gsasl/" \
-			-v css=../../lib/build-aux/pmccabe.css \
-			> tmp
-	mv tmp $@
+			-v vcurl="http://git.savannah.gnu.org/gitweb/?p=$(PACKAGE).git;a=blob;f=%FILENAME%;hb=HEAD" \
+			-v url="http://www.gnu.org/software/$(PACKAGE)/" \
+                       -v css=${top_srcdir}/build-aux/pmccabe.css \
+			> $@-tmp
+	mv $@-tmp $@
