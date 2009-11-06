@@ -145,14 +145,6 @@ EXTRA_DIST += test-memmem.c zerosize-ptr.h
 
 ## end   gnulib module memmem-tests
 
-## begin gnulib module rawmemchr-tests
-
-TESTS += test-rawmemchr
-check_PROGRAMS += test-rawmemchr
-EXTRA_DIST += test-rawmemchr.c
-
-## end   gnulib module rawmemchr-tests
-
 ## begin gnulib module stdbool-tests
 
 TESTS += test-stdbool
@@ -197,14 +189,6 @@ check_PROGRAMS += test-stdlib
 EXTRA_DIST += test-stdlib.c
 
 ## end   gnulib module stdlib-tests
-
-## begin gnulib module strchrnul-tests
-
-TESTS += test-strchrnul
-check_PROGRAMS += test-strchrnul
-EXTRA_DIST += test-strchrnul.c
-
-## end   gnulib module strchrnul-tests
 
 ## begin gnulib module string-tests
 
