@@ -1,0 +1,6 @@
+^doc/gsasl.texi
+^doc/specification/draft-ietf-cat-sasl-gssapi-05.txt
+^gl/
+^gltests/
+^lib/gl/m4/intdiv0.m4
+^tests/

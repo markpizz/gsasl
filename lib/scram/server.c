@@ -379,7 +379,7 @@ _gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data)
 
   if (!state)
     return;
-  
+
   free (state->cfmb_str);
   free (state->sf_str);
   free (state->snonce);
