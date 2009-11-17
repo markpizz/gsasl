@@ -14,6 +14,7 @@ AUTOMAKE_OPTIONS = 1.5 foreign
 
 SUBDIRS =
 TESTS =
+XFAIL_TESTS =
 TESTS_ENVIRONMENT =
 noinst_PROGRAMS =
 check_PROGRAMS =
@@ -370,6 +371,15 @@ EXTRA_DIST += test-poll.c
 
 ## end   gnulib module poll-tests
 
+## begin gnulib module putenv
+
+
+EXTRA_DIST += putenv.c
+
+EXTRA_libtests_a_SOURCES += putenv.c
+
+## end   gnulib module putenv
+
 ## begin gnulib module quotearg-tests
 
 TESTS += test-quotearg.sh
@@ -402,6 +412,14 @@ EXTRA_DIST += setenv.c
 EXTRA_libtests_a_SOURCES += setenv.c
 
 ## end   gnulib module setenv
+
+## begin gnulib module setenv-tests
+
+TESTS += test-setenv
+check_PROGRAMS += test-setenv
+EXTRA_DIST += test-setenv.c
+
+## end   gnulib module setenv-tests
 
 ## begin gnulib module setsockopt
 
@@ -575,6 +593,14 @@ EXTRA_libtests_a_SOURCES += unsetenv.c
 
 ## end   gnulib module unsetenv
 
+## begin gnulib module unsetenv-tests
+
+TESTS += test-unsetenv
+check_PROGRAMS += test-unsetenv
+EXTRA_DIST += test-unsetenv.c
+
+## end   gnulib module unsetenv-tests
+
 ## begin gnulib module vasnprintf-tests
 
 TESTS += test-vasnprintf
@@ -635,6 +661,15 @@ check_PROGRAMS += test-wctype
 EXTRA_DIST += test-wctype.c
 
 ## end   gnulib module wctype-tests
+
+## begin gnulib module xalloc-die-tests
+
+TESTS += test-xalloc-die.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
+check_PROGRAMS += test-xalloc-die
+EXTRA_DIST += test-xalloc-die.c test-xalloc-die.sh
+
+## end   gnulib module xalloc-die-tests
 
 # Clean up after Solaris cc.
 clean-local:

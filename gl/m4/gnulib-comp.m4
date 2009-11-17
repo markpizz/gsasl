@@ -274,6 +274,8 @@ AC_SUBST([LTALLOCA])
   gl_FUNC_PERROR
   gl_STRING_MODULE_INDICATOR([perror])
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
+  gl_FUNC_PUTENV
+  gl_STDLIB_MODULE_INDICATOR([putenv])
   gt_LOCALE_FR
   gt_LOCALE_FR_UTF8
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
@@ -578,6 +580,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/printf-posix.m4
   m4/printf.m4
   m4/progtest.m4
+  m4/putenv.m4
   m4/quote.m4
   m4/quotearg.m4
   m4/readline.m4
@@ -666,6 +669,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-select-out.sh
   tests/test-select-stdin.c
   tests/test-select.c
+  tests/test-setenv.c
   tests/test-snprintf.c
   tests/test-sockets.c
   tests/test-stdbool.c
@@ -680,6 +684,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-sys_socket.c
   tests/test-sys_time.c
   tests/test-unistd.c
+  tests/test-unsetenv.c
   tests/test-vasnprintf.c
   tests/test-vc-list-files-cvs.sh
   tests/test-vc-list-files-git.sh
@@ -687,6 +692,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-version-etc.sh
   tests/test-wchar.c
   tests/test-wctype.c
+  tests/test-xalloc-die.c
+  tests/test-xalloc-die.sh
   tests/zerosize-ptr.h
   tests=lib/accept.c
   tests=lib/bind.c
@@ -698,6 +705,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/malloca.h
   tests=lib/malloca.valgrind
   tests=lib/perror.c
+  tests=lib/putenv.c
   tests=lib/setenv.c
   tests=lib/setsockopt.c
   tests=lib/sys_ioctl.in.h
