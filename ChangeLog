@@ -1,3 +1,55 @@
+2009-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2009-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 1.4.0.
+
+2009-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2009-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2009-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/putenv.m4, gltests/putenv.c, gltests/test-setenv.c,
+	gltests/test-unsetenv.c, gltests/test-xalloc-die.c,
+	gltests/test-xalloc-die.sh: Update gnulib files.
+
+2009-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/intprops.h, gl/m4/environ.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/setenv.m4, gl/m4/stdlib_h.m4,
+	gl/m4/unistd_h.m4, gl/printf-args.c, gl/stdlib.in.h,
+	gl/unistd.in.h, gl/vasnprintf.c, gl/version-etc.c,
+	gltests/Makefile.am, gltests/setenv.c, gltests/unsetenv.c,
+	lib/gl/Makefile.am, lib/gl/gc-pbkdf2-sha1.c, lib/gl/m4/stdlib_h.m4,
+	lib/gl/m4/unistd_h.m4, lib/gl/printf-args.c, lib/gl/stdlib.in.h,
+	lib/gl/unistd.in.h, lib/gl/vasnprintf.c, lib/gltests/Makefile.am,
+	lib/gltests/intprops.h, lib/gltests/test-base64.c, lib/maint.mk,
+	maint.mk: Update gnulib files.
+
+2009-11-09  Simon Josefsson <simon@josefsson.org>
+
+	* gltests/test-fseeko.c: Update gnulib files.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Commit cyclo/ www dir too.
+
+2009-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2009-11-06  Simon Josefsson <simon@josefsson.org>
 
 	* lib/ChangeLog: Generated.
