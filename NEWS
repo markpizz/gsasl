@@ -8,6 +8,10 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.5.0 (unreleased) [experimental]
 
+** gsasl: Improve application data throughput.
+Patch from Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de> in
+<http://thread.gmane.org/gmane.comp.gnu.gsasl.general/256>.
+
 * Version 1.4.0 (released 2009-11-17) [stable]
 
 ** No changes since 1.3.91 release candidate.
