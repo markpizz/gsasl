@@ -1,4 +1,4 @@
-# Copyright (C) 2006, 2007, 2008, 2009 Simon Josefsson
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Simon Josefsson
 #
 # This file is part of GNU SASL.
 #
@@ -31,6 +31,7 @@ local-checks-to-skip = sc_prohibit_strcmp sc_error_message_uppercase	\
 	sc_prohibit_have_config_h sc_require_config_h			\
 	sc_require_config_h_first sc_unmarked_diagnostics		\
 	sc_GPL_version sc_immutable_NEWS sc_copyright_check
+VC_LIST_NEVER = ^((lib/)?(gl|gltests|build-aux))/.*
 
 autoreconf:
 	for f in po/*.po.in lib/po/*.po.in; do \

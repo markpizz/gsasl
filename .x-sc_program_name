@@ -1,9 +1,6 @@
 ^doc/print-errors.c
 ^examples/
-^gl/
-^gltests/
 ^lib/digest-md5/test-parser.c
-^lib/gltests/
 ^lib/gs2/test-parser.c
 ^lib/tests/test-error.c
 ^tests/

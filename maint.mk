@@ -38,7 +38,9 @@ VC_LIST = $(build_aux)/vc-list-files -C $(srcdir)
 
 VC_LIST_EXCEPT = \
   $(VC_LIST) | if test -f $(srcdir)/.x-$@; then grep -vEf $(srcdir)/.x-$@; \
-	       else grep -Ev "$${VC_LIST_EXCEPT_DEFAULT-ChangeLog}"; fi
+	       else grep -Ev "$${VC_LIST_EXCEPT_DEFAULT-ChangeLog}"; fi \
+	| if test -n "$(VC_LIST_NEVER)"; then grep -Ev "$(VC_LIST_NEVER)"; \
+	else cat; fi
 
 ifeq ($(origin prev_version_file), undefined)
   prev_version_file = $(srcdir)/.prev-version
