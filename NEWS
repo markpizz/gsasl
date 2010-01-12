@@ -1,5 +1,5 @@
 GNU SASL NEWS -- History of user-visible changes.
-Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
+Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Simon Josefsson
 See the end for copying conditions.
 
 Note that changes to the GNU SASL Library is documented in lib/NEWS.
@@ -11,6 +11,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 ** gsasl: Improve application data throughput.
 Patch from Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de> in
 <http://thread.gmane.org/gmane.comp.gnu.gsasl.general/256>.
+
+** i18n: Updated German translation.
 
 * Version 1.4.0 (released 2009-11-17) [stable]
 
