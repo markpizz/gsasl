@@ -1,12 +1,6 @@
---- gl/getpass.c.orig	2009-03-24 10:42:11.000000000 +0100
-+++ gl/getpass.c	2009-03-24 10:42:40.000000000 +0100
-@@ -1,4 +1,4 @@
--/* Copyright (C) 1992-2001, 2003, 2004, 2005, 2006, 2007 Free Software
-+/* Copyright (C) 1992-2001, 2003, 2004, 2005, 2006, 2007, 2009 Free Software
-    Foundation, Inc.
- 
-    This file is part of the GNU C Library.
-@@ -193,6 +193,7 @@
+--- gl/getpass.c.orig	2010-01-12 12:48:52.000000000 +0100
++++ gl/getpass.c	2010-01-12 12:51:39.000000000 +0100
+@@ -192,6 +192,7 @@
    char getpassbuf[PASS_MAX + 1];
    size_t i = 0;
    int c;
@@ -14,32 +8,31 @@
  
    if (prompt)
      {
-@@ -202,8 +203,21 @@
+@@ -201,8 +202,20 @@
  
    for (;;)
      {
 -      c = _getch ();
 -      if (c == '\r')
 +      if (use_getc)
-+	c = getc (stdin);
++        c = getc (stdin);
 +      else
-+	{
-+	  c = _getch ();
-+	  if (c == -1)
-+	    {
-+	      /* Under Wine, _getch always returns -1.  Fall back to
-+		 using getc.  */
-+	      use_getc = 1;
-+	      continue;
-+	    }
-+	}
-+
++        {
++          c = _getch ();
++          if (c == -1)
++            {
++              /* Under Wine, _getch always returns -1.  Fall back to
++                 using getc.  */
++              use_getc = 1;
++              continue;
++            }
++        }
 +      if (c == '\n' || c == '\r')
- 	{
- 	  getpassbuf[i] = '\0';
- 	  break;
-@@ -220,7 +234,7 @@
- 	}
+         {
+           getpassbuf[i] = '\0';
+           break;
+@@ -219,7 +232,7 @@
+         }
      }
  
 -  if (prompt)
