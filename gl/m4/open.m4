@@ -9,7 +9,9 @@ AC_DEFUN([gl_FUNC_OPEN],
   AC_REQUIRE([AC_CANONICAL_HOST])
   case "$host_os" in
     mingw* | pw*)
-      gl_REPLACE_OPEN
+      # The misbehaviour is only under Wine, see
+      # http://bugs.winehq.org/show_bug.cgi?id=21292
+      gl_cv_func_open_slash=no
       ;;
     *)
       dnl open("foo/") should not create a file when the file name has a
@@ -46,13 +48,13 @@ changequote([,])dnl
             ])
           rm -f conftest.sl conftest.tmp conftest.lnk
         ])
-      case "$gl_cv_func_open_slash" in
-        *no)
-          AC_DEFINE([OPEN_TRAILING_SLASH_BUG], [1],
-            [Define to 1 if open() fails to recognize a trailing slash.])
-          gl_REPLACE_OPEN
-          ;;
-      esac
+      ;;
+  esac
+  case "$gl_cv_func_open_slash" in
+    *no)
+      AC_DEFINE([OPEN_TRAILING_SLASH_BUG], [1],
+                [Define to 1 if open() fails to recognize a trailing slash.])
+      gl_REPLACE_OPEN
       ;;
   esac
 ])
