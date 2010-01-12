@@ -1,0 +1,115 @@
+# libgsasl.supp -- Valgrind suppresion file for Libgsasl           -*- text -*-
+#
+# Copyright (C) 2010 Simon Josefsson
+#
+# This file is part of GNU SASL.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# The simplest way to use this file is to put the following in ~/.valgrindrc:
+# --suppressions=/path/to/gsasl/tests/libgsasl.supp
+#
+# The memory leaks that are hidden here are those from libgcrypt,
+# nothing we can do about.
+
+{
+   libgcrypt1
+   Memcheck:Leak
+   fun:malloc
+   fun:_gcry_private_malloc
+   fun:do_malloc
+   fun:_gcry_malloc
+   fun:_gcry_module_add
+   fun:pk_register_default
+   fun:_gcry_pk_init
+   fun:global_init
+   fun:_gcry_vcontrol
+   fun:gcry_control
+   fun:gc_init
+   fun:gsasl_init
+}
+
+{
+   libgcrypt2
+   Memcheck:Leak
+   fun:malloc
+   fun:_gcry_private_malloc
+   fun:do_malloc
+   fun:_gcry_malloc
+   fun:_gcry_module_add
+   fun:md_register_default
+   fun:_gcry_md_init
+   fun:global_init
+   fun:_gcry_vcontrol
+   fun:gcry_control
+   fun:gc_init
+   fun:gsasl_init
+}
+
+{
+   libgcrypt3
+   Memcheck:Leak
+   fun:malloc
+   fun:_gcry_private_malloc
+   fun:do_malloc
+   fun:_gcry_malloc
+   fun:_gcry_module_add
+   fun:cipher_register_default
+   fun:_gcry_cipher_init
+   fun:global_init
+   fun:_gcry_vcontrol
+   fun:gcry_control
+   fun:gc_init
+   fun:gsasl_init
+}
+
+{
+   libgcrypt4
+   Memcheck:Leak
+   fun:malloc
+   fun:_gcry_private_malloc
+   fun:do_malloc
+   fun:_gcry_malloc
+   fun:_gcry_xmalloc
+   fun:_gcry_xcalloc
+   fun:initialize
+   fun:_gcry_rngcsprng_create_nonce
+   fun:_gcry_create_nonce
+   fun:gcry_create_nonce
+   fun:gc_nonce
+   fun:cram_md5_challenge
+   fun:_gsasl_cram_md5_server_start
+   fun:start
+   fun:gsasl_server_start
+}
+
+{
+   libgcrypt5
+   Memcheck:Leak
+   fun:malloc
+   fun:_gcry_private_malloc
+   fun:do_malloc
+   fun:_gcry_malloc
+   fun:_gcry_xmalloc
+   fun:_gcry_xcalloc
+   fun:initialize
+   fun:_gcry_rngcsprng_create_nonce
+   fun:_gcry_create_nonce
+   fun:gcry_create_nonce
+   fun:gc_nonce
+   fun:cram_md5_challenge
+   fun:_gsasl_cram_md5_server_start
+   fun:start
+   fun:gsasl_server_start
+}

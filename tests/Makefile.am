@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Simon Josefsson
 #
 # This file is part of GNU SASL.
 #
@@ -23,6 +23,8 @@ AM_CPPFLAGS = -I$(top_srcdir)/gl -I$(top_builddir)/gl \
 	 -I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src
 AM_LDFLAGS = -no-install
 LDADD = ../lib/src/libgsasl.la ../gl/libgl.la libutils.la
+
+EXTRA_DIST = libgsasl.supp
 
 noinst_LTLIBRARIES = libutils.la
 libutils_la_SOURCES = utils.h utils.c
