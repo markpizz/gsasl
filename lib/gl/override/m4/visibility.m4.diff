@@ -1,0 +1,15 @@
+--- gl/m4/visibility.m4.orig	2010-01-12 17:10:03.000000000 +0100
++++ gl/m4/visibility.m4	2010-01-12 17:10:00.000000000 +0100
+@@ -29,7 +29,11 @@
+     AC_MSG_CHECKING([for simple visibility declarations])
+     AC_CACHE_VAL([gl_cv_cc_visibility], [
+       gl_save_CFLAGS="$CFLAGS"
+-      CFLAGS="$CFLAGS -fvisibility=hidden"
++      # We use -Werror here because Cygwin/MinGW gives a warning
++      # 'visibility attribute not supported in this configuration'
++      # instead of doing what we want.  Using -Werror makes gcc fail
++      # instead, so we detect the problem.
++      CFLAGS="$CFLAGS -fvisibility=hidden -Werror"
+       AC_TRY_COMPILE(
+         [extern __attribute__((__visibility__("hidden"))) int hiddenvar;
+          extern __attribute__((__visibility__("default"))) int exportedvar;
