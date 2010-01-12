@@ -24,7 +24,7 @@
 # nothing we can do about.
 
 {
-   libgcrypt1
+   libgsasl-gcrypt1
    Memcheck:Leak
    fun:malloc
    fun:_gcry_private_malloc
@@ -41,7 +41,7 @@
 }
 
 {
-   libgcrypt2
+   libgsasl-gcrypt2
    Memcheck:Leak
    fun:malloc
    fun:_gcry_private_malloc
@@ -58,7 +58,7 @@
 }
 
 {
-   libgcrypt3
+   libgsasl-gcrypt3
    Memcheck:Leak
    fun:malloc
    fun:_gcry_private_malloc
@@ -75,7 +75,7 @@
 }
 
 {
-   libgcrypt4
+   libgsasl-gcrypt4
    Memcheck:Leak
    fun:malloc
    fun:_gcry_private_malloc
@@ -95,7 +95,7 @@
 }
 
 {
-   libgcrypt5
+   libgsasl-gcrypt5
    Memcheck:Leak
    fun:malloc
    fun:_gcry_private_malloc
@@ -112,4 +112,80 @@
    fun:_gsasl_cram_md5_server_start
    fun:start
    fun:gsasl_server_start
+}
+
+{
+   libgsasl-gcrypt6
+   Memcheck:Leak
+   fun:malloc
+   fun:_gcry_private_malloc
+   fun:do_malloc
+   fun:_gcry_malloc
+   fun:_gcry_xmalloc
+   fun:_gcry_xcalloc
+   fun:initialize
+   fun:_gcry_rngcsprng_create_nonce
+   fun:_gcry_create_nonce
+   fun:gcry_create_nonce
+   fun:gc_nonce
+   fun:gsasl_nonce
+   fun:_gsasl_digest_md5_client_start
+   fun:start
+   fun:gsasl_client_start
+   fun:_gsasl_listmech
+   fun:gsasl_client_mechlist
+}
+
+{
+   libgsasl-gcrypt7
+   Memcheck:Leak
+   fun:malloc
+   fun:_gcry_private_malloc
+   fun:do_malloc
+   fun:_gcry_malloc
+   fun:_gcry_xmalloc
+   fun:_gcry_xcalloc
+   fun:initialize
+   fun:_gcry_rngcsprng_create_nonce
+   fun:_gcry_create_nonce
+   fun:gcry_create_nonce
+   fun:gc_nonce
+   fun:gsasl_nonce
+   fun:_gsasl_digest_md5_server_start
+   fun:start
+   fun:gsasl_server_start
+}
+
+{
+   libgsasl-gcrypt8
+   Memcheck:Leak
+   fun:malloc
+   fun:_gcry_private_malloc
+   fun:do_malloc
+   fun:_gcry_malloc
+   fun:_gcry_xmalloc
+   fun:_gcry_xcalloc
+   fun:initialize
+   fun:_gcry_rngcsprng_create_nonce
+   fun:_gcry_create_nonce
+   fun:gcry_create_nonce
+   fun:gc_nonce
+   fun:gsasl_nonce
+}
+
+{
+   gsasl-libgcrypt9
+   Memcheck:Leak
+   fun:malloc
+   fun:_gcry_private_malloc
+   fun:do_malloc
+   fun:_gcry_malloc
+   fun:_gcry_xmalloc
+   fun:_gcry_xcalloc
+   fun:initialize
+   fun:_gcry_rngcsprng_create_nonce
+   fun:_gcry_create_nonce
+   fun:gcry_create_nonce
+   fun:gc_nonce
+   fun:gsasl_nonce
 }
