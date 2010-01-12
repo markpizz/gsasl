@@ -1,10 +1,4 @@
 # List of source files containing translatable strings for GNU SASL.
-gl/error.c
-gl/gai_strerror.c
-gl/getopt.c
-gl/quotearg.c
-gl/version-etc.c
-gl/xalloc-die.c
 src/imap.c
 src/smtp.c
 src/gsasl.c
