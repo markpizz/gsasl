@@ -1,5 +1,5 @@
 /* Tests of unsetenv.
-   Copyright (C) 2009 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,22 +20,14 @@
 
 #include <stdlib.h>
 
+#include "signature.h"
+SIGNATURE_CHECK (unsetenv, int, (char const *));
+
 #include <errno.h>
-#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 
-#define ASSERT(expr) \
-  do                                                                         \
-    {                                                                        \
-      if (!(expr))                                                           \
-        {                                                                    \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__);  \
-          fflush (stderr);                                                   \
-          abort ();                                                          \
-        }                                                                    \
-    }                                                                        \
-  while (0)
+#include "macros.h"
 
 int
 main (void)
@@ -43,7 +35,7 @@ main (void)
   char entry[] = "b=2";
 
   /* Test removal when multiple entries present.  */
-  ASSERT (putenv ("a=1") == 0);
+  ASSERT (putenv ((char *) "a=1") == 0);
   ASSERT (putenv (entry) == 0);
   entry[0] = 'a'; /* Unspecified what getenv("a") would be at this point.  */
   ASSERT (unsetenv ("a") == 0); /* Both entries will be removed.  */
@@ -57,9 +49,13 @@ main (void)
   errno = 0;
   ASSERT (unsetenv ("a=b") == -1);
   ASSERT (errno == EINVAL);
+#if 0
+  /* glibc and gnulib's implementation guarantee this, but POSIX no
+     longer requires it: http://austingroupbugs.net/view.php?id=185  */
   errno = 0;
   ASSERT (unsetenv (NULL) == -1);
   ASSERT (errno == EINVAL);
+#endif
 
   return 0;
 }

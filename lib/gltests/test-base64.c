@@ -1,5 +1,5 @@
 /* Self tests for base64.
-   Copyright (C) 2004, 2008, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2004, 2008, 2009, 2010 Free Software Foundation, Inc.
    Written by Simon Josefsson.
 
    This program is free software: you can redistribute it and/or modify
@@ -17,26 +17,15 @@
 
 #include <config.h>
 
+#include "base64.h"
+
 #include <stddef.h>
-#include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
 
-#include "base64.h"
-
-#define ASSERT(expr)							\
-  do									\
-    {									\
-      if (!(expr))							\
-	{								\
-	  fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-	  fflush (stderr);						\
-	  abort ();							\
-	}								\
-    }									\
-  while (0)
+#include "macros.h"
 
 int
 main (void)

@@ -1,5 +1,6 @@
 /* gc-pbkdf2-sha1.c --- Password-Based Key Derivation Function a'la PKCS#5
-   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2009, 2010 Free Software
+   Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -32,9 +33,9 @@
    be filled with the derived data.  */
 Gc_rc
 gc_pbkdf2_sha1 (const char *P, size_t Plen,
-		const char *S, size_t Slen,
-		unsigned int c,
-		char *DK, size_t dkLen)
+                const char *S, size_t Slen,
+                unsigned int c,
+                char *DK, size_t dkLen)
 {
   unsigned int hLen = 20;
   char U[20];
@@ -71,28 +72,28 @@ gc_pbkdf2_sha1 (const char *P, size_t Plen,
       memset (T, 0, hLen);
 
       for (u = 1; u <= c; u++)
-	{
-	  if (u == 1)
-	    {
-	      tmp[Slen + 0] = (i & 0xff000000) >> 24;
-	      tmp[Slen + 1] = (i & 0x00ff0000) >> 16;
-	      tmp[Slen + 2] = (i & 0x0000ff00) >> 8;
-	      tmp[Slen + 3] = (i & 0x000000ff) >> 0;
+        {
+          if (u == 1)
+            {
+              tmp[Slen + 0] = (i & 0xff000000) >> 24;
+              tmp[Slen + 1] = (i & 0x00ff0000) >> 16;
+              tmp[Slen + 2] = (i & 0x0000ff00) >> 8;
+              tmp[Slen + 3] = (i & 0x000000ff) >> 0;
 
-	      rc = gc_hmac_sha1 (P, Plen, tmp, tmplen, U);
-	    }
-	  else
-	    rc = gc_hmac_sha1 (P, Plen, U, hLen, U);
+              rc = gc_hmac_sha1 (P, Plen, tmp, tmplen, U);
+            }
+          else
+            rc = gc_hmac_sha1 (P, Plen, U, hLen, U);
 
-	  if (rc != GC_OK)
-	    {
-	      free (tmp);
-	      return rc;
-	    }
+          if (rc != GC_OK)
+            {
+              free (tmp);
+              return rc;
+            }
 
-	  for (k = 0; k < hLen; k++)
-	    T[k] ^= U[k];
-	}
+          for (k = 0; k < hLen; k++)
+            T[k] ^= U[k];
+        }
 
       memcpy (DK + (i - 1) * hLen, T, i == l ? r : hLen);
     }

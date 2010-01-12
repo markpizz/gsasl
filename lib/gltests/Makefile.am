@@ -1,6 +1,6 @@
 ## DO NOT EDIT! GENERATED AUTOMATICALLY!
 ## Process this file with automake to produce Makefile.in.
-# Copyright (C) 2002-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002-2010 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -52,28 +52,66 @@ EXTRA_DIST += test-alloca-opt.c
 
 ## end   gnulib module alloca-opt-tests
 
+## begin gnulib module arg-nonnull
+
+# The BUILT_SOURCES created by this Makefile snippet are not used via #include
+# statements but through direct file reference. Therefore this snippet must be
+# present in all Makefile.am that need it. This is ensured by the applicability
+# 'all' defined above.
+
+BUILT_SOURCES += arg-nonnull.h
+# The arg-nonnull.h that gets inserted into generated .h files is the same as
+# build-aux/arg-nonnull.h, except that it has the copyright header cut off.
+arg-nonnull.h: $(top_srcdir)/build-aux/arg-nonnull.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	sed -n -e '/GL_ARG_NONNULL/,$$p' \
+	  < $(top_srcdir)/build-aux/arg-nonnull.h \
+	  > $@-t && \
+	mv $@-t $@
+MOSTLYCLEANFILES += arg-nonnull.h arg-nonnull.h-t
+
+ARG_NONNULL_H=arg-nonnull.h
+
+EXTRA_DIST += $(top_srcdir)/build-aux/arg-nonnull.h
+
+## end   gnulib module arg-nonnull
+
 ## begin gnulib module base64-tests
 
 TESTS += test-base64
 check_PROGRAMS += test-base64
-EXTRA_DIST += test-base64.c
+EXTRA_DIST += test-base64.c macros.h
 
 ## end   gnulib module base64-tests
+
+## begin gnulib module crypto/gc-hmac-md5-tests
+
+TESTS += test-gc-hmac-md5
+check_PROGRAMS += test-gc-hmac-md5
+EXTRA_DIST += test-gc-hmac-md5.c
+
+## end   gnulib module crypto/gc-hmac-md5-tests
 
 ## begin gnulib module crypto/gc-hmac-sha1-tests
 
 TESTS += test-gc-hmac-sha1
 check_PROGRAMS += test-gc-hmac-sha1
-
 EXTRA_DIST += test-gc-hmac-sha1.c
 
 ## end   gnulib module crypto/gc-hmac-sha1-tests
+
+## begin gnulib module crypto/gc-md5-tests
+
+TESTS += test-gc-md5
+check_PROGRAMS += test-gc-md5
+EXTRA_DIST += test-gc-md5.c
+
+## end   gnulib module crypto/gc-md5-tests
 
 ## begin gnulib module crypto/gc-pbkdf2-sha1-tests
 
 TESTS += test-gc-pbkdf2-sha1
 check_PROGRAMS += test-gc-pbkdf2-sha1
-
 EXTRA_DIST += test-gc-pbkdf2-sha1.c
 
 ## end   gnulib module crypto/gc-pbkdf2-sha1-tests
@@ -82,10 +120,17 @@ EXTRA_DIST += test-gc-pbkdf2-sha1.c
 
 TESTS += test-gc-sha1
 check_PROGRAMS += test-gc-sha1
-
 EXTRA_DIST += test-gc-sha1.c
 
 ## end   gnulib module crypto/gc-sha1-tests
+
+## begin gnulib module crypto/gc-tests
+
+TESTS += test-gc
+check_PROGRAMS += test-gc
+EXTRA_DIST += test-gc.c
+
+## end   gnulib module crypto/gc-tests
 
 ## begin gnulib module errno-tests
 
@@ -101,7 +146,7 @@ EXTRA_DIST += test-errno.c
 TESTS += test-getdelim
 check_PROGRAMS += test-getdelim
 MOSTLYCLEANFILES += test-getdelim.txt
-EXTRA_DIST += test-getdelim.c
+EXTRA_DIST += test-getdelim.c signature.h macros.h
 
 ## end   gnulib module getdelim-tests
 
@@ -110,7 +155,7 @@ EXTRA_DIST += test-getdelim.c
 TESTS += test-getline
 check_PROGRAMS += test-getline
 MOSTLYCLEANFILES += test-getline.txt
-EXTRA_DIST += test-getline.c
+EXTRA_DIST += test-getline.c signature.h macros.h
 
 ## end   gnulib module getline-tests
 
@@ -132,7 +177,23 @@ EXTRA_DIST += intprops.h
 
 ## begin gnulib module link-warning
 
-LINK_WARNING_H=$(top_srcdir)/build-aux/link-warning.h
+# The BUILT_SOURCES created by this Makefile snippet are not used via #include
+# statements but through direct file reference. Therefore this snippet must be
+# present in all Makefile.am that need it. This is ensured by the applicability
+# 'all' defined above.
+
+BUILT_SOURCES += link-warning.h
+# The link-warning.h that gets inserted into generated .h files is the same as
+# build-aux/link-warning.h, except that it has the copyright header cut off.
+link-warning.h: $(top_srcdir)/build-aux/link-warning.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	sed -n -e '/GL_LINK_WARNING/,$$p' \
+	  < $(top_srcdir)/build-aux/link-warning.h \
+	  > $@-t && \
+	mv $@-t $@
+MOSTLYCLEANFILES += link-warning.h link-warning.h-t
+
+LINK_WARNING_H=link-warning.h
 
 EXTRA_DIST += $(top_srcdir)/build-aux/link-warning.h
 
@@ -142,7 +203,7 @@ EXTRA_DIST += $(top_srcdir)/build-aux/link-warning.h
 
 TESTS += test-memchr
 check_PROGRAMS += test-memchr
-EXTRA_DIST += test-memchr.c zerosize-ptr.h
+EXTRA_DIST += test-memchr.c zerosize-ptr.h signature.h macros.h
 
 ## end   gnulib module memchr-tests
 
@@ -151,7 +212,7 @@ EXTRA_DIST += test-memchr.c zerosize-ptr.h
 TESTS += test-memmem
 check_PROGRAMS += test-memmem
 
-EXTRA_DIST += test-memmem.c zerosize-ptr.h
+EXTRA_DIST += test-memmem.c zerosize-ptr.h signature.h macros.h
 
 ## end   gnulib module memmem-tests
 
@@ -159,7 +220,6 @@ EXTRA_DIST += test-memmem.c zerosize-ptr.h
 
 TESTS += test-stdbool
 check_PROGRAMS += test-stdbool
-
 EXTRA_DIST += test-stdbool.c
 
 ## end   gnulib module stdbool-tests
@@ -168,7 +228,6 @@ EXTRA_DIST += test-stdbool.c
 
 TESTS += test-stddef
 check_PROGRAMS += test-stddef
-
 EXTRA_DIST += test-stddef.c
 
 ## end   gnulib module stddef-tests
@@ -177,7 +236,6 @@ EXTRA_DIST += test-stddef.c
 
 TESTS += test-stdint
 check_PROGRAMS += test-stdint
-
 EXTRA_DIST += test-stdint.c
 
 ## end   gnulib module stdint-tests
@@ -186,7 +244,6 @@ EXTRA_DIST += test-stdint.c
 
 TESTS += test-stdio
 check_PROGRAMS += test-stdio
-
 EXTRA_DIST += test-stdio.c
 
 ## end   gnulib module stdio-tests
@@ -195,7 +252,6 @@ EXTRA_DIST += test-stdio.c
 
 TESTS += test-stdlib
 check_PROGRAMS += test-stdlib
-
 EXTRA_DIST += test-stdlib.c
 
 ## end   gnulib module stdlib-tests
@@ -204,7 +260,6 @@ EXTRA_DIST += test-stdlib.c
 
 TESTS += test-string
 check_PROGRAMS += test-string
-
 EXTRA_DIST += test-string.c
 
 ## end   gnulib module string-tests
@@ -213,7 +268,7 @@ EXTRA_DIST += test-string.c
 
 TESTS += test-strverscmp
 check_PROGRAMS += test-strverscmp
-EXTRA_DIST += test-strverscmp.c
+EXTRA_DIST += test-strverscmp.c signature.h macros.h
 
 ## end   gnulib module strverscmp-tests
 
@@ -221,7 +276,6 @@ EXTRA_DIST += test-strverscmp.c
 
 TESTS += test-unistd
 check_PROGRAMS += test-unistd
-
 EXTRA_DIST += test-unistd.c
 
 ## end   gnulib module unistd-tests
@@ -231,7 +285,7 @@ EXTRA_DIST += test-unistd.c
 TESTS += test-vasnprintf
 check_PROGRAMS += test-vasnprintf
 
-EXTRA_DIST += test-vasnprintf.c
+EXTRA_DIST += test-vasnprintf.c macros.h
 
 ## end   gnulib module vasnprintf-tests
 
@@ -240,7 +294,7 @@ EXTRA_DIST += test-vasnprintf.c
 TESTS += test-vasprintf
 check_PROGRAMS += test-vasprintf
 
-EXTRA_DIST += test-vasprintf.c
+EXTRA_DIST += test-vasprintf.c signature.h macros.h
 
 ## end   gnulib module vasprintf-tests
 
@@ -250,11 +304,29 @@ libtests_a_SOURCES += verify.h
 
 ## end   gnulib module verify
 
+## begin gnulib module warn-on-use
+
+BUILT_SOURCES += warn-on-use.h
+# The warn-on-use.h that gets inserted into generated .h files is the same as
+# build-aux/warn-on-use.h, except that it has the copyright header cut off.
+warn-on-use.h: $(top_srcdir)/build-aux/warn-on-use.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	sed -n -e '/^.ifndef/,$$p' \
+	  < $(top_srcdir)/build-aux/warn-on-use.h \
+	  > $@-t && \
+	mv $@-t $@
+MOSTLYCLEANFILES += warn-on-use.h warn-on-use.h-t
+
+WARN_ON_USE_H=warn-on-use.h
+
+EXTRA_DIST += $(top_srcdir)/build-aux/warn-on-use.h
+
+## end   gnulib module warn-on-use
+
 ## begin gnulib module wchar-tests
 
 TESTS += test-wchar
 check_PROGRAMS += test-wchar
-
 EXTRA_DIST += test-wchar.c
 
 ## end   gnulib module wchar-tests

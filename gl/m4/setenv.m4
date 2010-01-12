@@ -1,5 +1,5 @@
-# setenv.m4 serial 13
-dnl Copyright (C) 2001-2004, 2006-2009 Free Software Foundation, Inc.
+# setenv.m4 serial 15
+dnl Copyright (C) 2001-2004, 2006-2010 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -26,7 +26,7 @@ AC_DEFUN([gl_FUNC_SETENV_SEPARATE],
        #include <stdlib.h>
        #include <errno.h>
       ]], [[
-       if (setenv (NULL, "", 0) != -1) return 1;
+       if (setenv ("", "", 0) != -1) return 1;
        if (errno != EINVAL) return 2;
        if (setenv ("a", "=", 1) != 0) return 3;
        if (strcmp (getenv ("a"), "=") != 0) return 4;
@@ -77,7 +77,7 @@ int unsetenv();
        #include <stdlib.h>
       ]], [[
        char entry[] = "b=2";
-       if (putenv ("a=1")) return 1;
+       if (putenv ((char *) "a=1")) return 1;
        if (putenv (entry)) return 2;
        entry[0] = 'a';
        unsetenv ("a");

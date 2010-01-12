@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
+ * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -48,21 +48,21 @@ main (int argc, char *argv[])
 
     if (gc_hmac_sha1 (key, key_len, data, data_len, out) != 0)
       {
-	printf ("call failure\n");
-	return 1;
+        printf ("call failure\n");
+        return 1;
       }
 
     if (memcmp (digest, out, GC_SHA1_DIGEST_SIZE) != 0)
       {
-	size_t i;
-	printf ("hash 1 mismatch. expected:\n");
-	for (i = 0; i < 16; i++)
-	  printf ("%02x ", digest[i] & 0xFF);
-	printf ("\ncomputed:\n");
-	for (i = 0; i < 16; i++)
-	  printf ("%02x ", out[i] & 0xFF);
-	printf ("\n");
-	return 1;
+        size_t i;
+        printf ("hash 1 mismatch. expected:\n");
+        for (i = 0; i < 16; i++)
+          printf ("%02x ", digest[i] & 0xFF);
+        printf ("\ncomputed:\n");
+        for (i = 0; i < 16; i++)
+          printf ("%02x ", out[i] & 0xFF);
+        printf ("\n");
+        return 1;
       }
   }
 

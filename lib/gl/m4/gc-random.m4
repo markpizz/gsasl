@@ -1,5 +1,5 @@
 # gc-random.m4 serial 4
-dnl Copyright (C) 2005-2009 Free Software Foundation, Inc.
+dnl Copyright (C) 2005-2010 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -39,23 +39,23 @@ AC_DEFUN([gl_GC_RANDOM],
 
   AC_MSG_CHECKING([device with (strong) random data...])
   AC_ARG_ENABLE([random-device],
-	AS_HELP_STRING([--enable-random-device],
-		[device with (strong) randomness (for Nettle)]),
-	NAME_OF_RANDOM_DEVICE=$enableval)
+        AS_HELP_STRING([--enable-random-device],
+                [device with (strong) randomness (for Nettle)]),
+        NAME_OF_RANDOM_DEVICE=$enableval)
   AC_MSG_RESULT([$NAME_OF_RANDOM_DEVICE])
 
   AC_MSG_CHECKING([device with pseudo random data...])
   AC_ARG_ENABLE([pseudo-random-device],
-	AS_HELP_STRING([--enable-pseudo-random-device],
-		[device with pseudo randomness (for Nettle)]),
-	NAME_OF_PSEUDO_RANDOM_DEVICE=$enableval)
+        AS_HELP_STRING([--enable-pseudo-random-device],
+                [device with pseudo randomness (for Nettle)]),
+        NAME_OF_PSEUDO_RANDOM_DEVICE=$enableval)
   AC_MSG_RESULT([$NAME_OF_PSEUDO_RANDOM_DEVICE])
 
   AC_MSG_CHECKING([device with unpredictable data for nonces...])
   AC_ARG_ENABLE([nonce-device],
-	AS_HELP_STRING([--enable-nonce-device],
-		[device with unpredictable nonces (for Nettle)]),
-	NAME_OF_NONCE_DEVICE=$enableval)
+        AS_HELP_STRING([--enable-nonce-device],
+                [device with unpredictable nonces (for Nettle)]),
+        NAME_OF_NONCE_DEVICE=$enableval)
   AC_MSG_RESULT([$NAME_OF_NONCE_DEVICE])
 
   if test "$cross_compiling" != yes; then
@@ -80,7 +80,7 @@ AC_DEFUN([gl_GC_RANDOM],
   AC_DEFINE_UNQUOTED([NAME_OF_RANDOM_DEVICE], ["$NAME_OF_RANDOM_DEVICE"],
                    [defined to the name of the (strong) random device])
   AC_DEFINE_UNQUOTED([NAME_OF_PSEUDO_RANDOM_DEVICE],
-			 "$NAME_OF_PSEUDO_RANDOM_DEVICE",
+                         "$NAME_OF_PSEUDO_RANDOM_DEVICE",
                    [defined to the name of the pseudo random device])
   AC_DEFINE_UNQUOTED([NAME_OF_NONCE_DEVICE], ["$NAME_OF_NONCE_DEVICE"],
                    [defined to the name of the unpredictable nonce device])

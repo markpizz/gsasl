@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002-2010 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -49,7 +49,7 @@ AC_DEFUN([gl_INIT],
   gl_COMMON
   gl_source_base='gl'
 changequote(,)dnl
-LTALLOCA=`echo "$ALLOCA" | sed 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
+LTALLOCA=`echo "$ALLOCA" | sed -e 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
 changequote([, ])dnl
 AC_SUBST([LTALLOCA])
   gl_FUNC_ALLOCA
@@ -211,7 +211,7 @@ AC_SUBST([LTALLOCA])
     if test -n "$gl_LIBOBJS"; then
       # Remove the extension.
       sed_drop_objext='s/\.o$//;s/\.obj$//'
-      for i in `for i in $gl_LIBOBJS; do echo "$i"; done | sed "$sed_drop_objext" | sort | uniq`; do
+      for i in `for i in $gl_LIBOBJS; do echo "$i"; done | sed -e "$sed_drop_objext" | sort | uniq`; do
         gl_libobjs="$gl_libobjs $i.$ac_objext"
         gl_ltlibobjs="$gl_ltlibobjs $i.lo"
       done
@@ -240,8 +240,11 @@ AC_SUBST([LTALLOCA])
   gl_SYS_SOCKET_MODULE_INDICATOR([bind])
   gt_LOCALE_FR
   gt_LOCALE_TR_UTF8
+  gl_FUNC_DUP2
+  gl_UNISTD_MODULE_INDICATOR([dup2])
   gl_ENVIRON
   gl_UNISTD_MODULE_INDICATOR([environ])
+  gl_FCNTL_H
   gl_FUNC_UNGETC_WORKS
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.17])
@@ -265,12 +268,18 @@ AC_SUBST([LTALLOCA])
     AC_LIBOBJ([listen])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([listen])
+  gl_FUNC_LSTAT
+  gl_SYS_STAT_MODULE_INDICATOR([lstat])
   gl_MALLOCA
   gt_LOCALE_FR
   gt_LOCALE_FR_UTF8
   gt_LOCALE_JA
   gt_LOCALE_ZH_CN
   gt_LOCALE_FR_UTF8
+  gl_FUNC_OPEN
+  gl_MODULE_INDICATOR([open])
+  gl_FCNTL_MODULE_INDICATOR([open])
+  gl_PATHMAX
   gl_FUNC_PERROR
   gl_STRING_MODULE_INDICATOR([perror])
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
@@ -286,11 +295,18 @@ AC_SUBST([LTALLOCA])
     AC_LIBOBJ([setsockopt])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([setsockopt])
+  gl_FUNC_STAT
+  gl_SYS_STAT_MODULE_INDICATOR([stat])
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
+  gl_FUNC_SYMLINK
+  gl_UNISTD_MODULE_INDICATOR([symlink])
   gl_SYS_IOCTL_H
   AC_PROG_MKDIR_P
   AC_CHECK_FUNCS_ONCE([shutdown])
+  gl_HEADER_SYS_STAT_H
+  AC_PROG_MKDIR_P
+  gl_HEADER_TIME_H
   gl_FUNC_UNSETENV
   gl_STDLIB_MODULE_INDICATOR([unsetenv])
   abs_aux_dir=`cd "$ac_aux_dir"; pwd`
@@ -319,7 +335,7 @@ AC_SUBST([LTALLOCA])
     if test -n "$gltests_LIBOBJS"; then
       # Remove the extension.
       sed_drop_objext='s/\.o$//;s/\.obj$//'
-      for i in `for i in $gltests_LIBOBJS; do echo "$i"; done | sed "$sed_drop_objext" | sort | uniq`; do
+      for i in `for i in $gltests_LIBOBJS; do echo "$i"; done | sed -e "$sed_drop_objext" | sort | uniq`; do
         gltests_libobjs="$gltests_libobjs $i.$ac_objext"
         gltests_ltlibobjs="$gltests_ltlibobjs $i.lo"
       done
@@ -388,6 +404,7 @@ AC_DEFUN([gltests_LIBSOURCES], [
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
+  build-aux/arg-nonnull.h
   build-aux/config.rpath
   build-aux/gendocs.sh
   build-aux/link-warning.h
@@ -395,6 +412,7 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/pmccabe2html
   build-aux/useless-if-before-free
   build-aux/vc-list-files
+  build-aux/warn-on-use.h
   doc/fdl-1.3.texi
   doc/gendocs_template
   doc/gpl-3.0.texi
@@ -514,6 +532,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/autobuild.m4
   m4/close.m4
   m4/codeset.m4
+  m4/dos.m4
+  m4/dup2.m4
   m4/eealloc.m4
   m4/environ.m4
   m4/errno_h.m4
@@ -521,6 +541,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/exitfail.m4
   m4/extensions.m4
   m4/fclose.m4
+  m4/fcntl-o.m4
   m4/fcntl_h.m4
   m4/float_h.m4
   m4/fseeko.m4
@@ -562,6 +583,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lock.m4
   m4/longlong.m4
   m4/lseek.m4
+  m4/lstat.m4
   m4/malloc.m4
   m4/malloca.m4
   m4/manywarnings.m4
@@ -570,10 +592,13 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mbstate_t.m4
   m4/memchr.m4
   m4/mmap-anon.m4
+  m4/mode_t.m4
   m4/multiarch.m4
   m4/netdb_h.m4
   m4/netinet_in_h.m4
   m4/nls.m4
+  m4/open.m4
+  m4/pathmax.m4
   m4/perror.m4
   m4/po.m4
   m4/poll.m4
@@ -593,6 +618,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sockets.m4
   m4/socklen.m4
   m4/sockpfaf.m4
+  m4/stat.m4
   m4/stdarg.m4
   m4/stdbool.m4
   m4/stddef_h.m4
@@ -603,17 +629,21 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strdup.m4
   m4/strerror.m4
   m4/string_h.m4
+  m4/symlink.m4
   m4/sys_ioctl_h.m4
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
+  m4/sys_stat_h.m4
   m4/sys_time_h.m4
   m4/threadlib.m4
+  m4/time_h.m4
   m4/uintmax_t.m4
   m4/ungetc.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
   m4/version-etc.m4
   m4/visibility.m4
+  m4/warn-on-use.m4
   m4/warnings.m4
   m4/wchar.m4
   m4/wchar_t.m4
@@ -622,17 +652,24 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/wint_t.m4
   m4/xalloc.m4
   m4/xsize.m4
+  tests/init.sh
   tests/locale/fr/LC_MESSAGES/test-quotearg.mo
   tests/locale/fr/LC_MESSAGES/test-quotearg.po
+  tests/macros.h
+  tests/signature.h
   tests/test-alignof.c
   tests/test-alloca-opt.c
   tests/test-arpa_inet.c
+  tests/test-binary-io.c
+  tests/test-binary-io.sh
   tests/test-c-ctype.c
   tests/test-c-strcase.sh
   tests/test-c-strcasecmp.c
   tests/test-c-strncasecmp.c
+  tests/test-dup2.c
   tests/test-environ.c
   tests/test-errno.c
+  tests/test-fcntl-h.c
   tests/test-fseeko.c
   tests/test-fseeko.sh
   tests/test-fseeko2.sh
@@ -648,6 +685,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-inet_pton.c
   tests/test-lseek.c
   tests/test-lseek.sh
+  tests/test-lstat.c
+  tests/test-lstat.h
   tests/test-malloca.c
   tests/test-mbrtowc.c
   tests/test-mbrtowc1.sh
@@ -659,6 +698,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-memchr.c
   tests/test-netdb.c
   tests/test-netinet_in.c
+  tests/test-open.c
+  tests/test-open.h
   tests/test-perror.c
   tests/test-perror.sh
   tests/test-poll.c
@@ -672,6 +713,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-setenv.c
   tests/test-snprintf.c
   tests/test-sockets.c
+  tests/test-stat.c
+  tests/test-stat.h
   tests/test-stdbool.c
   tests/test-stddef.c
   tests/test-stdint.c
@@ -680,9 +723,14 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-strerror.c
   tests/test-striconv.c
   tests/test-string.c
+  tests/test-symlink.c
+  tests/test-symlink.h
+  tests/test-sys_ioctl.c
   tests/test-sys_select.c
   tests/test-sys_socket.c
+  tests/test-sys_stat.c
   tests/test-sys_time.c
+  tests/test-time.c
   tests/test-unistd.c
   tests/test-unsetenv.c
   tests/test-vasnprintf.c
@@ -696,19 +744,30 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-xalloc-die.sh
   tests/zerosize-ptr.h
   tests=lib/accept.c
+  tests=lib/binary-io.h
   tests=lib/bind.c
+  tests=lib/dup2.c
+  tests=lib/fcntl.in.h
   tests=lib/gettimeofday.c
   tests=lib/inet_pton.c
   tests=lib/ioctl.c
   tests=lib/listen.c
+  tests=lib/lstat.c
   tests=lib/malloca.c
   tests=lib/malloca.h
   tests=lib/malloca.valgrind
+  tests=lib/open.c
+  tests=lib/pathmax.h
   tests=lib/perror.c
   tests=lib/putenv.c
+  tests=lib/same-inode.h
   tests=lib/setenv.c
   tests=lib/setsockopt.c
+  tests=lib/stat.c
+  tests=lib/symlink.c
   tests=lib/sys_ioctl.in.h
+  tests=lib/sys_stat.in.h
+  tests=lib/time.in.h
   tests=lib/unsetenv.c
   tests=lib/version-etc-fsf.c
   tests=lib/w32sock.h
