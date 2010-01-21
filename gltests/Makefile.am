@@ -515,7 +515,7 @@ EXTRA_DIST += signature.h test-perror.c test-perror.sh
 
 TESTS += test-poll
 check_PROGRAMS += test-poll
-test_poll_LDADD = $(LDADD) @LIBSOCKET@
+test_poll_LDADD = $(LDADD) @LIBSOCKET@ $(INET_PTON_LIB)
 EXTRA_DIST += signature.h test-poll.c
 
 ## end   gnulib module poll-tests
