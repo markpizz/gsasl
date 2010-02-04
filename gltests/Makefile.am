@@ -43,6 +43,8 @@ libtests_a_DEPENDENCIES = $(gltests_LIBOBJS)
 EXTRA_libtests_a_SOURCES =
 AM_LIBTOOLFLAGS = --preserve-dup-deps
 
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
+
 ## begin gnulib module accept
 
 
@@ -111,7 +113,6 @@ libtests_a_SOURCES += binary-io.h
 ## begin gnulib module binary-io-tests
 
 TESTS += test-binary-io.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-binary-io
 
 EXTRA_DIST += test-binary-io.sh test-binary-io.c macros.h
@@ -139,7 +140,7 @@ EXTRA_DIST += test-c-ctype.c macros.h
 ## begin gnulib module c-strcase-tests
 
 TESTS += test-c-strcase.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR='@LOCALE_FR@' LOCALE_TR_UTF8='@LOCALE_TR_UTF8@'
+TESTS_ENVIRONMENT += LOCALE_FR='@LOCALE_FR@' LOCALE_TR_UTF8='@LOCALE_TR_UTF8@'
 check_PROGRAMS += test-c-strcasecmp test-c-strncasecmp
 EXTRA_DIST += test-c-strcase.sh test-c-strcasecmp.c test-c-strncasecmp.c macros.h
 
@@ -186,7 +187,7 @@ BUILT_SOURCES += fcntl.h
 
 # We need the following in order to create <fcntl.h> when the system
 # doesn't have one that works with the given compiler.
-fcntl.h: fcntl.in.h $(LINK_WARNING_H) $(ARG_NONNULL_H)
+fcntl.h: fcntl.in.h $(WARN_ON_USE_H) $(ARG_NONNULL_H)
 	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
@@ -200,8 +201,8 @@ fcntl.h: fcntl.in.h $(LINK_WARNING_H) $(ARG_NONNULL_H)
 	      -e 's|@''REPLACE_FCNTL''@|$(REPLACE_FCNTL)|g' \
 	      -e 's|@''REPLACE_OPEN''@|$(REPLACE_OPEN)|g' \
 	      -e 's|@''REPLACE_OPENAT''@|$(REPLACE_OPENAT)|g' \
-	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
+	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
 	      < $(srcdir)/fcntl.in.h; \
 	} > $@-t && \
 	mv $@-t $@
@@ -222,7 +223,6 @@ EXTRA_DIST += test-fcntl-h.c
 ## begin gnulib module fseeko-tests
 
 TESTS += test-fseeko.sh test-fseeko2.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-fseeko
 EXTRA_DIST += test-fseeko.c test-fseeko.sh test-fseeko2.sh signature.h macros.h
 
@@ -308,6 +308,12 @@ EXTRA_DIST += test-iconv.c signature.h macros.h
 
 ## end   gnulib module iconv-tests
 
+## begin gnulib module ignore-value
+
+libtests_a_SOURCES += ignore-value.h
+
+## end   gnulib module ignore-value
+
 ## begin gnulib module inet_ntop-tests
 
 TESTS += test-inet_ntop
@@ -344,30 +350,6 @@ EXTRA_libtests_a_SOURCES += ioctl.c
 
 ## end   gnulib module ioctl
 
-## begin gnulib module link-warning
-
-# The BUILT_SOURCES created by this Makefile snippet are not used via #include
-# statements but through direct file reference. Therefore this snippet must be
-# present in all Makefile.am that need it. This is ensured by the applicability
-# 'all' defined above.
-
-BUILT_SOURCES += link-warning.h
-# The link-warning.h that gets inserted into generated .h files is the same as
-# build-aux/link-warning.h, except that it has the copyright header cut off.
-link-warning.h: $(top_srcdir)/lib/build-aux/link-warning.h
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	sed -n -e '/GL_LINK_WARNING/,$$p' \
-	  < $(top_srcdir)/lib/build-aux/link-warning.h \
-	  > $@-t && \
-	mv $@-t $@
-MOSTLYCLEANFILES += link-warning.h link-warning.h-t
-
-LINK_WARNING_H=link-warning.h
-
-EXTRA_DIST += $(top_srcdir)/lib/build-aux/link-warning.h
-
-## end   gnulib module link-warning
-
 ## begin gnulib module listen
 
 
@@ -380,7 +362,6 @@ EXTRA_libtests_a_SOURCES += listen.c
 ## begin gnulib module lseek-tests
 
 TESTS += test-lseek.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-lseek
 EXTRA_DIST += test-lseek.c test-lseek.sh signature.h macros.h
 
@@ -424,7 +405,6 @@ EXTRA_DIST += test-malloca.c
 
 TESTS += test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.sh
 TESTS_ENVIRONMENT += \
-  EXEEXT='@EXEEXT@' \
   LOCALE_FR='@LOCALE_FR@' \
   LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
   LOCALE_JA='@LOCALE_JA@' \
@@ -438,7 +418,7 @@ EXTRA_DIST += test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.s
 ## begin gnulib module mbsinit-tests
 
 TESTS += test-mbsinit.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
+TESTS_ENVIRONMENT += LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
 check_PROGRAMS += test-mbsinit
 
 EXTRA_DIST += test-mbsinit.sh test-mbsinit.c signature.h macros.h
@@ -505,7 +485,6 @@ EXTRA_libtests_a_SOURCES += perror.c
 ## begin gnulib module perror-tests
 
 TESTS += test-perror.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-perror
 EXTRA_DIST += signature.h test-perror.c test-perror.sh
 
@@ -532,7 +511,7 @@ EXTRA_libtests_a_SOURCES += putenv.c
 ## begin gnulib module quotearg-tests
 
 TESTS += test-quotearg.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)' LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
+TESTS_ENVIRONMENT += LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
 check_PROGRAMS += test-quotearg
 test_quotearg_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-quotearg.sh test-quotearg.c macros.h locale/fr/LC_MESSAGES/test-quotearg.po locale/fr/LC_MESSAGES/test-quotearg.mo
@@ -550,7 +529,6 @@ EXTRA_DIST += same-inode.h
 
 TESTS += test-select test-select-in.sh test-select-out.sh
 # test-select-stdin has to be run by hand.
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-select test-select-fd test-select-stdin
 test_select_LDADD = $(LDADD) @LIBSOCKET@ $(INET_PTON_LIB)
 test_select_fd_LDADD = $(LDADD) @LIBSOCKET@
@@ -709,7 +687,7 @@ BUILT_SOURCES += sys/ioctl.h
 
 # We need the following in order to create <sys/ioctl.h> when the system
 # does not have a complete one.
-sys/ioctl.h: sys_ioctl.in.h $(LINK_WARNING_H)
+sys/ioctl.h: sys_ioctl.in.h $(WARN_ON_USE_H)
 	$(AM_V_at)$(MKDIR_P) sys
 	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
@@ -720,7 +698,7 @@ sys/ioctl.h: sys_ioctl.in.h $(LINK_WARNING_H)
 	      -e 's|@''GNULIB_IOCTL''@|$(GNULIB_IOCTL)|g' \
 	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H)|g' \
 	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS)|g' \
-	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
+	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
 	      < $(srcdir)/sys_ioctl.in.h; \
 	} > $@-t && \
 	mv $@-t $@
@@ -761,7 +739,7 @@ BUILT_SOURCES += sys/stat.h
 
 # We need the following in order to create <sys/stat.h> when the system
 # has one that is incomplete.
-sys/stat.h: sys_stat.in.h $(LINK_WARNING_H) $(ARG_NONNULL_H)
+sys/stat.h: sys_stat.in.h $(WARN_ON_USE_H) $(ARG_NONNULL_H)
 	$(AM_V_at)$(MKDIR_P) sys
 	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
@@ -800,8 +778,8 @@ sys/stat.h: sys_stat.in.h $(LINK_WARNING_H) $(ARG_NONNULL_H)
 	      -e 's|@''REPLACE_MKNOD''@|$(REPLACE_MKNOD)|g' \
 	      -e 's|@''REPLACE_STAT''@|$(REPLACE_STAT)|g' \
 	      -e 's|@''REPLACE_UTIMENSAT''@|$(REPLACE_UTIMENSAT)|g' \
-	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
+	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
 	      < $(srcdir)/sys_stat.in.h; \
 	} > $@-t && \
 	mv $@-t $@
@@ -917,7 +895,6 @@ libtests_a_SOURCES += version-etc-fsf.c
 ## begin gnulib module version-etc-tests
 
 TESTS += test-version-etc.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-version-etc
 test_version_etc_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-version-etc.c test-version-etc.sh
@@ -971,7 +948,6 @@ EXTRA_DIST += test-wctype.c macros.h
 ## begin gnulib module xalloc-die-tests
 
 TESTS += test-xalloc-die.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-xalloc-die
 test_xalloc_die_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-xalloc-die.c test-xalloc-die.sh init.sh

@@ -43,6 +43,8 @@ libtests_a_DEPENDENCIES = $(gltests_LIBOBJS)
 EXTRA_libtests_a_SOURCES =
 AM_LIBTOOLFLAGS = --preserve-dup-deps
 
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
+
 ## begin gnulib module alloca-opt-tests
 
 TESTS += test-alloca-opt
@@ -174,30 +176,6 @@ EXTRA_libtests_a_SOURCES += getpagesize.c
 EXTRA_DIST += intprops.h
 
 ## end   gnulib module intprops
-
-## begin gnulib module link-warning
-
-# The BUILT_SOURCES created by this Makefile snippet are not used via #include
-# statements but through direct file reference. Therefore this snippet must be
-# present in all Makefile.am that need it. This is ensured by the applicability
-# 'all' defined above.
-
-BUILT_SOURCES += link-warning.h
-# The link-warning.h that gets inserted into generated .h files is the same as
-# build-aux/link-warning.h, except that it has the copyright header cut off.
-link-warning.h: $(top_srcdir)/build-aux/link-warning.h
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	sed -n -e '/GL_LINK_WARNING/,$$p' \
-	  < $(top_srcdir)/build-aux/link-warning.h \
-	  > $@-t && \
-	mv $@-t $@
-MOSTLYCLEANFILES += link-warning.h link-warning.h-t
-
-LINK_WARNING_H=link-warning.h
-
-EXTRA_DIST += $(top_srcdir)/build-aux/link-warning.h
-
-## end   gnulib module link-warning
 
 ## begin gnulib module memchr-tests
 

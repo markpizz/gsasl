@@ -82,6 +82,8 @@ AC_DEFUN([gl_INIT],
   gl_LD_OUTPUT_DEF
   gl_LD_VERSION_SCRIPT
   gl_VISIBILITY
+  AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
+    [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
   gl_FUNC_MEMCHR
   gl_STRING_MODULE_INDICATOR([memchr])
   gl_FUNC_MEMMEM
@@ -250,7 +252,6 @@ AC_DEFUN([gltests_LIBSOURCES], [
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/arg-nonnull.h
   build-aux/config.rpath
-  build-aux/link-warning.h
   build-aux/useless-if-before-free
   build-aux/vc-list-files
   build-aux/warn-on-use.h

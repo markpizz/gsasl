@@ -1,4 +1,4 @@
-# stdio_h.m4 serial 23
+# stdio_h.m4 serial 25
 dnl Copyright (C) 2007-2010 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -36,7 +36,8 @@ AC_DEFUN([gl_STDIO_H],
   dnl corresponding gnulib module is not in use, and which is not
   dnl guaranteed by C89.
   gl_WARN_ON_USE_PREPARE([[#include <stdio.h>
-    ]], [fseeko ftello])
+    ]], [dprintf fpurge fseeko ftello getdelim getline popen renameat
+    snprintf vdprintf vsnprintf])
 ])
 
 AC_DEFUN([gl_STDIO_MODULE_INDICATOR],
@@ -110,6 +111,7 @@ AC_DEFUN([gl_STDIO_H_DEFAULTS],
   REPLACE_FSEEKO=0;              AC_SUBST([REPLACE_FSEEKO])
   REPLACE_FTELL=0;               AC_SUBST([REPLACE_FTELL])
   REPLACE_FTELLO=0;              AC_SUBST([REPLACE_FTELLO])
+  REPLACE_GETDELIM=0;            AC_SUBST([REPLACE_GETDELIM])
   REPLACE_GETLINE=0;             AC_SUBST([REPLACE_GETLINE])
   REPLACE_OBSTACK_PRINTF=0;      AC_SUBST([REPLACE_OBSTACK_PRINTF])
   REPLACE_PERROR=0;              AC_SUBST([REPLACE_PERROR])

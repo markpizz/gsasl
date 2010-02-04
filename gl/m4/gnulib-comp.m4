@@ -107,6 +107,8 @@ AC_SUBST([LTALLOCA])
   AC_SUBST([LOCALCHARSET_TESTS_ENVIRONMENT])
   gl_FUNC_LSEEK
   gl_UNISTD_MODULE_INDICATOR([lseek])
+  AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
+    [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
   gl_FUNC_MALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   gl_FUNC_MBRTOWC
@@ -249,6 +251,8 @@ AC_SUBST([LTALLOCA])
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.17])
   gl_FUNC_GETTIMEOFDAY
+  gl_SYS_TIME_MODULE_INDICATOR([gettimeofday])
+  AC_REQUIRE([AC_C_INLINE])
   AC_C_BIGENDIAN
   gl_INET_PTON
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
@@ -407,7 +411,6 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/arg-nonnull.h
   build-aux/config.rpath
   build-aux/gendocs.sh
-  build-aux/link-warning.h
   build-aux/pmccabe.css
   build-aux/pmccabe2html
   build-aux/useless-if-before-free
@@ -749,6 +752,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/dup2.c
   tests=lib/fcntl.in.h
   tests=lib/gettimeofday.c
+  tests=lib/ignore-value.h
   tests=lib/inet_pton.c
   tests=lib/ioctl.c
   tests=lib/listen.c
