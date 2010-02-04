@@ -43,11 +43,12 @@ TESTS_ENVIRONMENT = \
 ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\
 	md5file$(EXEEXT) name$(EXEEXT) errors$(EXEEXT)			\
 	suggest$(EXEEXT) simple$(EXEEXT) crypto$(EXEEXT)		\
-	scram$(EXEEXT)
+	scram$(EXEEXT) symbols$(EXEEXT)
 
 if OBSOLETE
-ctests += old-simple$(EXEEXT) old-md5file$(EXEEXT) old-cram-md5$(EXEEXT)	\
-	old-digest-md5$(EXEEXT) old-base64$(EXEEXT)
+ctests += old-simple$(EXEEXT) old-md5file$(EXEEXT)	\
+	old-cram-md5$(EXEEXT) old-digest-md5$(EXEEXT)	\
+	old-base64$(EXEEXT)
 endif
 
 # old-gssapi
