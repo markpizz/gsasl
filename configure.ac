@@ -39,6 +39,9 @@ AM_MISSING_PROG(EPSTOPDF, epstopdf, $missing_dir)
 AM_GNU_GETTEXT(external)
 AM_GNU_GETTEXT_VERSION(0.17)
 
+# Checks for header files.
+AC_CHECK_HEADERS(pwd.h)
+
 # Checks for library functions.
 AC_SEARCH_LIBS(socket, socket)
 AC_CHECK_FUNCS(getpwuid)
