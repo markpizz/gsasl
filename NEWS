@@ -12,6 +12,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 Patch from Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de> in
 <http://thread.gmane.org/gmane.comp.gnu.gsasl.general/256>.
 
+** Improve MinGW builds.
+
 ** i18n: Updated German translation.
 
 * Version 1.4.0 (released 2009-11-17) [stable]
