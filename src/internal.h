@@ -1,5 +1,5 @@
 /* internal.h --- internal header file for gsasl
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -39,9 +39,6 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <netdb.h>
-#ifdef HAVE_PWD_H
-# include <pwd.h>		/* getpwnam */
-#endif
 
 #include <gsasl.h>
 
