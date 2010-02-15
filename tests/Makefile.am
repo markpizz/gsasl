@@ -40,15 +40,12 @@ TESTS_ENVIRONMENT = \
 	EGREP="$(EGREP)" \
 	$(VALGRIND)
 
-ctests = external$(EXEEXT) cram-md5$(EXEEXT) digest-md5$(EXEEXT)	\
-	md5file$(EXEEXT) name$(EXEEXT) errors$(EXEEXT)			\
-	suggest$(EXEEXT) simple$(EXEEXT) crypto$(EXEEXT)		\
-	scram$(EXEEXT) symbols$(EXEEXT)
+ctests = external cram-md5 digest-md5 md5file name errors suggest	\
+	simple crypto scram symbols
 
 if OBSOLETE
-ctests += old-simple$(EXEEXT) old-md5file$(EXEEXT)	\
-	old-cram-md5$(EXEEXT) old-digest-md5$(EXEEXT)	\
-	old-base64$(EXEEXT)
+ctests += old-simple old-md5file old-cram-md5 old-digest-md5	\
+	old-base64
 endif
 
 # old-gssapi

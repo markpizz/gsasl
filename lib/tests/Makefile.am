@@ -1,4 +1,4 @@
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Simon Josefsson
 #
 # This file is part of GNU SASL Library.
 #
@@ -23,5 +23,5 @@ AM_CPPFLAGS += -DLOCALEDIR=\"$(datadir)/locale\"
 
 LDADD = $(LTLIBINTL)
 
-TESTS = test-error$(EXEEXT)
-check_PROGRAMS = test-error$(EXEEXT)
+TESTS = test-error
+check_PROGRAMS = test-error
