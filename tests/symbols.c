@@ -76,6 +76,7 @@ main (void)
   assert_symbol_exists ((const void *) gsasl_strerror);
   assert_symbol_exists ((const void *) gsasl_strerror_name);
 
+#ifndef GSASL_NO_OBSOLETE
   /* LIBGSASL_1.1: Old interfaces */
   assert_symbol_exists ((const void *) gsasl_appinfo_get);
   assert_symbol_exists ((const void *) gsasl_appinfo_set);
@@ -152,6 +153,7 @@ main (void)
   assert_symbol_exists ((const void *) gsasl_stringprep_nfkc);
   assert_symbol_exists ((const void *) gsasl_stringprep_saslprep);
   assert_symbol_exists ((const void *) gsasl_stringprep_trace);
+#endif
 
   /* LIBGSASL_1.4 */
   assert_symbol_exists ((const void *) gsasl_sha1);
