@@ -1,3 +1,427 @@
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* tests/symbols.c: Make it work when obsolete symbols are disabled.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cfg.mk: Upload to ftp.gnu.org.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Upload to ftp.gnu.org.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 1.4.1.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Fix.
+
+2010-02-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Generate.
+
+2010-02-15  Simon Josefsson <simon@josefsson.org>
+
+	* src/internal.h: Fix comment.
+
+2010-02-15  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, src/internal.h: Revert "Drop pwd.h #include (not
+	used?)." This reverts commit b0df618c4214be57536ebe4a7c87178288f7969a.
+
+2010-02-15  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, src/internal.h: Drop pwd.h #include (not used?).
+
+2010-02-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac: Change next
+	version to 1.4.1.
+
+2010-02-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-02-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/Makefile.am, lib/tests/Makefile.am, tests/Makefile.am: 
+	Drop EXEEXT for self-tests.
+
+2010-02-15  Simon Josefsson <simon@josefsson.org>
+
+	* gl/stdio.in.h, lib/gl/stdio.in.h, lib/maint.mk, maint.mk: Update
+	gnulib files.
+
+2010-02-05  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Add review-diff rule.
+
+2010-02-05  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gettimeofday.m4, gltests/test-gettimeofday.c: Update gnulib
+	files.
+
+2010-02-05  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2010-02-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/digest-md5/Makefile.am: See if dropping EXEEXT helps mingw
+	builds.
+
+2010-02-04  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Update.
+
+2010-02-04  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/symbols.c: Add self-check for testing
+	that all APIs have been exported.
+
+2010-02-04  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/arpa_inet.in.h, gl/m4/arpa_inet_h.m4,
+	gl/m4/fcntl_h.m4, gl/m4/getdelim.m4, gl/m4/getline.m4,
+	gl/m4/gettimeofday.m4, gl/m4/gnulib-comp.m4, gl/m4/stdio_h.m4,
+	gl/m4/stdlib_h.m4, gl/m4/string_h.m4, gl/m4/sys_ioctl_h.m4,
+	gl/m4/sys_select_h.m4, gl/m4/sys_socket_h.m4, gl/m4/sys_stat_h.m4,
+	gl/m4/sys_time_h.m4, gl/m4/unistd_h.m4, gl/m4/wchar.m4,
+	gl/stdio.in.h, gl/stdlib.in.h, gl/string.in.h, gl/sys_select.in.h,
+	gl/sys_socket.in.h, gl/sys_time.in.h, gl/unistd.in.h,
+	gl/wchar.in.h, gltests/Makefile.am, gltests/fcntl.in.h,
+	gltests/ignore-value.h, gltests/sys_ioctl.in.h,
+	gltests/sys_stat.in.h, gltests/test-getdelim.c,
+	gltests/test-getline.c, gltests/test-gettimeofday.c,
+	gltests/test-lstat.c, gltests/test-memchr.c,
+	gltests/test-sockets.c, gltests/test-symlink.c,
+	lib/build-aux/link-warning.h, lib/gl/Makefile.am,
+	lib/gl/m4/getdelim.m4, lib/gl/m4/getline.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/stdio_h.m4,
+	lib/gl/m4/stdlib_h.m4, lib/gl/m4/string_h.m4,
+	lib/gl/m4/unistd_h.m4, lib/gl/m4/wchar.m4, lib/gl/stdio.in.h,
+	lib/gl/stdlib.in.h, lib/gl/string.in.h, lib/gl/unistd.in.h,
+	lib/gl/wchar.in.h, lib/gltests/Makefile.am,
+	lib/gltests/test-gc-hmac-md5.c, lib/gltests/test-gc-hmac-sha1.c,
+	lib/gltests/test-gc-md5.c, lib/gltests/test-gc-pbkdf2-sha1.c,
+	lib/gltests/test-gc-sha1.c, lib/gltests/test-gc.c,
+	lib/gltests/test-getdelim.c, lib/gltests/test-getline.c,
+	lib/gltests/test-memchr.c, lib/gltests/test-memmem.c, lib/maint.mk,
+	maint.mk: Update gnulib files.
+
+2010-01-21  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/error.h, gl/stdio.in.h, gl/striconv.c,
+	gl/vasnprintf.h, gltests/Makefile.am, gltests/fcntl.in.h,
+	lib/gl/Makefile.am, lib/gl/stdio.in.h, lib/gl/vasnprintf.h: Update
+	gnulib files.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, lib/maint.mk, maint.mk: Improve syntax-check exception
+	stuff.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-common.m4, gl/m4/warnings.m4, gl/stdio.in.h,
+	lib/gl/m4/gc.m4, lib/gl/m4/gnulib-common.m4, lib/gl/stdio.in.h: 
+	Update gnulib files.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* m4/valgrind.m4: Fix valgrind.m4.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* po/POTFILES.in: Fix.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_avoid_if_before_free, .x-sc_cast_of_alloca_return_value,
+	.x-sc_cast_of_x_alloc_return_value, .x-sc_m4_quote_check,
+	.x-sc_makefile_check, .x-sc_po_check, .x-sc_program_name,
+	.x-sc_prohibit_HAVE_MBRTOWC, .x-sc_prohibit_atoi_atof,
+	.x-sc_prohibit_getopt_without_use,
+	.x-sc_prohibit_magic_number_exit, .x-sc_space_tab,
+	.x-sc_trailing_blank, .x-sc_useless_cpp_parens, cfg.mk, maint.mk: 
+	Fix syntax-check stuff.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* po/de.po.in, po/zh_CN.po.in: Sync with TP.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/zh_CN.po.in: Sync with TP.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* gltests/dup2.c: Update gnulib files.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/override/lib/dup2.c.diff, gl/override/tests/dup2.c.diff: Fix
+	dup2 patch.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/visibility.m4, gl/override/m4/visibility.m4.diff,
+	lib/gl/m4/visibility.m4, lib/gl/override/m4/visibility.m4.diff: Add
+	workaround for visibility bug.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* tests/libgsasl.supp: Add.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/libgsasl.supp: Add libgsasl valgrind
+	suppressions file.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/open.m4, gl/override/m4/open.m4.diff,
+	gl/override/tests/dup2.c.diff, gltests/test-xalloc-die.sh: Update
+	gnulib files.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/Makefile.am, gl/alignof.h, gl/alloca.c,
+	gl/alloca.in.h, gl/arpa_inet.in.h, gl/asnprintf.c, gl/c-ctype.c,
+	gl/c-ctype.h, gl/c-strcase.h, gl/c-strcasecmp.c,
+	gl/c-strncasecmp.c, gl/close-hook.c, gl/close-hook.h, gl/close.c,
+	gl/config.charset, gl/connect.c, gl/errno.in.h, gl/error.c,
+	gl/error.h, gl/exitfail.c, gl/exitfail.h, gl/fclose.c, gl/float+.h,
+	gl/float.in.h, gl/fseeko.c, gl/gai_strerror.c, gl/getaddrinfo.c,
+	gl/getdelim.c, gl/getline.c, gl/getopt.c, gl/getopt.in.h,
+	gl/getopt1.c, gl/getopt_int.h, gl/getpass.c, gl/getpass.h,
+	gl/iconv.in.h, gl/iconv_open.c, gl/inet_ntop.c, gl/intprops.h,
+	gl/localcharset.c, gl/localcharset.h, gl/lseek.c,
+	gl/m4/00gnulib.m4, gl/m4/alloca.m4, gl/m4/arpa_inet_h.m4,
+	gl/m4/autobuild.m4, gl/m4/close.m4, gl/m4/codeset.m4, gl/m4/dos.m4,
+	gl/m4/dup2.m4, gl/m4/eealloc.m4, gl/m4/environ.m4,
+	gl/m4/errno_h.m4, gl/m4/error.m4, gl/m4/exitfail.m4,
+	gl/m4/extensions.m4, gl/m4/fclose.m4, gl/m4/fcntl-o.m4,
+	gl/m4/fcntl_h.m4, gl/m4/float_h.m4, gl/m4/fseeko.m4,
+	gl/m4/getaddrinfo.m4, gl/m4/getdelim.m4, gl/m4/getline.m4,
+	gl/m4/getopt.m4, gl/m4/getpass.m4, gl/m4/gettext.m4,
+	gl/m4/gettimeofday.m4, gl/m4/glibc2.m4, gl/m4/glibc21.m4,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-common.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4, gl/m4/hostent.m4,
+	gl/m4/iconv.m4, gl/m4/iconv_h.m4, gl/m4/iconv_open.m4,
+	gl/m4/include_next.m4, gl/m4/inet_ntop.m4, gl/m4/inet_pton.m4,
+	gl/m4/inline.m4, gl/m4/intdiv0.m4, gl/m4/intl.m4, gl/m4/intldir.m4,
+	gl/m4/intlmacosx.m4, gl/m4/intmax.m4, gl/m4/intmax_t.m4,
+	gl/m4/inttypes-pri.m4, gl/m4/inttypes_h.m4, gl/m4/lcmessage.m4,
+	gl/m4/lib-ld.m4, gl/m4/lib-link.m4, gl/m4/lib-prefix.m4,
+	gl/m4/localcharset.m4, gl/m4/locale-fr.m4, gl/m4/locale-ja.m4,
+	gl/m4/locale-tr.m4, gl/m4/locale-zh.m4, gl/m4/lock.m4,
+	gl/m4/longlong.m4, gl/m4/lseek.m4, gl/m4/lstat.m4, gl/m4/malloc.m4,
+	gl/m4/malloca.m4, gl/m4/manywarnings.m4, gl/m4/mbrtowc.m4,
+	gl/m4/mbsinit.m4, gl/m4/mbstate_t.m4, gl/m4/memchr.m4,
+	gl/m4/mmap-anon.m4, gl/m4/mode_t.m4, gl/m4/multiarch.m4,
+	gl/m4/netdb_h.m4, gl/m4/netinet_in_h.m4, gl/m4/nls.m4,
+	gl/m4/open.m4, gl/m4/pathmax.m4, gl/m4/perror.m4, gl/m4/po.m4,
+	gl/m4/poll.m4, gl/m4/printf-posix.m4, gl/m4/printf.m4,
+	gl/m4/progtest.m4, gl/m4/putenv.m4, gl/m4/quote.m4,
+	gl/m4/quotearg.m4, gl/m4/readline.m4, gl/m4/realloc.m4,
+	gl/m4/select.m4, gl/m4/servent.m4, gl/m4/setenv.m4,
+	gl/m4/size_max.m4, gl/m4/snprintf.m4, gl/m4/sockets.m4,
+	gl/m4/socklen.m4, gl/m4/sockpfaf.m4, gl/m4/stat.m4,
+	gl/m4/stdarg.m4, gl/m4/stdbool.m4, gl/m4/stddef_h.m4,
+	gl/m4/stdint.m4, gl/m4/stdint_h.m4, gl/m4/stdio_h.m4,
+	gl/m4/stdlib_h.m4, gl/m4/strdup.m4, gl/m4/strerror.m4,
+	gl/m4/string_h.m4, gl/m4/symlink.m4, gl/m4/sys_ioctl_h.m4,
+	gl/m4/sys_select_h.m4, gl/m4/sys_socket_h.m4, gl/m4/sys_stat_h.m4,
+	gl/m4/sys_time_h.m4, gl/m4/threadlib.m4, gl/m4/time_h.m4,
+	gl/m4/uintmax_t.m4, gl/m4/ungetc.m4, gl/m4/unistd_h.m4,
+	gl/m4/vasnprintf.m4, gl/m4/version-etc.m4, gl/m4/visibility.m4,
+	gl/m4/warn-on-use.m4, gl/m4/warnings.m4, gl/m4/wchar.m4,
+	gl/m4/wchar_t.m4, gl/m4/wctob.m4, gl/m4/wctype.m4, gl/m4/wint_t.m4,
+	gl/m4/xalloc.m4, gl/m4/xsize.m4, gl/malloc.c, gl/mbrtowc.c,
+	gl/mbsinit.c, gl/memchr.c, gl/netdb.in.h, gl/netinet_in.in.h,
+	gl/poll.c, gl/poll.in.h, gl/printf-args.c, gl/printf-args.h,
+	gl/printf-parse.c, gl/printf-parse.h, gl/progname.c, gl/progname.h,
+	gl/quote.c, gl/quote.h, gl/quotearg.c, gl/quotearg.h,
+	gl/readline.c, gl/readline.h, gl/realloc.c, gl/recv.c,
+	gl/ref-add.sin, gl/ref-del.sin, gl/select.c, gl/shutdown.c,
+	gl/size_max.h, gl/snprintf.c, gl/socket.c, gl/sockets.c,
+	gl/sockets.h, gl/stdarg.in.h, gl/stdbool.in.h, gl/stddef.in.h,
+	gl/stdint.in.h, gl/stdio-impl.h, gl/stdio-write.c, gl/stdio.in.h,
+	gl/stdlib.in.h, gl/strdup.c, gl/streq.h, gl/strerror.c,
+	gl/striconv.c, gl/striconv.h, gl/string.in.h, gl/sys_select.in.h,
+	gl/sys_socket.in.h, gl/sys_time.in.h, gl/unistd.in.h,
+	gl/vasnprintf.c, gl/vasnprintf.h, gl/verify.h, gl/version-etc.c,
+	gl/version-etc.h, gl/w32sock.h, gl/wchar.in.h, gl/wctype.in.h,
+	gl/xalloc-die.c, gl/xalloc.h, gl/xmalloc.c, gl/xsize.h,
+	gltests/Makefile.am, gltests/accept.c, gltests/binary-io.h,
+	gltests/bind.c, gltests/dup2.c, gltests/fcntl.in.h,
+	gltests/gettimeofday.c, gltests/inet_pton.c, gltests/init.sh,
+	gltests/ioctl.c, gltests/listen.c, gltests/lstat.c,
+	gltests/macros.h, gltests/malloca.c, gltests/malloca.h,
+	gltests/open.c, gltests/pathmax.h, gltests/perror.c,
+	gltests/putenv.c, gltests/same-inode.h, gltests/setenv.c,
+	gltests/setsockopt.c, gltests/signature.h, gltests/stat.c,
+	gltests/symlink.c, gltests/sys_ioctl.in.h, gltests/sys_stat.in.h,
+	gltests/test-alignof.c, gltests/test-alloca-opt.c,
+	gltests/test-arpa_inet.c, gltests/test-binary-io.c,
+	gltests/test-binary-io.sh, gltests/test-c-ctype.c,
+	gltests/test-c-strcasecmp.c, gltests/test-c-strncasecmp.c,
+	gltests/test-dup2.c, gltests/test-environ.c, gltests/test-errno.c,
+	gltests/test-fcntl-h.c, gltests/test-fseeko.c,
+	gltests/test-getaddrinfo.c, gltests/test-getdelim.c,
+	gltests/test-getline.c, gltests/test-getopt.c,
+	gltests/test-getopt.h, gltests/test-getopt_long.h,
+	gltests/test-gettimeofday.c, gltests/test-iconv.c,
+	gltests/test-inet_ntop.c, gltests/test-inet_pton.c,
+	gltests/test-lseek.c, gltests/test-lstat.c, gltests/test-lstat.h,
+	gltests/test-malloca.c, gltests/test-mbrtowc.c,
+	gltests/test-mbsinit.c, gltests/test-memchr.c,
+	gltests/test-netdb.c, gltests/test-netinet_in.c,
+	gltests/test-open.c, gltests/test-open.h, gltests/test-perror.c,
+	gltests/test-poll.c, gltests/test-quotearg.c,
+	gltests/test-select-fd.c, gltests/test-select-stdin.c,
+	gltests/test-select.c, gltests/test-setenv.c,
+	gltests/test-snprintf.c, gltests/test-stat.c, gltests/test-stat.h,
+	gltests/test-stdbool.c, gltests/test-stddef.c,
+	gltests/test-stdint.c, gltests/test-stdio.c, gltests/test-stdlib.c,
+	gltests/test-strerror.c, gltests/test-striconv.c,
+	gltests/test-string.c, gltests/test-symlink.c,
+	gltests/test-symlink.h, gltests/test-sys_ioctl.c,
+	gltests/test-sys_select.c, gltests/test-sys_socket.c,
+	gltests/test-sys_stat.c, gltests/test-sys_time.c,
+	gltests/test-time.c, gltests/test-unistd.c,
+	gltests/test-unsetenv.c, gltests/test-vasnprintf.c,
+	gltests/test-vc-list-files-cvs.sh,
+	gltests/test-vc-list-files-git.sh, gltests/test-version-etc.c,
+	gltests/test-version-etc.sh, gltests/test-wchar.c,
+	gltests/test-wctype.c, gltests/test-xalloc-die.c,
+	gltests/test-xalloc-die.sh, gltests/time.in.h, gltests/unsetenv.c,
+	gltests/version-etc-fsf.c, gltests/w32sock.h, gltests/wctob.c,
+	gltests/zerosize-ptr.h, lib/GNUmakefile,
+	lib/build-aux/arg-nonnull.h, lib/build-aux/config.rpath,
+	lib/build-aux/gendocs.sh, lib/build-aux/link-warning.h,
+	lib/build-aux/pmccabe2html, lib/build-aux/useless-if-before-free,
+	lib/build-aux/vc-list-files, lib/build-aux/warn-on-use.h,
+	lib/gl/Makefile.am, lib/gl/alloca.in.h, lib/gl/asnprintf.c,
+	lib/gl/asprintf.c, lib/gl/base64.c, lib/gl/base64.h,
+	lib/gl/errno.in.h, lib/gl/float+.h, lib/gl/float.in.h,
+	lib/gl/gc-gnulib.c, lib/gl/gc-libgcrypt.c, lib/gl/gc-pbkdf2-sha1.c,
+	lib/gl/gc.h, lib/gl/getdelim.c, lib/gl/getline.c, lib/gl/gettext.h,
+	lib/gl/hmac-md5.c, lib/gl/hmac-sha1.c, lib/gl/hmac.h,
+	lib/gl/m4/00gnulib.m4, lib/gl/m4/alloca.m4, lib/gl/m4/base64.m4,
+	lib/gl/m4/codeset.m4, lib/gl/m4/errno_h.m4,
+	lib/gl/m4/extensions.m4, lib/gl/m4/float_h.m4,
+	lib/gl/m4/gc-hmac-md5.m4, lib/gl/m4/gc-hmac-sha1.m4,
+	lib/gl/m4/gc-md5.m4, lib/gl/m4/gc-pbkdf2-sha1.m4,
+	lib/gl/m4/gc-random.m4, lib/gl/m4/gc-sha1.m4, lib/gl/m4/gc.m4,
+	lib/gl/m4/getdelim.m4, lib/gl/m4/getline.m4,
+	lib/gl/m4/getpagesize.m4, lib/gl/m4/gettext.m4,
+	lib/gl/m4/glibc2.m4, lib/gl/m4/glibc21.m4,
+	lib/gl/m4/gnulib-cache.m4, lib/gl/m4/gnulib-common.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/gnulib-tool.m4,
+	lib/gl/m4/hmac-md5.m4, lib/gl/m4/hmac-sha1.m4, lib/gl/m4/iconv.m4,
+	lib/gl/m4/include_next.m4, lib/gl/m4/intdiv0.m4, lib/gl/m4/intl.m4,
+	lib/gl/m4/intldir.m4, lib/gl/m4/intlmacosx.m4, lib/gl/m4/intmax.m4,
+	lib/gl/m4/intmax_t.m4, lib/gl/m4/inttypes-pri.m4,
+	lib/gl/m4/inttypes_h.m4, lib/gl/m4/lcmessage.m4,
+	lib/gl/m4/ld-output-def.m4, lib/gl/m4/ld-version-script.m4,
+	lib/gl/m4/lib-ld.m4, lib/gl/m4/lib-link.m4,
+	lib/gl/m4/lib-prefix.m4, lib/gl/m4/lock.m4, lib/gl/m4/longlong.m4,
+	lib/gl/m4/malloc.m4, lib/gl/m4/md5.m4, lib/gl/m4/memchr.m4,
+	lib/gl/m4/memmem.m4, lib/gl/m4/memxor.m4, lib/gl/m4/minmax.m4,
+	lib/gl/m4/mmap-anon.m4, lib/gl/m4/multiarch.m4, lib/gl/m4/nls.m4,
+	lib/gl/m4/po.m4, lib/gl/m4/printf-posix.m4, lib/gl/m4/progtest.m4,
+	lib/gl/m4/realloc.m4, lib/gl/m4/sha1.m4, lib/gl/m4/size_max.m4,
+	lib/gl/m4/stdbool.m4, lib/gl/m4/stddef_h.m4, lib/gl/m4/stdint.m4,
+	lib/gl/m4/stdint_h.m4, lib/gl/m4/stdio_h.m4, lib/gl/m4/stdlib_h.m4,
+	lib/gl/m4/string_h.m4, lib/gl/m4/strverscmp.m4,
+	lib/gl/m4/threadlib.m4, lib/gl/m4/uintmax_t.m4,
+	lib/gl/m4/unistd_h.m4, lib/gl/m4/vasnprintf.m4,
+	lib/gl/m4/vasprintf.m4, lib/gl/m4/visibility.m4,
+	lib/gl/m4/warn-on-use.m4, lib/gl/m4/wchar.m4, lib/gl/m4/wchar_t.m4,
+	lib/gl/m4/wint_t.m4, lib/gl/m4/xsize.m4, lib/gl/md5.c,
+	lib/gl/md5.h, lib/gl/memchr.c, lib/gl/memmem.c, lib/gl/memxor.c,
+	lib/gl/memxor.h, lib/gl/minmax.h, lib/gl/printf-args.c,
+	lib/gl/printf-args.h, lib/gl/printf-parse.c, lib/gl/printf-parse.h,
+	lib/gl/realloc.c, lib/gl/sha1.c, lib/gl/sha1.h, lib/gl/size_max.h,
+	lib/gl/stdbool.in.h, lib/gl/stddef.in.h, lib/gl/stdint.in.h,
+	lib/gl/stdio-write.c, lib/gl/stdio.in.h, lib/gl/stdlib.in.h,
+	lib/gl/str-two-way.h, lib/gl/string.in.h, lib/gl/strverscmp.c,
+	lib/gl/unistd.in.h, lib/gl/vasnprintf.c, lib/gl/vasnprintf.h,
+	lib/gl/vasprintf.c, lib/gl/wchar.in.h, lib/gl/xsize.h,
+	lib/gltests/Makefile.am, lib/gltests/dummy.c,
+	lib/gltests/getpagesize.c, lib/gltests/intprops.h,
+	lib/gltests/macros.h, lib/gltests/signature.h,
+	lib/gltests/test-alloca-opt.c, lib/gltests/test-base64.c,
+	lib/gltests/test-errno.c, lib/gltests/test-gc-hmac-md5.c,
+	lib/gltests/test-gc-hmac-sha1.c, lib/gltests/test-gc-md5.c,
+	lib/gltests/test-gc-pbkdf2-sha1.c, lib/gltests/test-gc-sha1.c,
+	lib/gltests/test-gc.c, lib/gltests/test-getdelim.c,
+	lib/gltests/test-getline.c, lib/gltests/test-memchr.c,
+	lib/gltests/test-memmem.c, lib/gltests/test-stdbool.c,
+	lib/gltests/test-stddef.c, lib/gltests/test-stdint.c,
+	lib/gltests/test-stdio.c, lib/gltests/test-stdlib.c,
+	lib/gltests/test-string.c, lib/gltests/test-strverscmp.c,
+	lib/gltests/test-unistd.c, lib/gltests/test-vasnprintf.c,
+	lib/gltests/test-vasprintf.c, lib/gltests/test-wchar.c,
+	lib/gltests/verify.h, lib/gltests/zerosize-ptr.h, lib/maint.mk,
+	maint.mk: Update gnulib files.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/gettext.h, gl/override/lib/gettext.h.diff,
+	lib/gl/override/lib/gettext.h.diff: Fix gettext.h patch.
+
+2010-01-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/override/lib/getpass.c.diff: Fix patch.
+
+2009-12-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-10-14  Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de>
+
+	* src/gsasl.c: Improve application data throughput See <http://thread.gmane.org/gmane.comp.gnu.gsasl.general/256>.  Signed-off-by: Simon Josefsson <simon@josefsson.org>
+
+2009-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Bump versions.
+
+2009-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2009-11-18  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/unistd_h.m4, gl/unistd.in.h,
+	gltests/test-xalloc-die.sh, lib/gl/Makefile.am,
+	lib/gl/m4/unistd_h.m4, lib/gl/unistd.in.h: Update gnulib files.
+
+2009-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2009-11-17  Simon Josefsson <simon@josefsson.org>
 
 	* lib/ChangeLog: Generated.
