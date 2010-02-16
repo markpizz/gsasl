@@ -6,7 +6,7 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
-* Version 1.4.1 (unreleased) [stable]
+* Version 1.4.1 (released 2010-02-16) [stable]
 
 ** gsasl: Improve application data throughput.
 Patch from Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de> in
