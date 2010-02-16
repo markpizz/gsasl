@@ -1,5 +1,13 @@
 2010-02-16  Simon Josefsson <simon@josefsson.org>
 
+	* lib/cfg.mk: Upload to ftp.gnu.org.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
 	* cfg.mk: Upload to ftp.gnu.org.
 
 2010-02-16  Simon Josefsson <simon@josefsson.org>
