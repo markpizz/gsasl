@@ -90,7 +90,7 @@ upload:
 	cd lib && make upload
 	git push
 	git push --tags
-	gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz
+	gnupload --to ftp.gnu.org:$(PACKAGE) $(distdir).tar.gz
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
 
 web:
