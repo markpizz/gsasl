@@ -51,7 +51,7 @@ extern "C"
    * version number.  Used together with gsasl_check_version() to
    * verify header file and run-time library consistency.
    */
-# define GSASL_VERSION "1.4.2"
+# define GSASL_VERSION "1.5.0"
 
   /**
    * GSASL_VERSION_MAJOR
