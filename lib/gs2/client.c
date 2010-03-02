@@ -245,21 +245,6 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 	  memcpy (*output, bufdesc2.value, bufdesc2.length);
 	}
 
-      {
-	size_t i;
-	for (i = 0; i < state->mech_oid->length; i++)
-	  printf ("%02x ", ((char*) state->mech_oid->elements)[i] & 0xFF);
-	printf ("\n");
-
-	for (i = 0; i < bufdesc2.length; i++)
-	  printf ("%02x ", ((char*)bufdesc2.value)[i] & 0xFF);
-	printf ("\n");
-
-	for (i = 0; i < *output_len; i++)
-	  printf ("%02x ", (*output)[i] & 0xFF);
-	printf ("\n");
-      }
-
       if (maj_stat == GSS_S_COMPLETE)
 	{
 	  state->step++;
