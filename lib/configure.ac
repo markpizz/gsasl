@@ -204,17 +204,6 @@ elif test "$gssapi_impl" = "mit"; then
   if test "$KRB5_CONFIG" != "no" ; then
     CPPFLAGS="$CPPFLAGS `$KRB5_CONFIG --cflags`"
     LIBS="$LIBS `$KRB5_CONFIG --libs gssapi`"
-    AC_CHECK_HEADERS(gssapi/gssapi.h gssapi/gssapi_generic.h)
-    AC_CHECK_DECL(GSS_C_NT_HOSTBASED_SERVICE,,
-      [AC_DEFINE(GSS_C_NT_HOSTBASED_SERVICE, gss_nt_service_name,
-                 [Work around buggy MIT library])], [
-#ifdef HAVE_GSSAPI_GSSAPI_H
-# include <gssapi/gssapi.h>
-#endif
-#ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
-# include <gssapi/gssapi_generic.h>
-#endif
-])
   else
     AC_MSG_WARN([MIT Kerberos krb5-config not found, disabling GSSAPI])
     gssapi_impl=no
@@ -225,7 +214,6 @@ elif test "$gssapi_impl" = "heimdal"; then
   if test "$KRB5_CONFIG" != "no" ; then
     CPPFLAGS="$CPPFLAGS `$KRB5_CONFIG --cflags`"
     LIBS="$LIBS `$KRB5_CONFIG --libs gssapi`"
-    AC_CHECK_HEADERS(gssapi.h)
   else
     AC_MSG_WARN([Heimdal krb5-config not found, disabling GSSAPI])
     gssapi_impl=no
@@ -249,29 +237,7 @@ elif test "$gssapi_impl" != "no" ; then
       AC_MSG_NOTICE([MIT/Heimdal found])
       CPPFLAGS="$CPPFLAGS `$KRB5_CONFIG --cflags`"
       LIBS="$LIBS `$KRB5_CONFIG --libs gssapi`"
-      AC_CHECK_HEADERS(gssapi.h gssapi/gssapi.h gssapi/gssapi_generic.h)
-      if test "$ac_cv_header_gssapi_h" = "yes" &&
-         test "$ac_cv_header_gssapi_gssapi_h" = "yes"; then
-        AC_MSG_WARN([Both Heimdal and MIT GSSAPI header files found.  Will use Heimdal.])
-        AC_MSG_WARN([Use --with-gssapi-impl=mit to override.])
-      fi
-      if test "$ac_cv_header_gssapi_h" != "no"; then
-        AC_MSG_NOTICE([Heimdal found])
-        gssapi_impl=heimdal
-      else
-        AC_MSG_NOTICE([MIT found])
-        AC_CHECK_DECL(GSS_C_NT_HOSTBASED_SERVICE,,
-          [AC_DEFINE(GSS_C_NT_HOSTBASED_SERVICE, gss_nt_service_name,
-            [Work around buggy MIT library])], [
-#ifdef HAVE_GSSAPI_GSSAPI_H
-# include <gssapi/gssapi.h>
-#endif
-#ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
-# include <gssapi/gssapi_generic.h>
-#endif
-])
-        gssapi_impl=mit
-      fi
+      gssapi_impl=mitheimdal
     else
       gssapi_impl=no
       AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
@@ -285,7 +251,7 @@ if test "$gssapi_impl" = "no"; then
   gssapi=no
 fi
 
-# GSSAPI, second part
+# GS2, second part
 if test "$gs2" != "no" ; then
   AC_DEFINE(USE_GS2, 1, [Define to 1 if you want GS2.])
 fi
@@ -293,7 +259,7 @@ AC_MSG_CHECKING([if GS2 should be used])
 AC_MSG_RESULT($gs2)
 AM_CONDITIONAL(GS2, test x$gs2 = xyes)
 
-# GS2, second part
+# GSSAPI, second part
 if test "$gssapi" != "no" ; then
   AC_DEFINE(USE_GSSAPI, 1, [Define to 1 if you want GSSAPI.])
 fi
