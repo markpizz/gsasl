@@ -26,8 +26,8 @@ EXTRA_DIST = README
 
 noinst_LTLIBRARIES = libgsasl-gs2.la
 libgsasl_gs2_la_SOURCES = gs2.h mechinfo.c \
-	gs2parser.h gs2parser.c \
-	gs2helper.h gs2helper.c
+	gs2helper.h gs2helper.c \
+	gs2asn1.h gs2asn1.c
 
 if CLIENT
 libgsasl_gs2_la_SOURCES += client.c

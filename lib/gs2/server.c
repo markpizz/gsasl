@@ -1,5 +1,5 @@
 /* server.c --- SASL mechanism GS2, server side.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -45,8 +45,6 @@
 #  include <gssapi/gssapi_generic.h>
 # endif
 #endif
-
-#include "gs2parser.h"
 
 struct _Gsasl_gs2_server_state
 {
@@ -133,7 +131,6 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
   char tmp[4];
   int res;
   OM_uint32 ret_flags;
-  struct gs2_token tok;
 
   *output = NULL;
   *output_len = 0;
@@ -150,12 +147,8 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
       /* fall through */
 
     case 1:
-      res = gs2_parser (input, input_len, &tok);
-      if (res < 0)
-	return GSASL_MECHANISM_PARSE_ERROR;
-
-      bufdesc1.value = tok.context_token;
-      bufdesc1.length = tok.context_length;
+      bufdesc1.value = input;
+      bufdesc1.length = input_len;
       if (state->client)
 	{
 	  gss_release_name (&min_stat, &state->client);
@@ -180,11 +173,6 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 	  puts ("prot_ready");
 	  /* XXX gss_wrap token */
 	}
-
-      res = gs2_encode (bufdesc2.value, bufdesc2.length,
-			NULL, 0, output, output_len);
-      if (res < 0)
-	return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
 
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
       if (GSS_ERROR (maj_stat))
