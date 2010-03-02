@@ -167,10 +167,10 @@ AM_CONDITIONAL(SCRAM, test "$scram_sha1" != "no")
 
 # GS2, first part
 AC_ARG_ENABLE(gs2,
-  AS_HELP_STRING([--enable-gs2], [use the GS2 mechanism]),
-  gs2=$enableval, gs2=no)
+  AS_HELP_STRING([--disable-gs2], [don't use the GS2 mechanism]),
+  gs2=$enableval)
 if test "$gs2" != "no" ; then
-	gs2=yes
+  gs2=yes
 fi
 
 # GSSAPI, first part
@@ -178,7 +178,7 @@ AC_ARG_ENABLE(gssapi,
   AS_HELP_STRING([--disable-gssapi], [don't use the GSSAPI mechanism]),
   gssapi=$enableval)
 if test "$gssapi" != "no" ; then
-	gssapi=yes
+  gssapi=yes
 fi
 
 # GSSAPI.
