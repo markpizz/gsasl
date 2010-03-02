@@ -1,5 +1,5 @@
-/* mechinfo.c --- Definition of GS2 mechanism.
- * Copyright (C) 2006, 2010 Simon Josefsson
+/* gs2helper.h --- GS2 helper functions for missing GSS-API interface.
+ * Copyright (C) 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -20,55 +20,12 @@
  *
  */
 
-#ifdef HAVE_CONFIG_H
-# include "config.h"
-#endif
+#ifndef GS2_HELPER_H
+# define GS2_HELPER_H
 
-/* Get specification. */
-#include "gs2.h"
+extern OM_uint32
+gss_inquiry_mech_for_saslname (OM_uint32 *minor_status,
+			       const gss_buffer_t sasl_mech_name,
+			       gss_OID *mech_type);
 
-Gsasl_mechanism gsasl_gs2_krb5_mechanism = {
-  GSASL_GS2_KRB5_NAME,
-  {
-    NULL,
-    NULL,
-#ifdef USE_CLIENT
-    _gsasl_gs2_client_start,
-#else
-    NULL,
 #endif
-#ifdef USE_CLIENT
-    _gsasl_gs2_client_step,
-#else
-    NULL,
-#endif
-#ifdef USE_CLIENT
-    _gsasl_gs2_client_finish,
-#else
-    NULL,
-#endif
-    NULL,
-    NULL
-  },
-  {
-    NULL,
-    NULL,
-#ifdef USE_SERVER
-    _gsasl_gs2_server_start,
-#else
-    NULL,
-#endif
-#ifdef USE_SERVER
-    _gsasl_gs2_server_step,
-#else
-    NULL,
-#endif
-#ifdef USE_SERVER
-    _gsasl_gs2_server_finish,
-#else
-    NULL,
-#endif
-    NULL,
-    NULL
-  }
-};

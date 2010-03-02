@@ -1,5 +1,5 @@
 /* client.c --- SASL mechanism GS2, client side.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -47,13 +47,14 @@
 #endif
 
 #include "gs2parser.h"
+#include "gs2helper.h"
 
 struct _gsasl_gs2_client_state
 {
   int step;
   gss_name_t service;
   gss_ctx_id_t context;
-  gss_qop_t qop;
+  gss_OID mech_oid;
 };
 typedef struct _gsasl_gs2_client_state _gsasl_gs2_client_state;
 
@@ -61,6 +62,8 @@ int
 _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
 {
   _gsasl_gs2_client_state *state;
+  OM_uint32 maj_stat, min_stat;
+  gss_buffer_desc sasl_mech_name;
 
   state = (_gsasl_gs2_client_state *) malloc (sizeof (*state));
   if (state == NULL)
@@ -69,7 +72,16 @@ _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
   state->context = GSS_C_NO_CONTEXT;
   state->service = GSS_C_NO_NAME;
   state->step = 0;
-  state->qop = GSASL_QOP_AUTH;	/* FIXME: Should be GSASL_QOP_AUTH_CONF. */
+
+  sasl_mech_name.value = (void *) gsasl_mechanism_name (sctx);
+  if (!sasl_mech_name.value)
+    return GSASL_AUTHENTICATION_ERROR;
+  sasl_mech_name.length = strlen (sasl_mech_name.value);
+
+  maj_stat = gss_inquiry_mech_for_saslname (&min_stat, &sasl_mech_name,
+					    &state->mech_oid);
+  if (GSS_ERROR (maj_stat))
+    return GSASL_AUTHENTICATION_ERROR;
 
   *mech_data = state;
 
@@ -83,16 +95,10 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 			char **output, size_t * output_len)
 {
   _gsasl_gs2_client_state *state = mech_data;
-  char clientwrap[4];
-  gss_qop_t serverqop;
   gss_buffer_desc bufdesc, bufdesc2;
   gss_buffer_t buf = GSS_C_NO_BUFFER;
   OM_uint32 maj_stat, min_stat;
-  int conf_state;
   int res;
-  const char *p;
-  OM_uint32 ret_flags;
-  struct gs2_token tok = { NULL, 0, NULL, 0 };
 
   if (state->service == NULL)
     {
@@ -126,144 +132,68 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
   switch (state->step)
     {
     case 1:
-      res = gs2_parser (input, input_len, &tok);
-      if (res < 0)
-	return GSASL_MECHANISM_PARSE_ERROR;
-
-      bufdesc.length = tok.context_length;
-      bufdesc.value = (void *) tok.context_token;
+      bufdesc.length = input_len;
+      bufdesc.value = (void *) input;
       buf = &bufdesc;
       /* fall through */
 
     case 0:
       bufdesc2.length = 0;
       bufdesc2.value = NULL;
-      maj_stat = gss_init_sec_context (&min_stat,
-				       GSS_C_NO_CREDENTIAL,
-				       &state->context,
-				       state->service,
-				       GSS_C_NO_OID,
-				       GSS_C_MUTUAL_FLAG |
-				       GSS_C_REPLAY_FLAG |
-				       GSS_C_SEQUENCE_FLAG |
-				       GSS_C_INTEG_FLAG |
-				       GSS_C_CONF_FLAG,
-				       0,
-				       GSS_C_NO_CHANNEL_BINDINGS,
-				       buf, NULL, &bufdesc2,
-				       &ret_flags, NULL);
+      {
+	gss_OID actual_mech_type;
+	maj_stat = gss_init_sec_context (&min_stat,
+					 GSS_C_NO_CREDENTIAL,
+					 &state->context,
+					 state->service,
+					 state->mech_oid,
+					 GSS_C_MUTUAL_FLAG |
+					 GSS_C_INTEG_FLAG |
+					 GSS_C_CONF_FLAG,
+					 0,
+					 GSS_C_NO_CHANNEL_BINDINGS,
+					 buf,
+					 &actual_mech_type,
+					 &bufdesc2,
+					 NULL, /* ret_flags irrelevant */
+					 NULL);
+	if (state->mech_oid->length != actual_mech_type->length ||
+	    memcmp (state->mech_oid->elements, actual_mech_type->elements,
+		    state->mech_oid->length) != 0)
+	  return GSASL_AUTHENTICATION_ERROR;
+      }
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
 	return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
 
-      if ((ret_flags & GSS_C_PROT_READY_FLAG) || (maj_stat == GSS_S_COMPLETE))
+      if (buf == GSS_C_NO_BUFFER)
 	{
-	  puts ("prot_ready");
-	  /* Deal with wrap token here. */
-	  /* Generate wrap token here. */
+	  *output_len = bufdesc2.length + 5;
+	  *output = malloc (*output_len);
+	  if (!*output)
+	    return GSASL_MALLOC_ERROR;
+	  memcpy (*output + 5, bufdesc2.value, bufdesc2.length);
+	  memcpy (*output, "fooba", 5);
 	}
-      else if (tok.wrap_length > 0)
+      else
 	{
-	  /* Server provided wrap token but we are not ready for it.
-	     Server error. */
-	  return GSASL_MECHANISM_PARSE_ERROR;
+	  *output_len = bufdesc2.length;
+	  *output = malloc (*output_len);
+	  if (!*output)
+	    return GSASL_MALLOC_ERROR;
+	  memcpy (*output, bufdesc2.value, bufdesc2.length);
 	}
-
-      res = gs2_encode (bufdesc2.value, bufdesc2.length,
-			NULL, 0, output, output_len);
-      if (res < 0)
-	return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
 
       if (maj_stat == GSS_S_COMPLETE)
-	state->step = 2;
+	{
+	  state->step++;
+	  res = GSASL_OK;
+	}
       else
-	state->step = 1;
+	res = GSASL_NEEDS_MORE;
 
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
-
-      res = GSASL_NEEDS_MORE;
-      break;
-
-    case 2:
-      /* [RFC 2222 section 7.2.1]:
-         The client passes this token to GSS_Unwrap and interprets the
-         first octet of resulting cleartext as a bit-mask specifying
-         the security layers supported by the server and the second
-         through fourth octets as the maximum size output_message to
-         send to the server.  The client then constructs data, with
-         the first octet containing the bit-mask specifying the
-         selected security layer, the second through fourth octets
-         containing in network byte order the maximum size
-         output_message the client is able to receive, and the
-         remaining octets containing the authorization identity.  The
-         client passes the data to GSS_Wrap with conf_flag set to
-         FALSE, and responds with the generated output_message.  The
-         client can then consider the server authenticated. */
-
-      bufdesc.length = input_len;
-      bufdesc.value = (void *) input;
-      maj_stat = gss_unwrap (&min_stat, state->context, &bufdesc,
-			     &bufdesc2, &conf_state, &serverqop);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_UNWRAP_ERROR;
-
-      if (bufdesc2.length != 4)
-	return GSASL_MECHANISM_PARSE_ERROR;
-
-      memcpy (clientwrap, bufdesc2.value, 4);
-
-      maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
-
-#if 0
-      /* FIXME: Fix qop. */
-      if (cb_qop)
-	state->qop = cb_qop (sctx, serverqop);
-
-      if ((state->qop & serverqop) == 0)
-	/*  Server does not support what user wanted. */
-	return GSASL_GSSAPI_UNSUPPORTED_PROTECTION_ERROR;
-#endif
-
-      /* FIXME: Fix maxbuf. */
-
-      p = gsasl_property_get (sctx, GSASL_AUTHID);
-      if (!p)
-	return GSASL_NO_AUTHID;
-
-      bufdesc.length = 4 + strlen (p);
-      bufdesc.value = malloc (bufdesc.length);
-      if (!bufdesc.value)
-	return GSASL_MALLOC_ERROR;
-
-      {
-	char *q = bufdesc.value;
-	q[0] = state->qop;
-	memcpy (q + 1, clientwrap + 1, 3);
-	memcpy (q + 4, p, strlen (p));
-      }
-
-      maj_stat = gss_wrap (&min_stat, state->context, 0, GSS_C_QOP_DEFAULT,
-			   &bufdesc, &conf_state, &bufdesc2);
-      free (bufdesc.value);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_WRAP_ERROR;
-
-      *output_len = bufdesc2.length;
-      *output = malloc (bufdesc2.length);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-
-      memcpy (*output, bufdesc2.value, bufdesc2.length);
-
-      maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
-
-      state->step++;
-      res = GSASL_OK;
       break;
 
     default:
@@ -290,112 +220,4 @@ _gsasl_gs2_client_finish (Gsasl_session * sctx, void *mech_data)
 				       GSS_C_NO_BUFFER);
 
   free (state);
-}
-
-int
-_gsasl_gs2_client_encode (Gsasl_session * sctx,
-			  void *mech_data,
-			  const char *input, size_t input_len,
-			  char **output, size_t * output_len)
-{
-  _gsasl_gs2_client_state *state = mech_data;
-  OM_uint32 min_stat, maj_stat;
-  gss_buffer_desc foo;
-  gss_buffer_t input_message_buffer = &foo;
-  gss_buffer_desc output_message_buffer;
-
-  foo.length = input_len;
-  foo.value = (void *) input;
-
-  if (state && state->step == 3 &&
-      state->qop & (GSASL_QOP_AUTH_INT | GSASL_QOP_AUTH_CONF))
-    {
-      maj_stat = gss_wrap (&min_stat,
-			   state->context,
-			   state->qop & GSASL_QOP_AUTH_CONF ? 1 : 0,
-			   GSS_C_QOP_DEFAULT,
-			   input_message_buffer,
-			   NULL, &output_message_buffer);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_WRAP_ERROR;
-      *output_len = output_message_buffer.length;
-      *output = malloc (input_len);
-      if (!*output)
-	{
-	  maj_stat = gss_release_buffer (&min_stat, &output_message_buffer);
-	  return GSASL_MALLOC_ERROR;
-	}
-      memcpy (*output, output_message_buffer.value,
-	      output_message_buffer.length);
-
-      maj_stat = gss_release_buffer (&min_stat, &output_message_buffer);
-      if (GSS_ERROR (maj_stat))
-	{
-	  free (*output);
-	  return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
-	}
-    }
-  else
-    {
-      *output_len = input_len;
-      *output = malloc (input_len);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-      memcpy (*output, input, input_len);
-    }
-
-  return GSASL_OK;
-}
-
-int
-_gsasl_gs2_client_decode (Gsasl_session * sctx,
-			  void *mech_data,
-			  const char *input, size_t input_len,
-			  char **output, size_t * output_len)
-{
-  _gsasl_gs2_client_state *state = mech_data;
-  OM_uint32 min_stat, maj_stat;
-  gss_buffer_desc foo;
-  gss_buffer_t input_message_buffer = &foo;
-  gss_buffer_desc output_message_buffer;
-
-  foo.length = input_len;
-  foo.value = (void *) input;
-
-  if (state && state->step == 3 &&
-      state->qop & (GSASL_QOP_AUTH_INT | GSASL_QOP_AUTH_CONF))
-    {
-      maj_stat = gss_unwrap (&min_stat,
-			     state->context,
-			     input_message_buffer,
-			     &output_message_buffer, NULL, NULL);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_UNWRAP_ERROR;
-      *output_len = output_message_buffer.length;
-      *output = malloc (input_len);
-      if (!*output)
-	{
-	  maj_stat = gss_release_buffer (&min_stat, &output_message_buffer);
-	  return GSASL_MALLOC_ERROR;
-	}
-      memcpy (*output, output_message_buffer.value,
-	      output_message_buffer.length);
-
-      maj_stat = gss_release_buffer (&min_stat, &output_message_buffer);
-      if (GSS_ERROR (maj_stat))
-	{
-	  free (*output);
-	  return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
-	}
-    }
-  else
-    {
-      *output_len = input_len;
-      *output = malloc (input_len);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-      memcpy (*output, input, input_len);
-    }
-
-  return GSASL_OK;
 }
