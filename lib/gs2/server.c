@@ -45,6 +45,7 @@ struct _Gsasl_gs2_server_state
   gss_name_t client;
   gss_cred_id_t cred;
   gss_ctx_id_t context;
+  struct gss_channel_bindings_struct cb;
 };
 typedef struct _Gsasl_gs2_server_state _Gsasl_gs2_server_state;
 
@@ -66,14 +67,10 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
   if (!hostname)
     return GSASL_NO_HOSTNAME;
 
-  /* FIXME: Use asprintf. */
-
-  bufdesc.length = strlen (service) + strlen ("@") + strlen (hostname) + 1;
-  bufdesc.value = malloc (bufdesc.length);
-  if (bufdesc.value == NULL)
+  bufdesc.length = asprintf ((char**) &bufdesc.value, "%s@%s",
+			     service, hostname);
+  if (bufdesc.length <= 0 || bufdesc.value == NULL)
     return GSASL_MALLOC_ERROR;
-
-  sprintf (bufdesc.value, "%s@%s", service, hostname);
 
   state = (_Gsasl_gs2_server_state *) malloc (sizeof (*state));
   if (state == NULL)
@@ -105,6 +102,20 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
   state->step = 0;
   state->context = GSS_C_NO_CONTEXT;
   state->client = NULL;
+
+  /* The initiator-address-type and acceptor-address-type fields of
+     the GSS-CHANNEL-BINDINGS structure MUST be set to 0.  The
+     initiator-address and acceptor-address fields MUST be the empty
+     string. */
+  state->cb.initiator_addrtype = 0;
+  state->cb.initiator_address.length = 0;
+  state->cb.initiator_address.value = NULL;
+  state->cb.acceptor_addrtype = 0;
+  state->cb.acceptor_address.length = 0;
+  state->cb.acceptor_address.value = NULL;
+  state->cb.application_data.length = 0;
+  state->cb.application_data.value = NULL;
+
   *mech_data = state;
 
   return GSASL_OK;
@@ -127,6 +138,25 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 
   *output = NULL;
   *output_len = 0;
+
+  if (state->step == 0)
+    {
+      const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
+
+      if (authzid)
+	state->cb.application_data.length
+	  = asprintf ((char**) &state->cb.application_data.value,
+		      "n,a=%s,", authzid);
+      else
+	{
+	  state->cb.application_data.value = strdup ("n,,");
+	  state->cb.application_data.length = 3;
+	}
+
+      if (state->cb.application_data.length <= 0
+	  || state->cb.application_data.value == NULL)
+	return GSASL_MALLOC_ERROR;
+    }
 
   switch (state->step)
     {
@@ -152,7 +182,7 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 					 &state->context,
 					 state->cred,
 					 &bufdesc1,
-					 GSS_C_NO_CHANNEL_BINDINGS,
+					 &state->cb,
 					 &state->client,
 					 &mech_type,
 					 &bufdesc2, &ret_flags, NULL, NULL);
@@ -176,63 +206,6 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
       break;
 
     case 2:
-      memset (tmp, 0xFF, 4);
-      tmp[0] = GSASL_QOP_AUTH;
-      bufdesc1.length = 4;
-      bufdesc1.value = tmp;
-      maj_stat = gss_wrap (&min_stat, state->context, 0, GSS_C_QOP_DEFAULT,
-			   &bufdesc1, NULL, &bufdesc2);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_WRAP_ERROR;
-
-      *output = malloc (bufdesc2.length);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-      memcpy (*output, bufdesc2.value, bufdesc2.length);
-      *output_len = bufdesc2.length;
-
-      maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
-
-      state->step++;
-      res = GSASL_NEEDS_MORE;
-      break;
-
-    case 3:
-      bufdesc1.value = (void *) input;
-      bufdesc1.length = input_len;
-      maj_stat = gss_unwrap (&min_stat, state->context, &bufdesc1,
-			     &bufdesc2, NULL, NULL);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_UNWRAP_ERROR;
-
-      /* [RFC 2222 section 7.2.1]:
-         The client passes this token to GSS_Unwrap and interprets the
-         first octet of resulting cleartext as a bit-mask specifying
-         the security layers supported by the server and the second
-         through fourth octets as the maximum size output_message to
-         send to the server.  The client then constructs data, with
-         the first octet containing the bit-mask specifying the
-         selected security layer, the second through fourth octets
-         containing in network byte order the maximum size
-         output_message the client is able to receive, and the
-         remaining octets containing the authorization identity.  The
-         client passes the data to GSS_Wrap with conf_flag set to
-         FALSE, and responds with the generated output_message.  The
-         client can then consider the server authenticated. */
-
-      if ((((char *) bufdesc2.value)[0] & GSASL_QOP_AUTH) == 0)
-	{
-	  /* Integrity or privacy unsupported */
-	  maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-	  return GSASL_GSSAPI_UNSUPPORTED_PROTECTION_ERROR;
-	}
-
-      gsasl_property_set_raw (sctx, GSASL_AUTHZID,
-			      (char *) bufdesc2.value + 4,
-			      bufdesc2.length - 4);
-
       maj_stat = gss_display_name (&min_stat, state->client,
 				   &client_name, &mech_type);
       if (GSS_ERROR (maj_stat))
@@ -276,5 +249,6 @@ _gsasl_gs2_server_finish (Gsasl_session * sctx, void *mech_data)
   if (state->client != GSS_C_NO_NAME)
     gss_release_name (&min_stat, &state->client);
 
+  free (state->cb.application_data.value);
   free (state);
 }
