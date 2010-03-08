@@ -1,5 +1,5 @@
 /* error.c --- Error handling functionality.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -136,7 +136,7 @@ static struct {
 	  "due insufficient credentials or malicious interactions.")),
   ERR (GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR,
        N_("GSSAPI error in server while negotiating security context in "
-	  "gss_init_sec_context() in SASL library.  This is most likely due "
+	  "gss_accept_sec_context() in SASL library.  This is most likely due "
 	  "insufficient credentials or malicious interactions.")),
   ERR (GSASL_GSSAPI_UNWRAP_ERROR,
        N_("GSSAPI error while decrypting or decoding data in gss_unwrap() in "
