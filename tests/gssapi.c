@@ -44,8 +44,6 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 {
   int rc = GSASL_NO_CALLBACK;
 
-  printf ("Callback for property %d\n", prop);
-
   switch (prop)
     {
     case GSASL_AUTHID:
