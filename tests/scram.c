@@ -30,16 +30,18 @@
 #include "utils.h"
 
 #define PASSWORD "Open, Sesame"
-#define USERNAME "Ali Baba"
-/* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
-/* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
+
+#define N_AUTHID 4
+static const char *AUTHID[N_AUTHID] = {
+  "Ali Baba", "BAB,ABA", ",=,=", "="
+  /* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
+  /* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
+};
 
 #define N_AUTHZID 4
 static const char *AUTHZID[N_AUTHZID] = {
   "jas", "BAB,ABA", ",=,=", "="
 };
-
-#define EXPECTED_USERNAME "Ali Baba"
 
 size_t i;
 
@@ -58,7 +60,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     case GSASL_AUTHID:
-      gsasl_property_set (sctx, prop, USERNAME);
+      gsasl_property_set (sctx, prop, AUTHID[i % N_AUTHID]);
       rc = GSASL_OK;
       break;
 
@@ -72,7 +74,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
     case GSASL_SCRAM_ITER:
       if (strcmp (gsasl_property_fast (sctx, GSASL_AUTHID),
-		  EXPECTED_USERNAME) != 0)
+		  AUTHID[i % N_AUTHID]) != 0)
 	fail ("Username mismatch: %s",
 	      gsasl_property_fast (sctx, GSASL_AUTHID));
       if (i & 0x02)
@@ -224,6 +226,14 @@ doit (void)
 
       if (debug)
 	printf ("C: %.*s\n", s1len, s1);
+
+      {
+	const char *p = gsasl_property_fast (server, GSASL_AUTHID);
+	if (p && strcmp (p, AUTHID[i % N_AUTHID]) != 0)
+	  fail ("Bad authid? %s != %s\n", p, AUTHID[i % N_AUTHID]);
+	if (i & 0x01 && !p)
+	  fail ("Expected authid? %d/%s\n", i, AUTHID[i % N_AUTHID]);
+      }
 
       {
 	const char *p = gsasl_property_fast (server, GSASL_AUTHZID);

@@ -37,7 +37,7 @@
 #include "validate.h"
 
 static char *
-unescape_authzid (const char *str, size_t len)
+unescape (const char *str, size_t len)
 {
   char *out = malloc (len + 1);
   char *p = out;
@@ -109,7 +109,7 @@ scram_parse_client_first (const char *str, size_t len,
       if (len < l)
 	return -1;
 
-      cf->authzid = unescape_authzid (str, l);
+      cf->authzid = unescape (str, l);
       if (!cf->authzid)
 	return -1;
 
@@ -141,14 +141,9 @@ scram_parse_client_first (const char *str, size_t len,
     if (len < l)
       return -1;
 
-    cf->username = malloc (l + 1);
+    cf->username = unescape (str, l);
     if (!cf->username)
       return -1;
-
-    memcpy (cf->username, str, l);
-    cf->username[l] = '\0';
-
-    /* FIXME decode username */
 
     str = p;
     len -= l;
