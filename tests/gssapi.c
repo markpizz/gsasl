@@ -136,7 +136,7 @@ doit (void)
 	    }
 
 	  if (debug)
-	    printf ("S: %s\n", s2);
+	    printf ("S: %s [%c]\n", s2, res1 == GSASL_OK ? 'O' : 'N');
 
 	  if (res1 == GSASL_OK && strcmp (s2, "") == 0)
 	    break;
@@ -151,7 +151,7 @@ doit (void)
 	    }
 
 	  if (debug)
-	    printf ("C: %s\n", s1);
+	    printf ("C: %s [%c]\n", s1, res2 == GSASL_OK ? 'O' : 'N');
 	}
       while (res1 != GSASL_OK || res2 != GSASL_OK);
 
