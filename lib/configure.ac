@@ -191,6 +191,10 @@ if test "$gs2" = no && test "$gssapi" = no; then
 else
   AC_MSG_NOTICE([checking for GSS implementation ($gssapi_impl)])
 fi
+
+save_CPPFLAGS="$CPPFLAGS"
+save_LIBS="$LIBS"
+
 if test "$gssapi_impl" = "gss"; then
   AC_MSG_NOTICE([trying GSS])
   AC_LIB_HAVE_LINKFLAGS(gss,, [#include <gss.h>], [gss_check_version (0);])
@@ -218,9 +222,9 @@ elif test "$gssapi_impl" = "heimdal"; then
     AC_MSG_WARN([Heimdal krb5-config not found, disabling GSSAPI])
     gssapi_impl=no
   fi
-elif test "$gssapi_impl" != "no" ; then
+elif test "$gssapi_impl" != "no"; then
   AC_MSG_NOTICE([auto-detecing GSS/MIT/Heimdal])
-  AC_MSG_NOTICE([use --with-gssapi-impl=IMPL to override])
+  AC_MSG_NOTICE([use --with-gssapi-impl=IMPL to hard code])
   AC_MSG_NOTICE([where IMPL is `gss', `mit', or `heimdal'])
   AC_LIB_HAVE_LINKFLAGS(gss,, [#include <gss.h>], [gss_check_version (0);])
   if test "$ac_cv_libgss" = yes; then
@@ -242,6 +246,18 @@ elif test "$gssapi_impl" != "no" ; then
       gssapi_impl=no
       AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
     fi
+  fi
+fi
+
+if test "$gssapi_impl" = "mit" -o \
+   "$gssapi_impl" = "heimdal" -o \
+   "$gssapi_impl" = "mitheimdal"; then
+  AC_CHECK_HEADERS([gssapi.h gssapi/gssapi.h])
+  if test "$ac_cv_header_gssapi_h$ac_cv_header_gssapi_gssapi_h" = "nono"; then
+    gssapi_impl=no
+    AC_MSG_WARN([Cannot find gssapi.h or gssapi/gssapi.h, disabling GSSAPI])
+    CPPFLAGS="$save_CPPFLAGS"
+    LIBS="$save_LIBS"
   fi
 fi
 

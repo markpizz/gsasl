@@ -29,8 +29,10 @@
 
 #ifdef HAVE_LIBGSS
 # include <gss.h>
-#else
+#elif HAVE_GSSAPI_H
 # include <gssapi.h>
+#elif HAVE_GSSAPI_GSSAPI_H
+# include <gssapi/gssapi.h>
 #endif
 
 /* Get specification. */
