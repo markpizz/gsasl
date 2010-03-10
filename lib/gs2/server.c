@@ -41,12 +41,15 @@
 # include <gssapi/gssapi.h>
 #endif
 
+#include "gs2helper.h"
+
 struct _Gsasl_gs2_server_state
 {
   int step;
   gss_name_t client;
   gss_cred_id_t cred;
   gss_ctx_id_t context;
+  gss_OID mech_oid;
   struct gss_channel_bindings_struct cb;
 };
 typedef struct _Gsasl_gs2_server_state _Gsasl_gs2_server_state;
@@ -101,6 +104,20 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
       return GSASL_GSSAPI_ACQUIRE_CRED_ERROR;
     }
 
+  {
+    gss_buffer_desc sasl_mech_name;
+
+    sasl_mech_name.value = (void *) gsasl_mechanism_name (sctx);
+    if (!sasl_mech_name.value)
+      return GSASL_AUTHENTICATION_ERROR;
+    sasl_mech_name.length = strlen (sasl_mech_name.value);
+
+    maj_stat = gss_inquiry_mech_for_saslname (&min_stat, &sasl_mech_name,
+					      &state->mech_oid);
+    if (GSS_ERROR (maj_stat))
+      return GSASL_AUTHENTICATION_ERROR;
+  }
+
   state->step = 0;
   state->context = GSS_C_NO_CONTEXT;
   state->client = NULL;
@@ -123,6 +140,69 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
   return GSASL_OK;
 }
 
+static char *
+unescape_authzid (const char *str, size_t len)
+{
+  char *out = malloc (len + 1);
+  char *p = out;
+
+  if (!out)
+    return NULL;
+
+  while (len > 0 && *str)
+    {
+      if (len >= 3 && str[0] == '=' && str[1] == '2' && str[2] == 'C')
+	{
+	  *p++ = ',';
+	  str += 3;
+	  len -= 3;
+	}
+      else if (len >= 3 && str[0] == '=' && str[1] == '3' && str[2] == 'D')
+	{
+	  *p++ = '=';
+	  str += 3;
+	  len -= 3;
+	}
+      else
+	{
+	  *p++ = *str;
+	  str++;
+	  len--;
+	}
+    }
+  *p = '\0';
+
+  return out;
+}
+
+static int
+parse_gs2_header (const char *data, size_t len,
+		  char **authzid, size_t *headerlen)
+{
+  char *authzid_endptr;
+
+  if (len < 3)
+    return GSASL_MECHANISM_PARSE_ERROR;
+
+  if (strncmp (data, "n,,", 3) == 0)
+    {
+      *headerlen = 3;
+      *authzid = NULL;
+    }
+  else if (strncmp (data, "n,a=", 4) == 0 &&
+	   (authzid_endptr = memchr (data + 4, ',', len - 4)))
+    {
+      *authzid = unescape_authzid (data + 4, authzid_endptr - (data + 4));
+      if (!*authzid)
+	return GSASL_MALLOC_ERROR;
+      *headerlen = authzid_endptr - data + 1;
+    }
+  else
+    return GSASL_MECHANISM_PARSE_ERROR;
+
+  return GSASL_OK;
+}
+
 int
 _gsasl_gs2_server_step (Gsasl_session * sctx,
 			void *mech_data,
@@ -134,31 +214,13 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
   OM_uint32 maj_stat, min_stat;
   gss_buffer_desc client_name;
   gss_OID mech_type;
-  char tmp[4];
   int res;
   OM_uint32 ret_flags;
 
   *output = NULL;
   *output_len = 0;
-
-  if (state->step == 0)
-    {
-      const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
-
-      if (authzid)
-	state->cb.application_data.length
-	  = asprintf ((char**) &state->cb.application_data.value,
-		      "n,a=%s,", authzid);
-      else
-	{
-	  state->cb.application_data.value = strdup ("n,,");
-	  state->cb.application_data.length = 3;
-	}
-
-      if (state->cb.application_data.length <= 0
-	  || state->cb.application_data.value == NULL)
-	return GSASL_MALLOC_ERROR;
-    }
+  bufdesc1.value = input;
+  bufdesc1.length = input_len;
 
   switch (state->step)
     {
@@ -172,8 +234,31 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
       /* fall through */
 
     case 1:
-      bufdesc1.value = input;
-      bufdesc1.length = input_len;
+      {
+	char *authzid;
+	size_t headerlen;
+
+	res = parse_gs2_header (input, input_len, &authzid, &headerlen);
+	if (res != GSASL_OK)
+	  return res;
+
+	if (authzid)
+	  gsasl_property_set (sctx, GSASL_AUTHZID, authzid);
+
+	state->cb.application_data.value = input;
+	state->cb.application_data.length = headerlen;
+
+	bufdesc2.value = input + headerlen;
+	bufdesc2.length = input_len - headerlen;
+
+	res = gss_encapsulate_token (&bufdesc2, state->mech_oid, &bufdesc1);
+	if (res != 1)
+	  return res;
+      }
+      state->step++;
+      /* fall through */
+
+    case 2:
       if (state->client)
 	{
 	  gss_release_name (&min_stat, &state->client);
@@ -204,10 +289,13 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
       if (maj_stat == GSS_S_COMPLETE)
 	state->step++;
 
-      res = GSASL_NEEDS_MORE;
+      if (maj_stat == GSS_S_COMPLETE)
+	res = GSASL_OK;
+      else
+	res = GSASL_NEEDS_MORE;
       break;
 
-    case 2:
+    case 3:
       maj_stat = gss_display_name (&min_stat, state->client,
 				   &client_name, &mech_type);
       if (GSS_ERROR (maj_stat))
@@ -215,10 +303,6 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 
       gsasl_property_set_raw (sctx, GSASL_GSSAPI_DISPLAY_NAME,
 			      client_name.value, client_name.length);
-
-      maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
       res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_GSSAPI);
 
@@ -251,6 +335,5 @@ _gsasl_gs2_server_finish (Gsasl_session * sctx, void *mech_data)
   if (state->client != GSS_C_NO_NAME)
     gss_release_name (&min_stat, &state->client);
 
-  free (state->cb.application_data.value);
   free (state);
 }
