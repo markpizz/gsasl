@@ -34,6 +34,7 @@ mq3CkT3isB53mx3YVSgVFlNkaxTEviuTovzMkGARoCSpdRU6zJtr4lUJPVznkSxl
 G/TLBLBB5g8E0AtjZLQCOzKE9DbvHuqnquFdd85kPa/052RDPBr0PEWR0j4pRdCy
 e5cJ48eWKUhMHprvung1cN/3hI5sGz+GHedKiSUPvRJasg==
 -----END SHISHI KDC-REP-----
+
 name:NULL  type:SEQUENCE
   name:key  type:SEQUENCE
     name:keytype  type:INTEGER  value:0x03
@@ -58,6 +59,7 @@ eYGIMIGFoBMwEaADAgEDoQoECNY+gIz+f2Q9oQIwAKIGAgQMQYUjpAcDBQAAQAAA
 pREYDzIwMDQwNzExMTU1NTU4WqcRGA8yMDI0MDcxMTE1NTU1OFqpDxsNSk9TRUZT
 U09OLk9SR6oiMCCgAwIBAaEZMBcbBmtyYnRndBsNSk9TRUZTU09OLk9SRw==
 -----END SHISHI EncKDCRepPart-----
+
 name:NULL  type:SEQUENCE
   name:tkt-vno  type:INTEGER  value:0x05
   name:realm  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
@@ -77,6 +79,7 @@ dBsNSk9TRUZTU09OLk9SR6OBnjCBm6ADAgEDooGTBIGQLPxF/Jc7io+NydvboeW3
 aUHndr3+qnEqeLNG3mNO+z5STDaHe/njk8YV8FLPba3SVjBIlLk6d9iRp/pzjGNh
 RsNfo3m3xLyfveciS9RdmSq5xaw8BBQZhyvq7IPG+h6V
 -----END SHISHI Ticket-----
+
 
 
 name:NULL  type:SEQUENCE
@@ -115,6 +118,7 @@ cQpMRVso9IUJygHvP/iDx9naV7yk43lZ5FweP8ojVSNsPtyHIz0wV31defU5XSkT
 PETKx+WvB30PQMToqxE0yG2tjrxyUegXjj+N9Os64AdgiJcW/0RDpA0bpZldOki+
 pXT0GgGfyEZ6lE88cAIzpv5C5CBXtuRBnNFz5IPIzzEZw54GTNo=
 -----END SHISHI KDC-REP-----
+
 name:NULL  type:SEQUENCE
   name:key  type:SEQUENCE
     name:keytype  type:INTEGER  value:0x03
@@ -138,8 +142,8 @@ name:NULL  type:SEQUENCE
 eYGMMIGJoBMwEaADAgEDoQoECDdwXRxUqEaDoQIwAKIGAgQizEGppAcDBQAAAAAA
 pREYDzIwMDQwNzExMTU1NTU5WqcRGA8yMDI0MDcxMTE1NTU1OFqpDxsNSk9TRUZT
 U09OLk9SR6omMCSgAwIBAaEdMBsbBGhvc3QbE2xhdHRlLmpvc2Vmc3Nvbi5vcmc=
-
 -----END SHISHI EncKDCRepPart-----
+
 name:NULL  type:SEQUENCE
   name:tkt-vno  type:INTEGER  value:0x05
   name:realm  type:GENERALSTRING  value:4a4f53454653534f4e2e4f5247
@@ -159,5 +163,6 @@ wlytN3MyN1xzZfTsoVqZwcE/94W+Aj59AxW9U9KTdUGq2ptnLGKx32MtM8uF3oPn
 5++i8PplUdyrmKwKkQ/bkW6oFlVPua7WZhM6WJhL4i032kbZglK4g6Cs7hfYyYwJ
 dCiGagkGodxwwZCetRFhj9rfjENcOewVSlZKGit1CAUcZjyopQ==
 -----END SHISHI Ticket-----
+
 
 
