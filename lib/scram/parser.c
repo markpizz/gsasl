@@ -1,5 +1,5 @@
 /* parser.c --- SCRAM parser.
- * Copyright (C) 2009  Simon Josefsson
+ * Copyright (C) 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -36,6 +36,41 @@
 /* Get validator. */
 #include "validate.h"
 
+static char *
+unescape_authzid (const char *str, size_t len)
+{
+  char *out = malloc (len + 1);
+  char *p = out;
+
+  if (!out)
+    return NULL;
+
+  while (len > 0 && *str)
+    {
+      if (len >= 3 && str[0] == '=' && str[1] == '2' && str[2] == 'C')
+	{
+	  *p++ = ',';
+	  str += 3;
+	  len -= 3;
+	}
+      else if (len >= 3 && str[0] == '=' && str[1] == '3' && str[2] == 'D')
+	{
+	  *p++ = '=';
+	  str += 3;
+	  len -= 3;
+	}
+      else
+	{
+	  *p++ = *str;
+	  str++;
+	  len--;
+	}
+    }
+  *p = '\0';
+
+  return out;
+}
+
 int
 scram_parse_client_first (const char *str, size_t len,
 			  struct scram_client_first *cf)
@@ -61,6 +96,11 @@ scram_parse_client_first (const char *str, size_t len,
       const char *p;
       size_t l;
 
+      str++, len--;
+      if (len == 0 || *str != '=')
+	return -1;
+      str++, len--;
+
       p = memchr (str, ',', len);
       if (!p)
 	return -1;
@@ -69,14 +109,9 @@ scram_parse_client_first (const char *str, size_t len,
       if (len < l)
 	return -1;
 
-      cf->authzid = malloc (l + 1);
+      cf->authzid = unescape_authzid (str, l);
       if (!cf->authzid)
 	return -1;
-
-      memcpy (cf->authzid, str, l);
-      cf->authzid[l] = '\0';
-
-      /* FIXME decode authzid */
 
       str = p;
       len -= l;

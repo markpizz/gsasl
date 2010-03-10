@@ -1,5 +1,5 @@
 /* server.c --- SASL CRAM-MD5 server side functions.
- * Copyright (C) 2009  Simon Josefsson
+ * Copyright (C) 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -177,6 +177,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	}
 
 	gsasl_property_set (sctx, GSASL_AUTHID, state->cf.username);
+	gsasl_property_set (sctx, GSASL_AUTHZID, state->cf.authzid);
 
 	{
 	  const char *p = gsasl_property_get (sctx, GSASL_SCRAM_ITER);

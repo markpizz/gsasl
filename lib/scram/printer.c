@@ -1,5 +1,5 @@
 /* printer.h --- Convert SCRAM token structures into strings.
- * Copyright (C) 2009  Simon Josefsson
+ * Copyright (C) 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -42,9 +42,34 @@
 static char *
 scram_escape (const char *str)
 {
-  /* FIXME escape '=' and ',' in authzid to '=3D' and '=2C'
-     respectively. */
-  return strdup (str);
+  char *out = malloc (strlen (str) * 3 + 1);
+  char *p = out;
+
+  if (!out)
+    return NULL;
+
+  while (*str)
+    {
+      if (*str == ',')
+	{
+	  memcpy (p, "=2C", 3);
+	  p += 3;
+	}
+      else if (*str == '=')
+	{
+	  memcpy (p, "=3D", 3);
+	  p += 3;
+	}
+      else
+	{
+	  *p = *str;
+	  p++;
+	}
+      str++;
+    }
+  *p = '\0';
+
+  return out;
 }
 
 /* Print SCRAM client-first token into newly allocated output string

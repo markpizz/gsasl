@@ -33,7 +33,11 @@
 #define USERNAME "Ali Baba"
 /* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
 /* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
-#define AUTHZID "joe"
+
+#define N_AUTHZID 4
+static const char *AUTHZID[N_AUTHZID] = {
+  "jas", "BAB,ABA", ",=,=", "="
+};
 
 #define EXPECTED_USERNAME "Ali Baba"
 
@@ -61,7 +65,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     case GSASL_AUTHZID:
       if (i & 0x01)
 	{
-	  gsasl_property_set (sctx, prop, AUTHZID);
+	  gsasl_property_set (sctx, prop, AUTHZID[i % N_AUTHZID]);
 	  rc = GSASL_OK;
 	}
       break;
@@ -219,7 +223,18 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n\n", s1len, s1);
+	printf ("C: %.*s\n", s1len, s1);
+
+      {
+	const char *p = gsasl_property_fast (server, GSASL_AUTHZID);
+	if (p && strcmp (p, AUTHZID[i % N_AUTHZID]) != 0)
+	  fail ("Bad authzid? %s != %s\n", p, AUTHZID[i % N_AUTHZID]);
+	if (i & 0x01 && !p)
+	  fail ("Expected authzid? %d/%s\n", i, AUTHZID[i % N_AUTHZID]);
+      }
+
+      if (debug)
+	printf ("\n");
 
       gsasl_finish (client);
       gsasl_finish (server);
