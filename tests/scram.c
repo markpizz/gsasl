@@ -1,5 +1,5 @@
 /* scram.c --- Test the SCRAM mechanism.
- * Copyright (C) 2009  Simon Josefsson
+ * Copyright (C) 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -163,7 +163,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n", s1len, s1);
+	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
 
       /* Server first... */
 
@@ -177,7 +177,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s\n", s2len, s2);
+	printf ("S: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
 
       /* Client final... */
 
@@ -191,7 +191,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n", s1len, s1);
+	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
 
       /* Server final... */
 
@@ -205,7 +205,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s\n", s2len, s2);
+	printf ("S: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
 
       /* Let client parse server final... */
 
