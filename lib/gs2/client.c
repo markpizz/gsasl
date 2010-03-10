@@ -97,6 +97,39 @@ _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
   return GSASL_OK;
 }
 
+static char *
+escape_authzid (const char *str)
+{
+  char *out = malloc (strlen (str) * 3 + 1);
+  char *p = out;
+
+  if (!out)
+    return NULL;
+
+  while (*str)
+    {
+      if (*str == ',')
+	{
+	  memcpy (p, "=2C", 3);
+	  p += 3;
+	}
+      else if (*str == '=')
+	{
+	  memcpy (p, "=3D", 3);
+	  p += 3;
+	}
+      else
+	{
+	  *p = *str;
+	  p++;
+	}
+      str++;
+    }
+  *p = '\0';
+
+  return out;
+}
+
 int
 _gsasl_gs2_client_step (Gsasl_session * sctx,
 			void *mech_data,
@@ -135,13 +168,16 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_IMPORT_NAME_ERROR;
 
-      /* FIXME escape '=' and ',' in authzid to '=3D' and '=2C'
-	 respectively. */
-
       if (authzid)
-	state->cb.application_data.length
-	  = asprintf ((char**) &state->cb.application_data.value,
-		      "n,a=%s,", authzid);
+	{
+	  char *escaped_authzid = escape_authzid (authzid);
+	  if (!escaped_authzid)
+	    return GSASL_MALLOC_ERROR;
+	  state->cb.application_data.length
+	    = asprintf ((char**) &state->cb.application_data.value,
+			"n,a=%s,", escaped_authzid);
+	  free (escaped_authzid);
+	}
       else
 	{
 	  state->cb.application_data.value = strdup ("n,,");
@@ -188,7 +224,7 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 		  state->mech_oid->length) != 0)
 	return GSASL_AUTHENTICATION_ERROR;
 
-      if (buf == GSS_C_NO_BUFFER)
+      if (state->step == 0)
 	{
 	  const char *der = bufdesc2.value;
 	  size_t derlen = bufdesc2.length;
@@ -240,11 +276,13 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 	  memcpy (*output, bufdesc2.value, bufdesc2.length);
 	}
 
+      if (state->step == 0 && maj_stat == GSS_S_CONTINUE_NEEDED)
+	state->step++;
       if (maj_stat == GSS_S_COMPLETE)
-	{
-	  state->step++;
-	  res = GSASL_OK;
-	}
+	state->step++;
+
+      if (maj_stat == GSS_S_COMPLETE)
+	res = GSASL_OK;
       else
 	res = GSASL_NEEDS_MORE;
 
