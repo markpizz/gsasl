@@ -24,7 +24,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/gl -I$(top_builddir)/gl \
 AM_LDFLAGS = -no-install
 LDADD = ../lib/src/libgsasl.la ../gl/libgl.la libutils.la
 
-EXTRA_DIST = libgsasl.supp
+EXTRA_DIST = libgsasl.supp gssapi.key gssapi.tkt shishi.conf
 
 noinst_LTLIBRARIES = libutils.la
 libutils_la_SOURCES = utils.h utils.c
@@ -32,8 +32,8 @@ libutils_la_SOURCES = utils.h utils.c
 TESTS_ENVIRONMENT = \
 	SHISHI_KEYS=$(srcdir)/gssapi.key \
 	SHISHI_TICKETS=$(srcdir)/gssapi.tkt \
-	SHISHI_CONFIG=$(srcdir)/gssapi.cfg \
-	SHISHI_HOME=ignore-this-warning \
+	SHISHI_CONFIG=$(srcdir)/shishi.conf \
+	SHISHI_HOME=$(srcdir) \
 	SHISHI_USER=ignore-this-warning \
 	THREADSAFETY_FILES=`ls $(top_srcdir)/lib/*/*.c | $(GREP) -v -e lib/gl/vasnprintf.c -e lib/gl/getdelim.c` \
 	MD5FILE=$(srcdir)/cram-md5.pwd \
