@@ -41,7 +41,7 @@ TESTS_ENVIRONMENT = \
 	$(VALGRIND)
 
 ctests = external cram-md5 digest-md5 md5file name errors suggest	\
-	simple crypto scram symbols
+	simple crypto scram symbols gssapi gs2-krb5
 
 if OBSOLETE
 ctests += old-simple old-md5file old-cram-md5 old-digest-md5	\
