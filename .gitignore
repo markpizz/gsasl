@@ -274,6 +274,8 @@ tests/crypto
 tests/digest-md5
 tests/errors
 tests/external
+tests/gs2-krb5
+tests/gssapi
 tests/md5file
 tests/name
 tests/old-base64
