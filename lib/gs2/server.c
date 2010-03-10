@@ -216,6 +216,7 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
   gss_OID mech_type;
   int res;
   OM_uint32 ret_flags;
+  int free_bufdesc1 = 0;
 
   *output = NULL;
   *output_len = 0;
@@ -254,6 +255,7 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 	res = gss_encapsulate_token (&bufdesc2, state->mech_oid, &bufdesc1);
 	if (res != 1)
 	  return res;
+	free_bufdesc1 = 1;
       }
       state->step++;
       /* fall through */
@@ -272,9 +274,19 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 					 &state->cb,
 					 &state->client,
 					 &mech_type,
-					 &bufdesc2, &ret_flags, NULL, NULL);
+					 &bufdesc2,
+					 &ret_flags,
+					 NULL,
+					 NULL);
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
 	return GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR;
+
+      if (free_bufdesc1)
+	{
+	  maj_stat = gss_release_buffer (&min_stat, &bufdesc1);
+	  if (GSS_ERROR (maj_stat))
+	    return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
+	}
 
       *output = malloc (bufdesc2.length);
       if (!*output)
