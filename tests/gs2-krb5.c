@@ -109,7 +109,7 @@ doit (void)
       || !gsasl_server_support_p (ctx, "GS2-KRB5"))
     {
       gsasl_done (ctx);
-      fail("No support for GSSAPI.\n");
+      fail("No support for GS2-KRB5.\n");
       exit(77);
     }
 
