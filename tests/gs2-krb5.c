@@ -105,6 +105,14 @@ doit (void)
       return;
     }
 
+  if (!gsasl_client_support_p (ctx, "GS2-KRB5")
+      || !gsasl_server_support_p (ctx, "GS2-KRB5"))
+    {
+      gsasl_done (ctx);
+      fail("No support for GSSAPI.\n");
+      exit(77);
+    }
+
   gsasl_callback_set (ctx, callback);
 
   for (i = 0; i < 5; i++)

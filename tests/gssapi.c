@@ -1,5 +1,5 @@
 /* gssapi.c --- Test the GSSAPI mechanism.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -99,6 +99,14 @@ doit (void)
     {
       fail ("gsasl_init() failed (%d):\n%s\n", rc, gsasl_strerror (rc));
       return;
+    }
+
+  if (!gsasl_client_support_p (ctx, "GSSAPI")
+      || !gsasl_server_support_p (ctx, "GSSAPI"))
+    {
+      gsasl_done (ctx);
+      fail("No support for GSSAPI.\n");
+      exit(77);
     }
 
   gsasl_callback_set (ctx, callback);
