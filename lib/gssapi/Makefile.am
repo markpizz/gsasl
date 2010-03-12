@@ -1,4 +1,4 @@
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Simon Josefsson
 #
 # This file is part of GNU SASL Library.
 #
@@ -18,7 +18,8 @@
 # MA 02110-1301, USA.
 
 AM_CFLAGS = $(CFLAG_VISIBILITY)
-AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl
+AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl \
+	$(GSS_CFLAGS)
 
 noinst_LTLIBRARIES = libgsasl-gssapi.la
 libgsasl_gssapi_la_SOURCES = x-gssapi.h mechinfo.c
@@ -31,4 +32,4 @@ if SERVER
 libgsasl_gssapi_la_SOURCES += server.c
 endif
 
-libgsasl_gssapi_la_LIBADD = $(LTLIBGSS)
+libgsasl_gssapi_la_LIBADD = $(LTLIBGSS) $(GSS_LIBS)

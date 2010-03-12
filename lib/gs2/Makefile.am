@@ -20,7 +20,8 @@
 
 AM_CFLAGS = $(WERROR_CFLAGS) $(WSTACK_CFLAGS) $(WARN_CFLAGS)
 AM_CFLAGS += $(CFLAG_VISIBILITY)
-AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl
+AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl \
+	$(GSS_CFLAGS)
 
 EXTRA_DIST = README
 
@@ -36,3 +37,5 @@ endif
 if SERVER
 libgsasl_gs2_la_SOURCES += server.c
 endif
+
+libgsasl_gs2_la_LIBADD = $(LTLIBGSS) $(GSS_LIBS)

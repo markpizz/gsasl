@@ -192,9 +192,6 @@ else
   AC_MSG_NOTICE([checking for GSS implementation ($gssapi_impl)])
 fi
 
-save_CPPFLAGS="$CPPFLAGS"
-save_LIBS="$LIBS"
-
 if test "$gssapi_impl" = "gss"; then
   AC_MSG_NOTICE([trying GSS])
   AC_LIB_HAVE_LINKFLAGS(gss,, [#include <gss.h>], [gss_check_version (0);])
@@ -206,8 +203,8 @@ elif test "$gssapi_impl" = "mit"; then
   AC_MSG_NOTICE([trying MIT])
   AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
   if test "$KRB5_CONFIG" != "no" ; then
-    CPPFLAGS="$CPPFLAGS `$KRB5_CONFIG --cflags`"
-    LIBS="$LIBS `$KRB5_CONFIG --libs gssapi`"
+    GSS_CFLAGS="`$KRB5_CONFIG --cflags`"
+    GSS_LIBS="`$KRB5_CONFIG --libs gssapi`"
   else
     AC_MSG_WARN([MIT Kerberos krb5-config not found, disabling GSSAPI])
     gssapi_impl=no
@@ -216,8 +213,8 @@ elif test "$gssapi_impl" = "heimdal"; then
   AC_MSG_NOTICE([trying Heimdal])
   AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
   if test "$KRB5_CONFIG" != "no" ; then
-    CPPFLAGS="$CPPFLAGS `$KRB5_CONFIG --cflags`"
-    LIBS="$LIBS `$KRB5_CONFIG --libs gssapi`"
+    GSS_CFLAGS="`$KRB5_CONFIG --cflags`"
+    GSS_LIBS="`$KRB5_CONFIG --libs gssapi`"
   else
     AC_MSG_WARN([Heimdal krb5-config not found, disabling GSSAPI])
     gssapi_impl=no
@@ -239,8 +236,8 @@ elif test "$gssapi_impl" != "no"; then
     AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
     if test "$KRB5_CONFIG" != "no" ; then
       AC_MSG_NOTICE([MIT/Heimdal found])
-      CPPFLAGS="$CPPFLAGS `$KRB5_CONFIG --cflags`"
-      LIBS="$LIBS `$KRB5_CONFIG --libs gssapi`"
+      GSS_CFLAGS="`$KRB5_CONFIG --cflags`"
+      GSS_LIBS="`$KRB5_CONFIG --libs gssapi`"
       gssapi_impl=mitheimdal
     else
       gssapi_impl=no
@@ -249,16 +246,23 @@ elif test "$gssapi_impl" != "no"; then
   fi
 fi
 
+AC_SUBST([GSS_CFLAGS])
+AC_SUBST([GSS_LIBS])
+
 if test "$gssapi_impl" = "mit" -o \
    "$gssapi_impl" = "heimdal" -o \
    "$gssapi_impl" = "mitheimdal"; then
+  save_CPPFLAGS="$CPPFLAGS"
+  save_LIBS="$LIBS"
+  CPPFLAGS="$CPPFLAGS $GSS_CFLAGS"
+  LIBS="$LIBS $GSS_LIBS"
   AC_CHECK_HEADERS([gssapi.h gssapi/gssapi.h])
   if test "$ac_cv_header_gssapi_h$ac_cv_header_gssapi_gssapi_h" = "nono"; then
     gssapi_impl=no
     AC_MSG_WARN([Cannot find gssapi.h or gssapi/gssapi.h, disabling GSSAPI])
-    CPPFLAGS="$save_CPPFLAGS"
-    LIBS="$save_LIBS"
   fi
+  CPPFLAGS="$save_CPPFLAGS"
+  LIBS="$save_LIBS"
 fi
 
 # Disable GSSAPI/GS2 if we can't find GSS-API implementation
