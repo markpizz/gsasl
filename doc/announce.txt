@@ -1,28 +1,29 @@
 To: help-gsasl@gnu.org, info-gnu@gnu.org
-Subject: GNU SASL 1.4.1
+Subject: GNU SASL 1.4.2
 <#part sign=pgpmime>
 GNU SASL is a modern C library that implement the standard network
-security protocol Simple Authentication and Security Layer (SASL).
-The framework itself and a couple of common SASL mechanisms (including
+security protocol Simple Authentication and Security Layer (SASL).  The
+framework itself and a couple of common SASL mechanisms (including
 SCRAM-SHA-1) are implemented.  GNU SASL can be used by network
 applications for IMAP, SMTP, XMPP and similar protocols to provide
 authentication services.
 
 Top-level NEWS entries:
 
-* Version 1.4.1 (released 2010-02-16) [stable]
+* Version 1.4.2 (released 2010-03-15) [stable]
 
-** gsasl: Improve application data throughput.
-Patch from Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de> in
-<http://thread.gmane.org/gmane.comp.gnu.gsasl.general/256>.
-
-** Improve MinGW builds.
-
-** i18n: Updated German translation.
+** i18n: Updated translations.
 
 Library (lib/) NEWS entries:
 
-* Version 1.4.1 (released 2010-02-16) [stable]
+* Version 1.4.2 (released 2010-03-15) [stable]
+
+** SCRAM: Encode and decode username/authzid properly.
+Before any username/authzid that contained '=' or ',' would not work.
+
+** Fix typo in error message for GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR.
+
+** i18n: Updated translations.
 
 ** API and ABI modifications.
 No changes since last version.
@@ -67,16 +68,16 @@ invited to join our help-gsasl mailing list, see:
 <http://lists.gnu.org/mailman/listinfo/help-gsasl>.
 
 Here are the compressed sources of the entire package:
-  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.4.1.tar.gz (3.9MB)
-  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.4.1.tar.gz.sig (PGP)
+  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.4.2.tar.gz (3.9MB)
+  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.4.2.tar.gz.sig (PGP)
 
 Here are the compressed sources of the LGPL library (included above):
-  ftp://ftp.gnu.org/gnu/gsasl/libgsasl-1.4.1.tar.gz (976KB)
-  ftp://ftp.gnu.org/gnu/gsasl/libgsasl-1.4.1.tar.gz.sig (PGP)
+  ftp://ftp.gnu.org/gnu/gsasl/libgsasl-1.4.2.tar.gz (976KB)
+  ftp://ftp.gnu.org/gnu/gsasl/libgsasl-1.4.2.tar.gz.sig (PGP)
 
 We also provide pre-built Windows binaries:
-  http://josefsson.org/gnutls4win/gsasl-1.4.1.zip
-  http://josefsson.org/gnutls4win/mingw32-gsasl_1.4.1-1_all.deb
+  http://josefsson.org/gnutls4win/gsasl-1.4.2.zip
+  http://josefsson.org/gnutls4win/mingw32-gsasl_1.4.2-1_all.deb
 
 Here are the build reports for various platforms:
   http://autobuild.josefsson.org/gsasl/
@@ -91,11 +92,11 @@ For code coverage and cyclomatic code complexity charts:
 The software is cryptographically signed by the author using an
 OpenPGP key identified by the following information:
 
-pub   1280R/B565716F 2002-05-05 [expires: 2010-04-21]
+pub   1280R/B565716F 2002-05-05 [expires: 2011-03-30]
       Key fingerprint = 0424 D4EE 81A0 E3D1 19C6  F835 EDA2 1E94 B565 716F
-uid                  Simon Josefsson <simon@josefsson.org>
 uid                  Simon Josefsson <jas@extundo.com>
-sub   1280R/4D5D40AE 2002-05-05 [expires: 2010-04-21]
+uid                  Simon Josefsson <simon@josefsson.org>
+sub   1280R/4D5D40AE 2002-05-05 [expires: 2011-03-30]
 
 The key is available from:
   http://josefsson.org/key.txt
@@ -103,17 +104,17 @@ The key is available from:
 
 Here are the SHA-1 and SHA-224 checksums:
 
-2971d0c1916adb973209d5ff71421319d337f739  gsasl-1.4.1.tar.gz
-d757efd94046fe85e8d6b3530c80e0e9c61b4b3bfd6b48c47a1b34b4  gsasl-1.4.1.tar.gz
+d08a15af40db3394576af6907b6c6ef14950f242  gsasl-1.4.2.tar.gz
+29fa81cdeb0d35b280cd2c200c5ff7f25e107887f8cbb83385aa11d9  gsasl-1.4.2.tar.gz
 
-1f40f29ab3343b241832e591f8421f05b3019412  libgsasl-1.4.1.tar.gz
-7865fda2257b84547fba7cd815983a186108217b24bfc9478d4cbe1c  libgsasl-1.4.1.tar.gz
+bc16a6c309d5cb55d5ec5a8441e15a2330c66628  libgsasl-1.4.2.tar.gz
+71008dcc0fdb2044571a0dd74e179468665c85b558973e9b37271e1b  libgsasl-1.4.2.tar.gz
 
-a44c24b6aceb85d9c57affdf9373bd6bd747c14e  gsasl-1.4.1.zip
-9a46c7ef64ddd05b6b8bd3243b8d12eb0a2a60a80a60964df6e716f7  gsasl-1.4.1.zip
+f8d9fb0798261a10653dd721d5b871fec41645c6  gsasl-1.4.2.zip
+48db1bf7898c9ac59d74c3a992a117abad445bf64520644e2c994c6c  gsasl-1.4.2.zip
 
-0de7be4295e6ae2835a3d6ceeaf666da55ee4018  mingw32-gsasl_1.4.1-1_all.deb
-11c98e2ca08f58effc069ce73babc07d3e35dcfcf7a541977ac79d68  mingw32-gsasl_1.4.1-1_all.deb
+9519e72196b779e740af96c116edee4daf2014be  mingw32-gsasl_1.4.2-1_all.deb
+3faa7fff1004de069ba2071c6abc50d05addb0f68354e7a11b502a8c  mingw32-gsasl_1.4.2-1_all.deb
 
 Happy hacking,
 Simon
