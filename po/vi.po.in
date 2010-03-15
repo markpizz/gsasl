@@ -1,14 +1,14 @@
 # Vietnamese Translation for GSASL.
-# Copyright © 2009 Free Software Foundation, Inc.
+# Copyright © 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
-# Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 1.1\n"
+"Project-Id-Version: gsasl 1.4.1\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2009-03-25 16:06+0100\n"
-"PO-Revision-Date: 2009-09-19 21:37+0930\n"
+"POT-Creation-Date: 2010-02-16 14:57+0100\n"
+"PO-Revision-Date: 2010-03-06 19:54+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: LocFactoryEditor 1.8\n"
+
+#: src/imap.c:78 src/smtp.c:81
+#, c-format
+msgid "Chose SASL mechanisms:\n"
+msgstr "Chọn cơ cấu SASL:\n"
+
+#: src/imap.c:108 src/smtp.c:112 src/gsasl.c:198
+#, c-format
+msgid "Using mechanism:\n"
+msgstr "Đang dùng cơ cấu : \n"
+
+#: src/imap.c:152
+#, c-format
+msgid ""
+"error: Server did not return expected SASL data (it must begin with '+ '):\n"
+"%s\n"
+msgstr ""
+"lỗi: máy phục vụ không đáp ứng dữ liệu SASL mong đợi\n"
+"(nó phải bắt đầu với dấu cộng « + »):\n"
+"%s\n"
+
+#: src/smtp.c:154
+#, c-format
+msgid ""
+"error: Server did not return expected SASL data (it must begin with '334 '):\n"
+"%s\n"
+msgstr ""
+"lỗi: máy phục vụ không đáp ứng dữ liệu SASL mong đợi\n"
+"(nó phải bắt đầu với số « 334 »):\n"
+"%s\n"
 
 #: src/gsasl.c:170
 #, c-format
@@ -27,11 +57,6 @@ msgstr "Chọn cơ cấu SASL:\n"
 msgid "Input list of SASL mechanisms supported by server:\n"
 msgstr "Nh92p danh sách các cơ cấu SASL được máy phục vụ hỗ trợ :\n"
 
-#: src/gsasl.c:198
-#, c-format
-msgid "Using mechanism:\n"
-msgstr "Đang dùng cơ cấu : \n"
-
 #: src/gsasl.c:215
 #, c-format
 msgid "Output from server:\n"
@@ -42,201 +67,197 @@ msgstr "Kết xuất từ máy phục vụ :\n"
 msgid "Output from client:\n"
 msgstr "Kết xuất từ ứng dụng khách:\n"
 
-#: src/gsasl.c:270
+#: src/gsasl.c:273
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Hãy chạy lệnh « %s --help » (trợ giúp) để xem thông tin thêm.\n"
 
-#: src/gsasl.c:307
+#: src/gsasl.c:321
 #, c-format
-msgid "Cannot initialize Windows sockets."
-msgstr "Không thể sở khởi ổ cắm kiểu Windows."
+msgid "missing argument"
+msgstr "đối số còn thiếu"
 
-#: src/gsasl.c:331
-#, c-format
-msgid ""
-"missing argument\n"
-"Try `%s --help' for more information."
-msgstr ""
-"thiếu đối số\n"
-"Hãy chạy lệnh « %s --help » (trợ giúp) để xem thông tin thêm."
-
-#: src/gsasl.c:337
+#: src/gsasl.c:328
 #, c-format
 msgid "need both --x509-cert-file and --x509-key-file"
 msgstr "cần thiết cả « --x509-cert-file » (tập tin chứng nhận) lẫn « --x509-key-file » (tập tin khóa)"
 
-#: src/gsasl.c:341
+#: src/gsasl.c:332
 #, c-format
 msgid "cannot use both --starttls and --no-starttls"
 msgstr "không thể dùng tùy chọn « --starttls » (có) với « --no-starttls » (không)"
 
-#: src/gsasl.c:344
+#: src/gsasl.c:335
 #, c-format
 msgid "cannot use both --smtp and --imap"
 msgstr "không thể dùng tùy chọn « --smtp » với « --imap » (hai giao thức khác nhau)"
 
-#: src/gsasl.c:409
+#: src/gsasl.c:400
 #, c-format
 msgid "initialization failure: %s"
 msgstr "lỗi sở khởi: %s"
 
-#: src/gsasl.c:424
+#: src/gsasl.c:415
 #, c-format
 msgid "error listing mechanisms: %s"
 msgstr "gặp lỗi khi liệt kê cơ cấu : %s"
 
-#: src/gsasl.c:431
+#: src/gsasl.c:422
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Ứng dụng khách này hỗ trợ các cơ cấu theo đây:\n"
 
-#: src/gsasl.c:434
+#: src/gsasl.c:425
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Máy phục vụ này hỗ trợ các cơ cấu theo đây:\n"
 
-#: src/gsasl.c:500
+#: src/gsasl.c:491
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
 msgstr "Lỗi sở khởi toàn cục GnuTLS: %s"
 
-#: src/gsasl.c:505
+#: src/gsasl.c:496
 #, c-format
 msgid "GnuTLS initialization failed: %s"
 msgstr "Lỗi sở khởi GnuTLS: %s"
 
-#: src/gsasl.c:510
+#: src/gsasl.c:501
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
 msgstr "lỗi đặt các giá trị mặc định cho GnuTLS: %s"
 
-#: src/gsasl.c:516
+#: src/gsasl.c:507
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
 msgstr "đang cấp phát thông tin xác thực GnuTLS kiểu vô danh: %s"
 
-#: src/gsasl.c:521
+#: src/gsasl.c:512
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
 msgstr "đang đặt thông tin xác thực GnuTLS kiểu vô danh: %s"
 
-#: src/gsasl.c:526
+#: src/gsasl.c:517
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
 msgstr "đang cấp phát thông tin xác thực GnuTLS kiểu X.509: %s"
 
-#: src/gsasl.c:534
+#: src/gsasl.c:525
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
 msgstr "đang tải thông tin xác thực GnuTLS kiểu X.509: %s"
 
-#: src/gsasl.c:542
+#: src/gsasl.c:533
 #, c-format
 msgid "no X.509 CAs found: %s"
 msgstr "không tìm thấy Nhà Cầm Quyền Chứng Nhận X.509 nào: %s"
 
-#: src/gsasl.c:545
+#: src/gsasl.c:536
 #, c-format
 msgid "no X.509 CAs found"
 msgstr "không tìm thấy Nhà Cầm Quyền Chứng Nhận X.509 nào"
 
-#: src/gsasl.c:551
+#: src/gsasl.c:542
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
 msgstr "đang đặt thông tin xác thực GnuTLS kiểu X509: %s"
 
-#: src/gsasl.c:562
+#: src/gsasl.c:553
 #, c-format
 msgid "setting GnuTLS cipher priority (%s): %s\n"
 msgstr "đang đặt ưu tiên mật mã GnuTLS (%s): %s\n"
 
-#: src/gsasl.c:573
+#: src/gsasl.c:564
 #, c-format
 msgid "GnuTLS handshake failed: %s"
 msgstr "lỗi thiết lập quan hệ GnuTLS: %s"
 
-#: src/gsasl.c:582
+#: src/gsasl.c:573
 #, c-format
 msgid "verifying peer certificate: %s"
 msgstr "đang thẩm tra chứng nhận ngang hàng: %s"
 
-#: src/gsasl.c:586
+#: src/gsasl.c:577
 #, c-format
 msgid "server certificate is not trusted"
 msgstr "chứng nhận của máy phục vụ không phải là tin cây"
 
-#: src/gsasl.c:590
+#: src/gsasl.c:581
 #, c-format
 msgid "server certificate hasn't got a known issuer"
 msgstr "chứng nhận của máy phục vụ không có nhà phát hành đã biết"
 
-#: src/gsasl.c:593
+#: src/gsasl.c:584
 #, c-format
 msgid "server certificate has been revoked"
 msgstr "chứng nhận của máy phục vụ đã bị hủy bỏ"
 
-#: src/gsasl.c:597
+#: src/gsasl.c:588
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
 msgstr "không thể thẩm tra chứng nhận của máy phục vụ (rc=%d)"
 
-#: src/gsasl.c:620
+#: src/gsasl.c:611
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Không tìm thấy cơ cấu...\n"
 
-#: src/gsasl.c:637
+#: src/gsasl.c:628
 #, c-format
 msgid "mechanism unavailable: %s"
 msgstr "cơ cấu không sẵn sàng: %s"
 
-#: src/gsasl.c:666
+#: src/gsasl.c:657
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
 msgstr "Nhập dữ liệu xác thực cơ số 64 từ ứng dụng khách (ấn phím RETURN nếu không có):\n"
 
-#: src/gsasl.c:669
+#: src/gsasl.c:660
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
 msgstr "Nhập dữ liệu xác thực cơ số 64 từ máy phục vụ (ấn phím RETURN nếu không có):\n"
 
-#: src/gsasl.c:679
+#: src/gsasl.c:670
 #, c-format
 msgid "mechanism error: %s"
 msgstr "gặp lỗi cơ cấu : %s"
 
-#: src/gsasl.c:688
+#: src/gsasl.c:679
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Việc xác thực máy phục vụ đã xong (ứng dụng khách được tin)...\n"
 
-#: src/gsasl.c:691
+#: src/gsasl.c:682
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Việc xác thực ứng dụng khách đã xong (máy phục vụ được tin)...\n"
 
-#: src/gsasl.c:714
+#: src/gsasl.c:705
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Nhập dữ liệu ứng dụng (EOF [kết thức tập tin] để xong): \n"
 
-#: src/gsasl.c:787
+#: src/gsasl.c:780
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Dữ liệu ứng dụng đã mã hóa cơ số 64 cần gởi:\n"
 
-#: src/gsasl.c:843
+#: src/gsasl.c:822
+#, c-format
+msgid "SASL record too large: %zu\n"
+msgstr "Mục ghi SASL quá lớn: %zu\n"
+
+#: src/gsasl.c:841
 #, c-format
 msgid "encoding error: %s"
 msgstr "gặp lỗi mã hóa: %s"
 
-#: src/gsasl.c:848
+#: src/gsasl.c:846
 #, c-format
 msgid "Session finished...\n"
 msgstr "Phiên chạy đã xong...\n"
 
-#: src/gsasl.c:864
+#: src/gsasl.c:862
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
 msgstr "lỗi kết thức phiên chạy GnuTLS: %s"

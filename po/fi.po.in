@@ -1,20 +1,48 @@
 # Finnish messages for gsasl.
-# Copyright © 2009 Free Software Foundation, Inc.
+# Copyright © 2009, 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
-# Jorma Karvonen <karvonen.jorma@gmail.com>, 2009.
+# Jorma Karvonen <karvonen.jorma@gmail.com>, 2009, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 1.1\n"
+"Project-Id-Version: gsasl 1.4.1\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2009-03-25 16:06+0100\n"
-"PO-Revision-Date: 2009-10-06 20:16+0200\n"
+"POT-Creation-Date: 2010-02-16 14:57+0100\n"
+"PO-Revision-Date: 2010-02-23 19:31+0200\n"
 "Last-Translator: Jorma Karvonen <karvonen.jorma@gmail.com>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: src/imap.c:78 src/smtp.c:81
+#, c-format
+msgid "Chose SASL mechanisms:\n"
+msgstr "Valitse SASL-mekanismit:\n"
+
+#: src/imap.c:108 src/smtp.c:112 src/gsasl.c:198
+#, c-format
+msgid "Using mechanism:\n"
+msgstr "Käytetään mekanismia:\n"
+
+#: src/imap.c:152
+#, c-format
+msgid ""
+"error: Server did not return expected SASL data (it must begin with '+ '):\n"
+"%s\n"
+msgstr ""
+"virhe: Palvelin ei palauttanut odotettua SASL-dataa (sen on alettava merkillä ’+ ’):\n"
+"%s\n"
+
+#: src/smtp.c:154
+#, c-format
+msgid ""
+"error: Server did not return expected SASL data (it must begin with '334 '):\n"
+"%s\n"
+msgstr ""
+"virhe: Palvelin ei palauttanut odotettua SASL-dataa (sen on alettava merkeillä ’334 ’):\n"
+"%s\n"
 
 #: src/gsasl.c:170
 #, c-format
@@ -24,12 +52,7 @@ msgstr "Valitse SASL-mekanismi:\n"
 #: src/gsasl.c:179
 #, c-format
 msgid "Input list of SASL mechanisms supported by server:\n"
-msgstr "Palvelin tukee SASL-mekanismin syöteluetteloa:\n"
-
-#: src/gsasl.c:198
-#, c-format
-msgid "Using mechanism:\n"
-msgstr "Käytetään mekanismia:\n"
+msgstr "Palvelin tukee SASL-mekanismien syöteluetteloa:\n"
 
 #: src/gsasl.c:215
 #, c-format
@@ -41,201 +64,207 @@ msgstr "Tuloste palvelimelta:\n"
 msgid "Output from client:\n"
 msgstr "Tuloste asiakkaalta:\n"
 
-#: src/gsasl.c:270
+#: src/gsasl.c:273
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Lisätietoja käskyllä ”%s --help”.\n"
 
-#: src/gsasl.c:307
+#: src/gsasl.c:321
 #, c-format
-msgid "Cannot initialize Windows sockets."
-msgstr "Ei voi alustaa Windows-pistokkeita."
+msgid "missing argument"
+msgstr "puuttuva argumentti"
 
-#: src/gsasl.c:331
-#, c-format
-msgid ""
-"missing argument\n"
-"Try `%s --help' for more information."
-msgstr ""
-"puuttuva argumentti\n"
-"Lisätietoja komennolla ”%s --help”."
-
-#: src/gsasl.c:337
+#: src/gsasl.c:328
 #, c-format
 msgid "need both --x509-cert-file and --x509-key-file"
 msgstr "tarvitsee sekä valitsimen --x509-cert-file että valitsimen --x509-key-file"
 
-#: src/gsasl.c:341
+#: src/gsasl.c:332
 #, c-format
 msgid "cannot use both --starttls and --no-starttls"
 msgstr "ei voi käyttää sekä valitsinta --starttls että valitsinta --no-starttls"
 
-#: src/gsasl.c:344
+#: src/gsasl.c:335
 #, c-format
 msgid "cannot use both --smtp and --imap"
 msgstr "ei voi käyttää sekä valitsinta --smtp että valitsinta --imap"
 
-#: src/gsasl.c:409
+#: src/gsasl.c:400
 #, c-format
 msgid "initialization failure: %s"
 msgstr "alustusvirhe: %s"
 
-#: src/gsasl.c:424
+#: src/gsasl.c:415
 #, c-format
 msgid "error listing mechanisms: %s"
 msgstr "virheluettelomekanismit: %s"
 
-#: src/gsasl.c:431
+#: src/gsasl.c:422
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Tämä asiakas tukee seuraavia mekanismeja:\n"
 
-#: src/gsasl.c:434
+#: src/gsasl.c:425
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Tämä palvelin tukee seuraavia mekanismeja:\n"
 
-#: src/gsasl.c:500
+#: src/gsasl.c:491
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
 msgstr "GnuTLS-yleisalustus epäonnistui: %s"
 
-#: src/gsasl.c:505
+#: src/gsasl.c:496
 #, c-format
 msgid "GnuTLS initialization failed: %s"
 msgstr "GnuTLS-alustus epäonnistui: %s"
 
-#: src/gsasl.c:510
+#: src/gsasl.c:501
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
 msgstr "GnuTLS-oletusten asetus epäonnistui: %s"
 
-#: src/gsasl.c:516
+#: src/gsasl.c:507
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
 msgstr "varataan anonyymi GnuTLS-valtuutus: %s"
 
-#: src/gsasl.c:521
+#: src/gsasl.c:512
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
 msgstr "asetetaan anonyymi GnuTLS-valtuutus: %s"
 
-#: src/gsasl.c:526
+#: src/gsasl.c:517
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
 msgstr "varataan X.509 GnuTLS-valtuutus: %s"
 
-#: src/gsasl.c:534
+#: src/gsasl.c:525
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
 msgstr "ladataan X.509 GnuTLS-valtuutus: %s"
 
-#: src/gsasl.c:542
+#: src/gsasl.c:533
 #, c-format
 msgid "no X.509 CAs found: %s"
 msgstr "ei löytynyt X.509-varmennusviranomaisia: %s"
 
-#: src/gsasl.c:545
+#: src/gsasl.c:536
 #, c-format
 msgid "no X.509 CAs found"
 msgstr "ei löytynyt X.509-varmennusviranomaisia"
 
-#: src/gsasl.c:551
+#: src/gsasl.c:542
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
 msgstr "asetetaan X.509 GnuTLS-valtuutus: %s"
 
-#: src/gsasl.c:562
+#: src/gsasl.c:553
 #, c-format
 msgid "setting GnuTLS cipher priority (%s): %s\n"
 msgstr "asetetaan GnuTLS-salausprioriteetti (%s): %s\n"
 
-#: src/gsasl.c:573
+#: src/gsasl.c:564
 #, c-format
 msgid "GnuTLS handshake failed: %s"
 msgstr "GnuTLS-kättely epäonnistui: %s"
 
-#: src/gsasl.c:582
+#: src/gsasl.c:573
 #, c-format
 msgid "verifying peer certificate: %s"
 msgstr "todenna vertaisvarmenne: %s"
 
-#: src/gsasl.c:586
+#: src/gsasl.c:577
 #, c-format
 msgid "server certificate is not trusted"
 msgstr "palvelinvarmenne ei ole luotettava"
 
-#: src/gsasl.c:590
+#: src/gsasl.c:581
 #, c-format
 msgid "server certificate hasn't got a known issuer"
 msgstr "palvelinvarmenteen julkaisija ei ole tunnettu"
 
-#: src/gsasl.c:593
+#: src/gsasl.c:584
 #, c-format
 msgid "server certificate has been revoked"
 msgstr "palvelinvarmenne on peruttu"
 
-#: src/gsasl.c:597
+#: src/gsasl.c:588
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
 msgstr "ei voitu todentaa palvelinvarmennetta (rc=%d)"
 
-#: src/gsasl.c:620
+#: src/gsasl.c:611
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Mekanismia ei löydy...\n"
 
-#: src/gsasl.c:637
+#: src/gsasl.c:628
 #, c-format
 msgid "mechanism unavailable: %s"
 msgstr "mekanismi on tavoittamattomissa: %s"
 
-#: src/gsasl.c:666
+#: src/gsasl.c:657
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
 msgstr "Kirjoita base64-varmennedataa asiakkaalta (paina RET, jos ei mitään):\n"
 
-#: src/gsasl.c:669
+#: src/gsasl.c:660
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
 msgstr "Kirjoita base64-varmennedataa palvelimelta (paina RET, jos ei mitään):\n"
 
-#: src/gsasl.c:679
+#: src/gsasl.c:670
 #, c-format
 msgid "mechanism error: %s"
 msgstr "mekanismivirhe: %s"
 
-#: src/gsasl.c:688
+#: src/gsasl.c:679
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Palvelinvarmennus päättynyt (asiakas luotettu)...\n"
 
-#: src/gsasl.c:691
+#: src/gsasl.c:682
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Asiakasvarmennus päättynyt (palvelin luotettu)...\n"
 
-#: src/gsasl.c:714
+#: src/gsasl.c:705
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Kirjoita sovellusdataa (Päätä EOF-merkillä):\n"
 
-#: src/gsasl.c:787
+#: src/gsasl.c:780
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Base64-koodattua sovellusdataa lähetettävänä:\n"
 
-#: src/gsasl.c:843
+#: src/gsasl.c:822
+#, c-format
+msgid "SASL record too large: %zu\n"
+msgstr "SASL-tietue on liian suuri: %zu\n"
+
+#: src/gsasl.c:841
 #, c-format
 msgid "encoding error: %s"
 msgstr "koodausvirhe: %s"
 
-#: src/gsasl.c:848
+#: src/gsasl.c:846
 #, c-format
 msgid "Session finished...\n"
 msgstr "Istunto päättyi...\n"
 
-#: src/gsasl.c:864
+#: src/gsasl.c:862
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
 msgstr "GnuTLS-istunnon päättäminen epäonnistui: %s"
+
+#~ msgid "Cannot initialize Windows sockets."
+#~ msgstr "Ei voi alustaa Windows-pistokkeita."
+
+#~ msgid ""
+#~ "missing argument\n"
+#~ "Try `%s --help' for more information."
+#~ msgstr ""
+#~ "puuttuva argumentti\n"
+#~ "Lisätietoja komennolla ”%s --help”."
