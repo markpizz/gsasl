@@ -12,6 +12,9 @@ MIT Kerberos or Heimdal.  Channel bindings or not support yet.
 MIT Kerberos and Heimdal are now treated the same, it appears as if
 they are compatible in modern releases.
 
+** SCRAM: Encode and decode username/authzid properly.
+Before any username/authzid that contained '=' or ',' would not work.
+
 ** API and ABI modifications.
 No changes since last version.
 
