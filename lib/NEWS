@@ -18,6 +18,18 @@ Before any username/authzid that contained '=' or ',' would not work.
 ** API and ABI modifications.
 No changes since last version.
 
+* Version 1.4.2 (released 2010-03-15) [stable]
+
+** SCRAM: Encode and decode username/authzid properly.
+Before any username/authzid that contained '=' or ',' would not work.
+
+** Fix typo in error message for GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR.
+
+** i18n: Updated translations.
+
+** API and ABI modifications.
+No changes since last version.
+
 * Version 1.4.1 (released 2010-02-16) [stable]
 
 ** API and ABI modifications.

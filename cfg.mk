@@ -41,8 +41,9 @@ autoreconf:
 	test -f ./configure || autoreconf --install
 	mv $(build_aux)/config.rpath- $(build_aux)/config.rpath
 
-update-po: refresh-po
-	$(MAKE) -C lib update-po
+update-po:
+	$(MAKE) -C lib update-po PACKAGE=libgsasl
+	$(MAKE) refresh-po PACKAGE=gsasl
 	for f in `ls po/*.po | grep -v quot.po`; do \
 		cp $$f $$f.in; \
 	done
