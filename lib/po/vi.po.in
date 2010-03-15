@@ -1,14 +1,14 @@
 # Vietnamese Translation for LibGSASL.
-# Copyright © 2009 Free Software Foundation, Inc.
+# Copyright © 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libgsasl package.
-# Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libgsasl 1.1\n"
+"Project-Id-Version: libgsasl 1.4.1\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2009-03-25 16:06+0100\n"
-"PO-Revision-Date: 2009-09-19 21:40+0930\n"
+"POT-Creation-Date: 2010-02-16 14:57+0100\n"
+"PO-Revision-Date: 2010-03-06 19:49+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -253,6 +253,6 @@ msgstr "Lỗi xác thực vì không có tên dịch vụ được cung cấp."
 msgid "Authentication failed because the host name was not provided."
 msgstr "Lỗi xác thực vì không có tên máy được cung cấp."
 
-#: src/error.c:206
+#: src/error.c:209
 msgid "Libgsasl unknown error"
 msgstr "Gặp lỗi Libgsasl không rõ"
