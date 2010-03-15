@@ -42,13 +42,13 @@ autoreconf:
 	mv $(build_aux)/config.rpath- $(build_aux)/config.rpath
 
 update-po:
-	$(MAKE) -C lib update-po PACKAGE=libgsasl
+	$(MAKE) -C lib refresh-po PACKAGE=libgsasl
 	$(MAKE) refresh-po PACKAGE=gsasl
-	for f in `ls po/*.po | grep -v quot.po`; do \
+	for f in `ls lib/po/*.po po/*.po | grep -v quot.po`; do \
 		cp $$f $$f.in; \
 	done
-	git add po/*.po.in
-	git commit -m "Sync with TP." po/LINGUAS po/*.po.in
+	git add {lib/,}po/*.po.in
+	git commit -m "Sync with TP." {lib/,}po/LINGUAS {lib/,}po/*.po.in
 
 bootstrap: autoreconf
 	./configure $(CFGFLAGS)
@@ -91,7 +91,7 @@ upload:
 	cd lib && make upload
 	git push
 	git push --tags
-	gnupload --to ftp.gnu.org:$(PACKAGE) $(distdir).tar.gz
+	gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
 
 web:

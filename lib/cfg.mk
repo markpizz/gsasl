@@ -60,5 +60,5 @@ prepare:
 	git commit -m Generated. ChangeLog
 
 upload:
-	gnupload --to ftp.gnu.org:gsasl $(distdir).tar.gz
+	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
 	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig ../../releases/gsasl/
