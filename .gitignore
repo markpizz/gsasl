@@ -1,5 +1,4 @@
 *~
-gsasl-*.tar.gz
 ABOUT-NLS
 INSTALL
 Makefile
@@ -278,6 +277,7 @@ gltests/test-xalloc-die.o
 gltests/time.h
 gltests/version-etc-fsf.o
 gltests/warn-on-use.h
+gsasl-*.tar.gz
 lib/ABOUT-NLS
 lib/INSTALL
 lib/Makefile
@@ -450,8 +450,20 @@ lib/gltests/test-wchar
 lib/gltests/test-wchar.o
 lib/gltests/warn-on-use.h
 lib/gs2/.deps/
+lib/gs2/.libs/
 lib/gs2/Makefile
 lib/gs2/Makefile.in
+lib/gs2/client.lo
+lib/gs2/client.o
+lib/gs2/gs2asn1.lo
+lib/gs2/gs2asn1.o
+lib/gs2/gs2helper.lo
+lib/gs2/gs2helper.o
+lib/gs2/libgsasl-gs2.la
+lib/gs2/mechinfo.lo
+lib/gs2/mechinfo.o
+lib/gs2/server.lo
+lib/gs2/server.o
 lib/gssapi/.deps/
 lib/gssapi/.libs/
 lib/gssapi/Makefile
@@ -533,6 +545,8 @@ lib/plain/mechinfo.lo
 lib/plain/mechinfo.o
 lib/plain/server.lo
 lib/plain/server.o
+lib/po/*.gmo
+lib/po/*.po
 lib/po/Makefile
 lib/po/Makefile.in
 lib/po/Makefile.in.in
@@ -540,8 +554,6 @@ lib/po/Makevars.template
 lib/po/POTFILES
 lib/po/Rules-quot
 lib/po/boldquot.sed
-lib/po/*.po
-lib/po/*.gmo
 lib/po/en@boldquot.header
 lib/po/en@boldquot.insert-header
 lib/po/en@quot.header
@@ -670,6 +682,8 @@ m4/visibility.m4
 m4/wchar_t.m4
 m4/wint_t.m4
 m4/xsize.m4
+po/*.gmo
+po/*.po
 po/Makefile
 po/Makefile.in
 po/Makefile.in.in
@@ -677,8 +691,6 @@ po/Makevars.template
 po/POTFILES
 po/Rules-quot
 po/boldquot.sed
-po/*.gmo
-po/*.po
 po/en@boldquot.header
 po/en@boldquot.insert-header
 po/en@quot.header
@@ -718,6 +730,10 @@ tests/errors
 tests/errors.o
 tests/external
 tests/external.o
+tests/gs2-krb5
+tests/gs2-krb5.o
+tests/gssapi
+tests/gssapi.o
 tests/libutils.la
 tests/md5file
 tests/md5file.o
