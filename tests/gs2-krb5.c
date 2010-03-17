@@ -26,6 +26,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "utils.h"
 
@@ -117,6 +118,8 @@ doit (void)
 
   for (i = 0; i < 5; i++)
     {
+      bool server_first = (i % 2) == 0;
+
       rc = gsasl_server_start (ctx, "GS2-KRB5", &server);
       if (rc != GSASL_OK)
 	{
@@ -132,11 +135,9 @@ doit (void)
 
       do
 	{
-	  res1 = gsasl_step64 (client, s1, &s2);
+	  res1 = gsasl_step64 (server_first ? server : client, s1, &s2);
 	  if (s1 == NULL && res1 == GSASL_OK)
 	    fail("gsasl_step64 direct success?\n");
-	  if (s1 == NULL && strcmp (s2, "") == 0)
-	    fail("gsasl_step64 empty initial output?\n");
 	  if (s1)
 	    {
 	      gsasl_free (s1);
@@ -150,9 +151,10 @@ doit (void)
 	    }
 
 	  if (debug)
-	    printf ("C: %s [%c]\n", s2, res1 == GSASL_OK ? 'O' : 'N');
+	    printf ("%c: %s [%c]\n", server_first ? 'S' : 'C',
+		    s2, res1 == GSASL_OK ? 'O' : 'N');
 
-	  res2 = gsasl_step64 (server, s2, &s1);
+	  res2 = gsasl_step64 (server_first ? client : server, s2, &s1);
 	  gsasl_free (s2);
 	  if (res2 != GSASL_OK && res2 != GSASL_NEEDS_MORE)
 	    {
@@ -162,7 +164,8 @@ doit (void)
 	    }
 
 	  if (debug)
-	    printf ("S: %s [%c]\n", s1, res2 == GSASL_OK ? 'O' : 'N');
+	    printf ("%c: %s [%c]\n", server_first ? 'C' : 'S',
+		    s1, res2 == GSASL_OK ? 'O' : 'N');
 	}
       while (res1 != GSASL_OK || res2 != GSASL_OK);
 
