@@ -1,5 +1,5 @@
 /* digest-md5.c --- Test the DIGEST-MD5 mechanism.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -200,7 +200,7 @@ doit (void)
 
       res = gsasl_step (server, s2, s2len, &s1, &s1len);
       free (s2);
-      if (res != GSASL_NEEDS_MORE)
+      if (res != GSASL_OK)
 	{
 	  fail ("gsasl_step(3) failed (%d):\n%s\n", res,
 		gsasl_strerror (res));
@@ -231,25 +231,7 @@ doit (void)
 	    printf ("C: \n");
 	}
 
-      /* Server is done. */
-
-      res = gsasl_step (server, s2, s2len, &s1, &s1len);
       free (s2);
-      if (res != GSASL_OK)
-	{
-	  fail ("gsasl_step(5) failed (%d):\n%s\n", res,
-		gsasl_strerror (res));
-	  return;
-	}
-
-      if (s1len != 0)
-	{
-	  fail ("gsasl_step() failed, additional length=%d:\n", s1len);
-	  fail ("%s\n", s1);
-	  return;
-	}
-
-      free (s1);
 
       if (debug)
 	printf ("\n");
