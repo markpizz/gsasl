@@ -281,6 +281,12 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
 	return GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR;
 
+      if (maj_stat == GSS_S_COMPLETE)
+	{
+	  if (!(ret_flags & GSS_C_MUTUAL_FLAG))
+	    return GSASL_MECHANISM_PARSE_ERROR;
+	}
+
       if (free_bufdesc1)
 	{
 	  maj_stat = gss_release_buffer (&min_stat, &bufdesc1);
