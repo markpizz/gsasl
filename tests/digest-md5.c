@@ -202,9 +202,9 @@ doit (void)
 	  return;
 	}
 
-      /* Server begins... */
+      /* Client sends empty token... */
 
-      res = gsasl_step (server, NULL, 0, &s1, &s1len);
+      res = gsasl_step (client, NULL, 0, &s1, &s1len);
       if (res != GSASL_NEEDS_MORE)
 	{
 	  fail ("gsasl_step(1) failed (%d):\n%s\n", res,
@@ -213,11 +213,11 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s\n", s1len, s1);
+	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
 
-      /* Client respond... */
+      /* Server starts... */
 
-      res = gsasl_step (client, s1, s1len, &s2, &s2len);
+      res = gsasl_step (server, s1, s1len, &s2, &s2len);
       gsasl_free (s1);
       if (res != GSASL_NEEDS_MORE)
 	{
@@ -227,11 +227,11 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n", s2len, s2);
+	printf ("S: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
 
-      /* Server finishes... */
+      /* Client responds... */
 
-      res = gsasl_step (server, s2, s2len, &s1, &s1len);
+      res = gsasl_step (client, s2, s2len, &s1, &s1len);
       gsasl_free (s2);
       if (res != GSASL_NEEDS_MORE)
 	{
@@ -241,11 +241,11 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s\n", s1len, s1);
+	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
 
-      /* Client finishes... */
+      /* Server finishes... */
 
-      res = gsasl_step (client, s1, s1len, &s2, &s2len);
+      res = gsasl_step (server, s1, s1len, &s2, &s2len);
       gsasl_free (s1);
       if (res != GSASL_OK)
 	{
@@ -255,18 +255,11 @@ doit (void)
 	}
 
       if (debug)
-	{
-	  /* Solaris x86 crashes here if s2 is NULL, even when s2len
-	     is 0. */
-	  if (s2len)
-	    printf ("C: %.*s\n", s2len, s2);
-	  else
-	    printf ("C: \n");
-	}
+	printf ("S: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
 
-      /* Server is done. */
+      /* Client finishes. */
 
-      res = gsasl_step (server, s2, s2len, &s1, &s1len);
+      res = gsasl_step (client, s2, s2len, &s1, &s1len);
       gsasl_free (s2);
       if (res != GSASL_OK)
 	{
@@ -282,7 +275,129 @@ doit (void)
 	  return;
 	}
 
+      if (debug)
+	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+
+      /* Server is done. */
+
+      res = gsasl_step (server, s1, s1len, &s2, &s2len);
+      if (res != GSASL_MECHANISM_CALLED_TOO_MANY_TIMES)
+	{
+	  fail ("gsasl_step(6) failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      /* Client is done. */
+
+      res = gsasl_step (client, s1, s1len, &s2, &s2len);
+      if (res != GSASL_MECHANISM_CALLED_TOO_MANY_TIMES)
+	{
+	  fail ("gsasl_step(7) failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
       gsasl_free (s1);
+
+      if (debug)
+	printf ("\n");
+
+      gsasl_finish (client);
+      gsasl_finish (server);
+    }
+
+  for (i = 0; i < 5; i++)
+    {
+      res = gsasl_server_start (ctx, "DIGEST-MD5", &server);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  return;
+	}
+      res = gsasl_client_start (ctx, "DIGEST-MD5", &client);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  return;
+	}
+
+      /* Server begins... */
+
+      res = gsasl_step (server, NULL, 0, &s1, &s1len);
+      if (res != GSASL_NEEDS_MORE)
+	{
+	  fail ("gsasl_step(8) failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	printf ("S: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+
+      /* Client respond... */
+
+      res = gsasl_step (client, s1, s1len, &s2, &s2len);
+      gsasl_free (s1);
+      if (res != GSASL_NEEDS_MORE)
+	{
+	  fail ("gsasl_step(9) failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	printf ("C: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
+
+      /* Server finishes... */
+
+      res = gsasl_step (server, s2, s2len, &s1, &s1len);
+      gsasl_free (s2);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_step(10) failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	printf ("S: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+
+      /* Client finishes... */
+
+      res = gsasl_step (client, s1, s1len, &s2, &s2len);
+      gsasl_free (s1);
+      if (res != GSASL_OK)
+	{
+	  fail ("gsasl_step(11) failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      if (debug)
+	printf ("C: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
+
+      /* Server is done. */
+
+      res = gsasl_step (server, s2, s2len, &s1, &s1len);
+      if (res != GSASL_MECHANISM_CALLED_TOO_MANY_TIMES)
+	{
+	  fail ("gsasl_step(12) failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      /* Client is done. */
+
+      res = gsasl_step (client, s2, s2len, &s1, &s1len);
+      if (res != GSASL_MECHANISM_CALLED_TOO_MANY_TIMES)
+	{
+	  fail ("gsasl_step(13) failed (%d):\n%s\n", res,
+		gsasl_strerror (res));
+	  return;
+	}
+
+      gsasl_free (s2);
 
       /* Encode data in client. */
 
