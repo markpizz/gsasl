@@ -26,6 +26,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "utils.h"
 
@@ -142,6 +143,8 @@ doit (void)
 
   for (i = 0; i <= 15; i++)
     {
+      bool server_first = (i % 2) == 0;
+
       if (debug)
 	printf ("Iteration %d ...\n", i);
 
@@ -158,9 +161,31 @@ doit (void)
 	  return;
 	}
 
+      if (server_first)
+	{
+	  res = gsasl_step (server, NULL, 0, &s1, &s1len);
+	  if (res != GSASL_NEEDS_MORE)
+	    {
+	      fail ("gsasl_step[%d](0) failed (%d):\n%s\n", i, res,
+		    gsasl_strerror (res));
+	      return;
+	    }
+
+	  if (s1len != 0)
+	    fail ("dummy initial server step produced output?!\n");
+
+	  if (debug)
+	    printf ("S: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+	}
+      else
+	{
+	  s1 = NULL;
+	  s1len = 0;
+	}
+
       /* Client first... */
 
-      res = gsasl_step (client, NULL, 0, &s1, &s1len);
+      res = gsasl_step (client, s1, s1len, &s1, &s1len);
       if (res != GSASL_NEEDS_MORE)
 	{
 	  fail ("gsasl_step[%d](1) failed (%d):\n%s\n", i, res,
@@ -224,8 +249,8 @@ doit (void)
 	  return;
 	}
 
-      if (debug)
-	printf ("C: %.*s\n", s1len, s1);
+      if (s1len != 0)
+	fail ("dummy final client step produced output?!\n");
 
       {
 	const char *p = gsasl_property_fast (server, GSASL_AUTHID);
