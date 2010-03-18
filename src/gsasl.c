@@ -1,5 +1,5 @@
 /* gsasl.c --- Command line interface to libgsasl.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -450,7 +450,9 @@ main (int argc, char *argv[])
 
       for (ai = ai0; ai; ai = ai->ai_next)
 	{
-	  fprintf (stderr, "Trying %s...\n", quote (ai->ai_canonname));
+	  fprintf (stderr, "Trying %s...\n", quote (ai->ai_canonname ?
+						    ai->ai_canonname :
+						    connect_hostname));
 
 	  sockfd = socket (ai->ai_family, ai->ai_socktype, ai->ai_protocol);
 	  if (sockfd < 0)
