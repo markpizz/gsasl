@@ -91,6 +91,17 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
   return rc;
 }
 
+static char
+ret_char (int rc)
+{
+  if (rc == GSASL_OK)
+    return 'O';
+  else if (rc == GSASL_NEEDS_MORE)
+    return 'N';
+  else
+    return '?';
+}
+
 void
 doit (void)
 {
@@ -118,7 +129,7 @@ doit (void)
 
   for (i = 0; i < 5; i++)
     {
-      bool server_first = (i % 2) == 0;
+      bool client_first = (i % 2) == 0;
 
       rc = gsasl_server_start (ctx, "GS2-KRB5", &server);
       if (rc != GSASL_OK)
@@ -133,9 +144,23 @@ doit (void)
 	  return;
 	}
 
+      if (client_first)
+	{
+	  rc = gsasl_step64 (client, NULL, &s1);
+	  if (rc != GSASL_OK && rc != GSASL_NEEDS_MORE)
+	    {
+	      fail ("gsasl_step64 failed (%d):\n%s\n", rc,
+		    gsasl_strerror (rc));
+	      return;
+	    }
+
+	  if (debug)
+	    printf ("C: %s [%c]\n", s1, ret_char (rc));
+	}
+
       do
 	{
-	  res1 = gsasl_step64 (server_first ? server : client, s1, &s2);
+	  res1 = gsasl_step64 (server, s1, &s2);
 	  if (s1 == NULL && res1 == GSASL_OK)
 	    fail("gsasl_step64 direct success?\n");
 	  if (s1)
@@ -151,10 +176,9 @@ doit (void)
 	    }
 
 	  if (debug)
-	    printf ("%c: %s [%c]\n", server_first ? 'S' : 'C',
-		    s2, res1 == GSASL_OK ? 'O' : 'N');
+	    printf ("S: %s [%c]\n", s2, ret_char (res1));
 
-	  res2 = gsasl_step64 (server_first ? client : server, s2, &s1);
+	  res2 = gsasl_step64 (client, s2, &s1);
 	  gsasl_free (s2);
 	  if (res2 != GSASL_OK && res2 != GSASL_NEEDS_MORE)
 	    {
@@ -164,8 +188,7 @@ doit (void)
 	    }
 
 	  if (debug)
-	    printf ("%c: %s [%c]\n", server_first ? 'C' : 'S',
-		    s1, res2 == GSASL_OK ? 'O' : 'N');
+	    printf ("C: %s [%c]\n", s1, ret_char (res2));
 	}
       while (res1 != GSASL_OK || res2 != GSASL_OK);
 
