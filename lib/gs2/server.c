@@ -283,9 +283,23 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 
       if (maj_stat == GSS_S_COMPLETE)
 	{
+	  state->step++;
+
 	  if (!(ret_flags & GSS_C_MUTUAL_FLAG))
 	    return GSASL_MECHANISM_PARSE_ERROR;
+
+	  maj_stat = gss_display_name (&min_stat, state->client,
+				       &client_name, &mech_type);
+	  if (GSS_ERROR (maj_stat))
+	    return GSASL_GSSAPI_DISPLAY_NAME_ERROR;
+
+	  gsasl_property_set_raw (sctx, GSASL_GSSAPI_DISPLAY_NAME,
+				  client_name.value, client_name.length);
+
+	  res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_GSSAPI);
 	}
+      else
+	res = GSASL_NEEDS_MORE;
 
       if (free_bufdesc1)
 	{
@@ -303,28 +317,6 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
-
-      if (maj_stat == GSS_S_COMPLETE)
-	state->step++;
-
-      if (maj_stat == GSS_S_COMPLETE)
-	res = GSASL_OK;
-      else
-	res = GSASL_NEEDS_MORE;
-      break;
-
-    case 3:
-      maj_stat = gss_display_name (&min_stat, state->client,
-				   &client_name, &mech_type);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_DISPLAY_NAME_ERROR;
-
-      gsasl_property_set_raw (sctx, GSASL_GSSAPI_DISPLAY_NAME,
-			      client_name.value, client_name.length);
-
-      res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_GSSAPI);
-
-      state->step++;
       break;
 
     default:
