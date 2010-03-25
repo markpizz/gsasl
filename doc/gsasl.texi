@@ -12,7 +12,7 @@
 This manual was last updated @value{UPDATED} for version
 @value{VERSION} of GNU SASL.
 
-Copyright @copyright{} 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson.
+Copyright @copyright{} 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Simon Josefsson.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -534,7 +534,8 @@ For the complete list, refer to the output from @code{configure
 @subsection Installing under Windows
 
 There are two ways to build GNU SASL on Windows: via MinGW or via
-Microsoft Visual Studio.
+Microsoft Visual Studio.  Note that a binary release for Windows is
+available from @url{http://josefsson.org/gnutls4win/}.
 
 With MinGW, you can build a GNU SASL DLL and use it from other
 applications.  After installing MinGW (@url{http://mingw.org/}) follow
