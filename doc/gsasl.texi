@@ -1706,10 +1706,11 @@ values offered by the server (which may be inspected through the
 
 The SCRAM-SHA-1 mechanism is designed to provide (almost) the same
 capabilities as CRAM-MD5 and DIGEST-MD5 but use modern cryptographic
-techniques such as HMAC-SHA-1 and PKCS#5 PBKDF2.  SCRAM-SHA-1 supports
-authorization identities.  Like CRAM-MD5 and DIGEST-MD5, only a hashed
-password is transferred.  Consequently, SCRAM-SHA-1 needs access to
-the correct password to verify the client response.
+techniques such as HMAC-SHA-1 hashing and PKCS#5 PBKDF2 key
+derivation.  SCRAM-SHA-1 supports authorization identities.  Like
+CRAM-MD5 and DIGEST-MD5, only a hashed password is transferred.
+Consequently, SCRAM-SHA-1 needs access to the correct password to
+verify the client response.
 
 In the client, this mechanism is always enabled, and it requires the
 @code{GSASL_AUTHID} property, and either @code{GSASL_PASSWORD} or
