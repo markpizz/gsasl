@@ -8,6 +8,14 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.5.0 (unreleased) [beta]
 
+* Version 1.4.4 (released 2010-03-25) [stable]
+
+** See lib/NEWS.
+
+* Version 1.4.3 (released 2010-03-25) [stable]
+
+** See lib/NEWS.
+
 * Version 1.4.2 (released 2010-03-15) [stable]
 
 ** i18n: Updated translations.
