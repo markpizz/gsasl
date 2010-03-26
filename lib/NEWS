@@ -4,9 +4,10 @@ See the end for copying conditions.
 
 * Version 1.5.0 (unreleased) [beta]
 
-** GS2: New mechanism, supported for Kerberos V5.
+** GS2-KRB5: New mechanism GS2 with support for Kerberos V5.
 The supported GSS-API implementations are (like for GSS-API) GNU GSS,
-MIT Kerberos or Heimdal.  Channel bindings or not support yet.
+MIT Kerberos or Heimdal.  The GS2-KRB5-PLUS variant with TLS channel
+bindings are not supported.
 
 ** Detecting GSS-API implementation simplified.
 MIT Kerberos and Heimdal are now treated the same, it appears as if
