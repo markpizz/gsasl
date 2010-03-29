@@ -191,7 +191,12 @@ static struct {
   ERR (GSASL_GSSAPI_DECAPSULATE_TOKEN_ERROR,
        N_("GSSAPI error decapsulating token.")),
   ERR (GSASL_GSSAPI_INQUIRE_MECH_FOR_SASLNAME_ERROR,
-       N_("GSSAPI error getting OID for SASL mechanism name."))
+       N_("GSSAPI error getting OID for SASL mechanism name.")),
+  ERR (GSASL_GSSAPI_TEST_OID_SET_MEMBER_ERROR,
+       N_("GSSAPI error testing for OID in OID set.")),
+  ERR (GSASL_GSSAPI_RELEASE_OID_SET_ERROR,
+       N_("GSSAPI error releasing OID set."))
+
 };
 
 /**
