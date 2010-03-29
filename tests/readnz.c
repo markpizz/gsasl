@@ -36,7 +36,7 @@ doit2 (bool server_p)
   Gsasl *ctx = NULL;
   Gsasl_session *session = NULL;
   char *mechs;
-  char *mech, *ptrptr;
+  char *mech, *ptrptr = NULL;
   char *s1;
   size_t s1len;
   int res;
