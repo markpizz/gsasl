@@ -139,7 +139,7 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
   _gsasl_gs2_client_state *state = mech_data;
   gss_buffer_desc bufdesc, bufdesc2;
   gss_buffer_t buf = GSS_C_NO_BUFFER;
-  OM_uint32 maj_stat, min_stat;
+  OM_uint32 maj_stat, min_stat, ret_flags;
   gss_OID actual_mech_type;
   int res;
 
@@ -206,18 +206,22 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 				       &state->context,
 				       state->service,
 				       state->mech_oid,
-				       GSS_C_MUTUAL_FLAG |
-				       GSS_C_INTEG_FLAG |
-				       GSS_C_CONF_FLAG,
+				       GSS_C_MUTUAL_FLAG,
 				       0,
 				       &state->cb,
 				       buf,
 				       &actual_mech_type,
 				       &bufdesc2,
-				       NULL, /* ret_flags irrelevant */
+				       &ret_flags,
 				       NULL);
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
 	return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
+
+      /* The mutual_req_flag MUST be set.  Clients MUST check that the
+	 corresponding ret_flag is set when the context is fully
+	 established, else authentication MUST fail. */
+      if (maj_stat == GSS_S_COMPLETE && !(ret_flags & GSS_C_MUTUAL_FLAG))
+	return GSASL_AUTHENTICATION_ERROR;
 
       if (state->mech_oid->length != actual_mech_type->length ||
 	  memcmp (state->mech_oid->elements, actual_mech_type->elements,
