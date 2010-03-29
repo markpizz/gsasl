@@ -112,7 +112,7 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
       return GSASL_AUTHENTICATION_ERROR;
     sasl_mech_name.length = strlen (sasl_mech_name.value);
 
-    maj_stat = gss_inquiry_mech_for_saslname (&min_stat, &sasl_mech_name,
+    maj_stat = gss_inquire_mech_for_saslname (&min_stat, &sasl_mech_name,
 					      &state->mech_oid);
     if (GSS_ERROR (maj_stat))
       return GSASL_AUTHENTICATION_ERROR;

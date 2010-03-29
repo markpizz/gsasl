@@ -23,9 +23,12 @@
 #ifndef GS2_HELPER_H
 # define GS2_HELPER_H
 
+#ifndef HAVE_GSS_INQUIRE_MECH_FOR_SASLNAME
+
 extern OM_uint32
 gss_inquiry_mech_for_saslname (OM_uint32 *minor_status,
 			       const gss_buffer_t sasl_mech_name,
 			       gss_OID *mech_type);
+#endif
 
 #endif

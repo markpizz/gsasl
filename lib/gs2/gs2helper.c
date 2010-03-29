@@ -38,8 +38,14 @@
 /* Get specification. */
 #include "gs2helper.h"
 
+#ifndef HAVE_GSS_INQUIRE_MECH_FOR_SASLNAME
+
+/* Provide a dummy replacement function for GSS-API libraries that
+   lacks gss_inquire_mech_for_saslname.  This function only works for
+   Kerberos V5.  */
+
 OM_uint32
-gss_inquiry_mech_for_saslname (OM_uint32 *minor_status,
+gss_inquire_mech_for_saslname (OM_uint32 *minor_status,
 			       const gss_buffer_t sasl_mech_name,
 			       gss_OID *mech_type)
 {
@@ -48,7 +54,8 @@ gss_inquiry_mech_for_saslname (OM_uint32 *minor_status,
   };
 
   if (sasl_mech_name->value == NULL ||
-      strcmp (sasl_mech_name->value, "GS2-KRB5") != 0)
+      sasl_mech_name->length != 8 ||
+      memcmp (sasl_mech_name->value, "GS2-KRB5", 8) != 0)
     {
       if (minor_status)
 	*minor_status = 0;
@@ -60,3 +67,5 @@ gss_inquiry_mech_for_saslname (OM_uint32 *minor_status,
 
   return GSS_S_COMPLETE;
 }
+
+#endif
