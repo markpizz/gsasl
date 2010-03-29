@@ -257,6 +257,7 @@ if test "$gssapi_impl" != "no"; then
   LIBS="$LIBS $LIBGSS $GSS_LIBS"
   AC_CHECK_FUNCS([gss_encapsulate_token])
   AC_CHECK_FUNCS([gss_decapsulate_token])
+  AC_CHECK_FUNCS([gss_oid_equal])
   AC_CHECK_FUNCS([gss_inquire_mech_for_saslname])
   if test "$gssapi_impl" = "mit" || \
       test "$gssapi_impl" = "heimdal" || \
