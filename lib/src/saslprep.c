@@ -1,5 +1,5 @@
 /* saslprep.c --- Internationalized SASL string processing.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -30,7 +30,7 @@
 #endif
 
 /**
- * gsasl_saslprep - prepare internationalized string
+ * gsasl_saslprep:
  * @in: a UTF-8 encoded string.
  * @flags: any SASLprep flag, e.g., %GSASL_ALLOW_UNASSIGNED.
  * @out: on exit, contains newly allocated output string.
