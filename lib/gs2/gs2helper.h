@@ -38,6 +38,11 @@
 extern int
 gs2_get_oid (Gsasl_session * sctx, gss_OID *mech_oid);
 
+#ifndef HAVE_GSS_OID_EQUAL
+extern int
+gss_oid_equal (const gss_OID first_oid, const gss_OID second_oid);
+#endif /* HAVE_GSS_OID_EQUAL */
+
 #ifndef HAVE_GSS_INQUIRE_MECH_FOR_SASLNAME
 extern OM_uint32
 gss_inquiry_mech_for_saslname (OM_uint32 *minor_status,

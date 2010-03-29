@@ -52,6 +52,19 @@ gs2_get_oid (Gsasl_session * sctx, gss_OID *mech_oid)
   return GSASL_OK;
 }
 
+#ifndef HAVE_GSS_OID_EQUAL
+
+int
+gss_oid_equal (const gss_OID first_oid, const gss_OID second_oid)
+{
+  return first_oid && second_oid &&
+    first_oid->length == second_oid->length &&
+    memcmp (first_oid->elements, second_oid->elements,
+	    second_oid->length) == 0;
+}
+
+#endif
+
 #ifndef HAVE_GSS_INQUIRE_MECH_FOR_SASLNAME
 
 /* Provide a dummy replacement function for GSS-API libraries that

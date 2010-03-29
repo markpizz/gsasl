@@ -210,9 +210,7 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
       if (maj_stat == GSS_S_COMPLETE && !(ret_flags & GSS_C_MUTUAL_FLAG))
 	return GSASL_AUTHENTICATION_ERROR;
 
-      if (state->mech_oid->length != actual_mech_type->length ||
-	  memcmp (state->mech_oid->elements, actual_mech_type->elements,
-		  state->mech_oid->length) != 0)
+      if (!gss_oid_equal (state->mech_oid, actual_mech_type))
 	return GSASL_AUTHENTICATION_ERROR;
 
       if (state->step == 0)
