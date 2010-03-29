@@ -1,6 +1,5 @@
-/* accept.c --- wrappers for Windows accept function
-
-   Copyright (C) 2008-2010 Free Software Foundation, Inc.
+/* Test of <iconv.h> substitute.
+   Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,28 +14,18 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-/* Written by Paolo Bonzini */
-
 #include <config.h>
 
-#define WIN32_LEAN_AND_MEAN
-/* Get winsock2.h. */
-#include <sys/socket.h>
+#if HAVE_ICONV
+# include <iconv.h>
 
-/* Get set_winsock_errno, FD_TO_SOCKET etc. */
-#include "w32sock.h"
-
-#undef accept
+# ifndef ICONV_CONST
+#  define ICONV_CONST /* empty */
+# endif
+#endif
 
 int
-rpl_accept (int fd, struct sockaddr *addr, socklen_t *addrlen)
+main ()
 {
-  SOCKET fh = accept (FD_TO_SOCKET (fd), addr, addrlen);
-  if (fh == INVALID_SOCKET)
-    {
-      set_winsock_errno ();
-      return -1;
-    }
-  else
-    return SOCKET_TO_FD (fh);
+  return 0;
 }
