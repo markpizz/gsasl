@@ -215,9 +215,11 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 
       if (state->step == 0)
 	{
-	  maj_stat = gss_decapsulate_token (&bufdesc2, state->mech_oid,
-					    &bufdesc);
-	  if (GSS_ERROR (maj_stat))
+	  OM_uint32 maj_stat2;
+
+	  maj_stat2 = gss_decapsulate_token (&bufdesc2, state->mech_oid,
+					     &bufdesc);
+	  if (GSS_ERROR (maj_stat2))
 	    return GSASL_GSSAPI_ENCAPSULATE_TOKEN_ERROR;
 
 	  *output_len = state->cb.application_data.length + bufdesc.length;
@@ -232,8 +234,8 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 	  memcpy (*output + state->cb.application_data.length,
 		  bufdesc.value, bufdesc.length);
 
-	  maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-	  if (GSS_ERROR (maj_stat))
+	  maj_stat2 = gss_release_buffer (&min_stat, &bufdesc2);
+	  if (GSS_ERROR (maj_stat2))
 	    return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 	}
       else
