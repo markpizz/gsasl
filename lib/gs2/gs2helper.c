@@ -27,6 +27,9 @@
 /* Get strcmp. */
 #include <string.h>
 
+/* Get malloc, free. */
+#include <stdlib.h>
+
 /* Get specification. */
 #include "gs2helper.h"
 
@@ -76,8 +79,8 @@ gss_inquire_mech_for_saslname (OM_uint32 *minor_status,
 			       const gss_buffer_t sasl_mech_name,
 			       gss_OID *mech_type)
 {
-  static const gss_OID_desc krb5oid_static = {
-    9, "\x2a\x86\x48\x86\xf7\x12\x01\x02\x02"
+  static gss_OID_desc krb5oid_static = {
+    9, (char *) "\x2a\x86\x48\x86\xf7\x12\x01\x02\x02"
   };
 
   if (sasl_mech_name->value == NULL ||
@@ -141,7 +144,7 @@ _gss_asn1_length_der (size_t len, unsigned char *ans, size_t * ans_len)
     }
 }
 
-OM_uint32
+static OM_uint32
 _gss_encapsulate_token_prefix (const char *prefix, size_t prefixlen,
 			       const char *in, size_t inlen,
 			       const char *oid, OM_uint32 oidlen,
