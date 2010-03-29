@@ -256,6 +256,9 @@ if test "$gssapi_impl" = "mit" || \
   save_LIBS="$LIBS"
   CPPFLAGS="$CPPFLAGS $GSS_CFLAGS"
   LIBS="$LIBS $GSS_LIBS"
+  AC_CHECK_FUNCS([gss_encapsulate_token])
+  AC_CHECK_FUNCS([gss_decapsulate_token])
+  AC_CHECK_FUNCS([gss_inquiry_mech_for_saslname])
   AC_CHECK_HEADERS([gssapi.h gssapi/gssapi.h])
   if test "$ac_cv_header_gssapi_h$ac_cv_header_gssapi_gssapi_h" = "nono"; then
     gssapi_impl=no
