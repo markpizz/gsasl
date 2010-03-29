@@ -185,7 +185,13 @@ static struct {
   ERR (GSASL_NO_SERVICE,
        N_("Authentication failed because the service name was not provided.")),
   ERR (GSASL_NO_HOSTNAME,
-       N_("Authentication failed because the host name was not provided."))
+       N_("Authentication failed because the host name was not provided.")),
+  ERR (GSASL_GSSAPI_ENCAPSULATE_TOKEN_ERROR,
+       N_("GSSAPI error encapsulating token.")),
+  ERR (GSASL_GSSAPI_DECAPSULATE_TOKEN_ERROR,
+       N_("GSSAPI error decapsulating token.")),
+  ERR (GSASL_GSSAPI_INQUIRE_MECH_FOR_SASLNAME_ERROR,
+       N_("GSSAPI error getting OID for SASL mechanism name."))
 };
 
 /**

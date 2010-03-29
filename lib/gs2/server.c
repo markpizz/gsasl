@@ -115,7 +115,7 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
     maj_stat = gss_inquire_mech_for_saslname (&min_stat, &sasl_mech_name,
 					      &state->mech_oid);
     if (GSS_ERROR (maj_stat))
-      return GSASL_AUTHENTICATION_ERROR;
+      return GSASL_GSSAPI_INQUIRE_MECH_FOR_SASLNAME_ERROR;
   }
 
   state->step = 0;
@@ -252,9 +252,11 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 	bufdesc2.value = input + headerlen;
 	bufdesc2.length = input_len - headerlen;
 
-	res = gss_encapsulate_token (&bufdesc2, state->mech_oid, &bufdesc1);
-	if (res != 1)
-	  return res;
+	maj_stat = gss_encapsulate_token (&bufdesc2, state->mech_oid,
+					  &bufdesc1);
+	if (GSS_ERROR (maj_stat))
+	  return GSASL_GSSAPI_ENCAPSULATE_TOKEN_ERROR;
+
 	free_bufdesc1 = 1;
       }
       state->step++;

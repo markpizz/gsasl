@@ -15,8 +15,15 @@ they are compatible in modern releases.
 
 ** DIGEST-MD5: The server code now returns GSASL_OK after the final token.
 
+** New error codes for GS2 specific errors.
+The error codes are GSASL_GSSAPI_ENCAPSULATE_TOKEN_ERROR,
+GSASL_GSSAPI_DECAPSULATE_TOKEN_ERROR, and
+GSASL_GSSAPI_INQUIRE_MECH_FOR_SASLNAME_ERROR.
+
 ** API and ABI modifications.
-No changes since last version.
+GSASL_GSSAPI_ENCAPSULATE_TOKEN_ERROR: ADDED.
+GSASL_GSSAPI_DECAPSULATE_TOKEN_ERROR: ADDED.
+GSASL_GSSAPI_INQUIRE_MECH_FOR_SASLNAME_ERROR: ADDED.
 
 * Version 1.4.4 (released 2010-03-25) [stable]
 
