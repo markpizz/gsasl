@@ -42,7 +42,6 @@
 #endif
 
 #include "gs2helper.h"
-#include "gs2asn1.h"
 
 struct _gsasl_gs2_client_state
 {
@@ -230,46 +229,26 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 
       if (state->step == 0)
 	{
-	  const char *der = bufdesc2.value;
-	  size_t derlen = bufdesc2.length;
-	  size_t l, ll;
+	  maj_stat = gss_decapsulate_token (&bufdesc2, state->mech_oid,
+					    &bufdesc);
+	  if (GSS_ERROR (maj_stat))
+	    return GSASL_GSSAPI_ENCAPSULATE_TOKEN_ERROR;
 
-	  /* Strip off RFC 2743 section 3.1 token header. */
-
-	  if (derlen-- == 0)
-	    return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
-	  if (*der++ != '\x60')
-	    return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
-	  l = gs2_asn1_get_length_der (der, derlen, &ll);
-	  if (l <= 0 || derlen <= ll)
-	    return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
-	  derlen -= ll;
-	  der += ll;
-	  if (derlen != l)
-	    return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
-	  if (derlen-- == 0)
-	    return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
-	  if (*der++ != '\x06')
-	    return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
-	  l = gs2_asn1_get_length_der (der, derlen, &ll);
-	  if (l <= 0 || derlen <= ll)
-	    return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
-	  derlen -= ll;
-	  der += ll;
-	  if (l != state->mech_oid->length)
-	    return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
-	  if (memcmp (state->mech_oid->elements, der, l) != 0)
-	    return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
-	  derlen -= l;
-	  der += l;
-
-	  *output_len = state->cb.application_data.length + derlen;
+	  *output_len = state->cb.application_data.length + bufdesc.length;
 	  *output = malloc (*output_len);
 	  if (!*output)
-	    return GSASL_MALLOC_ERROR;
+	    {
+	      gss_release_buffer (&min_stat, &bufdesc);
+	      return GSASL_MALLOC_ERROR;
+	    }
 	  memcpy (*output, state->cb.application_data.value,
 		  state->cb.application_data.length);
-	  memcpy (*output + state->cb.application_data.length, der, derlen);
+	  memcpy (*output + state->cb.application_data.length,
+		  bufdesc.value, bufdesc.length);
+
+	  maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
+	  if (GSS_ERROR (maj_stat))
+	    return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 	}
       else
 	{
