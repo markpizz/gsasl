@@ -1,4 +1,4 @@
-/* gs2helper.h --- GS2 helper functions for missing GSS-API interface.
+/* gs2helper.c --- GS2 helper functions common to client and server.
  * Copyright (C) 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
@@ -26,17 +26,6 @@
 
 /* Get strcmp. */
 #include <string.h>
-
-#ifdef HAVE_LIBGSS
-# include <gss.h>
-#elif HAVE_GSSAPI_H
-# include <gssapi.h>
-#elif HAVE_GSSAPI_GSSAPI_H
-# include <gssapi/gssapi.h>
-#endif
-
-/* Get gsasl functions and types. */
-#include <gsasl.h>
 
 /* Get specification. */
 #include "gs2helper.h"

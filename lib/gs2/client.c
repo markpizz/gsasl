@@ -33,14 +33,6 @@
 /* Get memcpy, strlen. */
 #include <string.h>
 
-#ifdef HAVE_LIBGSS
-# include <gss.h>
-#elif HAVE_GSSAPI_H
-# include <gssapi.h>
-#elif HAVE_GSSAPI_GSSAPI_H
-# include <gssapi/gssapi.h>
-#endif
-
 #include "gs2helper.h"
 
 struct _gsasl_gs2_client_state

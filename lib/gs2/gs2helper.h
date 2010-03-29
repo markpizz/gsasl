@@ -1,4 +1,4 @@
-/* gs2helper.h --- GS2 helper functions for missing GSS-API interface.
+/* gs2helper.h --- GS2 helper functions common to client and server.
  * Copyright (C) 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
@@ -22,6 +22,18 @@
 
 #ifndef GS2_HELPER_H
 # define GS2_HELPER_H
+
+/* Get GSS-API functions. */
+#ifdef HAVE_LIBGSS
+# include <gss.h>
+#elif HAVE_GSSAPI_H
+# include <gssapi.h>
+#elif HAVE_GSSAPI_GSSAPI_H
+# include <gssapi/gssapi.h>
+#endif
+
+/* Get gsasl functions and types. */
+#include <gsasl.h>
 
 extern int
 gs2_get_oid (Gsasl_session * sctx, gss_OID *mech_oid);
