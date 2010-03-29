@@ -249,9 +249,9 @@ fi
 AC_SUBST([GSS_CFLAGS])
 AC_SUBST([GSS_LIBS])
 
-if test "$gssapi_impl" = "mit" -o \
-   "$gssapi_impl" = "heimdal" -o \
-   "$gssapi_impl" = "mitheimdal"; then
+if test "$gssapi_impl" = "mit" || \
+    test "$gssapi_impl" = "heimdal" || \
+    test "$gssapi_impl" = "mitheimdal"; then
   save_CPPFLAGS="$CPPFLAGS"
   save_LIBS="$LIBS"
   CPPFLAGS="$CPPFLAGS $GSS_CFLAGS"
