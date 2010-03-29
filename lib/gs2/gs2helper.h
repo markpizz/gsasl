@@ -23,12 +23,28 @@
 #ifndef GS2_HELPER_H
 # define GS2_HELPER_H
 
-#ifndef HAVE_GSS_INQUIRE_MECH_FOR_SASLNAME
+extern int
+gs2_get_oid (Gsasl_session * sctx, gss_OID *mech_oid);
 
+#ifndef HAVE_GSS_INQUIRE_MECH_FOR_SASLNAME
 extern OM_uint32
 gss_inquiry_mech_for_saslname (OM_uint32 *minor_status,
 			       const gss_buffer_t sasl_mech_name,
 			       gss_OID *mech_type);
+#endif /* HAVE_GSS_INQUIRE_MECH_FOR_SASLNAME */
+
+#ifndef HAVE_GSS_ENCAPSULATE_TOKEN
+extern OM_uint32
+gss_encapsulate_token (const gss_buffer_t input_token,
+		       const gss_OID token_oid,
+		       gss_buffer_t output_token);
+#endif /* HAVE_GSS_ENCAPSULATE_TOKEN */
+
+#ifndef HAVE_GSS_DECAPSULATE_TOKEN
+OM_uint32
+gss_decapsulate_token (const gss_buffer_t input_token,
+		       const gss_OID token_oid,
+		       gss_buffer_t output_token);
 #endif
 
-#endif
+#endif /* GS2_HELPER_H */

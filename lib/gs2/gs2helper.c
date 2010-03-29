@@ -35,8 +35,33 @@
 # include <gssapi/gssapi.h>
 #endif
 
+/* Get gsasl functions and types. */
+#include <gsasl.h>
+
 /* Get specification. */
 #include "gs2helper.h"
+
+/* Populate mech_oid with OID for the current SASL mechanism name.  A
+   bit silly given that we only support Kerberos V5 today, but will be
+   useful when that changes.  */
+int
+gs2_get_oid (Gsasl_session * sctx, gss_OID *mech_oid)
+{
+  gss_buffer_desc sasl_mech_name;
+  OM_uint32 maj_stat, min_stat;
+
+  sasl_mech_name.value = (void *) gsasl_mechanism_name (sctx);
+  if (!sasl_mech_name.value)
+    return GSASL_AUTHENTICATION_ERROR;
+  sasl_mech_name.length = strlen (sasl_mech_name.value);
+
+  maj_stat = gss_inquire_mech_for_saslname (&min_stat, &sasl_mech_name,
+					    mech_oid);
+  if (GSS_ERROR (maj_stat))
+    return GSASL_GSSAPI_INQUIRE_MECH_FOR_SASLNAME_ERROR;
+
+  return GSASL_OK;
+}
 
 #ifndef HAVE_GSS_INQUIRE_MECH_FOR_SASLNAME
 

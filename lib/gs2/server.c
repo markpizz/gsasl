@@ -54,15 +54,18 @@ struct _Gsasl_gs2_server_state
 };
 typedef struct _Gsasl_gs2_server_state _Gsasl_gs2_server_state;
 
-int
-_gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
+/* Populate state->cred with credential to use for connection. */
+static int
+gs2_get_cred  (Gsasl_session * sctx, _Gsasl_gs2_server_state * state)
 {
-  _Gsasl_gs2_server_state *state;
   OM_uint32 maj_stat, min_stat;
-  gss_name_t server;
   gss_buffer_desc bufdesc;
   const char *service;
   const char *hostname;
+  gss_name_t server;
+  gss_OID_set_desc oid_set;
+  gss_OID_set actual_mechs;
+  int present;
 
   service = gsasl_property_get (sctx, GSASL_SERVICE);
   if (!service)
@@ -77,46 +80,61 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
   if (bufdesc.length <= 0 || bufdesc.value == NULL)
     return GSASL_MALLOC_ERROR;
 
-  state = (_Gsasl_gs2_server_state *) malloc (sizeof (*state));
-  if (state == NULL)
-    {
-      free (bufdesc.value);
-      return GSASL_MALLOC_ERROR;
-    }
-
-  maj_stat = gss_import_name (&min_stat, &bufdesc, GSS_C_NT_HOSTBASED_SERVICE,
+  maj_stat = gss_import_name (&min_stat, &bufdesc,
+			      GSS_C_NT_HOSTBASED_SERVICE,
 			      &server);
   free (bufdesc.value);
   if (GSS_ERROR (maj_stat))
-    {
-      free (state);
-      return GSASL_GSSAPI_IMPORT_NAME_ERROR;
-    }
+    return GSASL_GSSAPI_IMPORT_NAME_ERROR;
+
+  oid_set.count = 1;
+  oid_set.elements = state->mech_oid;
 
   maj_stat = gss_acquire_cred (&min_stat, server, 0,
-			       GSS_C_NULL_OID_SET, GSS_C_ACCEPT,
-			       &state->cred, NULL, NULL);
+			       &oid_set, GSS_C_ACCEPT,
+			       &state->cred, &actual_mechs, NULL);
   gss_release_name (&min_stat, &server);
+  if (GSS_ERROR (maj_stat))
+    return GSASL_GSSAPI_ACQUIRE_CRED_ERROR;
 
+  maj_stat = gss_test_oid_set_member (&min_stat, state->mech_oid,
+				      actual_mechs, &present);
   if (GSS_ERROR (maj_stat))
     {
-      free (state);
-      return GSASL_GSSAPI_ACQUIRE_CRED_ERROR;
+      gss_release_oid_set (&min_stat, &actual_mechs);
+      return GSASL_GSSAPI_TEST_OID_SET_MEMBER_ERROR;
     }
 
-  {
-    gss_buffer_desc sasl_mech_name;
+  maj_stat = gss_release_oid_set (&min_stat, &actual_mechs);
+  if (GSS_ERROR (maj_stat))
+    return GSASL_GSSAPI_RELEASE_OID_SET_ERROR;
 
-    sasl_mech_name.value = (void *) gsasl_mechanism_name (sctx);
-    if (!sasl_mech_name.value)
-      return GSASL_AUTHENTICATION_ERROR;
-    sasl_mech_name.length = strlen (sasl_mech_name.value);
+  return GSASL_OK;
+}
 
-    maj_stat = gss_inquire_mech_for_saslname (&min_stat, &sasl_mech_name,
-					      &state->mech_oid);
-    if (GSS_ERROR (maj_stat))
-      return GSASL_GSSAPI_INQUIRE_MECH_FOR_SASLNAME_ERROR;
-  }
+int
+_gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
+{
+  _Gsasl_gs2_server_state *state;
+  int res;
+
+  state = (_Gsasl_gs2_server_state *) malloc (sizeof (*state));
+  if (state == NULL)
+    return GSASL_MALLOC_ERROR;
+
+  res = gs2_get_oid (sctx, &state->mech_oid);
+  if (res != GSASL_OK)
+    {
+      free (state);
+      return res;
+    }
+
+  res = gs2_get_cred (sctx, state);
+  if (res != GSASL_OK)
+    {
+      free (state);
+      return res;
+    }
 
   state->step = 0;
   state->context = GSS_C_NO_CONTEXT;
@@ -244,7 +262,10 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 	  return res;
 
 	if (authzid)
-	  gsasl_property_set (sctx, GSASL_AUTHZID, authzid);
+	  {
+	    gsasl_property_set (sctx, GSASL_AUTHZID, authzid);
+	    free (authzid);
+	  }
 
 	state->cb.application_data.value = input;
 	state->cb.application_data.length = headerlen;

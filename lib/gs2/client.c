@@ -57,12 +57,18 @@ int
 _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
 {
   _gsasl_gs2_client_state *state;
-  OM_uint32 maj_stat, min_stat;
-  gss_buffer_desc sasl_mech_name;
+  int res;
 
   state = (_gsasl_gs2_client_state *) malloc (sizeof (*state));
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
+
+  res = gs2_get_oid (sctx, &state->mech_oid);
+  if (res != GSASL_OK)
+    {
+      free (state);
+      return res;
+    }
 
   state->context = GSS_C_NO_CONTEXT;
   state->service = GSS_C_NO_NAME;
@@ -80,16 +86,6 @@ _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
   state->cb.acceptor_address.value = NULL;
   state->cb.application_data.length = 0;
   state->cb.application_data.value = NULL;
-
-  sasl_mech_name.value = (void *) gsasl_mechanism_name (sctx);
-  if (!sasl_mech_name.value)
-    return GSASL_AUTHENTICATION_ERROR;
-  sasl_mech_name.length = strlen (sasl_mech_name.value);
-
-  maj_stat = gss_inquire_mech_for_saslname (&min_stat, &sasl_mech_name,
-					    &state->mech_oid);
-  if (GSS_ERROR (maj_stat))
-    return GSASL_AUTHENTICATION_ERROR;
 
   *mech_data = state;
 
