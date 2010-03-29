@@ -114,10 +114,10 @@ interface which are unclear.
 @node SASL Overview
 @section SASL Overview
 
-SASL is a framework for application protocols, such as @acronym{SMTP}
-or @acronym{IMAP}, to add authentication support.  For example, SASL
-is used to prove to the server who you are when you access an
-@acronym{IMAP} server to read your e-mail.
+SASL is a framework for application protocols, such as SMTP or IMAP,
+to add authentication support.  For example, SASL is used to prove to
+the server who you are when you access an IMAP server to read your
+e-mail.
 
 The SASL framework does not specify the technology used to perform the
 authentication, that is the responsibility for each SASL mechanism.
@@ -131,7 +131,7 @@ exchange data, one round-trip at a time, until authentication either
 succeeds or fails.  After that, the client and server knows more about
 who is on the other end of the channel.
 
-For example, in @acronym{SMTP} communication happens like this:
+For example, in SMTP communication happens like this:
 
 @smallexample
 250-mail.example.com Hello pc.example.org [192.168.1.42], pleased to meet you
@@ -1007,9 +1007,8 @@ from the details of all different mechanisms.
 
 Note that the library does not send data to the server itself, but
 returns it in an buffer.  You must send it to the server, following an
-application protocol profile.  For example, the @acronym{SASL}
-application protocol profile for @acronym{SMTP} is described in
-@acronym{RFC} 2554.
+application protocol profile.  For example, the SASL application
+protocol profile for SMTP is described in RFC 2554.
 
 The following image illustrates the steps we have been talking about.
 
@@ -1609,7 +1608,7 @@ normalized and compared to the client credential.
 
 Which approach to use?  If your database stores hashed passwords, you
 have no option, but must use the first approach.  If passwords in your
-user database are stored in prepared (@acronym{SASLprep}) form, the
+user database are stored in prepared (SASLprep) form, the
 first approach will be faster.  If you do not have prepared passwords
 available, you can use the second approach to make sure the password
 is prepared properly before comparison.
@@ -1623,7 +1622,7 @@ identities.  Always use PLAIN instead of LOGIN in new applications.
 
 The callback behaviour is the same as for PLAIN, except that
 @code{GSASL_AUTHZID} is neither used nor required, and that the server
-does not normalize the password using @acronym{SASLprep}.
+does not normalize the password using SASLprep.
 
 @xref{Use of SASLprep in LOGIN}, for a proposed clarification of the
 interpretation of a hypothetical LOGIN specification.
@@ -1635,7 +1634,7 @@ interpretation of a hypothetical LOGIN specification.
 The CRAM-MD5 is a widely used, but officially deprecated (apparently
 in favor of DIGEST-MD5), challenge-response mechanism that transfers
 hashed passwords instead of clear text passwords.  For insecure
-channels (e.g., when @acronym{TLS} is not used), it is safer than
+channels (e.g., when TLS is not used), it is safer than
 PLAIN.  The CRAM-MD5 mechanism does not support authorization
 identities; making the relationship between CRAM-MD5 and DIGEST-MD5
 similar to the relationship between LOGIN and PLAIN.
@@ -1670,7 +1669,7 @@ data integrity and privacy protection are supported.  Like CRAM-MD5,
 only a hashed password is transferred.  Consequently, DIGEST-MD5 needs
 access to the correct password (although it may be hashed, another
 improvement compared to CRAM-MD5) to verify the client response.
-Alas, this makes it impossible to use, e.g., @acronym{PAM} on the
+Alas, this makes it impossible to use, e.g., PAM on the
 server side.
 
 In the client, this mechanism is always enabled, and it requires the
@@ -2185,22 +2184,20 @@ issues.
 @section Use of SASLprep in CRAM-MD5
 
 The specification, as of @file{draft-ietf-sasl-crammd5-04.txt}, is
-silent on whether a SASL server implementation applying
-@acronym{SASLprep} on a password received from an external, non-SASL
-specific database (i.e., the passwords are not stored in
-@acronym{SASLprep} form in the database), should set or clear the
-AllowUnassigned bit.  The motivation for the AU-bit in
-@acronym{StringPrep}/@acronym{SASLprep} is for stored vs query
-strings.  It could be argued that in this situation the server can
-treat the external password either as a stored string (from a
-database) or as a query (the server uses the string as a query into
-the fixed HMAC-MD5 hash).
+silent on whether a SASL server implementation applying SASLprep on a
+password received from an external, non-SASL specific database (i.e.,
+the passwords are not stored in SASLprep form in the database), should
+set or clear the AllowUnassigned bit.  The motivation for the AU-bit
+in StringPrep/SASLprep is for stored vs query strings.  It could be
+argued that in this situation the server can treat the external
+password either as a stored string (from a database) or as a query
+(the server uses the string as a query into the fixed HMAC-MD5 hash).
 
 The specification is also unclear on whether clients should set or
 clear the AllowUnassigned flag.
 
-In the server, GNU SASL applies @acronym{SASLprep} to the password
-with the AllowUnassigned bit cleared.
+In the server, GNU SASL applies SASLprep to the password with the
+AllowUnassigned bit cleared.
 
 @node Use of SASLprep in LOGIN
 @section Use of SASLprep in LOGIN
