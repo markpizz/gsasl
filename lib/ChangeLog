@@ -1,3 +1,538 @@
+2010-03-31  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 1.5.0.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* m4/valgrind.m4: Sync valgrind.m4.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/strtok_r.m4, gl/strtok_r.c: Add strtok_r module, for MinGW and
+	readnz.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-common.m4, lib/gl/Makefile.am,
+	lib/gl/m4/gnulib-cache.m4, lib/gl/m4/gnulib-common.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/strnlen.m4, lib/gl/strnlen.c,
+	lib/maint.mk, maint.mk: Update gnulib files.  Add strnlen.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gs2-krb5.c: Also test non-authzid scenario.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/cyclo/Makefile.am: Ignore some functions/files.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/client.c: Reduce complexity.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/simple.c: Check NULL handling in interfaces.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/xfinish.c: gsasl_finish: Handle NULL sctx.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/client.c: Fix memory leak and improve code coverage.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix @url's.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/gsasl-docs.sgml: Update.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add GS2 material.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, tests/Makefile.am, tests/gs2-krb5.c, tests/gssapi.c: 
+	Fix GNU GSS checks.  Be more verbose about configure options.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, tests/Makefile.am: Only run GSSAPI/GS2 self-tests
+	when using GNU GSS.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/configure.ac: Require GNU GSS version 1.0.0 or
+	later.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/Makefile.am, lib/gs2/README: Drop GS2 README.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Typo.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Silence warning.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix copyright years.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* gl/arpa_inet.in.h, gl/errno.in.h, gl/float.in.h, gl/getopt.in.h,
+	gl/iconv.in.h, gl/m4/fcntl-o.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/intldir.m4, gl/m4/printf-posix.m4, gl/m4/sys_ioctl_h.m4,
+	gl/m4/visibility.m4, gl/netdb.in.h, gl/netinet_in.in.h,
+	gl/stdarg.in.h, gl/stdint.in.h, gl/string.in.h, gl/sys_time.in.h,
+	gl/wctype.in.h, gltests/Makefile.am, gltests/ioctl.c,
+	gltests/sys_ioctl.in.h, gltests/time.in.h, lib/gl/errno.in.h,
+	lib/gl/float.in.h, lib/gl/m4/gnulib-comp.m4, lib/gl/m4/intldir.m4,
+	lib/gl/m4/printf-posix.m4, lib/gl/m4/visibility.m4,
+	lib/gl/stdint.in.h, lib/gl/string.in.h: Update gnulib files.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Doc fix.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/imap.c: Improve error message.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/client.c: Don't overwrite return value.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/gs2helper.c, lib/gs2/gs2helper.h: Fix warnings.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/client.c, lib/gs2/gs2helper.c, lib/gs2/gs2helper.h: Use
+	gss_oid_equal when available.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Also check for gss_oid_equal.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/client.c, lib/gs2/gs2helper.c, lib/gs2/gs2helper.h,
+	lib/gs2/server.c: Make gs2helper.h standalone.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Update NEWS.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/client.c, lib/gs2/gs2helper.c, lib/gs2/gs2helper.h,
+	lib/gs2/server.c: GS2: Cleanup code.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/src/error.c, lib/src/gsasl.h: Add more GSS-API error
+	codes.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/Makefile.am, lib/gs2/client.c, lib/gs2/gs2asn1.c,
+	lib/gs2/gs2asn1.h, lib/gs2/gs2helper.c: Use GSS capsulate functions
+	to simplify code.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Fix error code values.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* tests/readnz.c: Silence compiler warning.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/gs2/server.c, lib/src/error.c, lib/src/gsasl.h: 
+	Improve GS2 error codes.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/client.c, lib/gs2/gs2helper.c, lib/gs2/gs2helper.h,
+	lib/gs2/server.c: gss_inquire_mech_for_saslname: Fix replacement and
+	usage.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Improve GSS-API library feature checks.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Fix typo.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/client.c: Check ret_flags.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/saslprep.c: Doc fix to avoid warning from GTK-DOC.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Check for extended GSS-API interfaces.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_texinfo_acronym: Add.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Drop @acronym.
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Fix syntax-check warning (test -o ).
+
+2010-03-29  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/arpa_inet.in.h, gl/connect.c, gl/errno.in.h,
+	gl/float.in.h, gl/getaddrinfo.c, gl/getopt.c, gl/getopt.in.h,
+	gl/gettext.h, gl/iconv.in.h, gl/m4/arpa_inet_h.m4,
+	gl/m4/exitfail.m4, gl/m4/fcntl_h.m4, gl/m4/getaddrinfo.m4,
+	gl/m4/gnulib-common.m4, gl/m4/gnulib-comp.m4, gl/m4/iconv_h.m4,
+	gl/m4/iconv_open.m4, gl/m4/inet_ntop.m4, gl/m4/inet_pton.m4,
+	gl/m4/netdb_h.m4, gl/m4/setenv.m4, gl/m4/stddef_h.m4,
+	gl/m4/stdio_h.m4, gl/m4/stdlib_h.m4, gl/m4/string_h.m4,
+	gl/m4/sys_ioctl_h.m4, gl/m4/sys_select_h.m4, gl/m4/sys_socket_h.m4,
+	gl/m4/sys_stat_h.m4, gl/m4/sys_time_h.m4, gl/m4/time_h.m4,
+	gl/m4/unistd_h.m4, gl/m4/wchar.m4, gl/m4/wchar_h.m4,
+	gl/m4/wctype.m4, gl/m4/wctype_h.m4, gl/netdb.in.h,
+	gl/netinet_in.in.h, gl/poll.c, gl/recv.c, gl/select.c,
+	gl/stdarg.in.h, gl/stdint.in.h, gl/stdio.in.h, gl/stdlib.in.h,
+	gl/string.in.h, gl/sys_select.in.h, gl/sys_socket.in.h,
+	gl/sys_time.in.h, gl/unistd.in.h, gl/wchar.in.h, gl/wctype.in.h,
+	gltests/Makefile.am, gltests/accept.c, gltests/bind.c,
+	gltests/fcntl.in.h, gltests/sys_ioctl.in.h, gltests/sys_stat.in.h,
+	gltests/test-dup2.c, gltests/test-getopt.c, gltests/test-getopt.h,
+	gltests/test-iconv-h.c, gltests/test-vc-list-files-git.sh,
+	gltests/test-wctype.c, gltests/time.in.h, lib/build-aux/c++defs.h,
+	lib/build-aux/warn-on-use.h, lib/gl/Makefile.am, lib/gl/errno.in.h,
+	lib/gl/float.in.h, lib/gl/gettext.h, lib/gl/m4/gnulib-common.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/stddef_h.m4,
+	lib/gl/m4/stdio_h.m4, lib/gl/m4/stdlib_h.m4, lib/gl/m4/string_h.m4,
+	lib/gl/m4/unistd_h.m4, lib/gl/m4/wchar.m4, lib/gl/m4/wchar_h.m4,
+	lib/gl/stdint.in.h, lib/gl/stdio.in.h, lib/gl/stdlib.in.h,
+	lib/gl/string.in.h, lib/gl/unistd.in.h, lib/gl/wchar.in.h,
+	lib/gltests/Makefile.am, lib/gltests/test-base64.c, lib/maint.mk,
+	maint.mk: Update gnulib files.
+
+2010-03-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Fix.
+
+2010-03-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Fixup NEWS entries.
+
+2010-03-26  Simon Josefsson <simon@josefsson.org>
+
+	* doc/announce.txt: Update for 1.4.4.
+
+2010-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Improve wording.
+
+2010-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Link to Windows binaries.
+
+2010-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gs2-krb5.c: Make server-first logic more correct.
+
+2010-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/server.c: Properly call GSS-API validate callback.
+
+2010-03-18  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/scram/parser.c: SCRAM: Don't read out of bounds when
+	parsing tokens.
+
+2010-03-18  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/readnz.c: Add self-test for
+	round-out-of-bounds.
+
+2010-03-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Don't crash if getaddrinfo failed to canonicalize
+	address, but use user string.
+
+2010-03-18  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Also need gperf.
+
+2010-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* tests/old-digest-md5.c: Fix self test to handle modified
+	DIGEST-MD5 behaviour.
+
+2010-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Also test server goes first.
+
+2010-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* tests/digest-md5.c: Also test client-goes-first.
+
+2010-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS, lib/digest-md5/server.c: DIGEST-MD5: The server code now
+	returns GSASL_OK after the final token.
+
+2010-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/server.c: Check mutual in ret_flags.
+
+2010-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gssapi.c: Try both client first and server first.
+
+2010-03-17  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gs2-krb5.c: Try both client first and server first.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* doc/announce.txt: Update.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* doc/ANNOUNCE, doc/announce.txt: Rename.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/cfg.mk: Drop update-po in lib/.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, lib/cfg.mk: cfg.mk fixes.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* po/LINGUAS, po/fi.po.in, po/fr.po.in, po/id.po.in, po/it.po.in,
+	po/nl.po.in, po/pl.po.in, po/sk.po.in, po/sv.po.in, po/vi.po.in,
+	po/zh_CN.po.in: Sync with TP.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/LINGUAS, lib/po/it.po.in, lib/po/vi.po.in,
+	lib/po/zh_CN.po.in: Sync with TP.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore, NEWS, cfg.mk, lib/NEWS: Forward-port 1.4.x changes.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2010-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac, lib/gs2/Makefile.am, lib/gssapi/Makefile.am: 
+	Don't pollute CFLAGS/LIBS with GSS-API stuff.
+
+2010-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gs2-krb5.c: Fix typo.
+
+2010-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gs2-krb5.c, tests/gssapi.c: Silently fail GSSAPI/GS2-KRB5
+	tests if not available.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gssapi.c: Less verbose.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/server.c: Fix mem leak.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c, tests/scram.c: SCRAM: (Un)escape username.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/gssapi.cfg, tests/shishi.conf: Silence
+	Shishi warnings.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gssapi.tkt: Generated.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c, lib/scram/printer.c, lib/scram/server.c,
+	tests/scram.c: SCRAM: (Un)escape authzid.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/gs2-krb5.c: Use self tests.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gssapi/client.c, lib/gssapi/server.c: Fix comment.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/server.c: Parse GS2 header.  Fix authzid handling.
+	Unescape authzid.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/client.c: Escape authzid.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/gssapi.c: Print return values too.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Print return values too.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/gssapi.cfg: Use a Shishi config file.
+
+2010-03-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac, lib/gs2/client.c, lib/gs2/gs2helper.c,
+	lib/gs2/server.c, lib/gssapi/client.c, lib/gssapi/server.c: Improve
+	GSSAPI library detection code.  Some systems (e.g., Mac OS X) still doesn't have gssapi.h, only
+	gssapi/gssapi.h.
+
+2010-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/server.c: Add channel binding.  Drop more old GSS-API
+	code.
+
+2010-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/server.c: Send token properly.
+
+2010-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/server.c: Drop junk.
+
+2010-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/error.c: Fix typo.
+
+2010-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Fix.
+
+2010-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2010-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac: Enable GS2 by default.
+
+2010-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/gs2asn1.c, lib/gs2/gs2asn1.h: GS2: Add ASN.1 helpers.
+
+2010-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac, lib/gs2/Makefile.am, lib/gs2/client.c,
+	lib/gs2/gs2helper.c, lib/gs2/gs2wrap.c, lib/gs2/server.c,
+	lib/gs2/test-parser.c, lib/gssapi/client.c, lib/gssapi/server.c: 
+	Simplify GSS-API detection.  More GS2 cleanup.
+
+2010-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/client.c: GS2: Remove debug code.  The client side should
+	now actually be finished, yay.
+
+2010-03-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/Makefile.am, lib/gs2/client.c, lib/gs2/gs2parser.c,
+	lib/gs2/gs2parser.h, lib/gs2/server.c: GS2: Channel binding stuff.
+	Cleanup.
+
+2010-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gs2/Makefile.am, lib/gs2/client.c, lib/gs2/gs2.h,
+	lib/gs2/gs2helper.c, lib/gs2/gs2helper.h, lib/gs2/mechinfo.c: Begin
+	some work on GS2 update.
+
+2010-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/gsasl.h: Generated.
+
+2010-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2010-02-24  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/warn-on-use.m4, gltests/gettimeofday.c,
+	lib/gl/m4/warn-on-use.m4: Update gnulib files.
+
+2010-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gettimeofday.m4, gl/m4/gnulib-common.m4,
+	gl/m4/lseek.m4, gl/m4/sys_time_h.m4, gl/netdb.in.h, gl/stdio.in.h,
+	gl/sys_select.in.h, gl/sys_time.in.h, gltests/init.sh,
+	lib/build-aux/gendocs.sh, lib/build-aux/vc-list-files,
+	lib/gl/m4/gnulib-common.m4, lib/gl/stdio.in.h: Update gnulib files.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* doc/ANNOUNCE: Add.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2010-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
 2010-02-16  Simon Josefsson <simon@josefsson.org>
 
 	* tests/symbols.c: Make it work when obsolete symbols are disabled.
