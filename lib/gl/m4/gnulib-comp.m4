@@ -86,6 +86,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module stdlib-tests:
   # Code from module string:
   # Code from module string-tests:
+  # Code from module strnlen:
   # Code from module strverscmp:
   # Code from module strverscmp-tests:
   # Code from module unistd:
@@ -215,6 +216,9 @@ AC_DEFUN([gl_INIT],
   gl_STDLIB_H
   # Code from module string:
   gl_HEADER_STRING_H
+  # Code from module strnlen:
+  gl_FUNC_STRNLEN
+  gl_STRING_MODULE_INDICATOR([strnlen])
   # Code from module strverscmp:
   gl_FUNC_STRVERSCMP
   gl_STRING_MODULE_INDICATOR([strverscmp])
@@ -429,6 +433,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdlib.in.h
   lib/str-two-way.h
   lib/string.in.h
+  lib/strnlen.c
   lib/strverscmp.c
   lib/unistd.in.h
   lib/vasnprintf.c
@@ -499,6 +504,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdio_h.m4
   m4/stdlib_h.m4
   m4/string_h.m4
+  m4/strnlen.m4
   m4/strverscmp.m4
   m4/threadlib.m4
   m4/uintmax_t.m4
