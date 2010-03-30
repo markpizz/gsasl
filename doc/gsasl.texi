@@ -249,7 +249,7 @@ library.
 @table @asis
 @item LibNTLM
 The NTLM mechanism requires the library LibNTLM,
-@url{http://josefsson.org/libntlm/}.
+@url{http://www.nongnu.org/libntlm/}.
 
 @item GSS-API
 The GSSAPI and GS2-KRB5 mechanisms requires a GSS-API library, see GNU
@@ -415,7 +415,7 @@ A mailing list where users may help each other exists, and you can
 reach it by sending e-mail to @email{help-gsasl@@gnu.org}.  Archives
 of the mailing list discussions, and an interface to manage
 subscriptions, is available through the World Wide Web at
-@url{http://lists.gnu.org/mailman/listinfo/help-gsasl}.
+@url{http://lists.gnu.org/mailman/listinfo/help-gsasl/}.
 
 @node Commercial Support
 @section Commercial Support
@@ -459,7 +459,7 @@ be mentioned here, contact the author (@pxref{Bug Reports}).
 
 The package can be downloaded from several places, including:
 
-@url{ftp://ftp.gnu.org/pub/gnu/gsasl/}
+@url{ftp://ftp.gnu.org/gnu/gsasl/}
 
 The latest version is stored in a file, e.g.,
 @samp{gsasl-@value{VERSION}.tar.gz} where the @samp{@value{VERSION}}
@@ -475,7 +475,7 @@ and install the package.  You will need a few basic tools, such as
 @samp{sh}, @samp{make} and @samp{cc}.
 
 @example
-$ wget -q ftp://ftp.gnu.org/pub/gnu/gsasl/gsasl-@value{VERSION}.tar.gz
+$ wget -q ftp://ftp.gnu.org/gnu/gsasl/gsasl-@value{VERSION}.tar.gz
 $ tar xfz gsasl-@value{VERSION}.tar.gz
 $ cd gsasl-@value{VERSION}/
 $ ./configure
