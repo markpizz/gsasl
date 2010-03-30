@@ -109,7 +109,57 @@ extern "C"
   };
   extern GSASL_API const char *GSASL_VALID_MECHANISM_CHARACTERS;
 
-  /* Error codes */
+  /**
+   * Gsasl_rc:
+   * @GSASL_OK: Successful return code, guaranteed to be always 0.
+   * @GSASL_NEEDS_MORE: Mechanism expects another round-trip.
+   * @GSASL_UNKNOWN_MECHANISM: Application requested an unknown mechanism.
+   * @GSASL_MECHANISM_CALLED_TOO_MANY_TIMES: Application requested too
+   *   many round trips from mechanism.
+   * @GSASL_MALLOC_ERROR: Memory allocation failed.
+   * @GSASL_BASE64_ERROR: Base64 encoding/decoding failed.
+   * @GSASL_CRYPTO_ERROR: Cryptographic error.
+   * @GSASL_SASLPREP_ERROR: Failed to prepare internationalized string.
+   * @GSASL_MECHANISM_PARSE_ERROR: Mechanism could not parse input.
+   * @GSASL_AUTHENTICATION_ERROR: Authentication has failed.
+   * @GSASL_INTEGRITY_ERROR: Application data integrity check failed.
+   * @GSASL_NO_CLIENT_CODE: Library was built with client functionality.
+   * @GSASL_NO_SERVER_CODE: Library was built with server functionality.
+   * @GSASL_NO_CALLBACK: Application did not provide a callback.
+   * @GSASL_NO_ANONYMOUS_TOKEN: Could not get required anonymous token.
+   * @GSASL_NO_AUTHID: Could not get required authentication
+   *   identity (username).
+   * @GSASL_NO_AUTHZID: Could not get required authorization identity.
+   * @GSASL_NO_PASSWORD: Could not get required password.
+   * @GSASL_NO_PASSCODE: Could not get required SecurID PIN.
+   * @GSASL_NO_PIN: Could not get required SecurID PIN.
+   * @GSASL_NO_SERVICE: Could not get required service name.
+   * @GSASL_NO_HOSTNAME: Could not get required hostname.
+   * @GSASL_GSSAPI_RELEASE_BUFFER_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_IMPORT_NAME_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_UNWRAP_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_WRAP_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_ACQUIRE_CRED_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_DISPLAY_NAME_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_UNSUPPORTED_PROTECTION_ERROR: An unsupported
+   *   quality-of-protection layer was requeted.
+   * @GSASL_GSSAPI_ENCAPSULATE_TOKEN_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_DECAPSULATE_TOKEN_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_INQUIRE_MECH_FOR_SASLNAME_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_TEST_OID_SET_MEMBER_ERROR: GSS-API library call error.
+   * @GSASL_GSSAPI_RELEASE_OID_SET_ERROR: GSS-API library call error.
+   * @GSASL_KERBEROS_V5_INIT_ERROR: Init error in KERBEROS_V5.
+   * @GSASL_KERBEROS_V5_INTERNAL_ERROR: General error in KERBEROS_V5.
+   * @GSASL_SHISHI_ERROR: Same as %GSASL_KERBEROS_V5_INTERNAL_ERROR.
+   * @GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE: SecurID mechanism
+   *   needs an additional passcode.
+   * @GSASL_SECURID_SERVER_NEED_NEW_PIN: SecurID mechanism
+   *   needs an new PIN.
+   *
+   * Error codes for library functions.
+   */
   typedef enum
   {
     GSASL_OK = 0,
@@ -154,9 +204,22 @@ extern "C"
     GSASL_GSSAPI_INQUIRE_MECH_FOR_SASLNAME_ERROR = 62,
     GSASL_GSSAPI_TEST_OID_SET_MEMBER_ERROR = 63,
     GSASL_GSSAPI_RELEASE_OID_SET_ERROR = 64
+    /* When adding new values, note that integers are not necessarily
+       assigned monotonously increasingly. */
   } Gsasl_rc;
 
-  /* Quality of Protection types, used by DIGEST-MD5 */
+  /**
+   * Gsasl_qop:
+   * @GSASL_QOP_AUTH: Authentication only.
+   * @GSASL_QOP_AUTH_INT: Authentication and integrity.
+   * @GSASL_QOP_AUTH_CONF: Authentication, integrity and confidentiality.
+   *
+   * Quality of Protection types (DIGEST-MD5 and GSSAPI).  The
+   * integrity and confidentiality values is about application data
+   * wrapping.  We recommend that you use @GSASL_QOP_AUTH with TLS as
+   * that combination is generally more secure and have better chance
+   * of working than the integrity/confidentiality layers of SASL.
+   */
   typedef enum
   {
     GSASL_QOP_AUTH = 1,
@@ -164,7 +227,19 @@ extern "C"
     GSASL_QOP_AUTH_CONF = 4
   } Gsasl_qop;
 
-  /* Cipher types, used by DIGEST-MD5 */
+  /**
+   * Gsasl_cipher:
+   * @GSASL_CIPHER_DES: Cipher DES.
+   * @GSASL_CIPHER_3DES: Cipher 3DES.
+   * @GSASL_CIPHER_RC4: Cipher RC4.
+   * @GSASL_CIPHER_RC4_40: Cipher RC4 with 40-bit keys.
+   * @GSASL_CIPHER_RC4_56: Cipher RC4 with 56-bit keys.
+   * @GSASL_CIPHER_AES: Cipher AES.
+   *
+   * Encryption types (DIGEST-MD5) for confidentiality services of
+   * application data.  We recommend that you use TLS instead as it is
+   * generally more secure and have better chance of working.
+   */
   typedef enum
   {
     GSASL_CIPHER_DES = 1,
@@ -175,17 +250,61 @@ extern "C"
     GSASL_CIPHER_AES = 32
   } Gsasl_cipher;
 
-  /* SASLprep flags, see gsasl_saslprep(). */
+  /**
+   * Gsasl_saslprep_flags:
+   * @GSASL_ALLOW_UNASSIGNED: Allow unassigned code points.
+   *
+   * Flags for the SASLprep function, see gsasl_saslprep().  For
+   * background, see the GNU Libidn documentation.
+   */
   typedef enum
   {
     GSASL_ALLOW_UNASSIGNED = 1
   } Gsasl_saslprep_flags;
 
-  /* Library handles */
+  /**
+   * Gsasl:
+   *
+   * Handle to global library context.
+   */
   typedef struct Gsasl Gsasl;
+
+  /**
+   * Gsasl_session:
+   *
+   * Handle to SASL session context.
+   */
   typedef struct Gsasl_session Gsasl_session;
 
-  /* Callback/property types. */
+  /**
+   * Gsasl_property:
+   * @GSASL_AUTHID: Authentication identity (username).
+   * @GSASL_AUTHZID: Authorization identity.
+   * @GSASL_PASSWORD: Password.
+   * @GSASL_ANONYMOUS_TOKEN: Anonymous identifier.
+   * @GSASL_SERVICE: Service name
+   * @GSASL_HOSTNAME: Host name.
+   * @GSASL_GSSAPI_DISPLAY_NAME: GSS-API credential principal name.
+   * @GSASL_PASSCODE: SecurID passcode.
+   * @GSASL_SUGGESTED_PIN: SecurID suggested PIN.
+   * @GSASL_PIN: SecurID PIN.
+   * @GSASL_REALM: User realm.
+   * @GSASL_DIGEST_MD5_HASHED_PASSWORD: Pre-computed hashed DIGEST-MD5
+   *   password, to avoid storing passwords in the clear.
+   * @GSASL_QOPS: Set of quality-of-protection values.
+   * @GSASL_QOP: Quality-of-protection value.
+   * @GSASL_SCRAM_ITER: Number of iterations in password-to-key hashing.
+   * @GSASL_SCRAM_SALT: Salt for password-to-key hashing.
+   * @GSASL_SCRAM_SALTED_PASSWORD: Pre-computed salted SCRAM key,
+   *   to avoid re-computation and storing passwords in the clear.
+   * @GSASL_VALIDATE_SIMPLE: Request for simple validation.
+   * @GSASL_VALIDATE_EXTERNAL: Request for validation of EXTERNAL.
+   * @GSASL_VALIDATE_ANONYMOUS: Request for validation of ANONYMOUS.
+   * @GSASL_VALIDATE_GSSAPI: Request for validation of GSSAPI/GS2.
+   * @GSASL_VALIDATE_SECURID: Reqest for validation of SecurID.
+   *
+   * Callback/property types.
+   */
   typedef enum
   {
     /* Information properties, e.g., username. */
