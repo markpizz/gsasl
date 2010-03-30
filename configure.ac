@@ -127,6 +127,8 @@ export WARN_CFLAGS
 
 AC_CONFIG_SUBDIRS([lib])
 
+AM_CONDITIONAL(GNUGSS, grep 'HAVE_LIBGSS 1' lib/config.h > /dev/null)
+
 AC_CONFIG_FILES([
   Makefile
   doc/Makefile
