@@ -6,7 +6,7 @@ See the end for copying conditions.
 
 ** GS2-KRB5: New mechanism GS2 with support for Kerberos V5.
 The supported GSS-API implementations are GNU GSS, MIT Kerberos or
-Heimdal.  The GS2-KRB5-PLUS variant with TLS channel bindings are not
+Heimdal.  The GS2-KRB5-PLUS variant with TLS channel bindings is not
 supported.
 
 ** DIGEST-MD5: The server code now returns GSASL_OK after the final token.
