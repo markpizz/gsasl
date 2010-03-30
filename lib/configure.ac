@@ -194,7 +194,13 @@ fi
 
 if test "$gssapi_impl" = "gss"; then
   AC_MSG_NOTICE([trying GSS])
-  AC_LIB_HAVE_LINKFLAGS(gss,, [#include <gss.h>], [gss_check_version (0);])
+  AC_LIB_HAVE_LINKFLAGS(gss,, [#include <gss.h>], [
+#if GSS_VERSION_NUMBER < 0x010000
+too old version
+#else
+gss_check_version (0);
+#endif
+])
   if test "$ac_cv_libgss" != yes; then
     gssapi_impl=no
     AC_MSG_WARN([GNU GSS not found, disabling GSSAPI.])
@@ -223,7 +229,13 @@ elif test "$gssapi_impl" != "no"; then
   AC_MSG_NOTICE([auto-detecing GSS/MIT/Heimdal])
   AC_MSG_NOTICE([use --with-gssapi-impl=IMPL to hard code])
   AC_MSG_NOTICE([where IMPL is `gss', `mit', or `heimdal'])
-  AC_LIB_HAVE_LINKFLAGS(gss,, [#include <gss.h>], [gss_check_version (0);])
+  AC_LIB_HAVE_LINKFLAGS(gss,, [#include <gss.h>], [
+#if GSS_VERSION_NUMBER < 0x010000
+too old version
+#else
+gss_check_version (0);
+#endif
+])
   if test "$ac_cv_libgss" = yes; then
     gssapi_impl=gss
     AC_MSG_NOTICE([GNU GSS found])
