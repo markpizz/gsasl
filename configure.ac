@@ -127,8 +127,6 @@ export WARN_CFLAGS
 
 AC_CONFIG_SUBDIRS([lib])
 
-AM_CONDITIONAL(GNUGSS, grep 'HAVE_LIBGSS 1' lib/config.h > /dev/null)
-
 AC_CONFIG_FILES([
   Makefile
   doc/Makefile
@@ -143,3 +141,16 @@ AC_CONFIG_FILES([
   tests/Makefile
 ])
 AC_OUTPUT
+
+AC_MSG_NOTICE([summary of build options:
+
+  version:            ${VERSION}
+  Host type:          ${host}
+  Install prefix:     ${prefix}
+  Compiler:           ${CC}
+  Warning flags:      errors: ${WERROR_CFLAGS} warnings: ${WARN_CFLAGS}
+  Library types:      Shared=${enable_shared}, Static=${enable_static}
+  Valgrind:           ${VALGRIND}
+  GnuTLS support:     $gnutls
+  Obsolete functions: $obsolete
+])
