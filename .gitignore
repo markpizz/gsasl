@@ -93,6 +93,7 @@ gl/arg-nonnull.h
 gl/arpa/
 gl/asnprintf.lo
 gl/asnprintf.o
+gl/c++defs.h
 gl/c-ctype.lo
 gl/c-ctype.o
 gl/c-strcasecmp.lo
@@ -105,6 +106,7 @@ gl/close-hook.o
 gl/configmake.h
 gl/exitfail.lo
 gl/exitfail.o
+gl/iconv.h
 gl/iconv_open-aix.h
 gl/iconv_open-hpux.h
 gl/iconv_open-irix.h
@@ -140,6 +142,7 @@ gl/version-etc.lo
 gl/version-etc.o
 gl/warn-on-use.h
 gl/wchar.h
+gl/wctype.h
 gl/xalloc-die.lo
 gl/xalloc-die.o
 gl/xmalloc.lo
@@ -148,6 +151,7 @@ gltests/.deps/
 gltests/Makefile
 gltests/Makefile.in
 gltests/arg-nonnull.h
+gltests/c++defs.h
 gltests/fcntl.h
 gltests/libtests.a
 gltests/malloca.o
@@ -375,6 +379,7 @@ lib/gl/asnprintf.lo
 lib/gl/asnprintf.o
 lib/gl/base64.lo
 lib/gl/base64.o
+lib/gl/c++defs.h
 lib/gl/gc-libgcrypt.lo
 lib/gl/gc-libgcrypt.o
 lib/gl/gc-pbkdf2-sha1.lo
@@ -398,6 +403,7 @@ lib/gltests/.deps/
 lib/gltests/Makefile
 lib/gltests/Makefile.in
 lib/gltests/arg-nonnull.h
+lib/gltests/c++defs.h
 lib/gltests/dummy.o
 lib/gltests/libtests.a
 lib/gltests/test-alloca-opt
@@ -749,6 +755,8 @@ tests/old-md5file
 tests/old-md5file.o
 tests/old-simple
 tests/old-simple.o
+tests/readnz
+tests/readnz.o
 tests/scram
 tests/scram.o
 tests/simple
