@@ -37,7 +37,7 @@
 
 struct _gsasl_gs2_client_state
 {
-  int step;
+  int step; /* 0 = initial, 1 = first token, 2 = looping, 3 = done */
   gss_name_t service;
   gss_ctx_id_t context;
   gss_OID mech_oid;
@@ -122,7 +122,7 @@ escape_authzid (const char *str)
 }
 
 static int
-gs2_prepare (Gsasl_session * sctx, _gsasl_gs2_client_state *state)
+prepare (Gsasl_session * sctx, _gsasl_gs2_client_state *state)
 {
   const char *service, *hostname;
   const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
@@ -176,16 +176,18 @@ gs2_prepare (Gsasl_session * sctx, _gsasl_gs2_client_state *state)
    token header and add channel binding data. For later round trips,
    just copy the buffer. */
 static int
-context2output (Gsasl_session * sctx,
-		_gsasl_gs2_client_state *state,
-		const gss_buffer_t token,
-		char **output, size_t * output_len)
+token2output (Gsasl_session * sctx,
+	      _gsasl_gs2_client_state *state,
+	      const gss_buffer_t token,
+	      char **output, size_t * output_len)
 {
   OM_uint32 maj_stat, min_stat;
   gss_buffer_desc bufdesc;
 
-  if (state->step == 0)
+  if (state->step == 1)
     {
+      state->step++;
+
       maj_stat = gss_decapsulate_token (token, state->mech_oid,
 					&bufdesc);
       if (GSS_ERROR (maj_stat))
@@ -233,78 +235,66 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
   gss_OID actual_mech_type;
   int res;
 
+  if (state->step > 2)
+    return GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
+
   if (state->step == 0)
     {
-      res = gs2_prepare (sctx, state);
+      res = prepare (sctx, state);
       if (res != GSASL_OK)
 	return res;
+      state->step++;
     }
 
-  switch (state->step)
+  if (state->step == 2)
     {
-    case 1:
       bufdesc.length = input_len;
       bufdesc.value = (void *) input;
       buf = &bufdesc;
-      /* fall through */
-
-    case 0:
-      if (state->token.value != NULL)
-	{
-	  maj_stat = gss_release_buffer (&min_stat, &state->token);
-	  if (GSS_ERROR (maj_stat))
-	    return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
-
-	  state->token.value = NULL;
-	  state->token.length = 0;
-	}
-
-      maj_stat = gss_init_sec_context (&min_stat,
-				       GSS_C_NO_CREDENTIAL,
-				       &state->context,
-				       state->service,
-				       state->mech_oid,
-				       GSS_C_MUTUAL_FLAG,
-				       0,
-				       &state->cb,
-				       buf,
-				       &actual_mech_type,
-				       &state->token,
-				       &ret_flags,
-				       NULL);
-      if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
-	return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
-
-      /* The mutual_req_flag MUST be set.  Clients MUST check that the
-	 corresponding ret_flag is set when the context is fully
-	 established, else authentication MUST fail. */
-      if (maj_stat == GSS_S_COMPLETE && !(ret_flags & GSS_C_MUTUAL_FLAG))
-	return GSASL_AUTHENTICATION_ERROR;
-
-      if (!gss_oid_equal (state->mech_oid, actual_mech_type))
-	return GSASL_AUTHENTICATION_ERROR;
-
-      res = context2output (sctx, state, &state->token, output, output_len);
-      if (res != GSASL_OK)
-	return res;
-
-      if (state->step == 0)
-	state->step++;
-      if (maj_stat == GSS_S_COMPLETE)
-	{
-	  state->step++;
-	  res = GSASL_OK;
-	}
-      else
-	res = GSASL_NEEDS_MORE;
-      break;
-
-    default:
-      res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
-      break;
     }
 
-  return res;
+  /* Release memory for token from last round-trip, if any. */
+  if (state->token.value != NULL)
+    {
+      maj_stat = gss_release_buffer (&min_stat, &state->token);
+      if (GSS_ERROR (maj_stat))
+	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
+
+      state->token.value = NULL;
+      state->token.length = 0;
+    }
+
+  maj_stat = gss_init_sec_context (&min_stat,
+				   GSS_C_NO_CREDENTIAL,
+				   &state->context,
+				   state->service,
+				   state->mech_oid,
+				   GSS_C_MUTUAL_FLAG,
+				   0,
+				   &state->cb,
+				   buf,
+				   &actual_mech_type,
+				   &state->token,
+				   &ret_flags,
+				   NULL);
+  if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
+    return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
+
+  res = token2output (sctx, state, &state->token, output, output_len);
+  if (res != GSASL_OK)
+    return res;
+
+  if (maj_stat == GSS_S_CONTINUE_NEEDED)
+    return GSASL_NEEDS_MORE;
+
+  if (!(ret_flags & GSS_C_MUTUAL_FLAG))
+    return GSASL_AUTHENTICATION_ERROR;
+
+  if (!gss_oid_equal (state->mech_oid, actual_mech_type))
+    return GSASL_AUTHENTICATION_ERROR;
+
+  state->step++;
+  return GSASL_OK;
 }
 
 void
