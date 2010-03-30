@@ -170,9 +170,9 @@ GNU SASL consists of a library (@code{libgsasl}), a command line
 utility (@code{gsasl}) to access the library from the shell, and a
 manual.  The library includes support for the framework (with
 authentication functions and application data privacy and integrity
-functions) and at least partial support for the CRAM-MD5, EXTERNAL,
-GSSAPI, ANONYMOUS, PLAIN, SECURID, DIGEST-MD5, SCRAM-SHA-1, LOGIN, and
-NTLM mechanisms.
+functions) and at least partial support for the ANONYMOUS, CRAM-MD5,
+DIGEST-MD5, EXTERNAL, GS2-KRB5, GSSAPI, LOGIN, NTLM, PLAIN,
+SCRAM-SHA-1, and SECURID mechanisms.
 
 The library is easily ported because it does not do network
 communication by itself, but rather leaves it up to the calling
@@ -252,8 +252,9 @@ The NTLM mechanism requires the library LibNTLM,
 @url{http://josefsson.org/libntlm/}.
 
 @item GSS-API
-The GSS-API mechanism requires a GSS-API library, such as GNU GSS
-(@url{http://www.gnu.org/software/gss/}), MIT Kerberos or Heimdal.
+The GSSAPI and GS2-KRB5 mechanisms requires a GSS-API library, see GNU
+GSS (@url{http://www.gnu.org/software/gss/}).  MIT Kerberos or Heimdal
+are also supported.
 
 @item LibIDN
 Processing of non-ASCII usernames and passwords requires the SASLprep
@@ -513,6 +514,7 @@ want to limit the size of the library.
 @itemx --disable-cram-md5
 @itemx --disable-digest-md5
 @itemx --disable-gssapi
+@itemx --disable-gs2
 @itemx --enable-kerberos_v5
 @itemx --disable-scram-sha1
 Disable or enable individual mechanisms (@pxref{Mechanisms}).
@@ -1468,8 +1470,8 @@ The GSASL_ANONYMOUS_TOKEN will contain token that identity the client.
 
 @item @code{GSASL_VALIDATE_GSSAPI}
 
-Used by the GSSAPI mechanism on the server side, to validate the
-client.  You may retrieve the authorization identity from
+Used by the GSSAPI and GS2-KRB5 mechanisms on the server side, to
+validate the client.  You may retrieve the authorization identity from
 GSASL_AUTHZID and the GSS-API display name from
 GSASL_GSSAPI_DISPLAY_NAME.
 
@@ -1506,13 +1508,13 @@ network but rather a hash of it.  Existing policy deciding systems
 like PAM cannot handle this, so the server callback for these
 mechanisms are more complicated.
 
-Further, mechanisms like GSSAPI (Kerberos 5) assume a specific
-authentication system.  In theory this means that the SASL library
-would not need to interact with the application, but rather call this
-specific authentication system directly.  However, some callbacks are
-supported anyway, to modify the behaviour of how the specific
-authentication system is used (i.e., to handle ``super-user'' login as
-some other user).
+Further, mechanisms like GSSAPI/GS2-KRB5 (Kerberos 5) assume a
+specific authentication system.  In theory this means that the SASL
+library would not need to interact with the application, but rather
+call this specific authentication system directly.  However, some
+callbacks are supported anyway, to modify the behaviour of how the
+specific authentication system is used (i.e., to handle ``super-user''
+login as some other user).
 
 Some mechanisms, like @samp{EXTERNAL} and @samp{ANONYMOUS} are
 entirely dependent on callbacks.
@@ -1528,6 +1530,7 @@ entirely dependent on callbacks.
 * NTLM::                    Microsoft NTLM authentication.
 * SECURID::                 Authentication using tokens.
 * GSSAPI::                  GSSAPI (Kerberos 5) authentication.
+* GS2-KRB5::                Improved GSSAPI (Kerberos 5) authentication.
 * KERBEROS_V5::             Experimental KERBEROS_V5 authentication.
 @end menu
 
@@ -1780,10 +1783,11 @@ find out the client selected PIN code.
 @section The GSSAPI mechanism
 @cindex GSSAPI
 
-GSS-API is a framework, similar to SASL, for authentication.  The
-GSSAPI mechanism only supports the Kerberos 5 GSS-API mechanism,
-though.  (A new SASL mechanism to support non-Kerberos 5 GSS-API
-mechanisms may be supported in the future.)
+The GSSAPI mechanism allows you to authenticate using Kerberos V5.
+The mechanism was originally designed to allow for any GSS-API
+mechanism to be used, but problems with the protocol made it
+unpractical and it is today restricted for use with Kerberos V5.  See
+the GS2 mechanism (@pxref{GS2-KRB5}) for a general solution.
 
 In the client, the mechanism is enabled only if the user has acquired
 credentials (i.e., a ticket granting ticket), and it requires the
@@ -1799,6 +1803,37 @@ authorize the user.  Note that authentication is performed by the
 GSS-API library.
 
 XXX: explain more about quality of service, maximum buffer size, etc.
+
+@node GS2-KRB5
+@section The GS2-KRB5 mechanism
+@cindex GS2
+@cindex GS2-KRB5
+
+GS2 is a protocol bridge between GSS-API and SASL, and allows every
+GSS-API mechanism that supports mutual authentication and channel
+bindings to be used as a SASL mechanism.  Currently we support the
+GS2-KRB5 mechanism, for Kerberos V5 authentication, however our GS2
+implementation is flexible enough to easily support other GSS-API
+mechanism if any gains popularity.
+
+In the client, the mechanism is enabled only if the user has acquired
+credentials (i.e., a ticket granting ticket), and it requires the
+@code{GSASL_AUTHID}, @code{GSASL_SERVICE}, and @code{GSASL_HOSTNAME}
+properties.
+
+In the server, the mechanism requires the @code{GSASL_SERVICE} and
+@code{GSASL_HOSTNAME} properties, and it will invoke the
+@code{GSASL_VALIDATE_GSSAPI} callback property in order to validate
+the user.  The callback may inspect the @code{GSASL_AUTHZID} and
+@code{GSASL_GSSAPI_DISPLAY_NAME} properties to decide whether to
+authorize the user.  Note that authentication is performed by the
+GSS-API library.
+
+@cindex GS2-KRB5-PLUS
+The GS2 framework supports a variant of each mechanism, called the
+PLUS variant, which can also bind the authentication to a secure
+channel through channel bindings.  Currently this is not supported by
+GNU SASL.
 
 @node KERBEROS_V5
 @section The KERBEROS_V5 mechanism
@@ -2019,8 +2054,8 @@ Cryptographic functions for some SASL mechanisms uses Libgcrypt by
 Werner Koch et al.  The NTLM mechanism uses Libntlm by Grant Edwards
 et al, using code from Samba written by Andrew Tridgell, and now
 maintained by Simon Josefsson.  The KERBEROS_V5 mechanism uses Shishi
-by Simon Josefsson.  The GSSAPI mechanism uses a GSS-API
-implementation, such as GSSLib by Simon Josefsson.
+by Simon Josefsson.  The GSSAPI and GS2-KRB5 mechanism uses a GSS-API
+implementation, such as GNU GSS by Simon Josefsson.
 
 Gnulib is used to simplify portability.
 
