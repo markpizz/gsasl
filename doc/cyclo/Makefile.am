@@ -1,4 +1,4 @@
-# Copyright (C) 2008, 2009  Simon Josefsson
+# Copyright (C) 2008, 2009, 2010  Simon Josefsson
 #
 # This file is part of GNU SASL.
 #
@@ -18,7 +18,7 @@
 EXTRA_DIST = cyclo-$(PACKAGE).html
 
 cyclo-$(PACKAGE).html:
-	$(PMCCABE) `find $(top_srcdir)/lib -name \*.[ch] | grep -v -e ../gl` \
+	$(PMCCABE) `find $(top_srcdir)/lib -name \*.[ch] | grep -v -e ../gl -e 	test-parser.c -e test-errors.c -e obsolete.c -e kerberos_v5` \
 		| sort -nr \
 		| $(AWK) -f ${top_srcdir}/lib/build-aux/pmccabe2html \
 			-v lang=html -v name="$(PACKAGE_NAME)" \
