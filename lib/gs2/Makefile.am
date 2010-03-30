@@ -23,8 +23,6 @@ AM_CFLAGS += $(CFLAG_VISIBILITY)
 AM_CPPFLAGS = -I$(srcdir)/../src -I../src -I$(srcdir)/../gl -I../gl \
 	$(GSS_CFLAGS)
 
-EXTRA_DIST = README
-
 noinst_LTLIBRARIES = libgsasl-gs2.la
 libgsasl_gs2_la_SOURCES = gs2.h mechinfo.c \
 	gs2helper.h gs2helper.c
