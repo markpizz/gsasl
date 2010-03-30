@@ -21,8 +21,9 @@ GNU SASL consists of a library (`libgsasl'), a command line utility
 (`gsasl') to access the library from the shell, and a manual.  The
 library includes support for the framework (with authentication
 functions and application data privacy and integrity functions) and at
-least partial support for the CRAM-MD5, EXTERNAL, GSSAPI, ANONYMOUS,
-PLAIN, SECURID, DIGEST-MD5, SCRAM-SHA-1, LOGIN, and NTLM mechanisms.
+least partial support for the ANONYMOUS, CRAM-MD5, DIGEST-MD5,
+EXTERNAL, GS2-KRB5, GSSAPI, LOGIN, NTLM, PLAIN, SCRAM-SHA-1, and
+SECURID mechanisms.
     </para>
 
     <para>
