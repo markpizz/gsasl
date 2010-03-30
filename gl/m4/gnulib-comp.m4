@@ -181,6 +181,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module striconv-tests:
   # Code from module string:
   # Code from module string-tests:
+  # Code from module strtok_r:
   # Code from module symlink:
   # Code from module symlink-tests:
   # Code from module sys_ioctl:
@@ -443,6 +444,9 @@ AC_SUBST([LTALLOCA])
   fi
   # Code from module string:
   gl_HEADER_STRING_H
+  # Code from module strtok_r:
+  gl_FUNC_STRTOK_R
+  gl_STRING_MODULE_INDICATOR([strtok_r])
   # Code from module sys_select:
   gl_HEADER_SYS_SELECT
   AC_PROG_MKDIR_P
@@ -823,6 +827,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/striconv.c
   lib/striconv.h
   lib/string.in.h
+  lib/strtok_r.c
   lib/sys_select.in.h
   lib/sys_socket.in.h
   lib/sys_time.in.h
@@ -941,6 +946,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strdup.m4
   m4/strerror.m4
   m4/string_h.m4
+  m4/strtok_r.m4
   m4/symlink.m4
   m4/sys_ioctl_h.m4
   m4/sys_select_h.m4
