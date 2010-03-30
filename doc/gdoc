@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
-## Copyright (c) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
+## Copyright (c) 2002, 2003, 2004, 2005, 2006, 2007,
+##               2008, 2009, 2010 Simon Josefsson
 ##                    added -texinfo, -listfunc, -pkg-name
 ##                    man page revamp
 ##                    various improvements
@@ -755,7 +756,7 @@ sub dump_function {
 #	    print STDERR "param = '$param', type = '$type'\n";
 	}
     } else {
-	print STDERR "warning: $lineno: Cannot understand prototype: '$prototype'\n";
+	print STDERR "warning: $lineno: Cannot understand prototype: '$prototype'\n" if (!($prototype  =~ m,GSASL_VALID_MECHANISM_CHARACTERS,));
 	return;
     }
 
