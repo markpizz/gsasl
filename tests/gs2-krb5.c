@@ -35,7 +35,7 @@
 #define GSSAPI_USER "jas"
 
 static const char *AUTHZID[] = {
-  "foo", "BAB,ABA", ",=,=", "=", "@"
+  "foo", "BAB,ABA", ",=,=", "=", ""
 };
 
 size_t i;
@@ -48,8 +48,11 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
   switch (prop)
     {
     case GSASL_AUTHZID:
-      gsasl_property_set (sctx, GSASL_AUTHZID, AUTHZID[i]);
-      rc = GSASL_OK;
+      if (*AUTHZID[i])
+	{
+	  gsasl_property_set (sctx, GSASL_AUTHZID, AUTHZID[i]);
+	  rc = GSASL_OK;
+	}
       break;
 
     case GSASL_SERVICE:
@@ -76,7 +79,8 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	  printf ("Authorization ID: %s\n", authzid);
 
 	if (client_name && strcmp (client_name, GSSAPI_USER) == 0 &&
-	    (authzid == NULL || strcmp (authzid, AUTHZID[i]) == 0))
+	    ((authzid == NULL && *AUTHZID[i] == '\0')
+	     || strcmp (authzid, AUTHZID[i]) == 0))
 	  rc = GSASL_OK;
 	else
 	  rc = GSASL_AUTHENTICATION_ERROR;
