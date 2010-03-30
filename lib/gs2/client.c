@@ -41,6 +41,7 @@ struct _gsasl_gs2_client_state
   gss_name_t service;
   gss_ctx_id_t context;
   gss_OID mech_oid;
+  gss_buffer_desc token;
   struct gss_channel_bindings_struct cb;
 };
 typedef struct _gsasl_gs2_client_state _gsasl_gs2_client_state;
@@ -55,6 +56,10 @@ _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
+  state->step = 0;
+  state->service = GSS_C_NO_NAME;
+  state->context = GSS_C_NO_CONTEXT;
+
   res = gs2_get_oid (sctx, &state->mech_oid);
   if (res != GSASL_OK)
     {
@@ -62,9 +67,8 @@ _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
       return res;
     }
 
-  state->context = GSS_C_NO_CONTEXT;
-  state->service = GSS_C_NO_NAME;
-  state->step = 0;
+  state->token.length = 0;
+  state->token.value = NULL;
 
   /* The initiator-address-type and acceptor-address-type fields of
      the GSS-CHANNEL-BINDINGS structure MUST be set to 0.  The
@@ -117,6 +121,105 @@ escape_authzid (const char *str)
   return out;
 }
 
+static int
+gs2_prepare (Gsasl_session * sctx, _gsasl_gs2_client_state *state)
+{
+  const char *service, *hostname;
+  const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
+  gss_buffer_desc bufdesc;
+  OM_uint32 maj_stat, min_stat;
+
+  service = gsasl_property_get (sctx, GSASL_SERVICE);
+  if (!service)
+    return GSASL_NO_SERVICE;
+
+  hostname = gsasl_property_get (sctx, GSASL_HOSTNAME);
+  if (!hostname)
+    return GSASL_NO_HOSTNAME;
+
+  bufdesc.length = asprintf ((char**) &bufdesc.value, "%s@%s",
+			     service, hostname);
+  if (bufdesc.length <= 0 || bufdesc.value == NULL)
+    return GSASL_MALLOC_ERROR;
+
+  maj_stat = gss_import_name (&min_stat, &bufdesc,
+			      GSS_C_NT_HOSTBASED_SERVICE,
+			      &state->service);
+  free (bufdesc.value);
+  if (GSS_ERROR (maj_stat))
+    return GSASL_GSSAPI_IMPORT_NAME_ERROR;
+
+  if (authzid)
+    {
+      char *escaped_authzid = escape_authzid (authzid);
+      if (!escaped_authzid)
+	return GSASL_MALLOC_ERROR;
+      state->cb.application_data.length
+	= asprintf ((char**) &state->cb.application_data.value,
+		    "n,a=%s,", escaped_authzid);
+      free (escaped_authzid);
+    }
+  else
+    {
+      state->cb.application_data.value = strdup ("n,,");
+      state->cb.application_data.length = 3;
+    }
+
+  if (state->cb.application_data.length <= 0
+      || state->cb.application_data.value == NULL)
+    return GSASL_MALLOC_ERROR;
+
+  return GSASL_OK;
+}
+
+/* Copy token to output buffer.  On first round trip, strip context
+   token header and add channel binding data. For later round trips,
+   just copy the buffer. */
+static int
+context2output (Gsasl_session * sctx,
+		_gsasl_gs2_client_state *state,
+		const gss_buffer_t token,
+		char **output, size_t * output_len)
+{
+  OM_uint32 maj_stat, min_stat;
+  gss_buffer_desc bufdesc;
+
+  if (state->step == 0)
+    {
+      maj_stat = gss_decapsulate_token (token, state->mech_oid,
+					&bufdesc);
+      if (GSS_ERROR (maj_stat))
+	return GSASL_GSSAPI_ENCAPSULATE_TOKEN_ERROR;
+
+      *output_len = state->cb.application_data.length + bufdesc.length;
+      *output = malloc (*output_len);
+      if (!*output)
+	{
+	  gss_release_buffer (&min_stat, &bufdesc);
+	  return GSASL_MALLOC_ERROR;
+	}
+
+      memcpy (*output, state->cb.application_data.value,
+	      state->cb.application_data.length);
+      memcpy (*output + state->cb.application_data.length,
+	      bufdesc.value, bufdesc.length);
+
+      maj_stat = gss_release_buffer (&min_stat, &bufdesc);
+      if (GSS_ERROR (maj_stat))
+	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
+    }
+  else
+    {
+      *output_len = token->length;
+      *output = malloc (*output_len);
+      if (!*output)
+	return GSASL_MALLOC_ERROR;
+      memcpy (*output, token->value, token->length);
+    }
+
+  return GSASL_OK;
+}
+
 int
 _gsasl_gs2_client_step (Gsasl_session * sctx,
 			void *mech_data,
@@ -124,7 +227,7 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 			char **output, size_t * output_len)
 {
   _gsasl_gs2_client_state *state = mech_data;
-  gss_buffer_desc bufdesc, bufdesc2;
+  gss_buffer_desc bufdesc;
   gss_buffer_t buf = GSS_C_NO_BUFFER;
   OM_uint32 maj_stat, min_stat, ret_flags;
   gss_OID actual_mech_type;
@@ -132,48 +235,9 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 
   if (state->step == 0)
     {
-      const char *service, *hostname;
-      const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
-
-      service = gsasl_property_get (sctx, GSASL_SERVICE);
-      if (!service)
-	return GSASL_NO_SERVICE;
-
-      hostname = gsasl_property_get (sctx, GSASL_HOSTNAME);
-      if (!hostname)
-	return GSASL_NO_HOSTNAME;
-
-      bufdesc.length = asprintf ((char**) &bufdesc.value, "%s@%s",
-				 service, hostname);
-      if (bufdesc.length <= 0 || bufdesc.value == NULL)
-	return GSASL_MALLOC_ERROR;
-
-      maj_stat = gss_import_name (&min_stat, &bufdesc,
-				  GSS_C_NT_HOSTBASED_SERVICE,
-				  &state->service);
-      free (bufdesc.value);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_IMPORT_NAME_ERROR;
-
-      if (authzid)
-	{
-	  char *escaped_authzid = escape_authzid (authzid);
-	  if (!escaped_authzid)
-	    return GSASL_MALLOC_ERROR;
-	  state->cb.application_data.length
-	    = asprintf ((char**) &state->cb.application_data.value,
-			"n,a=%s,", escaped_authzid);
-	  free (escaped_authzid);
-	}
-      else
-	{
-	  state->cb.application_data.value = strdup ("n,,");
-	  state->cb.application_data.length = 3;
-	}
-
-      if (state->cb.application_data.length <= 0
-	  || state->cb.application_data.value == NULL)
-	return GSASL_MALLOC_ERROR;
+      res = gs2_prepare (sctx, state);
+      if (res != GSASL_OK)
+	return res;
     }
 
   switch (state->step)
@@ -185,8 +249,15 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
       /* fall through */
 
     case 0:
-      bufdesc2.length = 0;
-      bufdesc2.value = NULL;
+      if (state->token.value != NULL)
+	{
+	  maj_stat = gss_release_buffer (&min_stat, &state->token);
+	  if (GSS_ERROR (maj_stat))
+	    return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
+
+	  state->token.value = NULL;
+	  state->token.length = 0;
+	}
 
       maj_stat = gss_init_sec_context (&min_stat,
 				       GSS_C_NO_CREDENTIAL,
@@ -198,7 +269,7 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 				       &state->cb,
 				       buf,
 				       &actual_mech_type,
-				       &bufdesc2,
+				       &state->token,
 				       &ret_flags,
 				       NULL);
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
@@ -213,53 +284,19 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
       if (!gss_oid_equal (state->mech_oid, actual_mech_type))
 	return GSASL_AUTHENTICATION_ERROR;
 
+      res = context2output (sctx, state, &state->token, output, output_len);
+      if (res != GSASL_OK)
+	return res;
+
       if (state->step == 0)
-	{
-	  OM_uint32 maj_stat2;
-
-	  maj_stat2 = gss_decapsulate_token (&bufdesc2, state->mech_oid,
-					     &bufdesc);
-	  if (GSS_ERROR (maj_stat2))
-	    return GSASL_GSSAPI_ENCAPSULATE_TOKEN_ERROR;
-
-	  *output_len = state->cb.application_data.length + bufdesc.length;
-	  *output = malloc (*output_len);
-	  if (!*output)
-	    {
-	      gss_release_buffer (&min_stat, &bufdesc);
-	      return GSASL_MALLOC_ERROR;
-	    }
-	  memcpy (*output, state->cb.application_data.value,
-		  state->cb.application_data.length);
-	  memcpy (*output + state->cb.application_data.length,
-		  bufdesc.value, bufdesc.length);
-
-	  maj_stat2 = gss_release_buffer (&min_stat, &bufdesc2);
-	  if (GSS_ERROR (maj_stat2))
-	    return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
-	}
-      else
-	{
-	  *output_len = bufdesc2.length;
-	  *output = malloc (*output_len);
-	  if (!*output)
-	    return GSASL_MALLOC_ERROR;
-	  memcpy (*output, bufdesc2.value, bufdesc2.length);
-	}
-
-      if (state->step == 0 && maj_stat == GSS_S_CONTINUE_NEEDED)
 	state->step++;
       if (maj_stat == GSS_S_COMPLETE)
-	state->step++;
-
-      if (maj_stat == GSS_S_COMPLETE)
-	res = GSASL_OK;
+	{
+	  state->step++;
+	  res = GSASL_OK;
+	}
       else
 	res = GSASL_NEEDS_MORE;
-
-      maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
-      if (GSS_ERROR (maj_stat))
-	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
       break;
 
     default:
@@ -279,6 +316,8 @@ _gsasl_gs2_client_finish (Gsasl_session * sctx, void *mech_data)
   if (!state)
     return;
 
+  if (state->token.value != NULL)
+    maj_stat = gss_release_buffer (&min_stat, &state->token);
   if (state->service != GSS_C_NO_NAME)
     maj_stat = gss_release_name (&min_stat, &state->service);
   if (state->context != GSS_C_NO_CONTEXT)
