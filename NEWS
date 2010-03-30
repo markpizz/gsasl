@@ -8,6 +8,17 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.5.0 (unreleased) [beta]
 
+** doc: Explain GS2-related changes.
+
+** doc: GTK-DOC manual improved.
+Now almost all symbols and types are explained.
+
+** gsasl: Fix crash when getaddrinfo does not get a canonical name.
+
+** gsasl: Improve error message when server rejects authentication.
+
+** tests: Self checks are improved.
+
 * Version 1.4.4 (released 2010-03-25) [stable]
 
 ** See lib/NEWS.
