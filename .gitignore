@@ -153,6 +153,7 @@ gltests/Makefile.in
 gltests/arg-nonnull.h
 gltests/c++defs.h
 gltests/fcntl.h
+gltests/ioctl.o
 gltests/libtests.a
 gltests/malloca.o
 gltests/sys/
@@ -191,6 +192,8 @@ gltests/test-getopt.o
 gltests/test-gettimeofday
 gltests/test-gettimeofday.o
 gltests/test-iconv
+gltests/test-iconv-h
+gltests/test-iconv-h.o
 gltests/test-iconv.o
 gltests/test-inet_ntop
 gltests/test-inet_ntop.o
