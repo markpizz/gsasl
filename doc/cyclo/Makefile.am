@@ -18,7 +18,13 @@
 EXTRA_DIST = cyclo-$(PACKAGE).html
 
 cyclo-$(PACKAGE).html:
-	$(PMCCABE) `find $(top_srcdir)/lib -name \*.[ch] | grep -v -e ../gl -e 	test-parser.c -e test-errors.c -e obsolete.c -e kerberos_v5` \
+	$(PMCCABE) `find $(top_srcdir)/lib -name \*.[ch] \
+		| grep -v \
+			-e ../gl \
+			-e test-parser.c \
+			-e test-errors.c \
+			-e obsolete.c \
+			-e kerberos_v5` \
 		| sort -nr \
 		| $(AWK) -f ${top_srcdir}/lib/build-aux/pmccabe2html \
 			-v lang=html -v name="$(PACKAGE_NAME)" \

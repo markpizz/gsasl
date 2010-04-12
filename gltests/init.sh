@@ -96,8 +96,18 @@ test -n "$EXEEXT" && shopt -s expand_aliases
 # sh inside this function.
 Exit () { set +e; (exit $1); exit $1; }
 
-fail_() { echo "$ME_: failed test: $@" 1>&2; Exit 1; }
-skip_() { echo "$ME_: skipped test: $@" 1>&2; Exit 77; }
+# Print warnings (e.g., about skipped and failed tests) to this file number.
+# Override by defining to say, 9, in init.cfg, and putting say,
+# "export ...ENVVAR_SETTINGS...; exec 9>&2; $(SHELL)" in the definition
+# of TESTS_ENVIRONMENT in your tests/Makefile.am file.
+# This is useful when using automake's parallel tests mode, to print
+# the reason for skip/failure to console, rather than to the .log files.
+: ${stderr_fileno_=2}
+
+warn_() { echo "$@" 1>&$stderr_fileno_; }
+fail_() { warn_ "$ME_: failed test: $@"; Exit 1; }
+skip_() { warn_ "$ME_: skipped test: $@"; Exit 77; }
+framework_failure_() { warn_ "$ME_: set-up failure: $@"; Exit 1; }
 
 # This is a stub function that is run upon trap (upon regular exit and
 # interrupt).  Override it with a per-test function, e.g., to unmount
@@ -249,7 +259,7 @@ rand_bytes_()
   if test -r "$dev_rand_"; then
     # Note: 256-length($chars_) == 194; 3 copies of $chars_ is 186 + 8 = 194.
     dd ibs=$n_ count=1 if=$dev_rand_ 2>/dev/null \
-      | tr -c $chars_ 01234567$chars_$chars_$chars_
+      | LC_ALL=C tr -c $chars_ 01234567$chars_$chars_$chars_
     return
   fi
 
@@ -266,7 +276,7 @@ rand_bytes_()
 
   echo "$data_" \
     | dd bs=1 skip=50 count=$n_ 2>/dev/null \
-    | tr -c $chars_ 01234567$chars_$chars_$chars_
+    | LC_ALL=C tr -c $chars_ 01234567$chars_$chars_$chars_
 }
 
 mktempd_()
@@ -296,7 +306,7 @@ mktempd_()
   fail=0
 
   # First, try to use mktemp.
-  d=`env -u TMPDIR mktemp -d -t -p "$destdir_" "$template_" 2>/dev/null` \
+  d=`unset TMPDIR; mktemp -d -t -p "$destdir_" "$template_" 2>/dev/null` \
     || fail=1
 
   # The resulting name must be in the specified directory.
