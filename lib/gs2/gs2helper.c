@@ -37,7 +37,7 @@
    bit silly given that we only support Kerberos V5 today, but will be
    useful when that changes.  */
 int
-gs2_get_oid (Gsasl_session * sctx, gss_OID *mech_oid)
+gs2_get_oid (Gsasl_session * sctx, gss_OID * mech_oid)
 {
   gss_buffer_desc sasl_mech_name;
   OM_uint32 maj_stat, min_stat;
@@ -75,9 +75,9 @@ gss_oid_equal (const gss_OID first_oid, const gss_OID second_oid)
    Kerberos V5.  */
 
 OM_uint32
-gss_inquire_mech_for_saslname (OM_uint32 *minor_status,
+gss_inquire_mech_for_saslname (OM_uint32 * minor_status,
 			       const gss_buffer_t sasl_mech_name,
-			       gss_OID *mech_type)
+			       gss_OID * mech_type)
 {
   static gss_OID_desc krb5oid_static = {
     9, (char *) "\x2a\x86\x48\x86\xf7\x12\x01\x02\x02"
@@ -186,8 +186,7 @@ _gss_encapsulate_token_prefix (const char *prefix, size_t prefixlen,
 
 extern OM_uint32
 gss_encapsulate_token (const gss_buffer_t input_token,
-		       const gss_OID token_oid,
-		       gss_buffer_t output_token)
+		       const gss_OID token_oid, gss_buffer_t output_token)
 {
   int rc;
 
@@ -216,7 +215,7 @@ gss_encapsulate_token (const gss_buffer_t input_token,
 #ifndef HAVE_GSS_ENCAPSULATE_TOKEN
 
 static size_t
-_gss_asn1_get_length_der (const char *der, size_t der_len, size_t *len)
+_gss_asn1_get_length_der (const char *der, size_t der_len, size_t * len)
 {
   size_t ans;
   size_t k, punt;
@@ -313,8 +312,7 @@ _gss_decapsulate_token (const char *in, size_t inlen,
 
 OM_uint32
 gss_decapsulate_token (const gss_buffer_t input_token,
-		       const gss_OID token_oid,
-		       gss_buffer_t output_token)
+		       const gss_OID token_oid, gss_buffer_t output_token)
 {
   gss_OID_desc tmpoid;
   char *oid = NULL, *out = NULL;
@@ -329,8 +327,7 @@ gss_decapsulate_token (const gss_buffer_t input_token,
 
   if (_gss_decapsulate_token ((char *) input_token->value,
 			      input_token->length,
-			      &oid, &oidlen,
-			      &out, &outlen) != 0)
+			      &oid, &oidlen, &out, &outlen) != 0)
     return GSS_S_DEFECTIVE_TOKEN;
 
   tmpoid.length = oidlen;

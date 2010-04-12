@@ -37,7 +37,8 @@
 
 struct _gsasl_gs2_client_state
 {
-  int step; /* 0 = initial, 1 = first token, 2 = looping, 3 = done */
+  /* steps: 0 = initial, 1 = first token, 2 = looping, 3 = done */
+  int step;
   gss_name_t service;
   gss_ctx_id_t context;
   gss_OID mech_oid;
@@ -46,6 +47,8 @@ struct _gsasl_gs2_client_state
 };
 typedef struct _gsasl_gs2_client_state _gsasl_gs2_client_state;
 
+/* Initialize GS2 state into MECH_DATA.  Return GSASL_OK if GS2 is
+   ready and initialization succeeded, or an error code. */
 int
 _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
 {
@@ -56,10 +59,6 @@ _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
 
-  state->step = 0;
-  state->service = GSS_C_NO_NAME;
-  state->context = GSS_C_NO_CONTEXT;
-
   res = gs2_get_oid (sctx, &state->mech_oid);
   if (res != GSASL_OK)
     {
@@ -67,9 +66,11 @@ _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
       return res;
     }
 
+  state->step = 0;
+  state->service = GSS_C_NO_NAME;
+  state->context = GSS_C_NO_CONTEXT;
   state->token.length = 0;
   state->token.value = NULL;
-
   /* The initiator-address-type and acceptor-address-type fields of
      the GSS-CHANNEL-BINDINGS structure MUST be set to 0.  The
      initiator-address and acceptor-address fields MUST be the empty
@@ -88,6 +89,9 @@ _gsasl_gs2_client_start (Gsasl_session * sctx, void **mech_data)
   return GSASL_OK;
 }
 
+/* Return newly allocated copy of STR with all occurrences of ','
+   replaced with =2C and '=' with '=3D', or return NULL on memory
+   allocation errors.  */
 static char *
 escape_authzid (const char *str)
 {
@@ -121,30 +125,30 @@ escape_authzid (const char *str)
   return out;
 }
 
+/* Get service, hostname and authorization identity from application,
+   import the GSS-API name, and initialize the channel binding data.
+   Return GSASL_OK on success or an error code. */
 static int
-prepare (Gsasl_session * sctx, _gsasl_gs2_client_state *state)
+prepare (Gsasl_session * sctx, _gsasl_gs2_client_state * state)
 {
-  const char *service, *hostname;
+  const char *service = gsasl_property_get (sctx, GSASL_SERVICE);
+  const char *hostname = gsasl_property_get (sctx, GSASL_HOSTNAME);
   const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
   gss_buffer_desc bufdesc;
   OM_uint32 maj_stat, min_stat;
 
-  service = gsasl_property_get (sctx, GSASL_SERVICE);
   if (!service)
     return GSASL_NO_SERVICE;
-
-  hostname = gsasl_property_get (sctx, GSASL_HOSTNAME);
   if (!hostname)
     return GSASL_NO_HOSTNAME;
 
-  bufdesc.length = asprintf ((char**) &bufdesc.value, "%s@%s",
+  bufdesc.length = asprintf ((char **) &bufdesc.value, "%s@%s",
 			     service, hostname);
   if (bufdesc.length <= 0 || bufdesc.value == NULL)
     return GSASL_MALLOC_ERROR;
 
   maj_stat = gss_import_name (&min_stat, &bufdesc,
-			      GSS_C_NT_HOSTBASED_SERVICE,
-			      &state->service);
+			      GSS_C_NT_HOSTBASED_SERVICE, &state->service);
   free (bufdesc.value);
   if (GSS_ERROR (maj_stat))
     return GSASL_GSSAPI_IMPORT_NAME_ERROR;
@@ -152,11 +156,14 @@ prepare (Gsasl_session * sctx, _gsasl_gs2_client_state *state)
   if (authzid)
     {
       char *escaped_authzid = escape_authzid (authzid);
+
       if (!escaped_authzid)
 	return GSASL_MALLOC_ERROR;
+
       state->cb.application_data.length
-	= asprintf ((char**) &state->cb.application_data.value,
+	= asprintf ((char **) &state->cb.application_data.value,
 		    "n,a=%s,", escaped_authzid);
+
       free (escaped_authzid);
     }
   else
@@ -174,12 +181,12 @@ prepare (Gsasl_session * sctx, _gsasl_gs2_client_state *state)
 
 /* Copy token to output buffer.  On first round trip, strip context
    token header and add channel binding data. For later round trips,
-   just copy the buffer. */
+   just copy the buffer.  Return GSASL_OK on success or an error
+   code.  */
 static int
 token2output (Gsasl_session * sctx,
-	      _gsasl_gs2_client_state *state,
-	      const gss_buffer_t token,
-	      char **output, size_t * output_len)
+	      _gsasl_gs2_client_state * state,
+	      const gss_buffer_t token, char **output, size_t * output_len)
 {
   OM_uint32 maj_stat, min_stat;
   gss_buffer_desc bufdesc;
@@ -188,8 +195,7 @@ token2output (Gsasl_session * sctx,
     {
       state->step++;
 
-      maj_stat = gss_decapsulate_token (token, state->mech_oid,
-					&bufdesc);
+      maj_stat = gss_decapsulate_token (token, state->mech_oid, &bufdesc);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_ENCAPSULATE_TOKEN_ERROR;
 
@@ -222,6 +228,10 @@ token2output (Gsasl_session * sctx,
   return GSASL_OK;
 }
 
+/* Perform one GS2 step.  GS2 state is in MECH_DATA.  Any data from
+   server is provided in INPUT/INPUT_LEN and output from client is
+   expected to be put in newly allocated OUTPUT/OUTPUT_LEN.  Return
+   GSASL_NEEDS_MORE or GSASL_OK on success, or an error code.  */
 int
 _gsasl_gs2_client_step (Gsasl_session * sctx,
 			void *mech_data,
@@ -253,7 +263,7 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
       buf = &bufdesc;
     }
 
-  /* Release memory for token from last round-trip, if any. */
+  /* First release memory for token from last round-trip, if any. */
   if (state->token.value != NULL)
     {
       maj_stat = gss_release_buffer (&min_stat, &state->token);
@@ -274,9 +284,7 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 				   &state->cb,
 				   buf,
 				   &actual_mech_type,
-				   &state->token,
-				   &ret_flags,
-				   NULL);
+				   &state->token, &ret_flags, NULL);
   if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
     return GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR;
 
@@ -286,6 +294,9 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
 
   if (maj_stat == GSS_S_CONTINUE_NEEDED)
     return GSASL_NEEDS_MORE;
+
+  /* The GSS-API layer is done here, check that we established a valid
+     security context for GS2 purposes. */
 
   if (!(ret_flags & GSS_C_MUTUAL_FLAG))
     return GSASL_AUTHENTICATION_ERROR;
@@ -297,6 +308,8 @@ _gsasl_gs2_client_step (Gsasl_session * sctx,
   return GSASL_OK;
 }
 
+/* Cleanup GS2 state context, i.e., release memory associated with
+   buffers in MECH_DATA state. */
 void
 _gsasl_gs2_client_finish (Gsasl_session * sctx, void *mech_data)
 {

@@ -37,6 +37,7 @@
 
 struct _Gsasl_gs2_server_state
 {
+  /* steps: 0 = first state, 1 = initial, 2 = processing, 3 = done */
   int step;
   gss_name_t client;
   gss_cred_id_t cred;
@@ -46,38 +47,37 @@ struct _Gsasl_gs2_server_state
 };
 typedef struct _Gsasl_gs2_server_state _Gsasl_gs2_server_state;
 
-/* Populate state->cred with credential to use for connection. */
+/* Populate state->cred with credential to use for connection.  Return
+   GSASL_OK on success or an error code.  */
 static int
-gs2_get_cred  (Gsasl_session * sctx, _Gsasl_gs2_server_state * state)
+gs2_get_cred (Gsasl_session * sctx, _Gsasl_gs2_server_state * state)
 {
   OM_uint32 maj_stat, min_stat;
   gss_buffer_desc bufdesc;
-  const char *service;
-  const char *hostname;
+  const char *service = gsasl_property_get (sctx, GSASL_SERVICE);
+  const char *hostname = gsasl_property_get (sctx, GSASL_HOSTNAME);
   gss_name_t server;
   gss_OID_set_desc oid_set;
   gss_OID_set actual_mechs;
   int present;
 
-  service = gsasl_property_get (sctx, GSASL_SERVICE);
   if (!service)
     return GSASL_NO_SERVICE;
-
-  hostname = gsasl_property_get (sctx, GSASL_HOSTNAME);
   if (!hostname)
     return GSASL_NO_HOSTNAME;
 
-  bufdesc.length = asprintf ((char**) &bufdesc.value, "%s@%s",
+  bufdesc.length = asprintf ((char **) &bufdesc.value, "%s@%s",
 			     service, hostname);
   if (bufdesc.length <= 0 || bufdesc.value == NULL)
     return GSASL_MALLOC_ERROR;
 
   maj_stat = gss_import_name (&min_stat, &bufdesc,
-			      GSS_C_NT_HOSTBASED_SERVICE,
-			      &server);
+			      GSS_C_NT_HOSTBASED_SERVICE, &server);
   free (bufdesc.value);
   if (GSS_ERROR (maj_stat))
     return GSASL_GSSAPI_IMPORT_NAME_ERROR;
+
+  /* Attempt to get a credential for our mechanism.  */
 
   oid_set.count = 1;
   oid_set.elements = state->mech_oid;
@@ -88,6 +88,9 @@ gs2_get_cred  (Gsasl_session * sctx, _Gsasl_gs2_server_state * state)
   gss_release_name (&min_stat, &server);
   if (GSS_ERROR (maj_stat))
     return GSASL_GSSAPI_ACQUIRE_CRED_ERROR;
+
+  /* Now double check that the credential actually was for our
+     mechanism... */
 
   maj_stat = gss_test_oid_set_member (&min_stat, state->mech_oid,
 				      actual_mechs, &present);
@@ -101,9 +104,14 @@ gs2_get_cred  (Gsasl_session * sctx, _Gsasl_gs2_server_state * state)
   if (GSS_ERROR (maj_stat))
     return GSASL_GSSAPI_RELEASE_OID_SET_ERROR;
 
+  if (!present)
+    return GSASL_GSSAPI_ACQUIRE_CRED_ERROR;
+
   return GSASL_OK;
 }
 
+/* Initialize GS2 state into MECH_DATA.  Return GSASL_OK if GS2 is
+   ready and initialization succeeded, or an error code. */
 int
 _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
 {
@@ -131,7 +139,6 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
   state->step = 0;
   state->context = GSS_C_NO_CONTEXT;
   state->client = NULL;
-
   /* The initiator-address-type and acceptor-address-type fields of
      the GSS-CHANNEL-BINDINGS structure MUST be set to 0.  The
      initiator-address and acceptor-address fields MUST be the empty
@@ -150,14 +157,22 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
   return GSASL_OK;
 }
 
-static char *
-unescape_authzid (const char *str, size_t len)
+/* Create in AUTHZID a newly allocated copy of STR where =2C is
+   replaced with , and =3D is replaced with =.  Return GSASL_OK on
+   success, GSASL_MALLOC_ERROR on memory errors, GSASL_PARSE_ERRORS if
+   string contains any unencoded ',' or incorrectly encoded
+   sequence.  */
+static int
+unescape_authzid (const char *str, size_t len, char **authzid)
 {
-  char *out = malloc (len + 1);
-  char *p = out;
+  char *p;
 
-  if (!out)
-    return NULL;
+  if (memchr (str, ',', len) != NULL)
+    return GSASL_MECHANISM_PARSE_ERROR;
+
+  p = *authzid = malloc (len + 1);
+  if (!p)
+    return GSASL_MALLOC_ERROR;
 
   while (len > 0 && *str)
     {
@@ -173,6 +188,12 @@ unescape_authzid (const char *str, size_t len)
 	  str += 3;
 	  len -= 3;
 	}
+      else if (str[0] == '=')
+	{
+	  free (*authzid);
+	  *authzid = NULL;
+	  return GSASL_MECHANISM_PARSE_ERROR;
+	}
       else
 	{
 	  *p++ = *str;
@@ -182,12 +203,16 @@ unescape_authzid (const char *str, size_t len)
     }
   *p = '\0';
 
-  return out;
+  return GSASL_OK;
 }
 
+/* Parse the GS2 header containing flags and authorization identity.
+   Put authorization identity (or NULL) in AUTHZID and length of
+   header in HEADERLEN.  Return GSASL_OK on success or an error
+   code.*/
 static int
 parse_gs2_header (const char *data, size_t len,
-		  char **authzid, size_t *headerlen)
+		  char **authzid, size_t * headerlen)
 {
   char *authzid_endptr;
 
@@ -202,9 +227,15 @@ parse_gs2_header (const char *data, size_t len,
   else if (strncmp (data, "n,a=", 4) == 0 &&
 	   (authzid_endptr = memchr (data + 4, ',', len - 4)))
     {
-      *authzid = unescape_authzid (data + 4, authzid_endptr - (data + 4));
-      if (!*authzid)
-	return GSASL_MALLOC_ERROR;
+      int res;
+
+      if (authzid_endptr == NULL)
+	return GSASL_MECHANISM_PARSE_ERROR;
+
+      res = unescape_authzid (data + 4, authzid_endptr - (data + 4), authzid);
+      if (res != GSASL_OK)
+	return res;
+
       *headerlen = authzid_endptr - data + 1;
     }
   else
@@ -213,6 +244,10 @@ parse_gs2_header (const char *data, size_t len,
   return GSASL_OK;
 }
 
+/* Perform one GS2 step.  GS2 state is in MECH_DATA.  Any data from
+   client is provided in INPUT/INPUT_LEN and output from server is
+   expected to be put in newly allocated OUTPUT/OUTPUT_LEN.  Return
+   GSASL_NEEDS_MORE or GSASL_OK on success, or an error code.  */
 int
 _gsasl_gs2_server_step (Gsasl_session * sctx,
 			void *mech_data,
@@ -289,10 +324,7 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 					 &state->cb,
 					 &state->client,
 					 &mech_type,
-					 &bufdesc2,
-					 &ret_flags,
-					 NULL,
-					 NULL);
+					 &bufdesc2, &ret_flags, NULL, NULL);
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
 	return GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR;
 
@@ -342,6 +374,8 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
   return res;
 }
 
+/* Cleanup GS2 state context, i.e., release memory associated with
+   buffers in MECH_DATA state. */
 void
 _gsasl_gs2_server_finish (Gsasl_session * sctx, void *mech_data)
 {
