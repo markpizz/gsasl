@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Version 1.5.1 (unreleased) [beta]
 
+** libgsasl: No longer require the same or newer libgcrypt it was built with.
+Before libgsasl refused to work if it was used with a libgcrypt shared
+library that was older than the version that libgsasl was built with.
+
 ** Update gnulib files.
 
 ** API and ABI modifications.
