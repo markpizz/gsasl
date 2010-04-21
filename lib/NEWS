@@ -8,6 +8,8 @@ See the end for copying conditions.
 Before libgsasl refused to work if it was used with a libgcrypt shared
 library that was older than the version that libgsasl was built with.
 
+** GS2: Fix decoding of invalid data in server.  Code review fixes.
+
 ** Update gnulib files.
 
 ** API and ABI modifications.
