@@ -6,6 +6,8 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
+* Version 1.5.2 (unreleased) [beta]
+
 * Version 1.5.1 (released 2010-04-21) [beta]
 
 ** Update gnulib files.
