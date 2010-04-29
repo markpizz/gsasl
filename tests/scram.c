@@ -141,7 +141,7 @@ doit (void)
 
   gsasl_callback_set (ctx, callback);
 
-  for (i = 0; i <= 16; i++)
+  for (i = 0; i <= 17; i++)
     {
       bool server_first = (i % 2) == 0;
 
@@ -193,7 +193,7 @@ doit (void)
 	  return;
 	}
 
-      if (i == 16)
+      if (i == 16 || i == 17)
 	s1[0] = 'y';
 
       if (debug)
@@ -224,6 +224,9 @@ doit (void)
 	  return;
 	}
 
+      if (i == 17)
+	memcpy (s1 + 2, "eS", 2);
+
       if (debug)
 	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
 
@@ -231,6 +234,12 @@ doit (void)
 
       res = gsasl_step (server, s1, s1len, &s2, &s2len);
       gsasl_free (s1);
+      if ((i == 16 || i == 17) && res == GSASL_AUTHENTICATION_ERROR)
+	{
+	  if (debug)
+	    success ("Authentication failed expectedly\n");
+	  goto done;
+	}
       if (res != GSASL_OK)
 	{
 	  fail ("gsasl_step[%d](4) failed (%d):\n%s\n", i, res,
@@ -271,6 +280,7 @@ doit (void)
 	  fail ("Expected authzid? %d/%s\n", i, AUTHZID[i % N_AUTHZID]);
       }
 
+    done:
       if (debug)
 	printf ("\n");
 
