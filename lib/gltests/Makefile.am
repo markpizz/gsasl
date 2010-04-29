@@ -111,6 +111,15 @@ EXTRA_DIST += $(top_srcdir)/build-aux/c++defs.h
 
 ## end   gnulib module c++defs
 
+## begin gnulib module c-ctype-tests
+
+TESTS += test-c-ctype
+check_PROGRAMS += test-c-ctype
+
+EXTRA_DIST += test-c-ctype.c macros.h
+
+## end   gnulib module c-ctype-tests
+
 ## begin gnulib module crypto/gc-hmac-md5-tests
 
 TESTS += test-gc-hmac-md5

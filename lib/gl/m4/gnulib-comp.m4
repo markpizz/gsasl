@@ -31,6 +31,8 @@ AC_DEFUN([gl_EARLY],
   # Code from module base64:
   # Code from module base64-tests:
   # Code from module c++defs:
+  # Code from module c-ctype:
+  # Code from module c-ctype-tests:
   # Code from module crypto/gc:
   # Code from module crypto/gc-hmac-md5:
   # Code from module crypto/gc-hmac-md5-tests:
@@ -124,6 +126,7 @@ AC_DEFUN([gl_INIT],
   # Code from module base64:
   gl_FUNC_BASE64
   # Code from module c++defs:
+  # Code from module c-ctype:
   # Code from module crypto/gc:
   gl_GC
   if test $gl_cond_libtool = false; then
@@ -397,6 +400,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/asprintf.c
   lib/base64.c
   lib/base64.h
+  lib/c-ctype.c
+  lib/c-ctype.h
   lib/errno.in.h
   lib/float+.h
   lib/float.in.h
@@ -523,6 +528,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/signature.h
   tests/test-alloca-opt.c
   tests/test-base64.c
+  tests/test-c-ctype.c
   tests/test-errno.c
   tests/test-gc-hmac-md5.c
   tests/test-gc-hmac-sha1.c

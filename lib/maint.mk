@@ -645,6 +645,29 @@ sc_useless_cpp_parens:
 	halt='found useless parentheses in cpp directive'		\
 	  $(_sc_search_regexp)
 
+# List headers for which HAVE_HEADER_H is always true, assuming you are
+# using the appropriate gnulib module.  CAUTION: for each "unnecessary"
+# #if HAVE_HEADER_H that you remove, be sure that your project explicitly
+# requires the gnulib module that guarantees the usability of that header.
+gl_assured_headers_ = \
+  cd $(gnulib_dir)/lib && echo *.in.h|sed 's/\.in\.h//g'
+
+# Convert the list of names to upper case, and replace each space with "|".
+az_ = abcdefghijklmnopqrstuvwxyz
+AZ_ = ABCDEFGHIJKLMNOPQRSTUVWXYZ
+gl_header_upper_case_or_ =						\
+  $$($(gl_assured_headers_)						\
+    | tr $(az_)/.- $(AZ_)___						\
+    | tr -s ' ' '|'							\
+    )
+sc_prohibit_always_true_header_tests:
+	@or=$(gl_header_upper_case_or_);				\
+	re="HAVE_($$or)_H";						\
+	prohibit='\<'"$$re"'\>'						\
+	halt='do not test the above HAVE_<header>_H symbol(s);\n'\
+'  with the corresponding gnulib module, they are always true'		\
+	  $(_sc_search_regexp)
+
 # Prohibit checked in backup files.
 sc_prohibit_backup_files:
 	@$(VC_LIST) | grep '~$$' &&				\
@@ -1104,9 +1127,11 @@ refresh-po:
 	echo 'en@quot' >> $(PODIR)/LINGUAS && \
 	ls $(PODIR)/*.po | sed 's/\.po//' | sed 's,$(PODIR)/,,' | sort >> $(PODIR)/LINGUAS
 
+ # Running indent once is not idempotent, but running it twice is.
 INDENT_SOURCES ?= $(C_SOURCES)
 .PHONY: indent
 indent:
+	indent $(INDENT_SOURCES)
 	indent $(INDENT_SOURCES)
 
 # If you want to set UPDATE_COPYRIGHT_* environment variables,
