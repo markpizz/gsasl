@@ -36,6 +36,9 @@
 /* Get validator. */
 #include "validate.h"
 
+/* Get c_isalpha. */
+#include "c-ctype.h"
+
 static char *
 unescape (const char *str, size_t len)
 {
@@ -377,11 +380,34 @@ scram_parse_client_final (const char *str, size_t len,
     len -= l;
   }
 
-  /* FIXME check that any extension fields follow valid syntax. */
-
   if (len == 0 || *str != ',')
     return -1;
   str++, len--;
+
+  /* Ignore extensions. */
+  while (len > 0 && c_isalpha (*str) && *str != 'p')
+    {
+      const char *p;
+      size_t l;
+
+      str++, len--;
+
+      if (len == 0 || *str != '=')
+	return -1;
+      str++, len--;
+
+      p = memchr (str, ',', len);
+      if (!p)
+	return -1;
+      p++;
+
+      l = p - str;
+      if (len < l)
+	return -1;
+
+      str = p;
+      len -= l;
+    }
 
   if (len == 0 || *str != 'p')
     return -1;
