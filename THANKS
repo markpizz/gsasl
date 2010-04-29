@@ -1,5 +1,6 @@
 GNU SASL THANKS -- Acknowledgements.
-Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
+Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008,
+              2009, 2010 Simon Josefsson
 See the end for copying conditions.
 
 GNU SASL uses libntlm by Grant Edwards maintained by Simon Josefsson;
@@ -40,6 +41,7 @@ Andery Melnikov <temnota.am@gmail.com>
 Vincent Untz <vuntz@opensuse.org>
 Marco Maggi <marco.maggi-ipsu@poste.it>
 "carlo.bramix" <carlo.bramix@libero.it>
+Marc Santamaria <asgarath@gmail.com>
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
