@@ -51,6 +51,7 @@
 struct scram_server_state
 {
   int step;
+  char *gs2header; /* copy of client first gs2-header */
   char *cfmb_str; /* copy of client first message bare */
   char *sf_str; /* copy of server first message */
   char *snonce;
@@ -145,7 +146,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	{
 	  const char *p;
 
-	  /* Save "bare" for next step. */
+	  /* Save "gs2-header" and "message-bare" for next step. */
 	  p = memchr (input, ',', input_len);
 	  if (!p)
 	    return GSASL_AUTHENTICATION_ERROR;
@@ -154,6 +155,12 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	  if (!p)
 	    return GSASL_AUTHENTICATION_ERROR;
 	  p++;
+
+	  state->gs2header = malloc (p - input + 1);
+	  if (!state->gs2header)
+	    return GSASL_MALLOC_ERROR;
+	  memcpy (state->gs2header, input, p - input);
+	  state->gs2header[p - input] = '\0';
 
 	  state->cfmb_str = malloc (input_len - (p - input) + 1);
 	  if (!state->cfmb_str)
@@ -217,6 +224,24 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 
 	if (strcmp (state->cl.nonce, state->sf.nonce) != 0)
 	  return GSASL_AUTHENTICATION_ERROR;
+
+	/* Base64 decode the c= field and check that it matches
+	   client-first. */
+	{
+	  size_t len;
+	  char *cbind;
+
+	  rc = gsasl_base64_from (state->cl.cbind, strlen (state->cl.cbind),
+				  &cbind, &len);
+	  if (rc != 0)
+	    return rc;
+
+	  if (len != strlen (state->gs2header))
+	    return GSASL_AUTHENTICATION_ERROR;
+
+	  if (memcmp (cbind, state->gs2header, len) != 0)
+	    return GSASL_AUTHENTICATION_ERROR;
+	}
 
 	/* Base64 decode client proof and check that length matches
 	   SHA-1 size. */
