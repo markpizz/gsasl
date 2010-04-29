@@ -141,7 +141,7 @@ doit (void)
 
   gsasl_callback_set (ctx, callback);
 
-  for (i = 0; i <= 19; i++)
+  for (i = 0; i <= 21; i++)
     {
       bool server_first = (i % 2) == 0;
 
@@ -206,6 +206,16 @@ doit (void)
 	  s1len = strlen (s);
 	}
 
+      if (i == 20)
+	{
+	  char *s;
+
+	  asprintf (&s, "%s,a=b,b=c,c=d", s1);
+	  gsasl_free (s1);
+	  s1 = s;
+	  s1len = strlen (s);
+	}
+
       if (debug)
 	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
 
@@ -247,6 +257,17 @@ doit (void)
 	  s1len = strlen (s);
 	}
 
+      if (i == 21 && s1len > 31)
+	{
+	  char *s;
+
+	  asprintf (&s, "%.*s,a=b,b=c,c=d,%s", s1len - 31, s1,
+		    s1 + s1len - 31 + 1);
+	  gsasl_free (s1);
+	  s1 = s;
+	  s1len = strlen (s);
+	}
+
       if (debug)
 	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
 
@@ -254,7 +275,7 @@ doit (void)
 
       res = gsasl_step (server, s1, s1len, &s2, &s2len);
       gsasl_free (s1);
-      if (i == 16 || i == 17 || i == 18 || i == 19)
+      if (i >= 16 && i <= 21)
 	{
 	  if (res == GSASL_AUTHENTICATION_ERROR)
 	    {
