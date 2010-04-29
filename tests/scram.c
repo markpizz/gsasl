@@ -141,7 +141,7 @@ doit (void)
 
   gsasl_callback_set (ctx, callback);
 
-  for (i = 0; i <= 15; i++)
+  for (i = 0; i <= 16; i++)
     {
       bool server_first = (i % 2) == 0;
 
@@ -192,6 +192,9 @@ doit (void)
 		gsasl_strerror (res));
 	  return;
 	}
+
+      if (i == 16)
+	s1[0] = 'y';
 
       if (debug)
 	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
