@@ -234,11 +234,16 @@ doit (void)
 
       res = gsasl_step (server, s1, s1len, &s2, &s2len);
       gsasl_free (s1);
-      if ((i == 16 || i == 17) && res == GSASL_AUTHENTICATION_ERROR)
+      if (i == 16 || i == 17)
 	{
-	  if (debug)
-	    success ("Authentication failed expectedly\n");
-	  goto done;
+	  if (res == GSASL_AUTHENTICATION_ERROR)
+	    {
+	      if (debug)
+		success ("Authentication failed expectedly\n");
+	      goto done;
+	    }
+	  else
+	    res = GSASL_AUTHENTICATION_ERROR;
 	}
       if (res != GSASL_OK)
 	{
