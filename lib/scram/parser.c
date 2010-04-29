@@ -79,9 +79,9 @@ scram_parse_client_first (const char *str, size_t len,
   if (strnlen (str, len) < 10)
     return -1;
 
-  if (len == 0 || *str != 'n')
-      /* FIXME parse non-'n' cbflags */
-    return -1;
+  if (len == 0 || (*str != 'n' && *str != 'y'))
+      /* FIXME support channel bindings */
+      return -1;
   cf->cbflag = *str;
   str++, len--;
 
