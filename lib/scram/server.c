@@ -129,7 +129,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
 	/* We don't support channel bindings. */
-	if (state->cf.cbflag != 'n')
+	if (state->cf.cbflag != 'n' && state->cf.cbflag != 'y')
 	  return GSASL_AUTHENTICATION_ERROR;
 
 	/* Check that username doesn't fail SASLprep. */
