@@ -316,6 +316,15 @@ libtests_a_SOURCES += verify.h
 
 ## end   gnulib module verify
 
+## begin gnulib module verify-tests
+
+TESTS_ENVIRONMENT += MAKE='$(MAKE)'
+TESTS += test-verify test-verify.sh
+check_PROGRAMS += test-verify
+EXTRA_DIST += test-verify.c test-verify.sh init.sh
+
+## end   gnulib module verify-tests
+
 ## begin gnulib module warn-on-use
 
 BUILT_SOURCES += warn-on-use.h

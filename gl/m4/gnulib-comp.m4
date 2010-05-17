@@ -206,6 +206,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module vc-list-files:
   # Code from module vc-list-files-tests:
   # Code from module verify:
+  # Code from module verify-tests:
   # Code from module version-etc:
   # Code from module version-etc-fsf:
   # Code from module version-etc-tests:
@@ -543,7 +544,7 @@ changequote([, ])dnl
   gl_FCNTL_H
   gl_FUNC_UNGETC_WORKS
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
-  AM_GNU_GETTEXT_VERSION([0.17])
+  AM_GNU_GETTEXT_VERSION([0.18])
   gl_FUNC_GETTIMEOFDAY
   gl_SYS_TIME_MODULE_INDICATOR([gettimeofday])
   AC_REQUIRE([AC_C_INLINE])
@@ -820,6 +821,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/00gnulib.m4
   m4/alloca.m4
   m4/arpa_inet_h.m4
+  m4/asm-underscore.m4
   m4/autobuild.m4
   m4/close.m4
   m4/codeset.m4
@@ -1029,6 +1031,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-vasnprintf.c
   tests/test-vc-list-files-cvs.sh
   tests/test-vc-list-files-git.sh
+  tests/test-verify.c
+  tests/test-verify.sh
   tests/test-version-etc.c
   tests/test-version-etc.sh
   tests/test-wchar.c

@@ -933,6 +933,15 @@ EXTRA_DIST += test-vc-list-files-git.sh test-vc-list-files-cvs.sh init.sh
 
 ## end   gnulib module vc-list-files-tests
 
+## begin gnulib module verify-tests
+
+TESTS_ENVIRONMENT += MAKE='$(MAKE)'
+TESTS += test-verify test-verify.sh
+check_PROGRAMS += test-verify
+EXTRA_DIST += test-verify.c test-verify.sh init.sh
+
+## end   gnulib module verify-tests
+
 ## begin gnulib module version-etc-fsf
 
 libtests_a_SOURCES += version-etc-fsf.c
