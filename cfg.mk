@@ -17,7 +17,7 @@
 
 WFLAGS ?= --enable-gcc-warnings
 ADDFLAGS ?=
-CFGFLAGS ?= --enable-gtk-doc $(ADDFLAGS) $(WFLAGS)
+CFGFLAGS ?= --enable-gtk-doc --enable-gtk-doc-pdf $(ADDFLAGS) $(WFLAGS)
 
 build_aux = lib/build-aux
 

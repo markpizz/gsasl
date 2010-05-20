@@ -1,10 +1,10 @@
 --- gendocs_template.orig	2008-07-01 15:40:29.000000000 +0200
 +++ gendocs_template	2008-07-01 15:40:42.000000000 +0200
-@@ -59,6 +59,18 @@
+@@ -59,6 +59,19 @@
      (%%TEXI_TGZ_SIZE%%K bytes gzipped tar file).</a></li>
  </ul>
  
-+<p>The manual is also available in a few experimental formats:</p>
++<p>There is also an API reference manual:</p>
 +
 +<ul>
 +  <li><a href="../doxygen/">Doxygen HTML</a>.</li>
@@ -13,6 +13,7 @@
 +
 +<ul>
 +  <li><a href="../reference/">HTML API Reference Manual (GTK-DOC)</a>.</li>
++  <li><a href="../reference/%%PACKAGE%%.pdf">PDF Reference API Manual (GTK-DOC)</a>.
 +  <li><a href="../reference/gsasl.devhelp">DevHelp API Reference Manual (GTK-DOC)</a>.</li>
 +</ul>
 +

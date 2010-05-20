@@ -1,5 +1,5 @@
 To: help-gsasl@gnu.org, info-gnu@gnu.org
-Subject: GNU SASL 1.4.4
+Subject: GNU SASL 1.4.4 released
 
 <#part sign=pgpmime>
 GNU SASL is a modern C library that implement the standard network
