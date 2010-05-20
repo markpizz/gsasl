@@ -4,6 +4,15 @@ See the end for copying conditions.
 
 * Version 1.5.2 (unreleased) [beta]
 
+** SCRAM server: Compare c= field in client-final to match client-first.
+Before our server did not verify that the channel binding and
+authorization identity fields weren't tampered with.  Reported by Marc
+Santamaria <asgarath@gmail.com>.
+
+** SCRAM server: Interop against clients that supports channel bindings.
+Before our server would refuse such connections.  Reported by Marc
+Santamaria <asgarath@gmail.com>.
+
 ** API and ABI modifications.
 No changes since last version.
 
