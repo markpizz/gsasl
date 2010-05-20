@@ -201,6 +201,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module unsetenv:
   # Code from module unsetenv-tests:
   # Code from module useless-if-before-free:
+  # Code from module valgrind-tests:
   # Code from module vasnprintf:
   # Code from module vasnprintf-tests:
   # Code from module vc-list-files:
@@ -461,6 +462,8 @@ AC_SUBST([LTALLOCA])
   # Code from module unistd:
   gl_UNISTD_H
   # Code from module useless-if-before-free:
+  # Code from module valgrind-tests:
+  gl_VALGRIND_TESTS
   # Code from module vasnprintf:
   gl_FUNC_VASNPRINTF
   # Code from module vc-list-files:
@@ -599,6 +602,7 @@ changequote([, ])dnl
   gl_HEADER_TIME_H
   gl_FUNC_UNSETENV
   gl_STDLIB_MODULE_INDICATOR([unsetenv])
+  gl_VALGRIND_TESTS
   abs_aux_dir=`cd "$ac_aux_dir"; pwd`
   AC_SUBST([abs_aux_dir])
   gl_FUNC_WCTOB
@@ -934,6 +938,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/uintmax_t.m4
   m4/ungetc.m4
   m4/unistd_h.m4
+  m4/valgrind-tests.m4
   m4/vasnprintf.m4
   m4/version-etc.m4
   m4/visibility.m4

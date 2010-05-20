@@ -81,8 +81,6 @@ GTK_DOC_CHECK(1.1)
 # For gnulib stuff in gl/.
 gl_INIT
 
-sj_VALGRIND
-
 AC_ARG_ENABLE([gcc-warnings],
   [AS_HELP_STRING([--enable-gcc-warnings],
 		  [turn on lots of GCC warnings (for developers)])],

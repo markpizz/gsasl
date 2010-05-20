@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=lib/build-aux --with-tests --avoid=fcntl-h-c++-tests --avoid=iconv-h-c++-tests --avoid=stdio-c++-tests --avoid=stdlib-c++-tests --avoid=string-c++-tests --avoid=sys_ioctl-c++-tests --avoid=sys_select-c++-tests --avoid=sys_socket-c++-tests --avoid=sys_stat-c++-tests --avoid=sys_time-c++-tests --avoid=time-c++-tests --avoid=unistd-c++-tests --avoid=wchar-c++-tests --avoid=wctype-c++-tests --libtool --macro-prefix=gl --no-vc-files autobuild close connect error exit fdl-1.3 gendocs getaddrinfo getopt-gnu getpass gpl-3.0 lgpl-2.1 maintainer-makefile manywarnings netdb netinet_in pmccabe2html poll progname quote readline recv shutdown socket striconv strtok_r sys_time unistd version-etc warnings xalloc
+#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=lib/build-aux --with-tests --avoid=fcntl-h-c++-tests --avoid=iconv-h-c++-tests --avoid=stdio-c++-tests --avoid=stdlib-c++-tests --avoid=string-c++-tests --avoid=sys_ioctl-c++-tests --avoid=sys_select-c++-tests --avoid=sys_socket-c++-tests --avoid=sys_stat-c++-tests --avoid=sys_time-c++-tests --avoid=time-c++-tests --avoid=unistd-c++-tests --avoid=wchar-c++-tests --avoid=wctype-c++-tests --libtool --macro-prefix=gl --no-vc-files autobuild close connect error exit fdl-1.3 gendocs getaddrinfo getopt-gnu getpass gpl-3.0 lgpl-2.1 maintainer-makefile manywarnings netdb netinet_in pmccabe2html poll progname quote readline recv shutdown socket striconv strtok_r sys_time unistd valgrind-tests version-etc warnings xalloc
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
@@ -48,6 +48,7 @@ gl_MODULES([
   strtok_r
   sys_time
   unistd
+  valgrind-tests
   version-etc
   warnings
   xalloc
