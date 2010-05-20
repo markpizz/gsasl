@@ -1,5 +1,5 @@
 /* digest-md5.c --- Test the DIGEST-MD5 mechanism.
- * Copyright (C) 2002, 2003, 2004, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -192,13 +192,15 @@ doit (void)
       res = gsasl_server_start (ctx, "DIGEST-MD5", &server);
       if (res != GSASL_OK)
 	{
-	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  fail ("gsasl_server_start() failed (%d):\n%s\n",
+		res, gsasl_strerror (res));
 	  return;
 	}
       res = gsasl_client_start (ctx, "DIGEST-MD5", &client);
       if (res != GSASL_OK)
 	{
-	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  fail ("gsasl_client_start() failed (%d):\n%s\n",
+		res, gsasl_strerror (res));
 	  return;
 	}
 

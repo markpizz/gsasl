@@ -151,13 +151,15 @@ doit (void)
       res = gsasl_server_start (ctx, "SCRAM-SHA-1", &server);
       if (res != GSASL_OK)
 	{
-	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  fail ("gsasl_server_start() failed (%d):\n%s\n",
+		res, gsasl_strerror (res));
 	  return;
 	}
       res = gsasl_client_start (ctx, "SCRAM-SHA-1", &client);
       if (res != GSASL_OK)
 	{
-	  fail ("gsasl_init() failed (%d):\n%s\n", res, gsasl_strerror (res));
+	  fail ("gsasl_client_start() failed (%d):\n%s\n",
+		res, gsasl_strerror (res));
 	  return;
 	}
 

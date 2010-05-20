@@ -1,5 +1,5 @@
 /* old-gssapi.c --- Test the GSSAPI mechanism, using old callback API.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -157,13 +157,15 @@ doit (void)
       rc = gsasl_server_start (ctx, "GSSAPI", &server);
       if (rc != GSASL_OK)
 	{
-	  fail ("gsasl_init() failed (%d):\n%s\n", rc, gsasl_strerror (rc));
+	  fail ("gsasl_server_start() failed (%d):\n%s\n",
+		rc, gsasl_strerror (rc));
 	  return;
 	}
       rc = gsasl_client_start (ctx, "GSSAPI", &client);
       if (rc != GSASL_OK)
 	{
-	  fail ("gsasl_init() failed (%d):\n%s\n", rc, gsasl_strerror (rc));
+	  fail ("gsasl_client_start() failed (%d):\n%s\n",
+		rc, gsasl_strerror (rc));
 	  return;
 	}
 

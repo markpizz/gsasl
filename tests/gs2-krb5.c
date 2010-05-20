@@ -144,13 +144,15 @@ doit (void)
       rc = gsasl_server_start (ctx, "GS2-KRB5", &server);
       if (rc != GSASL_OK)
 	{
-	  fail ("gsasl_init() failed (%d):\n%s\n", rc, gsasl_strerror (rc));
+	  fail ("gsasl_server_start() failed (%d):\n%s\n",
+		rc, gsasl_strerror (rc));
 	  return;
 	}
       rc = gsasl_client_start (ctx, "GS2-KRB5", &client);
       if (rc != GSASL_OK)
 	{
-	  fail ("gsasl_init() failed (%d):\n%s\n", rc, gsasl_strerror (rc));
+	  fail ("gsasl_client_start() failed (%d):\n%s\n",
+		rc, gsasl_strerror (rc));
 	  return;
 	}
 
