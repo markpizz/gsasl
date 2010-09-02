@@ -35,4 +35,4 @@ if SERVER
 libgsasl_gs2_la_SOURCES += server.c
 endif
 
-libgsasl_gs2_la_LIBADD = $(LTLIBGSS) $(GSS_LIBS)
+libgsasl_gs2_la_LIBADD = $(LTLIBGSS) $(LTLIBGSSAPI32) $(GSS_LIBS)
