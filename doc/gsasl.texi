@@ -530,6 +530,7 @@ For the complete list, refer to the output from @code{configure
 
 @menu
 * Installing under Windows::    Windows specific build instructions.
+* Kerberos on Windows::         Building with Kerberos via GSS-API on Windows.
 @end menu
 
 @node Installing under Windows
@@ -567,6 +568,101 @@ cryptographic random data.  The function is known to have some
 security weaknesses.  See @url{http://eprint.iacr.org/2007/419} for
 more information.  The code will attempt to use the Intel RND crypto
 provider if it is installed, see @file{lib/gl/gc-gnulib.c}.
+
+@node Kerberos on Windows
+@subsection Kerberos on Windows
+
+Building GNU SASL with support for Kerberos via GSS-API on Windows is
+straight forward if you use GNU GSS as the Kerberos GSS-API mechanism.
+
+However, if you are using MIT Kerberos for Windows (KfW), getting GNU
+SASL to build with Kerberos support is more difficult because KfW does
+not follow the GNU coding style and it has bugs that needs to be
+worked around.  We provide instructions for this environment as well,
+in the hope that it will be useful for GNU SASL users.
+
+Our instructions assumes you are building the software on a dpkg-based
+GNU/Linux systems (e.g., gNewSense) using the MinGW cross-compiler
+suite.  These instructions were compiled for KfW version 3.2.2 which
+were the latest as of 2010-09-25.
+
+We assume that you have installed a normal build environment including
+the MinGW cross-compiler.  You will need to install Windows binaries
+for @code{libgpg-error} and @code{libgcrypt} packages, the simplest is
+to use pre-compiled libraries like this:
+
+@example
+$ wget -q http://josefsson.org/gnutls4win/mingw32-libgcrypt_1.4.6-1_all.deb
+$ sudo dpkg -i mingw32-libgcrypt_1.4.6-1_all.deb
+$ wget -q http://josefsson.org/gnutls4win/mingw32-libgpg-error_1.8-1_all.deb
+$ sudo dpkg -i mingw32-libgpg-error_1.8-1_all.deb
+@end example
+
+Download and unpack the KfW SDK like this:
+
+@example
+$ mkdir ~/kfw
+$ cd ~/kfw
+$ wget -q http://web.mit.edu/kerberos/dist/kfw/3.2/kfw-3.2.2/kfw-3-2-2-sdk.zip
+$ unzip kfw-3-2-2-sdk.zip
+@end example
+
+Fix a bug in the "win-mac.h" header inside KfW by replacing
+@code{#include <sys\foo.h>} with @code{#include <sys/foo.h>}:
+
+@example
+perl -pi -e 's,sys\\,sys/,' ~/kfw/kfw-3-2-2-final/inc/krb5/win-mac.h
+@end example
+
+Unpack your copy of GNU SASL:
+
+@example
+$ wget -q ftp://ftp.gnu.org/gnu/gsasl/gsasl-@value{VERSION}.tar.gz
+$ tar xfz gsasl-@value{VERSION}.tar.gz
+$ cd gsasl-@value{VERSION}
+@end example
+
+Configure GNU SASL like this:
+
+@example
+$ lt_cv_deplibs_check_method=pass_all ./configure --host=i586-mingw32msvc --build=i686-pc-linux-gnu --with-gssapi-impl=kfw LDFLAGS="-L$HOME/kfw/kfw-3-2-2-final/lib/i386" CPPFLAGS="-I$HOME/kfw/kfw-3-2-2-final/inc/krb5 -DSSIZE_T_DEFINED"
+@end example
+
+The 'lt_cv_deplibs_check_method=pass_all' setting is required because
+the KfW SDK does not ship with Libtool @code{*.la} files and is using
+a non-standard name of the DLLs.  The @code{-DSSIZE_T_DEFINED} is
+necessary because the @code{win-mac.h} file would provide an incorrect
+duplicate definitions of @code{ssize_t} otherwise.
+
+@example
+$ make check
+@end example
+
+You may now copy the following files onto the Windows machine (e.g.,
+through a USB memory device):
+
+@example
+/usr/i586-mingw32msvc/bin/libgcrypt-11.dll
+/usr/i586-mingw32msvc/bin/libgpg-error-0.dll
+lib/src/.libs/libgsasl-7.dll
+src/.libs/gsasl.exe
+@end example
+
+The remaining steps are done on the Windows XP machine.  Install KfW
+and configure it for your realm.  To make sure KfW is working
+properly, acquire a user ticket and then remove it.  For testing
+purposes, you may use the realm 'interop.josefsson.org' with KDC
+'interop.josefsson.org' and username 'user' and password 'pass'.
+
+Change to the directory where you placed the files above, and invoke a
+command like this:
+
+@example
+gsasl.exe -m GSSAPI --client --service imap --hostname interop.josefsson.org
+@end example
+
+KfW should query your for a password, and the tool should print out a
+GSS-API challenge.
 
 @node Bug Reports
 @section Bug Reports
