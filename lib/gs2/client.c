@@ -33,6 +33,7 @@
 /* Get memcpy, strlen. */
 #include <string.h>
 
+#include "gss-extra.h"
 #include "gs2helper.h"
 
 struct _gsasl_gs2_client_state

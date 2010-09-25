@@ -60,6 +60,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module gettext:
   # Code from module gettext-h:
   # Code from module gnumakefile:
+  # Code from module gss-extra:
   # Code from module havelib:
   # Code from module include_next:
   # Code from module intprops:
@@ -183,6 +184,8 @@ AC_DEFUN([gl_INIT],
   	m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
+  # Code from module gss-extra:
+  sj_GSS_EXTRA
   # Code from module havelib:
   # Code from module include_next:
   # Code from module lib-msvc-compat:
@@ -428,6 +431,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getdelim.c
   lib/getline.c
   lib/gettext.h
+  lib/gss-extra.c
+  lib/gss-extra.h
   lib/hmac-md5.c
   lib/hmac-sha1.c
   lib/hmac.h
@@ -487,6 +492,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/glibc2.m4
   m4/glibc21.m4
   m4/gnulib-common.m4
+  m4/gss-extra.m4
   m4/hmac-md5.m4
   m4/hmac-sha1.m4
   m4/iconv.m4

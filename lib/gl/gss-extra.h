@@ -1,4 +1,4 @@
-/* gs2helper.h --- GS2 helper functions common to client and server.
+/* gss-extra.h --- Provide GSS-API symbols when missing from library.
  * Copyright (C) 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef GS2_HELPER_H
-# define GS2_HELPER_H
+#ifndef GSS_EXTRA_H
+# define GSS_EXTRA_H
 
 /* Get GSS-API functions. */
 #ifdef HAVE_LIBGSS
@@ -32,9 +32,27 @@
 # include <gssapi/gssapi.h>
 #endif
 
-/* Get gsasl functions and types. */
-#include <gsasl.h>
+#ifndef HAVE_GSS_OID_EQUAL
+extern int gss_oid_equal (const gss_OID first_oid, const gss_OID second_oid);
+#endif /* HAVE_GSS_OID_EQUAL */
 
-extern int gs2_get_oid (Gsasl_session * sctx, gss_OID * mech_oid);
+#ifndef HAVE_GSS_INQUIRE_MECH_FOR_SASLNAME
+OM_uint32
+gss_inquire_mech_for_saslname (OM_uint32 * minor_status,
+			       const gss_buffer_t sasl_mech_name,
+			       gss_OID * mech_type);
+#endif /* HAVE_GSS_INQUIRE_MECH_FOR_SASLNAME */
 
-#endif /* GS2_HELPER_H */
+#ifndef HAVE_GSS_ENCAPSULATE_TOKEN
+extern OM_uint32
+gss_encapsulate_token (const gss_buffer_t input_token,
+		       const gss_OID token_oid, gss_buffer_t output_token);
+#endif /* HAVE_GSS_ENCAPSULATE_TOKEN */
+
+#ifndef HAVE_GSS_DECAPSULATE_TOKEN
+OM_uint32
+gss_decapsulate_token (const gss_buffer_t input_token,
+		       const gss_OID token_oid, gss_buffer_t output_token);
+#endif
+
+#endif /* GSS_EXTRA_H */

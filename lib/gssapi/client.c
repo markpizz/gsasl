@@ -41,6 +41,8 @@
 # include <gssapi/gssapi.h>
 #endif
 
+#include "gss-extra.h"
+
 struct _Gsasl_gssapi_client_state
 {
   int step;

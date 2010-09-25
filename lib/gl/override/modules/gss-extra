@@ -1,0 +1,23 @@
+Description:
+Provide replacement GSS-API symbols if missing from GSS-API library.
+
+Files:
+lib/gss-extra.c
+lib/gss-extra.h
+m4/gss-extra.m4
+
+Depends-on:
+
+configure.ac:
+sj_GSS_EXTRA
+
+Makefile.am:
+
+Include:
+"gss-extra.h"
+
+License:
+LGPLv2+
+
+Maintainer:
+Simon Josefsson

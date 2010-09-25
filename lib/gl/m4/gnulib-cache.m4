@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=build-aux --with-tests --avoid=stdio-c++-tests --avoid=stdlib-c++-tests --avoid=string-c++-tests --avoid=unistd-c++-tests --avoid=vc-list-files-tests --avoid=wchar-c++-tests --lgpl=2 --libtool --macro-prefix=gl --no-vc-files base64 c-ctype crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-sha1 crypto/gc-md5 crypto/gc-pbkdf2-sha1 crypto/gc-random crypto/gc-sha1 getline gettext lib-msvc-compat lib-symbol-versions lib-symbol-visibility maintainer-makefile memmem memxor minmax strnlen strverscmp vasprintf
+#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=build-aux --with-tests --avoid=stdio-c++-tests --avoid=stdlib-c++-tests --avoid=string-c++-tests --avoid=unistd-c++-tests --avoid=vc-list-files-tests --avoid=wchar-c++-tests --lgpl=2 --libtool --macro-prefix=gl --no-vc-files base64 c-ctype crypto/gc crypto/gc-hmac-md5 crypto/gc-hmac-sha1 crypto/gc-md5 crypto/gc-pbkdf2-sha1 crypto/gc-random crypto/gc-sha1 getline gettext gss-extra lib-msvc-compat lib-symbol-versions lib-symbol-visibility maintainer-makefile memmem memxor minmax strnlen strverscmp vasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
@@ -31,6 +31,7 @@ gl_MODULES([
   crypto/gc-sha1
   getline
   gettext
+  gss-extra
   lib-msvc-compat
   lib-symbol-versions
   lib-symbol-visibility

@@ -269,52 +269,6 @@ fi
 AC_SUBST([GSS_CFLAGS])
 AC_SUBST([GSS_LIBS])
 
-# Test for GSS-API library features.
-if test "$gssapi_impl" != "no"; then
-  save_CPPFLAGS="$CPPFLAGS"
-  save_LIBS="$LIBS"
-  CPPFLAGS="$CPPFLAGS $GSS_CFLAGS"
-  LIBS="$LIBS $LIBGSS $GSS_LIBS"
-  AC_CHECK_FUNCS([gss_encapsulate_token])
-  AC_CHECK_FUNCS([gss_decapsulate_token])
-  AC_CHECK_FUNCS([gss_oid_equal])
-  AC_CHECK_FUNCS([gss_inquire_mech_for_saslname])
-  if test "$gssapi_impl" = "mit" || \
-      test "$gssapi_impl" = "heimdal" || \
-      test "$gssapi_impl" = "mitheimdal" || \
-      test "$gssapi_impl" = "kfw"; then
-    AC_CHECK_HEADERS([gssapi.h gssapi/gssapi.h])
-    if test "$ac_cv_header_gssapi_h$ac_cv_header_gssapi_gssapi_h" = "nono"; then
-      gssapi_impl=no
-      AC_MSG_WARN([Cannot find gssapi.h or gssapi/gssapi.h, disabling GSSAPI])
-    fi
-  fi
-  CPPFLAGS="$save_CPPFLAGS"
-  LIBS="$save_LIBS"
-fi
-
-# Disable GSSAPI/GS2 if we can't find GSS-API implementation
-if test "$gssapi_impl" = "no"; then
-  gs2=no
-  gssapi=no
-fi
-
-# GS2, second part
-if test "$gs2" != "no" ; then
-  AC_DEFINE(USE_GS2, 1, [Define to 1 if you want GS2.])
-fi
-AC_MSG_CHECKING([if GS2 should be used])
-AC_MSG_RESULT($gs2)
-AM_CONDITIONAL(GS2, test x$gs2 = xyes)
-
-# GSSAPI, second part
-if test "$gssapi" != "no" ; then
-  AC_DEFINE(USE_GSSAPI, 1, [Define to 1 if you want GSSAPI.])
-fi
-AC_MSG_CHECKING([if GSSAPI should be used])
-AC_MSG_RESULT($gssapi)
-AM_CONDITIONAL(GSSAPI, test x$gssapi = xyes)
-
 # KERBEROS_V5
 AC_ARG_ENABLE(kerberos_v5,
   AS_HELP_STRING([--enable-kerberos_v5],
@@ -395,8 +349,30 @@ AC_MSG_CHECKING([if backwards compatibility code should be present])
 AC_MSG_RESULT($obsolete)
 AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 
-# For gnulib stuff in gl/.
+# For gnulib stuff in gl/ which may modify gssapi_impl, see gl/m4/gss-extra.m4.
 gl_INIT
+
+# Disable GSSAPI/GS2 if we can't find GSS-API implementation
+if test "$gssapi_impl" = "no"; then
+  gs2=no
+  gssapi=no
+fi
+
+# GS2, second part
+if test "$gs2" != "no" ; then
+  AC_DEFINE(USE_GS2, 1, [Define to 1 if you want GS2.])
+fi
+AC_MSG_CHECKING([if GS2 should be used])
+AC_MSG_RESULT($gs2)
+AM_CONDITIONAL(GS2, test x$gs2 = xyes)
+
+# GSSAPI, second part
+if test "$gssapi" != "no" ; then
+  AC_DEFINE(USE_GSSAPI, 1, [Define to 1 if you want GSSAPI.])
+fi
+AC_MSG_CHECKING([if GSSAPI should be used])
+AC_MSG_RESULT($gssapi)
+AM_CONDITIONAL(GSSAPI, test x$gssapi = xyes)
 
 sj_UPDATE_HEADER_VERSION([$srcdir/src/gsasl.h])
 
