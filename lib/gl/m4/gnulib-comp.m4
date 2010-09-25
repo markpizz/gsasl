@@ -12,7 +12,8 @@
 # This file represents the compiled summary of the specification in
 # gnulib-cache.m4. It lists the computed macro invocations that need
 # to be invoked from configure.ac.
-# In projects using CVS, this file can be treated like other built files.
+# In projects that use version control, this file can be treated like
+# other built files.
 
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -89,8 +90,11 @@ AC_DEFUN([gl_EARLY],
   # Code from module string:
   # Code from module string-tests:
   # Code from module strnlen:
+  # Code from module strnlen-tests:
   # Code from module strverscmp:
   # Code from module strverscmp-tests:
+  # Code from module sys_wait:
+  # Code from module sys_wait-tests:
   # Code from module unistd:
   # Code from module unistd-tests:
   # Code from module useless-if-before-free:
@@ -164,7 +168,7 @@ AC_DEFUN([gl_INIT],
   gl_STDIO_MODULE_INDICATOR([getline])
   # Code from module gettext:
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
-  AM_GNU_GETTEXT_VERSION([0.18])
+  AM_GNU_GETTEXT_VERSION([0.18.1])
   # Code from module gettext-h:
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
@@ -227,6 +231,9 @@ AC_DEFUN([gl_INIT],
   # Code from module strverscmp:
   gl_FUNC_STRVERSCMP
   gl_STRING_MODULE_INDICATOR([strverscmp])
+  # Code from module sys_wait:
+  gl_SYS_WAIT_H
+  AC_PROG_MKDIR_P
   # Code from module unistd:
   gl_UNISTD_H
   # Code from module useless-if-before-free:
@@ -292,12 +299,20 @@ changequote([, ])dnl
   m4_pushdef([gl_MODULE_INDICATOR_CONDITION], [$gl_module_indicator_condition])
   gl_FUNC_GETPAGESIZE
   gl_UNISTD_MODULE_INDICATOR([getpagesize])
+  dnl Check for prerequisites for memory fence checks.
+  gl_FUNC_MMAP_ANON
+  AC_CHECK_HEADERS_ONCE([sys/mman.h])
+  AC_CHECK_FUNCS_ONCE([mprotect])
   gl_FUNC_MMAP_ANON
   AC_CHECK_HEADERS_ONCE([sys/mman.h])
   AC_CHECK_FUNCS_ONCE([mprotect])
   AC_CHECK_DECLS_ONCE([alarm])
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
+  dnl Check for prerequisites for memory fence checks.
+  gl_FUNC_MMAP_ANON
+  AC_CHECK_HEADERS_ONCE([sys/mman.h])
+  AC_CHECK_FUNCS_ONCE([mprotect])
   m4_popdef([gl_MODULE_INDICATOR_CONDITION])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
@@ -442,6 +457,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/string.in.h
   lib/strnlen.c
   lib/strverscmp.c
+  lib/sys_wait.in.h
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
@@ -516,6 +532,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/string_h.m4
   m4/strnlen.m4
   m4/strverscmp.m4
+  m4/sys_wait_h.m4
   m4/threadlib.m4
   m4/uintmax_t.m4
   m4/unistd_h.m4
@@ -550,7 +567,9 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-stdio.c
   tests/test-stdlib.c
   tests/test-string.c
+  tests/test-strnlen.c
   tests/test-strverscmp.c
+  tests/test-sys_wait.c
   tests/test-unistd.c
   tests/test-vasnprintf.c
   tests/test-vasprintf.c

@@ -11,6 +11,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 ** doc: Added PDF version of API reference manual.
 See doc/reference/gsasl.pdf.
 
+** Update gnulib files.
+
 * Version 1.5.1 (released 2010-04-21) [beta]
 
 ** Update gnulib files.

@@ -12,7 +12,8 @@
 # This file represents the compiled summary of the specification in
 # gnulib-cache.m4. It lists the computed macro invocations that need
 # to be invoked from configure.ac.
-# In projects using CVS, this file can be treated like other built files.
+# In projects that use version control, this file can be treated like
+# other built files.
 
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -77,8 +78,8 @@ AC_DEFUN([gl_EARLY],
   # Code from module getopt-gnu:
   # Code from module getopt-posix:
   # Code from module getopt-posix-tests:
+  # Code from module getpagesize:
   # Code from module getpass:
-  # Code from module gettext:
   # Code from module gettext-h:
   # Code from module gettimeofday:
   # Code from module gettimeofday-tests:
@@ -136,7 +137,8 @@ AC_DEFUN([gl_EARLY],
   # Code from module putenv:
   # Code from module quote:
   # Code from module quotearg:
-  # Code from module quotearg-tests:
+  # Code from module quotearg-simple:
+  # Code from module quotearg-simple-tests:
   # Code from module readline:
   # Code from module realloc-posix:
   # Code from module recv:
@@ -152,6 +154,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module snprintf:
   # Code from module snprintf-tests:
   # Code from module socket:
+  # Code from module socketlib:
   # Code from module sockets:
   # Code from module sockets-tests:
   # Code from module socklen:
@@ -194,6 +197,8 @@ AC_DEFUN([gl_EARLY],
   # Code from module sys_stat-tests:
   # Code from module sys_time:
   # Code from module sys_time-tests:
+  # Code from module sys_wait:
+  # Code from module sys_wait-tests:
   # Code from module time:
   # Code from module time-tests:
   # Code from module unistd:
@@ -375,6 +380,7 @@ AC_SUBST([LTALLOCA])
   gl_QUOTE
   # Code from module quotearg:
   gl_QUOTEARG
+  # Code from module quotearg-simple:
   # Code from module readline:
   gl_FUNC_READLINE
   # Code from module realloc-posix:
@@ -417,6 +423,8 @@ AC_SUBST([LTALLOCA])
     SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS=1
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([socket])
+  # Code from module socketlib:
+  gl_SOCKETLIB
   # Code from module sockets:
   gl_SOCKETS
   # Code from module socklen:
@@ -458,6 +466,9 @@ AC_SUBST([LTALLOCA])
   AC_PROG_MKDIR_P
   # Code from module sys_time:
   gl_HEADER_SYS_TIME_H
+  AC_PROG_MKDIR_P
+  # Code from module sys_wait:
+  gl_SYS_WAIT_H
   AC_PROG_MKDIR_P
   # Code from module unistd:
   gl_UNISTD_H
@@ -546,8 +557,8 @@ changequote([, ])dnl
   gl_UNISTD_MODULE_INDICATOR([environ])
   gl_FCNTL_H
   gl_FUNC_UNGETC_WORKS
-  dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
-  AM_GNU_GETTEXT_VERSION([0.18])
+  gl_FUNC_GETPAGESIZE
+  gl_UNISTD_MODULE_INDICATOR([getpagesize])
   gl_FUNC_GETTIMEOFDAY
   gl_SYS_TIME_MODULE_INDICATOR([gettimeofday])
   AC_REQUIRE([AC_C_INLINE])
@@ -570,6 +581,10 @@ changequote([, ])dnl
   gt_LOCALE_JA
   gt_LOCALE_ZH_CN
   gt_LOCALE_FR_UTF8
+  dnl Check for prerequisites for memory fence checks.
+  gl_FUNC_MMAP_ANON
+  AC_CHECK_HEADERS_ONCE([sys/mman.h])
+  AC_CHECK_FUNCS_ONCE([mprotect])
   gl_FUNC_OPEN
   gl_FCNTL_MODULE_INDICATOR([open])
   gl_PATHMAX
@@ -578,8 +593,6 @@ changequote([, ])dnl
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
   gl_FUNC_PUTENV
   gl_STDLIB_MODULE_INDICATOR([putenv])
-  gt_LOCALE_FR
-  gt_LOCALE_FR_UTF8
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
   gl_FUNC_SETENV
   gl_STDLIB_MODULE_INDICATOR([setenv])
@@ -809,6 +822,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/sys_select.in.h
   lib/sys_socket.in.h
   lib/sys_time.in.h
+  lib/sys_wait.in.h
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
@@ -845,10 +859,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getdelim.m4
   m4/getline.m4
   m4/getopt.m4
+  m4/getpagesize.m4
   m4/getpass.m4
-  m4/gettext.m4
   m4/gettimeofday.m4
-  m4/glibc2.m4
   m4/glibc21.m4
   m4/gnulib-common.m4
   m4/hostent.m4
@@ -859,16 +872,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/inet_ntop.m4
   m4/inet_pton.m4
   m4/inline.m4
-  m4/intdiv0.m4
-  m4/intl.m4
-  m4/intldir.m4
-  m4/intlmacosx.m4
-  m4/intmax.m4
   m4/intmax_t.m4
-  m4/inttypes-pri.m4
   m4/inttypes_h.m4
   m4/ioctl.m4
-  m4/lcmessage.m4
   m4/lib-ld.m4
   m4/lib-link.m4
   m4/lib-prefix.m4
@@ -877,7 +883,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/locale-ja.m4
   m4/locale-tr.m4
   m4/locale-zh.m4
-  m4/lock.m4
   m4/longlong.m4
   m4/lseek.m4
   m4/lstat.m4
@@ -893,15 +898,11 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/multiarch.m4
   m4/netdb_h.m4
   m4/netinet_in_h.m4
-  m4/nls.m4
   m4/open.m4
   m4/pathmax.m4
   m4/perror.m4
-  m4/po.m4
   m4/poll.m4
-  m4/printf-posix.m4
   m4/printf.m4
-  m4/progtest.m4
   m4/putenv.m4
   m4/quote.m4
   m4/quotearg.m4
@@ -912,6 +913,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/setenv.m4
   m4/size_max.m4
   m4/snprintf.m4
+  m4/socketlib.m4
   m4/sockets.m4
   m4/socklen.m4
   m4/sockpfaf.m4
@@ -933,15 +935,13 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sys_socket_h.m4
   m4/sys_stat_h.m4
   m4/sys_time_h.m4
-  m4/threadlib.m4
+  m4/sys_wait_h.m4
   m4/time_h.m4
-  m4/uintmax_t.m4
   m4/ungetc.m4
   m4/unistd_h.m4
   m4/valgrind-tests.m4
   m4/vasnprintf.m4
   m4/version-etc.m4
-  m4/visibility.m4
   m4/warn-on-use.m4
   m4/warnings.m4
   m4/wchar_h.m4
@@ -952,8 +952,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/xalloc.m4
   m4/xsize.m4
   tests/init.sh
-  tests/locale/fr/LC_MESSAGES/test-quotearg.mo
-  tests/locale/fr/LC_MESSAGES/test-quotearg.po
   tests/macros.h
   tests/signature.h
   tests/test-alignof.c
@@ -1003,8 +1001,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-perror.c
   tests/test-perror.sh
   tests/test-poll.c
-  tests/test-quotearg.c
-  tests/test-quotearg.sh
+  tests/test-quotearg-simple.c
+  tests/test-quotearg.h
   tests/test-select-fd.c
   tests/test-select-in.sh
   tests/test-select-out.sh
@@ -1030,6 +1028,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-sys_socket.c
   tests/test-sys_stat.c
   tests/test-sys_time.c
+  tests/test-sys_wait.c
   tests/test-time.c
   tests/test-unistd.c
   tests/test-unsetenv.c
@@ -1050,6 +1049,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/bind.c
   tests=lib/dup2.c
   tests=lib/fcntl.in.h
+  tests=lib/getpagesize.c
   tests=lib/gettimeofday.c
   tests=lib/ignore-value.h
   tests=lib/inet_pton.c

@@ -13,6 +13,8 @@ Santamaria <asgarath@gmail.com>.
 Before our server would refuse such connections.  Reported by Marc
 Santamaria <asgarath@gmail.com>.
 
+** Update gnulib files.
+
 ** API and ABI modifications.
 No changes since last version.
 

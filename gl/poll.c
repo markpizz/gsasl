@@ -150,6 +150,8 @@ win32_compute_revents (HANDLE h, int *p_sought)
           if (avail)
             happened |= *p_sought & (POLLIN | POLLRDNORM);
         }
+      else if (GetLastError () == ERROR_BROKEN_PIPE)
+        happened |= POLLHUP;
 
       else
         {
@@ -503,7 +505,7 @@ poll (pfd, nfd, timeout)
           if (sought)
             handle_array[nhandles++] = h;
           if (pfd[i].revents)
-            wait_timeout = 0;
+            timeout = 0;
         }
     }
 

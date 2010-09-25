@@ -276,6 +276,14 @@ EXTRA_DIST += test-string.c
 
 ## end   gnulib module string-tests
 
+## begin gnulib module strnlen-tests
+
+TESTS += test-strnlen
+check_PROGRAMS += test-strnlen
+EXTRA_DIST += test-strnlen.c zerosize-ptr.h signature.h macros.h
+
+## end   gnulib module strnlen-tests
+
 ## begin gnulib module strverscmp-tests
 
 TESTS += test-strverscmp
@@ -283,6 +291,14 @@ check_PROGRAMS += test-strverscmp
 EXTRA_DIST += test-strverscmp.c signature.h macros.h
 
 ## end   gnulib module strverscmp-tests
+
+## begin gnulib module sys_wait-tests
+
+TESTS += test-sys_wait
+check_PROGRAMS += test-sys_wait
+EXTRA_DIST += test-sys_wait.c
+
+## end   gnulib module sys_wait-tests
 
 ## begin gnulib module unistd-tests
 

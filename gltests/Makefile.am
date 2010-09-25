@@ -290,21 +290,14 @@ EXTRA_DIST += macros.h signature.h test-getopt.c test-getopt.h test-getopt_long.
 
 ## end   gnulib module getopt-posix-tests
 
-## begin gnulib module gettext
+## begin gnulib module getpagesize
 
-# This is for those projects which use "gettextize --intl" to put a source-code
-# copy of libintl into their package. In such projects, every Makefile.am needs
-# -I$(top_builddir)/intl, so that <libintl.h> can be found in this directory.
-# For the Makefile.ams in other directories it is the maintainer's
-# responsibility; for the one from gnulib we do it here.
-# This option has no effect when the user disables NLS (because then the intl
-# directory contains no libintl.h file) or when the project does not use
-# "gettextize --intl".
-AM_CPPFLAGS += -I$(top_builddir)/intl
 
-EXTRA_DIST += $(top_srcdir)/lib/build-aux/config.rpath
+EXTRA_DIST += getpagesize.c
 
-## end   gnulib module gettext
+EXTRA_libtests_a_SOURCES += getpagesize.c
+
+## end   gnulib module getpagesize
 
 ## begin gnulib module gettimeofday
 
@@ -542,15 +535,14 @@ EXTRA_libtests_a_SOURCES += putenv.c
 
 ## end   gnulib module putenv
 
-## begin gnulib module quotearg-tests
+## begin gnulib module quotearg-simple-tests
 
-TESTS += test-quotearg.sh
-TESTS_ENVIRONMENT += LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
-check_PROGRAMS += test-quotearg
-test_quotearg_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-quotearg.sh test-quotearg.c macros.h locale/fr/LC_MESSAGES/test-quotearg.po locale/fr/LC_MESSAGES/test-quotearg.mo
+TESTS += test-quotearg-simple
+check_PROGRAMS += test-quotearg-simple
+test_quotearg_simple_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-quotearg-simple.c test-quotearg.h macros.h
 
-## end   gnulib module quotearg-tests
+## end   gnulib module quotearg-simple-tests
 
 ## begin gnulib module same-inode
 
@@ -843,6 +835,14 @@ EXTRA_DIST += test-sys_time.c
 
 ## end   gnulib module sys_time-tests
 
+## begin gnulib module sys_wait-tests
+
+TESTS += test-sys_wait
+check_PROGRAMS += test-sys_wait
+EXTRA_DIST += test-sys_wait.c
+
+## end   gnulib module sys_wait-tests
+
 ## begin gnulib module time
 
 BUILT_SOURCES += time.h
@@ -868,6 +868,7 @@ time.h: time.in.h $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
 	      -e 's|@''REPLACE_MKTIME''@|$(REPLACE_MKTIME)|g' \
 	      -e 's|@''REPLACE_NANOSLEEP''@|$(REPLACE_NANOSLEEP)|g' \
 	      -e 's|@''REPLACE_TIMEGM''@|$(REPLACE_TIMEGM)|g' \
+	      -e 's|@''PTHREAD_H_DEFINES_STRUCT_TIMESPEC''@|$(PTHREAD_H_DEFINES_STRUCT_TIMESPEC)|g' \
 	      -e 's|@''SYS_TIME_H_DEFINES_STRUCT_TIMESPEC''@|$(SYS_TIME_H_DEFINES_STRUCT_TIMESPEC)|g' \
 	      -e 's|@''TIME_H_DEFINES_STRUCT_TIMESPEC''@|$(TIME_H_DEFINES_STRUCT_TIMESPEC)|g' \
 	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
@@ -928,7 +929,7 @@ EXTRA_DIST += test-vasnprintf.c macros.h
 
 TESTS += test-vc-list-files-git.sh
 TESTS += test-vc-list-files-cvs.sh
-TESTS_ENVIRONMENT += PATH='$(abs_aux_dir)'$(PATH_SEPARATOR)"$$PATH"
+TESTS_ENVIRONMENT += abs_aux_dir='$(abs_aux_dir)'
 EXTRA_DIST += test-vc-list-files-git.sh test-vc-list-files-cvs.sh init.sh
 
 ## end   gnulib module vc-list-files-tests
