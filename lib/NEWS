@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 1.5.2 (unreleased) [beta]
 
+** GSSAPI/GS2-KRB5: Support for MIT Kerberos for Windows GSS-API library.
+
 ** SCRAM server: Compare c= field in client-final to match client-first.
 Before our server did not verify that the channel binding and
 authorization identity fields weren't tampered with.  Reported by Marc
