@@ -15,6 +15,9 @@ some line lengths with GS2-KRb5.
 ** doc: Added PDF version of API reference manual.
 See doc/reference/gsasl.pdf.
 
+** i18n: Updated translations.
+Thanks to Benno Schulenberg.
+
 ** Update gnulib files.
 
 * Version 1.5.1 (released 2010-04-21) [beta]
