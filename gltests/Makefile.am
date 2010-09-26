@@ -925,6 +925,15 @@ EXTRA_DIST += test-vasnprintf.c macros.h
 
 ## end   gnulib module vasnprintf-tests
 
+## begin gnulib module vasprintf-tests
+
+TESTS += test-vasprintf
+check_PROGRAMS += test-vasprintf
+
+EXTRA_DIST += test-vasprintf.c signature.h macros.h
+
+## end   gnulib module vasprintf-tests
+
 ## begin gnulib module vc-list-files-tests
 
 TESTS += test-vc-list-files-git.sh

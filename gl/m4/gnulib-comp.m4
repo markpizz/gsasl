@@ -209,6 +209,8 @@ AC_DEFUN([gl_EARLY],
   # Code from module valgrind-tests:
   # Code from module vasnprintf:
   # Code from module vasnprintf-tests:
+  # Code from module vasprintf:
+  # Code from module vasprintf-tests:
   # Code from module vc-list-files:
   # Code from module vc-list-files-tests:
   # Code from module verify:
@@ -477,6 +479,12 @@ AC_SUBST([LTALLOCA])
   gl_VALGRIND_TESTS
   # Code from module vasnprintf:
   gl_FUNC_VASNPRINTF
+  # Code from module vasprintf:
+  gl_FUNC_VASPRINTF
+  gl_STDIO_MODULE_INDICATOR([vasprintf])
+  m4_ifdef([AM_XGETTEXT_OPTION],
+    [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
+     AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
   # Code from module vc-list-files:
   # Code from module verify:
   # Code from module version-etc:
@@ -730,6 +738,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/alloca.in.h
   lib/arpa_inet.in.h
   lib/asnprintf.c
+  lib/asprintf.c
   lib/c-ctype.c
   lib/c-ctype.h
   lib/c-strcase.h
@@ -826,6 +835,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
+  lib/vasprintf.c
   lib/verify.h
   lib/version-etc.c
   lib/version-etc.h
@@ -941,6 +951,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/unistd_h.m4
   m4/valgrind-tests.m4
   m4/vasnprintf.m4
+  m4/vasprintf.m4
   m4/version-etc.m4
   m4/warn-on-use.m4
   m4/warnings.m4
@@ -1033,6 +1044,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-unistd.c
   tests/test-unsetenv.c
   tests/test-vasnprintf.c
+  tests/test-vasprintf.c
   tests/test-vc-list-files-cvs.sh
   tests/test-vc-list-files-git.sh
   tests/test-verify.c
