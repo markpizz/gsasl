@@ -1,33 +1,33 @@
 # Dutch translations for gsasl.
-# Copyright (C) 2009 Free Software Foundation, Inc.
+# Copyright (C) 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
 #
-# Taco Witte <tcwitte@cs.uu.nl>, 2004-2006.
-# Benno Schulenberg <benno@vertaalt.nl>, 2008.
+# Taco Witte <tcwitte@cs.uu.nl>, 2004, 2005, 2006.
 # Erwin Poeze <erwin.poeze@gmail.com>, 2009, 2010.
+# Benno Schulenberg <benno@vertaalt.nl>, 2008, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: gsasl-1.4.1\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
 "POT-Creation-Date: 2010-02-16 14:57+0100\n"
-"PO-Revision-Date: 2010-02-23 18:14+0100\n"
-"Last-Translator: Erwin Poeze <erwin.poeze@gmail.com>\n"
+"PO-Revision-Date: 2010-05-02 15:01+0200\n"
+"Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/imap.c:78 src/smtp.c:81
 #, c-format
 msgid "Chose SASL mechanisms:\n"
-msgstr "Kies SASL-methoden:\n"
+msgstr "Gekozen SASL-methoden:\n"
 
 #: src/imap.c:108 src/smtp.c:112 src/gsasl.c:198
 #, c-format
 msgid "Using mechanism:\n"
-msgstr "Gebruikt methode:\n"
+msgstr "Gebruikte methode:\n"
 
 #: src/imap.c:152
 #, c-format
@@ -50,7 +50,7 @@ msgstr ""
 #: src/gsasl.c:170
 #, c-format
 msgid "Choose SASL mechanism:\n"
-msgstr "Kies SASL-methode:\n"
+msgstr "Kies de SASL-methode:\n"
 
 #: src/gsasl.c:179
 #, c-format
@@ -70,7 +70,7 @@ msgstr "Cliëntuitvoer:\n"
 #: src/gsasl.c:273
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Typ `%s --help' voor meer informatie.\n"
+msgstr "Typ '%s --help' voor meer informatie.\n"
 
 #: src/gsasl.c:321
 #, c-format
@@ -80,17 +80,17 @@ msgstr "ontbrekend argument"
 #: src/gsasl.c:328
 #, c-format
 msgid "need both --x509-cert-file and --x509-key-file"
-msgstr "--x509-cert-file en --x509-key-file zijn beide nodig"
+msgstr "opties '--x509-cert-file' en '--x509-key-file' zijn beide nodig"
 
 #: src/gsasl.c:332
 #, c-format
 msgid "cannot use both --starttls and --no-starttls"
-msgstr "--starttls en --no-starttls gaan niet samen"
+msgstr "opties '--starttls' en '--no-starttls' gaan niet samen"
 
 #: src/gsasl.c:335
 #, c-format
 msgid "cannot use both --smtp and --imap"
-msgstr "--smtp en --imap gaan niet samen"
+msgstr "opties '--smtp' en '--imap' gaan niet samen"
 
 #: src/gsasl.c:400
 #, c-format
@@ -115,7 +115,7 @@ msgstr "Deze server ondersteunt de volgende methoden:\n"
 #: src/gsasl.c:491
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
-msgstr "Algemene GnuTLS-initialisatie is mislukt: %s"
+msgstr "algemene GnuTLS-initialisatie is mislukt: %s"
 
 #: src/gsasl.c:496
 #, c-format
@@ -261,16 +261,6 @@ msgstr "Sessie is voltooid.\n"
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
 msgstr "beëindigen van GnuTLS-sessie is mislukt: %s"
-
-#~ msgid "Cannot initialize Windows sockets."
-#~ msgstr "Kan Windows-sockets niet initialiseren."
-
-#~ msgid ""
-#~ "missing argument\n"
-#~ "Try `%s --help' for more information."
-#~ msgstr ""
-#~ "ontbrekend argument\n"
-#~ "Typ '%s --help' voor meer informatie."
 
 #~ msgid ""
 #~ "\n"
