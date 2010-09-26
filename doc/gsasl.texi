@@ -620,7 +620,7 @@ perl -pi -e 's,sys\\,sys/,' ~/kfw/kfw-3-2-2-final/inc/krb5/win-mac.h
 Unpack your copy of GNU SASL:
 
 @example
-$ wget -q ftp://ftp.gnu.org/gnu/gsasl/gsasl-@value{VERSION}.tar.gz
+$ wget -q ftp://alpha.gnu.org/gnu/gsasl/gsasl-@value{VERSION}.tar.gz
 $ tar xfz gsasl-@value{VERSION}.tar.gz
 $ cd gsasl-@value{VERSION}
 @end example
