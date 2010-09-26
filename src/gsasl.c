@@ -793,7 +793,10 @@ main (int argc, char *argv[])
 		}
 	      /* If there was an error, quit.  */
 	      else if (pfd[0].revents & (POLLERR | POLLHUP))
-		break;
+		{
+		  error (0, 0, "poll stdin");
+		  break;
+		}
 
 	      /* We got data to read from the socket.. */
 	      if (sockfd && (pfd[1].revents & (POLLIN | POLLERR)) == POLLIN)
@@ -840,7 +843,10 @@ main (int argc, char *argv[])
 		}
 	      /* If there was an error, quit.  */
 	      else if (pfd[1].revents & (POLLERR | POLLHUP))
-		break;
+		{
+		  error (0, 0, "poll socket");
+		  break;
+		}
 	    }
 
 	  if (res != GSASL_OK)
