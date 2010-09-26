@@ -8,6 +8,10 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.5.2 (unreleased) [beta]
 
+** gsasl: Avoid fixed size buffers.
+This caused problems on Windows where the BUFSIZ was too small for
+some line lengths with GS2-KRb5.
+
 ** doc: Added PDF version of API reference manual.
 See doc/reference/gsasl.pdf.
 
