@@ -20,8 +20,6 @@
 
 #include "imap.h"
 
-#define MAX_LINE_LENGTH BUFSIZ
-
 int
 imap_greeting (void)
 {
@@ -110,10 +108,13 @@ imap_authenticate (const char *mech)
     }
   else
     {
-      char input[MAX_LINE_LENGTH];
+      char *buf;
+      int rc;
 
-      sprintf (input, ". AUTHENTICATE %s", mech);
-      if (!writeln (input))
+      asprintf (&buf, ". AUTHENTICATE %s", mech);
+      rc = writeln (buf);
+      free (buf);
+      if (!rc)
 	return 0;
     }
 
@@ -123,13 +124,16 @@ imap_authenticate (const char *mech)
 int
 imap_step_send (const char *data)
 {
-  char input[MAX_LINE_LENGTH];
+  char *buf;
+  int rc;
 
   if (args_info.server_flag)
-    sprintf (input, "+ %s", data);
+    asprintf (&buf, "+ %s", data);
   else
-    sprintf (input, "%s", data);
-  if (!writeln (input))
+    asprintf (&buf, "%s", data);
+  rc = writeln (buf);
+  free (buf);
+  if (!rc)
     return 0;
 
   return 1;

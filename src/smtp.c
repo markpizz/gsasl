@@ -1,5 +1,5 @@
 /* smtp.c --- Implement SMTP profile of SASL login.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -19,8 +19,6 @@
  */
 
 #include "smtp.h"
-
-#define MAX_LINE_LENGTH BUFSIZ
 
 int
 smtp_greeting (void)
@@ -114,10 +112,13 @@ smtp_authenticate (const char *mech)
     }
   else
     {
-      char input[MAX_LINE_LENGTH];
+      char *buf;
+      int rc;
 
-      sprintf (input, "AUTH %s", mech);
-      if (!writeln (input))
+      asprintf (&buf, "AUTH %s", mech);
+      rc = writeln (buf);
+      free (buf);
+      if (!rc)
 	return 0;
     }
 
@@ -127,13 +128,16 @@ smtp_authenticate (const char *mech)
 int
 smtp_step_send (const char *data)
 {
-  char input[MAX_LINE_LENGTH];
+  char *buf;
+  int rc;
 
   if (args_info.server_flag)
-    sprintf (input, "334 %s", data);
+    asprintf (&buf, "334 %s", data);
   else
-    sprintf (input, "%s", data);
-  if (!writeln (input))
+    asprintf (&buf, "%s", data);
+  rc = writeln (buf);
+  free (buf);
+  if (!rc)
     return 0;
 
   return 1;

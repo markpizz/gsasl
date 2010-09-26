@@ -29,10 +29,6 @@ gnutls_session session;
 bool using_tls = false;
 #endif
 
-#define MAX_LINE_LENGTH BUFSIZ
-#define INPUT_BUFSIZE	BUFSIZ
-#define MAX_INPUT_SIZE	0x100000
-
 struct gengetopt_args_info args_info;
 int sockfd = 0;
 
@@ -81,29 +77,37 @@ readln (char **out)
 {
   if (sockfd)
     {
-      ssize_t len;
-      size_t j = 0;
-      char input[MAX_LINE_LENGTH];
+      size_t allocated = 0, used = 0;
+      char *input = NULL;
 
-      /* FIXME: Optimize and remove size limit. */
+      /* FIXME: Read larger chunks.  Problem: buffering too large reads? */
 
       do
 	{
-	  j++;
+	  ssize_t nread;
+
+	  if (used == allocated)
+	    input = x2realloc (input, &allocated);
 
 #ifdef HAVE_LIBGNUTLS
 	  if (using_tls)
-	    len = gnutls_record_recv (session, &input[j - 1], 1);
+	    nread = gnutls_record_recv (session, &input[used], 1);
 	  else
 #endif
-	    len = recv (sockfd, &input[j - 1], 1, 0);
-	  if (len <= 0)
+	    nread = recv (sockfd, &input[used], 1, 0);
+	  if (nread <= 0)
 	    return 0;
-	}
-      while (input[j - 1] != '\n' && j < MAX_LINE_LENGTH);
-      input[j] = '\0';
 
-      *out = xstrdup (input);
+	  used += nread;
+	}
+      while (input[used - 1] != '\n');
+
+      if (used == allocated)
+	input = x2realloc (input, &allocated);
+
+      input[used] = '\0';
+
+      *out = input;
 
       printf ("%s", *out);
     }
@@ -691,7 +695,8 @@ main (int argc, char *argv[])
 	{
 	  struct pollfd pfd[2];
 	  char *sockbuf = NULL;
-	  size_t sockpos = 0;
+	  /* we read chunks of 1000 bytes at a time */
+	  size_t sockpos = 0, sockalloc = 0, sockalloc1 = 1000;
 
 	  /* Setup pollfd structs... */
 	  pfd[0].fd = STDIN_FILENO;
@@ -738,10 +743,7 @@ main (int argc, char *argv[])
 		    {
 		      if (len < 2 || strcmp (&line[len-2], "\r\n") != 0)
 			{
-			  char *tmp = realloc (line, len + 2);
-			  if (!tmp)
-			    error (EXIT_FAILURE, errno, "realloc");
-			  line = tmp;
+			  line = xrealloc (line, len + 2);
 			  line[len - 1] = '\r';
 			  line[len] = '\n';
 			  line[len + 1] = '\0';
@@ -797,20 +799,19 @@ main (int argc, char *argv[])
 	      if (sockfd && (pfd[1].revents & (POLLIN | POLLERR)) == POLLIN)
 		{
 		  ssize_t len;
-		  char *tmp;
 
-		  tmp = realloc (sockbuf, sockpos + INPUT_BUFSIZE);
-		  if (!tmp)
-		    error (EXIT_FAILURE, errno, "realloc");
-		  sockbuf = tmp;
+		  if (sockalloc == sockpos)
+		    sockbuf = x2realloc (sockbuf, &sockalloc1);
+		  sockalloc = sockalloc1;
 
 #ifdef HAVE_LIBGNUTLS
 		  if (using_tls)
 		    len = gnutls_record_recv (session, &sockbuf[sockpos],
-					      INPUT_BUFSIZE);
+					      sockalloc - sockpos);
 		  else
 #endif
-		    len = recv (sockfd, &sockbuf[sockpos], INPUT_BUFSIZE, 0);
+		    len = recv (sockfd, &sockbuf[sockpos],
+				sockalloc - sockpos, 0);
 		  if (len <= 0)
 		    break;
 
@@ -819,6 +820,7 @@ main (int argc, char *argv[])
 		  res = gsasl_decode (xctx, sockbuf, sockpos,
 				      &out, &output_len);
 		  if (res == GSASL_NEEDS_MORE) {
+#define MAX_INPUT_SIZE	0x100000
 		    if (sockpos > MAX_INPUT_SIZE)
 		      error (EXIT_FAILURE, 0,
 			     _("SASL record too large: %zu\n"), sockpos);
@@ -830,6 +832,8 @@ main (int argc, char *argv[])
 		  free (sockbuf);
 		  sockbuf = NULL;
 		  sockpos = 0;
+		  sockalloc = 0;
+		  sockalloc1 = 1000;
 
 		  printf("%.*s", output_len, out);
 		  free (out);
