@@ -40,8 +40,6 @@ autoreconf:
 	mv $(build_aux)/config.rpath $(build_aux)/config.rpath-
 	test -f ./configure || autoreconf --install
 	mv $(build_aux)/config.rpath- $(build_aux)/config.rpath
-	cp --preserve lib/gl/m4/visibility.m4 m4/
-	cp --preserve lib/gl/m4/visibility.m4 lib/m4/
 
 update-po:
 	$(MAKE) -C lib refresh-po PACKAGE=libgsasl
