@@ -38,11 +38,6 @@ autoreconf:
 bootstrap: autoreconf
 	./configure $(CFGFLAGS)
 
-W32ROOT ?= $(HOME)/w32root
-
-mingw32: autoreconf
-	./configure $(CFGFLAGS) --host=i586-mingw32msvc --build=`build-aux/config.guess` --prefix=$(W32ROOT)
-
 ChangeLog:
 	git2cl > ChangeLog
 	cat ../.clcopying >> ChangeLog

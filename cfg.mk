@@ -65,11 +65,6 @@ upload-web-coverage:
 	cd $(htmldir) && \
 		cvs commit -m "Update." coverage
 
-W32ROOT ?= $(HOME)/gnutls4win/inst
-
-mingw32: autoreconf
-	./configure $(CFGFLAGS) --host=i586-mingw32msvc --build=`$(build_aux)/config.guess` --prefix=$(W32ROOT)
-
 ChangeLog:
 	git2cl > ChangeLog
 	cat .clcopying >> ChangeLog
@@ -97,8 +92,9 @@ upload:
 web:
 	cd doc && env MAKEINFO="makeinfo -I ../examples" \
 		      TEXI2DVI="texi2dvi -I ../examples" \
-		../$(build_aux)/gendocs.sh --html "--css-include=texinfo.css" \
-		-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
+		$(SHELL) ../$(build_aux)/gendocs.sh \
+			--html "--css-include=texinfo.css" \
+			-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
 	cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make refman.pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf
 	cp -v doc/reference/html/*.html doc/reference/html/*.png doc/reference/html/*.devhelp doc/reference/html/*.css $(htmldir)/reference/
 	cp -v doc/cyclo/cyclo-$(PACKAGE).html $(htmldir)/cyclo/
