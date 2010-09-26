@@ -573,10 +573,11 @@ provider if it is installed, see @file{lib/gl/gc-gnulib.c}.
 @subsection Kerberos on Windows
 
 Building GNU SASL with support for Kerberos via GSS-API on Windows is
-straight forward if you use GNU GSS as the Kerberos GSS-API mechanism.
+straight forward if you use GNU GSS and GNU Shishi as the Kerberos
+implementation.
 
-However, if you are using MIT Kerberos for Windows (KfW), getting GNU
-SASL to build with Kerberos support is more difficult because KfW does
+If you are using MIT Kerberos for Windows (KfW), getting GNU SASL to
+build with Kerberos support is not straightforward because KfW does
 not follow the GNU coding style and it has bugs that needs to be
 worked around.  We provide instructions for this environment as well,
 in the hope that it will be useful for GNU SASL users.
@@ -588,8 +589,10 @@ were the latest as of 2010-09-25.
 
 We assume that you have installed a normal build environment including
 the MinGW cross-compiler.  You will need to install Windows binaries
-for @code{libgpg-error} and @code{libgcrypt} packages, the simplest is
-to use pre-compiled libraries like this:
+for @code{libgpg-error} and @code{libgcrypt} packages.  You may build
+them manually and install them using a prefix of
+@code{/usr/i586-mingw32msvc/}, but the simplest is to use pre-compiled
+binaries like this:
 
 @example
 $ wget -q http://josefsson.org/gnutls4win/mingw32-libgcrypt_1.4.6-1_all.deb
@@ -630,9 +633,11 @@ $ lt_cv_deplibs_check_method=pass_all ./configure --host=i586-mingw32msvc --buil
 
 The 'lt_cv_deplibs_check_method=pass_all' setting is required because
 the KfW SDK does not ship with Libtool @code{*.la} files and is using
-a non-standard name of the DLLs.  The @code{-DSSIZE_T_DEFINED} is
-necessary because the @code{win-mac.h} file would provide an incorrect
-duplicate definitions of @code{ssize_t} otherwise.
+non-standard DLL names.  The @code{-DSSIZE_T_DEFINED} is necessary
+because the @code{win-mac.h} file would provide an incorrect duplicate
+definitions of @code{ssize_t} otherwise.  By passing
+@code{--with-gssapi-impl=kfw} you activate other bug workarounds, such
+as providing a @code{GSS_C_NT_HOSTBASED_SERVICE} symbol.
 
 @example
 $ make check
@@ -658,11 +663,11 @@ Change to the directory where you placed the files above, and invoke a
 command like this:
 
 @example
-gsasl.exe -m GSSAPI --client --service imap --hostname interop.josefsson.org
+gsasl.exe -d interop.josefsson.org
 @end example
 
-KfW should query your for a password, and the tool should print out a
-GSS-API challenge.
+KfW should query you for a password, and the tool should negotiate
+authentication against the server using GS2-KRB5.
 
 @node Bug Reports
 @section Bug Reports
