@@ -1040,6 +1040,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-sys_stat.c
   tests/test-sys_time.c
   tests/test-sys_wait.c
+  tests/test-sys_wait.h
   tests/test-time.c
   tests/test-unistd.c
   tests/test-unsetenv.c

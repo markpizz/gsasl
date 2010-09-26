@@ -660,7 +660,7 @@ EXTRA_DIST += test-stdio.c
 
 TESTS += test-stdlib
 check_PROGRAMS += test-stdlib
-EXTRA_DIST += test-stdlib.c
+EXTRA_DIST += test-stdlib.c test-sys_wait.h
 
 ## end   gnulib module stdlib-tests
 
@@ -839,7 +839,7 @@ EXTRA_DIST += test-sys_time.c
 
 TESTS += test-sys_wait
 check_PROGRAMS += test-sys_wait
-EXTRA_DIST += test-sys_wait.c
+EXTRA_DIST += test-sys_wait.c test-sys_wait.h
 
 ## end   gnulib module sys_wait-tests
 

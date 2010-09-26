@@ -576,6 +576,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-strnlen.c
   tests/test-strverscmp.c
   tests/test-sys_wait.c
+  tests/test-sys_wait.h
   tests/test-unistd.c
   tests/test-vasnprintf.c
   tests/test-vasprintf.c
