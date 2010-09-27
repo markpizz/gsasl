@@ -1,3 +1,314 @@
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 1.5.2.
+
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Drop libgpg-error/libgcrypt stuff from KfW.
+
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Manually initialize sockets for Windows (should be
+	fixed in gnulib..).
+
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Improve KfW instructions.
+
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* gl/override/tests/test-environ.c.diff,
+	gl/override/tests/test-unsetenv.c.diff, gltests/test-environ.c,
+	gltests/test-unsetenv.c: Work around Wine bugs in gnulib self-tests.
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4, gl/sys_wait.in.h, gltests/Makefile.am,
+	gltests/test-stdlib.c, gltests/test-sys_wait.c,
+	gltests/test-sys_wait.h, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/sys_wait.in.h, lib/gltests/Makefile.am,
+	lib/gltests/test-stdlib.c, lib/gltests/test-sys_wait.c,
+	lib/gltests/test-sys_wait.h: Update gnulib files.
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix download URL.
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/po/nl.po.in, po/nl.po.in: Sync with TP.
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, lib/cfg.mk: Improve cfg.mk targets.
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Revert "Fixup visibility.m4 after gettext import." This reverts commit 322be869c210175857e202e5078fafbf49ea5b61.
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Improve KfW section.
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fixup visibility.m4 after gettext import.
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c: Print errors from poll (mostly for Windows).
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c, src/imap.c, src/smtp.c: Avoid fixed size buffers
+	(caused problems on Windows where BUFSIZ is 512 smaller the some
+	line lengths with GS2-KRB5).
+
+2010-09-26  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/asprintf.c, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/vasprintf.m4, gl/vasprintf.c,
+	gltests/Makefile.am, gltests/test-vasprintf.c: Add asprintf gnulib
+	module.
+
+2010-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getaddrinfo.c, gltests/test-getaddrinfo.c: Update gnulib files.
+
+2010-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac, lib/gl/Makefile.am, lib/gl/gss-extra.c,
+	lib/gl/gss-extra.h, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/gss-extra.m4,
+	lib/gl/override/lib/gss-extra.c, lib/gl/override/lib/gss-extra.h,
+	lib/gl/override/m4/gss-extra.m4, lib/gl/override/modules/gss-extra,
+	lib/gs2/client.c, lib/gs2/gs2helper.c, lib/gs2/gs2helper.h,
+	lib/gs2/server.c, lib/gssapi/client.c, lib/gssapi/server.c: Move
+	GSS-API helper stuff to gss-extra module.
+
+2010-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Add 'Kerberos on Windows' section.
+
+2010-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2010-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_space_tab: Fix syntax-check tests.
+
+2010-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, NEWS, cfg.mk, doc/fdl-1.3.texi, gl/Makefile.am,
+	gl/m4/codeset.m4, gl/m4/environ.m4, gl/m4/error.m4,
+	gl/m4/fcntl-o.m4, gl/m4/float_h.m4, gl/m4/getopt.m4,
+	gl/m4/getpagesize.m4, gl/m4/gettext.m4, gl/m4/glibc2.m4,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/hostent.m4,
+	gl/m4/iconv.m4, gl/m4/iconv_open.m4, gl/m4/include_next.m4,
+	gl/m4/intdiv0.m4, gl/m4/intl.m4, gl/m4/intldir.m4,
+	gl/m4/intlmacosx.m4, gl/m4/intmax.m4, gl/m4/intmax_t.m4,
+	gl/m4/inttypes-pri.m4, gl/m4/inttypes_h.m4, gl/m4/lcmessage.m4,
+	gl/m4/lib-ld.m4, gl/m4/lib-link.m4, gl/m4/lock.m4, gl/m4/lseek.m4,
+	gl/m4/lstat.m4, gl/m4/malloc.m4, gl/m4/mbrtowc.m4, gl/m4/memchr.m4,
+	gl/m4/nls.m4, gl/m4/open.m4, gl/m4/po.m4, gl/m4/printf-posix.m4,
+	gl/m4/printf.m4, gl/m4/progtest.m4, gl/m4/realloc.m4,
+	gl/m4/servent.m4, gl/m4/setenv.m4, gl/m4/size_max.m4,
+	gl/m4/socketlib.m4, gl/m4/sockets.m4, gl/m4/socklen.m4,
+	gl/m4/sockpfaf.m4, gl/m4/stat.m4, gl/m4/stdarg.m4,
+	gl/m4/stdbool.m4, gl/m4/stdint.m4, gl/m4/stdint_h.m4,
+	gl/m4/stdlib_h.m4, gl/m4/strtok_r.m4, gl/m4/symlink.m4,
+	gl/m4/sys_wait_h.m4, gl/m4/threadlib.m4, gl/m4/time_h.m4,
+	gl/m4/uintmax_t.m4, gl/m4/visibility.m4, gl/m4/wchar_t.m4,
+	gl/m4/wctob.m4, gl/m4/wctype_h.m4, gl/m4/wint_t.m4, gl/malloc.c,
+	gl/poll.c, gl/realloc.c, gl/select.c, gl/stdio.in.h,
+	gl/stdlib.in.h, gl/strerror.c, gl/string.in.h, gl/sys_time.in.h,
+	gl/sys_wait.in.h, gl/unistd.in.h, gl/wctype.in.h, gl/xmalloc.c,
+	gltests/Makefile.am, gltests/fcntl.in.h, gltests/getpagesize.c,
+	gltests/init.sh, gltests/locale/fr/LC_MESSAGES/test-quotearg.po,
+	gltests/malloca.c, gltests/open.c, gltests/setenv.c,
+	gltests/test-malloca.c, gltests/test-memchr.c,
+	gltests/test-netdb.c, gltests/test-quotearg-simple.c,
+	gltests/test-quotearg.c, gltests/test-quotearg.h,
+	gltests/test-quotearg.sh, gltests/test-stdbool.c,
+	gltests/test-stddef.c, gltests/test-stdlib.c,
+	gltests/test-sys_socket.c, gltests/test-sys_wait.c,
+	gltests/test-vc-list-files-cvs.sh,
+	gltests/test-vc-list-files-git.sh, gltests/test-verify.c,
+	gltests/time.in.h, lib/GNUmakefile, lib/NEWS,
+	lib/build-aux/gendocs.sh, lib/build-aux/pmccabe2html,
+	lib/gl/Makefile.am, lib/gl/m4/codeset.m4, lib/gl/m4/fcntl-o.m4,
+	lib/gl/m4/float_h.m4, lib/gl/m4/gc-random.m4, lib/gl/m4/gettext.m4,
+	lib/gl/m4/gnulib-cache.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/iconv.m4, lib/gl/m4/include_next.m4,
+	lib/gl/m4/intdiv0.m4, lib/gl/m4/intl.m4, lib/gl/m4/intlmacosx.m4,
+	lib/gl/m4/intmax.m4, lib/gl/m4/intmax_t.m4,
+	lib/gl/m4/inttypes-pri.m4, lib/gl/m4/inttypes_h.m4,
+	lib/gl/m4/lcmessage.m4, lib/gl/m4/ld-version-script.m4,
+	lib/gl/m4/lib-ld.m4, lib/gl/m4/lib-link.m4, lib/gl/m4/lock.m4,
+	lib/gl/m4/malloc.m4, lib/gl/m4/memchr.m4, lib/gl/m4/memmem.m4,
+	lib/gl/m4/minmax.m4, lib/gl/m4/printf-posix.m4,
+	lib/gl/m4/printf.m4, lib/gl/m4/progtest.m4, lib/gl/m4/realloc.m4,
+	lib/gl/m4/size_max.m4, lib/gl/m4/stdbool.m4, lib/gl/m4/stdint.m4,
+	lib/gl/m4/stdint_h.m4, lib/gl/m4/stdlib_h.m4,
+	lib/gl/m4/sys_wait_h.m4, lib/gl/m4/threadlib.m4,
+	lib/gl/m4/visibility.m4, lib/gl/m4/wchar_t.m4, lib/gl/m4/wint_t.m4,
+	lib/gl/realloc.c, lib/gl/stdio.in.h, lib/gl/stdlib.in.h,
+	lib/gl/str-two-way.h, lib/gl/string.in.h, lib/gl/sys_wait.in.h,
+	lib/gl/unistd.in.h, lib/gltests/Makefile.am, lib/gltests/init.sh,
+	lib/gltests/test-memchr.c, lib/gltests/test-memmem.c,
+	lib/gltests/test-stdbool.c, lib/gltests/test-stddef.c,
+	lib/gltests/test-stdlib.c, lib/gltests/test-strnlen.c,
+	lib/gltests/test-sys_wait.c, lib/gltests/test-verify.c,
+	lib/maint.mk, maint.mk: Update gnulib files.
+
+2010-09-02  Simon Josefsson <simon@josefsson.org>
+
+	* lib/configure.ac, lib/gs2/Makefile.am, lib/gssapi/Makefile.am: 
+	Support MIT KfW as GSS-API library.
+
+2010-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, cfg.mk, doc/announce.txt, doc/gendocs_template,
+	doc/reference/Makefile.am, gl/override/doc/gendocs_template.diff,
+	gtk-doc.make, m4/gtk-doc.m4: Update GTK-DOC files to enable PDF
+	manual.
+
+2010-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* tests/cram-md5.c, tests/digest-md5.c, tests/gs2-krb5.c,
+	tests/gssapi.c, tests/old-cram-md5.c, tests/old-digest-md5.c,
+	tests/old-gssapi.c, tests/scram.c: Fix error strings in self-tests.
+
+2010-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2010-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* README, lib/README: Improve READMEs.
+
+2010-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, doc/gendocs_template, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/valgrind-tests.m4, m4/valgrind.m4: Update gnulib files, use
+	new valgrind-tests module.
+
+2010-05-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/config.charset, gl/error.c, gl/localcharset.c,
+	gl/m4/asm-underscore.m4, gl/m4/gettext.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/iconv.m4, gl/m4/intl.m4, gl/m4/po.m4, gl/m4/stdio_h.m4,
+	gl/m4/unistd_h.m4, gl/m4/wctob.m4, gl/stdio-write.c, gl/stdio.in.h,
+	gl/unistd.in.h, gl/vasnprintf.c, gl/verify.h, gl/wchar.in.h,
+	gltests/Makefile.am, gltests/init.sh, gltests/test-lseek.sh,
+	gltests/test-verify.c, gltests/test-verify.sh,
+	gltests/test-xalloc-die.sh, gltests/wctob.c,
+	lib/build-aux/c++defs.h, lib/build-aux/gendocs.sh,
+	lib/gl/Makefile.am, lib/gl/m4/asm-underscore.m4,
+	lib/gl/m4/fcntl-o.m4, lib/gl/m4/gettext.m4,
+	lib/gl/m4/gnulib-comp.m4, lib/gl/m4/iconv.m4, lib/gl/m4/intl.m4,
+	lib/gl/m4/po.m4, lib/gl/m4/stdio_h.m4, lib/gl/m4/unistd_h.m4,
+	lib/gl/stdio-write.c, lib/gl/stdio.in.h, lib/gl/unistd.in.h,
+	lib/gl/vasnprintf.c, lib/gl/wchar.in.h, lib/gltests/Makefile.am,
+	lib/gltests/init.sh, lib/gltests/test-verify.c,
+	lib/gltests/test-verify.sh, lib/gltests/verify.h, lib/maint.mk,
+	maint.mk: Update gnulib files.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: More extension checking.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-common.m4,
+	gl/m4/netdb_h.m4, gl/m4/unistd_h.m4, gl/netdb.in.h, gl/unistd.in.h,
+	gltests/init.sh, lib/gl/Makefile.am, lib/gl/c-ctype.c,
+	lib/gl/c-ctype.h, lib/gl/m4/gnulib-cache.m4,
+	lib/gl/m4/gnulib-common.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/unistd_h.m4, lib/gl/unistd.in.h, lib/gltests/Makefile.am,
+	lib/gltests/test-c-ctype.c, lib/maint.mk, maint.mk: Update gnulib
+	files.  Add c-ctype module, for SCRAM.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c: SCRAM server: ignore extensions in
+	client-final.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Test extension parameters.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Don't ignore unexpected successes for i=16,17.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Test two failure modes with mismatching c= fields.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/server.c: SCRAM server: Compare c= field in client-final
+	to match client-first.  Reported by Marc Santamaria <asgarath@gmail.com>.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scram.c: Check that server supports n=y.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c: SCRAM server: Interop against clients that
+	supports channel bindings.  Reported by Marc Santamaria <asgarath@gmail.com>.
+
+2010-04-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/server.c: SCRAM server: Interop against clients that
+	supports channel bindings.  Reported by Marc Santamaria <asgarath@gmail.com>.
+
+2010-04-25  Simon Josefsson <simon@josefsson.org>
+
+	* gl/vasnprintf.c, gltests/Makefile.am,
+	gltests/test-vc-list-files-cvs.sh,
+	gltests/test-vc-list-files-git.sh, lib/build-aux/vc-list-files,
+	lib/gl/m4/strnlen.m4, lib/gl/vasnprintf.c,
+	lib/gltests/test-vasprintf.c, lib/maint.mk, maint.mk: Update gnulib
+	files.
+
+2010-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2010-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2010-04-21  Simon Josefsson <simon@josefsson.org>
 
 	* lib/ChangeLog: Generated.
