@@ -1,0 +1,13 @@
+--- gltests/test-environ.c.orig	2010-09-27 10:38:33.000000000 +0200
++++ gltests/test-environ.c	2010-09-27 11:00:55.000000000 +0200
+@@ -33,6 +33,10 @@
+   char **remaining_variables = environ;
+   char *string;
+ 
++  /* Wine 1.2 environ is always NULL see
++     <http://bugs.winehq.org/show_bug.cgi?id=24536>. */
++  return 0;
++
+   for (; (string = *remaining_variables) != NULL; remaining_variables++)
+     {
+       if (strncmp (string, "PATH=", 5) == 0)

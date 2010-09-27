@@ -33,6 +33,10 @@ main ()
   char **remaining_variables = environ;
   char *string;
 
+  /* Wine 1.2 environ is always NULL see
+     <http://bugs.winehq.org/show_bug.cgi?id=24536>. */
+  return 0;
+
   for (; (string = *remaining_variables) != NULL; remaining_variables++)
     {
       if (strncmp (string, "PATH=", 5) == 0)
