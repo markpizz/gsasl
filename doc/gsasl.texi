@@ -639,9 +639,29 @@ definitions of @code{ssize_t} otherwise.  By passing
 @code{--with-gssapi-impl=kfw} you activate other bug workarounds, such
 as providing a @code{GSS_C_NT_HOSTBASED_SERVICE} symbol.
 
+Build the software using:
+
 @example
-$ make check
+$ make
 @end example
+
+If you have Wine installed and your kernel is able to invoke it
+automatically for Windows programs, you can run the self tests.  This
+is recommended to make sure the build is sane.
+
+@example
+$ make
+@end example
+
+You may get error messages about missing DLLs, like this error:
+
+@example
+err:module:import_dll Library gssapi32.dll (which is needed by L"Z:\\home\\jas\\src\\gsasl-1.5.2\\lib\\src\\.libs\\libgsasl-7.dll") not found
+@end example
+
+If that happens, you need to make sure that Wine can find the
+appropriate DLL.  The simplest solution is to copy the necessary DLLs
+to @code{~/.wine/drive_c/windows/system32/}.
 
 You may now copy the following files onto the Windows machine (e.g.,
 through a USB memory device):
