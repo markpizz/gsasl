@@ -588,20 +588,7 @@ suite.  These instructions were compiled for KfW version 3.2.2 which
 were the latest as of 2010-09-25.
 
 We assume that you have installed a normal build environment including
-the MinGW cross-compiler.  You will need to install Windows binaries
-for @code{libgpg-error} and @code{libgcrypt} packages.  You may build
-them manually and install them using a prefix of
-@code{/usr/i586-mingw32msvc/}, but the simplest is to use pre-compiled
-binaries like this:
-
-@example
-$ wget -q http://josefsson.org/gnutls4win/mingw32-libgcrypt_1.4.6-1_all.deb
-$ sudo dpkg -i mingw32-libgcrypt_1.4.6-1_all.deb
-$ wget -q http://josefsson.org/gnutls4win/mingw32-libgpg-error_1.8-1_all.deb
-$ sudo dpkg -i mingw32-libgpg-error_1.8-1_all.deb
-@end example
-
-Download and unpack the KfW SDK like this:
+the MinGW cross-compiler.  Download and unpack the KfW SDK like this:
 
 @example
 $ mkdir ~/kfw
@@ -667,8 +654,6 @@ You may now copy the following files onto the Windows machine (e.g.,
 through a USB memory device):
 
 @example
-/usr/i586-mingw32msvc/bin/libgcrypt-11.dll
-/usr/i586-mingw32msvc/bin/libgpg-error-0.dll
 lib/src/.libs/libgsasl-7.dll
 src/.libs/gsasl.exe
 @end example
