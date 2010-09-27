@@ -12,6 +12,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 This caused problems on Windows where the BUFSIZ was too small for
 some line lengths with GS2-KRb5.
 
+** tests: Fix error strings to be more unique.
+
 ** doc: Added section on how to build with MIT Kerberos for Windows.
 
 ** doc: Added PDF version of API reference manual.
