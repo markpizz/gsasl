@@ -637,7 +637,7 @@ automatically for Windows programs, you can run the self tests.  This
 is recommended to make sure the build is sane.
 
 @example
-$ make
+$ make check
 @end example
 
 You may get error messages about missing DLLs, like this error:
