@@ -23,6 +23,8 @@
 #include "imap.h"
 #include "smtp.h"
 
+#include "sockets.h"
+
 #ifdef HAVE_LIBGNUTLS
 # include <gnutls/gnutls.h>
 gnutls_session session;
@@ -301,6 +303,13 @@ main (int argc, char *argv[])
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
+
+  /* This is necessary for modern MinGW compilers that provide working
+     getaddrinfo function, which results in gnulib not detecting that
+     it is broken.  The proper fix is for gnulib to wrap the
+     getaddrinfo call and initialize Windows sockets in the
+     wrapper.  */
+  gl_sockets_startup (SOCKETS_1_1);
 
   if (cmdline_parser (argc, argv, &args_info) != 0)
     return EXIT_FAILURE;
