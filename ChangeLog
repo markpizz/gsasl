@@ -1,3 +1,48 @@
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 1.5.3.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore, NEWS, README, configure.ac, doc/gsasl.texi,
+	doc/reference/gsasl-docs.sgml, lib/NEWS, lib/README,
+	lib/scram/client.c, lib/scram/mechinfo.c, lib/scram/parser.c,
+	lib/scram/printer.c, lib/scram/scram.h, lib/scram/server.c,
+	lib/scram/validate.c, lib/src/error.c, lib/src/gsasl.h,
+	lib/src/init.c, lib/src/internal.h, lib/src/property.c,
+	lib/src/xfinish.c, src/callbacks.c, src/gsasl.c, src/internal.h,
+	tests/Makefile.am, tests/scram.c, tests/scramplus.c: Support
+	SCRAM-SHA-1-PLUS.  Add GSASL_CB_TLS_UNIQUE.  Use GnuTLS for
+	tls-unique CB.
+
+2010-11-13  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Ignore more.
+
+2010-11-13  Simon Josefsson <simon@josefsson.org>
+
+	* src/gsasl.c, tests/cram-md5.c, tests/digest-md5.c,
+	tests/errors.c, tests/external.c, tests/old-cram-md5.c,
+	tests/old-digest-md5.c, tests/old-md5file.c, tests/old-simple.c,
+	tests/scram.c, tests/simple.c, tests/utils.c: Fix compiler warnings.
+
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gsasl.texi: Fix typo.
+
+2010-09-27  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2010-09-27  Simon Josefsson <simon@josefsson.org>
 
 	* lib/ChangeLog: Generated.
