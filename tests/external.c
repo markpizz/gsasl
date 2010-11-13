@@ -1,5 +1,5 @@
 /* external.c --- Test the EXTERNAL mechanism.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -87,7 +87,7 @@ doit (void)
   Gsasl_session *server = NULL, *client = NULL;
   char *s1, *s2;
   size_t s1len, s2len;
-  size_t i;
+  int i;
   int res;
 
   res = gsasl_init (&ctx);
@@ -134,7 +134,8 @@ doit (void)
       if (debug)
 	{
 	  if (s1)
-	    printf ("S[%d]: `%.*s' (%d)\n", i, s1len, s1, s1len);
+	    printf ("S[%d]: `%.*s' (%lu)\n", i, (int) s1len, s1,
+		    (unsigned long) s1len);
 	  else
 	    printf ("S[%d] NULL\n", i);
 	}
@@ -151,7 +152,8 @@ doit (void)
       if (debug)
 	{
 	  if (s2)
-	    printf ("C[%d]: `%.*s' (%d)\n", i, s2len, s2, s2len);
+	    printf ("C[%d]: `%.*s' (%lu)\n", i, (int) s2len, s2,
+		    (unsigned long) s2len);
 	  else
 	    printf ("C[%d] NULL\n", i);
 	}
@@ -167,7 +169,8 @@ doit (void)
 
       if (s1len != 0)
 	{
-	  fail ("gsasl_step() failed, additional length=%d:\n%s", s1len, s1);
+	  fail ("gsasl_step() failed, additional length=%lu:\n%s",
+		(unsigned long) s1len, s1);
 	  return;
 	}
 

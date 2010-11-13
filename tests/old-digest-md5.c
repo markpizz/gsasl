@@ -182,7 +182,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s\n", s1len, s1);
+	printf ("S: %.*s\n", (int) s1len, s1);
 
       /* Client respond... */
 
@@ -196,7 +196,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n", s2len, s2);
+	printf ("C: %.*s\n", (int) s2len, s2);
 
       /* Server finishes... */
 
@@ -210,7 +210,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s\n", s1len, s1);
+	printf ("S: %.*s\n", (int) s1len, s1);
 
       /* Client finishes... */
 
@@ -228,7 +228,7 @@ doit (void)
 	  /* Solaris x86 crashes here if s2 is NULL, even when s2len
 	     is 0. */
 	  if (s2len)
-	    printf ("C: %.*s\n", s2len, s2);
+	    printf ("C: %.*s\n", (int) s2len, s2);
 	  else
 	    printf ("C: \n");
 	}

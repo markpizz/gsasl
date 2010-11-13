@@ -1,5 +1,5 @@
 /* md5file.c --- Test the MD5 file password function.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -68,7 +68,8 @@ doit (void)
     fail ("user-found FAIL (%d): %s\n", res, gsasl_strerror (res));
   if (keylen != strlen (BILL_PASSWD)
       || memcmp (key, BILL_PASSWD, keylen) != 0)
-    fail ("user-password FAIL (%d): %.*s\n", keylen, keylen, key);
+    fail ("user-password FAIL (%lu): %.*s\n",
+	  (unsigned long) keylen, (int) keylen, key);
   else
     success ("user-password OK\n");
 

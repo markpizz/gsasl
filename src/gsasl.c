@@ -569,7 +569,8 @@ main (int argc, char *argv[])
 		   gnutls_strerror (res), err_pos);
 	}
 
-      gnutls_transport_set_ptr (session, (gnutls_transport_ptr) sockfd);
+      gnutls_transport_set_ptr (session, (gnutls_transport_ptr)
+				(unsigned long) sockfd);
 
       if (!starttls ())
 	return 1;
@@ -847,7 +848,7 @@ main (int argc, char *argv[])
 		  sockalloc = 0;
 		  sockalloc1 = 1000;
 
-		  printf("%.*s", output_len, out);
+		  printf("%.*s", (int) output_len, out);
 		  free (out);
 		}
 	      /* If there was an error, quit.  */

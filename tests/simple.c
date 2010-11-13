@@ -270,7 +270,7 @@ doit (void)
   Gsasl *ctx = NULL;
   Gsasl_session *sctx = NULL;
   char *out = NULL;
-  size_t i, j;
+  int i, j;
   int res;
 
   if (!gsasl_check_version (GSASL_VERSION))
@@ -356,7 +356,7 @@ doit (void)
 	      fail
 		("SASL entry %d mechanism %s client step %d length error\n",
 		 i, sasltv[i].mech, j);
-	      j = (size_t) -1;
+	      j = -1;
 	      break;
 	    }
 
@@ -367,7 +367,7 @@ doit (void)
 		      sasltv[i].step[j + 1] : "");
 	      fail ("SASL entry %d mechanism %s client step %d data error\n",
 		    i, sasltv[i].mech, j);
-	      j = (size_t) -1;
+	      j = -1;
 	      break;
 	    }
 
@@ -397,14 +397,14 @@ doit (void)
 	if (res != GSASL_OK)
 	  fail ("gsasl_encode %d: %s\n", res, gsasl_strerror (res));
 	if (outlen != 3 && memcmp (out, "foo", outlen) != 0)
-	  fail ("gsasl_encode memcmp: %.*s\n", outlen, out);
+	  fail ("gsasl_encode memcmp: %.*s\n", (int) outlen, out);
 	gsasl_free (out); out = NULL;
 
 	res = gsasl_decode (sctx, "foo", 3, &out, &outlen);
 	if (res != GSASL_OK)
 	  fail ("gsasl_decode %d: %s\n", res, gsasl_strerror (res));
 	if (outlen != 3 && memcmp (out, "foo", outlen) != 0)
-	  fail ("gsasl_decode memcmp: %.*s\n", outlen, out);
+	  fail ("gsasl_decode memcmp: %.*s\n", (int) outlen, out);
 	gsasl_free (out); out = NULL;
       }
 

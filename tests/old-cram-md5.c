@@ -140,7 +140,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s\n", s1len, s1);
+	printf ("S: %.*s\n", (int) s1len, s1);
 
       res = gsasl_step (client, s1, s1len, &s2, &s2len);
       free (s1);
@@ -151,7 +151,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n", s2len, s2);
+	printf ("C: %.*s\n", (int) s2len, s2);
 
       res = gsasl_step (server, s2, s2len, &s1, &s1len);
       free (s2);
@@ -163,7 +163,8 @@ doit (void)
 
       if (s1len != 0)
 	{
-	  fail ("gsasl_step() failed, additional length=%d:\n", s1len);
+	  fail ("gsasl_step() failed, additional length=%lu:\n",
+		(unsigned long) s1len);
 	  fail ("%s\n", s1);
 	  return;
 	}

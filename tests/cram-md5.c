@@ -116,7 +116,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s\n", s1len, s1);
+	printf ("S: %.*s\n", (int) s1len, s1);
 
       if (last_server_challenge)
 	{
@@ -129,7 +129,7 @@ doit (void)
 
       last_server_challenge = malloc (s1len);
       if (!last_server_challenge)
-	fail ("malloc() failure (%d)\n", s1len);
+	fail ("malloc() failure (%lu)\n", (unsigned long) s1len);
       memcpy (last_server_challenge, s1, s1len);
       last_server_challenge_len = s1len;
 
@@ -142,7 +142,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n", s2len, s2);
+	printf ("C: %.*s\n", (int) s2len, s2);
 
       res = gsasl_step (server, s2, s2len, &s1, &s1len);
       gsasl_free (s2);
@@ -154,7 +154,8 @@ doit (void)
 
       if (s1len != 0)
 	{
-	  fail ("gsasl_step() failed, additional length=%d:\n", s1len);
+	  fail ("gsasl_step() failed, additional length=%lu:\n",
+		(unsigned long) s1len);
 	  fail ("%s\n", s1);
 	  return;
 	}

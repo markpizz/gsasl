@@ -397,7 +397,7 @@ doit (void)
   Gsasl_session_ctx *xctx = NULL;
   char output[MAX_LINE_LENGTH];
   size_t outputlen;
-  size_t i, j;
+  int i, j;
   int res;
 
   if (!gsasl_check_version (GSASL_VERSION))
@@ -501,7 +501,7 @@ doit (void)
 	      fail
 		("SASL entry %d mechanism %s client step %d length error\n",
 		 i, sasltv[i].mech, j);
-	      j = (size_t) -1;
+	      j = -1;
 	      break;
 	    }
 
@@ -512,7 +512,7 @@ doit (void)
 		      sasltv[i].step[j + 1] : "");
 	      fail ("SASL entry %d mechanism %s client step %d data error\n",
 		    i, sasltv[i].mech, j);
-	      j = (size_t) -1;
+	      j = -1;
 	      break;
 	    }
 

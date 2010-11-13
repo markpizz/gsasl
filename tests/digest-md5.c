@@ -215,7 +215,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+	printf ("C: %.*s [%c]\n", (int) s1len,
+		s1, res == GSASL_OK ? 'O' : 'N');
 
       /* Server starts... */
 
@@ -229,7 +230,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
+	printf ("S: %.*s [%c]\n", (int) s2len,
+		s2, res == GSASL_OK ? 'O' : 'N');
 
       /* Client responds... */
 
@@ -243,7 +245,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+	printf ("C: %.*s [%c]\n", (int) s1len,
+		s1, res == GSASL_OK ? 'O' : 'N');
 
       /* Server finishes... */
 
@@ -257,7 +260,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
+	printf ("S: %.*s [%c]\n", (int) s2len,
+		s2, res == GSASL_OK ? 'O' : 'N');
 
       /* Client finishes. */
 
@@ -272,13 +276,15 @@ doit (void)
 
       if (s1len != 0)
 	{
-	  fail ("gsasl_step() failed, additional length=%d:\n", s1len);
+	  fail ("gsasl_step() failed, additional length=%lu:\n",
+		(unsigned long) s1len);
 	  fail ("%s\n", s1);
 	  return;
 	}
 
       if (debug)
-	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+	printf ("C: %.*s [%c]\n", (int) s1len,
+		s1, res == GSASL_OK ? 'O' : 'N');
 
       /* Server is done. */
 
@@ -335,7 +341,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+	printf ("S: %.*s [%c]\n", (int) s1len,
+		s1, res == GSASL_OK ? 'O' : 'N');
 
       /* Client respond... */
 
@@ -349,7 +356,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
+	printf ("C: %.*s [%c]\n", (int) s2len,
+		s2, res == GSASL_OK ? 'O' : 'N');
 
       /* Server finishes... */
 
@@ -363,7 +371,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+	printf ("S: %.*s [%c]\n", (int) s1len,
+		s1, res == GSASL_OK ? 'O' : 'N');
 
       /* Client finishes... */
 
@@ -377,7 +386,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
+	printf ("C: %.*s [%c]\n", (int) s2len,
+		s2, res == GSASL_OK ? 'O' : 'N');
 
       /* Server is done. */
 
@@ -414,7 +424,7 @@ doit (void)
       if (debug)
 	{
 	  if (s1len == 3 && memcmp (s1, "foo", 3) == 0)
-	    printf ("C: %.*s\n", s1len, s1);
+	    printf ("C: %.*s\n", (int) s1len, s1);
 	  else
 	    {
 	      char *out;
@@ -428,7 +438,7 @@ doit (void)
 		  return;
 		}
 
-	      printf ("C: %.*s\n", outlen, out);
+	      printf ("C: %.*s\n", (int) outlen, out);
 	      free (out);
 	    }
 	}
@@ -445,7 +455,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s\n", s2len, s2);
+	printf ("S: %.*s\n", (int) s2len, s2);
 
       free (s2);
 
@@ -462,7 +472,7 @@ doit (void)
       if (debug)
 	{
 	  if (s1len == 3 && memcmp (s1, "bar", 3) == 0)
-	    printf ("S: %.*s\n", s1len, s1);
+	    printf ("S: %.*s\n", (int) s1len, s1);
 	  else
 	    {
 	      char *out;
@@ -476,7 +486,7 @@ doit (void)
 		  return;
 		}
 
-	      printf ("S: %.*s\n", outlen, out);
+	      printf ("S: %.*s\n", (int) outlen, out);
 	      free (out);
 	    }
 	}
@@ -493,7 +503,7 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s\n", s2len, s2);
+	printf ("C: %.*s\n", (int) s2len, s2);
 
       free (s2);
 

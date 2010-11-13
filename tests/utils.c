@@ -1,5 +1,5 @@
 /* utils.c --- Self test utilities.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -60,7 +60,7 @@ escapeprint (const char *str, size_t len)
 {
   size_t i;
 
-  printf (" (length %d bytes):\n\t", len);
+  printf (" (length %lu bytes):\n\t", (unsigned long) len);
   for (i = 0; i < len; i++)
     {
       if (((str[i] & 0xFF) >= 'A' && (str[i] & 0xFF) <= 'Z') ||

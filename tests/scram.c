@@ -44,7 +44,7 @@ static const char *AUTHZID[N_AUTHZID] = {
   "jas", "BAB,ABA", ",=,=", "="
 };
 
-size_t i;
+int i;
 
 static int
 callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
@@ -177,7 +177,8 @@ doit (void)
 	    fail ("dummy initial server step produced output?!\n");
 
 	  if (debug)
-	    printf ("S: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+	    printf ("S: %.*s [%c]\n", (int) s1len,
+		    s1, res == GSASL_OK ? 'O' : 'N');
 	}
       else
 	{
@@ -219,7 +220,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+	printf ("C: %.*s [%c]\n", (int) s1len,
+		s1, res == GSASL_OK ? 'O' : 'N');
 
       /* Server first... */
 
@@ -233,7 +235,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
+	printf ("S: %.*s [%c]\n", (int) s2len,
+		s2, res == GSASL_OK ? 'O' : 'N');
 
       /* Client final... */
 
@@ -253,7 +256,8 @@ doit (void)
 	{
 	  char *s;
 
-	  asprintf (&s, "%.*s,a=b,%s", s1len - 31, s1, s1 + s1len - 31 + 1);
+	  asprintf (&s, "%.*s,a=b,%s", (int) (s1len - 31),
+		    s1, s1 + s1len - 31 + 1);
 	  gsasl_free (s1);
 	  s1 = s;
 	  s1len = strlen (s);
@@ -263,15 +267,16 @@ doit (void)
 	{
 	  char *s;
 
-	  asprintf (&s, "%.*s,a=b,b=c,c=d,%s", s1len - 31, s1,
-		    s1 + s1len - 31 + 1);
+	  asprintf (&s, "%.*s,a=b,b=c,c=d,%s", (int) (s1len - 31),
+		    s1, s1 + s1len - 31 + 1);
 	  gsasl_free (s1);
 	  s1 = s;
 	  s1len = strlen (s);
 	}
 
       if (debug)
-	printf ("C: %.*s [%c]\n", s1len, s1, res == GSASL_OK ? 'O' : 'N');
+	printf ("C: %.*s [%c]\n", (int) s1len,
+		s1, res == GSASL_OK ? 'O' : 'N');
 
       /* Server final... */
 
@@ -296,7 +301,8 @@ doit (void)
 	}
 
       if (debug)
-	printf ("S: %.*s [%c]\n", s2len, s2, res == GSASL_OK ? 'O' : 'N');
+	printf ("S: %.*s [%c]\n", (int) s2len,
+		s2, res == GSASL_OK ? 'O' : 'N');
 
       /* Let client parse server final... */
 

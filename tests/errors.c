@@ -1,5 +1,5 @@
 /* errors.c --- Test the gsasl_strerror and gsasl_strerror_name functions.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -34,7 +34,7 @@ main (void)
 {
   const char *this = NULL, *last = NULL;
   const char *name;
-  size_t i = 0;
+  int i = 0;
 
   do {
     last = this;
