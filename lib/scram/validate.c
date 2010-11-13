@@ -1,5 +1,5 @@
 /* validate.c --- Validate consistency of SCRAM tokens.
- * Copyright (C) 2009  Simon Josefsson
+ * Copyright (C) 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -51,7 +51,17 @@ scram_valid_client_first (struct scram_client_first *cf)
   else if (cf->cbflag != 'p' && cf->cbname != NULL)
     return false;
 
-  /* FIXME check that cbname matches [A-Za-z0-9.-]. */
+  if (cf->cbname)
+    {
+      const char *p = cf->cbname;
+
+      while (*p && strchr ("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+			   "abcdefghijklmnopqrstuvwxyz"
+			   "0123456789.-", *p))
+	p++;
+      if (*p)
+	return false;
+    }
 
   /* We require a non-zero username string. */
   if (cf->username == NULL || *cf->username == '\0')

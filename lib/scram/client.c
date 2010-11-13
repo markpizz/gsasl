@@ -1,5 +1,5 @@
 /* client.c --- SASL SCRAM client side functions.
- * Copyright (C) 2009  Simon Josefsson
+ * Copyright (C) 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -46,26 +46,32 @@
 
 struct scram_client_state
 {
+  int plus;
   int step;
   char *cfmb; /* client first message bare */
   char *serversignature;
   char *authmessage;
+  char *cbtlsunique;
+  size_t cbtlsuniquelen;
   struct scram_client_first cf;
   struct scram_server_first sf;
   struct scram_client_final cl;
   struct scram_server_final sl;
 };
 
-int
-_gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data)
+static int
+scram_start (Gsasl_session * sctx, void **mech_data, int plus)
 {
   struct scram_client_state *state;
   char buf[CNONCE_ENTROPY_BYTES];
+  const char *p;
   int rc;
 
   state = (struct scram_client_state *) calloc (sizeof (*state), 1);
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
+
+  state->plus = plus;
 
   rc = gsasl_nonce (buf, CNONCE_ENTROPY_BYTES);
   if (rc != GSASL_OK)
@@ -82,9 +88,38 @@ _gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data)
       return rc;
     }
 
+  p = gsasl_property_get (sctx, GSASL_CB_TLS_UNIQUE);
+  if (state->plus && !p)
+    {
+      free (state);
+      return GSASL_NO_CB_TLS_UNIQUE;
+    }
+  if (p)
+    {
+      rc = gsasl_base64_from (p, strlen (p), &state->cbtlsunique,
+			      &state->cbtlsuniquelen);
+      if (rc != GSASL_OK)
+	{
+	  free (state);
+	  return rc;
+	}
+    }
+
   *mech_data = state;
 
   return GSASL_OK;
+}
+
+int
+_gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data)
+{
+  return scram_start (sctx, mech_data, 0);
+}
+
+int
+_gsasl_scram_sha1_plus_client_start (Gsasl_session * sctx, void **mech_data)
+{
+  return scram_start (sctx, mech_data, 1);
 }
 
 static char
@@ -146,14 +181,23 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
       {
 	const char *p;
 
-	/* We don't support channel bindings. */
-	state->cf.cbflag = 'n';
+	if (state->plus)
+	  {
+	    state->cf.cbflag = 'p';
+	    state->cf.cbname = strdup ("tls-unique");
+	  }
+	else
+	  {
+	    if (state->cbtlsuniquelen > 0)
+	      state->cf.cbflag = 'y';
+	    else
+	      state->cf.cbflag = 'n';
+	  }
 
 	p = gsasl_property_get (sctx, GSASL_AUTHID);
 	if (!p)
 	  return GSASL_NO_AUTHID;
 
-	/* FIXME check that final document uses query strings. */
 	rc = gsasl_saslprep (p, GSASL_ALLOW_UNASSIGNED,
 			     &state->cf.username, NULL);
 	if (rc != GSASL_OK)
@@ -171,7 +215,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 
 	*output_len = strlen (*output);
 
-	/* Save "cbind" and "bare" for next step. */
+	/* Point p to client-first-message-bare. */
 	p = strchr (*output, ',');
 	if (!p)
 	    return GSASL_AUTHENTICATION_ERROR;
@@ -180,13 +224,29 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	if (!p)
 	    return GSASL_AUTHENTICATION_ERROR;
 	p++;
-	rc = gsasl_base64_to (*output, p - *output, &state->cl.cbind, NULL);
-	if (rc != 0)
-	  return rc;
 
+	/* Save "client-first-message-bare" for the next step. */
 	state->cfmb = strdup (p);
 	if (!state->cfmb)
 	  return GSASL_MALLOC_ERROR;
+
+	/* Prepare B64("cbind-input") for the next step. */
+	if (state->cf.cbflag == 'p')
+	  {
+	    size_t len = (p - *output) + state->cbtlsuniquelen;
+	    char *cbind_input = malloc (len);
+	    if (cbind_input == NULL)
+	      return GSASL_MALLOC_ERROR;
+	    memcpy (cbind_input, *output, p - *output);
+	    memcpy (cbind_input + (p - *output), state->cbtlsunique,
+		    state->cbtlsuniquelen);
+	    rc = gsasl_base64_to (cbind_input, len, &state->cl.cbind, NULL);
+	    free (cbind_input);
+	  }
+	else
+	  rc = gsasl_base64_to (*output, p - *output, &state->cl.cbind, NULL);
+	if (rc != 0)
+	  return rc;
 
 	/* We are done. */
 	state->step++;
@@ -213,7 +273,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	{
 	  char *str = NULL;
 	  int n;
-	  n = asprintf (&str, "%d", state->sf.iter);
+	  n = asprintf (&str, "%lu", (unsigned long) state->sf.iter);
 	  if (n < 0 || str == NULL)
 	    return GSASL_MALLOC_ERROR;
 	  gsasl_property_set (sctx, GSASL_SCRAM_ITER, str);
@@ -280,8 +340,8 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	    /* Compute AuthMessage */
 	    n = asprintf (&state->authmessage, "%s,%.*s,%.*s",
 			  state->cfmb,
-			  input_len, input,
-			  strlen (cfmwp) - 4,
+			  (int) input_len, input,
+			  (int) (strlen (cfmwp) - 4),
 			  cfmwp);
 	    free (cfmwp);
 	    if (n <= 0 || !state->authmessage)
@@ -399,6 +459,7 @@ _gsasl_scram_sha1_client_finish (Gsasl_session * sctx, void *mech_data)
   free (state->cfmb);
   free (state->serversignature);
   free (state->authmessage);
+  free (state->cbtlsunique);
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
   scram_free_client_final (&state->cl);

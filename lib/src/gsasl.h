@@ -135,6 +135,7 @@ extern "C"
    * @GSASL_NO_PIN: Could not get required SecurID PIN.
    * @GSASL_NO_SERVICE: Could not get required service name.
    * @GSASL_NO_HOSTNAME: Could not get required hostname.
+   * @GSASL_NO_CB_TLS_UNIQUE: Could not get required tls-unique CB.
    * @GSASL_GSSAPI_RELEASE_BUFFER_ERROR: GSS-API library call error.
    * @GSASL_GSSAPI_IMPORT_NAME_ERROR: GSS-API library call error.
    * @GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR: GSS-API library call error.
@@ -184,6 +185,7 @@ extern "C"
     GSASL_NO_PIN = 57,
     GSASL_NO_SERVICE = 58,
     GSASL_NO_HOSTNAME = 59,
+    GSASL_NO_CB_TLS_UNIQUE = 65,
     /* Mechanism specific errors. */
     GSASL_GSSAPI_RELEASE_BUFFER_ERROR = 37,
     GSASL_GSSAPI_IMPORT_NAME_ERROR = 38,
@@ -297,6 +299,7 @@ extern "C"
    * @GSASL_SCRAM_SALT: Salt for password-to-key hashing.
    * @GSASL_SCRAM_SALTED_PASSWORD: Pre-computed salted SCRAM key,
    *   to avoid re-computation and storing passwords in the clear.
+   * @GSASL_CB_TLS_UNIQUE: Base64 encoded tls-unique channel binding.
    * @GSASL_VALIDATE_SIMPLE: Request for simple validation.
    * @GSASL_VALIDATE_EXTERNAL: Request for validation of EXTERNAL.
    * @GSASL_VALIDATE_ANONYMOUS: Request for validation of ANONYMOUS.
@@ -325,6 +328,7 @@ extern "C"
     GSASL_SCRAM_ITER = 15,
     GSASL_SCRAM_SALT = 16,
     GSASL_SCRAM_SALTED_PASSWORD = 17,
+    GSASL_CB_TLS_UNIQUE = 18,
     /* Server validation callback properties. */
     GSASL_VALIDATE_SIMPLE = 500,
     GSASL_VALIDATE_EXTERNAL = 501,

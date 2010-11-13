@@ -1,5 +1,5 @@
 /* mechinfo.c --- Definition of SCRAM mechanism.
- * Copyright (C) 2009  Simon Josefsson
+ * Copyright (C) 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -50,6 +50,43 @@ Gsasl_mechanism gsasl_scram_sha1_mechanism = {
     NULL,
 #ifdef USE_SERVER
     _gsasl_scram_sha1_server_start,
+    _gsasl_scram_sha1_server_step,
+    _gsasl_scram_sha1_server_finish,
+#else
+    NULL,
+    NULL,
+    NULL,
+#endif
+    NULL,
+    NULL
+  }
+};
+#endif
+
+
+#ifdef USE_SCRAM_SHA1
+Gsasl_mechanism gsasl_scram_sha1_plus_mechanism = {
+  GSASL_SCRAM_SHA1_PLUS_NAME,
+  {
+    NULL,
+    NULL,
+#ifdef USE_CLIENT
+    _gsasl_scram_sha1_plus_client_start,
+    _gsasl_scram_sha1_client_step,
+    _gsasl_scram_sha1_client_finish,
+#else
+    NULL,
+    NULL,
+    NULL,
+#endif
+    NULL,
+    NULL
+  },
+  {
+    NULL,
+    NULL,
+#ifdef USE_SERVER
+    _gsasl_scram_sha1_plus_server_start,
     _gsasl_scram_sha1_server_step,
     _gsasl_scram_sha1_server_finish,
 #else

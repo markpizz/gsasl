@@ -50,6 +50,7 @@
 
 struct scram_server_state
 {
+  int plus;
   int step;
   char *gs2header; /* copy of client first gs2-header */
   char *cfmb_str; /* copy of client first message bare */
@@ -59,22 +60,27 @@ struct scram_server_state
   char *storedkey;
   char *serverkey;
   char *authmessage;
+  char *cbtlsunique;
+  size_t cbtlsuniquelen;
   struct scram_client_first cf;
   struct scram_server_first sf;
   struct scram_client_final cl;
   struct scram_server_final sl;
 };
 
-int
-_gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data)
+static int
+scram_start (Gsasl_session * sctx, void **mech_data, int plus)
 {
   struct scram_server_state *state;
   char buf[MAX (SNONCE_ENTROPY_BYTES, DEFAULT_SALT_BYTES)];
+  const char *p;
   int rc;
 
   state = (struct scram_server_state *) calloc (sizeof (*state), 1);
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
+
+  state->plus = plus;
 
   rc = gsasl_nonce (buf, SNONCE_ENTROPY_BYTES);
   if (rc != GSASL_OK)
@@ -94,6 +100,20 @@ _gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data)
   if (rc != GSASL_OK)
     goto end;
 
+  p = gsasl_property_get (sctx, GSASL_CB_TLS_UNIQUE);
+  if (plus && !p)
+    {
+      rc = GSASL_NO_CB_TLS_UNIQUE;
+      goto end;
+    }
+  if (p)
+    {
+      rc = gsasl_base64_from (p, strlen (p), &state->cbtlsunique,
+			      &state->cbtlsuniquelen);
+      if (rc != GSASL_OK)
+	goto end;
+    }
+
   *mech_data = state;
 
   return GSASL_OK;
@@ -103,6 +123,18 @@ _gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data)
   free (state->snonce);
   free (state);
   return rc;
+}
+
+int
+_gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data)
+{
+  return scram_start (sctx, mech_data, 0);
+}
+
+int
+_gsasl_scram_sha1_plus_server_start (Gsasl_session * sctx, void **mech_data)
+{
+  return scram_start (sctx, mech_data, 1);
 }
 
 int
@@ -129,9 +161,16 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	if (scram_parse_client_first (input, input_len, &state->cf) < 0)
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
-	/* We don't support channel bindings. */
-	if (state->cf.cbflag != 'n' && state->cf.cbflag != 'y')
+	/* In PLUS server mode, we require use of channel bindings. */
+	if (state->plus && state->cf.cbflag != 'p')
 	  return GSASL_AUTHENTICATION_ERROR;
+
+	/* In non-PLUS mode, but where have channel bindings data (and
+	   thus advertised PLUS) we reject a client 'y' cbflag. */
+	if (!state->plus
+	    && state->cbtlsuniquelen > 0
+	    && state->cf.cbflag == 'y')
+	    return GSASL_AUTHENTICATION_ERROR;
 
 	/* Check that username doesn't fail SASLprep. */
 	{
@@ -226,7 +265,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	  return GSASL_AUTHENTICATION_ERROR;
 
 	/* Base64 decode the c= field and check that it matches
-	   client-first. */
+	   client-first.  Also check channel binding data. */
 	{
 	  size_t len;
 	  char *cbind;
@@ -236,11 +275,30 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	  if (rc != 0)
 	    return rc;
 
-	  if (len != strlen (state->gs2header))
-	    return GSASL_AUTHENTICATION_ERROR;
+	  if (state->cf.cbflag == 'p')
+	    {
+	      if (len < strlen (state->gs2header))
+		return GSASL_AUTHENTICATION_ERROR;
 
-	  if (memcmp (cbind, state->gs2header, len) != 0)
-	    return GSASL_AUTHENTICATION_ERROR;
+	      if (memcmp (cbind, state->gs2header,
+			  strlen (state->gs2header)) != 0)
+		return GSASL_AUTHENTICATION_ERROR;
+
+	      if (len - strlen (state->gs2header) != state->cbtlsuniquelen)
+		return GSASL_AUTHENTICATION_ERROR;
+
+	      if (memcmp (cbind + strlen (state->gs2header),
+			  state->cbtlsunique, state->cbtlsuniquelen) != 0)
+		return GSASL_AUTHENTICATION_ERROR;
+	    }
+	  else
+	    {
+	      if (len != strlen (state->gs2header))
+		return GSASL_AUTHENTICATION_ERROR;
+
+	      if (memcmp (cbind, state->gs2header, len) != 0)
+		return GSASL_AUTHENTICATION_ERROR;
+	    }
 	}
 
 	/* Base64 decode client proof and check that length matches
@@ -328,8 +386,8 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 
 	    n = asprintf (&state->authmessage, "%s,%.*s,%.*s",
 			  state->cfmb_str,
-			  strlen (state->sf_str), state->sf_str,
-			  len, input);
+			  (int) strlen (state->sf_str), state->sf_str,
+			  (int) len, input);
 	    if (n <= 0 || !state->authmessage)
 	      return GSASL_MALLOC_ERROR;
 	  }

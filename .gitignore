@@ -784,6 +784,8 @@ tests/readnz
 tests/readnz.o
 tests/scram
 tests/scram.o
+tests/scramplus
+tests/scramplus.o
 tests/simple
 tests/simple.o
 tests/suggest

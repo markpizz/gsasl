@@ -35,11 +35,11 @@ Currently there is some support for the following mechanisms:
   - PLAIN (RFC 2595)
   - SECURID (RFC 2808)
   - DIGEST-MD5 (RFC 2831)
+  - SCRAM-SHA-1 and SCRAM-SHA-1-PLUS (RFC 5802)
+  - GS2-KRB5 (RFC 5801, no CB, requires GSS, Heimdal, or MIT Kerberos)
   - LOGIN (non-standard)
   - NTLM (non-standard, client only, requires Libntlm)
   - KERBEROS_V5 (experimental, requires Shishi)
-  - SCRAM (no channel bindings)
-  - GS2-KRB5 (no channel bindings, requires GSS, Heimdal or MIT Kerberos)
 
 The library should be portable to all C89 platforms.  The command-line
 application currently requires POSIX for network communication.
@@ -47,7 +47,7 @@ application currently requires POSIX for network communication.
 Things left to do below.  If you like to start working on anything,
 please let me know so work duplication can be avoided.
 
-  * Support channel bindings in SCRAM/GS2.
+  * Support channel bindings in GS2.
   + Authentication infrastructure implementing the callbacks for
     PAM, Kerberos, SQL, etc.  Separate project?  GNU Mailutils has
     some starting points for this, but the API is inflexible.

@@ -31,6 +31,8 @@ gnutls_session session;
 bool using_tls = false;
 #endif
 
+char *b64cbtlsunique = NULL;
+
 struct gengetopt_args_info args_info;
 int sockfd = 0;
 
@@ -603,6 +605,24 @@ main (int argc, char *argv[])
 	    error (EXIT_FAILURE, 0,
 		   _("could not verify server certificate (rc=%d)"), status);
 	}
+
+#if HAVE_GNUTLS_SESSION_CHANNEL_BINDING
+	{
+	  gnutls_datum cb;
+
+	  res = gnutls_session_channel_binding (session,
+						GNUTLS_CB_TLS_UNIQUE,
+						&cb);
+	  if (res != GNUTLS_E_SUCCESS)
+	    error (EXIT_FAILURE, 0, _("getting channel binding failed: %s"),
+		   gnutls_strerror (res));
+
+	  res = gsasl_base64_to ((char *) cb.data, cb.size,
+				 &b64cbtlsunique, NULL);
+	  if (res != GSASL_OK)
+	    error (EXIT_FAILURE, 0, "%s", gsasl_strerror (res));
+	}
+#endif
 
       using_tls = true;
     }

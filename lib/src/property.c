@@ -1,5 +1,5 @@
 /* property.c --- Callback property handling.
- * Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -98,6 +98,10 @@ map (Gsasl_session * sctx, Gsasl_property prop)
 
     case GSASL_SCRAM_SALTED_PASSWORD:
       p = &sctx->scram_salted_password;
+      break;
+
+    case GSASL_CB_TLS_UNIQUE:
+      p = &sctx->cb_tls_unique;
       break;
 
     default:

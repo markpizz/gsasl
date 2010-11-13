@@ -172,7 +172,7 @@ manual.  The library includes support for the framework (with
 authentication functions and application data privacy and integrity
 functions) and at least partial support for the ANONYMOUS, CRAM-MD5,
 DIGEST-MD5, EXTERNAL, GS2-KRB5, GSSAPI, LOGIN, NTLM, PLAIN,
-SCRAM-SHA-1, and SECURID mechanisms.
+SCRAM-SHA-1 (and SCRAM-SHA-1-PLUS), and SECURID mechanisms.
 
 The library is easily ported because it does not do network
 communication by itself, but rather leaves it up to the calling
@@ -1551,6 +1551,15 @@ string.  In the client, the SCRAM-SHA-1 mechanism set these properties
 before asking for asking the application to provide a
 @code{GSASL_SCRAM_SALTED_PASSWORD} value.
 
+@item @code{GSASL_CB_TLS_UNIQUE}
+
+@cindex channel binding
+@cindex tls-unique
+This property holds base64 encoded @code{tls-unique} channel binding
+data.  As a hint, if you use GnuTLS, the API
+@code{gnutls_session_channel_binding} can be used to extract channel
+bindings for a session.
+
 @end itemize
 
 Next follows a list of data properties used to trigger the callback,
@@ -1818,11 +1827,15 @@ techniques such as HMAC-SHA-1 hashing and PKCS#5 PBKDF2 key
 derivation.  SCRAM-SHA-1 supports authorization identities.  Like
 CRAM-MD5 and DIGEST-MD5, only a hashed password is transferred.
 Consequently, SCRAM-SHA-1 needs access to the correct password to
-verify the client response.
+verify the client response.  Channel bindings are supported through
+the SCRAM-SHA-1-PLUS mechanism.
 
-In the client, this mechanism is always enabled, and it requires the
-@code{GSASL_AUTHID} property, and either @code{GSASL_PASSWORD} or
-@code{GSASL_SCRAM_SALTED_PASSWORD}.  If set, @code{GSASL_AUTHZID} will
+In the client, the non-PLUS mechanism is always enabled, and it
+requires the @code{GSASL_AUTHID} property, and either
+@code{GSASL_PASSWORD} or @code{GSASL_SCRAM_SALTED_PASSWORD}.  When the
+@code{GSASL_CB_TLS_UNIQUE} property is available, the SCRAM-SHA-1-PLUS
+mechanism is also available and it will negotiate channel bindings
+when the server also supports it.  If set, @code{GSASL_AUTHZID} will
 be used by the client.  To be able to return the proper
 @code{GSASL_SCRAM_SALTED_PASSWORD} value, the client needs to check
 the @code{GSASL_SCRAM_ITER} and @code{GSASL_SCRAM_SALT} values which
@@ -1837,11 +1850,24 @@ normalize the returned password, and compare the client response with
 the computed correct response, and accept the user accordingly.  The
 server may also set the @code{GSASL_SCRAM_ITER} and
 @code{GSASL_SCRAM_SALT} properties to influence the values to be used
-by clients to derive a key from a password.
+by clients to derive a key from a password.  When the
+@code{GSASL_CB_TLS_UNIQUE} property is set, the SCRAM-SHA-1-PLUS
+mechanism is supported and is used to negotiate channel bindings.
 
 @cindex channel binding
-Currently channel bindings are not supported, so there is no support
-for SCRAM-SHA-1-PLUS.
+The @code{GSASL_CB_TLS_UNIQUE} property signal that this side of the
+authentication supports channel bindings.  Setting the property will
+enable the SCRAM-SHA-1-PLUS mechanism.  For clients, this also
+instructs the SCRAM-SHA-1 mechanism to tell servers that the client
+believes the server does not support channel bindings if it is used
+(remember that clients should otherwise have chosen the
+SCRAM-SHA-1-PLUS mechanism instead of the SCRAM-SHA-1 mechanism).  For
+servers, it means the SCRAM-SHA-1 mechanism will refuse to
+authenticate against a client that signals that it believes the server
+does not support channel bindings.
+
+The SCRAM-SHA-1-PLUS mechanism will never complete authentication
+successfully if channel bindings are not confirmed.
 
 @node NTLM
 @section The NTLM mechanism

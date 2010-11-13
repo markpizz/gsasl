@@ -1,5 +1,5 @@
 /* scram.h --- Prototypes for SCRAM mechanism
- * Copyright (C) 2009  Simon Josefsson
+ * Copyright (C) 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -26,11 +26,16 @@
 #include <gsasl.h>
 
 #define GSASL_SCRAM_SHA1_NAME "SCRAM-SHA-1"
+#define GSASL_SCRAM_SHA1_PLUS_NAME "SCRAM-SHA-1-PLUS"
 
 extern Gsasl_mechanism gsasl_scram_sha1_mechanism;
+extern Gsasl_mechanism gsasl_scram_sha1_plus_mechanism;
 
 int
 _gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data);
+
+int
+_gsasl_scram_sha1_plus_client_start (Gsasl_session * sctx, void **mech_data);
 
 int
 _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
@@ -44,6 +49,9 @@ _gsasl_scram_sha1_client_finish (Gsasl_session * sctx, void *mech_data);
 
 int
 _gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data);
+
+int
+_gsasl_scram_sha1_plus_server_start (Gsasl_session * sctx, void **mech_data);
 
 int
 _gsasl_scram_sha1_server_step (Gsasl_session * sctx,

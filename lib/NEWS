@@ -4,8 +4,17 @@ See the end for copying conditions.
 
 * Version 1.5.3 (unreleased) [beta]
 
+** libgsasl: Added property for tls-unique channel binding.
+The new property GSASL_CB_TLS_UNIQUE takes a base64 encoded tls-unique
+channel binding.  New error code GSASL_NO_CB_TLS_UNIQUE is returned
+when application fails to provide a channel binding and the mechanism
+requires it (i.e., in a PLUS server).
+
+** SCRAM: Added support for SCRAM-SHA-1-PLUS with channel bindings.
+
 ** API and ABI modifications.
-No changes since last version.
+GSASL_CB_TLS_UNIQUE: ADDED.
+GSASL_NO_CB_TLS_UNIQUE: ADDED.
 
 * Version 1.5.2 (released 2010-09-27) [beta]
 

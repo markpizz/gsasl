@@ -195,8 +195,9 @@ static struct {
   ERR (GSASL_GSSAPI_TEST_OID_SET_MEMBER_ERROR,
        N_("GSSAPI error testing for OID in OID set.")),
   ERR (GSASL_GSSAPI_RELEASE_OID_SET_ERROR,
-       N_("GSSAPI error releasing OID set."))
-
+       N_("GSSAPI error releasing OID set.")),
+  ERR (GSASL_NO_CB_TLS_UNIQUE,
+       N_("Authentication failed because a tls-unique CB was not provided."))
 };
 
 /**

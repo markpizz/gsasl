@@ -8,11 +8,19 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.5.3 (unreleased) [beta]
 
+** gsasl: Support for TLS channel bindings.
+Requires GnuTLS 2.11.4 or later for the gnutls_session_channel_binding
+function.  Used by the SCRAM-SHA-1-PLUS mechanism.
+
+** doc: Mention new property GSASL_CB_TLS_UNIQUE and SCRAM-SHA-1-PLUS.
+
+** tests: Added self-tests for SCRAM-SHA-1-PLUS.
+
 * Version 1.5.2 (released 2010-09-27) [beta]
 
 ** gsasl: Avoid fixed size buffers.
 This caused problems on Windows where the BUFSIZ was too small for
-some line lengths with GS2-KRb5.
+some line lengths with GS2-KRB5.
 
 ** tests: Fix error strings to be more unique.
 

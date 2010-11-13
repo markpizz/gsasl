@@ -1,4 +1,4 @@
-/* scram.c --- Test the SCRAM mechanism.
+/* scramplus.c --- Test the SCRAM-SHA-1-PLUS mechanism.
  * Copyright (C) 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
@@ -108,6 +108,8 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     case GSASL_CB_TLS_UNIQUE:
+      gsasl_property_set (sctx, prop, "Zm5vcmQ=");
+      rc = GSASL_OK;
       break;
 
     default:
@@ -134,11 +136,11 @@ doit (void)
       return;
     }
 
-  if (!gsasl_client_support_p (ctx, "SCRAM-SHA-1")
-      || !gsasl_server_support_p (ctx, "SCRAM-SHA-1"))
+  if (!gsasl_client_support_p (ctx, "SCRAM-SHA-1-PLUS")
+      || !gsasl_server_support_p (ctx, "SCRAM-SHA-1-PLUS"))
     {
       gsasl_done (ctx);
-      fail("No support for SCRAM-SHA-1.\n");
+      fail("No support for SCRAM-SHA-1-PLUS.\n");
       exit(77);
     }
 
@@ -151,14 +153,14 @@ doit (void)
       if (debug)
 	printf ("Iteration %d ...\n", i);
 
-      res = gsasl_server_start (ctx, "SCRAM-SHA-1", &server);
+      res = gsasl_server_start (ctx, "SCRAM-SHA-1-PLUS", &server);
       if (res != GSASL_OK)
 	{
 	  fail ("gsasl_server_start() failed (%d):\n%s\n",
 		res, gsasl_strerror (res));
 	  return;
 	}
-      res = gsasl_client_start (ctx, "SCRAM-SHA-1", &client);
+      res = gsasl_client_start (ctx, "SCRAM-SHA-1-PLUS", &client);
       if (res != GSASL_OK)
 	{
 	  fail ("gsasl_client_start() failed (%d):\n%s\n",
@@ -199,29 +201,6 @@ doit (void)
 	  return;
 	}
 
-      if (i == 16 || i == 17)
-	s1[0] = 'y';
-
-      if (i == 18)
-	{
-	  char *s;
-
-	  asprintf (&s, "%s,a=b", s1);
-	  gsasl_free (s1);
-	  s1 = s;
-	  s1len = strlen (s);
-	}
-
-      if (i == 20)
-	{
-	  char *s;
-
-	  asprintf (&s, "%s,a=b,b=c,c=d", s1);
-	  gsasl_free (s1);
-	  s1 = s;
-	  s1len = strlen (s);
-	}
-
       if (debug)
 	printf ("C: %.*s [%c]\n", (int) s1len,
 		s1, res == GSASL_OK ? 'O' : 'N');
@@ -252,30 +231,24 @@ doit (void)
 	  return;
 	}
 
+      if (debug)
+	printf ("C: %.*s [%c]\n", (int) s1len,
+		s1, res == GSASL_OK ? 'O' : 'N');
+
+      /* Shorten length of cbdata. */
       if (i == 17)
-	memcpy (s1 + 2, "eS", 2);
+	s1[41] = '=';
 
-      if (i == 19 && s1len > 31)
+      /* Increase length of cbdata. */
+      if (i == 18)
 	{
-	  char *s;
-
-	  asprintf (&s, "%.*s,a=b,%s", (int) (s1len - 31),
-		    s1, s1 + s1len - 31 + 1);
-	  gsasl_free (s1);
-	  s1 = s;
-	  s1len = strlen (s);
+	  s1[28] = 'B';
+	  s1[29] = 'C';
 	}
 
-      if (i == 21 && s1len > 31)
-	{
-	  char *s;
-
-	  asprintf (&s, "%.*s,a=b,b=c,c=d,%s", (int) (s1len - 31),
-		    s1, s1 + s1len - 31 + 1);
-	  gsasl_free (s1);
-	  s1 = s;
-	  s1len = strlen (s);
-	}
+      /* Modify cbdata. */
+      if (i == 19)
+	  s1[30] = 'B';
 
       if (debug)
 	printf ("C: %.*s [%c]\n", (int) s1len,
@@ -285,7 +258,7 @@ doit (void)
 
       res = gsasl_step (server, s1, s1len, &s2, &s2len);
       gsasl_free (s1);
-      if (i >= 16 && i <= 21)
+      if (i >= 17 && i <= 19)
 	{
 	  if (res == GSASL_AUTHENTICATION_ERROR)
 	    {

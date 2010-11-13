@@ -82,11 +82,30 @@ scram_parse_client_first (const char *str, size_t len,
   if (strnlen (str, len) < 10)
     return -1;
 
-  if (len == 0 || (*str != 'n' && *str != 'y'))
-      /* FIXME support channel bindings */
-      return -1;
+  if (len == 0 || (*str != 'n' && *str != 'y' && *str != 'p'))
+    return -1;
   cf->cbflag = *str;
   str++, len--;
+
+  if (cf->cbflag == 'p')
+    {
+      const char *p;
+
+      if (len == 0 || *str != '=')
+	return -1;
+      str++, len--;
+
+      p = memchr (str, ',', len);
+      if (!p)
+	return -1;
+      cf->cbname = malloc (p - str + 1);
+      if (!cf->cbname)
+	return -1;
+      memcpy (cf->cbname, str, p - str + 1);
+      cf->cbname[p- str] = '\0';
+      str += (p - str);
+      len -= (p - str);
+    }
 
   if (len == 0 || *str != ',')
     return -1;

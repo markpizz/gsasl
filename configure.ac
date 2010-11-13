@@ -75,6 +75,13 @@ fi
 AC_MSG_CHECKING([if STARTTLS support via GnuTLS should be built])
 AC_MSG_RESULT($gnutls)
 
+if test "$ac_cv_libgnutls" = yes; then
+  save_LIBS="$LIBS"
+  LIBS="$LIBS $LIBGNUTLS"
+  AC_CHECK_FUNCS([gnutls_session_channel_binding])
+  LIBS="$save_LIBS"
+fi
+
 # Check for gtk-doc.
 GTK_DOC_CHECK(1.1)
 

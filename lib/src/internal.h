@@ -1,5 +1,5 @@
 /* internal.h --- Internal header with hidden library handle structures.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -102,6 +102,7 @@ struct Gsasl_session
   char *scram_iter;
   char *scram_salt;
   char *scram_salted_password;
+  char *cb_tls_unique;
 
 #ifndef GSASL_NO_OBSOLETE
   /* Obsolete stuff. */

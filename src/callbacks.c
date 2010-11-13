@@ -1,5 +1,5 @@
 /* callbacks.c --- Implementation of gsasl callbacks.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -80,6 +80,15 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       gsasl_property_set (sctx, GSASL_ANONYMOUS_TOKEN,
 			  args_info.anonymous_token_arg);
 
+      rc = GSASL_OK;
+      break;
+
+    case GSASL_CB_TLS_UNIQUE:
+      if (b64cbtlsunique == NULL && args_info.hostname_arg == NULL)
+	b64cbtlsunique =
+	  readutf8line ("Enter base64 encoded tls-unique channel binding: ");
+      if (*b64cbtlsunique)
+	gsasl_property_set (sctx, prop, b64cbtlsunique);
       rc = GSASL_OK;
       break;
 
@@ -191,6 +200,8 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     case GSASL_SCRAM_SALTED_PASSWORD:
+    case GSASL_SCRAM_ITER:
+    case GSASL_SCRAM_SALT:
       break;
 
     default:
