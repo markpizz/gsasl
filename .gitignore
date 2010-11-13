@@ -33,6 +33,7 @@ doc/gsasl.fns
 doc/gsasl.html
 doc/gsasl.info
 doc/gsasl.info-1
+doc/gsasl.info-2
 doc/gsasl.ky
 doc/gsasl.log
 doc/gsasl.pdf
@@ -48,6 +49,7 @@ doc/reference/Makefile
 doc/reference/Makefile.in
 doc/reference/gsasl-decl-list.txt
 doc/reference/gsasl-decl.txt
+doc/reference/gsasl-decl.txt.bak
 doc/reference/gsasl-overrides.txt
 doc/reference/gsasl-sections.txt
 doc/reference/gsasl-undeclared.txt
@@ -62,6 +64,8 @@ doc/reference/gsasl.types
 doc/reference/html-build.stamp
 doc/reference/html.stamp
 doc/reference/html/
+doc/reference/pdf-build.stamp
+doc/reference/pdf.stamp
 doc/reference/scan-build.stamp
 doc/reference/sgml-build.stamp
 doc/reference/sgml.stamp
@@ -115,6 +119,7 @@ gl/iconv_open-solaris.h
 gl/libgl.la
 gl/localcharset.lo
 gl/localcharset.o
+gl/netdb.h
 gl/printf-args.lo
 gl/printf-args.o
 gl/printf-parse.lo
@@ -222,6 +227,8 @@ gltests/test-perror.o
 gltests/test-poll
 gltests/test-poll.o
 gltests/test-quotearg
+gltests/test-quotearg-simple
+gltests/test-quotearg-simple.o
 gltests/test-quotearg.o
 gltests/test-select
 gltests/test-select-fd
@@ -265,6 +272,8 @@ gltests/test-sys_stat
 gltests/test-sys_stat.o
 gltests/test-sys_time
 gltests/test-sys_time.o
+gltests/test-sys_wait
+gltests/test-sys_wait.o
 gltests/test-time
 gltests/test-time.o
 gltests/test-unistd
@@ -273,6 +282,9 @@ gltests/test-unsetenv
 gltests/test-unsetenv.o
 gltests/test-vasnprintf
 gltests/test-vasnprintf.o
+gltests/test-vasprintf
+gltests/test-vasprintf.o
+gltests/test-verify
 gltests/test-version-etc
 gltests/test-version-etc.o
 gltests/test-wchar
@@ -383,6 +395,8 @@ lib/gl/asnprintf.o
 lib/gl/base64.lo
 lib/gl/base64.o
 lib/gl/c++defs.h
+lib/gl/c-ctype.lo
+lib/gl/c-ctype.o
 lib/gl/gc-libgcrypt.lo
 lib/gl/gc-libgcrypt.o
 lib/gl/gc-pbkdf2-sha1.lo
@@ -397,6 +411,7 @@ lib/gl/printf-parse.o
 lib/gl/stdio.h
 lib/gl/stdlib.h
 lib/gl/string.h
+lib/gl/sys/
 lib/gl/unistd.h
 lib/gl/vasnprintf.lo
 lib/gl/vasnprintf.o
@@ -413,6 +428,8 @@ lib/gltests/test-alloca-opt
 lib/gltests/test-alloca-opt.o
 lib/gltests/test-base64
 lib/gltests/test-base64.o
+lib/gltests/test-c-ctype
+lib/gltests/test-c-ctype.o
 lib/gltests/test-errno
 lib/gltests/test-errno.o
 lib/gltests/test-gc
@@ -447,14 +464,19 @@ lib/gltests/test-stdlib
 lib/gltests/test-stdlib.o
 lib/gltests/test-string
 lib/gltests/test-string.o
+lib/gltests/test-strnlen
+lib/gltests/test-strnlen.o
 lib/gltests/test-strverscmp
 lib/gltests/test-strverscmp.o
+lib/gltests/test-sys_wait
+lib/gltests/test-sys_wait.o
 lib/gltests/test-unistd
 lib/gltests/test-unistd.o
 lib/gltests/test-vasnprintf
 lib/gltests/test-vasnprintf.o
 lib/gltests/test-vasprintf
 lib/gltests/test-vasprintf.o
+lib/gltests/test-verify
 lib/gltests/test-wchar
 lib/gltests/test-wchar.o
 lib/gltests/warn-on-use.h
