@@ -199,11 +199,11 @@ static struct
   ERR (GSASL_GSSAPI_RELEASE_OID_SET_ERROR,
        N_("GSSAPI error releasing OID set.")),
   ERR (GSASL_NO_CB_TLS_UNIQUE,
-       N_("Authentication failed because a tls-unique CB was not provided."))
+       N_("Authentication failed because a tls-unique CB was not provided.")),
   ERR (GSASL_NO_SAML20_IDP_IDENTIFIER,
        N_("Callback failed to provide SAML20 user identifier.")),
   ERR (GSASL_NO_SAML20_REDIRECT_URL,
-       N_("Callback failed to provide SAML20 redirect URL.")),
+       N_("Callback failed to provide SAML20 redirect URL."))
 };
 /* *INDENT-ON* */
 

@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009 Simon Josefsson.
+# Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009, 2010 Simon Josefsson
 #
 # This file is part of GNU SASL.
 #
@@ -22,4 +22,5 @@ LDADD = ../lib/src/libgsasl.la
 
 EXTRA_DIST = README
 
-noinst_PROGRAMS = client client-serverfirst client-mech client-callback
+noinst_PROGRAMS = client client-serverfirst client-mech	\
+	client-callback client-xmpp-saml20 server-xmpp-saml20

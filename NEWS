@@ -6,7 +6,7 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
-* Version 1.7.1 (unreleased) [beta]
+* Version 1.7.1 (unreleased) [alpha]
 
 ** Demand gettext >= 0.18.1 in order to get newer M4 files.
 The old M4 files associated with 0.17 caused problems on Solaris,
@@ -19,7 +19,7 @@ Michelsen <dam@opencsw.org>.
 
 ** i18n: Updated translations.
 
-** SAML changes reverted, will be kept on a separate branch.
+** examples: Added client-xmpp-saml20 and server-xmpp-saml20.
 
 * Version 1.7.0 (released 2010-10-22) [alpha]
 

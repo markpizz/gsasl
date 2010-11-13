@@ -4,8 +4,6 @@ See the end for copying conditions.
 
 * Version 1.7.1 (unreleased) [beta]
 
-** SAML changes reverted, will be kept on a separate branch.
-
 ** libgsasl.pc: Add a Libs.private.
 Reported by Volker Grabsch <vog@notjusthosting.com>.
 
