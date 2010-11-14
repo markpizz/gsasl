@@ -47,8 +47,9 @@ update-po:
 	for f in `ls lib/po/*.po po/*.po | grep -v quot.po`; do \
 		cp $$f $$f.in; \
 	done
-	git add {lib/,}po/*.po.in
-	git commit -m "Sync with TP." {lib/,}po/LINGUAS {lib/,}po/*.po.in
+	git add po/*.po.in lib/po/*.po.in
+	git commit -m "Sync with TP." \
+		po/LINGUAS po/*.po.in lib/po/LINGUAS lib/po/*.po.in
 
 bootstrap: autoreconf
 	./configure $(CFGFLAGS)
