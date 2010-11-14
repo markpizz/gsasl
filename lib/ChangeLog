@@ -1,5 +1,75 @@
 2010-11-14  Simon Josefsson <simon@josefsson.org>
 
+	* lib/NEWS, lib/scram/server.c: SCRAM: Fix memory leaks.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/scramplus.c: Remove debug code.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Add.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/Makefile.am, gl/arpa_inet.in.h, gl/errno.in.h,
+	gl/float+.h, gl/float.in.h, gl/getopt.in.h, gl/iconv.in.h,
+	gl/inet_ntop.c, gl/m4/errno_h.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/include_next.m4, gl/m4/locale-fr.m4, gl/m4/locale-ja.m4,
+	gl/m4/locale-zh.m4, gl/m4/poll.m4, gl/m4/poll_h.m4,
+	gl/m4/stdlib_h.m4, gl/m4/string_h.m4, gl/m4/sys_wait_h.m4,
+	gl/netdb.in.h, gl/netinet_in.in.h, gl/poll.c, gl/poll.in.h,
+	gl/printf-parse.c, gl/printf-parse.h, gl/stdarg.in.h,
+	gl/stddef.in.h, gl/stdint.in.h, gl/stdio.in.h, gl/stdlib.in.h,
+	gl/strerror.c, gl/string.in.h, gl/sys_select.in.h,
+	gl/sys_socket.in.h, gl/sys_time.in.h, gl/sys_wait.in.h,
+	gl/unistd.in.h, gl/vasnprintf.c, gl/wchar.in.h, gl/wctype.in.h,
+	gl/xalloc.h, gltests/Makefile.am, gltests/fcntl.in.h,
+	gltests/ignore-value.h, gltests/init.sh, gltests/malloca.c,
+	gltests/sys_ioctl.in.h, gltests/sys_stat.in.h,
+	gltests/test-getopt.h, gltests/test-getopt_long.h,
+	gltests/test-poll-h.c, gltests/test-poll.c,
+	gltests/test-quotearg-simple.c, gltests/test-select-stdin.c,
+	gltests/test-select.c, gltests/test-stdlib.c,
+	gltests/test-sys_wait.c, gltests/time.in.h, lib/GNUmakefile,
+	lib/build-aux/pmccabe.css, lib/build-aux/pmccabe2html,
+	lib/gl/Makefile.am, lib/gl/errno.in.h, lib/gl/float+.h,
+	lib/gl/float.in.h, lib/gl/m4/errno_h.m4, lib/gl/m4/gnulib-comp.m4,
+	lib/gl/m4/include_next.m4, lib/gl/m4/memmem.m4,
+	lib/gl/m4/stdlib_h.m4, lib/gl/m4/string_h.m4,
+	lib/gl/m4/sys_wait_h.m4, lib/gl/m4/threadlib.m4,
+	lib/gl/printf-parse.c, lib/gl/printf-parse.h, lib/gl/stddef.in.h,
+	lib/gl/stdint.in.h, lib/gl/stdio.in.h, lib/gl/stdlib.in.h,
+	lib/gl/str-two-way.h, lib/gl/string.in.h, lib/gl/sys_wait.in.h,
+	lib/gl/unistd.in.h, lib/gl/vasnprintf.c, lib/gl/verify.h,
+	lib/gl/wchar.in.h, lib/gltests/Makefile.am, lib/gltests/init.sh,
+	lib/gltests/test-memmem.c, lib/gltests/test-stdlib.c,
+	lib/gltests/test-sys_wait.c, lib/gltests/verify.h, lib/maint.mk,
+	maint.mk: Update gnulib files.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/NEWS: Add.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/scram/parser.c: Fix parsing bug.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS, lib/NEWS: Version 1.5.3.
 
 2010-11-14  Simon Josefsson <simon@josefsson.org>
