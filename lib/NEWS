@@ -6,6 +6,8 @@ See the end for copying conditions.
 
 ** SCRAM-SHA-1-PLUS: Fix parsing bug causing memory corruption.
 
+** Update gnulib files.
+
 ** API and ABI modifications.
 No changes since last version.
 
