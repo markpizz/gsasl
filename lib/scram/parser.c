@@ -101,10 +101,10 @@ scram_parse_client_first (const char *str, size_t len,
       cf->cbname = malloc (p - str + 1);
       if (!cf->cbname)
 	return -1;
-      memcpy (cf->cbname, str, p - str + 1);
+      memcpy (cf->cbname, str, p - str);
       cf->cbname[p- str] = '\0';
-      str += (p - str);
       len -= (p - str);
+      str += (p - str);
     }
 
   if (len == 0 || *str != ',')
