@@ -590,8 +590,17 @@ sc_changelog:
 sc_program_name:
 	@require='set_program_name *\(m?argv\[0\]\);'			\
 	in_vc_files='\.c$$'						\
-	containing='^main *('						\
+	containing='\<main *('						\
 	halt='the above files do not call set_program_name'		\
+	  $(_sc_search_regexp)
+
+# Ensure that each .c file containing a "main" function also
+# calls bindtextdomain.
+sc_bindtextdomain:
+	@require='bindtextdomain *\('					\
+	in_vc_files='\.c$$'						\
+	containing='\<main *('						\
+	halt='the above files do not call bindtextdomain'		\
 	  $(_sc_search_regexp)
 
 # Require that the final line of each test-lib.sh-using test be this one:
@@ -806,6 +815,13 @@ _ptm2 = use "test C1 || test C2", not "test C1 -''o C2"
 sc_prohibit_test_minus_ao:
 	@prohibit='(\<test| \[+) .+ -[ao] '				\
 	halt='$(_ptm1); $(_ptm2)'					\
+	  $(_sc_search_regexp)
+
+# Avoid a test bashism.
+sc_prohibit_test_double_equal:
+	@prohibit='(\<test| \[+) .+ == '				\
+	containing='#! */bin/[a-z]*sh'					\
+	halt='use "test x = x", not "test x =''= x"'			\
 	  $(_sc_search_regexp)
 
 # Each program that uses proper_name_utf8 must link with one of the

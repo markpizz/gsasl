@@ -292,14 +292,6 @@ EXTRA_DIST += test-strverscmp.c signature.h macros.h
 
 ## end   gnulib module strverscmp-tests
 
-## begin gnulib module sys_wait-tests
-
-TESTS += test-sys_wait
-check_PROGRAMS += test-sys_wait
-EXTRA_DIST += test-sys_wait.c test-sys_wait.h
-
-## end   gnulib module sys_wait-tests
-
 ## begin gnulib module unistd-tests
 
 TESTS += test-unistd
@@ -325,12 +317,6 @@ check_PROGRAMS += test-vasprintf
 EXTRA_DIST += test-vasprintf.c signature.h macros.h
 
 ## end   gnulib module vasprintf-tests
-
-## begin gnulib module verify
-
-libtests_a_SOURCES += verify.h
-
-## end   gnulib module verify
 
 ## begin gnulib module verify-tests
 

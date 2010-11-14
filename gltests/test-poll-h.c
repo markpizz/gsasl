@@ -1,5 +1,5 @@
-/* Test of <sys/wait.h> substitute.
-   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
+/* Test of <poll.h> substitute.
+   Copyright (C) 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,34 +14,21 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-/* Written by Eric Blake <ebb9@byu.net>, 2009.  */
+/* Written by Bruno Haible, 2010.  */
 
 #include <config.h>
 
-#include <sys/wait.h>
+#include <poll.h>
 
-/* Check for existence of required types.  */
-static pid_t a;
+/* Check that the nfds_t type is defined.  */
+nfds_t a;
 
-#include "test-sys_wait.h"
+/* Check that the various POLL* macros are defined.  */
+int b = POLLIN | POLLPRI | POLLOUT | POLLERR | POLLHUP | POLLNVAL
+        | POLLRDNORM | POLLRDBAND | POLLWRNORM | POLLWRBAND;
 
 int
 main (void)
 {
-  if (test_sys_wait_macros ())
-    return 1;
-
-  switch (0)
-    {
-#if 0
-  /* Gnulib doesn't guarantee these, yet.  */
-    case WCONTINUED:
-    case WEXITED:
-    case WNOWAIT:
-    case WSTOPPED:
-#endif
-      break;
-    }
-
-  return a ? 1 : 0;
+  return 0;
 }

@@ -132,6 +132,8 @@ AC_DEFUN([gl_EARLY],
   # Code from module perror-tests:
   # Code from module pmccabe2html:
   # Code from module poll:
+  # Code from module poll-h:
+  # Code from module poll-h-tests:
   # Code from module poll-tests:
   # Code from module progname:
   # Code from module putenv:
@@ -197,8 +199,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module sys_stat-tests:
   # Code from module sys_time:
   # Code from module sys_time-tests:
-  # Code from module sys_wait:
-  # Code from module sys_wait-tests:
   # Code from module time:
   # Code from module time-tests:
   # Code from module unistd:
@@ -375,6 +375,9 @@ AC_SUBST([LTALLOCA])
   AC_PATH_PROG([PMCCABE], [pmccabe], [false])
   # Code from module poll:
   gl_FUNC_POLL
+  gl_POLL_MODULE_INDICATOR([poll])
+  # Code from module poll-h:
+  gl_POLL_H
   # Code from module progname:
   AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
   AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
@@ -468,9 +471,6 @@ AC_SUBST([LTALLOCA])
   AC_PROG_MKDIR_P
   # Code from module sys_time:
   gl_HEADER_SYS_TIME_H
-  AC_PROG_MKDIR_P
-  # Code from module sys_wait:
-  gl_SYS_WAIT_H
   AC_PROG_MKDIR_P
   # Code from module unistd:
   gl_UNISTD_H
@@ -831,7 +831,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/sys_select.in.h
   lib/sys_socket.in.h
   lib/sys_time.in.h
-  lib/sys_wait.in.h
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
@@ -912,6 +911,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/pathmax.m4
   m4/perror.m4
   m4/poll.m4
+  m4/poll_h.m4
   m4/printf.m4
   m4/putenv.m4
   m4/quote.m4
@@ -945,7 +945,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sys_socket_h.m4
   m4/sys_stat_h.m4
   m4/sys_time_h.m4
-  m4/sys_wait_h.m4
   m4/time_h.m4
   m4/ungetc.m4
   m4/unistd_h.m4
@@ -1011,6 +1010,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-open.h
   tests/test-perror.c
   tests/test-perror.sh
+  tests/test-poll-h.c
   tests/test-poll.c
   tests/test-quotearg-simple.c
   tests/test-quotearg.h
@@ -1039,7 +1039,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-sys_socket.c
   tests/test-sys_stat.c
   tests/test-sys_time.c
-  tests/test-sys_wait.c
   tests/test-sys_wait.h
   tests/test-time.c
   tests/test-unistd.c

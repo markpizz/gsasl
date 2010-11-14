@@ -94,8 +94,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module strnlen-tests:
   # Code from module strverscmp:
   # Code from module strverscmp-tests:
-  # Code from module sys_wait:
-  # Code from module sys_wait-tests:
   # Code from module unistd:
   # Code from module unistd-tests:
   # Code from module useless-if-before-free:
@@ -234,9 +232,6 @@ AC_DEFUN([gl_INIT],
   # Code from module strverscmp:
   gl_FUNC_STRVERSCMP
   gl_STRING_MODULE_INDICATOR([strverscmp])
-  # Code from module sys_wait:
-  gl_SYS_WAIT_H
-  AC_PROG_MKDIR_P
   # Code from module unistd:
   gl_UNISTD_H
   # Code from module useless-if-before-free:
@@ -249,6 +244,7 @@ AC_DEFUN([gl_INIT],
     [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
      AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
   # Code from module vc-list-files:
+  # Code from module verify:
   # Code from module warn-on-use:
   # Code from module wchar:
   gl_WCHAR_H
@@ -462,11 +458,11 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/string.in.h
   lib/strnlen.c
   lib/strverscmp.c
-  lib/sys_wait.in.h
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
   lib/vasprintf.c
+  lib/verify.h
   lib/wchar.in.h
   lib/xsize.h
   m4/00gnulib.m4
@@ -538,7 +534,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/string_h.m4
   m4/strnlen.m4
   m4/strverscmp.m4
-  m4/sys_wait_h.m4
   m4/threadlib.m4
   m4/uintmax_t.m4
   m4/unistd_h.m4
@@ -575,7 +570,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-string.c
   tests/test-strnlen.c
   tests/test-strverscmp.c
-  tests/test-sys_wait.c
   tests/test-sys_wait.h
   tests/test-unistd.c
   tests/test-vasnprintf.c
@@ -587,7 +581,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/dummy.c
   tests=lib/getpagesize.c
   tests=lib/intprops.h
-  tests=lib/verify.h
   top/GNUmakefile
   top/maint.mk
 ])

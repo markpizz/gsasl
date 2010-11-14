@@ -217,6 +217,7 @@ fcntl.h: fcntl.in.h $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 	      -e 's|@''NEXT_FCNTL_H''@|$(NEXT_FCNTL_H)|g' \
 	      -e 's|@''GNULIB_FCNTL''@|$(GNULIB_FCNTL)|g' \
 	      -e 's|@''GNULIB_OPEN''@|$(GNULIB_OPEN)|g' \
@@ -517,6 +518,14 @@ EXTRA_DIST += signature.h test-perror.c test-perror.sh
 
 ## end   gnulib module perror-tests
 
+## begin gnulib module poll-h-tests
+
+TESTS += test-poll-h
+check_PROGRAMS += test-poll-h
+EXTRA_DIST += test-poll-h.c
+
+## end   gnulib module poll-h-tests
+
 ## begin gnulib module poll-tests
 
 TESTS += test-poll
@@ -559,7 +568,7 @@ check_PROGRAMS += test-select test-select-fd test-select-stdin
 test_select_LDADD = $(LDADD) @LIBSOCKET@ $(INET_PTON_LIB)
 test_select_fd_LDADD = $(LDADD) @LIBSOCKET@
 test_select_stdin_LDADD = $(LDADD) @LIBSOCKET@
-EXTRA_DIST += signature.h test-select.c test-select-fd.c test-select-in.sh test-select-out.sh test-select-stdin.c
+EXTRA_DIST += macros.h signature.h test-select.c test-select-fd.c test-select-in.sh test-select-out.sh test-select-stdin.c
 
 ## end   gnulib module select-tests
 
@@ -720,6 +729,7 @@ sys/ioctl.h: sys_ioctl.in.h $(CXXDEFS_H) $(WARN_ON_USE_H)
 	  sed -e 's|@''HAVE_SYS_IOCTL_H''@|$(HAVE_SYS_IOCTL_H)|g' \
 	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 	      -e 's|@''NEXT_SYS_IOCTL_H''@|$(NEXT_SYS_IOCTL_H)|g' \
 	      -e 's|@''GNULIB_IOCTL''@|$(GNULIB_IOCTL)|g' \
 	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H)|g' \
@@ -773,6 +783,7 @@ sys/stat.h: sys_stat.in.h $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 	      -e 's|@''NEXT_SYS_STAT_H''@|$(NEXT_SYS_STAT_H)|g' \
 	      -e 's|@''GNULIB_FCHMODAT''@|$(GNULIB_FCHMODAT)|g' \
 	      -e 's|@''GNULIB_FSTATAT''@|$(GNULIB_FSTATAT)|g' \
@@ -835,14 +846,6 @@ EXTRA_DIST += test-sys_time.c
 
 ## end   gnulib module sys_time-tests
 
-## begin gnulib module sys_wait-tests
-
-TESTS += test-sys_wait
-check_PROGRAMS += test-sys_wait
-EXTRA_DIST += test-sys_wait.c test-sys_wait.h
-
-## end   gnulib module sys_wait-tests
-
 ## begin gnulib module time
 
 BUILT_SOURCES += time.h
@@ -854,6 +857,7 @@ time.h: time.in.h $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
 	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 	      -e 's|@''NEXT_TIME_H''@|$(NEXT_TIME_H)|g' \
 	      -e 's|@''GNULIB_MKTIME''@|$(GNULIB_MKTIME)|g' \
 	      -e 's|@''GNULIB_NANOSLEEP''@|$(GNULIB_NANOSLEEP)|g' \
