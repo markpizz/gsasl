@@ -1,5 +1,9 @@
 2010-11-14  Simon Josefsson <simon@josefsson.org>
 
+	* lib/ChangeLog: Generated.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS, lib/NEWS: Version 1.5.4.
 
 2010-11-14  Simon Josefsson <simon@josefsson.org>
