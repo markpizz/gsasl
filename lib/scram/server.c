@@ -52,6 +52,7 @@ struct scram_server_state
 {
   int plus;
   int step;
+  char *cbind;
   char *gs2header; /* copy of client first gs2-header */
   char *cfmb_str; /* copy of client first message bare */
   char *sf_str; /* copy of server first message */
@@ -268,10 +269,9 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	   client-first.  Also check channel binding data. */
 	{
 	  size_t len;
-	  char *cbind;
 
 	  rc = gsasl_base64_from (state->cl.cbind, strlen (state->cl.cbind),
-				  &cbind, &len);
+				  &state->cbind, &len);
 	  if (rc != 0)
 	    return rc;
 
@@ -280,14 +280,14 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	      if (len < strlen (state->gs2header))
 		return GSASL_AUTHENTICATION_ERROR;
 
-	      if (memcmp (cbind, state->gs2header,
+	      if (memcmp (state->cbind, state->gs2header,
 			  strlen (state->gs2header)) != 0)
 		return GSASL_AUTHENTICATION_ERROR;
 
 	      if (len - strlen (state->gs2header) != state->cbtlsuniquelen)
 		return GSASL_AUTHENTICATION_ERROR;
 
-	      if (memcmp (cbind + strlen (state->gs2header),
+	      if (memcmp (state->cbind + strlen (state->gs2header),
 			  state->cbtlsunique, state->cbtlsuniquelen) != 0)
 		return GSASL_AUTHENTICATION_ERROR;
 	    }
@@ -296,7 +296,7 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	      if (len != strlen (state->gs2header))
 		return GSASL_AUTHENTICATION_ERROR;
 
-	      if (memcmp (cbind, state->gs2header, len) != 0)
+	      if (memcmp (state->cbind, state->gs2header, len) != 0)
 		return GSASL_AUTHENTICATION_ERROR;
 	    }
 	}
@@ -464,6 +464,8 @@ _gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data)
   if (!state)
     return;
 
+  free (state->cbind);
+  free (state->gs2header);
   free (state->cfmb_str);
   free (state->sf_str);
   free (state->snonce);
@@ -471,6 +473,7 @@ _gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data)
   free (state->storedkey);
   free (state->serverkey);
   free (state->authmessage);
+  free (state->cbtlsunique);
   scram_free_client_first (&state->cf);
   scram_free_server_first (&state->sf);
   scram_free_client_final (&state->cl);
