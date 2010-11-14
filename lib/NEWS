@@ -4,6 +4,8 @@ See the end for copying conditions.
 
 * Version 1.5.4 (unreleased) [beta]
 
+** SCRAM-SHA-1-PLUS: Fix parsing bug causing memory corruption.
+
 ** API and ABI modifications.
 No changes since last version.
 
