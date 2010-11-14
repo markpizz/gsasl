@@ -231,10 +231,6 @@ doit (void)
 	  return;
 	}
 
-      if (debug)
-	printf ("C: %.*s [%c]\n", (int) s1len,
-		s1, res == GSASL_OK ? 'O' : 'N');
-
       /* Shorten length of cbdata. */
       if (i == 17)
 	s1[41] = '=';
