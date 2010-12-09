@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.5.5 (unreleased) [beta]
 
+** gsasl: Add --no-cb to disable use of TLS channel bindings.
+
 * Version 1.5.4 (released 2010-11-14) [beta]
 
 ** Update gnulib files.

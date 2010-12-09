@@ -84,10 +84,11 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     case GSASL_CB_TLS_UNIQUE:
-      if (b64cbtlsunique == NULL && args_info.hostname_arg == NULL)
+      if (!args_info.no_cb_flag && b64cbtlsunique == NULL
+	  && args_info.hostname_arg == NULL)
 	b64cbtlsunique =
 	  readutf8line ("Enter base64 encoded tls-unique channel binding: ");
-      if (b64cbtlsunique && *b64cbtlsunique)
+      if (!args_info.no_cb_flag && b64cbtlsunique && *b64cbtlsunique)
 	gsasl_property_set (sctx, prop, b64cbtlsunique);
       rc = GSASL_OK;
       break;
