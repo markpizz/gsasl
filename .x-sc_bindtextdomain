@@ -1,0 +1,5 @@
+^doc/print-errors.c
+^examples/
+^lib/digest-md5/test-parser.c
+^lib/tests/test-error.c
+^tests/
