@@ -1,3 +1,92 @@
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ChangeLog: Generated.
+
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/NEWS: Version 1.5.5.
+
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, lib/configure.ac: Silence.
+
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/src/error.c: Fix indentation.
+
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Don't indent examples, formatting needed for texinfo
+	manual.
+
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_bindtextdomain: Add.
+
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/gsasl.texi, src/callbacks.c, src/gsasl.ggo: gsasl: Add
+	--no-cb command line parameter.
+
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/arpa_inet.in.h, gl/gettext.h, gl/iconv.in.h,
+	gl/intprops.h, gl/m4/alloca.m4, gl/m4/arpa_inet_h.m4,
+	gl/m4/dup2.m4, gl/m4/fcntl-o.m4, gl/m4/getdelim.m4,
+	gl/m4/getline.m4, gl/m4/getopt.m4, gl/m4/getpass.m4,
+	gl/m4/glibc21.m4, gl/m4/gnulib-common.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/iconv.m4, gl/m4/iconv_h.m4, gl/m4/iconv_open.m4,
+	gl/m4/mbrtowc.m4, gl/m4/memchr.m4, gl/m4/mmap-anon.m4,
+	gl/m4/open.m4, gl/m4/poll.m4, gl/m4/printf.m4, gl/m4/putenv.m4,
+	gl/m4/readline.m4, gl/m4/setenv.m4, gl/m4/stat.m4, gl/m4/stdint.m4,
+	gl/m4/symlink.m4, gl/m4/sys_ioctl_h.m4, gl/m4/sys_select_h.m4,
+	gl/m4/sys_socket_h.m4, gl/m4/unistd_h.m4, gl/m4/vasnprintf.m4,
+	gl/m4/wchar_h.m4, gl/mbrtowc.c, gl/printf-parse.c,
+	gl/printf-parse.h, gl/stdint.in.h, gl/striconv.c, gl/string.in.h,
+	gl/sys_socket.in.h, gl/unistd.in.h, gl/vasnprintf.c, gl/wchar.in.h,
+	gl/xmalloc.c, gltests/fcntl.in.h, gltests/test-getopt.h,
+	gltests/test-iconv-h.c, lib/build-aux/gendocs.sh,
+	lib/gl/Makefile.am, lib/gl/gettext.h, lib/gl/m4/alloca.m4,
+	lib/gl/m4/fcntl-o.m4, lib/gl/m4/getdelim.m4, lib/gl/m4/getline.m4,
+	lib/gl/m4/glibc2.m4, lib/gl/m4/glibc21.m4,
+	lib/gl/m4/gnulib-common.m4, lib/gl/m4/iconv.m4,
+	lib/gl/m4/intdiv0.m4, lib/gl/m4/memchr.m4, lib/gl/m4/memmem.m4,
+	lib/gl/m4/mmap-anon.m4, lib/gl/m4/printf.m4, lib/gl/m4/stdint.m4,
+	lib/gl/m4/unistd_h.m4, lib/gl/m4/vasnprintf.m4,
+	lib/gl/m4/wchar_h.m4, lib/gl/printf-parse.c, lib/gl/printf-parse.h,
+	lib/gl/stdint.in.h, lib/gl/string.in.h, lib/gl/unistd.in.h,
+	lib/gl/vasnprintf.c, lib/gl/wchar.in.h, lib/gltests/intprops.h,
+	lib/maint.mk, maint.mk: Update gnulib files.
+
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2010-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* src/callbacks.c: Fix crash for non-TLS.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix bashism.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Copy GTK-DOC PDF too.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/NEWS, lib/configure.ac, lib/src/gsasl.h: 
+	Bump versions.
+
+2010-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2010-11-14  Simon Josefsson <simon@josefsson.org>
 
 	* lib/ChangeLog: Generated.
