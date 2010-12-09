@@ -36,7 +36,9 @@
 #define OBS(i, name, desc) { name, #name, desc }
 #endif
 
-static struct {
+/* *INDENT-OFF* */
+static struct
+{
   int rc;
   const char *name;
   const char *description;
@@ -199,6 +201,7 @@ static struct {
   ERR (GSASL_NO_CB_TLS_UNIQUE,
        N_("Authentication failed because a tls-unique CB was not provided."))
 };
+/* *INDENT-ON* */
 
 /**
  * gsasl_strerror:
