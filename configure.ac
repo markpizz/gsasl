@@ -23,6 +23,7 @@ AC_CONFIG_AUX_DIR([lib/build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([1.10 -Wall -Werror -Wno-override])
+AM_SILENT_RULES([yes])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
