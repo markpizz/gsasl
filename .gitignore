@@ -58,6 +58,7 @@ doc/reference/gsasl-unused.txt
 doc/reference/gsasl.args
 doc/reference/gsasl.hierarchy
 doc/reference/gsasl.interfaces
+doc/reference/gsasl.pdf
 doc/reference/gsasl.prerequisites
 doc/reference/gsasl.signals
 doc/reference/gsasl.types
@@ -120,6 +121,7 @@ gl/libgl.la
 gl/localcharset.lo
 gl/localcharset.o
 gl/netdb.h
+gl/poll.h
 gl/printf-args.lo
 gl/printf-args.o
 gl/printf-parse.lo
@@ -402,6 +404,8 @@ lib/gl/gc-libgcrypt.o
 lib/gl/gc-pbkdf2-sha1.lo
 lib/gl/gc-pbkdf2-sha1.o
 lib/gl/libgl.la
+lib/gl/memmem.lo
+lib/gl/memmem.o
 lib/gl/memxor.lo
 lib/gl/memxor.o
 lib/gl/printf-args.lo
