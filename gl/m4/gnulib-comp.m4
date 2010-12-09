@@ -329,6 +329,7 @@ AC_SUBST([LTALLOCA])
   gl_HOSTENT
   # Code from module iconv:
   AM_ICONV
+  gl_ICONV_MODULE_INDICATOR([iconv])
   # Code from module iconv-h:
   gl_ICONV_H
   # Code from module iconv_open:

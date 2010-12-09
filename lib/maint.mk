@@ -741,7 +741,8 @@ sc_GFDL_version:
 	halt='GFDL vN, N!=3'						\
 	  $(_sc_search_regexp)
 
-# Don't use Texinfo @acronym{} as it is not a good idea.
+# Don't use Texinfo's @acronym{}.
+# http://lists.gnu.org/archive/html/bug-gnulib/2010-03/msg00321.html
 texinfo_suffix_re_ ?= \.(txi|texi(nfo)?)$$
 sc_texinfo_acronym:
 	@prohibit='@acronym\{'						\
@@ -1097,7 +1098,6 @@ emit_upload_commands:
 	@echo =====================================
 	@echo =====================================
 
-noteworthy = * Noteworthy changes in release ?.? (????-??-??) [?]
 define emit-commit-log
   printf '%s\n' 'post-release administrivia' '' \
     '* NEWS: Add header line for next release.' \
@@ -1135,6 +1135,7 @@ alpha beta stable: $(local-check) writable-files no-submodule-changes
 # Override this in cfg.mk if you follow different procedures.
 release-prep-hook ?= release-prep
 
+gl_noteworthy_news_ = * Noteworthy changes in release ?.? (????-??-??) [?]
 .PHONY: release-prep
 release-prep:
 	case $$RELEASE_TYPE in alpha|beta|stable) ;; \
@@ -1146,7 +1147,7 @@ release-prep:
 	fi
 	echo $(VERSION) > $(prev_version_file)
 	$(MAKE) update-NEWS-hash
-	perl -pi -e '$$. == 3 and print "$(noteworthy)\n\n\n"' NEWS
+	perl -pi -e '$$. == 3 and print "$(gl_noteworthy_news_)\n\n\n"' NEWS
 	$(emit-commit-log) > .ci-msg
 	$(VC) commit -F .ci-msg -a
 	rm .ci-msg
