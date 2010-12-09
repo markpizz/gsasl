@@ -10,6 +10,9 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 ** gsasl: Add --no-cb to disable use of TLS channel bindings.
 
+** build: Use silent build rules via automake.
+Use 'make V=99' to see the command lines used.
+
 * Version 1.5.4 (released 2010-11-14) [beta]
 
 ** Update gnulib files.
