@@ -6,6 +6,10 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
+* Version 1.6.0 (unreleased) [beta]
+
+** No changes since release candidate 1.5.5.
+
 * Version 1.5.5 (released 2010-12-09) [beta]
 
 ** gsasl: Add --no-cb to disable use of TLS channel bindings.
