@@ -6,6 +6,18 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
+* Version 1.7.1 (unreleased) [beta]
+
+** SAML changes reverted, will be kept on a separate branch.
+
+* Version 1.7.0 (released 2010-10-22) [alpha]
+
+** Support for SAML20 mechanism as per -01 IETF draft.  See lib/NEWS.
+
+** doc: Mention new SAML properties.
+
+** tests: New tests/saml20.c file.
+
 * Version 1.6.0 (released 2010-12-14) [beta]
 
 ** No changes since release candidate 1.5.5.

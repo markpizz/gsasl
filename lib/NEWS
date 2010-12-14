@@ -2,6 +2,28 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Simon Josefsson
 See the end for copying conditions.
 
+* Version 1.7.1 (unreleased) [beta]
+
+** SAML changes reverted, will be kept on a separate branch.
+
+** API and ABI modifications.
+No changes since last version.
+
+* Version 1.7.0 (released 2010-10-22) [alpha]
+
+** SAML20: Implement new mechanism.
+Implements draft-ietf-kitten-sasl-saml-01.  See tests/saml20.c for a
+self test that illustrate how the mechanism is intended to be used in
+both client and server mode.
+
+** API and ABI modifications.
+GSASL_NO_SAML20_IDP_IDENTIFIER: ADDED.
+GSASL_NO_SAML20_REDIRECT_URL: ADDED.
+GSASL_SAML20_IDP_IDENTIFIER: ADDED.
+GSASL_SAML20_REDIRECT_URL: ADDED.
+GSASL_SAML20_AUTHENTICATE_IN_BROWSER: ADDED.
+GSASL_VALIDATE_SAML20: ADDED.
+
 * Version 1.6.0 (released 2010-12-14) [beta]
 
 ** No changes since release candidate 1.5.5.
