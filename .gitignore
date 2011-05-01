@@ -803,8 +803,11 @@ windows/build-x86-kfw322/
 windows/build-x86/
 windows/dist/
 windows/gsasl-*-x64.zip
+windows/gsasl-*-x64.zip.sig
 windows/gsasl-*-x86-kfw322.zip
+windows/gsasl-*-x86-kfw322.zip.sig
 windows/gsasl-*-x86.zip
+windows/gsasl-*-x86.zip.sig
 windows/inst-x64/
 windows/inst-x86-kfw322/
 windows/inst-x86/
