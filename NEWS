@@ -13,6 +13,8 @@ The old M4 files associated with 0.17 caused problems on Solaris,
 which will hopefully be fixed with this.  Reported by Dagobert
 Michelsen <dam@opencsw.org>.
 
+** build: Added MinGW build script for Windows binaries, windows/gsasl4win.mk.
+
 ** SAML changes reverted, will be kept on a separate branch.
 
 * Version 1.7.0 (released 2010-10-22) [alpha]

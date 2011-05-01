@@ -798,3 +798,16 @@ tests/symbols
 tests/symbols.o
 tests/utils.lo
 tests/utils.o
+windows/build-x64/
+windows/build-x86-kfw322/
+windows/build-x86/
+windows/dist/
+windows/gsasl-*-x64.zip
+windows/gsasl-*-x86-kfw322.zip
+windows/gsasl-*-x86.zip
+windows/inst-x64/
+windows/inst-x86-kfw322/
+windows/inst-x86/
+windows/kfw322x86/
+windows/src/
+windows/tmp/
