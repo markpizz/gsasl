@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2010 Free Software Foundation, Inc.
+# Copyright (C) 2002-2011 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -40,15 +40,17 @@ AC_DEFUN([gl_EARLY],
   # Code from module binary-io:
   # Code from module binary-io-tests:
   # Code from module bind:
+  # Code from module btowc:
+  # Code from module btowc-tests:
   # Code from module c++defs:
   # Code from module c-ctype:
   # Code from module c-ctype-tests:
   # Code from module c-strcase:
   # Code from module c-strcase-tests:
   # Code from module close:
-  # Code from module close-hook:
   # Code from module configmake:
   # Code from module connect:
+  # Code from module dosname:
   # Code from module dup2:
   # Code from module dup2-tests:
   # Code from module environ:
@@ -56,18 +58,30 @@ AC_DEFUN([gl_EARLY],
   # Code from module errno:
   # Code from module errno-tests:
   # Code from module error:
-  # Code from module exit:
   # Code from module exitfail:
   # Code from module extensions:
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   # Code from module fclose:
   # Code from module fcntl-h:
   # Code from module fcntl-h-tests:
+  # Code from module fd-hook:
   # Code from module fdl-1.3:
+  # Code from module fflush:
+  AC_REQUIRE([AC_FUNC_FSEEKO])
+  # Code from module fflush-tests:
   # Code from module float:
+  # Code from module fpurge:
+  # Code from module fpurge-tests:
+  # Code from module freading:
+  # Code from module freading-tests:
   # Code from module fseeko:
   AC_REQUIRE([AC_FUNC_FSEEKO])
   # Code from module fseeko-tests:
+  # Code from module ftell:
+  # Code from module ftell-tests:
+  # Code from module ftello:
+  AC_REQUIRE([AC_FUNC_FSEEKO])
+  # Code from module ftello-tests:
   # Code from module gendocs:
   # Code from module getaddrinfo:
   # Code from module getaddrinfo-tests:
@@ -94,6 +108,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module iconv-tests:
   # Code from module iconv_open:
   # Code from module ignore-value:
+  # Code from module ignore-value-tests:
   # Code from module include_next:
   # Code from module inet_ntop:
   # Code from module inet_ntop-tests:
@@ -105,6 +120,12 @@ AC_DEFUN([gl_EARLY],
   # Code from module lgpl-2.1:
   # Code from module listen:
   # Code from module localcharset:
+  # Code from module locale:
+  # Code from module locale-tests:
+  # Code from module localename:
+  # Code from module localename-tests:
+  # Code from module lock:
+  # Code from module lock-tests:
   # Code from module lseek:
   # Code from module lseek-tests:
   # Code from module lstat:
@@ -118,6 +139,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module mbrtowc-tests:
   # Code from module mbsinit:
   # Code from module mbsinit-tests:
+  # Code from module mbtowc:
   # Code from module memchr:
   # Code from module memchr-tests:
   # Code from module multiarch:
@@ -130,6 +152,8 @@ AC_DEFUN([gl_EARLY],
   # Code from module pathmax:
   # Code from module perror:
   # Code from module perror-tests:
+  # Code from module pipe-posix:
+  # Code from module pipe-posix-tests:
   # Code from module pmccabe2html:
   # Code from module poll:
   # Code from module poll-h:
@@ -150,6 +174,8 @@ AC_DEFUN([gl_EARLY],
   # Code from module servent:
   # Code from module setenv:
   # Code from module setenv-tests:
+  # Code from module setlocale:
+  # Code from module setlocale-tests:
   # Code from module setsockopt:
   # Code from module shutdown:
   # Code from module size_max:
@@ -199,6 +225,11 @@ AC_DEFUN([gl_EARLY],
   # Code from module sys_stat-tests:
   # Code from module sys_time:
   # Code from module sys_time-tests:
+  # Code from module sys_uio:
+  # Code from module sys_uio-tests:
+  # Code from module thread:
+  # Code from module threadlib:
+  gl_THREADLIB_EARLY
   # Code from module time:
   # Code from module time-tests:
   # Code from module unistd:
@@ -222,13 +253,18 @@ AC_DEFUN([gl_EARLY],
   # Code from module warnings:
   # Code from module wchar:
   # Code from module wchar-tests:
+  # Code from module wcrtomb:
+  # Code from module wcrtomb-tests:
   # Code from module wctob:
-  # Code from module wctype:
-  # Code from module wctype-tests:
+  # Code from module wctomb:
+  # Code from module wctype-h:
+  # Code from module wctype-h-tests:
   # Code from module xalloc:
   # Code from module xalloc-die:
   # Code from module xalloc-die-tests:
+  # Code from module xalloc-oversized:
   # Code from module xsize:
+  # Code from module yield:
 ])
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -245,73 +281,50 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl'
-  # Code from module alignof:
-  # Code from module alloca:
 changequote(,)dnl
 LTALLOCA=`echo "$ALLOCA" | sed -e 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
 changequote([, ])dnl
 AC_SUBST([LTALLOCA])
-  # Code from module alloca-opt:
   gl_FUNC_ALLOCA
-  # Code from module arg-nonnull:
-  # Code from module arpa_inet:
   gl_HEADER_ARPA_INET
   AC_PROG_MKDIR_P
-  # Code from module autobuild:
-  # Code from module c++defs:
-  # Code from module c-ctype:
-  # Code from module c-strcase:
-  # Code from module close:
   gl_FUNC_CLOSE
   gl_UNISTD_MODULE_INDICATOR([close])
-  # Code from module close-hook:
-  # Code from module configmake:
-  # Code from module connect:
+  gl_CONFIGMAKE_PREP
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([connect])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([connect])
-  # Code from module errno:
   gl_HEADER_ERRNO_H
-  # Code from module error:
   gl_ERROR
   m4_ifdef([AM_XGETTEXT_OPTION],
     [AM_][XGETTEXT_OPTION([--flag=error:3:c-format])
      AM_][XGETTEXT_OPTION([--flag=error_at_line:5:c-format])])
-  # Code from module exit:
-  # Code from module exitfail:
-  # Code from module extensions:
-  # Code from module fclose:
   gl_FUNC_FCLOSE
   gl_STDIO_MODULE_INDICATOR([fclose])
-  # Code from module fdl-1.3:
-  # Code from module float:
+  gl_FUNC_FFLUSH
+  gl_STDIO_MODULE_INDICATOR([fflush])
   gl_FLOAT_H
-  # Code from module fseeko:
+  gl_FUNC_FPURGE
+  gl_STDIO_MODULE_INDICATOR([fpurge])
+  gl_FUNC_FREADING
   gl_FUNC_FSEEKO
   gl_STDIO_MODULE_INDICATOR([fseeko])
-  # Code from module gendocs:
-  # Code from module getaddrinfo:
+  gl_FUNC_FTELLO
+  gl_STDIO_MODULE_INDICATOR([ftello])
   gl_GETADDRINFO
   gl_NETDB_MODULE_INDICATOR([getaddrinfo])
-  # Code from module getdelim:
   gl_FUNC_GETDELIM
   gl_STDIO_MODULE_INDICATOR([getdelim])
-  # Code from module getline:
   gl_FUNC_GETLINE
   gl_STDIO_MODULE_INDICATOR([getline])
-  # Code from module getopt-gnu:
   gl_FUNC_GETOPT_GNU
   gl_MODULE_INDICATOR_FOR_TESTS([getopt-gnu])
-  # Code from module getopt-posix:
   gl_FUNC_GETOPT_POSIX
-  # Code from module getpass:
   gl_FUNC_GETPASS
-  # Code from module gettext-h:
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
-  # Code from module gnumakefile:
   # Autoconf 2.61a.99 and earlier don't support linking a file only
   # in VPATH builds.  But since GNUmakefile is for maintainer use
   # only, it does not matter if we skip the link with older autoconf.
@@ -319,102 +332,65 @@ AC_SUBST([LTALLOCA])
   # builds, so use a shell variable to bypass this.
   GNUmakefile=GNUmakefile
   m4_if(m4_version_compare([2.61a.100],
-  	m4_defn([m4_PACKAGE_VERSION])), [1], [],
+          m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
-  	[GNUmakefile=$GNUmakefile])])
-  # Code from module gperf:
-  # Code from module gpl-3.0:
-  # Code from module havelib:
-  # Code from module hostent:
+          [GNUmakefile=$GNUmakefile])])
   gl_HOSTENT
-  # Code from module iconv:
   AM_ICONV
-  gl_ICONV_MODULE_INDICATOR([iconv])
-  # Code from module iconv-h:
+  m4_ifdef([gl_ICONV_MODULE_INDICATOR],
+    [gl_ICONV_MODULE_INDICATOR([iconv])])
   gl_ICONV_H
-  # Code from module iconv_open:
   gl_FUNC_ICONV_OPEN
-  # Code from module include_next:
-  # Code from module inet_ntop:
   gl_FUNC_INET_NTOP
   gl_ARPA_INET_MODULE_INDICATOR([inet_ntop])
-  # Code from module inline:
   gl_INLINE
-  # Code from module intprops:
-  # Code from module lgpl-2.1:
-  # Code from module localcharset:
   gl_LOCALCHARSET
   LOCALCHARSET_TESTS_ENVIRONMENT="CHARSETALIASDIR=\"\$(top_builddir)/$gl_source_base\""
   AC_SUBST([LOCALCHARSET_TESTS_ENVIRONMENT])
-  # Code from module lseek:
   gl_FUNC_LSEEK
   gl_UNISTD_MODULE_INDICATOR([lseek])
-  # Code from module maintainer-makefile:
   AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
     [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
-  # Code from module malloc-posix:
   gl_FUNC_MALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
-  # Code from module manywarnings:
-  # Code from module mbrtowc:
   gl_FUNC_MBRTOWC
   gl_WCHAR_MODULE_INDICATOR([mbrtowc])
-  # Code from module mbsinit:
   gl_FUNC_MBSINIT
   gl_WCHAR_MODULE_INDICATOR([mbsinit])
-  # Code from module memchr:
   gl_FUNC_MEMCHR
   gl_STRING_MODULE_INDICATOR([memchr])
-  # Code from module multiarch:
   gl_MULTIARCH
-  # Code from module netdb:
   gl_HEADER_NETDB
-  # Code from module netinet_in:
   gl_HEADER_NETINET_IN
   AC_PROG_MKDIR_P
-  # Code from module pmccabe2html:
   AC_PATH_PROG([PMCCABE], [pmccabe], [false])
-  # Code from module poll:
   gl_FUNC_POLL
   gl_POLL_MODULE_INDICATOR([poll])
-  # Code from module poll-h:
   gl_POLL_H
-  # Code from module progname:
   AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
   AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
-  # Code from module quote:
   gl_QUOTE
-  # Code from module quotearg:
   gl_QUOTEARG
-  # Code from module quotearg-simple:
-  # Code from module readline:
   gl_FUNC_READLINE
-  # Code from module realloc-posix:
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
-  # Code from module recv:
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([recv])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([recv])
-  # Code from module select:
   gl_FUNC_SELECT
   gl_SYS_SELECT_MODULE_INDICATOR([select])
-  # Code from module servent:
   gl_SERVENT
-  # Code from module shutdown:
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([shutdown])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([shutdown])
-  # Code from module size_max:
   gl_SIZE_MAX
-  # Code from module snprintf:
   gl_FUNC_SNPRINTF
   gl_STDIO_MODULE_INDICATOR([snprintf])
-  # Code from module socket:
+  gl_MODULE_INDICATOR([snprintf])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([socket])
@@ -429,78 +405,47 @@ AC_SUBST([LTALLOCA])
     SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS=1
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([socket])
-  # Code from module socketlib:
   gl_SOCKETLIB
-  # Code from module sockets:
   gl_SOCKETS
-  # Code from module socklen:
   gl_TYPE_SOCKLEN_T
-  # Code from module stdarg:
   gl_STDARG_H
-  # Code from module stdbool:
   AM_STDBOOL_H
-  # Code from module stddef:
   gl_STDDEF_H
-  # Code from module stdint:
   gl_STDINT_H
-  # Code from module stdio:
   gl_STDIO_H
-  # Code from module stdlib:
   gl_STDLIB_H
-  # Code from module strdup-posix:
   gl_FUNC_STRDUP_POSIX
   gl_STRING_MODULE_INDICATOR([strdup])
-  # Code from module streq:
-  # Code from module strerror:
   gl_FUNC_STRERROR
   gl_STRING_MODULE_INDICATOR([strerror])
-  # Code from module striconv:
   if test $gl_cond_libtool = false; then
     gl_ltlibdeps="$gl_ltlibdeps $LTLIBICONV"
     gl_libdeps="$gl_libdeps $LIBICONV"
   fi
-  # Code from module string:
   gl_HEADER_STRING_H
-  # Code from module strtok_r:
   gl_FUNC_STRTOK_R
   gl_STRING_MODULE_INDICATOR([strtok_r])
-  # Code from module sys_select:
   gl_HEADER_SYS_SELECT
   AC_PROG_MKDIR_P
-  # Code from module sys_socket:
   gl_HEADER_SYS_SOCKET
   AC_PROG_MKDIR_P
-  # Code from module sys_time:
   gl_HEADER_SYS_TIME_H
   AC_PROG_MKDIR_P
-  # Code from module unistd:
+  gl_HEADER_SYS_UIO
+  AC_PROG_MKDIR_P
   gl_UNISTD_H
-  # Code from module useless-if-before-free:
-  # Code from module valgrind-tests:
   gl_VALGRIND_TESTS
-  # Code from module vasnprintf:
   gl_FUNC_VASNPRINTF
-  # Code from module vasprintf:
   gl_FUNC_VASPRINTF
   gl_STDIO_MODULE_INDICATOR([vasprintf])
   m4_ifdef([AM_XGETTEXT_OPTION],
     [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
      AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
-  # Code from module vc-list-files:
-  # Code from module verify:
-  # Code from module version-etc:
   gl_VERSION_ETC
-  # Code from module warn-on-use:
-  # Code from module warnings:
   AC_SUBST([WARN_CFLAGS])
-  # Code from module wchar:
   gl_WCHAR_H
-  # Code from module wctype:
   gl_WCTYPE_H
-  # Code from module xalloc:
   gl_XALLOC
-  # Code from module xalloc-die:
-  # Code from module xsize:
   gl_XSIZE
   # End of code from modules
   m4_ifval(gl_LIBSOURCES_LIST, [
@@ -558,6 +503,10 @@ changequote([, ])dnl
     AC_LIBOBJ([bind])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([bind])
+  gl_FUNC_BTOWC
+  gl_WCHAR_MODULE_INDICATOR([btowc])
+  gt_LOCALE_FR
+  gt_LOCALE_FR_UTF8
   gt_LOCALE_FR
   gt_LOCALE_TR_UTF8
   gl_FUNC_DUP2
@@ -565,6 +514,10 @@ changequote([, ])dnl
   gl_ENVIRON
   gl_UNISTD_MODULE_INDICATOR([environ])
   gl_FCNTL_H
+  gl_FUNC_UNGETC_WORKS
+  gl_FUNC_FTELL
+  gl_STDIO_MODULE_INDICATOR([ftell])
+  gl_FUNC_UNGETC_WORKS
   gl_FUNC_UNGETC_WORKS
   gl_FUNC_GETPAGESIZE
   gl_UNISTD_MODULE_INDICATOR([getpagesize])
@@ -582,6 +535,11 @@ changequote([, ])dnl
     AC_LIBOBJ([listen])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([listen])
+  gl_LOCALE_H
+  AC_CHECK_FUNCS_ONCE([newlocale])
+  gl_LOCALENAME
+  AC_CHECK_FUNCS_ONCE([newlocale])
+  gl_LOCK
   gl_FUNC_LSTAT
   gl_SYS_STAT_MODULE_INDICATOR([lstat])
   gl_MALLOCA
@@ -590,6 +548,8 @@ changequote([, ])dnl
   gt_LOCALE_JA
   gt_LOCALE_ZH_CN
   gt_LOCALE_FR_UTF8
+  gl_FUNC_MBTOWC
+  gl_STDLIB_MODULE_INDICATOR([mbtowc])
   dnl Check for prerequisites for memory fence checks.
   gl_FUNC_MMAP_ANON
   AC_CHECK_HEADERS_ONCE([sys/mman.h])
@@ -599,12 +559,20 @@ changequote([, ])dnl
   gl_PATHMAX
   gl_FUNC_PERROR
   gl_STRING_MODULE_INDICATOR([perror])
+  gl_FUNC_PIPE
+  gl_UNISTD_MODULE_INDICATOR([pipe])
   AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
   gl_FUNC_PUTENV
   gl_STDLIB_MODULE_INDICATOR([putenv])
-  AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
+  AC_CHECK_HEADERS_ONCE([sys/wait.h])
   gl_FUNC_SETENV
   gl_STDLIB_MODULE_INDICATOR([setenv])
+  gl_FUNC_SETLOCALE
+  gl_LOCALE_MODULE_INDICATOR([setlocale])
+  gt_LOCALE_FR
+  gt_LOCALE_FR_UTF8
+  gt_LOCALE_JA
+  gt_LOCALE_ZH_CN
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([setsockopt])
@@ -621,14 +589,25 @@ changequote([, ])dnl
   AC_CHECK_FUNCS_ONCE([shutdown])
   gl_HEADER_SYS_STAT_H
   AC_PROG_MKDIR_P
+  gl_THREAD
+  gl_THREADLIB
   gl_HEADER_TIME_H
   gl_FUNC_UNSETENV
   gl_STDLIB_MODULE_INDICATOR([unsetenv])
   gl_VALGRIND_TESTS
   abs_aux_dir=`cd "$ac_aux_dir"; pwd`
   AC_SUBST([abs_aux_dir])
+  gl_FUNC_WCRTOMB
+  gl_WCHAR_MODULE_INDICATOR([wcrtomb])
+  gt_LOCALE_FR
+  gt_LOCALE_FR_UTF8
+  gt_LOCALE_JA
+  gt_LOCALE_ZH_CN
   gl_FUNC_WCTOB
   gl_WCHAR_MODULE_INDICATOR([wctob])
+  gl_FUNC_WCTOMB
+  gl_STDLIB_MODULE_INDICATOR([wctomb])
+  gl_YIELD
   m4_popdef([gl_MODULE_INDICATOR_CONDITION])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
@@ -745,8 +724,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/c-strcase.h
   lib/c-strcasecmp.c
   lib/c-strncasecmp.c
-  lib/close-hook.c
-  lib/close-hook.h
   lib/close.c
   lib/config.charset
   lib/connect.c
@@ -756,9 +733,16 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/exitfail.c
   lib/exitfail.h
   lib/fclose.c
+  lib/fd-hook.c
+  lib/fd-hook.h
+  lib/fflush.c
   lib/float+.h
   lib/float.in.h
+  lib/fpurge.c
+  lib/freading.c
+  lib/freading.h
   lib/fseeko.c
+  lib/ftello.c
   lib/gai_strerror.c
   lib/getaddrinfo.c
   lib/getdelim.c
@@ -819,7 +803,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stddef.in.h
   lib/stdint.in.h
   lib/stdio-impl.h
-  lib/stdio-write.c
   lib/stdio.in.h
   lib/stdlib.in.h
   lib/strdup.c
@@ -832,6 +815,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/sys_select.in.h
   lib/sys_socket.in.h
   lib/sys_time.in.h
+  lib/sys_uio.in.h
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
@@ -843,17 +827,18 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/wchar.in.h
   lib/wctype.in.h
   lib/xalloc-die.c
+  lib/xalloc-oversized.h
   lib/xalloc.h
   lib/xmalloc.c
   lib/xsize.h
   m4/00gnulib.m4
   m4/alloca.m4
   m4/arpa_inet_h.m4
-  m4/asm-underscore.m4
   m4/autobuild.m4
+  m4/btowc.m4
   m4/close.m4
   m4/codeset.m4
-  m4/dos.m4
+  m4/configmake.m4
   m4/dup2.m4
   m4/eealloc.m4
   m4/environ.m4
@@ -863,8 +848,13 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/fclose.m4
   m4/fcntl-o.m4
   m4/fcntl_h.m4
+  m4/fflush.m4
   m4/float_h.m4
+  m4/fpurge.m4
+  m4/freading.m4
   m4/fseeko.m4
+  m4/ftell.m4
+  m4/ftello.m4
   m4/getaddrinfo.m4
   m4/getdelim.m4
   m4/getline.m4
@@ -882,9 +872,11 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/inet_ntop.m4
   m4/inet_pton.m4
   m4/inline.m4
+  m4/intlmacosx.m4
   m4/intmax_t.m4
   m4/inttypes_h.m4
   m4/ioctl.m4
+  m4/lcmessage.m4
   m4/lib-ld.m4
   m4/lib-link.m4
   m4/lib-prefix.m4
@@ -893,6 +885,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/locale-ja.m4
   m4/locale-tr.m4
   m4/locale-zh.m4
+  m4/locale_h.m4
+  m4/localename.m4
+  m4/lock.m4
   m4/longlong.m4
   m4/lseek.m4
   m4/lstat.m4
@@ -902,6 +897,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mbrtowc.m4
   m4/mbsinit.m4
   m4/mbstate_t.m4
+  m4/mbtowc.m4
   m4/memchr.m4
   m4/mmap-anon.m4
   m4/mode_t.m4
@@ -911,6 +907,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/open.m4
   m4/pathmax.m4
   m4/perror.m4
+  m4/pipe.m4
   m4/poll.m4
   m4/poll_h.m4
   m4/printf.m4
@@ -922,6 +919,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/select.m4
   m4/servent.m4
   m4/setenv.m4
+  m4/setlocale.m4
   m4/size_max.m4
   m4/snprintf.m4
   m4/socketlib.m4
@@ -946,6 +944,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sys_socket_h.m4
   m4/sys_stat_h.m4
   m4/sys_time_h.m4
+  m4/sys_uio_h.m4
+  m4/thread.m4
+  m4/threadlib.m4
   m4/time_h.m4
   m4/ungetc.m4
   m4/unistd_h.m4
@@ -957,11 +958,14 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/warnings.m4
   m4/wchar_h.m4
   m4/wchar_t.m4
+  m4/wcrtomb.m4
   m4/wctob.m4
+  m4/wctomb.m4
   m4/wctype_h.m4
   m4/wint_t.m4
   m4/xalloc.m4
   m4/xsize.m4
+  m4/yield.m4
   tests/init.sh
   tests/macros.h
   tests/signature.h
@@ -970,6 +974,9 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-arpa_inet.c
   tests/test-binary-io.c
   tests/test-binary-io.sh
+  tests/test-btowc.c
+  tests/test-btowc1.sh
+  tests/test-btowc2.sh
   tests/test-c-ctype.c
   tests/test-c-strcase.sh
   tests/test-c-strcasecmp.c
@@ -978,9 +985,22 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-environ.c
   tests/test-errno.c
   tests/test-fcntl-h.c
+  tests/test-fflush.c
+  tests/test-fflush2.c
+  tests/test-fflush2.sh
+  tests/test-fpurge.c
+  tests/test-freading.c
   tests/test-fseeko.c
   tests/test-fseeko.sh
   tests/test-fseeko2.sh
+  tests/test-ftell.c
+  tests/test-ftell.sh
+  tests/test-ftell2.sh
+  tests/test-ftell3.c
+  tests/test-ftello.c
+  tests/test-ftello.sh
+  tests/test-ftello2.sh
+  tests/test-ftello3.c
   tests/test-getaddrinfo.c
   tests/test-getdelim.c
   tests/test-getline.c
@@ -990,13 +1010,23 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-gettimeofday.c
   tests/test-iconv-h.c
   tests/test-iconv.c
+  tests/test-ignore-value.c
   tests/test-inet_ntop.c
   tests/test-inet_pton.c
+  tests/test-locale.c
+  tests/test-localename.c
+  tests/test-lock.c
   tests/test-lseek.c
   tests/test-lseek.sh
   tests/test-lstat.c
   tests/test-lstat.h
   tests/test-malloca.c
+  tests/test-mbrtowc-w32-1.sh
+  tests/test-mbrtowc-w32-2.sh
+  tests/test-mbrtowc-w32-3.sh
+  tests/test-mbrtowc-w32-4.sh
+  tests/test-mbrtowc-w32-5.sh
+  tests/test-mbrtowc-w32.c
   tests/test-mbrtowc.c
   tests/test-mbrtowc1.sh
   tests/test-mbrtowc2.sh
@@ -1011,6 +1041,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-open.h
   tests/test-perror.c
   tests/test-perror.sh
+  tests/test-pipe.c
   tests/test-poll-h.c
   tests/test-poll.c
   tests/test-quotearg-simple.c
@@ -1021,6 +1052,10 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-select-stdin.c
   tests/test-select.c
   tests/test-setenv.c
+  tests/test-setlocale1.c
+  tests/test-setlocale1.sh
+  tests/test-setlocale2.c
+  tests/test-setlocale2.sh
   tests/test-snprintf.c
   tests/test-sockets.c
   tests/test-stat.c
@@ -1040,6 +1075,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-sys_socket.c
   tests/test-sys_stat.c
   tests/test-sys_time.c
+  tests/test-sys_uio.c
   tests/test-sys_wait.h
   tests/test-time.c
   tests/test-unistd.c
@@ -1053,31 +1089,55 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-version-etc.c
   tests/test-version-etc.sh
   tests/test-wchar.c
-  tests/test-wctype.c
+  tests/test-wcrtomb-w32-1.sh
+  tests/test-wcrtomb-w32-2.sh
+  tests/test-wcrtomb-w32-3.sh
+  tests/test-wcrtomb-w32-4.sh
+  tests/test-wcrtomb-w32-5.sh
+  tests/test-wcrtomb-w32.c
+  tests/test-wcrtomb.c
+  tests/test-wcrtomb.sh
+  tests/test-wctype-h.c
   tests/test-xalloc-die.c
   tests/test-xalloc-die.sh
   tests/zerosize-ptr.h
   tests=lib/accept.c
   tests=lib/binary-io.h
   tests=lib/bind.c
+  tests=lib/btowc.c
+  tests=lib/dosname.h
   tests=lib/dup2.c
   tests=lib/fcntl.in.h
+  tests=lib/ftell.c
   tests=lib/getpagesize.c
   tests=lib/gettimeofday.c
+  tests=lib/glthread/lock.c
+  tests=lib/glthread/lock.h
+  tests=lib/glthread/thread.c
+  tests=lib/glthread/thread.h
+  tests=lib/glthread/threadlib.c
+  tests=lib/glthread/yield.h
   tests=lib/ignore-value.h
   tests=lib/inet_pton.c
   tests=lib/ioctl.c
   tests=lib/listen.c
+  tests=lib/locale.in.h
+  tests=lib/localename.c
+  tests=lib/localename.h
   tests=lib/lstat.c
   tests=lib/malloca.c
   tests=lib/malloca.h
   tests=lib/malloca.valgrind
+  tests=lib/mbtowc-impl.h
+  tests=lib/mbtowc.c
   tests=lib/open.c
   tests=lib/pathmax.h
   tests=lib/perror.c
+  tests=lib/pipe.c
   tests=lib/putenv.c
   tests=lib/same-inode.h
   tests=lib/setenv.c
+  tests=lib/setlocale.c
   tests=lib/setsockopt.c
   tests=lib/stat.c
   tests=lib/symlink.c
@@ -1087,7 +1147,10 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/unsetenv.c
   tests=lib/version-etc-fsf.c
   tests=lib/w32sock.h
+  tests=lib/wcrtomb.c
   tests=lib/wctob.c
+  tests=lib/wctomb-impl.h
+  tests=lib/wctomb.c
   top/GNUmakefile
   top/maint.mk
 ])

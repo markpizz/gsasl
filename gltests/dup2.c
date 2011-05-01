@@ -1,6 +1,6 @@
 /* Duplicate an open file descriptor to a specified file descriptor.
 
-   Copyright (C) 1999, 2004-2007, 2009-2010 Free Software Foundation, Inc.
+   Copyright (C) 1999, 2004-2007, 2009-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -60,14 +60,10 @@ rpl_dup2 (int fd, int desired_fd)
       errno = EBADF;
       return -1;
     }
-  /* Wine 1.0.1 puts desired_fd into binary mode when fd is in text
-     mode, so we save the old mode here.
-     http://bugs.winehq.org/show_bug.cgi?id=21291 */
-  if ((HANDLE) _get_osfhandle (fd) != (HANDLE) -1)
-    {
-      fd_mode = setmode (fd, O_BINARY);
-      setmode (fd, fd_mode);
-    }
+# elif !defined __linux__
+  /* On Haiku, dup2 (fd, fd) mistakenly clears FD_CLOEXEC.  */
+  if (fd == desired_fd)
+    return fcntl (fd, F_GETFL) == -1 ? -1 : fd;
 # endif
   result = dup2 (fd, desired_fd);
 # ifdef __linux__
@@ -78,6 +74,14 @@ rpl_dup2 (int fd, int desired_fd)
     {
       errno = EBADF;
       result = -1;
+    }
+  /* Wine 1.0.1 puts desired_fd into binary mode when fd is in text
+     mode, so we save the old mode here.
+     http://bugs.winehq.org/show_bug.cgi?id=21291 */
+  if ((HANDLE) _get_osfhandle (fd) != (HANDLE) -1)
+    {
+      fd_mode = setmode (fd, O_BINARY);
+      setmode (fd, fd_mode);
     }
 # endif
   if (result == 0)

@@ -29,9 +29,19 @@ endif
 
 local-checks-to-skip = sc_prohibit_strcmp sc_error_message_uppercase	\
 	sc_prohibit_have_config_h sc_require_config_h			\
-	sc_require_config_h_first sc_unmarked_diagnostics		\
-	sc_GPL_version sc_immutable_NEWS sc_copyright_check
-VC_LIST_ALWAYS_EXCLUDE_REGEX = ^((lib/)?(gl|gltests|build-aux))/.*
+	sc_require_config_h_first sc_immutable_NEWS sc_po_check
+VC_LIST_ALWAYS_EXCLUDE_REGEX = \
+	^(gtk-doc.make|m4/pkg.m4|doc/fdl-1.3.texi|doc/specification|doc/doxygen/Doxyfile|(lib/)?maint.mk|((lib/)?(gl|gltests|build-aux))/.*)
+
+# Explicit syntax-check exceptions.
+exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^doc/.*.(dia|png)
+exclude_file_name_regexp--sc_copyright_check = ^doc/gsasl.texi$$
+exclude_file_name_regexp--sc_GPL_version = ^doc/lgpl-2.1.texi|lib/.*$$
+exclude_file_name_regexp--sc_unmarked_diagnostics = ^examples/.*|src/gsasl.c$$
+exclude_file_name_regexp--sc_bindtextdomain = ^doc/print-errors.c|examples/.*|lib/digest-md5/test-parser.c|lib/tests/test-error.c|tests/.*$$
+exclude_file_name_regexp--sc_program_name = $(exclude_file_name_regexp--sc_bindtextdomain)
+exclude_file_name_regexp--sc_prohibit_magic_number_exit = ^doc/gsasl.texi|tests.*$$
+exclude_file_name_regexp--sc_trailing_blank = ^doc/.*\.(eps|png)|(lib/)?po/.*$$
 
 autoreconf:
 	for f in po/*.po.in lib/po/*.po.in; do \

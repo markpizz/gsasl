@@ -1,5 +1,5 @@
 /* challenge.c --- Generate a CRAM-MD5 challenge string.
- * Copyright (C) 2002, 2003, 2004, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2008, 2009, 2011  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -20,7 +20,6 @@
  *
  */
 
-#include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>

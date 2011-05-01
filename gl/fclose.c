@@ -1,5 +1,5 @@
 /* fclose replacement.
-   Copyright (C) 2008, 2009, 2010 Free Software Foundation, Inc.
+   Copyright (C) 2008-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,6 +22,8 @@
 #include <errno.h>
 #include <unistd.h>
 
+#include "freading.h"
+
 /* Override fclose() to call the overridden close().  */
 
 int
@@ -30,7 +32,9 @@ rpl_fclose (FILE *fp)
 {
   int saved_errno = 0;
 
-  if (fflush (fp))
+  /* We only need to flush the file if it is not reading or if it is
+     seekable.  */
+  if ((!freading (fp) || fseeko (fp, 0, SEEK_CUR) == 0) && fflush (fp))
     saved_errno = errno;
 
   if (close (fileno (fp)) < 0 && saved_errno == 0)

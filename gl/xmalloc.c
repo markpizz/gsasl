@@ -1,8 +1,6 @@
 /* xmalloc.c -- malloc with out of memory checking
 
-   Copyright (C) 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
-   2000, 2002, 2003, 2004, 2005, 2006, 2008, 2009, 2010 Free Software
-   Foundation, Inc.
+   Copyright (C) 1990-2000, 2002-2006, 2008-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -54,8 +52,16 @@ xmalloc (size_t n)
 void *
 xrealloc (void *p, size_t n)
 {
+  if (!n && p)
+    {
+      /* The GNU and C99 realloc behaviors disagree here.  Act like
+         GNU, even if the underlying realloc is C99.  */
+      free (p);
+      return NULL;
+    }
+
   p = realloc (p, n);
-  if (!p && n != 0)
+  if (!p && n)
     xalloc_die ();
   return p;
 }

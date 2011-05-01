@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2010 Free Software Foundation, Inc.
+# Copyright (C) 2002-2011 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -124,54 +124,34 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl'
-  # Code from module alloca-opt:
   gl_FUNC_ALLOCA
-  # Code from module arg-nonnull:
-  # Code from module base64:
   gl_FUNC_BASE64
-  # Code from module c++defs:
-  # Code from module c-ctype:
-  # Code from module crypto/gc:
   gl_GC
   if test $gl_cond_libtool = false; then
     gl_ltlibdeps="$gl_ltlibdeps $LTLIBGCRYPT"
     gl_libdeps="$gl_libdeps $LIBGCRYPT"
   fi
-  # Code from module crypto/gc-hmac-md5:
   gl_GC_HMAC_MD5
   gl_MODULE_INDICATOR([gc-hmac-md5])
-  # Code from module crypto/gc-hmac-sha1:
   gl_GC_HMAC_SHA1
   gl_MODULE_INDICATOR([gc-hmac-sha1])
-  # Code from module crypto/gc-md5:
   gl_GC_MD5
   gl_MODULE_INDICATOR([gc-md5])
-  # Code from module crypto/gc-pbkdf2-sha1:
   gl_GC_PBKDF2_SHA1
-  # Code from module crypto/gc-random:
   gl_GC_RANDOM
   gl_MODULE_INDICATOR([gc-random])
-  # Code from module crypto/gc-sha1:
   gl_GC_SHA1
   gl_MODULE_INDICATOR([gc-sha1])
-  # Code from module errno:
   gl_HEADER_ERRNO_H
-  # Code from module extensions:
-  # Code from module float:
   gl_FLOAT_H
-  # Code from module getdelim:
   gl_FUNC_GETDELIM
   gl_STDIO_MODULE_INDICATOR([getdelim])
-  # Code from module getline:
   gl_FUNC_GETLINE
   gl_STDIO_MODULE_INDICATOR([getline])
-  # Code from module gettext:
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.18.1])
-  # Code from module gettext-h:
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
-  # Code from module gnumakefile:
   # Autoconf 2.61a.99 and earlier don't support linking a file only
   # in VPATH builds.  But since GNUmakefile is for maintainer use
   # only, it does not matter if we skip the link with older autoconf.
@@ -179,76 +159,44 @@ AC_DEFUN([gl_INIT],
   # builds, so use a shell variable to bypass this.
   GNUmakefile=GNUmakefile
   m4_if(m4_version_compare([2.61a.100],
-  	m4_defn([m4_PACKAGE_VERSION])), [1], [],
+          m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
-  	[GNUmakefile=$GNUmakefile])])
-  # Code from module gss-extra:
+          [GNUmakefile=$GNUmakefile])])
   sj_GSS_EXTRA
-  # Code from module havelib:
-  # Code from module include_next:
-  # Code from module lib-msvc-compat:
   gl_LD_OUTPUT_DEF
-  # Code from module lib-symbol-versions:
   gl_LD_VERSION_SCRIPT
-  # Code from module lib-symbol-visibility:
   gl_VISIBILITY
-  # Code from module maintainer-makefile:
   AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
     [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
-  # Code from module memchr:
   gl_FUNC_MEMCHR
   gl_STRING_MODULE_INDICATOR([memchr])
-  # Code from module memmem:
   gl_FUNC_MEMMEM
-  # Code from module memmem-simple:
   gl_FUNC_MEMMEM_SIMPLE
   gl_STRING_MODULE_INDICATOR([memmem])
-  # Code from module memxor:
   gl_MEMXOR
-  # Code from module minmax:
   gl_MINMAX
-  # Code from module multiarch:
   gl_MULTIARCH
-  # Code from module realloc-posix:
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
-  # Code from module size_max:
   gl_SIZE_MAX
-  # Code from module stdbool:
   AM_STDBOOL_H
-  # Code from module stddef:
   gl_STDDEF_H
-  # Code from module stdint:
   gl_STDINT_H
-  # Code from module stdio:
   gl_STDIO_H
-  # Code from module stdlib:
   gl_STDLIB_H
-  # Code from module string:
   gl_HEADER_STRING_H
-  # Code from module strnlen:
   gl_FUNC_STRNLEN
   gl_STRING_MODULE_INDICATOR([strnlen])
-  # Code from module strverscmp:
   gl_FUNC_STRVERSCMP
   gl_STRING_MODULE_INDICATOR([strverscmp])
-  # Code from module unistd:
   gl_UNISTD_H
-  # Code from module useless-if-before-free:
-  # Code from module vasnprintf:
   gl_FUNC_VASNPRINTF
-  # Code from module vasprintf:
   gl_FUNC_VASPRINTF
   gl_STDIO_MODULE_INDICATOR([vasprintf])
   m4_ifdef([AM_XGETTEXT_OPTION],
     [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
      AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
-  # Code from module vc-list-files:
-  # Code from module verify:
-  # Code from module warn-on-use:
-  # Code from module wchar:
   gl_WCHAR_H
-  # Code from module xsize:
   gl_XSIZE
   # End of code from modules
   m4_ifval(gl_LIBSOURCES_LIST, [
@@ -451,7 +399,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdbool.in.h
   lib/stddef.in.h
   lib/stdint.in.h
-  lib/stdio-write.c
   lib/stdio.in.h
   lib/stdlib.in.h
   lib/str-two-way.h
@@ -467,7 +414,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/xsize.h
   m4/00gnulib.m4
   m4/alloca.m4
-  m4/asm-underscore.m4
   m4/base64.m4
   m4/codeset.m4
   m4/errno_h.m4

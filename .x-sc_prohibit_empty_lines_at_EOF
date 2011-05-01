@@ -1,4 +1,0 @@
-^lib/COPYING.LIB
-^doc/fdl-1.3.texi
-^doc/specification/
-^tests/gssapi.tkt
