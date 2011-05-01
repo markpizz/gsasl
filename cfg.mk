@@ -1,4 +1,4 @@
-# Copyright (C) 2006, 2007, 2008, 2009, 2010 Simon Josefsson
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011 Simon Josefsson
 #
 # This file is part of GNU SASL.
 #
@@ -73,7 +73,7 @@ ChangeLog:
 htmldir = ../www-$(PACKAGE)
 tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
 
-release: prepare upload web upload-web
+release: syntax-check prepare upload web upload-web
 
 prepare:
 	cd lib && make prepare

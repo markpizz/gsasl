@@ -14,6 +14,8 @@ The old M4 files associated with 0.17 caused problems on Solaris,
 which will hopefully be fixed with this.  Reported by Dagobert
 Michelsen <dam@opencsw.org>.
 
+** i18n: Updated translations.
+
 ** API and ABI modifications.
 No changes since last version.
 
@@ -32,7 +34,22 @@ GSASL_SAML20_REDIRECT_URL: ADDED.
 GSASL_SAML20_AUTHENTICATE_IN_BROWSER: ADDED.
 GSASL_VALIDATE_SAML20: ADDED.
 
-* Version 1.6.0 (released 2010-12-14) [beta]
+* Version 1.6.1 (released 2011-05-01) [stable]
+
+** libgsasl.pc: Add a Libs.private.
+Reported by Volker Grabsch <vog@notjusthosting.com>.
+
+** build: Demand gettext >= 0.18.1 in order to get newer M4 files.
+The old M4 files associated with 0.17 caused problems on Solaris,
+which will hopefully be fixed with this.  Reported by Dagobert
+Michelsen <dam@opencsw.org>.
+
+** i18n: Updated translations.
+
+** API and ABI modifications.
+No changes since last version.
+
+* Version 1.6.0 (released 2010-12-14) [stable]
 
 ** No changes since release candidate 1.5.5.
 
