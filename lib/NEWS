@@ -9,6 +9,11 @@ See the end for copying conditions.
 ** libgsasl.pc: Add a Libs.private.
 Reported by Volker Grabsch <vog@notjusthosting.com>.
 
+** Demand gettext >= 0.18.1 in order to get newer M4 files.
+The old M4 files associated with 0.17 caused problems on Solaris,
+which will hopefully be fixed with this.  Reported by Dagobert
+Michelsen <dam@opencsw.org>.
+
 ** API and ABI modifications.
 No changes since last version.
 

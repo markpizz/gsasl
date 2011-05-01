@@ -1,5 +1,5 @@
 GNU SASL NEWS -- History of user-visible changes.
-Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Simon Josefsson
+Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Simon Josefsson
 See the end for copying conditions.
 
 Note that changes to the GNU SASL Library is documented in lib/NEWS.
@@ -7,6 +7,11 @@ This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.7.1 (unreleased) [beta]
+
+** Demand gettext >= 0.18.1 in order to get newer M4 files.
+The old M4 files associated with 0.17 caused problems on Solaris,
+which will hopefully be fixed with this.  Reported by Dagobert
+Michelsen <dam@opencsw.org>.
 
 ** SAML changes reverted, will be kept on a separate branch.
 
