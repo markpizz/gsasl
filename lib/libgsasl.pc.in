@@ -15,4 +15,5 @@ Description: GNU Simple Authentication and Security Layer (SASL)
 URL: http://www.gnu.org/software/gsasl/
 Version: @VERSION@
 Libs: -L${libdir} -lgsasl
+Libs.private: @LTLIBGCRYPT@ @LTLIBIDN@ @LTLIBNTLM@
 Cflags: -I${includedir}
