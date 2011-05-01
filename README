@@ -1,5 +1,5 @@
 GNU SASL README -- Important introductory notes.
-Copyright (C) 2002, 2003, 2004, 2005, 2005, 2007, 2008, 2009, 2010 Simon Josefsson
+Copyright (C) 2002-2011 Simon Josefsson
 See the end for copying conditions.
 
 GNU SASL an implementation of the Simple Authentication and Security
@@ -68,6 +68,9 @@ please let me know so work duplication can be avoided.
   - Port to Cyclone? CCured?
 
 For updates to the project, see <http://www.gnu.org/software/gsasl/>.
+
+For any copyright year range specified as YYYY-ZZZZ in this package
+note that the range specifies every single year in that closed interval.
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
