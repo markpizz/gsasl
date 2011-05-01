@@ -1,0 +1,260 @@
+# Esperanto translation.
+# Copyright (C) 2011 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gsasl package.
+# Felipe Castro <fefcas@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gsasl 1.4.1\n"
+"Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
+"POT-Creation-Date: 2010-02-16 14:57+0100\n"
+"PO-Revision-Date: 2011-03-13 11:51-0300\n"
+"Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
+"Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
+"Language: eo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/imap.c:78 src/smtp.c:81
+#, c-format
+msgid "Chose SASL mechanisms:\n"
+msgstr "Elektitaj mekanismoj SASL:\n"
+
+#: src/imap.c:108 src/smtp.c:112 src/gsasl.c:198
+#, c-format
+msgid "Using mechanism:\n"
+msgstr "Uzata mekanismo:\n"
+
+#: src/imap.c:152
+#, c-format
+msgid ""
+"error: Server did not return expected SASL data (it must begin with '+ '):\n"
+"%s\n"
+msgstr ""
+"eraro: Servilo ne redonis atenditan datumaron SASL (ĝi devas komenciĝi per '+ '):\n"
+"%s\n"
+
+#: src/smtp.c:154
+#, c-format
+msgid ""
+"error: Server did not return expected SASL data (it must begin with '334 '):\n"
+"%s\n"
+msgstr ""
+"eraro: Servilo ne redonis atenditan datumaron SASL (ĝi devas komenciĝi per '334 '):\n"
+"%s\n"
+
+#: src/gsasl.c:170
+#, c-format
+msgid "Choose SASL mechanism:\n"
+msgstr "Elektu mekanismon SASL:\n"
+
+#: src/gsasl.c:179
+#, c-format
+msgid "Input list of SASL mechanisms supported by server:\n"
+msgstr "Enig-listo de mekanismoj SASL subtenataj de la servilo:\n"
+
+#: src/gsasl.c:215
+#, c-format
+msgid "Output from server:\n"
+msgstr "Eligo el servilo:\n"
+
+#: src/gsasl.c:217
+#, c-format
+msgid "Output from client:\n"
+msgstr "Eligo el kliento:\n"
+
+#: src/gsasl.c:273
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Provu '%s --help' por pli da informoj.\n"
+
+#: src/gsasl.c:321
+#, c-format
+msgid "missing argument"
+msgstr "mankas argumento"
+
+#: src/gsasl.c:328
+#, c-format
+msgid "need both --x509-cert-file and --x509-key-file"
+msgstr "necesas kaj --x509-cert-file kaj --x509-key-file"
+
+#: src/gsasl.c:332
+#, c-format
+msgid "cannot use both --starttls and --no-starttls"
+msgstr "ne povas uzi kaj --starttls kaj --no-starttls"
+
+#: src/gsasl.c:335
+#, c-format
+msgid "cannot use both --smtp and --imap"
+msgstr "ne povas uzi kaj --smtp kaj --imap"
+
+#: src/gsasl.c:400
+#, c-format
+msgid "initialization failure: %s"
+msgstr "ekiga malsukceso: %s"
+
+#: src/gsasl.c:415
+#, c-format
+msgid "error listing mechanisms: %s"
+msgstr "eraro dum listigo de mekanismoj: %s"
+
+#: src/gsasl.c:422
+#, c-format
+msgid "This client supports the following mechanisms:\n"
+msgstr "Tiu ĉi kliento subtenas la jenajn mekanismojn:\n"
+
+#: src/gsasl.c:425
+#, c-format
+msgid "This server supports the following mechanisms:\n"
+msgstr "Tiu ĉi servilo subtenas la jenajn mekanismojn:\n"
+
+#: src/gsasl.c:491
+#, c-format
+msgid "GnuTLS global initialization failed: %s"
+msgstr "Ĝenerala ekigo de GnuTLS malsukcesis: %s"
+
+#: src/gsasl.c:496
+#, c-format
+msgid "GnuTLS initialization failed: %s"
+msgstr "Ekigo de GnuTLS malsukcesis: %s"
+
+#: src/gsasl.c:501
+#, c-format
+msgid "setting GnuTLS defaults failed: %s"
+msgstr "difino de GnuTLS-defaŭltoj malsukcesis: %s"
+
+#: src/gsasl.c:507
+#, c-format
+msgid "allocating anonymous GnuTLS credential: %s"
+msgstr "rezervo de sennoma legitimilo GnuTLS: %s"
+
+#: src/gsasl.c:512
+#, c-format
+msgid "setting anonymous GnuTLS credential: %s"
+msgstr "difino de sennoma legitimilo GnuTLS: %s"
+
+#: src/gsasl.c:517
+#, c-format
+msgid "allocating X.509 GnuTLS credential: %s"
+msgstr "rezervo de X.509-legitimilo GnuTLS: %s"
+
+#: src/gsasl.c:525
+#, c-format
+msgid "loading X.509 GnuTLS credential: %s"
+msgstr "ŝargo je X.509-legitimilo GnuTLS: %s"
+
+#: src/gsasl.c:533
+#, c-format
+msgid "no X.509 CAs found: %s"
+msgstr "neniu X.509 CA trovite: %s"
+
+#: src/gsasl.c:536
+#, c-format
+msgid "no X.509 CAs found"
+msgstr "neniu X.509 CA trovite"
+
+#: src/gsasl.c:542
+#, c-format
+msgid "setting X.509 GnuTLS credential: %s"
+msgstr "difino de X.509-legitimilo GnuTLS: %s"
+
+#: src/gsasl.c:553
+#, c-format
+msgid "setting GnuTLS cipher priority (%s): %s\n"
+msgstr "difino de ĉifra prioritato GnuTLS (%s): %s\n"
+
+#: src/gsasl.c:564
+#, c-format
+msgid "GnuTLS handshake failed: %s"
+msgstr "Kvitanco GnuTLS malsukcesis: %s"
+
+#: src/gsasl.c:573
+#, c-format
+msgid "verifying peer certificate: %s"
+msgstr "kontrolado de samtavolana atestilo: %s"
+
+#: src/gsasl.c:577
+#, c-format
+msgid "server certificate is not trusted"
+msgstr "servila atestilo ne estas fidinda"
+
+#: src/gsasl.c:581
+#, c-format
+msgid "server certificate hasn't got a known issuer"
+msgstr "servila atestilo ne havis konatan eldonanto"
+
+#: src/gsasl.c:584
+#, c-format
+msgid "server certificate has been revoked"
+msgstr "servila atestilo estas revokata"
+
+#: src/gsasl.c:588
+#, c-format
+msgid "could not verify server certificate (rc=%d)"
+msgstr "ni ne povis kontroli servilan atestilon (rc=%d)"
+
+#: src/gsasl.c:611
+#, c-format
+msgid "Cannot find mechanism...\n"
+msgstr "Ni ne povis trovi mekanismon...\n"
+
+#: src/gsasl.c:628
+#, c-format
+msgid "mechanism unavailable: %s"
+msgstr "mekanismo nedisponebla: %s"
+
+#: src/gsasl.c:657
+#, c-format
+msgid "Enter base64 authentication data from client (press RET if none):\n"
+msgstr "Enmetu aŭtentigan datumaron base64 el kliento (premu RET se nenio):\n"
+
+#: src/gsasl.c:660
+#, c-format
+msgid "Enter base64 authentication data from server (press RET if none):\n"
+msgstr "Enmetu aŭtentigan datumaron base64 el servilo (premu RET se nenio):\n"
+
+#: src/gsasl.c:670
+#, c-format
+msgid "mechanism error: %s"
+msgstr "mekanisma eraro: %s"
+
+#: src/gsasl.c:679
+#, c-format
+msgid "Server authentication finished (client trusted)...\n"
+msgstr "Servila aŭtentigo finis (kliento estas fidinda)...\n"
+
+#: src/gsasl.c:682
+#, c-format
+msgid "Client authentication finished (server trusted)...\n"
+msgstr "Klienta aŭtentigo finis (servilo estas fidinda)...\n"
+
+#: src/gsasl.c:705
+#, c-format
+msgid "Enter application data (EOF to finish):\n"
+msgstr "Enmetu aplikaĵan datumaron (EOF por fini):\n"
+
+#: src/gsasl.c:780
+#, c-format
+msgid "Base64 encoded application data to send:\n"
+msgstr "Base64-enkodita aplikaĵ-datumaro por sendi:\n"
+
+#: src/gsasl.c:822
+#, c-format
+msgid "SASL record too large: %zu\n"
+msgstr "Rikordo SASL tro granda: %zu\n"
+
+#: src/gsasl.c:841
+#, c-format
+msgid "encoding error: %s"
+msgstr "enkoda eraro: %s"
+
+#: src/gsasl.c:846
+#, c-format
+msgid "Session finished...\n"
+msgstr "Seanco finiĝis...\n"
+
+#: src/gsasl.c:862
+#, c-format
+msgid "terminating GnuTLS session failed: %s"
+msgstr "ĉesigo de seanco GnuTLS malsukcesis: %s"
