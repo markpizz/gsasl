@@ -110,8 +110,11 @@ imap_authenticate (const char *mech)
     {
       char *buf;
       int rc;
+      int len;
 
-      asprintf (&buf, ". AUTHENTICATE %s", mech);
+      len = asprintf (&buf, ". AUTHENTICATE %s", mech);
+      if (len < 0)
+	return 0;
       rc = writeln (buf);
       free (buf);
       if (!rc)
@@ -126,11 +129,14 @@ imap_step_send (const char *data)
 {
   char *buf;
   int rc;
+  int len;
 
   if (args_info.server_flag)
-    asprintf (&buf, "+ %s", data);
+    len = asprintf (&buf, "+ %s", data);
   else
-    asprintf (&buf, "%s", data);
+    len = asprintf (&buf, "%s", data);
+  if (len < 0)
+    return 0;
   rc = writeln (buf);
   free (buf);
   if (!rc)

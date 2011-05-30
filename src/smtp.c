@@ -114,8 +114,11 @@ smtp_authenticate (const char *mech)
     {
       char *buf;
       int rc;
+      int len;
 
-      asprintf (&buf, "AUTH %s", mech);
+      len = asprintf (&buf, "AUTH %s", mech);
+      if (len < 0)
+	return 0;
       rc = writeln (buf);
       free (buf);
       if (!rc)
@@ -130,11 +133,14 @@ smtp_step_send (const char *data)
 {
   char *buf;
   int rc;
+  int len;
 
   if (args_info.server_flag)
-    asprintf (&buf, "334 %s", data);
+    len = asprintf (&buf, "334 %s", data);
   else
-    asprintf (&buf, "%s", data);
+    len = asprintf (&buf, "%s", data);
+  if (len < 0)
+    return 0;
   rc = writeln (buf);
   free (buf);
   if (!rc)
