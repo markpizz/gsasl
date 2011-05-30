@@ -30,7 +30,7 @@
  * session.
  *
  * Return value: Returns a zero terminated character array with the
- *   name of the SASL mechanism, or %NULL if not known.
+ *   name of the SASL mechanism, or NULL if not known.
  *
  * Since: 0.2.28
  **/

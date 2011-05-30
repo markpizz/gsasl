@@ -26,7 +26,7 @@
 
 /**
  * gsasl_check_version:
- * @req_version: version string to compare with, or %NULL.
+ * @req_version: version string to compare with, or NULL.
  *
  * Check GNU SASL Library version.
  *
@@ -37,8 +37,8 @@
  *
  * Return value: Check that the version of the library is at
  *   minimum the one given as a string in @req_version and return the
- *   actual version string of the library; return %NULL if the
- *   condition is not met.  If %NULL is passed to this function no
+ *   actual version string of the library; return NULL if the
+ *   condition is not met.  If NULL is passed to this function no
  *   check is done and only the version string is returned.
  **/
 const char *

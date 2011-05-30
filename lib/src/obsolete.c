@@ -35,7 +35,7 @@
  *
  * Write SASL names, separated by space, of mechanisms supported by
  * the libgsasl client to the output array.  To find out how large the
- * output array must be, call this function with a %NULL @out
+ * output array must be, call this function with a NULL @out
  * parameter.
  *
  * Return value: Returns %GSASL_OK if successful, or error code.
@@ -78,7 +78,7 @@ gsasl_client_listmech (Gsasl * ctx, char *out, size_t * outlen)
  *
  * Write SASL names, separated by space, of mechanisms supported by
  * the libgsasl server to the output array.  To find out how large the
- * output array must be, call this function with a %NULL @out
+ * output array must be, call this function with a NULL @out
  * parameter.
  *
  * Return value: Returns %GSASL_OK if successful, or error code.
@@ -347,7 +347,7 @@ gsasl_client_application_data_set (Gsasl_session * sctx,
  * It is normally used by the application to maintain state between
  * the main program and the callback.
  *
- * Return value: Returns the application specific data, or %NULL.
+ * Return value: Returns the application specific data, or NULL.
  *
  * Deprecated: Use gsasl_callback_hook_get() or
  * gsasl_session_hook_get() instead.
@@ -404,7 +404,7 @@ gsasl_server_application_data_set (Gsasl_session * sctx,
  * It is normally used by the application to maintain state between
  * the main program and the callback.
  *
- * Return value: Returns the application specific data, or %NULL.
+ * Return value: Returns the application specific data, or NULL.
  *
  * Deprecated: Use gsasl_callback_hook_get() or
  * gsasl_session_hook_get() instead.
@@ -560,7 +560,7 @@ gsasl_application_data_set (Gsasl * ctx, void *appdata)
  * normally used by the application to maintain state between the main
  * program and the callback.
  *
- * Return value: Returns the application specific data, or %NULL.
+ * Return value: Returns the application specific data, or NULL.
  *
  * Deprecated: Use gsasl_callback_hook_get() instead.
  **/
@@ -598,7 +598,7 @@ gsasl_appinfo_set (Gsasl_session * sctx, void *appdata)
  * is normally used by the application to maintain state between the
  * main program and the callback.
  *
- * Return value: Returns the application specific data, or %NULL.
+ * Return value: Returns the application specific data, or NULL.
  *
  * Deprecated: Use gsasl_callback_hook_get() instead.
  **/
@@ -1547,7 +1547,7 @@ gsasl_server_callback_securid_get (Gsasl * ctx)
  *
  * Specify the callback function to use in the server for checking if
  * a GSSAPI user is authorized for username (by, e.g., calling
- * krb5_userok()).  The function should return GSASL_OK if the user
+ * krb5_kuserok).  The function should return GSASL_OK if the user
  * should be permitted access, or an error code such as
  * GSASL_AUTHENTICATION_ERROR on failure.  The function can be later
  * retrieved using gsasl_server_callback_gssapi_get().
@@ -1653,7 +1653,7 @@ gsasl_server_callback_service_get (Gsasl * ctx)
  * composed forms rather than a maximally decomposed form.
  *
  * Return value: Return a newly allocated string, that is the NFKC
- *   normalized form of @str, o %NULL on error.
+ *   normalized form of @str, or NULL on error.
  *
  * Deprecated: No replacement functionality in GNU SASL, use GNU
  * Libidn instead.  Note that in SASL, you most likely want to use
@@ -1675,7 +1675,7 @@ gsasl_stringprep_nfkc (const char *in, ssize_t len)
  * gsasl_stringprep_saslprep:
  * @in: input ASCII or UTF-8 string with data to prepare according to SASLprep.
  * @stringprep_rc: pointer to output variable with stringprep error code,
- *   or %NULL to indicate that you don't care about it.
+ *   or NULL to indicate that you don't care about it.
  *
  * Process a Unicode string for comparison, according to the
  * "SASLprep" stringprep profile.  This function is intended to be
@@ -1684,7 +1684,7 @@ gsasl_stringprep_nfkc (const char *in, ssize_t len)
  * protocols exchanging user names and/or passwords.
  *
  * Return value: Return a newly allocated string that is the
- *   "SASLprep" processed form of the input string, or %NULL on error,
+ *   "SASLprep" processed form of the input string, or NULL on error,
  *   in which case @stringprep_rc contain the stringprep library error
  *   code.
  *
@@ -1711,14 +1711,14 @@ gsasl_stringprep_saslprep (const char *in, int *stringprep_rc)
  * gsasl_stringprep_trace:
  * @in: input ASCII or UTF-8 string with data to prepare according to "trace".
  * @stringprep_rc: pointer to output variable with stringprep error code,
- *   or %NULL to indicate that you don't care about it.
+ *   or NULL to indicate that you don't care about it.
  *
  * Process a Unicode string for use as trace information, according to
  * the "trace" stringprep profile.  The profile is designed for use
  * with the SASL ANONYMOUS Mechanism.
  *
  * Return value: Return a newly allocated string that is the "trace"
- *   processed form of the input string, or %NULL on error, in which
+ *   processed form of the input string, or NULL on error, in which
  *   case @stringprep_rc contain the stringprep library error code.
  *
  * Deprecated: No replacement functionality in GNU SASL, use GNU

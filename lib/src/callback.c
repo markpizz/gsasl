@@ -48,7 +48,7 @@ gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb)
 
 /**
  * gsasl_callback:
- * @ctx: handle received from gsasl_init(), may be %NULL to derive it
+ * @ctx: handle received from gsasl_init(), may be NULL to derive it
  *   from @sctx.
  * @sctx: session handle.
  * @prop: enumerated value of Gsasl_property type.
@@ -66,7 +66,7 @@ gsasl_callback_set (Gsasl * ctx, Gsasl_callback_function cb)
  * translate the old callback interface into the new.  This interface
  * should be sufficient to invoke all callbacks, both new and old.
  *
- * Return value: Returns whatever the application callback return, or
+ * Return value: Returns whatever the application callback returns, or
  *   %GSASL_NO_CALLBACK if no application was known.
  *
  * Since: 0.2.0
@@ -120,7 +120,7 @@ gsasl_callback_hook_set (Gsasl * ctx, void *hook)
  * is normally used by the application to maintain a global state
  * between the main program and callbacks.
  *
- * Return value: Returns the application specific data, or %NULL.
+ * Return value: Returns the application specific data, or NULL.
  *
  * Since: 0.2.0
  **/
@@ -160,7 +160,7 @@ gsasl_session_hook_set (Gsasl_session * sctx, void *hook)
  * is normally used by the application to maintain a per-session state
  * between the main program and callbacks.
  *
- * Return value: Returns the application specific data, or %NULL.
+ * Return value: Returns the application specific data, or NULL.
  *
  * Since: 0.2.14
  **/

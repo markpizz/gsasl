@@ -32,7 +32,7 @@
  *
  * Return value: Returns name of "best" SASL mechanism supported by
  *   the libgsasl client which is present in the input string, or
- *   %NULL if no supported mechanism is found.
+ *   NULL if no supported mechanism is found.
  **/
 const char *
 gsasl_client_suggest_mechanism (Gsasl * ctx, const char *mechlist)

@@ -189,7 +189,7 @@ gsasl_property_set_raw (Gsasl_session * sctx, Gsasl_property prop,
  *
  * This function will not invoke the application callback.
  *
- * Return value: Return property value, if known, or %NULL if no value
+ * Return value: Return property value, if known, or NULL if no value
  *   known.
  *
  * Since: 0.2.0
@@ -227,7 +227,7 @@ gsasl_property_fast (Gsasl_session * sctx, Gsasl_property prop)
  * the corresponding property.  This behaviour of this function will
  * be removed when the obsolete callback interfaces are removed.
  *
- * Return value: Return data for property, or %NULL if no value known.
+ * Return value: Return data for property, or NULL if no value known.
  *
  * Since: 0.2.0
  **/
