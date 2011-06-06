@@ -1,5 +1,5 @@
 /* callbacks.c --- Implementation of gsasl callbacks.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -206,7 +206,9 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     default:
-      printf ("Mechanism requested unsupported property `%d'.\n", prop);
+      fprintf (stderr,
+	       "warning: mechanism requested unsupported property `%d'\n",
+	       prop);
       break;
     }
 
