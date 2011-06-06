@@ -142,6 +142,8 @@ gl/quote.lo
 gl/quote.o
 gl/quotearg.lo
 gl/quotearg.o
+gl/readline.lo
+gl/readline.o
 gl/ref-add.sed
 gl/ref-del.sed
 gl/sockets.lo
