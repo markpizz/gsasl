@@ -52,6 +52,10 @@ AC_DEFUN([gl_EARLY],
   # Code from module extensions:
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   # Code from module float:
+  # Code from module float-tests:
+  # Code from module fpieee:
+  AC_REQUIRE([gl_FP_IEEE])
+  # Code from module fpucw:
   # Code from module getdelim:
   # Code from module getdelim-tests:
   # Code from module getline:
@@ -64,6 +68,10 @@ AC_DEFUN([gl_EARLY],
   # Code from module havelib:
   # Code from module include_next:
   # Code from module intprops:
+  # Code from module intprops-tests:
+  # Code from module inttypes:
+  # Code from module inttypes-incomplete:
+  # Code from module inttypes-tests:
   # Code from module lib-msvc-compat:
   # Code from module lib-symbol-versions:
   # Code from module lib-symbol-visibility:
@@ -124,80 +132,132 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl'
-  gl_FUNC_ALLOCA
-  gl_FUNC_BASE64
-  gl_GC
-  if test $gl_cond_libtool = false; then
-    gl_ltlibdeps="$gl_ltlibdeps $LTLIBGCRYPT"
-    gl_libdeps="$gl_libdeps $LIBGCRYPT"
-  fi
-  gl_GC_HMAC_MD5
-  gl_MODULE_INDICATOR([gc-hmac-md5])
-  gl_GC_HMAC_SHA1
-  gl_MODULE_INDICATOR([gc-hmac-sha1])
-  gl_GC_MD5
-  gl_MODULE_INDICATOR([gc-md5])
-  gl_GC_PBKDF2_SHA1
-  gl_GC_RANDOM
-  gl_MODULE_INDICATOR([gc-random])
-  gl_GC_SHA1
-  gl_MODULE_INDICATOR([gc-sha1])
-  gl_HEADER_ERRNO_H
-  gl_FLOAT_H
-  gl_FUNC_GETDELIM
-  gl_STDIO_MODULE_INDICATOR([getdelim])
-  gl_FUNC_GETLINE
-  gl_STDIO_MODULE_INDICATOR([getline])
-  dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
-  AM_GNU_GETTEXT_VERSION([0.18.1])
-  AC_SUBST([LIBINTL])
-  AC_SUBST([LTLIBINTL])
-  # Autoconf 2.61a.99 and earlier don't support linking a file only
-  # in VPATH builds.  But since GNUmakefile is for maintainer use
-  # only, it does not matter if we skip the link with older autoconf.
-  # Automake 1.10.1 and earlier try to remove GNUmakefile in non-VPATH
-  # builds, so use a shell variable to bypass this.
-  GNUmakefile=GNUmakefile
-  m4_if(m4_version_compare([2.61a.100],
-          m4_defn([m4_PACKAGE_VERSION])), [1], [],
-        [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
-          [GNUmakefile=$GNUmakefile])])
-  sj_GSS_EXTRA
-  gl_LD_OUTPUT_DEF
-  gl_LD_VERSION_SCRIPT
-  gl_VISIBILITY
-  AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
-    [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
-  gl_FUNC_MEMCHR
-  gl_STRING_MODULE_INDICATOR([memchr])
-  gl_FUNC_MEMMEM
-  gl_FUNC_MEMMEM_SIMPLE
-  gl_STRING_MODULE_INDICATOR([memmem])
-  gl_MEMXOR
-  gl_MINMAX
-  gl_MULTIARCH
-  gl_FUNC_REALLOC_POSIX
-  gl_STDLIB_MODULE_INDICATOR([realloc-posix])
-  gl_SIZE_MAX
-  AM_STDBOOL_H
-  gl_STDDEF_H
-  gl_STDINT_H
-  gl_STDIO_H
-  gl_STDLIB_H
-  gl_HEADER_STRING_H
-  gl_FUNC_STRNLEN
-  gl_STRING_MODULE_INDICATOR([strnlen])
-  gl_FUNC_STRVERSCMP
-  gl_STRING_MODULE_INDICATOR([strverscmp])
-  gl_UNISTD_H
-  gl_FUNC_VASNPRINTF
-  gl_FUNC_VASPRINTF
-  gl_STDIO_MODULE_INDICATOR([vasprintf])
-  m4_ifdef([AM_XGETTEXT_OPTION],
-    [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
-     AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
-  gl_WCHAR_H
-  gl_XSIZE
+gl_FUNC_ALLOCA
+gl_FUNC_BASE64
+gl_GC
+if test "$ac_cv_libgcrypt" = yes; then
+  AC_LIBOBJ([gc-libgcrypt])
+else
+  AC_LIBOBJ([gc-gnulib])
+fi
+if test $gl_cond_libtool = false; then
+  gl_ltlibdeps="$gl_ltlibdeps $LTLIBGCRYPT"
+  gl_libdeps="$gl_libdeps $LIBGCRYPT"
+fi
+gl_GC_HMAC_MD5
+if test "$ac_cv_libgcrypt" != yes; then
+  AC_LIBOBJ([md5])
+  AC_LIBOBJ([hmac-md5])
+  AC_LIBOBJ([memxor])
+fi
+gl_MODULE_INDICATOR([gc-hmac-md5])
+gl_GC_HMAC_SHA1
+if test "$ac_cv_libgcrypt" != yes; then
+  AC_LIBOBJ([sha1])
+  AC_LIBOBJ([hmac-sha1])
+  AC_LIBOBJ([memxor])
+fi
+gl_MODULE_INDICATOR([gc-hmac-sha1])
+gl_GC_MD5
+if test "$ac_cv_libgcrypt" != yes; then
+  AC_LIBOBJ([md5])
+fi
+gl_MODULE_INDICATOR([gc-md5])
+gl_GC_RANDOM
+gl_MODULE_INDICATOR([gc-random])
+gl_GC_SHA1
+if test "$ac_cv_libgcrypt" != yes; then
+  AC_LIBOBJ([sha1])
+fi
+gl_MODULE_INDICATOR([gc-sha1])
+gl_HEADER_ERRNO_H
+gl_FLOAT_H
+if test $REPLACE_FLOAT_LDBL = 1; then
+  AC_LIBOBJ([float])
+fi
+gl_FUNC_GETDELIM
+if test $HAVE_GETDELIM = 0 || test $REPLACE_GETDELIM = 1; then
+  AC_LIBOBJ([getdelim])
+  gl_PREREQ_GETDELIM
+fi
+gl_STDIO_MODULE_INDICATOR([getdelim])
+gl_FUNC_GETLINE
+if test $REPLACE_GETLINE = 1; then
+  AC_LIBOBJ([getline])
+  gl_PREREQ_GETLINE
+fi
+gl_STDIO_MODULE_INDICATOR([getline])
+dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
+AM_GNU_GETTEXT_VERSION([0.18.1])
+AC_SUBST([LIBINTL])
+AC_SUBST([LTLIBINTL])
+# Autoconf 2.61a.99 and earlier don't support linking a file only
+# in VPATH builds.  But since GNUmakefile is for maintainer use
+# only, it does not matter if we skip the link with older autoconf.
+# Automake 1.10.1 and earlier try to remove GNUmakefile in non-VPATH
+# builds, so use a shell variable to bypass this.
+GNUmakefile=GNUmakefile
+m4_if(m4_version_compare([2.61a.100],
+        m4_defn([m4_PACKAGE_VERSION])), [1], [],
+      [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
+        [GNUmakefile=$GNUmakefile])])
+sj_GSS_EXTRA
+gl_LD_OUTPUT_DEF
+gl_LD_VERSION_SCRIPT
+gl_VISIBILITY
+AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
+  [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
+gl_FUNC_MEMCHR
+if test $HAVE_MEMCHR = 0 || test $REPLACE_MEMCHR = 1; then
+  AC_LIBOBJ([memchr])
+  gl_PREREQ_MEMCHR
+fi
+gl_STRING_MODULE_INDICATOR([memchr])
+gl_FUNC_MEMMEM
+if test $HAVE_MEMMEM = 0 || test $REPLACE_MEMMEM = 1; then
+  AC_LIBOBJ([memmem])
+fi
+gl_FUNC_MEMMEM_SIMPLE
+if test $HAVE_MEMMEM = 0 || test $REPLACE_MEMMEM = 1; then
+  AC_LIBOBJ([memmem])
+fi
+gl_STRING_MODULE_INDICATOR([memmem])
+gl_MEMXOR
+gl_MINMAX
+gl_MULTIARCH
+gl_FUNC_REALLOC_POSIX
+if test $REPLACE_REALLOC = 1; then
+  AC_LIBOBJ([realloc])
+fi
+gl_STDLIB_MODULE_INDICATOR([realloc-posix])
+gl_SIZE_MAX
+AM_STDBOOL_H
+gl_STDDEF_H
+gl_STDINT_H
+gl_STDIO_H
+gl_STDLIB_H
+gl_HEADER_STRING_H
+gl_FUNC_STRNLEN
+if test $HAVE_DECL_STRNLEN = 0 || test $REPLACE_STRNLEN = 1; then
+  AC_LIBOBJ([strnlen])
+  gl_PREREQ_STRNLEN
+fi
+gl_STRING_MODULE_INDICATOR([strnlen])
+gl_FUNC_STRVERSCMP
+if test $HAVE_STRVERSCMP = 0; then
+  AC_LIBOBJ([strverscmp])
+  gl_PREREQ_STRVERSCMP
+fi
+gl_STRING_MODULE_INDICATOR([strverscmp])
+gl_UNISTD_H
+gl_FUNC_VASNPRINTF
+gl_FUNC_VASPRINTF
+gl_STDIO_MODULE_INDICATOR([vasprintf])
+m4_ifdef([AM_XGETTEXT_OPTION],
+  [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
+   AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
+gl_WCHAR_H
+gl_XSIZE
   # End of code from modules
   m4_ifval(gl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
@@ -244,22 +304,27 @@ changequote([, ])dnl
   AC_SUBST([gltests_WITNESS])
   gl_module_indicator_condition=$gltests_WITNESS
   m4_pushdef([gl_MODULE_INDICATOR_CONDITION], [$gl_module_indicator_condition])
-  gl_FUNC_GETPAGESIZE
-  gl_UNISTD_MODULE_INDICATOR([getpagesize])
-  dnl Check for prerequisites for memory fence checks.
-  gl_FUNC_MMAP_ANON
-  AC_CHECK_HEADERS_ONCE([sys/mman.h])
-  AC_CHECK_FUNCS_ONCE([mprotect])
-  gl_FUNC_MMAP_ANON
-  AC_CHECK_HEADERS_ONCE([sys/mman.h])
-  AC_CHECK_FUNCS_ONCE([mprotect])
-  AC_CHECK_DECLS_ONCE([alarm])
-  gt_TYPE_WCHAR_T
-  gt_TYPE_WINT_T
-  dnl Check for prerequisites for memory fence checks.
-  gl_FUNC_MMAP_ANON
-  AC_CHECK_HEADERS_ONCE([sys/mman.h])
-  AC_CHECK_FUNCS_ONCE([mprotect])
+gl_FUNC_GETPAGESIZE
+if test $REPLACE_GETPAGESIZE = 1; then
+  AC_LIBOBJ([getpagesize])
+fi
+gl_UNISTD_MODULE_INDICATOR([getpagesize])
+gl_INTTYPES_H
+gl_INTTYPES_INCOMPLETE
+dnl Check for prerequisites for memory fence checks.
+gl_FUNC_MMAP_ANON
+AC_CHECK_HEADERS_ONCE([sys/mman.h])
+AC_CHECK_FUNCS_ONCE([mprotect])
+gl_FUNC_MMAP_ANON
+AC_CHECK_HEADERS_ONCE([sys/mman.h])
+AC_CHECK_FUNCS_ONCE([mprotect])
+AC_CHECK_DECLS_ONCE([alarm])
+gt_TYPE_WCHAR_T
+gt_TYPE_WINT_T
+dnl Check for prerequisites for memory fence checks.
+gl_FUNC_MMAP_ANON
+AC_CHECK_HEADERS_ONCE([sys/mman.h])
+AC_CHECK_FUNCS_ONCE([mprotect])
   m4_popdef([gl_MODULE_INDICATOR_CONDITION])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
@@ -367,6 +432,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/c-ctype.h
   lib/errno.in.h
   lib/float+.h
+  lib/float.c
   lib/float.in.h
   lib/gc-gnulib.c
   lib/gc-libgcrypt.c
@@ -420,10 +486,10 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/extensions.m4
   m4/fcntl-o.m4
   m4/float_h.m4
+  m4/fpieee.m4
   m4/gc-hmac-md5.m4
   m4/gc-hmac-sha1.m4
   m4/gc-md5.m4
-  m4/gc-pbkdf2-sha1.m4
   m4/gc-random.m4
   m4/gc-sha1.m4
   m4/gc.m4
@@ -435,8 +501,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/glibc21.m4
   m4/gnulib-common.m4
   m4/gss-extra.m4
-  m4/hmac-md5.m4
-  m4/hmac-sha1.m4
   m4/iconv.m4
   m4/include_next.m4
   m4/intdiv0.m4
@@ -446,6 +510,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/intmax.m4
   m4/intmax_t.m4
   m4/inttypes-pri.m4
+  m4/inttypes.m4
   m4/inttypes_h.m4
   m4/lcmessage.m4
   m4/ld-output-def.m4
@@ -498,6 +563,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-base64.c
   tests/test-c-ctype.c
   tests/test-errno.c
+  tests/test-float.c
   tests/test-gc-hmac-md5.c
   tests/test-gc-hmac-sha1.c
   tests/test-gc-md5.c
@@ -506,6 +572,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-gc.c
   tests/test-getdelim.c
   tests/test-getline.c
+  tests/test-intprops.c
+  tests/test-inttypes.c
   tests/test-memchr.c
   tests/test-memmem.c
   tests/test-stdbool.c
@@ -525,8 +593,10 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-wchar.c
   tests/zerosize-ptr.h
   tests=lib/dummy.c
+  tests=lib/fpucw.h
   tests=lib/getpagesize.c
   tests=lib/intprops.h
+  tests=lib/inttypes.in.h
   top/GNUmakefile
   top/maint.mk
 ])

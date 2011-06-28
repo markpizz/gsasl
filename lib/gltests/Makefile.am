@@ -177,6 +177,21 @@ EXTRA_DIST += test-errno.c
 
 ## end   gnulib module errno-tests
 
+## begin gnulib module float-tests
+
+TESTS += test-float
+check_PROGRAMS += test-float
+EXTRA_DIST += test-float.c macros.h
+
+## end   gnulib module float-tests
+
+## begin gnulib module fpucw
+
+
+EXTRA_DIST += fpucw.h
+
+## end   gnulib module fpucw
+
 ## begin gnulib module getdelim-tests
 
 TESTS += test-getdelim
@@ -210,6 +225,64 @@ EXTRA_libtests_a_SOURCES += getpagesize.c
 EXTRA_DIST += intprops.h
 
 ## end   gnulib module intprops
+
+## begin gnulib module intprops-tests
+
+TESTS += test-intprops
+check_PROGRAMS += test-intprops
+EXTRA_DIST += test-intprops.c macros.h
+
+## end   gnulib module intprops-tests
+
+## begin gnulib module inttypes-incomplete
+
+BUILT_SOURCES += inttypes.h
+
+# We need the following in order to create <inttypes.h> when the system
+# doesn't have one that works with the given compiler.
+inttypes.h: inttypes.in.h $(top_builddir)/config.status $(WARN_ON_USE_H) $(ARG_NONNULL_H)
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  sed -e 's/@''HAVE_INTTYPES_H''@/$(HAVE_INTTYPES_H)/g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
+	      -e 's|@''NEXT_INTTYPES_H''@|$(NEXT_INTTYPES_H)|g' \
+	      -e 's/@''PRI_MACROS_BROKEN''@/$(PRI_MACROS_BROKEN)/g' \
+	      -e 's/@''APPLE_UNIVERSAL_BUILD''@/$(APPLE_UNIVERSAL_BUILD)/g' \
+	      -e 's/@''HAVE_LONG_LONG_INT''@/$(HAVE_LONG_LONG_INT)/g' \
+	      -e 's/@''HAVE_UNSIGNED_LONG_LONG_INT''@/$(HAVE_UNSIGNED_LONG_LONG_INT)/g' \
+	      -e 's/@''PRIPTR_PREFIX''@/$(PRIPTR_PREFIX)/g' \
+	      -e 's/@''GNULIB_IMAXABS''@/$(GNULIB_IMAXABS)/g' \
+	      -e 's/@''GNULIB_IMAXDIV''@/$(GNULIB_IMAXDIV)/g' \
+	      -e 's/@''GNULIB_STRTOIMAX''@/$(GNULIB_STRTOIMAX)/g' \
+	      -e 's/@''GNULIB_STRTOUMAX''@/$(GNULIB_STRTOUMAX)/g' \
+	      -e 's/@''HAVE_DECL_IMAXABS''@/$(HAVE_DECL_IMAXABS)/g' \
+	      -e 's/@''HAVE_DECL_IMAXDIV''@/$(HAVE_DECL_IMAXDIV)/g' \
+	      -e 's/@''HAVE_DECL_STRTOIMAX''@/$(HAVE_DECL_STRTOIMAX)/g' \
+	      -e 's/@''HAVE_DECL_STRTOUMAX''@/$(HAVE_DECL_STRTOUMAX)/g' \
+	      -e 's/@''INT32_MAX_LT_INTMAX_MAX''@/$(INT32_MAX_LT_INTMAX_MAX)/g' \
+	      -e 's/@''INT64_MAX_EQ_LONG_MAX''@/$(INT64_MAX_EQ_LONG_MAX)/g' \
+	      -e 's/@''UINT32_MAX_LT_UINTMAX_MAX''@/$(UINT32_MAX_LT_UINTMAX_MAX)/g' \
+	      -e 's/@''UINT64_MAX_EQ_ULONG_MAX''@/$(UINT64_MAX_EQ_ULONG_MAX)/g' \
+	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
+	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
+	      < $(srcdir)/inttypes.in.h; \
+	} > $@-t && \
+	mv $@-t $@
+MOSTLYCLEANFILES += inttypes.h inttypes.h-t
+
+EXTRA_DIST += inttypes.in.h
+
+## end   gnulib module inttypes-incomplete
+
+## begin gnulib module inttypes-tests
+
+TESTS += test-inttypes
+check_PROGRAMS += test-inttypes
+EXTRA_DIST += test-inttypes.c
+
+## end   gnulib module inttypes-tests
 
 ## begin gnulib module memchr-tests
 

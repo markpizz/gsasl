@@ -232,6 +232,14 @@ EXTRA_DIST += test-errno.c
 
 ## end   gnulib module errno-tests
 
+## begin gnulib module fclose-tests
+
+TESTS += test-fclose
+check_PROGRAMS += test-fclose
+EXTRA_DIST += test-fclose.c
+
+## end   gnulib module fclose-tests
+
 ## begin gnulib module fcntl-h
 
 BUILT_SOURCES += fcntl.h
@@ -241,14 +249,15 @@ BUILT_SOURCES += fcntl.h
 fcntl.h: fcntl.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
 	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
 	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 	      -e 's|@''NEXT_FCNTL_H''@|$(NEXT_FCNTL_H)|g' \
-	      -e 's|@''GNULIB_FCNTL''@|$(GNULIB_FCNTL)|g' \
-	      -e 's|@''GNULIB_NONBLOCKING''@|$(GNULIB_NONBLOCKING)|g' \
-	      -e 's|@''GNULIB_OPEN''@|$(GNULIB_OPEN)|g' \
-	      -e 's|@''GNULIB_OPENAT''@|$(GNULIB_OPENAT)|g' \
+	      -e 's/@''GNULIB_FCNTL''@/$(GNULIB_FCNTL)/g' \
+	      -e 's/@''GNULIB_NONBLOCKING''@/$(GNULIB_NONBLOCKING)/g' \
+	      -e 's/@''GNULIB_OPEN''@/$(GNULIB_OPEN)/g' \
+	      -e 's/@''GNULIB_OPENAT''@/$(GNULIB_OPENAT)/g' \
 	      -e 's|@''HAVE_FCNTL''@|$(HAVE_FCNTL)|g' \
 	      -e 's|@''HAVE_OPENAT''@|$(HAVE_OPENAT)|g' \
 	      -e 's|@''REPLACE_FCNTL''@|$(REPLACE_FCNTL)|g' \
@@ -283,6 +292,21 @@ EXTRA_DIST += test-fflush.c test-fflush2.sh test-fflush2.c signature.h macros.h
 
 ## end   gnulib module fflush-tests
 
+## begin gnulib module float-tests
+
+TESTS += test-float
+check_PROGRAMS += test-float
+EXTRA_DIST += test-float.c macros.h
+
+## end   gnulib module float-tests
+
+## begin gnulib module fpucw
+
+
+EXTRA_DIST += fpucw.h
+
+## end   gnulib module fpucw
+
 ## begin gnulib module fpurge-tests
 
 TESTS += test-fpurge
@@ -301,6 +325,14 @@ EXTRA_DIST += test-freading.c macros.h
 
 ## end   gnulib module freading-tests
 
+## begin gnulib module fseek-tests
+
+TESTS += test-fseek.sh test-fseek2.sh
+check_PROGRAMS += test-fseek
+EXTRA_DIST += test-fseek.c test-fseek.sh test-fseek2.sh signature.h macros.h
+
+## end   gnulib module fseek-tests
+
 ## begin gnulib module fseeko-tests
 
 TESTS += test-fseeko.sh test-fseeko2.sh
@@ -308,15 +340,6 @@ check_PROGRAMS += test-fseeko
 EXTRA_DIST += test-fseeko.c test-fseeko.sh test-fseeko2.sh signature.h macros.h
 
 ## end   gnulib module fseeko-tests
-
-## begin gnulib module ftell
-
-
-EXTRA_DIST += ftell.c
-
-EXTRA_libtests_a_SOURCES += ftell.c
-
-## end   gnulib module ftell
 
 ## begin gnulib module ftell-tests
 
@@ -344,6 +367,23 @@ test_getaddrinfo_LDADD = $(LDADD) @GETADDRINFO_LIB@ @LIBINTL@
 EXTRA_DIST += signature.h test-getaddrinfo.c
 
 ## end   gnulib module getaddrinfo-tests
+
+## begin gnulib module getcwd-lgpl
+
+
+EXTRA_DIST += getcwd-lgpl.c
+
+EXTRA_libtests_a_SOURCES += getcwd-lgpl.c
+
+## end   gnulib module getcwd-lgpl
+
+## begin gnulib module getcwd-lgpl-tests
+
+TESTS += test-getcwd-lgpl
+check_PROGRAMS += test-getcwd-lgpl
+EXTRA_DIST += test-getcwd-lgpl.c signature.h macros.h
+
+## end   gnulib module getcwd-lgpl-tests
 
 ## begin gnulib module getdelim-tests
 
@@ -419,7 +459,8 @@ EXTRA_DIST += test-iconv.c signature.h macros.h
 
 ## begin gnulib module ignore-value
 
-libtests_a_SOURCES += ignore-value.h
+
+EXTRA_DIST += ignore-value.h
 
 ## end   gnulib module ignore-value
 
@@ -458,6 +499,64 @@ EXTRA_DIST += test-inet_pton.c signature.h macros.h
 
 ## end   gnulib module inet_pton-tests
 
+## begin gnulib module intprops-tests
+
+TESTS += test-intprops
+check_PROGRAMS += test-intprops
+EXTRA_DIST += test-intprops.c macros.h
+
+## end   gnulib module intprops-tests
+
+## begin gnulib module inttypes-incomplete
+
+BUILT_SOURCES += inttypes.h
+
+# We need the following in order to create <inttypes.h> when the system
+# doesn't have one that works with the given compiler.
+inttypes.h: inttypes.in.h $(top_builddir)/config.status $(WARN_ON_USE_H) $(ARG_NONNULL_H)
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  sed -e 's/@''HAVE_INTTYPES_H''@/$(HAVE_INTTYPES_H)/g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
+	      -e 's|@''NEXT_INTTYPES_H''@|$(NEXT_INTTYPES_H)|g' \
+	      -e 's/@''PRI_MACROS_BROKEN''@/$(PRI_MACROS_BROKEN)/g' \
+	      -e 's/@''APPLE_UNIVERSAL_BUILD''@/$(APPLE_UNIVERSAL_BUILD)/g' \
+	      -e 's/@''HAVE_LONG_LONG_INT''@/$(HAVE_LONG_LONG_INT)/g' \
+	      -e 's/@''HAVE_UNSIGNED_LONG_LONG_INT''@/$(HAVE_UNSIGNED_LONG_LONG_INT)/g' \
+	      -e 's/@''PRIPTR_PREFIX''@/$(PRIPTR_PREFIX)/g' \
+	      -e 's/@''GNULIB_IMAXABS''@/$(GNULIB_IMAXABS)/g' \
+	      -e 's/@''GNULIB_IMAXDIV''@/$(GNULIB_IMAXDIV)/g' \
+	      -e 's/@''GNULIB_STRTOIMAX''@/$(GNULIB_STRTOIMAX)/g' \
+	      -e 's/@''GNULIB_STRTOUMAX''@/$(GNULIB_STRTOUMAX)/g' \
+	      -e 's/@''HAVE_DECL_IMAXABS''@/$(HAVE_DECL_IMAXABS)/g' \
+	      -e 's/@''HAVE_DECL_IMAXDIV''@/$(HAVE_DECL_IMAXDIV)/g' \
+	      -e 's/@''HAVE_DECL_STRTOIMAX''@/$(HAVE_DECL_STRTOIMAX)/g' \
+	      -e 's/@''HAVE_DECL_STRTOUMAX''@/$(HAVE_DECL_STRTOUMAX)/g' \
+	      -e 's/@''INT32_MAX_LT_INTMAX_MAX''@/$(INT32_MAX_LT_INTMAX_MAX)/g' \
+	      -e 's/@''INT64_MAX_EQ_LONG_MAX''@/$(INT64_MAX_EQ_LONG_MAX)/g' \
+	      -e 's/@''UINT32_MAX_LT_UINTMAX_MAX''@/$(UINT32_MAX_LT_UINTMAX_MAX)/g' \
+	      -e 's/@''UINT64_MAX_EQ_ULONG_MAX''@/$(UINT64_MAX_EQ_ULONG_MAX)/g' \
+	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
+	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
+	      < $(srcdir)/inttypes.in.h; \
+	} > $@-t && \
+	mv $@-t $@
+MOSTLYCLEANFILES += inttypes.h inttypes.h-t
+
+EXTRA_DIST += inttypes.in.h
+
+## end   gnulib module inttypes-incomplete
+
+## begin gnulib module inttypes-tests
+
+TESTS += test-inttypes
+check_PROGRAMS += test-inttypes
+EXTRA_DIST += test-inttypes.c
+
+## end   gnulib module inttypes-tests
+
 ## begin gnulib module ioctl
 
 
@@ -485,12 +584,13 @@ BUILT_SOURCES += locale.h
 locale.h: locale.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
 	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
-	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
 	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 	      -e 's|@''NEXT_LOCALE_H''@|$(NEXT_LOCALE_H)|g' \
-	      -e 's|@''GNULIB_SETLOCALE''@|$(GNULIB_SETLOCALE)|g' \
-	      -e 's|@''GNULIB_DUPLOCALE''@|$(GNULIB_DUPLOCALE)|g' \
+	      -e 's/@''GNULIB_SETLOCALE''@/$(GNULIB_SETLOCALE)/g' \
+	      -e 's/@''GNULIB_DUPLOCALE''@/$(GNULIB_DUPLOCALE)/g' \
 	      -e 's|@''HAVE_DUPLOCALE''@|$(HAVE_DUPLOCALE)|g' \
 	      -e 's|@''HAVE_XLOCALE_H''@|$(HAVE_XLOCALE_H)|g' \
 	      -e 's|@''REPLACE_SETLOCALE''@|$(REPLACE_SETLOCALE)|g' \
@@ -527,7 +627,7 @@ EXTRA_DIST += localename.h
 
 TESTS += test-localename
 check_PROGRAMS += test-localename
-test_localename_LDADD = $(LDADD) @INTL_MACOSX_LIBS@
+test_localename_LDADD = $(LDADD) @INTL_MACOSX_LIBS@ $(LIBTHREAD)
 
 EXTRA_DIST += test-localename.c macros.h
 
@@ -667,13 +767,6 @@ EXTRA_DIST += test-open.h test-open.c signature.h macros.h
 
 ## end   gnulib module open-tests
 
-## begin gnulib module pathmax
-
-
-EXTRA_DIST += pathmax.h
-
-## end   gnulib module pathmax
-
 ## begin gnulib module perror
 
 
@@ -685,9 +778,9 @@ EXTRA_libtests_a_SOURCES += perror.c
 
 ## begin gnulib module perror-tests
 
-TESTS += test-perror.sh
-check_PROGRAMS += test-perror
-EXTRA_DIST += signature.h test-perror.c test-perror.sh
+TESTS += test-perror.sh test-perror2
+check_PROGRAMS += test-perror test-perror2
+EXTRA_DIST += init.sh macros.h signature.h test-perror.c test-perror2.c test-perror.sh
 
 ## end   gnulib module perror-tests
 
@@ -893,6 +986,23 @@ EXTRA_DIST += test-strerror.c signature.h macros.h
 
 ## end   gnulib module strerror-tests
 
+## begin gnulib module strerror_r-posix
+
+
+EXTRA_DIST += strerror_r.c
+
+EXTRA_libtests_a_SOURCES += strerror_r.c
+
+## end   gnulib module strerror_r-posix
+
+## begin gnulib module strerror_r-posix-tests
+
+TESTS += test-strerror_r
+check_PROGRAMS += test-strerror_r
+EXTRA_DIST += test-strerror_r.c signature.h macros.h
+
+## end   gnulib module strerror_r-posix-tests
+
 ## begin gnulib module striconv-tests
 
 TESTS += test-striconv
@@ -938,12 +1048,13 @@ sys/ioctl.h: sys_ioctl.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(WARN_ON
 	$(AM_V_at)$(MKDIR_P) sys
 	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  sed -e 's|@''HAVE_SYS_IOCTL_H''@|$(HAVE_SYS_IOCTL_H)|g' \
+	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's|@''HAVE_SYS_IOCTL_H''@|$(HAVE_SYS_IOCTL_H)|g' \
 	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
 	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 	      -e 's|@''NEXT_SYS_IOCTL_H''@|$(NEXT_SYS_IOCTL_H)|g' \
-	      -e 's|@''GNULIB_IOCTL''@|$(GNULIB_IOCTL)|g' \
+	      -e 's/@''GNULIB_IOCTL''@/$(GNULIB_IOCTL)/g' \
 	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H)|g' \
 	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS)|g' \
 	      -e 's|@''REPLACE_IOCTL''@|$(REPLACE_IOCTL)|g' \
@@ -993,22 +1104,23 @@ sys/stat.h: sys_stat.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNU
 	$(AM_V_at)$(MKDIR_P) sys
 	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
 	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 	      -e 's|@''NEXT_SYS_STAT_H''@|$(NEXT_SYS_STAT_H)|g' \
-	      -e 's|@''GNULIB_FCHMODAT''@|$(GNULIB_FCHMODAT)|g' \
-	      -e 's|@''GNULIB_FSTATAT''@|$(GNULIB_FSTATAT)|g' \
-	      -e 's|@''GNULIB_FUTIMENS''@|$(GNULIB_FUTIMENS)|g' \
-	      -e 's|@''GNULIB_LCHMOD''@|$(GNULIB_LCHMOD)|g' \
-	      -e 's|@''GNULIB_LSTAT''@|$(GNULIB_LSTAT)|g' \
-	      -e 's|@''GNULIB_MKDIRAT''@|$(GNULIB_MKDIRAT)|g' \
-	      -e 's|@''GNULIB_MKFIFO''@|$(GNULIB_MKFIFO)|g' \
-	      -e 's|@''GNULIB_MKFIFOAT''@|$(GNULIB_MKFIFOAT)|g' \
-	      -e 's|@''GNULIB_MKNOD''@|$(GNULIB_MKNOD)|g' \
-	      -e 's|@''GNULIB_MKNODAT''@|$(GNULIB_MKNODAT)|g' \
-	      -e 's|@''GNULIB_STAT''@|$(GNULIB_STAT)|g' \
-	      -e 's|@''GNULIB_UTIMENSAT''@|$(GNULIB_UTIMENSAT)|g' \
+	      -e 's/@''GNULIB_FCHMODAT''@/$(GNULIB_FCHMODAT)/g' \
+	      -e 's/@''GNULIB_FSTATAT''@/$(GNULIB_FSTATAT)/g' \
+	      -e 's/@''GNULIB_FUTIMENS''@/$(GNULIB_FUTIMENS)/g' \
+	      -e 's/@''GNULIB_LCHMOD''@/$(GNULIB_LCHMOD)/g' \
+	      -e 's/@''GNULIB_LSTAT''@/$(GNULIB_LSTAT)/g' \
+	      -e 's/@''GNULIB_MKDIRAT''@/$(GNULIB_MKDIRAT)/g' \
+	      -e 's/@''GNULIB_MKFIFO''@/$(GNULIB_MKFIFO)/g' \
+	      -e 's/@''GNULIB_MKFIFOAT''@/$(GNULIB_MKFIFOAT)/g' \
+	      -e 's/@''GNULIB_MKNOD''@/$(GNULIB_MKNOD)/g' \
+	      -e 's/@''GNULIB_MKNODAT''@/$(GNULIB_MKNODAT)/g' \
+	      -e 's/@''GNULIB_STAT''@/$(GNULIB_STAT)/g' \
+	      -e 's/@''GNULIB_UTIMENSAT''@/$(GNULIB_UTIMENSAT)/g' \
 	      -e 's|@''HAVE_FCHMODAT''@|$(HAVE_FCHMODAT)|g' \
 	      -e 's|@''HAVE_FSTATAT''@|$(HAVE_FSTATAT)|g' \
 	      -e 's|@''HAVE_FUTIMENS''@|$(HAVE_FUTIMENS)|g' \
@@ -1089,15 +1201,16 @@ BUILT_SOURCES += time.h
 time.h: time.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
 	$(AM_V_GEN)rm -f $@-t $@ && \
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
-	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
 	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 	      -e 's|@''NEXT_TIME_H''@|$(NEXT_TIME_H)|g' \
-	      -e 's|@''GNULIB_MKTIME''@|$(GNULIB_MKTIME)|g' \
-	      -e 's|@''GNULIB_NANOSLEEP''@|$(GNULIB_NANOSLEEP)|g' \
-	      -e 's|@''GNULIB_STRPTIME''@|$(GNULIB_STRPTIME)|g' \
-	      -e 's|@''GNULIB_TIMEGM''@|$(GNULIB_TIMEGM)|g' \
-	      -e 's|@''GNULIB_TIME_R''@|$(GNULIB_TIME_R)|g' \
+	      -e 's/@''GNULIB_MKTIME''@/$(GNULIB_MKTIME)/g' \
+	      -e 's/@''GNULIB_NANOSLEEP''@/$(GNULIB_NANOSLEEP)/g' \
+	      -e 's/@''GNULIB_STRPTIME''@/$(GNULIB_STRPTIME)/g' \
+	      -e 's/@''GNULIB_TIMEGM''@/$(GNULIB_TIMEGM)/g' \
+	      -e 's/@''GNULIB_TIME_R''@/$(GNULIB_TIME_R)/g' \
 	      -e 's|@''HAVE_DECL_LOCALTIME_R''@|$(HAVE_DECL_LOCALTIME_R)|g' \
 	      -e 's|@''HAVE_NANOSLEEP''@|$(HAVE_NANOSLEEP)|g' \
 	      -e 's|@''HAVE_STRPTIME''@|$(HAVE_STRPTIME)|g' \
@@ -1137,6 +1250,26 @@ EXTRA_DIST += test-unistd.c
 
 ## end   gnulib module unistd-tests
 
+## begin gnulib module unistr/u8-mbtoucr-tests
+
+TESTS += test-u8-mbtoucr
+check_PROGRAMS += test-u8-mbtoucr
+test_u8_mbtoucr_SOURCES = unistr/test-u8-mbtoucr.c
+test_u8_mbtoucr_LDADD = $(LDADD) $(LIBUNISTRING)
+EXTRA_DIST += unistr/test-u8-mbtoucr.c macros.h
+
+## end   gnulib module unistr/u8-mbtoucr-tests
+
+## begin gnulib module unistr/u8-uctomb-tests
+
+TESTS += test-u8-uctomb
+check_PROGRAMS += test-u8-uctomb
+test_u8_uctomb_SOURCES = unistr/test-u8-uctomb.c
+test_u8_uctomb_LDADD = $(LDADD) $(LIBUNISTRING)
+EXTRA_DIST += unistr/test-u8-uctomb.c macros.h
+
+## end   gnulib module unistr/u8-uctomb-tests
+
 ## begin gnulib module unsetenv
 
 
@@ -1153,6 +1286,31 @@ check_PROGRAMS += test-unsetenv
 EXTRA_DIST += test-unsetenv.c signature.h macros.h
 
 ## end   gnulib module unsetenv-tests
+
+## begin gnulib module unused-parameter
+
+# The BUILT_SOURCES created by this Makefile snippet are not used via #include
+# statements but through direct file reference. Therefore this snippet must be
+# present in all Makefile.am that need it. This is ensured by the applicability
+# 'all' defined above.
+
+BUILT_SOURCES += unused-parameter.h
+# The unused-parameter.h that gets inserted into generated .h files is the same
+# as build-aux/unused-parameter.h, except that it has the copyright header cut
+# off.
+unused-parameter.h: $(top_srcdir)/lib/build-aux/unused-parameter.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	sed -n -e '/GL_UNUSED_PARAMETER/,$$p' \
+	  < $(top_srcdir)/lib/build-aux/unused-parameter.h \
+	  > $@-t && \
+	mv $@-t $@
+MOSTLYCLEANFILES += unused-parameter.h unused-parameter.h-t
+
+UNUSED_PARAMETER_H=unused-parameter.h
+
+EXTRA_DIST += $(top_srcdir)/lib/build-aux/unused-parameter.h
+
+## end   gnulib module unused-parameter
 
 ## begin gnulib module vasnprintf-tests
 

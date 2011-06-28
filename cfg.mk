@@ -34,7 +34,7 @@ VC_LIST_ALWAYS_EXCLUDE_REGEX = \
 	^(gtk-doc.make|m4/pkg.m4|doc/fdl-1.3.texi|doc/specification|doc/doxygen/Doxyfile|(lib/)?maint.mk|((lib/)?(gl|gltests|build-aux))/.*)
 
 # Explicit syntax-check exceptions.
-exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^doc/.*.(dia|png)
+exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^doc/.*\.(dia|png)|tests/gssapi.tkt$$
 exclude_file_name_regexp--sc_copyright_check = ^doc/gsasl.texi$$
 exclude_file_name_regexp--sc_GPL_version = ^doc/lgpl-2.1.texi|lib/.*$$
 exclude_file_name_regexp--sc_unmarked_diagnostics = ^examples/.*|src/gsasl.c$$
