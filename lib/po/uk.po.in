@@ -1,0 +1,284 @@
+# Translation of libgsasl to Ukrainian
+#
+# Copyright (C) 2011 Free Software Foundation, Inc.
+# This file is distributed under the same license as the libgsasl package.
+#
+# Yuri Chornoivan <yurchor@ukr.net>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: libgsasl 1.6.1\n"
+"Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
+"POT-Creation-Date: 2011-05-01 17:34+0200\n"
+"PO-Revision-Date: 2011-05-04 17:01+0300\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/error.c:46
+msgid "Libgsasl success"
+msgstr "Libgsasl виконала завдання"
+
+#: src/error.c:47
+msgid "SASL mechanism needs more data"
+msgstr "Механізмові SASL потрібні додаткові дані"
+
+#: src/error.c:48
+msgid "Unknown SASL mechanism"
+msgstr "Невідомий механізм SASL"
+
+#: src/error.c:50
+msgid "SASL mechanism called too many times"
+msgstr "Механізм SASL викликано занадто багато разів"
+
+#: src/error.c:52
+msgid "SASL function needs larger buffer (internal error)"
+msgstr "Функція SASL потребує більшого буфера (внутрішня помилка)"
+
+#: src/error.c:53
+msgid "Could not open file in SASL library"
+msgstr "Не вдалося відкрити файл у бібліотеці SASL"
+
+#: src/error.c:54
+msgid "Could not close file in SASL library"
+msgstr "Не вдалося закрити файл у бібліотеці SASL"
+
+#: src/error.c:55
+msgid "Memory allocation error in SASL library"
+msgstr "Помилка під час спроби розміщення бібліотекою SASL даних у пам’яті"
+
+#: src/error.c:56
+msgid "Base 64 coding error in SASL library"
+msgstr "Помилка під час кодування у форматі Base64 у бібліотеці SASL"
+
+#: src/error.c:57
+msgid "Low-level crypto error in SASL library"
+msgstr "Помилка низькорівневого шифрування у бібліотеці SASL"
+
+#: src/error.c:60
+msgid "SASL mechanism needs gsasl_client_callback_anonymous() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_client_callback_anonymous() (помилка програми)"
+
+#: src/error.c:63
+msgid "SASL mechanism needs gsasl_client_callback_password() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_client_callback_password() (помилка програми)"
+
+#: src/error.c:66
+msgid "SASL mechanism needs gsasl_client_callback_passcode() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_client_callback_passcode() (помилка програми)"
+
+#: src/error.c:69
+msgid "SASL mechanism needs gsasl_client_callback_pin() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_client_callback_pin() (помилка програми)"
+
+#: src/error.c:72
+msgid "SASL mechanism needs gsasl_client_callback_authorization_id() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_client_callback_authorization_id() (помилка програми)"
+
+#: src/error.c:75
+msgid "SASL mechanism needs gsasl_client_callback_authentication_id() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_client_callback_authentication_id() (помилка програми)"
+
+#: src/error.c:78
+msgid "SASL mechanism needs gsasl_client_callback_service() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_client_callback_service() (помилка програми)"
+
+#: src/error.c:81
+msgid "SASL mechanism needs gsasl_server_callback_validate() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_server_callback_validate() (помилка програми)"
+
+#: src/error.c:84
+msgid "SASL mechanism needs gsasl_server_callback_cram_md5() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_server_callback_cram_md5() (помилка програми)"
+
+#: src/error.c:87
+msgid "SASL mechanism needs gsasl_server_callback_digest_md5() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_server_callback_digest_md5() (помилка програми)"
+
+#: src/error.c:90
+msgid "SASL mechanism needs gsasl_server_callback_external() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_server_callback_external() (помилка програми)"
+
+#: src/error.c:93
+msgid "SASL mechanism needs gsasl_server_callback_anonymous() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_server_callback_anonymous() (помилка програми)"
+
+#: src/error.c:96
+msgid "SASL mechanism needs gsasl_server_callback_realm() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_server_callback_realm() (помилка програми)"
+
+#: src/error.c:99
+msgid "SASL mechanism needs gsasl_server_callback_securid() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_server_callback_securid() (помилка програми)"
+
+#: src/error.c:102
+msgid "SASL mechanism needs gsasl_server_callback_service() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_server_callback_service() (помилка програми)"
+
+#: src/error.c:105
+msgid "SASL mechanism needs gsasl_server_callback_gssapi() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_server_callback_gssapi() (помилка програми)"
+
+#: src/error.c:108
+msgid "SASL mechanism needs gsasl_server_callback_retrieve() callback (application error)"
+msgstr "Механізмові SASL потрібен зворотний виклик gsasl_server_callback_retrieve() (помилка програми)"
+
+#: src/error.c:111
+msgid "Failed to perform Unicode Normalization on string."
+msgstr "Не вдалося виконати нормалізацію Unicode рядка."
+
+#: src/error.c:113
+msgid "Could not prepare internationalized (non-ASCII) string."
+msgstr "Не вдалося підготувати інтернаціоналізований (не-ASCII) рядок."
+
+#: src/error.c:115
+msgid "SASL mechanism could not parse input"
+msgstr "Механізмові SASL не вдалося розібрати вхідні дані"
+
+#: src/error.c:116
+msgid "Error authenticating user"
+msgstr "Помилка під час розпізнавання користувача"
+
+#: src/error.c:118
+msgid "Cannot get internal library handle (library error)"
+msgstr "Не вдалося отримати внутрішній дескриптор бібліотеки (помилка бібліотеки)"
+
+#: src/error.c:119
+msgid "Integrity error in application payload"
+msgstr "Помилка цілісності у даних програми"
+
+#: src/error.c:120
+msgid "No more realms available (non-fatal)"
+msgstr "Вичерпано перелік доступних областей (некритична помилка)"
+
+#: src/error.c:122
+msgid "Client-side functionality not available in library (application error)"
+msgstr "Функціональні можливості клієнта бібліотекою не надаються (помилка програми)"
+
+#: src/error.c:125
+msgid "Server-side functionality not available in library (application error)"
+msgstr "Функціональні можливості сервера бібліотекою не надаються (помилка програми)"
+
+#: src/error.c:128
+msgid "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL library.  This is a serious internal error."
+msgstr "Бібліотеці GSSAPI не вдалося звільнити пам’ять у gss_release_buffer() у бібліотеці SASL. Це серйозна внутрішня помилка."
+
+#: src/error.c:132
+msgid "GSSAPI library could not understand a peer name in gss_import_name() in SASL library.  This is most likely due to incorrect service and/or hostnames."
+msgstr "Бібліотеці GSSAPI не вдалося розібрати назву вузла у функції gss_import_name() бібліотеки SASL. Найімовірнішою причиною є помилкова назва служби або вузла."
+
+#: src/error.c:136
+msgid "GSSAPI error in client while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgstr "Помилка GSSAPI у клієнтській програмі під час узгодження контексту захисту у функції gss_init_sec_context() бібліотеки SASL. Найімовірнішою причиною є недостатні реєстраційні дані або зловмисне втручання у роботу."
+
+#: src/error.c:140
+msgid "GSSAPI error in server while negotiating security context in gss_accept_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
+msgstr "Помилка GSSAPI у серверній програмі під час узгодження контексту захисту у функції gss_accept_sec_context() бібліотеки SASL. Найімовірнішою причиною є недостатні реєстраційні дані або зловмисне втручання у роботу."
+
+#: src/error.c:144
+msgid "GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL library.  This is most likely due to data corruption."
+msgstr "Помилка GSSAPI під час розшифрування або декодування даних у функції gss_unwrap() бібліотеки SASL. Найімовірнішою причиною є пошкодження даних."
+
+#: src/error.c:147
+msgid "GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
+msgstr "Помилка GSSAPI під час спроби шифрування або кодування даних у функції gss_wrap() бібліотеки SASL."
+
+#: src/error.c:150
+msgid "GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  This is most likely due to not having the proper Kerberos key available in /etc/krb5.keytab on the server."
+msgstr "Помилка GSSAPI під час спроби отримання реєстраційних даних у функції gss_acquire_cred() бібліотеки SASL. Найімовірнішою причиною є нестача належного ключа Kerberos у /etc/krb5.keytab на сервері."
+
+#: src/error.c:154
+msgid "GSSAPI error creating a display name denoting the client in gss_display_name() in SASL library.  This is probably because the client supplied bad data."
+msgstr "Помилка GSSAPI під час спроби створення назви клієнта для показу у функції gss_display_name() бібліотеки SASL. Ймовірною причиною є надання клієнтською частиною помилкових даних."
+
+#: src/error.c:158
+msgid "Other entity requested integrity or confidentiality protection in GSSAPI mechanism but this is currently not implemented."
+msgstr "Надійшов запит від іншого екземпляра програми щодо перевірки цілісності або захисту конфіденційності за допомогою механізмів GSSAPI. Можливість виконання декількох запитів одночасно ще не реалізовано."
+
+#: src/error.c:161
+msgid "Kerberos V5 initialization failure."
+msgstr "Помилка під час спроби ініціалізації Kerberos V5."
+
+#: src/error.c:163
+msgid "Kerberos V5 internal error."
+msgstr "Внутрішня помилка Kerberos V5."
+
+#: src/error.c:165
+msgid "SecurID needs additional passcode."
+msgstr "SecurID потрібен додатковий код пароля."
+
+#: src/error.c:167
+msgid "SecurID needs new pin."
+msgstr "SecurID потрібен новий ідентифікаційний код (PIN)."
+
+#: src/error.c:169
+msgid "The provided library handle was invalid (application error)"
+msgstr "Наданий дескриптор бібліотеки виявився некоректним (помилка програми)"
+
+#: src/error.c:171
+msgid "No callback specified by caller (application error)."
+msgstr "Функцією виклику не вказано зворотної адреси (помилка програми)."
+
+#: src/error.c:173
+msgid "Authentication failed because the anonymous token was not provided."
+msgstr "Помилка розпізнавання через ненадання анонімної лексеми."
+
+#: src/error.c:176
+msgid "Authentication failed because the authentication identity was not provided."
+msgstr "Помилка розпізнавання через ненадання назви профілю розпізнавання."
+
+#: src/error.c:179
+msgid "Authentication failed because the authorization identity was not provided."
+msgstr "Помилка розпізнавання через ненадання назви профілю уповноваження."
+
+#: src/error.c:182
+msgid "Authentication failed because the password was not provided."
+msgstr "Помилка розпізнавання через ненадання пароля."
+
+#: src/error.c:184
+msgid "Authentication failed because the passcode was not provided."
+msgstr "Помилка розпізнавання через ненадання коду пароля."
+
+#: src/error.c:186
+msgid "Authentication failed because the pin code was not provided."
+msgstr "Помилка розпізнавання через ненадання особистого ідентифікаційного коду (PIN)."
+
+#: src/error.c:188
+msgid "Authentication failed because the service name was not provided."
+msgstr "Помилка розпізнавання через ненадання назви сервера."
+
+#: src/error.c:190
+msgid "Authentication failed because the host name was not provided."
+msgstr "Помилка розпізнавання через ненадання назви вузла."
+
+#: src/error.c:192
+msgid "GSSAPI error encapsulating token."
+msgstr "Помилка GSSAPI під час капсуляції лексеми."
+
+#: src/error.c:194
+msgid "GSSAPI error decapsulating token."
+msgstr "Помилка GSSAPI під час декапсуляції лексеми."
+
+#: src/error.c:196
+msgid "GSSAPI error getting OID for SASL mechanism name."
+msgstr "Помилка GSSAPI під час отримання OID для назви механізму SASL."
+
+#: src/error.c:198
+msgid "GSSAPI error testing for OID in OID set."
+msgstr "Помилка тестування GSSAPI під час роботи з OID у наборі OID."
+
+#: src/error.c:200
+msgid "GSSAPI error releasing OID set."
+msgstr "Помилка GSSAPI під час звільнення набору OID."
+
+#: src/error.c:202
+msgid "Authentication failed because a tls-unique CB was not provided."
+msgstr "Помилка розпізнавання через ненадання унікальної для TLS прив’язки до каналу."
+
+#: src/error.c:224
+msgid "Libgsasl unknown error"
+msgstr "Невідома помилка libgsasl"

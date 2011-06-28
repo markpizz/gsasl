@@ -1,44 +1,41 @@
-# Dutch translations for gsasl.
-# Copyright (C) 2010 Free Software Foundation, Inc.
+# Dutch translations for GNU gsasl.
+# Copyright (C) 2011 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
 #
 # Taco Witte <tcwitte@cs.uu.nl>, 2004, 2005, 2006.
 # Erwin Poeze <erwin.poeze@gmail.com>, 2009, 2010.
-# Benno Schulenberg <benno@vertaalt.nl>, 2008, 2010.
+# Benno Schulenberg <benno@vertaalt.nl>, 2008, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl-1.4.1\n"
+"Project-Id-Version: gsasl-1.6.1\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2010-02-16 14:57+0100\n"
-"PO-Revision-Date: 2010-05-02 15:01+0200\n"
+"POT-Creation-Date: 2011-05-01 17:35+0200\n"
+"PO-Revision-Date: 2011-05-04 21:02+0200\n"
 "Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/imap.c:78 src/smtp.c:81
+#: src/imap.c:76 src/smtp.c:79
 #, c-format
 msgid "Chose SASL mechanisms:\n"
 msgstr "Gekozen SASL-methoden:\n"
 
-#: src/imap.c:108 src/smtp.c:112 src/gsasl.c:198
+#: src/imap.c:106 src/smtp.c:110 src/gsasl.c:206
 #, c-format
 msgid "Using mechanism:\n"
 msgstr "Gebruikte methode:\n"
 
-#: src/imap.c:152
+#: src/imap.c:156
 #, c-format
-msgid ""
-"error: Server did not return expected SASL data (it must begin with '+ '):\n"
-"%s\n"
-msgstr ""
-"fout: server levert niet de verwachte SASL-gegevens (moet beginnen met '+ '):\n"
-"%s\n"
+msgid "error: server did not return a token\n"
+msgstr "fout: server heeft geen token teruggegeven\n"
 
-#: src/smtp.c:154
+#: src/smtp.c:158
 #, c-format
 msgid ""
 "error: Server did not return expected SASL data (it must begin with '334 '):\n"
@@ -47,220 +44,232 @@ msgstr ""
 "fout: server levert niet de verwachte SASL-gegevens (moet beginnen met '334 '):\n"
 "%s\n"
 
-#: src/gsasl.c:170
+#: src/gsasl.c:178
 #, c-format
 msgid "Choose SASL mechanism:\n"
 msgstr "Kies de SASL-methode:\n"
 
-#: src/gsasl.c:179
+#: src/gsasl.c:187
 #, c-format
 msgid "Input list of SASL mechanisms supported by server:\n"
 msgstr "Invoerlijst van SASL-methoden ondersteund door server:\n"
 
-#: src/gsasl.c:215
+#: src/gsasl.c:223
 #, c-format
 msgid "Output from server:\n"
 msgstr "Serveruitvoer:\n"
 
-#: src/gsasl.c:217
+#: src/gsasl.c:225
 #, c-format
 msgid "Output from client:\n"
 msgstr "Cliëntuitvoer:\n"
 
-#: src/gsasl.c:273
+#: src/gsasl.c:281
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Typ '%s --help' voor meer informatie.\n"
 
-#: src/gsasl.c:321
+#: src/gsasl.c:336
 #, c-format
 msgid "missing argument"
 msgstr "ontbrekend argument"
 
-#: src/gsasl.c:328
+#: src/gsasl.c:343
 #, c-format
 msgid "need both --x509-cert-file and --x509-key-file"
 msgstr "opties '--x509-cert-file' en '--x509-key-file' zijn beide nodig"
 
-#: src/gsasl.c:332
+#: src/gsasl.c:347
 #, c-format
 msgid "cannot use both --starttls and --no-starttls"
 msgstr "opties '--starttls' en '--no-starttls' gaan niet samen"
 
-#: src/gsasl.c:335
+#: src/gsasl.c:350
 #, c-format
 msgid "cannot use both --smtp and --imap"
 msgstr "opties '--smtp' en '--imap' gaan niet samen"
 
-#: src/gsasl.c:400
+#: src/gsasl.c:415
 #, c-format
 msgid "initialization failure: %s"
 msgstr "initialisatiefout: %s"
 
-#: src/gsasl.c:415
+#: src/gsasl.c:430
 #, c-format
 msgid "error listing mechanisms: %s"
 msgstr "fout bij opsommen van methoden: %s"
 
-#: src/gsasl.c:422
+#: src/gsasl.c:437
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Deze cliënt ondersteunt de volgende methoden:\n"
 
-#: src/gsasl.c:425
+#: src/gsasl.c:440
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Deze server ondersteunt de volgende methoden:\n"
 
-#: src/gsasl.c:491
+#: src/gsasl.c:508
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
 msgstr "algemene GnuTLS-initialisatie is mislukt: %s"
 
-#: src/gsasl.c:496
+#: src/gsasl.c:513
 #, c-format
 msgid "GnuTLS initialization failed: %s"
 msgstr "GnuTLS-initialisatie is mislukt: %s"
 
-#: src/gsasl.c:501
+#: src/gsasl.c:518
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
 msgstr "instellen van GnuTLS-standaardwaarden is mislukt: %s"
 
-#: src/gsasl.c:507
+#: src/gsasl.c:524
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
 msgstr "reserveren van anonieme GnuTLS-vertrouwensgegevens: %s"
 
-#: src/gsasl.c:512
+#: src/gsasl.c:529
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
 msgstr "instellen van anonieme GnuTLS-vertrouwensgegevens: %s"
 
-#: src/gsasl.c:517
+#: src/gsasl.c:534
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
 msgstr "reserveren van X.509 GnuTLS-vertrouwensgegevens: %s"
 
-#: src/gsasl.c:525
+#: src/gsasl.c:542
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
 msgstr "laden van X.509 GnuTLS-vertrouwensgegevens: %s"
 
-#: src/gsasl.c:533
+#: src/gsasl.c:550
 #, c-format
 msgid "no X.509 CAs found: %s"
 msgstr "geen X.509 certificaatautoriteiten gevonden: %s"
 
-#: src/gsasl.c:536
+#: src/gsasl.c:553
 #, c-format
 msgid "no X.509 CAs found"
 msgstr "geen X.509 certificaatautoriteiten gevonden"
 
-#: src/gsasl.c:542
+#: src/gsasl.c:559
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
 msgstr "instellen van X.509 GnuTLS-vertrouwensgegevens: %s"
 
-#: src/gsasl.c:553
+#: src/gsasl.c:570
 #, c-format
 msgid "setting GnuTLS cipher priority (%s): %s\n"
 msgstr "instellen van GnuTLS-sleuteluitwisselingsprioriteit (%s): %s\n"
 
-#: src/gsasl.c:564
+#: src/gsasl.c:582
 #, c-format
 msgid "GnuTLS handshake failed: %s"
 msgstr "GnuTLS-handshake is mislukt: %s"
 
-#: src/gsasl.c:573
+#: src/gsasl.c:591
 #, c-format
 msgid "verifying peer certificate: %s"
 msgstr "verifiëren van certificaat van andere computer: %s"
 
-#: src/gsasl.c:577
+#: src/gsasl.c:595
 #, c-format
 msgid "server certificate is not trusted"
 msgstr "servercertificaat wordt niet vertrouwd"
 
-#: src/gsasl.c:581
+#: src/gsasl.c:599
 #, c-format
 msgid "server certificate hasn't got a known issuer"
 msgstr "servercertificaat heeft geen bekende uitgever"
 
-#: src/gsasl.c:584
+#: src/gsasl.c:602
 #, c-format
 msgid "server certificate has been revoked"
 msgstr "servercertificaat is ingetrokken"
 
-#: src/gsasl.c:588
+#: src/gsasl.c:606
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
 msgstr "kan servercertificaat niet verifiëren (rc=%d)"
 
-#: src/gsasl.c:611
+#: src/gsasl.c:617
+#, c-format
+msgid "getting channel binding failed: %s"
+msgstr "verkrijgen van kanaalbinding is mislukt: %s"
+
+#: src/gsasl.c:647
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Kan methode niet vinden...\n"
 
-#: src/gsasl.c:628
+#: src/gsasl.c:664
 #, c-format
 msgid "mechanism unavailable: %s"
 msgstr "methode is onbeschikbaar: %s"
 
-#: src/gsasl.c:657
+#: src/gsasl.c:693
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
 msgstr "Geef base64-authenticatiegegevens van de cliënt (druk op Enter als geen):\n"
 
-#: src/gsasl.c:660
+#: src/gsasl.c:696
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
 msgstr "Geef base64-authenticatiegegevens van de server (druk op Enter als geen):\n"
 
-#: src/gsasl.c:670
+#: src/gsasl.c:706
 #, c-format
 msgid "mechanism error: %s"
 msgstr "methodefout: %s"
 
-#: src/gsasl.c:679
+#: src/gsasl.c:715
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Serverauthenticatie is voltooid (cliënt wordt vertrouwd).\n"
 
-#: src/gsasl.c:682
+#: src/gsasl.c:718
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Cliëntauthenticatie is voltooid (server wordt vertrouwd).\n"
 
-#: src/gsasl.c:705
+#: src/gsasl.c:742
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Voer toepassingsgegevens in (geef EOF om af te sluiten):\n"
 
-#: src/gsasl.c:780
+#: src/gsasl.c:814
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Te verzenden base64-gecodeerde toepassingsgegevens:\n"
 
-#: src/gsasl.c:822
+#: src/gsasl.c:859
 #, c-format
 msgid "SASL record too large: %zu\n"
 msgstr "SASL-record is te lang: %zu\n"
 
-#: src/gsasl.c:841
+#: src/gsasl.c:883
 #, c-format
 msgid "encoding error: %s"
 msgstr "coderingsfout: %s"
 
-#: src/gsasl.c:846
+#: src/gsasl.c:888
 #, c-format
 msgid "Session finished...\n"
 msgstr "Sessie is voltooid.\n"
 
-#: src/gsasl.c:862
+#: src/gsasl.c:904
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
 msgstr "beëindigen van GnuTLS-sessie is mislukt: %s"
+
+#~ msgid ""
+#~ "error: Server did not return expected SASL data (it must begin with '+ '):\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "fout: server levert niet de verwachte SASL-gegevens (moet beginnen met '+ '):\n"
+#~ "%s\n"
 
 #~ msgid ""
 #~ "\n"
