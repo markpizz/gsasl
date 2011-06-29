@@ -1,5 +1,5 @@
 /* gsasl.h --- Header file for GNU SASL Library.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2002-2011  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -136,6 +136,8 @@ extern "C"
    * @GSASL_NO_SERVICE: Could not get required service name.
    * @GSASL_NO_HOSTNAME: Could not get required hostname.
    * @GSASL_NO_CB_TLS_UNIQUE: Could not get required tls-unique CB.
+   * @GSASL_NO_SAML20_IDP_IDENTIFIER: Could not get required SAML IdP.
+   * @GSASL_NO_SAML20_REDIRECT_URL: Could not get required redirect URL.
    * @GSASL_GSSAPI_RELEASE_BUFFER_ERROR: GSS-API library call error.
    * @GSASL_GSSAPI_IMPORT_NAME_ERROR: GSS-API library call error.
    * @GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR: GSS-API library call error.
@@ -186,6 +188,8 @@ extern "C"
     GSASL_NO_SERVICE = 58,
     GSASL_NO_HOSTNAME = 59,
     GSASL_NO_CB_TLS_UNIQUE = 65,
+    GSASL_NO_SAML20_IDP_IDENTIFIER = 66,
+    GSASL_NO_SAML20_REDIRECT_URL = 67,
     /* Mechanism specific errors. */
     GSASL_GSSAPI_RELEASE_BUFFER_ERROR = 37,
     GSASL_GSSAPI_IMPORT_NAME_ERROR = 38,
@@ -300,11 +304,15 @@ extern "C"
    * @GSASL_SCRAM_SALTED_PASSWORD: Pre-computed salted SCRAM key,
    *   to avoid re-computation and storing passwords in the clear.
    * @GSASL_CB_TLS_UNIQUE: Base64 encoded tls-unique channel binding.
+   * @GSASL_SAML20_IDP_IDENTIFIER: SAML20 user IdP URL.
+   * @GSASL_SAML20_REDIRECT_URL: SAML20 challenge from server to client.
+   * @GSASL_SAML20_AUTHENTICATE_IN_BROWSER: Request to perform SAML20.
    * @GSASL_VALIDATE_SIMPLE: Request for simple validation.
    * @GSASL_VALIDATE_EXTERNAL: Request for validation of EXTERNAL.
    * @GSASL_VALIDATE_ANONYMOUS: Request for validation of ANONYMOUS.
    * @GSASL_VALIDATE_GSSAPI: Request for validation of GSSAPI/GS2.
    * @GSASL_VALIDATE_SECURID: Reqest for validation of SecurID.
+   * @GSASL_VALIDATE_SAML20: Reqest for validation of SAML20.
    *
    * Callback/property types.
    */
@@ -329,12 +337,17 @@ extern "C"
     GSASL_SCRAM_SALT = 16,
     GSASL_SCRAM_SALTED_PASSWORD = 17,
     GSASL_CB_TLS_UNIQUE = 18,
+    GSASL_SAML20_IDP_IDENTIFIER = 19,
+    GSASL_SAML20_REDIRECT_URL = 20,
+    /* Client callbacks. */
+    GSASL_SAML20_AUTHENTICATE_IN_BROWSER = 250,
     /* Server validation callback properties. */
     GSASL_VALIDATE_SIMPLE = 500,
     GSASL_VALIDATE_EXTERNAL = 501,
     GSASL_VALIDATE_ANONYMOUS = 502,
     GSASL_VALIDATE_GSSAPI = 503,
-    GSASL_VALIDATE_SECURID = 504
+    GSASL_VALIDATE_SECURID = 504,
+    GSASL_VALIDATE_SAML20 = 505
   } Gsasl_property;
 
   /**

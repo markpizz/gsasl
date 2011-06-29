@@ -1,4 +1,4 @@
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Simon Josefsson
 #
 # This file is part of GNU SASL Library.
 #
@@ -38,7 +38,8 @@ libgsasl_la_SOURCES = libgsasl.map \
 	supportp.c suggest.c listmech.c \
 	xstart.c xstep.c xfinish.c xcode.c mechname.c \
 	base64.c md5pwd.c crypto.c \
-	saslprep.c free.c
+	saslprep.c free.c \
+	mechtools.c mechtools.h
 
 if HAVE_LD_VERSION_SCRIPT
 libgsasl_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libgsasl.map
@@ -87,6 +88,10 @@ endif
 
 if SCRAM
 libgsasl_la_LIBADD += ../scram/libgsasl-scram.la
+endif
+
+if SAML20
+libgsasl_la_LIBADD += ../saml20/libgsasl-saml20.la
 endif
 
 if NTLM

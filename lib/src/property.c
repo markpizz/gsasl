@@ -1,5 +1,5 @@
 /* property.c --- Callback property handling.
- * Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2004-2011  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -103,6 +103,18 @@ map (Gsasl_session * sctx, Gsasl_property prop)
     case GSASL_CB_TLS_UNIQUE:
       p = &sctx->cb_tls_unique;
       break;
+
+    case GSASL_SAML20_IDP_IDENTIFIER:
+      p = &sctx->saml20_idp_identifier;
+      break;
+
+    case GSASL_SAML20_REDIRECT_URL:
+      p = &sctx->saml20_redirect_url;
+      break;
+
+      /* If you add anything here, remember to change change
+	 gsasl_finish() in xfinish.c and Gsasl_session in
+	 internal.h.  */
 
     default:
       break;

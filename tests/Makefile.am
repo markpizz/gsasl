@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Simon Josefsson
+# Copyright (C) 2002-2011 Simon Josefsson
 #
 # This file is part of GNU SASL.
 #
@@ -42,7 +42,7 @@ TESTS_ENVIRONMENT = \
 	$(VALGRIND)
 
 ctests = external cram-md5 digest-md5 md5file name errors suggest	\
-	simple crypto scram scramplus symbols readnz gssapi gs2-krb5
+	simple crypto scram scramplus symbols readnz gssapi gs2-krb5 saml20
 if OBSOLETE
 ctests += old-simple old-md5file old-cram-md5 old-digest-md5	\
 	old-base64

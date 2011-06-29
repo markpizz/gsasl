@@ -35,6 +35,7 @@
 #include "securid/securid.h"
 #include "digest-md5/digest-md5.h"
 #include "scram/scram.h"
+#include "saml20/saml20.h"
 
 #include "login/login.h"
 #include "ntlm/x-ntlm.h"
@@ -111,6 +112,12 @@ register_builtin_mechs (Gsasl * ctx)
   if (rc != GSASL_OK)
     return rc;
 #endif /* USE_SCRAM_SHA1 */
+
+#ifdef USE_SAML20
+  rc = gsasl_register (ctx, &gsasl_saml20_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_SAML20 */
 
 #ifdef USE_GSSAPI
   rc = gsasl_register (ctx, &gsasl_gssapi_mechanism);

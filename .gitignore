@@ -666,6 +666,17 @@ lib/po/quot.sed
 lib/po/remove-potcdate.sed
 lib/po/remove-potcdate.sin
 lib/po/stamp-po
+lib/saml20/.deps/
+lib/saml20/.libs/
+lib/saml20/Makefile
+lib/saml20/Makefile.in
+lib/saml20/client.lo
+lib/saml20/client.o
+lib/saml20/libgsasl-saml20.la
+lib/saml20/mechinfo.lo
+lib/saml20/mechinfo.o
+lib/saml20/server.lo
+lib/saml20/server.o
 lib/scram/.deps/
 lib/scram/.libs/
 lib/scram/Makefile
@@ -721,6 +732,8 @@ lib/src/md5pwd.lo
 lib/src/md5pwd.o
 lib/src/mechname.lo
 lib/src/mechname.o
+lib/src/mechtools.lo
+lib/src/mechtools.o
 lib/src/obsolete.lo
 lib/src/obsolete.o
 lib/src/property.lo
@@ -855,6 +868,8 @@ tests/old-simple
 tests/old-simple.o
 tests/readnz
 tests/readnz.o
+tests/saml20
+tests/saml20.o
 tests/scram
 tests/scram.o
 tests/scramplus

@@ -172,7 +172,7 @@ manual.  The library includes support for the framework (with
 authentication functions and application data privacy and integrity
 functions) and at least partial support for the ANONYMOUS, CRAM-MD5,
 DIGEST-MD5, EXTERNAL, GS2-KRB5, GSSAPI, LOGIN, NTLM, PLAIN,
-SCRAM-SHA-1 (and SCRAM-SHA-1-PLUS), and SECURID mechanisms.
+SCRAM-SHA-1 (and SCRAM-SHA-1-PLUS), SAML20, and SECURID mechanisms.
 
 The library is easily ported because it does not do network
 communication by itself, but rather leaves it up to the calling
@@ -517,6 +517,7 @@ want to limit the size of the library.
 @itemx --disable-gs2
 @itemx --enable-kerberos_v5
 @itemx --disable-scram-sha1
+@itemx --disable-saml20
 Disable or enable individual mechanisms (@pxref{Mechanisms}).
 
 @item --without-stringprep
@@ -1560,6 +1561,20 @@ data.  As a hint, if you use GnuTLS, the API
 @code{gnutls_session_channel_binding} can be used to extract channel
 bindings for a session.
 
+@item @code{GSASL_SAML20_IDP_IDENTIFIER}
+
+@cindex SAML IdP Identifier
+@cindex Identity Provider Identifier
+This property holds the SAML identifier of the user.  The SAML20
+mechanism in client mode will send it to the other end for
+identification purposes, and in server mode it will be accessible in
+the @code{GSASL_SAML20_REDIRECT_URL} callback.
+
+@item @code{GSASL_SAML20_REDIRECT_URL}
+This property holds the SAML redirect URL that the server wants the
+client to access.  It will be available in the
+@code{GSASL_SAML20_AUTHENTICATE_IN_BROWSER} callback for the client.
+
 @end itemize
 
 Next follows a list of data properties used to trigger the callback,
@@ -1569,8 +1584,10 @@ typically used in servers to validate client credentials:
 
 @item @code{GSASL_VALIDATE_SIMPLE}
 
-You may retrieve GSASL_AUTHID, GSASL_AUTHZID and GSASL_PASSWORD and
-use them to make an authentication and authorization decision.
+Used by multiple mechanisms in server mode.  The callback may retrieve
+the @code{GSASL_AUTHID}, @code{GSASL_AUTHZID} and
+@code{GSASL_PASSWORD} property values and use them to make an
+authentication and authorization decision.
 
 @item @code{GSASL_VALIDATE_EXTERNAL}
 
@@ -1598,6 +1615,19 @@ set.  It can return GSASL_SECURID_SERVER_NEED_ADDITIONAL_PASSCODE to
 ask the client to supply another passcode, and
 GSASL_SECURID_SERVER_NEED_NEW_PIN to require the client to supply a
 new PIN code.
+
+@item @code{GSASL_VALIDATE_SAML20}
+
+Used by the SAML20 mechanism on the server side to request that the
+application perform authentication.  The callback should return
+@code{GSASL_OK} if the user should be permitted access, and
+@code{GSASL_AUTHENTICATION_ERROR} (or another error code) otherwise.
+
+@item @code{GSASL_SAML20_AUTHENTICATE_IN_BROWSER}
+Used by the SAML20 mechanism in the client side to request that the
+client should launch the SAML redirect URL (the
+@code{GSASL_SAML20_REDIRECT_URL} property) in a browser to continue
+with authentication.
 
 @end itemize
 
@@ -1647,6 +1677,7 @@ entirely dependent on callbacks.
 * GSSAPI::                  GSSAPI (Kerberos 5) authentication.
 * GS2-KRB5::                Improved GSSAPI (Kerberos 5) authentication.
 * KERBEROS_V5::             Experimental KERBEROS_V5 authentication.
+* SAML20::                  Experimental SAML20 authentication.
 @end menu
 
 @node EXTERNAL
@@ -1999,6 +2030,34 @@ callbacks (this will likely change later, to allow a server to
 authorize users, similar to the GSSAPI callback).
 
 XXX: update when implementation has matured
+
+@node SAML20
+@section The SAML20 mechanism
+@cindex SAML
+
+The SAML20 mechanism makes it possible to use SAML in SASL, in a way
+that offloads the authentication exchange to an external browser.
+
+The mechanism makes use of the following properties: GSASL_AUTHZID,
+GSASL_SAML20_IDP_IDENTIFIER, GSASL_SAML20_REDIRECT_URL,
+GSASL_SAML20_AUTHENTICATE_IN_BROWSER and GSASL_VALIDATE_SAML20.
+
+In client mode, the mechanism will retrieve the GSASL_AUTHZID and
+GSASL_SAML20_IDP_IDENTIFIER properties and form a request to the
+server.  The server will respond with a redirect URL stored in the
+GSASL_SAML20_REDIRECT_URL property, which the client can retrieve from
+the GSASL_SAML20_AUTHENTICATE_IN_BROWSER callback.  The intention is
+that the client launches a browser to the given URL, and then proceeds
+with authentication.  The server responds whether authentication was
+successful or not.
+
+In server mode, the mechanism will invoke the
+GSASL_SAML20_REDIRECT_URL callback and the application can inspect the
+GSASL_AUTHZID and GSASL_SAML20_IDP_IDENTIFIER properties when forming
+the redirect URL.  The URL is passed to the client which will
+hopefully complete authentication in the browser.  The server callback
+GSASL_VALIDATE_SAML20 should check whether the authentication attempt
+was successful.
 
 @c **********************************************************
 @c *****************  Global Functions  *********************

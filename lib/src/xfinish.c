@@ -1,5 +1,5 @@
 /* xfinish.c --- Finish libgsasl session.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2002-2011  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -64,6 +64,10 @@ gsasl_finish (Gsasl_session * sctx)
   free (sctx->scram_salt);
   free (sctx->scram_salted_password);
   free (sctx->cb_tls_unique);
+  free (sctx->saml20_idp_identifier);
+  free (sctx->saml20_redirect_url);
+  /* If you add anything here, remember to change change
+     gsasl_finish() in xfinish.c and Gsasl_session in internal.h.  */
 
   free (sctx);
 }

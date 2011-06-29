@@ -1,5 +1,5 @@
 /* internal.h --- Internal header with hidden library handle structures.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -83,8 +83,7 @@ struct Gsasl_session
   void *mech_data;
   void *application_hook;
 
-  /* Properties.  If you add anything here, remember to change change
-     gsasl_finish() in xfinish.c and map() in property.c.  */
+  /* Properties. */
   char *anonymous_token;
   char *authid;
   char *authzid;
@@ -103,6 +102,10 @@ struct Gsasl_session
   char *scram_salt;
   char *scram_salted_password;
   char *cb_tls_unique;
+  char *saml20_idp_identifier;
+  char *saml20_redirect_url;
+  /* If you add anything here, remember to change change
+     gsasl_finish() in xfinish.c and map() in property.c.  */
 
 #ifndef GSASL_NO_OBSOLETE
   /* Obsolete stuff. */

@@ -35,6 +35,7 @@
 
 #include "gss-extra.h"
 #include "gs2helper.h"
+#include "mechtools.h"
 
 struct _Gsasl_gs2_server_state
 {
@@ -158,93 +159,6 @@ _gsasl_gs2_server_start (Gsasl_session * sctx, void **mech_data)
   return GSASL_OK;
 }
 
-/* Create in AUTHZID a newly allocated copy of STR where =2C is
-   replaced with , and =3D is replaced with =.  Return GSASL_OK on
-   success, GSASL_MALLOC_ERROR on memory errors, GSASL_PARSE_ERRORS if
-   string contains any unencoded ',' or incorrectly encoded
-   sequence.  */
-static int
-unescape_authzid (const char *str, size_t len, char **authzid)
-{
-  char *p;
-
-  if (memchr (str, ',', len) != NULL)
-    return GSASL_MECHANISM_PARSE_ERROR;
-
-  p = *authzid = malloc (len + 1);
-  if (!p)
-    return GSASL_MALLOC_ERROR;
-
-  while (len > 0 && *str)
-    {
-      if (len >= 3 && str[0] == '=' && str[1] == '2' && str[2] == 'C')
-	{
-	  *p++ = ',';
-	  str += 3;
-	  len -= 3;
-	}
-      else if (len >= 3 && str[0] == '=' && str[1] == '3' && str[2] == 'D')
-	{
-	  *p++ = '=';
-	  str += 3;
-	  len -= 3;
-	}
-      else if (str[0] == '=')
-	{
-	  free (*authzid);
-	  *authzid = NULL;
-	  return GSASL_MECHANISM_PARSE_ERROR;
-	}
-      else
-	{
-	  *p++ = *str;
-	  str++;
-	  len--;
-	}
-    }
-  *p = '\0';
-
-  return GSASL_OK;
-}
-
-/* Parse the GS2 header containing flags and authorization identity.
-   Put authorization identity (or NULL) in AUTHZID and length of
-   header in HEADERLEN.  Return GSASL_OK on success or an error
-   code.*/
-static int
-parse_gs2_header (const char *data, size_t len,
-		  char **authzid, size_t * headerlen)
-{
-  char *authzid_endptr;
-
-  if (len < 3)
-    return GSASL_MECHANISM_PARSE_ERROR;
-
-  if (strncmp (data, "n,,", 3) == 0)
-    {
-      *headerlen = 3;
-      *authzid = NULL;
-    }
-  else if (strncmp (data, "n,a=", 4) == 0 &&
-	   (authzid_endptr = memchr (data + 4, ',', len - 4)))
-    {
-      int res;
-
-      if (authzid_endptr == NULL)
-	return GSASL_MECHANISM_PARSE_ERROR;
-
-      res = unescape_authzid (data + 4, authzid_endptr - (data + 4), authzid);
-      if (res != GSASL_OK)
-	return res;
-
-      *headerlen = authzid_endptr - data + 1;
-    }
-  else
-    return GSASL_MECHANISM_PARSE_ERROR;
-
-  return GSASL_OK;
-}
-
 /* Perform one GS2 step.  GS2 state is in MECH_DATA.  Any data from
    client is provided in INPUT/INPUT_LEN and output from server is
    expected to be put in newly allocated OUTPUT/OUTPUT_LEN.  Return
@@ -285,7 +199,8 @@ _gsasl_gs2_server_step (Gsasl_session * sctx,
 	char *authzid;
 	size_t headerlen;
 
-	res = parse_gs2_header (input, input_len, &authzid, &headerlen);
+	res = _gsasl_parse_gs2_header (input, input_len,
+				       &authzid, &headerlen);
 	if (res != GSASL_OK)
 	  return res;
 

@@ -1,5 +1,5 @@
 /* error.c --- Error handling functionality.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -200,6 +200,10 @@ static struct
        N_("GSSAPI error releasing OID set.")),
   ERR (GSASL_NO_CB_TLS_UNIQUE,
        N_("Authentication failed because a tls-unique CB was not provided."))
+  ERR (GSASL_NO_SAML20_IDP_IDENTIFIER,
+       N_("Callback failed to provide SAML20 user identifier.")),
+  ERR (GSASL_NO_SAML20_REDIRECT_URL,
+       N_("Callback failed to provide SAML20 redirect URL.")),
 };
 /* *INDENT-ON* */
 

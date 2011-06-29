@@ -200,6 +200,7 @@ gdoc_TEXINFOS += texi/init.c.texi
 gdoc_TEXINFOS += texi/listmech.c.texi
 gdoc_TEXINFOS += texi/md5pwd.c.texi
 gdoc_TEXINFOS += texi/mechname.c.texi
+gdoc_TEXINFOS += texi/mechtools.c.texi
 gdoc_TEXINFOS += texi/obsolete.c.texi
 gdoc_TEXINFOS += texi/property.c.texi
 gdoc_TEXINFOS += texi/register.c.texi
