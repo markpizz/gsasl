@@ -24,6 +24,7 @@ Michelsen <dam@opencsw.org>.
 * Version 1.7.0 (released 2010-10-22) [alpha]
 
 ** Support for SAML20 mechanism as per -01 IETF draft.  See lib/NEWS.
+Implements draft-ietf-kitten-sasl-saml-01.
 
 ** doc: Mention new SAML properties.
 

@@ -2036,7 +2036,9 @@ XXX: update when implementation has matured
 @cindex SAML
 
 The SAML20 mechanism makes it possible to use SAML in SASL, in a way
-that offloads the authentication exchange to an external browser.
+that offloads the authentication exchange to an external browser.  The
+protocol version implemented is as specified in
+@code{draft-ietf-kitten-sasl-saml-01}.
 
 The mechanism makes use of the following properties: GSASL_AUTHZID,
 GSASL_SAML20_IDP_IDENTIFIER, GSASL_SAML20_REDIRECT_URL,
