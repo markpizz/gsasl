@@ -8,6 +8,9 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.7.1 (unreleased) [alpha]
 
+** libgsasl: Implement OPENID20 mechanism for OpenID authentication.
+Following draft-ietf-kitten-sasl-openid-03.
+
 ** Demand gettext >= 0.18.1 in order to get newer M4 files.
 The old M4 files associated with 0.17 caused problems on Solaris,
 which will hopefully be fixed with this.  Reported by Dagobert
@@ -20,6 +23,7 @@ Michelsen <dam@opencsw.org>.
 ** i18n: Updated translations.
 
 ** examples: Added client-xmpp-saml20 and server-xmpp-saml20.
+The examples illustrates a sample SAML20 client and server.
 
 * Version 1.7.0 (released 2010-10-22) [alpha]
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Simon Josefsson
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Simon Josefsson
 #
 # This file is part of GNU SASL Library.
 #
@@ -92,6 +92,10 @@ endif
 
 if SAML20
 libgsasl_la_LIBADD += ../saml20/libgsasl-saml20.la
+endif
+
+if OPENID20
+libgsasl_la_LIBADD += ../openid20/libgsasl-openid20.la
 endif
 
 if NTLM

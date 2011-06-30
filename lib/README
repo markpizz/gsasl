@@ -34,6 +34,8 @@ Currently there is some support for the following mechanisms:
   - LOGIN (non-standard)
   - NTLM (non-standard, client only, requires Libntlm)
   - KERBEROS_V5 (experimental, requires Shishi)
+  - SAML20 (draft-ietf-kitten-sasl-saml-01)
+  - OPENID20 (draft-ietf-kitten-sasl-openid-03)
 
 The library should be portable to all C89 platforms.
 

@@ -172,7 +172,8 @@ manual.  The library includes support for the framework (with
 authentication functions and application data privacy and integrity
 functions) and at least partial support for the ANONYMOUS, CRAM-MD5,
 DIGEST-MD5, EXTERNAL, GS2-KRB5, GSSAPI, LOGIN, NTLM, PLAIN,
-SCRAM-SHA-1 (and SCRAM-SHA-1-PLUS), SAML20, and SECURID mechanisms.
+SCRAM-SHA-1, SCRAM-SHA-1-PLUS, SAML20, OPENID20, and SECURID
+mechanisms.
 
 The library is easily ported because it does not do network
 communication by itself, but rather leaves it up to the calling
@@ -518,6 +519,7 @@ want to limit the size of the library.
 @itemx --enable-kerberos_v5
 @itemx --disable-scram-sha1
 @itemx --disable-saml20
+@itemx --disable-openid20
 Disable or enable individual mechanisms (@pxref{Mechanisms}).
 
 @item --without-stringprep
@@ -1678,6 +1680,7 @@ entirely dependent on callbacks.
 * GS2-KRB5::                Improved GSSAPI (Kerberos 5) authentication.
 * KERBEROS_V5::             Experimental KERBEROS_V5 authentication.
 * SAML20::                  Experimental SAML20 authentication.
+* OPENID20::                Experimental OPENID20 authentication.
 @end menu
 
 @node EXTERNAL
@@ -2037,7 +2040,7 @@ XXX: update when implementation has matured
 
 The SAML20 mechanism makes it possible to use SAML in SASL, in a way
 that offloads the authentication exchange to an external browser.  The
-protocol version implemented is as specified in
+protocol implemented is as specified in
 @code{draft-ietf-kitten-sasl-saml-01}.
 
 The mechanism makes use of the following properties: GSASL_AUTHZID,
@@ -2060,6 +2063,15 @@ the redirect URL.  The URL is passed to the client which will
 hopefully complete authentication in the browser.  The server callback
 GSASL_VALIDATE_SAML20 should check whether the authentication attempt
 was successful.
+
+@node OPENID20
+@section The OPENID20 mechanism
+@cindex OpenID
+
+The OPENID20 mechanism makes it possible to use OpenID in SASL, in a
+way that offloads the authentication exchange to an external browser.
+The protocol implemented is as specified in
+@code{draft-ietf-kitten-sasl-openid-03}.
 
 @c **********************************************************
 @c *****************  Global Functions  *********************

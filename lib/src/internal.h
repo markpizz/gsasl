@@ -104,6 +104,7 @@ struct Gsasl_session
   char *cb_tls_unique;
   char *saml20_idp_identifier;
   char *saml20_redirect_url;
+  char *openid20_auth_identifier;
   /* If you add anything here, remember to change change
      gsasl_finish() in xfinish.c and map() in property.c.  */
 

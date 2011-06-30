@@ -1,5 +1,5 @@
 /* saml20.c --- Test the SAML20 mechanism.
- * Copyright (C) 2010  Simon Josefsson
+ * Copyright (C) 2010, 2011  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -185,7 +185,7 @@ doit (void)
     }
 
   if (debug)
-    printf ("C: `%s' (%d)\n", s1 ? s1 : "", strlen (s1));
+    printf ("C: `%s' (%d)\n", s1 ? s1 : "", (int) strlen (s1));
 
   res = gsasl_step64 (server, s1, &s2);
   gsasl_free (s1);
@@ -196,7 +196,7 @@ doit (void)
     }
 
   if (debug)
-    printf ("S: `%s' (%d)\n", s2 ? s2 : "", strlen (s2));
+    printf ("S: `%s' (%d)\n", s2 ? s2 : "", (int) strlen (s2));
 
   res = gsasl_step64 (client, s2, &s1);
   gsasl_free (s2);
@@ -207,7 +207,7 @@ doit (void)
     }
 
   if (debug)
-    printf ("C: `%s' (%d)\n", s1 ? s1 : "", strlen (s1));
+    printf ("C: `%s' (%d)\n", s1 ? s1 : "", (int) strlen (s1));
 
   res = gsasl_step64 (server, s1, &s2);
   gsasl_free (s1);
@@ -218,7 +218,7 @@ doit (void)
     }
 
   if (debug)
-    printf ("S: `%s' (%d)\n", s2 ? s2 : "", strlen (s2));
+    printf ("S: `%s' (%d)\n", s2 ? s2 : "", (int) strlen (s2));
 
   gsasl_free (s2);
 

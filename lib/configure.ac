@@ -178,6 +178,18 @@ AC_MSG_CHECKING([if SAML20 should be used])
 AC_MSG_RESULT($saml20)
 AM_CONDITIONAL(SAML20, test x$saml20 = xyes)
 
+# OPENID20
+AC_ARG_ENABLE(openid20,
+  AS_HELP_STRING([--disable-openid20], [don't use the OPENID20 mechanism]),
+  openid20=$enableval)
+if test "$openid20" != "no" ; then
+	openid20=yes
+	AC_DEFINE(USE_OPENID20, 1, [Define to 1 if you want OPENID20.])
+fi
+AC_MSG_CHECKING([if OPENID20 should be used])
+AC_MSG_RESULT($openid20)
+AM_CONDITIONAL(OPENID20, test x$openid20 = xyes)
+
 # GS2, first part
 AC_ARG_ENABLE(gs2,
   AS_HELP_STRING([--disable-gs2], [don't use the GS2 mechanism]),
@@ -411,6 +423,7 @@ AC_CONFIG_FILES([
   digest-md5/Makefile
   scram/Makefile
   saml20/Makefile \
+  openid20/Makefile \
   external/Makefile
   gl/Makefile
   gltests/Makefile

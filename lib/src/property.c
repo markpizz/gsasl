@@ -112,6 +112,10 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->saml20_redirect_url;
       break;
 
+    case GSASL_OPENID20_AUTH_IDENTIFIER:
+      p = &sctx->openid20_auth_identifier;
+      break;
+
       /* If you add anything here, remember to change change
 	 gsasl_finish() in xfinish.c and Gsasl_session in
 	 internal.h.  */

@@ -4,6 +4,9 @@ See the end for copying conditions.
 
 * Version 1.7.1 (unreleased) [alpha]
 
+** libgsasl: Implement OPENID20 mechanism for OpenID authentication.
+Following draft-ietf-kitten-sasl-openid-03.
+
 ** libgsasl.pc: Add a Libs.private.
 Reported by Volker Grabsch <vog@notjusthosting.com>.
 

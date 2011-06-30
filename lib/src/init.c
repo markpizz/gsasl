@@ -1,5 +1,5 @@
 /* init.c --- Entry point for libgsasl.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -36,6 +36,7 @@
 #include "digest-md5/digest-md5.h"
 #include "scram/scram.h"
 #include "saml20/saml20.h"
+#include "openid20/openid20.h"
 
 #include "login/login.h"
 #include "ntlm/x-ntlm.h"
@@ -118,6 +119,12 @@ register_builtin_mechs (Gsasl * ctx)
   if (rc != GSASL_OK)
     return rc;
 #endif /* USE_SAML20 */
+
+#ifdef USE_OPENID20
+  rc = gsasl_register (ctx, &gsasl_openid20_mechanism);
+  if (rc != GSASL_OK)
+    return rc;
+#endif /* USE_OPENID20 */
 
 #ifdef USE_GSSAPI
   rc = gsasl_register (ctx, &gsasl_gssapi_mechanism);

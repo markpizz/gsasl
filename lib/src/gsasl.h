@@ -138,6 +138,8 @@ extern "C"
    * @GSASL_NO_CB_TLS_UNIQUE: Could not get required tls-unique CB.
    * @GSASL_NO_SAML20_IDP_IDENTIFIER: Could not get required SAML IdP.
    * @GSASL_NO_SAML20_REDIRECT_URL: Could not get required redirect URL.
+   * @GSASL_NO_OPENID20_AUTH_IDENTIFIER: Could not get required OpenID
+   *   authentication identifier.
    * @GSASL_GSSAPI_RELEASE_BUFFER_ERROR: GSS-API library call error.
    * @GSASL_GSSAPI_IMPORT_NAME_ERROR: GSS-API library call error.
    * @GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR: GSS-API library call error.
@@ -190,6 +192,7 @@ extern "C"
     GSASL_NO_CB_TLS_UNIQUE = 65,
     GSASL_NO_SAML20_IDP_IDENTIFIER = 66,
     GSASL_NO_SAML20_REDIRECT_URL = 67,
+    GSASL_NO_OPENID20_AUTH_IDENTIFIER = 68,
     /* Mechanism specific errors. */
     GSASL_GSSAPI_RELEASE_BUFFER_ERROR = 37,
     GSASL_GSSAPI_IMPORT_NAME_ERROR = 38,
@@ -307,6 +310,7 @@ extern "C"
    * @GSASL_SAML20_IDP_IDENTIFIER: SAML20 user IdP URL.
    * @GSASL_SAML20_REDIRECT_URL: SAML20 challenge from server to client.
    * @GSASL_SAML20_AUTHENTICATE_IN_BROWSER: Request to perform SAML20.
+   * @GSASL_OPENID20_AUTH_IDENTIFIER: OPENID20 user authentication identifier.
    * @GSASL_VALIDATE_SIMPLE: Request for simple validation.
    * @GSASL_VALIDATE_EXTERNAL: Request for validation of EXTERNAL.
    * @GSASL_VALIDATE_ANONYMOUS: Request for validation of ANONYMOUS.
@@ -339,6 +343,7 @@ extern "C"
     GSASL_CB_TLS_UNIQUE = 18,
     GSASL_SAML20_IDP_IDENTIFIER = 19,
     GSASL_SAML20_REDIRECT_URL = 20,
+    GSASL_OPENID20_AUTH_IDENTIFIER = 21,
     /* Client callbacks. */
     GSASL_SAML20_AUTHENTICATE_IN_BROWSER = 250,
     /* Server validation callback properties. */
