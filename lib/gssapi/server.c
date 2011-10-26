@@ -162,6 +162,9 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
       if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED)
 	return GSASL_GSSAPI_ACCEPT_SEC_CONTEXT_ERROR;
 
+      if (maj_stat == GSS_S_COMPLETE)
+	state->step++;
+
       *output = malloc (bufdesc2.length);
       if (!*output)
 	return GSASL_MALLOC_ERROR;
@@ -171,9 +174,6 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
-
-      if (maj_stat == GSS_S_COMPLETE)
-	state->step++;
 
       res = GSASL_NEEDS_MORE;
       break;
