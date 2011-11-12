@@ -179,8 +179,17 @@ imap_auth_finish (void)
 {
   char *in;
 
-  if (!readln (&in))
-    return 0;
+  for (;;)
+    {
+      if (!readln (&in))
+	return 0;
+
+      /* skip untagged responses which can be returned by the server after
+	 authentication (e.g. dovecot returns new '* CAPABILITY' information
+	 before the final '. OK'). */
+      if (in[0] != '*')
+	break;
+    }
 
   return 1;
 }
