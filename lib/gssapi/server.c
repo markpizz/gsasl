@@ -165,18 +165,25 @@ _gsasl_gssapi_server_step (Gsasl_session * sctx,
       if (maj_stat == GSS_S_COMPLETE)
 	state->step++;
 
-      *output = malloc (bufdesc2.length);
-      if (!*output)
-	return GSASL_MALLOC_ERROR;
-      memcpy (*output, bufdesc2.value, bufdesc2.length);
-      *output_len = bufdesc2.length;
+      if (maj_stat == GSS_S_CONTINUE_NEEDED || bufdesc2.length > 0)
+	{
+	  *output = malloc (bufdesc2.length);
+	  if (!*output)
+	    return GSASL_MALLOC_ERROR;
+	  memcpy (*output, bufdesc2.value, bufdesc2.length);
+	  *output_len = bufdesc2.length;
+	}
 
       maj_stat = gss_release_buffer (&min_stat, &bufdesc2);
       if (GSS_ERROR (maj_stat))
 	return GSASL_GSSAPI_RELEASE_BUFFER_ERROR;
 
-      res = GSASL_NEEDS_MORE;
-      break;
+      if (maj_stat == GSS_S_CONTINUE_NEEDED || *output_len > 0)
+	{
+	  res = GSASL_NEEDS_MORE;
+	  break;
+	}
+      /* fall through */
 
     case 2:
       memset (tmp, 0xFF, 4);
