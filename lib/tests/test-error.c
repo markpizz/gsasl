@@ -1,5 +1,5 @@
 /* test-error.c --- Check consistency of error.c error definitions.
- * Copyright (C) 2008, 2009  Simon Josefsson
+ * Copyright (C) 2008-2011  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -31,7 +31,7 @@ main (void)
   for (i = 0; i < (sizeof (errors) / sizeof (errors[0])); i++)
     if (errors[i].rc != i)
       {
-	printf ("%d\n", i);
+	printf ("%ld\n", i);
 	return EXIT_FAILURE;
       }
 
