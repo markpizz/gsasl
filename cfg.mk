@@ -70,8 +70,6 @@ glimport:
 	gnulib-tool --m4-base gl/m4 --add-import
 	cd lib && gnulib-tool --m4-base gl/m4 --add-import
 
-# Coverage
-
 coverage-my:
 	ln -s . gl/unistr/unistr
 	ln -s . gltests/glthread/glthread
@@ -93,6 +91,24 @@ coverage-upload:
 		-exec sh -c "cvs add {}/*.html" \; && \
 	cvs add coverage/$(PACKAGE).info coverage/gcov.css || true && \
 	cvs commit -m "Update." coverage
+
+clang:
+	make clean
+	scan-build ./configure
+	rm -rf scan.tmp
+	scan-build -o scan.tmp make
+
+clang-copy:
+	rm -fv `find $(htmldir)/clang-analyzer -type f | grep -v CVS`
+	mkdir -p $(htmldir)/clang-analyzer/
+	cp -rv scan.tmp/*/* $(htmldir)/clang-analyzer/
+
+clang-upload:
+	cd $(htmldir) && \
+		cvs add clang-analyzer || true && \
+		cvs add clang-analyzer/*.css clang-analyzer/*.js \
+			clang-analyzer/*.html || true && \
+		cvs commit -m "Update." clang-analyzer
 
 ChangeLog:
 	git2cl > ChangeLog
