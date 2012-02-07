@@ -294,6 +294,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module unitypes:
   # Code from module unsetenv:
   # Code from module unsetenv-tests:
+  # Code from module update-copyright:
   # Code from module useless-if-before-free:
   # Code from module valgrind-tests:
   # Code from module vasnprintf:
@@ -993,6 +994,7 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/snippet/c++defs.h
   build-aux/snippet/unused-parameter.h
   build-aux/snippet/warn-on-use.h
+  build-aux/update-copyright
   build-aux/useless-if-before-free
   build-aux/vc-list-files
   doc/fdl-1.3.texi
