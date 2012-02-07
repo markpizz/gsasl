@@ -36,6 +36,7 @@ VC_LIST_ALWAYS_EXCLUDE_REGEX = \
 # Explicit syntax-check exceptions.
 exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^doc/.*\.(dia|png)|tests/gssapi.tkt$$
 exclude_file_name_regexp--sc_GPL_version = ^doc/lgpl-2.1.texi|lib/.*$$
+exclude_file_name_regexp--sc_copyright_check = ^doc/gsasl.texi$$
 exclude_file_name_regexp--sc_unmarked_diagnostics = ^examples/.*|src/gsasl.c$$
 exclude_file_name_regexp--sc_bindtextdomain = ^doc/print-errors.c|examples/.*|lib/digest-md5/test-parser.c|lib/tests/test-error.c|tests/.*$$
 exclude_file_name_regexp--sc_program_name = $(exclude_file_name_regexp--sc_bindtextdomain)
