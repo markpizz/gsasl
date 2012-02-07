@@ -139,6 +139,7 @@ AC_CONFIG_FILES([
   doc/cyclo/Makefile
   doc/doxygen/Doxyfile
   doc/reference/Makefile
+  doc/reference/version.xml
   examples/Makefile
   gl/Makefile
   gltests/Makefile

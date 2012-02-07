@@ -1,12 +1,21 @@
 <?xml version="1.0"?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-          "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY version SYSTEM "version.xml">
+]>
+<book id="index">
   <bookinfo>
     <title>GNU SASL API Reference Manual</title>
+    <releaseinfo>
+      for GNU SASL &version;.
+      The latest version of this documentation can be found on-line at
+      <ulink role="online-location" url="https://www.gnu.org/software/gsasl/reference/">https://www.gnu.org/software/gsasl/reference/</ulink>.
+    </releaseinfo>
   </bookinfo>
 
-  <chapter>
+  <chapter id="intro">
     <title>GNU SASL API Reference Manual</title>
 
     <para>
@@ -92,8 +101,9 @@ mechanism interact is shown in <xref linkend="abstraction"/>.
     <xi:include href="xml/gsasl-compat.xml"/>
   </chapter>
 
-  <index>
-    <title>Index</title>
+  <index id="api-index-full">
+    <title>API Index</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
   </index>
   <index role="deprecated">
     <title>Index of deprecated symbols</title>
