@@ -1,5 +1,5 @@
 /* gsasl.c --- Command line interface to libgsasl.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2002-2012  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -311,7 +311,7 @@ main (int argc, char *argv[])
      it is broken.  The proper fix is for gnulib to wrap the
      getaddrinfo call and initialize Windows sockets in the
      wrapper.  */
-  gl_sockets_startup (SOCKETS_1_1);
+  (void) gl_sockets_startup (SOCKETS_1_1);
 
   if (cmdline_parser (argc, argv, &args_info) != 0)
     return EXIT_FAILURE;
