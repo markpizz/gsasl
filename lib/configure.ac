@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Simon Josefsson
+# Copyright (C) 2002-2012 Simon Josefsson
 #
 # This file is part of GNU SASL Library.
 #
@@ -169,7 +169,7 @@ AM_CONDITIONAL(SCRAM, test "$scram_sha1" != "no")
 # SAML20
 AC_ARG_ENABLE(saml20,
   AS_HELP_STRING([--disable-saml20], [don't use the SAML20 mechanism]),
-  saml20=$enableval)
+  saml20=$enableval, saml20=no)
 if test "$saml20" != "no" ; then
 	saml20=yes
 	AC_DEFINE(USE_SAML20, 1, [Define to 1 if you want SAML20.])
@@ -181,7 +181,7 @@ AM_CONDITIONAL(SAML20, test x$saml20 = xyes)
 # OPENID20
 AC_ARG_ENABLE(openid20,
   AS_HELP_STRING([--disable-openid20], [don't use the OPENID20 mechanism]),
-  openid20=$enableval)
+  openid20=$enableval, openid20=no)
 if test "$openid20" != "no" ; then
 	openid20=yes
 	AC_DEFINE(USE_OPENID20, 1, [Define to 1 if you want OPENID20.])
