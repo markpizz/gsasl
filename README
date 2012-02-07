@@ -40,6 +40,8 @@ Currently there is some support for the following mechanisms:
   - LOGIN (non-standard)
   - NTLM (non-standard, client only, requires Libntlm)
   - KERBEROS_V5 (experimental, requires Shishi)
+  - OPENID20 (experimental)
+  - SAML20 (experimental)
 
 The library should be portable to all C89 platforms.  The command-line
 application currently requires POSIX for network communication.
