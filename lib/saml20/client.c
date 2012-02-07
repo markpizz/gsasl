@@ -1,5 +1,5 @@
 /* client.c --- SAML20 mechanism, client side.
- * Copyright (C) 2010  Simon Josefsson
+ * Copyright (C) 2010-2012  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -73,7 +73,6 @@ _gsasl_saml20_client_step (Gsasl_session * sctx,
       {
 	const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
 	const char *p;
-	int len;
 
 	p = gsasl_property_get (sctx, GSASL_SAML20_IDP_IDENTIFIER);
 	if (!p || !*p)
