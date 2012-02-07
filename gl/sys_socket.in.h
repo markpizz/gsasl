@@ -1,6 +1,6 @@
 /* Provide a sys/socket header file for systems lacking it (read: MinGW)
    and for systems where it is incomplete.
-   Copyright (C) 2005-2011 Free Software Foundation, Inc.
+   Copyright (C) 2005-2012 Free Software Foundation, Inc.
    Written by Simon Josefsson.
 
    This program is free software; you can redistribute it and/or modify
@@ -85,7 +85,7 @@ typedef unsigned short  sa_family_t;
 #  endif
 # endif
 #else
-# include <alignof.h>
+# include <stdalign.h>
 /* Code taken from glibc sysdeps/unix/sysv/linux/bits/socket.h on
    2009-05-08, licensed under LGPLv2.1+, plus portability fixes. */
 # define __ss_aligntype unsigned long int
@@ -143,7 +143,7 @@ struct sockaddr_storage
    that you can influence which definitions you get by setting the
    WINVER symbol before including these two files.  For example,
    getaddrinfo is only available if _WIN32_WINNT >= 0x0501 (that
-   symbol is set indiriectly through WINVER).  You can set this by
+   symbol is set indirectly through WINVER).  You can set this by
    adding AC_DEFINE(WINVER, 0x0501) to configure.ac.  Note that your
    code may not run on older Windows releases then.  My Windows 2000
    box was not able to run the code, for example.  The situation is
@@ -194,6 +194,8 @@ struct msghdr {
 
 #endif
 
+/* Fix some definitions from <winsock2.h>.  */
+
 #if @HAVE_WINSOCK2_H@
 
 # if !GNULIB_defined_rpl_fd_isset
@@ -222,27 +224,37 @@ rpl_fd_isset (SOCKET fd, fd_set * set)
 
 #endif
 
+/* Hide some function declarations from <winsock2.h>.  */
+
+#if @HAVE_WINSOCK2_H@
+# if !defined _@GUARD_PREFIX@_UNISTD_H
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef close
+#   define close close_used_without_including_unistd_h
+#  else
+    _GL_WARN_ON_USE (close,
+                     "close() used without including <unistd.h>");
+#  endif
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef gethostname
+#   define gethostname gethostname_used_without_including_unistd_h
+#  else
+    _GL_WARN_ON_USE (gethostname,
+                     "gethostname() used without including <unistd.h>");
+#  endif
+# endif
+# if !defined _@GUARD_PREFIX@_SYS_SELECT_H
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef select
+#   define select select_used_without_including_sys_select_h
+#  else
+    _GL_WARN_ON_USE (select,
+                     "select() used without including <sys/select.h>");
+#  endif
+# endif
+#endif
+
 /* Wrap everything else to use libc file descriptors for sockets.  */
-
-#if @HAVE_WINSOCK2_H@ && !defined _@GUARD_PREFIX@_UNISTD_H
-# if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#  undef close
-#  define close close_used_without_including_unistd_h
-# else
-   _GL_WARN_ON_USE (close,
-                    "close() used without including <unistd.h>");
-# endif
-#endif
-
-#if @HAVE_WINSOCK2_H@ && !defined _@GUARD_PREFIX@_UNISTD_H
-# if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#  undef gethostname
-#  define gethostname gethostname_used_without_including_unistd_h
-# else
-   _GL_WARN_ON_USE (gethostname,
-                    "gethostname() used without including <unistd.h>");
-# endif
-#endif
 
 #if @GNULIB_SOCKET@
 # if @HAVE_WINSOCK2_H@
@@ -630,16 +642,6 @@ _GL_CXXALIASWARN (shutdown);
 # if HAVE_RAW_DECL_SHUTDOWN
 _GL_WARN_ON_USE (shutdown, "shutdown is not always POSIX compliant - "
                  "use gnulib module shutdown for portability");
-# endif
-#endif
-
-#if @HAVE_WINSOCK2_H@
-# if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#  undef select
-#  define select select_used_without_including_sys_select_h
-# else
-   _GL_WARN_ON_USE (select,
-                    "select() used without including <sys/select.h>");
 # endif
 #endif
 

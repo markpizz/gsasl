@@ -1,4 +1,4 @@
-/* Copyright (C) 1992-2001, 2003-2007, 2009-2011 Free Software Foundation, Inc.
+/* Copyright (C) 1992-2001, 2003-2007, 2009-2012 Free Software Foundation, Inc.
 
    This file is part of the GNU C Library.
 
@@ -192,7 +192,6 @@ getpass (const char *prompt)
   char getpassbuf[PASS_MAX + 1];
   size_t i = 0;
   int c;
-  int use_getc = 0;
 
   if (prompt)
     {
@@ -202,20 +201,8 @@ getpass (const char *prompt)
 
   for (;;)
     {
-      if (use_getc)
-        c = getc (stdin);
-      else
-        {
-          c = _getch ();
-          if (c == -1)
-            {
-              /* Under Wine, _getch always returns -1.  Fall back to
-                 using getc.  */
-              use_getc = 1;
-              continue;
-            }
-        }
-      if (c == '\n' || c == '\r')
+      c = _getch ();
+      if (c == '\r')
         {
           getpassbuf[i] = '\0';
           break;
@@ -232,7 +219,7 @@ getpass (const char *prompt)
         }
     }
 
-  if (prompt && !use_getc)
+  if (prompt)
     {
       fputs ("\r\n", stderr);
       fflush (stderr);

@@ -1,5 +1,5 @@
-# strerror_r.m4 serial 12
-dnl Copyright (C) 2002, 2007-2011 Free Software Foundation, Inc.
+# strerror_r.m4 serial 14
+dnl Copyright (C) 2002, 2007-2012 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -43,6 +43,7 @@ AC_DEFUN([gl_PREREQ_STRERROR_R], [
   dnl glibc >= 2.3.4 and cygwin 1.7.9 have a function __xpg_strerror_r.
   AC_CHECK_FUNCS_ONCE([__xpg_strerror_r])
   AC_CHECK_FUNCS_ONCE([catgets])
+  AC_CHECK_FUNCS_ONCE([snprintf])
 ])
 
 # Detect if strerror_r works, but without affecting whether a replacement
@@ -138,7 +139,11 @@ changequote([,])dnl
                [AC_LANG_PROGRAM(
                   [[#include <errno.h>
                     #include <string.h>
-                    extern int __xpg_strerror_r(int, char *, size_t);
+                    extern
+                    #ifdef __cplusplus
+                    "C"
+                    #endif
+                    int __xpg_strerror_r(int, char *, size_t);
                   ]],
                   [[int result = 0;
                     char buf[256] = "^";

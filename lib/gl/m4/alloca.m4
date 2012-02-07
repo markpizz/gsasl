@@ -1,5 +1,5 @@
-# alloca.m4 serial 12
-dnl Copyright (C) 2002-2004, 2006-2007, 2009-2011 Free Software Foundation,
+# alloca.m4 serial 14
+dnl Copyright (C) 2002-2004, 2006-2007, 2009-2012 Free Software Foundation,
 dnl Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -53,8 +53,8 @@ m4_version_prereq([2.69], [] ,[
 
 # _AC_LIBOBJ_ALLOCA
 # -----------------
-# Set up the LIBOBJ replacement of `alloca'.  Well, not exactly
-# AC_LIBOBJ since we actually set the output variable `ALLOCA'.
+# Set up the LIBOBJ replacement of 'alloca'.  Well, not exactly
+# AC_LIBOBJ since we actually set the output variable 'ALLOCA'.
 # Nevertheless, for Automake, AC_LIBSOURCES it.
 m4_define([_AC_LIBOBJ_ALLOCA],
 [# The SVR3 libPW and SVR4 libucb both contain incompatible functions
@@ -63,9 +63,9 @@ m4_define([_AC_LIBOBJ_ALLOCA],
 # use ar to extract alloca.o from them instead of compiling alloca.c.
 AC_LIBSOURCES(alloca.c)
 AC_SUBST([ALLOCA], [\${LIBOBJDIR}alloca.$ac_objext])dnl
-AC_DEFINE(C_ALLOCA, 1, [Define to 1 if using `alloca.c'.])
+AC_DEFINE(C_ALLOCA, 1, [Define to 1 if using 'alloca.c'.])
 
-AC_CACHE_CHECK(whether `alloca.c' needs Cray hooks, ac_cv_os_cray,
+AC_CACHE_CHECK(whether 'alloca.c' needs Cray hooks, ac_cv_os_cray,
 [AC_EGREP_CPP(webecray,
 [#if defined CRAY && ! defined CRAY2
 webecray
@@ -76,17 +76,17 @@ wenotbecray
 if test $ac_cv_os_cray = yes; then
   for ac_func in _getb67 GETB67 getb67; do
     AC_CHECK_FUNC($ac_func,
-		  [AC_DEFINE_UNQUOTED(CRAY_STACKSEG_END, $ac_func,
-				      [Define to one of `_getb67', `GETB67',
-				       `getb67' for Cray-2 and Cray-YMP
-				       systems. This function is required for
-				       `alloca.c' support on those systems.])
+                  [AC_DEFINE_UNQUOTED(CRAY_STACKSEG_END, $ac_func,
+                                      [Define to one of '_getb67', 'GETB67',
+                                       'getb67' for Cray-2 and Cray-YMP
+                                       systems. This function is required for
+                                       'alloca.c' support on those systems.])
     break])
   done
 fi
 
 AC_CACHE_CHECK([stack direction for C alloca],
-	       [ac_cv_c_stack_direction],
+               [ac_cv_c_stack_direction],
 [AC_RUN_IFELSE([AC_LANG_SOURCE(
 [AC_INCLUDES_DEFAULT
 int
@@ -105,16 +105,16 @@ main (int argc, char **argv)
 {
   return find_stack_direction (0, argc + !argv + 20) < 0;
 }])],
-	       [ac_cv_c_stack_direction=1],
-	       [ac_cv_c_stack_direction=-1],
-	       [ac_cv_c_stack_direction=0])])
+               [ac_cv_c_stack_direction=1],
+               [ac_cv_c_stack_direction=-1],
+               [ac_cv_c_stack_direction=0])])
 AH_VERBATIM([STACK_DIRECTION],
 [/* If using the C implementation of alloca, define if you know the
    direction of stack growth for your system; otherwise it will be
    automatically deduced at runtime.
-	STACK_DIRECTION > 0 => grows toward higher addresses
-	STACK_DIRECTION < 0 => grows toward lower addresses
-	STACK_DIRECTION = 0 => direction of growth unknown */
+        STACK_DIRECTION > 0 => grows toward higher addresses
+        STACK_DIRECTION < 0 => grows toward lower addresses
+        STACK_DIRECTION = 0 => direction of growth unknown */
 @%:@undef STACK_DIRECTION])dnl
 AC_DEFINE_UNQUOTED(STACK_DIRECTION, $ac_cv_c_stack_direction)
 ])# _AC_LIBOBJ_ALLOCA

@@ -1,4 +1,4 @@
-# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011 Simon Josefsson
+# Copyright (C) 2006-2012 Simon Josefsson
 #
 # This file is part of GNU SASL.
 #
@@ -19,7 +19,7 @@ WFLAGS ?= --enable-gcc-warnings
 ADDFLAGS ?=
 CFGFLAGS ?= --enable-gtk-doc --enable-gtk-doc-pdf $(ADDFLAGS) $(WFLAGS)
 
-build_aux = lib/build-aux
+_build-aux = lib/build-aux
 
 INDENT_SOURCES = `find . -name \*.c -or -name \*.h | grep -v -e /gl -e build-aux -e /win32/ -e /examples/`
 
@@ -47,9 +47,9 @@ autoreconf:
 	for f in po/*.po.in lib/po/*.po.in; do \
 		cp $$f `echo $$f | sed 's/.in//'`; \
 	done
-	mv $(build_aux)/config.rpath $(build_aux)/config.rpath-
+	mv $(_build-aux)/config.rpath $(_build-aux)/config.rpath-
 	test -f ./configure || autoreconf --install
-	mv $(build_aux)/config.rpath- $(build_aux)/config.rpath
+	mv $(_build-aux)/config.rpath- $(_build-aux)/config.rpath
 
 update-po:
 	$(MAKE) -C lib refresh-po PACKAGE=libgsasl
@@ -103,7 +103,7 @@ upload:
 web:
 	cd doc && env MAKEINFO="makeinfo -I ../examples" \
 		      TEXI2DVI="texi2dvi -I ../examples" \
-		$(SHELL) ../$(build_aux)/gendocs.sh \
+		$(SHELL) ../$(_build-aux)/gendocs.sh \
 			--html "--css-include=texinfo.css" \
 			-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
 	cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make refman.pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf

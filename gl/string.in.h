@@ -1,6 +1,6 @@
 /* A GNU-like <string.h>.
 
-   Copyright (C) 1995-1996, 2001-2011 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 2001-2012 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -57,6 +57,36 @@
 /* The definition of _GL_ARG_NONNULL is copied here.  */
 
 /* The definition of _GL_WARN_ON_USE is copied here.  */
+
+
+/* Find the index of the least-significant set bit.  */
+#if @GNULIB_FFSL@
+# if !@HAVE_FFSL@
+_GL_FUNCDECL_SYS (ffsl, int, (long int i));
+# endif
+_GL_CXXALIAS_SYS (ffsl, int, (long int i));
+_GL_CXXALIASWARN (ffsl);
+#elif defined GNULIB_POSIXCHECK
+# undef ffsl
+# if HAVE_RAW_DECL_FFSL
+_GL_WARN_ON_USE (ffsl, "ffsl is not portable - use the ffsl module");
+# endif
+#endif
+
+
+/* Find the index of the least-significant set bit.  */
+#if @GNULIB_FFSLL@
+# if !@HAVE_FFSLL@
+_GL_FUNCDECL_SYS (ffsll, int, (long long int i));
+# endif
+_GL_CXXALIAS_SYS (ffsll, int, (long long int i));
+_GL_CXXALIASWARN (ffsll);
+#elif defined GNULIB_POSIXCHECK
+# undef ffsll
+# if HAVE_RAW_DECL_FFSLL
+_GL_WARN_ON_USE (ffsll, "ffsll is not portable - use the ffsll module");
+# endif
+#endif
 
 
 /* Return the first instance of C within N bytes of S, or NULL.  */

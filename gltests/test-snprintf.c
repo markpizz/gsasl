@@ -1,5 +1,5 @@
 /* Test of snprintf() function.
-   Copyright (C) 2007-2011 Free Software Foundation, Inc.
+   Copyright (C) 2007-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -59,6 +59,14 @@ main (int argc, char *argv[])
           ASSERT (memcmp (buf, "12345\0EF", 8) == 0);
         }
     }
+
+  /* Test the support of the POSIX/XSI format strings with positions.  */
+  {
+    char result[100];
+    retval = snprintf (result, sizeof (result), "%2$d %1$d", 33, 55);
+    ASSERT (strcmp (result, "55 33") == 0);
+    ASSERT (retval == strlen (result));
+  }
 
   return 0;
 }

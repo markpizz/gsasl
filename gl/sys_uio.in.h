@@ -1,5 +1,5 @@
 /* Substitute for <sys/uio.h>.
-   Copyright (C) 2011 Free Software Foundation, Inc.
+   Copyright (C) 2011-2012 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@
 
 #if !@HAVE_SYS_UIO_H@
 /* A platform that lacks <sys/uio.h>.  */
-/* Get 'ssize_t'.  */
+/* Get 'size_t' and 'ssize_t'.  */
 # include <sys/types.h>
 
 # ifdef __cplusplus

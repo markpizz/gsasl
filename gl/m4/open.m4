@@ -1,5 +1,5 @@
-# open.m4 serial 12
-dnl Copyright (C) 2007-2011 Free Software Foundation, Inc.
+# open.m4 serial 13
+dnl Copyright (C) 2007-2012 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -9,9 +9,7 @@ AC_DEFUN([gl_FUNC_OPEN],
   AC_REQUIRE([AC_CANONICAL_HOST])
   case "$host_os" in
     mingw* | pw*)
-      # The misbehaviour is only under Wine, see
-      # http://bugs.winehq.org/show_bug.cgi?id=21292
-      gl_cv_func_open_slash=no
+      REPLACE_OPEN=1
       ;;
     *)
       dnl open("foo/") should not create a file when the file name has a
@@ -55,32 +53,34 @@ changequote([,])dnl
             ])
           rm -f conftest.sl conftest.tmp conftest.lnk
         ])
+      case "$gl_cv_func_open_slash" in
+        *no)
+          AC_DEFINE([OPEN_TRAILING_SLASH_BUG], [1],
+            [Define to 1 if open() fails to recognize a trailing slash.])
+          REPLACE_OPEN=1
+          ;;
+      esac
       ;;
   esac
-  case "$gl_cv_func_open_slash" in
-    *no)
-      AC_DEFINE([OPEN_TRAILING_SLASH_BUG], [1],
-                [Define to 1 if open() fails to recognize a trailing slash.])
-      gl_REPLACE_OPEN
-      ;;
-  esac
+  dnl Replace open() for supporting the gnulib-defined fchdir() function,
+  dnl to keep fchdir's bookkeeping up-to-date.
+  m4_ifdef([gl_FUNC_FCHDIR], [
+    if test $REPLACE_OPEN = 0; then
+      gl_TEST_FCHDIR
+      if test $HAVE_FCHDIR = 0; then
+        REPLACE_OPEN=1
+      fi
+    fi
+  ])
   dnl Replace open() for supporting the gnulib-defined O_NONBLOCK flag.
   m4_ifdef([gl_NONBLOCKING_IO], [
     if test $REPLACE_OPEN = 0; then
       gl_NONBLOCKING_IO
       if test $gl_cv_have_open_O_NONBLOCK != yes; then
-        gl_REPLACE_OPEN
+        REPLACE_OPEN=1
       fi
     fi
   ])
-])
-
-AC_DEFUN([gl_REPLACE_OPEN],
-[
-  AC_REQUIRE([gl_FCNTL_H_DEFAULTS])
-  REPLACE_OPEN=1
-  AC_LIBOBJ([open])
-  gl_PREREQ_OPEN
 ])
 
 # Prerequisites of lib/open.c.

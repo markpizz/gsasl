@@ -1,17 +1,11 @@
---- gl/gettext.h.orig	2010-01-12 13:01:46.000000000 +0100
-+++ gl/gettext.h	2010-01-12 13:01:39.000000000 +0100
-@@ -172,109 +172,4 @@
-     return translation;
- }
+--- gl/gettext.h.orig	2012-02-07 10:01:26.854383205 +0100
++++ gl/gettext.h	2012-02-07 10:01:39.923793105 +0100
+@@ -184,103 +184,4 @@
  
--/* The same thing extended for non-constant arguments.  Here MSGCTXT and MSGID
--   can be arbitrary expressions.  But for string literals these macros are
--   less efficient than those above.  */
--
--#include <string.h>
--
+ #include <string.h>
+ 
 -#define _LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS \
--  (((__GNUC__ >= 3 || __GNUG__ >= 2) && !__STRICT_ANSI__) \
+-  (((__GNUC__ >= 3 || __GNUG__ >= 2) && !defined __STRICT_ANSI__) \
 -   /* || __STDC_VERSION__ >= 199901L */ )
 -
 -#if !_LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS

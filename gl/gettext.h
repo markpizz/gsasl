@@ -1,5 +1,5 @@
 /* Convenience header for conditional use of GNU <libintl.h>.
-   Copyright (C) 1995-1998, 2000-2002, 2004-2006, 2009-2011 Free Software
+   Copyright (C) 1995-1998, 2000-2002, 2004-2006, 2009-2012 Free Software
    Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
@@ -177,5 +177,11 @@ npgettext_aux (const char *domain,
   else
     return translation;
 }
+
+/* The same thing extended for non-constant arguments.  Here MSGCTXT and MSGID
+   can be arbitrary expressions.  But for string literals these macros are
+   less efficient than those above.  */
+
+#include <string.h>
 
 #endif /* _LIBGETTEXT_H */

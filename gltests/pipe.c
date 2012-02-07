@@ -1,5 +1,5 @@
 /* Create a pipe.
-   Copyright (C) 2009-2011 Free Software Foundation, Inc.
+   Copyright (C) 2009-2012 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 #include <unistd.h>
 
 #if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
-/* Native Woe32 API.  */
+/* Native Windows API.  */
 
 /* Get _pipe().  */
 # include <io.h>
@@ -32,7 +32,16 @@
 int
 pipe (int fd[2])
 {
-  return _pipe (fd, 4096, _O_BINARY);
+  /* Mingw changes fd to {-1,-1} on failure, but this violates
+     http://austingroupbugs.net/view.php?id=467 */
+  int tmp[2];
+  int result = _pipe (tmp, 4096, _O_BINARY);
+  if (!result)
+    {
+      fd[0] = tmp[0];
+      fd[1] = tmp[1];
+    }
+  return result;
 }
 
 #else

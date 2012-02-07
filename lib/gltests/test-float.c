@@ -1,5 +1,5 @@
 /* Test of <float.h> substitute.
-   Copyright (C) 2011 Free Software Foundation, Inc.
+   Copyright (C) 2011-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -298,7 +298,7 @@ test_long_double (void)
 
   /* Check that 'long double' is at least as wide as 'double'.  */
   ASSERT (LDBL_MANT_DIG >= DBL_MANT_DIG);
-  ASSERT (LDBL_MIN_EXP <= DBL_MIN_EXP);
+  ASSERT (LDBL_MIN_EXP - LDBL_MANT_DIG <= DBL_MIN_EXP - DBL_MANT_DIG);
   ASSERT (LDBL_MAX_EXP >= DBL_MAX_EXP);
 
   /* Check the value of LDBL_DIG.  */
@@ -377,7 +377,7 @@ main ()
 int
 main ()
 {
-  fprintf (stderr, "FLT_RADIX is not 2.\n");
+  fprintf (stderr, "Skipping test: FLT_RADIX is not 2.\n");
   return 77;
 }
 
