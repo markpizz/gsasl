@@ -37,23 +37,23 @@ maintenance.  We are always looking for interesting development
 projects.  See http://josefsson.org/ for more details.
 
 The project's web page is available at:
-  http://www.gnu.org/software/gsasl/
+  https://www.gnu.org/software/gsasl/
 
 All manuals are available from:
-  http://www.gnu.org/software/gsasl/manual/
+  https://www.gnu.org/software/gsasl/manual/
 
 Specifically, the following formats are available.
 
 The main manual:
-  http://www.gnu.org/software/gsasl/manual/gsasl.html - HTML format
-  http://www.gnu.org/software/gsasl/manual/gsasl.pdf - PDF format
+  https://www.gnu.org/software/gsasl/manual/gsasl.html - HTML format
+  https://www.gnu.org/software/gsasl/manual/gsasl.pdf - PDF format
 
 API Reference manual:
-  http://www.gnu.org/software/gsasl/reference/ - GTK-DOC HTML
+  https://www.gnu.org/software/gsasl/reference/ - GTK-DOC HTML
 
 Doxygen documentation:
-  http://www.gnu.org/software/gsasl/doxygen/ - HTML format
-  http://www.gnu.org/software/gsasl/doxygen/gsasl.pdf - PDF format
+  https://www.gnu.org/software/gsasl/doxygen/ - HTML format
+  https://www.gnu.org/software/gsasl/doxygen/gsasl.pdf - PDF format
 
 Instructions for how to build GNU SASL under uClinux are available from
 <http://josefsson.org/uclinux/>.  If your uClinux toolchain is broken,
@@ -62,7 +62,7 @@ mechanism, see <http://josefsson.org/uclinux/old/>.
 
 If you need help to use GNU SASL, or want to help others, you are
 invited to join our help-gsasl mailing list, see:
-<http://lists.gnu.org/mailman/listinfo/help-gsasl>.
+<https://lists.gnu.org/mailman/listinfo/help-gsasl>.
 
 Here are the compressed sources of the entire package:
   ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.4.4.tar.gz (3.9MB)
@@ -83,8 +83,8 @@ Daily builds of the package are available from:
   http://daily.josefsson.org/gsasl/
 
 For code coverage and cyclomatic code complexity charts:
-  http://www.gnu.org/software/gsasl/coverage/
-  http://www.gnu.org/software/gsasl/cyclo/cyclo-gsasl.html
+  https://www.gnu.org/software/gsasl/coverage/
+  https://www.gnu.org/software/gsasl/cyclo/cyclo-gsasl.html
 
 The software is cryptographically signed by the author using an
 OpenPGP key identified by the following information:
