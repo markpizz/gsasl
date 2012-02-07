@@ -91,6 +91,7 @@ scram_start (Gsasl_session * sctx, void **mech_data, int plus)
   p = gsasl_property_get (sctx, GSASL_CB_TLS_UNIQUE);
   if (state->plus && !p)
     {
+      free (state->cf.client_nonce);
       free (state);
       return GSASL_NO_CB_TLS_UNIQUE;
     }
@@ -100,6 +101,7 @@ scram_start (Gsasl_session * sctx, void **mech_data, int plus)
 			      &state->cbtlsuniquelen);
       if (rc != GSASL_OK)
 	{
+	  free (state->cf.client_nonce);
 	  free (state);
 	  return rc;
 	}
