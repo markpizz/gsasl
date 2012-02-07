@@ -81,7 +81,7 @@ _gsasl_saml20_client_step (Gsasl_session * sctx,
 	res = _gsasl_gs2_generate_header (false, 'n', NULL, authzid,
 					  strlen (p), p,
 					  output, output_len);
-	if (res == GSASL_OK)
+	if (res != GSASL_OK)
 	  return res;
 
 	res = GSASL_NEEDS_MORE;
