@@ -1,5 +1,5 @@
 /* server-xmpp-saml20.c --- Example XMPP SASL SAML20 server.
- * Copyright (C) 2004, 2005, 2007, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2004-2012  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -43,19 +43,18 @@ static void
 server_xmpp (Gsasl_session * session)
 {
   char *b64, *p;
-  int rc;
+  int rc = GSASL_AUTHENTICATION_ERROR;
 
   do
     {
-      char *line = NULL;
-      size_t n;
-      ssize_t len;
+      char buf[BUFSIZ] = "";
 
-      len = getline (&line, &n, stdin);
-      if (len <= 0)
+      if (fgets (buf, sizeof (buf) - 1, stdin) == NULL)
 	break;
+      if (buf[strlen (buf) - 1] == '\n')
+        buf[strlen (buf) - 1] = '\0';
 
-      b64 = xmltob64 (line);
+      b64 = xmltob64 (buf);
 
       printf ("parsed: '%s'\n", b64);
 
@@ -145,9 +144,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
     case GSASL_VALIDATE_SAML20:
       {
-	char *line = NULL;
-	size_t n;
-	ssize_t len;
+	char buf[BUFSIZ] = "";
 
 	puts ("Authorization decision time!");
 	printf ("User identity: %s\n",
@@ -155,17 +152,15 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	printf ("Accept user? (y/n) ");
 	fflush (stdout);
 
-	len = getline (&line, &n, stdin);
-	if (len <= 0)
+	if (fgets (buf, sizeof (buf) - 1, stdin) == NULL)
 	  break;
-	if (line[strlen (line) - 1] == '\n')
-	  line[strlen (line) - 1] = '\0';
+	if (buf[strlen (buf) - 1] == '\n')
+	  buf[strlen (buf) - 1] = '\0';
 
-	if (strcmp (line, "y") == 0 || strcmp (line, "Y") == 0)
+	if (strcmp (buf, "y") == 0 || strcmp (buf, "Y") == 0)
 	  rc = GSASL_OK;
 	else
 	  rc = GSASL_AUTHENTICATION_ERROR;
-	free (line);
       }
       break;
 

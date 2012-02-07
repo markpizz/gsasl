@@ -1,5 +1,5 @@
 /* client-xmpp-saml20.c --- Example XMPP SASL SAML20 client.
- * Copyright (C) 2004, 2005, 2007, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2004, 2005, 2007, 2009, 2010, 2012  Simon Josefsson
  *
  * This file is part of GNU SASL.
  *
@@ -55,7 +55,7 @@ client_xmpp (Gsasl_session * session)
   rc = gsasl_step64 (session, buf, &p);
   if (rc != GSASL_NEEDS_MORE)
     {
-      printf ("SAML20 init error (%d): %s\n", rc, gsasl_strerror (rc));
+      printf ("SAML20 step error (%d): %s\n", rc, gsasl_strerror (rc));
       return;
     }
 
@@ -64,16 +64,13 @@ client_xmpp (Gsasl_session * session)
 
   do
     {
-      char *line = NULL;
-      size_t n;
-      ssize_t len;
       char *b64;
 
-      len = getline (&line, &n, stdin);
-      if (len <= 0)
-	break;
+      fgets (buf, sizeof (buf) - 1, stdin);
+      if (buf[strlen (buf) - 1] == '\n')
+        buf[strlen (buf) - 1] = '\0';
 
-      b64 = xmltob64 (line);
+      b64 = xmltob64 (buf);
 
       printf ("parsed: '%s'\n", b64);
 
