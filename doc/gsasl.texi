@@ -2529,8 +2529,6 @@ otherwise @code{GSASL_AUTHENTICATION_ERROR}.
 
 @menu
 * GNU Free Documentation License::   License for copying this manual.
-* GNU LGPL::                         License for copying the library.
-* GNU GPL::                          License for copying the programs.
 @end menu
 
 @node GNU Free Documentation License
@@ -2539,20 +2537,6 @@ otherwise @code{GSASL_AUTHENTICATION_ERROR}.
 @cindex FDL, GNU Free Documentation License
 
 @include fdl-1.3.texi
-
-@node GNU LGPL
-@appendixsec GNU Lesser General Public License
-@cindex LGPL, GNU Lesser General Public License
-@cindex License, GNU LGPL
-
-@include lgpl-2.1.texi
-
-@node GNU GPL
-@appendixsec GNU General Public License
-@cindex GPL, GNU General Public License
-@cindex License, GNU GPL
-
-@include gpl-3.0.texi
 
 @node Function and Data Index
 @unnumbered Function and Data Index

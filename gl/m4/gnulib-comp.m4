@@ -118,7 +118,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module gettimeofday-tests:
   # Code from module gnumakefile:
   # Code from module gperf:
-  # Code from module gpl-3.0:
   # Code from module havelib:
   # Code from module hostent:
   # Code from module iconv:
@@ -143,7 +142,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module ioctl-tests:
   # Code from module largefile:
   AC_REQUIRE([AC_SYS_LARGEFILE])
-  # Code from module lgpl-2.1:
   # Code from module listen:
   # Code from module listen-tests:
   # Code from module localcharset:
@@ -999,8 +997,6 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/vc-list-files
   doc/fdl-1.3.texi
   doc/gendocs_template
-  doc/gpl-3.0.texi
-  doc/lgpl-2.1.texi
   lib/alloca.c
   lib/alloca.in.h
   lib/arpa_inet.in.h
