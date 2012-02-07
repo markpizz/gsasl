@@ -1,5 +1,5 @@
 /* mechtools.c --- Helper functions available for use by any mechanism.
- * Copyright (C) 2010  Simon Josefsson
+ * Copyright (C) 2010-2012  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -206,11 +206,12 @@ _gsasl_gs2_generate_header (bool nonstd, char cbflag,
     len = asprintf (gs2h, "%s%s,,%.*s", nonstd ? "F," : "", gs2cbflag,
 		    elen, extra);
 
-  if (len <= 0 || gs2cbflag == NULL)
-    {
-      free (gs2cbflag);
-      return GSASL_MALLOC_ERROR;
-    }
+  free (gs2cbflag);
+
+  if (len <= 0 || gs2h == NULL)
+    return GSASL_MALLOC_ERROR;
 
   *gs2hlen = len;
+
+  return GSASL_OK;
 }

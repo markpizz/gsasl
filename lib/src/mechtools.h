@@ -1,5 +1,5 @@
 /* mechtools.h --- Helper functions available for use by any mechanism.
- * Copyright (C) 2010  Simon Josefsson
+ * Copyright (C) 2010-2012  Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -29,7 +29,7 @@
 /* Get bool. */
 #include <stdbool.h>
 
-extern int _gsasl_gs2_parse_header (const char *data, size_t len,
+extern int _gsasl_parse_gs2_header (const char *data, size_t len,
 				    char **authzid, size_t * headerlen);
 
 extern int _gsasl_gs2_generate_header (bool nonstd, char cbflag,
