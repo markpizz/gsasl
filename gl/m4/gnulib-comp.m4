@@ -112,7 +112,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module getopt-posix:
   # Code from module getopt-posix-tests:
   # Code from module getpagesize:
-  # Code from module getpass:
+  # Code from module getpass-gnu:
   # Code from module gettext-h:
   # Code from module gettimeofday:
   # Code from module gettimeofday-tests:
@@ -246,7 +246,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module stdio-tests:
   # Code from module stdlib:
   # Code from module stdlib-tests:
-  # Code from module strdup-posix:
   # Code from module streq:
   # Code from module strerror:
   # Code from module strerror-override:
@@ -426,8 +425,8 @@ if test $REPLACE_GETOPT = 1; then
   GNULIB_GL_UNISTD_H_GETOPT=1
 fi
 AC_SUBST([GNULIB_GL_UNISTD_H_GETOPT])
-gl_FUNC_GETPASS
-if test $HAVE_GETPASS = 0; then
+gl_FUNC_GETPASS_GNU
+if test $REPLACE_GETPASS = 1; then
   AC_LIBOBJ([getpass])
   gl_PREREQ_GETPASS
 fi
@@ -473,11 +472,6 @@ fi
 gl_UNISTD_MODULE_INDICATOR([lseek])
 AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
   [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
-gl_FUNC_MALLOC_POSIX
-if test $REPLACE_MALLOC = 1; then
-  AC_LIBOBJ([malloc])
-fi
-gl_STDLIB_MODULE_INDICATOR([malloc-posix])
 gl_FUNC_MBRTOWC
 if test $HAVE_MBRTOWC = 0 || test $REPLACE_MBRTOWC = 1; then
   AC_LIBOBJ([mbrtowc])
@@ -576,12 +570,6 @@ gl_STDDEF_H
 gl_STDINT_H
 gl_STDIO_H
 gl_STDLIB_H
-gl_FUNC_STRDUP_POSIX
-if test $ac_cv_func_strdup = no || test $REPLACE_STRDUP = 1; then
-  AC_LIBOBJ([strdup])
-  gl_PREREQ_STRDUP
-fi
-gl_STRING_MODULE_INDICATOR([strdup])
 gl_FUNC_STRERROR
 if test $REPLACE_STRERROR = 1; then
   AC_LIBOBJ([strerror])
@@ -775,6 +763,11 @@ if test $REPLACE_LSTAT = 1; then
   gl_PREREQ_LSTAT
 fi
 gl_SYS_STAT_MODULE_INDICATOR([lstat])
+gl_FUNC_MALLOC_POSIX
+if test $REPLACE_MALLOC = 1; then
+  AC_LIBOBJ([malloc])
+fi
+gl_STDLIB_MODULE_INDICATOR([malloc-posix])
 gl_MALLOCA
 gt_LOCALE_FR
 gt_LOCALE_FR_UTF8
@@ -1050,7 +1043,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/localcharset.c
   lib/localcharset.h
   lib/lseek.c
-  lib/malloc.c
   lib/mbrtowc.c
   lib/mbsinit.c
   lib/memchr.c
@@ -1095,7 +1087,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdio-impl.h
   lib/stdio.in.h
   lib/stdlib.in.h
-  lib/strdup.c
   lib/streq.h
   lib/strerror-override.c
   lib/strerror-override.h
@@ -1246,7 +1237,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdint_h.m4
   m4/stdio_h.m4
   m4/stdlib_h.m4
-  m4/strdup.m4
   m4/strerror.m4
   m4/strerror_r.m4
   m4/string_h.m4
@@ -1469,6 +1459,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/localename.c
   tests=lib/localename.h
   tests=lib/lstat.c
+  tests=lib/malloc.c
   tests=lib/malloca.c
   tests=lib/malloca.h
   tests=lib/malloca.valgrind

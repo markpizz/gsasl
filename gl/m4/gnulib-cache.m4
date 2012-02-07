@@ -27,7 +27,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=lib/build-aux --with-tests --avoid=update-copyright-tests --no-conditional-dependencies --libtool --macro-prefix=gl --no-vc-files autobuild close connect error fdl-1.3 gendocs getaddrinfo getopt-gnu getpass maintainer-makefile manywarnings netdb netinet_in pmccabe2html poll progname quote readline recv shutdown socket striconv strtok_r sys_time unistd update-copyright valgrind-tests vasprintf version-etc warnings xalloc
+#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgl --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=lib/build-aux --with-tests --avoid=update-copyright-tests --no-conditional-dependencies --libtool --macro-prefix=gl --no-vc-files autobuild close connect error fdl-1.3 gendocs getaddrinfo getopt-gnu getpass-gnu maintainer-makefile manywarnings netdb netinet_in pmccabe2html poll progname quote readline recv shutdown socket striconv strtok_r sys_time unistd update-copyright valgrind-tests vasprintf version-etc warnings xalloc
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
@@ -40,7 +40,7 @@ gl_MODULES([
   gendocs
   getaddrinfo
   getopt-gnu
-  getpass
+  getpass-gnu
   maintainer-makefile
   manywarnings
   netdb
