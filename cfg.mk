@@ -114,6 +114,23 @@ ChangeLog:
 	git2cl > ChangeLog
 	cat .clcopying >> ChangeLog
 
+gtkdoc-copy:
+	mkdir -p $(htmldir)/reference/
+	cp -v doc/reference/$(PACKAGE).pdf \
+		doc/reference/html/*.html \
+		doc/reference/html/*.png \
+		doc/reference/html/*.devhelp \
+		doc/reference/html/*.css \
+		$(htmldir)/reference/
+
+gtkdoc-upload:
+	cd $(htmldir) && \
+		cvs add reference || true && \
+		cvs add -kb reference/*.png reference/*.pdf || true && \
+		cvs add reference/*.html reference/*.css \
+			reference/*.devhelp || true && \
+		cvs commit -m "Update." reference/
+
 htmldir = ../www-$(PACKAGE)
 tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
 
