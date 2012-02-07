@@ -1,5 +1,5 @@
 /* client.c --- Example SASL client.
- * Copyright (C) 2004, 2005, 2007, 2009  Simon Josefsson
+ * Copyright (C) 2004-2012 Simon Josefsson
  *
  * This file is part of GNU SASL.
  *

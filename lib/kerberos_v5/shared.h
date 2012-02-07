@@ -1,5 +1,5 @@
 /* shared.h --- Experimental SASL mechanism KERBEROS_V5, shared definitions.
- * Copyright (C) 2003, 2004  Simon Josefsson
+ * Copyright (C) 2003-2012 Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *

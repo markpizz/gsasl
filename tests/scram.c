@@ -1,5 +1,5 @@
 /* scram.c --- Test the SCRAM mechanism.
- * Copyright (C) 2009, 2010  Simon Josefsson
+ * Copyright (C) 2009-2012 Simon Josefsson
  *
  * This file is part of GNU SASL.
  *

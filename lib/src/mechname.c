@@ -1,5 +1,5 @@
 /* mechname.c --- Get name of SASL mechanism used in a session.
- * Copyright (C) 2008, 2009  Simon Josefsson
+ * Copyright (C) 2008-2012 Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *

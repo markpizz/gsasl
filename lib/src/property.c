@@ -1,5 +1,5 @@
 /* property.c --- Callback property handling.
- * Copyright (C) 2004-2011  Simon Josefsson
+ * Copyright (C) 2004-2012 Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *

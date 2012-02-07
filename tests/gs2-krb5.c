@@ -1,5 +1,5 @@
 /* gs2-krb5.c --- Test the GS2-KRB5 mechanism.
- * Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2009, 2010  Simon Josefsson
+ * Copyright (C) 2002-2012 Simon Josefsson
  *
  * This file is part of GNU SASL.
  *

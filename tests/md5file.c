@@ -1,5 +1,5 @@
 /* md5file.c --- Test the MD5 file password function.
- * Copyright (C) 2002, 2003, 2004, 2007, 2008, 2009  Simon Josefsson
+ * Copyright (C) 2002-2012 Simon Josefsson
  *
  * This file is part of GNU SASL.
  *

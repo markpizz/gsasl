@@ -1,5 +1,5 @@
 /* mechinfo.c --- Definition of GS2 mechanism.
- * Copyright (C) 2006, 2010 Simon Josefsson
+ * Copyright (C) 2006-2012 Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *

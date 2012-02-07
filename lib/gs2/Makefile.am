@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2006, 2008, 2009, 2010 Simon Josefsson.
+# Copyright (C) 2006-2012 Simon Josefsson.
 #
 # This file is part of GNU SASL Library.
 #

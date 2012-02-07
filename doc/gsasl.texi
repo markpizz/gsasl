@@ -12,7 +12,7 @@
 This manual was last updated @value{UPDATED} for version
 @value{VERSION} of GNU SASL.
 
-Copyright @copyright{} 2002-2011 Simon Josefsson.
+Copyright @copyright{} 2002-2012 Simon Josefsson.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document

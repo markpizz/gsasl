@@ -1,5 +1,5 @@
 /* saml20.h --- Prototypes for SAML20.
- * Copyright (C) 2010  Simon Josefsson
+ * Copyright (C) 2010-2012 Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *

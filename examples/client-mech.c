@@ -1,5 +1,5 @@
 /* client-mech.c --- Example SASL client, with a choice of mechanism to use.
- * Copyright (C) 2004, 2005, 2007, 2009  Simon Josefsson
+ * Copyright (C) 2004-2012 Simon Josefsson
  *
  * This file is part of GNU SASL.
  *

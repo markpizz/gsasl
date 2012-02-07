@@ -1,5 +1,5 @@
 /* server.c --- SAML20 mechanism, server side.
- * Copyright (C) 2010  Simon Josefsson
+ * Copyright (C) 2010-2012 Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *

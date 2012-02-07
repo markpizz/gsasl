@@ -1,5 +1,5 @@
 /* validate.h --- Validate consistency of SCRAM tokens.
- * Copyright (C) 2009  Simon Josefsson
+ * Copyright (C) 2009-2012 Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
