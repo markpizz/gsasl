@@ -70,13 +70,29 @@ glimport:
 	gnulib-tool --m4-base gl/m4 --add-import
 	cd lib && gnulib-tool --m4-base gl/m4 --add-import
 
-web-coverage:
-	rm -fv `find $(htmldir)/coverage -type f | grep -v CVS`
-	cp -rv doc/coverage/* $(htmldir)/coverage/
+# Coverage
 
-upload-web-coverage:
+coverage-my:
+	ln -s . gl/unistr/unistr
+	ln -s . gltests/glthread/glthread
+	ln -s . gltests/unistr/unistr
+	$(MAKE) coverage WERROR_CFLAGS= VALGRIND=
+
+coverage-copy:
+	rm -fv `find $(htmldir)/coverage -type f | grep -v CVS`
+	mkdir -p $(htmldir)/coverage/
+	cp -rv $(COVERAGE_OUT)/* $(htmldir)/coverage/
+
+coverage-upload:
 	cd $(htmldir) && \
-		cvs commit -m "Update." coverage
+	find coverage -type d -! -name CVS -! -name '.' \
+		-exec cvs add {} \; && \
+	find coverage -type d -! -name CVS -! -name '.' \
+		-exec sh -c "cvs add -kb {}/*.png" \; && \
+	find coverage -type d -! -name CVS -! -name '.' \
+		-exec sh -c "cvs add {}/*.html" \; && \
+	cvs add coverage/$(PACKAGE).info coverage/gcov.css || true && \
+	cvs commit -m "Update." coverage
 
 ChangeLog:
 	git2cl > ChangeLog
