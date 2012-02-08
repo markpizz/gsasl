@@ -1,5 +1,6 @@
 *~
 ABOUT-NLS
+ChangeLog
 INSTALL
 Makefile
 Makefile.in
@@ -68,11 +69,13 @@ doc/reference/html/
 doc/reference/pdf-build.stamp
 doc/reference/pdf.stamp
 doc/reference/scan-build.stamp
+doc/reference/setup-build.stamp
 doc/reference/sgml-build.stamp
 doc/reference/sgml.stamp
 doc/reference/tmpl-build.stamp
 doc/reference/tmpl.stamp
 doc/reference/tmpl/
+doc/reference/version.xml
 doc/reference/xml/
 doc/stamp-vti
 doc/texi/
@@ -129,6 +132,13 @@ gl/fseek.lo
 gl/fseek.o
 gl/fseeko.lo
 gl/fseeko.o
+gl/getopt.h
+gl/getopt.lo
+gl/getopt.o
+gl/getopt1.lo
+gl/getopt1.o
+gl/getpass.lo
+gl/getpass.o
 gl/iconv.h
 gl/iconv_open-aix.h
 gl/iconv_open-hpux.h
@@ -154,8 +164,10 @@ gl/readline.lo
 gl/readline.o
 gl/ref-add.sed
 gl/ref-del.sed
+gl/signal.h
 gl/sockets.lo
 gl/sockets.o
+gl/stdalign.h
 gl/stdio.h
 gl/stdlib.h
 gl/strerror.lo
@@ -164,6 +176,7 @@ gl/striconv.lo
 gl/striconv.o
 gl/string.h
 gl/sys/
+gl/time.h
 gl/unistd.h
 gl/unistr.h
 gl/unistr/.deps/
@@ -411,6 +424,7 @@ gltests/version-etc-fsf.o
 gltests/warn-on-use.h
 gsasl-*.tar.gz
 lib/ABOUT-NLS
+lib/ChangeLog
 lib/INSTALL
 lib/Makefile
 lib/Makefile.in
@@ -517,7 +531,13 @@ lib/gl/gc-pbkdf2-sha1.lo
 lib/gl/gc-pbkdf2-sha1.o
 lib/gl/gss-extra.lo
 lib/gl/gss-extra.o
+lib/gl/hmac-md5.lo
+lib/gl/hmac-md5.o
+lib/gl/hmac-sha1.lo
+lib/gl/hmac-sha1.o
 lib/gl/libgl.la
+lib/gl/md5.lo
+lib/gl/md5.o
 lib/gl/memmem.lo
 lib/gl/memmem.o
 lib/gl/memxor.lo
@@ -526,6 +546,9 @@ lib/gl/printf-args.lo
 lib/gl/printf-args.o
 lib/gl/printf-parse.lo
 lib/gl/printf-parse.o
+lib/gl/sha1.lo
+lib/gl/sha1.o
+lib/gl/stdalign.h
 lib/gl/stdio.h
 lib/gl/stdlib.h
 lib/gl/string.h

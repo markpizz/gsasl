@@ -21,7 +21,7 @@ CFGFLAGS ?= --enable-gtk-doc --enable-gtk-doc-pdf $(ADDFLAGS) $(WFLAGS)
 
 _build-aux = lib/build-aux
 
-INDENT_SOURCES = `find . -name \*.c -or -name \*.h | grep -v -e /gl -e build-aux -e /win32/ -e /examples/`
+INDENT_SOURCES = `find . -name '*.[chly]' | grep -v -e /gl -e build-aux -e /win32/ -e /examples/`
 
 ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 .DEFAULT_GOAL := bootstrap
@@ -50,6 +50,7 @@ autoreconf:
 		cp $$f `echo $$f | sed 's/.in//'`; \
 	done
 	mv $(_build-aux)/config.rpath $(_build-aux)/config.rpath-
+	touch ChangeLog lib/ChangeLog
 	test -f ./configure || autoreconf --install
 	mv $(_build-aux)/config.rpath- $(_build-aux)/config.rpath
 
@@ -69,6 +70,19 @@ bootstrap: autoreconf
 glimport:
 	gnulib-tool --m4-base gl/m4 --add-import
 	cd lib && gnulib-tool --m4-base gl/m4 --add-import
+
+review-diff:
+	git diff `git describe --abbrev=0`.. \
+	| grep -v -e ^index -e '^diff --git' \
+	| filterdiff -p 1 -x 'gl/*' -x 'gltests/*' -x 'lib/build-aux/*' -x 'lib/gl*' -x 'lib/gltests/*' -x 'po/*' -x 'lib/po/*' -x 'maint.mk' -x 'lib/maint.mk' -x '.gitignore' -x '.x-sc*' -x ChangeLog -x GNUmakefile \
+	| less
+
+# Release
+
+htmldir = ../www-$(PACKAGE)
+
+i18n:
+	-$(MAKE) update-po
 
 coverage-my:
 	ln -s . gl/unistr/unistr
@@ -110,9 +124,27 @@ clang-upload:
 			clang-analyzer/*.html || true && \
 		cvs commit -m "Update." clang-analyzer
 
-ChangeLog:
-	git2cl > ChangeLog
-	cat .clcopying >> ChangeLog
+cyclo-copy:
+	cp -v doc/cyclo/cyclo-$(PACKAGE).html $(htmldir)/cyclo/index.html
+
+cyclo-upload:
+	cd $(htmldir) && cvs commit -m "Update." cyclo/index.html
+
+gendoc-copy:
+	cd doc && env MAKEINFO="makeinfo -I ../examples" \
+		      TEXI2DVI="texi2dvi -I ../examples" \
+		$(SHELL) ../$(_build-aux)/gendocs.sh \
+			--html "--css-include=texinfo.css" \
+			-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
+
+gendoc-upload:
+	cd $(htmldir) && \
+		cvs add manual || true && \
+		cvs add manual/html_node || true && \
+		cvs add -kb manual/*.gz manual/*.pdf || true && \
+		cvs add manual/*.txt manual/*.html \
+			manual/html_node/*.html || true && \
+		cvs commit -m "Update." manual/
 
 gtkdoc-copy:
 	mkdir -p $(htmldir)/reference/
@@ -131,42 +163,54 @@ gtkdoc-upload:
 			reference/*.devhelp || true && \
 		cvs commit -m "Update." reference/
 
-htmldir = ../www-$(PACKAGE)
+doxygen-copy:
+	cd doc/doxygen && \
+		doxygen && \
+		cd ../.. && \
+		cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && \
+		cd doc/doxygen/latex && \
+		make refman.pdf && \
+		cd ../../../ && \
+		cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf
+
+doxygen-upload:
+	cd $(htmldir) && \
+		cvs commit -m "Update." doxygen/
+
+ChangeLog:
+	git2cl > ChangeLog
+	cat .clcopying >> ChangeLog
+
 tag = $(PACKAGE)-`echo $(VERSION) | sed 's/\./-/g'`
 
-release: syntax-check prepare upload web upload-web
-
-prepare:
-	cd lib && make prepare
+tarball:
+	$(MAKE) -C lib tarball
 	! git tag -l $(tag) | grep $(PACKAGE) > /dev/null
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
-	git commit -m Generated. ChangeLog
+
+binaries:
+	-mkdir windows/dist
+	cp $(distdir).tar.gz windows/dist
+	cd windows && $(MAKE) -f gsasl4win.mk gsasl4win VERSION=$(VERSION)
+
+binaries-upload:
+	cd windows && $(MAKE) -f gsasl4win.mk upload VERSION=$(VERSION)
+
+source:
 	git tag -u b565716f! -m $(VERSION) $(tag)
 
-upload:
-	cd lib && make upload
+release-check: syntax-check i18n tarball binaries cyclo-copy gendoc-copy gtkdoc-copy doxygen-copy coverage-my coverage-copy clang clang-copy
+
+release-upload-www: cyclo-upload gendoc-upload gtkdoc-upload doxygen-upload coverage-upload clang-upload
+
+release-upload-ftp:
+	$(MAKE) -C lib release-upload-ftp
 	git push
 	git push --tags
 	gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
+	gnupload --to alpha.gnu.org:$(PACKAGE) windows/gsasl-*.zip
+	cp windows/$(PACKAGE)-*.zip windows/$(PACKAGE)-*.zip.sig ../../releases/$(PACKAGE)/
 
-web:
-	cd doc && env MAKEINFO="makeinfo -I ../examples" \
-		      TEXI2DVI="texi2dvi -I ../examples" \
-		$(SHELL) ../$(_build-aux)/gendocs.sh \
-			--html "--css-include=texinfo.css" \
-			-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
-	cd doc/doxygen && doxygen && cd ../.. && cp -v doc/doxygen/html/* $(htmldir)/doxygen/ && cd doc/doxygen/latex && make refman.pdf && cd ../../../ && cp doc/doxygen/latex/refman.pdf $(htmldir)/doxygen/$(PACKAGE).pdf
-	cp -v doc/reference/html/*.html doc/reference/html/*.png doc/reference/html/*.devhelp doc/reference/html/*.css doc/reference/$(PACKAGE).pdf $(htmldir)/reference/
-	cp -v doc/cyclo/cyclo-$(PACKAGE).html $(htmldir)/cyclo/
-
-upload-web:
-	cd $(htmldir) && \
-		cvs commit -m "Update." manual/ reference/ doxygen/ cyclo/
-
-review-diff:
-	git diff `git describe --abbrev=0`.. \
-	| grep -v -e ^index -e '^diff --git' \
-	| filterdiff -p 1 -x 'gl/*' -x 'gltests/*' -x 'lib/build-aux/*' -x 'lib/gl*' -x 'lib/gltests/*' -x 'po/*' -x 'lib/po/*' -x 'maint.mk' -x 'lib/maint.mk' -x '.gitignore' -x '.x-sc*' -x ChangeLog -x GNUmakefile \
-	| less
+release: release-check release-upload-www source release-upload-ftp binaries-upload

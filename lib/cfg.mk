@@ -17,36 +17,18 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-INDENT_SOURCES = `find . -name '*.[chly]' | grep -v -e ^./gl -e ^./build-aux -e ^./win32`
-
-ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
-.DEFAULT_GOAL := bootstrap
-endif
-
 ifeq ($(PACKAGE),)
 PACKAGE := libgsasl
 endif
-
-autoreconf:
-	for f in po/*.po.in; do \
-		cp $$f `echo $$f | sed 's/.in//'`; \
-	done
-	mv build-aux/config.rpath build-aux/config.rpath-
-	test -f ./configure || autoreconf --install
-	mv build-aux/config.rpath- build-aux/config.rpath
-
-bootstrap: autoreconf
-	./configure $(CFGFLAGS)
 
 ChangeLog:
 	git2cl > ChangeLog
 	cat ../.clcopying >> ChangeLog
 
-prepare:
+tarball:
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
-	git commit -m Generated. ChangeLog
 
-upload:
-	gnupload --to alpha.gnu.org:gsasl $(distdir).tar.gz
-	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig ../../releases/gsasl/
+release-upload-ftp:
+	gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz
+	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig ../../releases/$(PACKAGE)/

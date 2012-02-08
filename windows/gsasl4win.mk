@@ -26,10 +26,6 @@ all:
 clean:
 	rm -rf src build-x86 build-x64 inst-x86 inst-x64 kfw322x86 kfw323x86
 
-upload:
-	gnupload --to ftp.gnu.org:gsasl *.zip
-	cp *.zip *.sig ../../releases/gsasl/
-
 gsasl4win: gsasl4win32 gsasl4win64 gsasl4win32kfw322
 gsasl4win32: gsasl-$(VERSION)-x86.zip
 gsasl4win64: gsasl-$(VERSION)-x64.zip
