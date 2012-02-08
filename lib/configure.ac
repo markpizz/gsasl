@@ -208,7 +208,7 @@ fi
 
 # GSSAPI.
 AC_ARG_WITH(gssapi-impl,
-  AS_HELP_STRING([--with-gssapi-impl=gss/kfw/mit/heimdal/yes],
+  AS_HELP_STRING([--with-gssapi-impl=no/gss/kfw/mit/heimdal/yes],
                  [select GSS-API implementation]),
   gssapi_impl=$withval, gssapi_impl=yes)
 if test "$gs2" = no && test "$gssapi" = no; then
