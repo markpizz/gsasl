@@ -1,3 +1,6 @@
+*.gcda
+*.gcno
+*.gcov
 *~
 ABOUT-NLS
 ChangeLog
@@ -19,10 +22,13 @@ doc/Makefile.in
 doc/abstraction.pdf
 doc/controlflow.pdf
 doc/controlflow2.pdf
+doc/coverage/
 doc/cyclo/Makefile
 doc/cyclo/Makefile.in
 doc/cyclo/cyclo-gsasl.html
 doc/doxygen/Doxyfile
+doc/doxygen/html/
+doc/doxygen/latex/
 doc/gsasl-api-error-labels.texi
 doc/gsasl.1
 doc/gsasl.aux
@@ -188,6 +194,7 @@ gl/unistr/u8-uctomb-aux.lo
 gl/unistr/u8-uctomb-aux.o
 gl/unistr/u8-uctomb.lo
 gl/unistr/u8-uctomb.o
+gl/unistr/unistr
 gl/unitypes.h
 gl/unused-parameter.h
 gl/vasnprintf.lo
@@ -209,6 +216,7 @@ gltests/c++defs.h
 gltests/fcntl.h
 gltests/glthread/.deps/
 gltests/glthread/.dirstamp
+gltests/glthread/glthread
 gltests/glthread/lock.o
 gltests/glthread/thread.o
 gltests/glthread/threadlib.o
@@ -467,10 +475,11 @@ gltests/unistr/.deps/
 gltests/unistr/.dirstamp
 gltests/unistr/test-u8-mbtoucr.o
 gltests/unistr/test-u8-uctomb.o
+gltests/unistr/unistr
 gltests/unused-parameter.h
 gltests/version-etc-fsf.o
 gltests/warn-on-use.h
-gsasl-*.tar.gz
+gsasl-*.tar.gz*
 lib/ABOUT-NLS
 lib/ChangeLog
 lib/INSTALL
@@ -725,6 +734,7 @@ lib/gssapi/server.o
 lib/kerberos_v5/.deps/
 lib/kerberos_v5/Makefile
 lib/kerberos_v5/Makefile.in
+lib/libgsasl-*.tar.gz*
 lib/libgsasl.pc
 lib/libtool
 lib/login/.deps/
@@ -974,6 +984,7 @@ po/quot.sed
 po/remove-potcdate.sed
 po/remove-potcdate.sin
 po/stamp-po
+scan.tmp/
 src/.deps/
 src/.libs/
 src/Makefile
