@@ -117,6 +117,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module gettimeofday:
   # Code from module gettimeofday-tests:
   # Code from module gnumakefile:
+  # Code from module gnupload:
   # Code from module gperf:
   # Code from module havelib:
   # Code from module hostent:
@@ -978,6 +979,7 @@ AC_DEFUN([gltests_LIBSOURCES], [
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/config.rpath
   build-aux/gendocs.sh
+  build-aux/gnupload
   build-aux/pmccabe.css
   build-aux/pmccabe2html
   build-aux/snippet/_Noreturn.h

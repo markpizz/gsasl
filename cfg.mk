@@ -201,8 +201,12 @@ release-check: syntax-check i18n tarball binaries cyclo-copy gendoc-copy gtkdoc-
 
 release-upload-www: cyclo-upload gendoc-upload gtkdoc-upload doxygen-upload coverage-upload clang-upload
 
+site = alpha.gnu.org
+
 release-upload-ftp:
-	gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz lib/lib$(distdir).tar.gz windows/gsasl-*.zip
+	$(_build-aux)/gnupload --to $(site):$(PACKAGE) $(distdir).tar.gz
+	cd lib && ../$(_build-aux)/gnupload --to $(site):$(PACKAGE) lib$(distdir).tar.gz
+	cd windows && ../$(_build-aux)/gnupload --to $(site):$(PACKAGE) gsasl-*.zip
 	cp -v $(distdir).tar.gz* lib/lib$(distdir).tar.gz* windows/gsasl-*.zip* ../releases/$(PACKAGE)/
 	git push
 	git push --tags
