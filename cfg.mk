@@ -203,7 +203,7 @@ release-upload-www: cyclo-upload gendoc-upload gtkdoc-upload doxygen-upload cove
 
 release-upload-ftp:
 	gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz lib/lib$(distdir).tar.gz windows/gsasl-*.zip
-	cp -v $(distdir).tar.gz* lib/lib$(distdir).tar.gz* windows/gsasl-*.zip* ../../releases/$(PACKAGE)/
+	cp -v $(distdir).tar.gz* lib/lib$(distdir).tar.gz* windows/gsasl-*.zip* ../releases/$(PACKAGE)/
 	git push
 	git push --tags
 
