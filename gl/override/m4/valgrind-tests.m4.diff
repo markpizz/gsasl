@@ -1,0 +1,11 @@
+--- gl/m4/valgrind-tests.m4.orig	2012-02-09 14:52:23.802384033 +0100
++++ gl/m4/valgrind-tests.m4	2012-02-09 14:52:28.846883092 +0100
+@@ -21,7 +21,7 @@
+     AC_CHECK_PROGS(VALGRIND, valgrind)
+   fi
+ 
+-  OPTS="-q --error-exitcode=1 --leak-check=full"
++  OPTS="-q --error-exitcode=1 --leak-check=no"
+ 
+   if test -n "$VALGRIND" \
+      && $VALGRIND $OPTS $SHELL -c 'exit 0' > /dev/null 2>&1; then
