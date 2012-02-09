@@ -194,9 +194,6 @@ binaries:
 	cp $(distdir).tar.gz windows/dist
 	cd windows && $(MAKE) -f gsasl4win.mk gsasl4win VERSION=$(VERSION)
 
-binaries-upload:
-	cd windows && $(MAKE) -f gsasl4win.mk upload VERSION=$(VERSION)
-
 source:
 	git tag -u b565716f! -m $(VERSION) $(tag)
 
@@ -205,12 +202,9 @@ release-check: syntax-check i18n tarball binaries cyclo-copy gendoc-copy gtkdoc-
 release-upload-www: cyclo-upload gendoc-upload gtkdoc-upload doxygen-upload coverage-upload clang-upload
 
 release-upload-ftp:
-	$(MAKE) -C lib release-upload-ftp
+	gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz lib/lib$(distdir).tar.gz windows/gsasl-*.zip
+	cp -v $(distdir).tar.gz* lib/lib$(distdir).tar.gz* windows/gsasl-*.zip* ../../releases/$(PACKAGE)/
 	git push
 	git push --tags
-	gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz
-	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
-	gnupload --to alpha.gnu.org:$(PACKAGE) windows/gsasl-*.zip
-	cp windows/$(PACKAGE)-*.zip windows/$(PACKAGE)-*.zip.sig ../../releases/$(PACKAGE)/
 
-release: release-check release-upload-www source release-upload-ftp binaries-upload
+release: release-check release-upload-www source release-upload-ftp

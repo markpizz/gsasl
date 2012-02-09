@@ -28,7 +28,3 @@ ChangeLog:
 tarball:
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
-
-release-upload-ftp:
-	gnupload --to alpha.gnu.org:$(PACKAGE) $(distdir).tar.gz
-	cp -v $(distdir).tar.gz $(distdir).tar.gz.sig ../../releases/$(PACKAGE)/
