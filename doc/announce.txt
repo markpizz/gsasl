@@ -1,5 +1,5 @@
 To: help-gsasl@gnu.org, info-gnu@gnu.org
-Subject: GNU SASL 1.4.4 released
+Subject: GNU SASL 1.7.1 released (development version)
 
 <#part sign=pgpmime>
 GNU SASL is a modern C library that implement the standard network
@@ -9,21 +9,36 @@ SCRAM-SHA-1) are implemented.  GNU SASL can be used by network
 applications for IMAP, SMTP, XMPP and similar protocols to provide
 authentication services.
 
-Library (lib/) NEWS entries:
+NEWS entries:
 
-* Version 1.4.4 (released 2010-03-25) [stable]
+** gsasl: Don't crash after getpass() on Mac OS X.
+Reported by Wim Lewis <wiml@hhhh.org>.
 
-** SCRAM: Fix build error on platforms without strnlen.
+** gsasl: Ignore untagged responses during IMAP authentication.
+Patch from Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de>.
 
-** API and ABI modifications.
-No changes since last version.
+** tests: Disable the test-poll self-test, it doesn't seem to work on Solaris.
+Reported by Dagobert Michelsen <dam@opencsw.org>.
 
-* Version 1.4.3 (released 2010-03-25) [stable]
+** libgsasl: Implement OPENID20 mechanism for OpenID authentication.
+Following draft-ietf-kitten-sasl-openid-03.
 
-** SCRAM: Don't read out of bounds when parsing tokens.
+** Demand gettext >= 0.18.1 in order to get newer M4 files.
+The old M4 files associated with 0.17 caused problems on Solaris,
+which will hopefully be fixed with this.  Reported by Dagobert
+Michelsen <dam@opencsw.org>.
 
-** API and ABI modifications.
-No changes since last version.
+** build: Added MinGW build script for Windows binaries, windows/gsasl4win.mk.
+
+** doc: Typo fix in autoconf snippet.
+
+** i18n: Updated translations.
+
+** examples: Added client-xmpp-saml20 and server-xmpp-saml20.
+The examples illustrates a sample SAML20 client and server.
+
+** libgsasl.pc: Add a Libs.private.
+Reported by Volker Grabsch <vog@notjusthosting.com>.
 
 Improving GNU SASL is costly, but you can help!  We are looking for
 organizations that find GNU SASL useful and wish to contribute back.
@@ -65,35 +80,30 @@ invited to join our help-gsasl mailing list, see:
 <https://lists.gnu.org/mailman/listinfo/help-gsasl>.
 
 Here are the compressed sources of the entire package:
-  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.4.4.tar.gz (3.9MB)
-  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.4.4.tar.gz.sig (PGP)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.1.tar.gz (4.7MB)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.1.tar.gz.sig (OpenPGP)
 
 Here are the compressed sources of the LGPL library (included above):
-  ftp://ftp.gnu.org/gnu/gsasl/libgsasl-1.4.4.tar.gz (980KB)
-  ftp://ftp.gnu.org/gnu/gsasl/libgsasl-1.4.4.tar.gz.sig (PGP)
+  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.1.tar.gz (1.2MB)
+  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.1.tar.gz.sig (OpenPGP)
 
 We also provide pre-built Windows binaries:
-  http://josefsson.org/gnutls4win/gsasl-1.4.4.zip
-  http://josefsson.org/gnutls4win/mingw32-gsasl_1.4.4-1_all.deb
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.1-x86.zip (32-bit)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.1-x64.zip (64-bit)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.1-x86-kfw322.zip (32-bit Kerberos)
 
-Here are the build reports for various platforms:
-  http://autobuild.josefsson.org/gsasl/
-
-Daily builds of the package are available from:
-  http://daily.josefsson.org/gsasl/
-
-For code coverage and cyclomatic code complexity charts:
+For code coverage, cyclomatic code complexity charts and clang output see:
   https://www.gnu.org/software/gsasl/coverage/
-  https://www.gnu.org/software/gsasl/cyclo/cyclo-gsasl.html
+  https://www.gnu.org/software/gsasl/cyclo/
+  https://www.gnu.org/software/gsasl/clang-analyzer/
 
 The software is cryptographically signed by the author using an
 OpenPGP key identified by the following information:
 
-pub   1280R/B565716F 2002-05-05 [expires: 2011-03-30]
+pub   1280R/B565716F 2002-05-05 [expires: 2013-05-10]
       Key fingerprint = 0424 D4EE 81A0 E3D1 19C6  F835 EDA2 1E94 B565 716F
-uid                  Simon Josefsson <jas@extundo.com>
 uid                  Simon Josefsson <simon@josefsson.org>
-sub   1280R/4D5D40AE 2002-05-05 [expires: 2011-03-30]
+sub   1280R/4D5D40AE 2002-05-05 [expires: 2013-05-10]
 
 The key is available from:
   http://josefsson.org/key.txt
@@ -101,17 +111,20 @@ The key is available from:
 
 Here are the SHA-1 and SHA-224 checksums:
 
-25a74d71c738af555193e4069a22beaf0e0daf63  gsasl-1.4.4.tar.gz
-5d123630ad9a9442b0c8fe187e4ec811700ec793eceece87f318eb00  gsasl-1.4.4.tar.gz
+47e7f5e2194af680c4eb62008a73ca9d6a670ae8  gsasl-1.7.1.tar.gz
+8b8175e0e30c3042d631f3b99574c5d81b1b39808e0dc8bbae8897fe  gsasl-1.7.1.tar.gz
 
-d32d29a5c599b2d54f214fc5747559bc890f24de  libgsasl-1.4.4.tar.gz
-e4bbcb9fbc96a9ffd09795955dd7f697fe951e887fc7931b4332b7a7  libgsasl-1.4.4.tar.gz
+4f3bc6ff4aa9e2f6caa227689bbd8e074ab4bfb4  libgsasl-1.7.1.tar.gz
+6ae763b6b4432483ccd45a9dfd3903da1694271224dc878c4034c387  libgsasl-1.7.1.tar.gz
 
-372e3f923d1dd446ea57a4f8b72b752ab89ba620  gsasl-1.4.4.zip
-1cf7c4ba9e9abd8f4e19e424f6e198aea0db667936154475ca0abbec  gsasl-1.4.4.zip
+9059955e43a5abac0bf4a2cc6b5339f362a6a152  gsasl-1.7.1-x86.zip
+1f7ea0b68aafe2627ddefeb06f2d3b9cec744ac1f3d08061af88d3b3  gsasl-1.7.1-x86.zip
 
-4dcfa0461c4e11fa70b18172d10410048f46dc86  mingw32-gsasl_1.4.4-1_all.deb
-17b2b1f8a50fd6633f3e42b22e19e3e617378b126133b6d5495dce35  mingw32-gsasl_1.4.4-1_all.deb
+80b1eef95b2cadcca759938cd3bc1c1e2178deac  gsasl-1.7.1-x64.zip
+b20b5456fead6fb8dfc41b953f642ef021d798e5935e41972027a092  gsasl-1.7.1-x64.zip
+
+0dab54e0791120a6fce5efaeb4e6162949750a23  gsasl-1.7.1-x86-kfw322.zip
+a120d1963afa4a38054090d53b1561d752146d9673d6fe6cd43333cf  gsasl-1.7.1-x86-kfw322.zip
 
 Happy hacking,
 Simon
