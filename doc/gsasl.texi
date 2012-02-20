@@ -1747,7 +1747,7 @@ authenticate and authorize the client are provided.
 In the first approach, the server side of the mechanism will request
 the @code{GSASL_VALIDATE_SIMPLE} callback property to decide whether
 the client should be accepted or not.  The callback may inspect the
-@code{GSASL_AUTHID}, @code{GSASL_AUTHID}, and @code{GSASL_PASSWORD}
+@code{GSASL_AUTHID}, @code{GSASL_AUTHZID}, and @code{GSASL_PASSWORD}
 properties.  These property values will be normalized.
 
 If the first approach fails (because, e.g., your callback returns
