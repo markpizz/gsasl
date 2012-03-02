@@ -21,6 +21,11 @@ ifeq ($(PACKAGE),)
 PACKAGE := libgsasl
 endif
 
+ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
+.DEFAULT_GOAL := noop
+.PHONY: noop
+endif
+
 ChangeLog:
 	git2cl > ChangeLog
 	cat ../.clcopying >> ChangeLog
