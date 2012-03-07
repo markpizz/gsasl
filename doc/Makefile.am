@@ -342,7 +342,7 @@ update-makefile:
 		BASE=`basename $$i`; \
 		TEXINFOS="$$TEXINFOS\ngdoc_TEXINFOS += texi/$$BASE.texi"; \
 	done; \
-	FUNCS=`./gdoc -listfunc $(GDOC_SRC)`; \
+	FUNCS=`$(srcdir)/gdoc -listfunc $(GDOC_SRC)`; \
 	for i in $$FUNCS; do \
 		MANS="$$MANS\ngdoc_MANS += man/$$i.3"; \
 		TEXINFOS="$$TEXINFOS\ngdoc_TEXINFOS += texi/$$i.texi"; \
@@ -356,8 +356,8 @@ update-makefile:
 doit:
 	@$(mkdir_p) man texi; \
 	echo -n "Creating function documentation" && \
-	for i in `./gdoc -listfunc $(GDOC_SRC)`; do \
-		./gdoc -man \
+	for i in `$(srcdir)/gdoc -listfunc $(GDOC_SRC)`; do \
+		$(srcdir)/gdoc -man \
 			-module $(PACKAGE) \
 			-sourceversion $(VERSION) \
 			-bugsto $(PACKAGE_BUGREPORT) \
@@ -367,7 +367,7 @@ doit:
 			-copyright "2002-2010 Simon Josefsson" \
 			-function $$i \
 			$(GDOC_SRC) > man/$$i.3 && \
-		./gdoc -texinfo -function $$i \
+		$(srcdir)/gdoc -texinfo -function $$i \
 			$(GDOC_SRC) > texi/$$i.texi && \
 		echo -n "."; \
 	done; \
@@ -375,7 +375,7 @@ doit:
 	echo -n "Creating file documentation" && \
 	for i in $(GDOC_SRC); do \
 		BASE=`basename $$i`; \
-		./gdoc -texinfo $$i > texi/$$BASE.texi && \
+		$(srcdir)/gdoc -texinfo $$i > texi/$$BASE.texi && \
 		echo -n "."; \
 	done; \
 	echo ""
