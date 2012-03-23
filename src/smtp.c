@@ -91,9 +91,12 @@ smtp_select_mechanism (char **mechlist)
 	  if (!readln (&in))
 	    return 0;
 
-#define GREETING "250-AUTH "
-	  if (strncmp (in, GREETING, strlen (GREETING)) == 0)
-	    *mechlist = in + strlen (GREETING);
+#define GREETING1 "250-AUTH "
+#define GREETING2 "250 AUTH "
+	  if (strncmp (in, GREETING1, strlen (GREETING1)) == 0)
+	    *mechlist = in + strlen (GREETING1);
+	  else if (strncmp (in, GREETING2, strlen (GREETING2)) == 0)
+	    *mechlist = in + strlen (GREETING2);
 	}
       while (strncmp (in, "250 ", 4) != 0);
     }
