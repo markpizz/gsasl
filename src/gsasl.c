@@ -607,6 +607,7 @@ main (int argc, char *argv[])
 	}
 
 #if HAVE_GNUTLS_SESSION_CHANNEL_BINDING
+      if (!args_info.no_cb_flag)
 	{
 	  gnutls_datum cb;
 
