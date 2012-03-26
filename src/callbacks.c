@@ -216,6 +216,27 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       }
       break;
 
+    case GSASL_SAML20_IDP_IDENTIFIER:
+      {
+	char *str = readutf8line ("Enter SAML authentication identifier "
+				  "(e.g. \"http://example.org/\"): ");
+
+	gsasl_property_set (sctx, GSASL_SAML20_IDP_IDENTIFIER, str);
+
+	rc = GSASL_OK;
+      }
+      break;
+
+    case GSASL_SAML20_AUTHENTICATE_IN_BROWSER:
+      {
+	const char *url = gsasl_property_get (sctx, GSASL_SAML20_REDIRECT_URL);
+
+	printf ("Please visit this URL to authenticate:\n%s\n", url);
+
+	rc = GSASL_OK;
+      }
+      break;
+
     default:
       fprintf (stderr,
 	       "warning: mechanism requested unsupported property `%d'\n",
