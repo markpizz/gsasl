@@ -22,5 +22,5 @@ LDADD = ../lib/src/libgsasl.la
 
 EXTRA_DIST = README
 
-noinst_PROGRAMS = client client-serverfirst client-mech	\
+noinst_PROGRAMS = client client-serverfirst client-mech smtp-server \
 	client-callback client-xmpp-saml20 server-xmpp-saml20

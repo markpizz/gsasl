@@ -102,6 +102,8 @@ examples/client-xmpp-saml20.o
 examples/client.o
 examples/server-xmpp-saml20
 examples/server-xmpp-saml20.o
+examples/smtp-server
+examples/smtp-server.o
 gl/.deps/
 gl/.libs/
 gl/Makefile
