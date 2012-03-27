@@ -309,14 +309,17 @@ extern "C"
    * @GSASL_CB_TLS_UNIQUE: Base64 encoded tls-unique channel binding.
    * @GSASL_SAML20_IDP_IDENTIFIER: SAML20 user IdP URL.
    * @GSASL_SAML20_REDIRECT_URL: SAML20 challenge from server to client.
+   * @GSASL_OPENID20_REDIRECT_URL: OpenID 2.0 redirect URL.
+   * @GSASL_OPENID20_OUTCOME_DATA: OpenID 2.0 authentication outcome data.
    * @GSASL_SAML20_AUTHENTICATE_IN_BROWSER: Request to perform SAML20.
-   * @GSASL_OPENID20_AUTHENTICATE_IN_BROWSER: Request to perform OPENID20.
+   * @GSASL_OPENID20_AUTHENTICATE_IN_BROWSER: Request to perform OpenID 2.0.
    * @GSASL_VALIDATE_SIMPLE: Request for simple validation.
    * @GSASL_VALIDATE_EXTERNAL: Request for validation of EXTERNAL.
    * @GSASL_VALIDATE_ANONYMOUS: Request for validation of ANONYMOUS.
    * @GSASL_VALIDATE_GSSAPI: Request for validation of GSSAPI/GS2.
    * @GSASL_VALIDATE_SECURID: Reqest for validation of SecurID.
    * @GSASL_VALIDATE_SAML20: Reqest for validation of SAML20.
+   * @GSASL_VALIDATE_SAML20: Reqest for validation of OpenID 2.0 login.
    *
    * Callback/property types.
    */
