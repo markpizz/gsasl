@@ -69,6 +69,48 @@ _gsasl_openid20_server_step (Gsasl_session * sctx,
 
   switch (state->step)
     {
+    case 0:
+      {
+	const char *p;
+	char *authzid;
+	size_t headerlen;
+
+	if (input_len == 0)
+	  return GSASL_NEEDS_MORE;
+
+	res = _gsasl_parse_gs2_header (input, input_len,
+				       &authzid, &headerlen);
+	if (res != GSASL_OK)
+	  return res;
+
+	if (authzid)
+	  {
+	    gsasl_property_set (sctx, GSASL_AUTHZID, authzid);
+	    free (authzid);
+	  }
+
+	input += headerlen;
+	input_len -= headerlen;
+
+	gsasl_property_set_raw (sctx, GSASL_OPENID20_AUTH_IDENTIFIER,
+				input, input_len);
+
+	p = gsasl_property_get (sctx, GSASL_OPENID20_REDIRECT_URL);
+	if (!p || !*p)
+	  return GSASL_NO_OPENID20_REDIRECT_URL;
+
+	*output_len = strlen (p);
+	*output = malloc (*output_len);
+	if (!*output)
+	  return GSASL_MALLOC_ERROR;
+
+	memcpy (*output, p, *output_len);
+
+	res = GSASL_NEEDS_MORE;
+	state->step++;
+	break;
+      }
+
     default:
       break;
     }

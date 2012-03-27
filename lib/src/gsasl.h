@@ -140,6 +140,8 @@ extern "C"
    * @GSASL_NO_SAML20_REDIRECT_URL: Could not get required redirect URL.
    * @GSASL_NO_OPENID20_AUTH_IDENTIFIER: Could not get required OpenID
    *   authentication identifier.
+   * @GSASL_NO_OPENID20_REDIRECT_URL: Could not get required OpenID
+   *   redirect URL.
    * @GSASL_GSSAPI_RELEASE_BUFFER_ERROR: GSS-API library call error.
    * @GSASL_GSSAPI_IMPORT_NAME_ERROR: GSS-API library call error.
    * @GSASL_GSSAPI_INIT_SEC_CONTEXT_ERROR: GSS-API library call error.
@@ -193,6 +195,7 @@ extern "C"
     GSASL_NO_SAML20_IDP_IDENTIFIER = 66,
     GSASL_NO_SAML20_REDIRECT_URL = 67,
     GSASL_NO_OPENID20_AUTH_IDENTIFIER = 68,
+    GSASL_NO_OPENID20_REDIRECT_URL = 69,
     /* Mechanism specific errors. */
     GSASL_GSSAPI_RELEASE_BUFFER_ERROR = 37,
     GSASL_GSSAPI_IMPORT_NAME_ERROR = 38,
@@ -344,6 +347,7 @@ extern "C"
     GSASL_SAML20_IDP_IDENTIFIER = 19,
     GSASL_SAML20_REDIRECT_URL = 20,
     GSASL_OPENID20_AUTH_IDENTIFIER = 21,
+    GSASL_OPENID20_REDIRECT_URL = 22,
     /* Client callbacks. */
     GSASL_SAML20_AUTHENTICATE_IN_BROWSER = 250,
     /* Server validation callback properties. */
