@@ -449,9 +449,6 @@ main (int argc, char *argv[])
 
   if (args_info.connect_given || args_info.inputs_num > 0)
     {
-      struct sockaddr connect_addr;
-      struct sockaddr *saddr = &connect_addr;
-      size_t saddrlen = sizeof (*saddr);
       struct addrinfo hints;
       struct addrinfo *ai0, *ai;
 
@@ -489,9 +486,6 @@ main (int argc, char *argv[])
 
       if (sockfd < 0)
 	error (EXIT_FAILURE, errno, "socket");
-
-      saddr = ai->ai_addr;
-      saddrlen = ai->ai_addrlen;
 
       freeaddrinfo (ai);
     }
