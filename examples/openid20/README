@@ -1,0 +1,88 @@
+GNU SASL examples/openid20/README -- Explanation of OpenID 2.0 example.
+Copyright (C) 2012 Simon Josefsson
+See the end for copying conditions.
+
+This directory holds a GNU SASL example application that implements a
+SMTP server with OpenID 2.0 authentication support.
+
+There is one simple SMTP server and two helper tools that implement
+the actual OpenID 2.0 protocol part:
+
+  smtp-server-openid20.c:
+
+      The actual SMTP server, based on ../smtp-server.c.
+
+  gsasl-openid20-redirect.php:
+
+      Given a user-supplied identifier it performs discovery and
+      prints a user redirect URL.  Invoked by smtp-server-openid20.c.
+
+  gsasl-openid20-rp.php:
+
+      OpenID 2.0 Relying-Party, receives the return_to URL.  Intended
+      to be invoked via a webserver.
+
+These three tools communicate with each other using a simple
+file-based IPC interface via /tmp/gsasl-openid20-store/.
+
+Here is the normal process:
+
+1) Start smtp-server-openid20, for example when running it on the
+   interop.josefsson.org server the following is used:
+
+     www-data$ ./smtp-server-openid20 2000 /tmp/gsasl-openid20-store http://interop.josefsson.org/ http://interop.josefsson.org/gsasl-openid20-rp.php
+
+   For permission reasons, you should run the server under the same
+   user as the webserver runs gsasl-openid20-rp.php.
+
+   The first parameter is the path to the IPC root.  The second
+   parameter is the OpenID "realm".  The third parameter is the
+   "return_to" URL to where the gsasl-openid20-rp.php helper is found.
+
+   For testing, it actually works fine to run the server on
+   "localhost" and be able to complete OpenID 2.0 authentication:
+
+   PATH=$PWD LD_PRELOAD=../../lib/src/.libs/libgsasl.so ./.libs/smtp-server-openid20 2000 /tmp/gsasl-openid20-store http://localhost/ http://localhost/gsasl-openid20-rp.php
+
+2) The smtp-server-openid20 receives incoming connections from
+   clients.  The client sends its user-supplied identifier.  You may
+   use the gsasl command line tool to act as a client.  For example:
+
+   gsasl -a https://openidp.feide.no/simplesaml/module.php/openidProvider/user.php/jas4711 -z user --smtp -m OPENID20 localhost 2000
+
+3) smtp-server-openid20 generate a per-connection NONCE (a 64-byte
+   long hex string) and create the following files:
+
+   /tmp/gsasl-openid20-store/state/NONCE/openid_url: holds the URL above
+   /tmp/gsasl-openid20-store/state/NONCE/realm: holds the realm URL
+   /tmp/gsasl-openid20-store/state/NONCE/return_to: holds the return_to URL
+
+4) smtp-server-openid20 invokes "gsasl-openid20-redirect.php" to get
+   the redirect URL, in the following file:
+
+   /tmp/gsasl-openid20-store/state/NONCE/redirect_url: holds the redirect URL
+
+5) smtp-server-openid20 waits for one of the following files to appear:
+
+   /tmp/gsasl-openid20-store/state/NONCE/fail
+   /tmp/gsasl-openid20-store/state/NONCE/success
+
+6) Meanwhile the user will receive the redirect URL over the SMTP
+   connection and will access the URL in his browser.  Eventually,
+   after IdP approval, the user will be redirected to the "return_to"
+   URL in his browser.
+
+7) The gsasl-openid20-rp.php return_to URL handler verify the OpenID
+   2.0 authentication and writes the following files:
+
+   /tmp/gsasl-openid20-store/state/NONCE/sreg: SREG values provided
+   /tmp/gsasl-openid20-store/state/NONCE/claimed: claimed identity
+
+8) smtp-server-openid20 notice that the stamp file is present and
+   proceeds by reading the files and returning success/fail to the
+   client as appropriate.
+
+----------------------------------------------------------------------
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.

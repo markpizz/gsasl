@@ -141,6 +141,7 @@ AC_CONFIG_FILES([
   doc/reference/Makefile
   doc/reference/version.xml
   examples/Makefile
+  examples/openid20/Makefile
   gl/Makefile
   gltests/Makefile
   po/Makefile.in

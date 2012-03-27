@@ -100,6 +100,10 @@ examples/client-serverfirst.o
 examples/client-xmpp-saml20
 examples/client-xmpp-saml20.o
 examples/client.o
+examples/openid20/.deps/
+examples/openid20/.libs/
+examples/openid20/smtp-server-openid20
+examples/openid20/smtp-server-openid20.o
 examples/server-xmpp-saml20
 examples/server-xmpp-saml20.o
 examples/smtp-server
