@@ -115,7 +115,12 @@ server_auth (FILE * fh, Gsasl_session * session)
       goto done;
     }
 
-  print (fh, "235 OK\n");
+  {
+    const char *authid = gsasl_property_fast (session, GSASL_AUTHID);
+    const char *authzid = gsasl_property_fast (session, GSASL_AUTHZID);
+    print (fh, "235 OK [authid: %s authzid: %s]\n",
+	   authid ? authid : "N/A", authzid ? authzid : "N/A");
+  }
 
 done:
   free (line);
