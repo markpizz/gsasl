@@ -95,8 +95,7 @@ _gsasl_openid20_server_step (Gsasl_session * sctx,
 	input += headerlen;
 	input_len -= headerlen;
 
-	gsasl_property_set_raw (sctx, GSASL_OPENID20_AUTH_IDENTIFIER,
-				input, input_len);
+	gsasl_property_set_raw (sctx, GSASL_AUTHID, input, input_len);
 
 	p = gsasl_property_get (sctx, GSASL_OPENID20_REDIRECT_URL);
 	if (!p || !*p)

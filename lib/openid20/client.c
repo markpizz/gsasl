@@ -74,9 +74,9 @@ _gsasl_openid20_client_step (Gsasl_session * sctx,
 	const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
 	const char *p;
 
-	p = gsasl_property_get (sctx, GSASL_OPENID20_AUTH_IDENTIFIER);
+	p = gsasl_property_get (sctx, GSASL_AUTHID);
 	if (!p || !*p)
-	  return GSASL_NO_OPENID20_AUTH_IDENTIFIER;
+	  return GSASL_NO_AUTHID;
 
 	res = _gsasl_gs2_generate_header (false, 'n', NULL, authzid,
 					  strlen (p), p,

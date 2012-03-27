@@ -205,17 +205,6 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     case GSASL_SCRAM_SALT:
       break;
 
-    case GSASL_OPENID20_AUTH_IDENTIFIER:
-      {
-	char *str = readutf8line ("Enter OpenID authentication identifier "
-				  "(e.g. \"http://example.org/\"): ");
-
-	gsasl_property_set (sctx, GSASL_OPENID20_AUTH_IDENTIFIER, str);
-
-	rc = GSASL_OK;
-      }
-      break;
-
     case GSASL_SAML20_IDP_IDENTIFIER:
       {
 	char *str = readutf8line ("Enter SAML authentication identifier "
