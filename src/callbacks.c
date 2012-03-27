@@ -231,7 +231,20 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       {
 	const char *url = gsasl_property_get (sctx, GSASL_SAML20_REDIRECT_URL);
 
-	printf ("Please visit this URL to authenticate:\n%s\n", url);
+	printf ("Proceed to this URL to authenticate using SAML 2.0:\n%s\n",
+		url);
+
+	rc = GSASL_OK;
+      }
+      break;
+
+    case GSASL_OPENID20_AUTHENTICATE_IN_BROWSER:
+      {
+	const char *url = gsasl_property_get (sctx,
+					      GSASL_OPENID20_REDIRECT_URL);
+
+	printf ("Proceed to this URL to authenticate using OpenID 2.0:\n%s\n",
+		url);
 
 	rc = GSASL_OK;
       }

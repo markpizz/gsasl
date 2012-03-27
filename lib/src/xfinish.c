@@ -68,6 +68,7 @@ gsasl_finish (Gsasl_session * sctx)
   free (sctx->saml20_redirect_url);
   free (sctx->openid20_auth_identifier);
   free (sctx->openid20_redirect_url);
+  free (sctx->openid20_outcome_data);
   /* If you add anything here, remember to change change
      gsasl_finish() in xfinish.c and Gsasl_session in internal.h.  */
 

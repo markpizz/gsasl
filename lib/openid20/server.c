@@ -39,6 +39,7 @@
 struct openid20_server_state
 {
   int step;
+  int validation_res;
 };
 
 int
@@ -49,6 +50,8 @@ _gsasl_openid20_server_start (Gsasl_session * sctx, void **mech_data)
   state = (struct openid20_server_state *) calloc (sizeof (*state), 1);
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
+
+  state->validation_res = GSASL_AUTHENTICATION_ERROR;
 
   *mech_data = state;
 
@@ -110,6 +113,61 @@ _gsasl_openid20_server_step (Gsasl_session * sctx,
 	state->step++;
 	break;
       }
+
+    case 1:
+      {
+	const char *outcome_data;
+
+	if (!(input_len == 1 && *input == '='))
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_OPENID20);
+	if (res != GSASL_OK)
+	  {
+	    *output = strdup ("openid.error=fail");
+	    if (!*output)
+	      return GSASL_MALLOC_ERROR;
+	    *output_len = strlen (*output);
+
+	    /* [RFC4422] Section 3.6 explicitly prohibits additional
+	       information in an unsuccessful authentication outcome.
+	       Therefore, the openid.error and openid.error_code are
+	       to be sent as an additional challenge in the event of
+	       an unsuccessful outcome.  In this case, as the protocol
+	       is lock step, the client will follow with an additional
+	       exchange containing "=", after which the server will
+	       respond with an application-level outcome. */
+	    return GSASL_NEEDS_MORE;
+	  }
+
+	outcome_data = gsasl_property_get (sctx, GSASL_OPENID20_OUTCOME_DATA);
+	if (outcome_data)
+	  {
+	    *output = strdup (outcome_data);
+	    if (!*output)
+	      return GSASL_MALLOC_ERROR;
+	    *output_len = strlen (*output);
+	  }
+	else
+	  {
+	    *output = NULL;
+	    *output_len = 0;
+	  }
+
+	state->validation_res = res = GSASL_OK;
+	state->step++;
+      }
+      break;
+
+    case 2:
+      {
+	if (!(input_len == 0 && *input == '\0'))
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
+	res = state->validation_res;
+	state->step++;
+      }
+      break;
 
     default:
       break;

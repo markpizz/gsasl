@@ -81,13 +81,56 @@ _gsasl_openid20_client_step (Gsasl_session * sctx,
 	res = _gsasl_gs2_generate_header (false, 'n', NULL, authzid,
 					  strlen (p), p,
 					  output, output_len);
-	if (res == GSASL_OK)
+	if (res != GSASL_OK)
 	  return res;
 
 	res = GSASL_NEEDS_MORE;
 	state->step++;
-	break;
       }
+      break;
+
+    case 1:
+      {
+	gsasl_property_set_raw (sctx, GSASL_OPENID20_REDIRECT_URL,
+				input, input_len);
+
+	res = gsasl_callback (NULL, sctx,
+			      GSASL_OPENID20_AUTHENTICATE_IN_BROWSER);
+	if (res != GSASL_OK)
+	  return res;
+
+	*output_len = 1;
+	*output = strdup ("=");
+
+	res = GSASL_OK;
+	state->step++;
+      }
+      break;
+
+      /* optional */
+    case 2:
+      {
+	gsasl_property_set_raw (sctx, GSASL_OPENID20_OUTCOME_DATA,
+				input, input_len);
+
+	*output_len = 0;
+	*output = NULL;
+
+	/* In the case of failures, the response MUST follow this
+	   syntax:
+
+	   outcome_data = "openid.error" "=" sreg_val *( "," sregp_avp )
+	*/
+
+#define ERR_PREFIX "openid.error="
+	if (input_len > strlen (ERR_PREFIX)
+	    && strncmp (ERR_PREFIX, input, strlen (ERR_PREFIX)) == 0)
+	  res = GSASL_AUTHENTICATION_ERROR;
+	else
+	  res = GSASL_OK;
+	state->step++;
+      }
+      break;
 
     default:
       break;
