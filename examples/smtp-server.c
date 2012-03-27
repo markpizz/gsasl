@@ -249,7 +249,7 @@ main (int argc, char *argv[])
   while (run)
     {
       struct sockaddr from;
-      socklen_t fromlen;
+      socklen_t fromlen = sizeof (from);
       char host[NI_MAXHOST];
       int fd;
       FILE *fh;
