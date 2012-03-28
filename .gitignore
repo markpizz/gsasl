@@ -1039,6 +1039,8 @@ tests/old-md5file
 tests/old-md5file.o
 tests/old-simple
 tests/old-simple.o
+tests/openid20
+tests/openid20.o
 tests/readnz
 tests/readnz.o
 tests/saml20
