@@ -66,9 +66,9 @@ gettrimline (char **line, size_t * n, FILE * fh)
 	(*line)[strlen (*line) - 1] = '\0';
       if ((*line)[strlen (*line) - 1] == '\r')
 	(*line)[strlen (*line) - 1] = '\0';
-    }
 
-  printf ("C: %s\n", *line);
+      printf ("C: %s\n", *line);
+    }
 
   return s;
 }
@@ -197,6 +197,8 @@ main (int argc, char *argv[])
   int yes = 1;
   Gsasl *ctx;
 
+  setvbuf (stdout, NULL, _IONBF, 0);
+
   rc = gsasl_init (&ctx);
   if (rc < 0)
     {
@@ -204,8 +206,8 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
     }
 
-  printf ("smtp-server [gsasl header %s library %s]\n",
-	  GSASL_VERSION, gsasl_check_version (NULL));
+  printf ("%s [gsasl header %s library %s]\n",
+	  argv[0], GSASL_VERSION, gsasl_check_version (NULL));
 
   gsasl_callback_set (ctx, callback);
 
