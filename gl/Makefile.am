@@ -767,7 +767,6 @@ libgl_la_SOURCES += progname.h progname.c
 
 ## begin gnulib module quote
 
-libgl_la_SOURCES += quote.c
 
 EXTRA_DIST += quote.h
 
@@ -777,7 +776,7 @@ EXTRA_DIST += quote.h
 
 libgl_la_SOURCES += quotearg.c
 
-EXTRA_DIST += quotearg.h
+EXTRA_DIST += quote.h quotearg.h
 
 ## end   gnulib module quotearg
 

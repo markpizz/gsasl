@@ -1,4 +1,4 @@
-# math_h.m4 serial 79
+# math_h.m4 serial 104
 dnl Copyright (C) 2007-2012 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -41,9 +41,12 @@ AC_DEFUN([gl_MATH_H],
   gl_WARN_ON_USE_PREPARE([[#include <math.h>]],
     [acosf acosl asinf asinl atanf atanl
      cbrt cbrtf cbrtl ceilf ceill copysign copysignf copysignl cosf cosl coshf
-     expf expl fabsf fabsl floorf floorl fma fmaf fmal
+     expf expl exp2 exp2f exp2l expm1 expm1f expm1l
+     fabsf fabsl floorf floorl fma fmaf fmal
      fmod fmodf fmodl frexpf frexpl hypotf hypotl
-     ldexpf ldexpl logb logf logl log10f log10l modf modff modfl powf
+     ldexpf ldexpl
+     logb log logf logl log10f log10l log1p log1pf log1pl log2 log2f log2l
+     modf modff modfl powf
      remainder remainderf remainderl
      rint rintf rintl round roundf roundl sinf sinl sinhf sqrtf sqrtl
      tanf tanl tanhf trunc truncf truncl])
@@ -81,6 +84,12 @@ AC_DEFUN([gl_MATH_H_DEFAULTS],
   GNULIB_COSHF=0;      AC_SUBST([GNULIB_COSHF])
   GNULIB_EXPF=0;       AC_SUBST([GNULIB_EXPF])
   GNULIB_EXPL=0;       AC_SUBST([GNULIB_EXPL])
+  GNULIB_EXP2=0;       AC_SUBST([GNULIB_EXP2])
+  GNULIB_EXP2F=0;      AC_SUBST([GNULIB_EXP2F])
+  GNULIB_EXP2L=0;      AC_SUBST([GNULIB_EXP2L])
+  GNULIB_EXPM1=0;      AC_SUBST([GNULIB_EXPM1])
+  GNULIB_EXPM1F=0;     AC_SUBST([GNULIB_EXPM1F])
+  GNULIB_EXPM1L=0;     AC_SUBST([GNULIB_EXPM1L])
   GNULIB_FABSF=0;      AC_SUBST([GNULIB_FABSF])
   GNULIB_FABSL=0;      AC_SUBST([GNULIB_FABSL])
   GNULIB_FLOOR=0;      AC_SUBST([GNULIB_FLOOR])
@@ -107,10 +116,17 @@ AC_DEFUN([gl_MATH_H_DEFAULTS],
   GNULIB_LDEXPF=0;     AC_SUBST([GNULIB_LDEXPF])
   GNULIB_LDEXPL=0;     AC_SUBST([GNULIB_LDEXPL])
   GNULIB_LOGB=0;       AC_SUBST([GNULIB_LOGB])
+  GNULIB_LOG=0;        AC_SUBST([GNULIB_LOG])
   GNULIB_LOGF=0;       AC_SUBST([GNULIB_LOGF])
   GNULIB_LOGL=0;       AC_SUBST([GNULIB_LOGL])
   GNULIB_LOG10F=0;     AC_SUBST([GNULIB_LOG10F])
   GNULIB_LOG10L=0;     AC_SUBST([GNULIB_LOG10L])
+  GNULIB_LOG1P=0;      AC_SUBST([GNULIB_LOG1P])
+  GNULIB_LOG1PF=0;     AC_SUBST([GNULIB_LOG1PF])
+  GNULIB_LOG1PL=0;     AC_SUBST([GNULIB_LOG1PL])
+  GNULIB_LOG2=0;       AC_SUBST([GNULIB_LOG2])
+  GNULIB_LOG2F=0;      AC_SUBST([GNULIB_LOG2F])
+  GNULIB_LOG2L=0;      AC_SUBST([GNULIB_LOG2L])
   GNULIB_MODF=0;       AC_SUBST([GNULIB_MODF])
   GNULIB_MODFF=0;      AC_SUBST([GNULIB_MODFF])
   GNULIB_MODFL=0;      AC_SUBST([GNULIB_MODFL])
@@ -148,13 +164,14 @@ AC_DEFUN([gl_MATH_H_DEFAULTS],
   HAVE_CBRTF=1;                AC_SUBST([HAVE_CBRTF])
   HAVE_CBRTL=1;                AC_SUBST([HAVE_CBRTL])
   HAVE_COPYSIGN=1;             AC_SUBST([HAVE_COPYSIGN])
-  HAVE_COPYSIGNF=1;            AC_SUBST([HAVE_COPYSIGNF])
   HAVE_COPYSIGNL=1;            AC_SUBST([HAVE_COPYSIGNL])
   HAVE_COSF=1;                 AC_SUBST([HAVE_COSF])
   HAVE_COSL=1;                 AC_SUBST([HAVE_COSL])
   HAVE_COSHF=1;                AC_SUBST([HAVE_COSHF])
   HAVE_EXPF=1;                 AC_SUBST([HAVE_EXPF])
   HAVE_EXPL=1;                 AC_SUBST([HAVE_EXPL])
+  HAVE_EXPM1=1;                AC_SUBST([HAVE_EXPM1])
+  HAVE_EXPM1F=1;               AC_SUBST([HAVE_EXPM1F])
   HAVE_FABSF=1;                AC_SUBST([HAVE_FABSF])
   HAVE_FABSL=1;                AC_SUBST([HAVE_FABSL])
   HAVE_FMA=1;                  AC_SUBST([HAVE_FMA])
@@ -173,14 +190,15 @@ AC_DEFUN([gl_MATH_H_DEFAULTS],
   HAVE_LOGL=1;                 AC_SUBST([HAVE_LOGL])
   HAVE_LOG10F=1;               AC_SUBST([HAVE_LOG10F])
   HAVE_LOG10L=1;               AC_SUBST([HAVE_LOG10L])
+  HAVE_LOG1P=1;                AC_SUBST([HAVE_LOG1P])
+  HAVE_LOG1PF=1;               AC_SUBST([HAVE_LOG1PF])
+  HAVE_LOG1PL=1;               AC_SUBST([HAVE_LOG1PL])
   HAVE_MODFF=1;                AC_SUBST([HAVE_MODFF])
   HAVE_MODFL=1;                AC_SUBST([HAVE_MODFL])
   HAVE_POWF=1;                 AC_SUBST([HAVE_POWF])
   HAVE_REMAINDER=1;            AC_SUBST([HAVE_REMAINDER])
   HAVE_REMAINDERF=1;           AC_SUBST([HAVE_REMAINDERF])
-  HAVE_REMAINDERL=1;           AC_SUBST([HAVE_REMAINDERL])
   HAVE_RINT=1;                 AC_SUBST([HAVE_RINT])
-  HAVE_RINTF=1;                AC_SUBST([HAVE_RINTF])
   HAVE_RINTL=1;                AC_SUBST([HAVE_RINTL])
   HAVE_SINF=1;                 AC_SUBST([HAVE_SINF])
   HAVE_SINL=1;                 AC_SUBST([HAVE_SINL])
@@ -197,8 +215,13 @@ AC_DEFUN([gl_MATH_H_DEFAULTS],
   HAVE_DECL_CBRTL=1;           AC_SUBST([HAVE_DECL_CBRTL])
   HAVE_DECL_CEILF=1;           AC_SUBST([HAVE_DECL_CEILF])
   HAVE_DECL_CEILL=1;           AC_SUBST([HAVE_DECL_CEILL])
+  HAVE_DECL_COPYSIGNF=1;       AC_SUBST([HAVE_DECL_COPYSIGNF])
   HAVE_DECL_COSL=1;            AC_SUBST([HAVE_DECL_COSL])
   HAVE_DECL_EXPL=1;            AC_SUBST([HAVE_DECL_EXPL])
+  HAVE_DECL_EXP2=1;            AC_SUBST([HAVE_DECL_EXP2])
+  HAVE_DECL_EXP2F=1;           AC_SUBST([HAVE_DECL_EXP2F])
+  HAVE_DECL_EXP2L=1;           AC_SUBST([HAVE_DECL_EXP2L])
+  HAVE_DECL_EXPM1L=1;          AC_SUBST([HAVE_DECL_EXPM1L])
   HAVE_DECL_FLOORF=1;          AC_SUBST([HAVE_DECL_FLOORF])
   HAVE_DECL_FLOORL=1;          AC_SUBST([HAVE_DECL_FLOORL])
   HAVE_DECL_FREXPL=1;          AC_SUBST([HAVE_DECL_FREXPL])
@@ -206,7 +229,12 @@ AC_DEFUN([gl_MATH_H_DEFAULTS],
   HAVE_DECL_LOGB=1;            AC_SUBST([HAVE_DECL_LOGB])
   HAVE_DECL_LOGL=1;            AC_SUBST([HAVE_DECL_LOGL])
   HAVE_DECL_LOG10L=1;          AC_SUBST([HAVE_DECL_LOG10L])
+  HAVE_DECL_LOG2=1;            AC_SUBST([HAVE_DECL_LOG2])
+  HAVE_DECL_LOG2F=1;           AC_SUBST([HAVE_DECL_LOG2F])
+  HAVE_DECL_LOG2L=1;           AC_SUBST([HAVE_DECL_LOG2L])
   HAVE_DECL_REMAINDER=1;       AC_SUBST([HAVE_DECL_REMAINDER])
+  HAVE_DECL_REMAINDERL=1;      AC_SUBST([HAVE_DECL_REMAINDERL])
+  HAVE_DECL_RINTF=1;           AC_SUBST([HAVE_DECL_RINTF])
   HAVE_DECL_ROUND=1;           AC_SUBST([HAVE_DECL_ROUND])
   HAVE_DECL_ROUNDF=1;          AC_SUBST([HAVE_DECL_ROUNDF])
   HAVE_DECL_ROUNDL=1;          AC_SUBST([HAVE_DECL_ROUNDL])
@@ -221,6 +249,10 @@ AC_DEFUN([gl_MATH_H_DEFAULTS],
   REPLACE_CEIL=0;              AC_SUBST([REPLACE_CEIL])
   REPLACE_CEILF=0;             AC_SUBST([REPLACE_CEILF])
   REPLACE_CEILL=0;             AC_SUBST([REPLACE_CEILL])
+  REPLACE_EXPM1=0;             AC_SUBST([REPLACE_EXPM1])
+  REPLACE_EXPM1F=0;            AC_SUBST([REPLACE_EXPM1F])
+  REPLACE_EXP2=0;              AC_SUBST([REPLACE_EXP2])
+  REPLACE_EXP2L=0;             AC_SUBST([REPLACE_EXP2L])
   REPLACE_FABSL=0;             AC_SUBST([REPLACE_FABSL])
   REPLACE_FLOOR=0;             AC_SUBST([REPLACE_FLOOR])
   REPLACE_FLOORF=0;            AC_SUBST([REPLACE_FLOORF])
@@ -242,6 +274,15 @@ AC_DEFUN([gl_MATH_H_DEFAULTS],
   REPLACE_ISINF=0;             AC_SUBST([REPLACE_ISINF])
   REPLACE_ISNAN=0;             AC_SUBST([REPLACE_ISNAN])
   REPLACE_LDEXPL=0;            AC_SUBST([REPLACE_LDEXPL])
+  REPLACE_LOG=0;               AC_SUBST([REPLACE_LOG])
+  REPLACE_LOGF=0;              AC_SUBST([REPLACE_LOGF])
+  REPLACE_LOGL=0;              AC_SUBST([REPLACE_LOGL])
+  REPLACE_LOG1P=0;             AC_SUBST([REPLACE_LOG1P])
+  REPLACE_LOG1PF=0;            AC_SUBST([REPLACE_LOG1PF])
+  REPLACE_LOG1PL=0;            AC_SUBST([REPLACE_LOG1PL])
+  REPLACE_LOG2=0;              AC_SUBST([REPLACE_LOG2])
+  REPLACE_LOG2F=0;             AC_SUBST([REPLACE_LOG2F])
+  REPLACE_LOG2L=0;             AC_SUBST([REPLACE_LOG2L])
   REPLACE_MODF=0;              AC_SUBST([REPLACE_MODF])
   REPLACE_MODFF=0;             AC_SUBST([REPLACE_MODFF])
   REPLACE_MODFL=0;             AC_SUBST([REPLACE_MODFL])
@@ -254,6 +295,7 @@ AC_DEFUN([gl_MATH_H_DEFAULTS],
   REPLACE_ROUNDL=0;            AC_SUBST([REPLACE_ROUNDL])
   REPLACE_SIGNBIT=0;           AC_SUBST([REPLACE_SIGNBIT])
   REPLACE_SIGNBIT_USING_GCC=0; AC_SUBST([REPLACE_SIGNBIT_USING_GCC])
+  REPLACE_SQRTL=0;             AC_SUBST([REPLACE_SQRTL])
   REPLACE_TRUNC=0;             AC_SUBST([REPLACE_TRUNC])
   REPLACE_TRUNCF=0;            AC_SUBST([REPLACE_TRUNCF])
   REPLACE_TRUNCL=0;            AC_SUBST([REPLACE_TRUNCL])

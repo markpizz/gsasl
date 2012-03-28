@@ -1063,7 +1063,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/printf-parse.h
   lib/progname.c
   lib/progname.h
-  lib/quote.c
   lib/quote.h
   lib/quotearg.c
   lib/quotearg.h
