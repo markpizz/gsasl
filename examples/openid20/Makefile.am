@@ -22,4 +22,6 @@ LDADD = $(top_builddir)/lib/src/libgsasl.la
 
 EXTRA_DIST = README gsasl-openid20-redirect.php gsasl-openid20-rp.php
 
+if !WINDOWS
 noinst_PROGRAMS = smtp-server-openid20
+endif

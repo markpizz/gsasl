@@ -88,6 +88,7 @@ GTK_DOC_CHECK(1.1)
 
 # For gnulib stuff in gl/.
 gl_INIT
+AM_CONDITIONAL(WINDOWS, test "$gl_cv_func_wsastartup" = "yes")
 
 AC_ARG_ENABLE([gcc-warnings],
   [AS_HELP_STRING([--enable-gcc-warnings],
