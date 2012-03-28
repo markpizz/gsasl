@@ -181,7 +181,7 @@ AM_CONDITIONAL(SAML20, test x$saml20 = xyes)
 # OPENID20
 AC_ARG_ENABLE(openid20,
   AS_HELP_STRING([--disable-openid20], [don't use the OPENID20 mechanism]),
-  openid20=$enableval, openid20=no)
+  openid20=$enableval, openid20=yes)
 if test "$openid20" != "no" ; then
 	openid20=yes
 	AC_DEFINE(USE_OPENID20, 1, [Define to 1 if you want OPENID20.])
