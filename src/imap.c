@@ -145,6 +145,8 @@ imap_step_send (const char *data)
   return 1;
 }
 
+/* Return 1 on token, 2 on protocol success, 3 on protocol fail, 0 on
+   errors. */
 int
 imap_step_recv (char **data)
 {
@@ -157,7 +159,23 @@ imap_step_recv (char **data)
 
   if (!args_info.server_flag)
     {
-      if (p[0] != '+' || p[1] != ' ')
+      /* skip untagged responses which can be returned by the server after
+	 authentication (e.g. dovecot returns new '* CAPABILITY' information
+	 before the final '. OK'). */
+      while (*p == '*')
+	{
+	  if (!readln (data))
+	    return 0;
+	  p = *data;
+	}
+
+      if (strlen (p) >= 4 && strncmp (p, ". OK", 4) == 0)
+	return 2;
+
+      if (strlen (p) >= 2 && strncmp (p, ". ", 2) == 0)
+	return 3;
+
+      if (strlen (p) >= 2 && strncmp (p, "+ ", 2) != 0)
 	{
 	  fprintf (stderr, _("error: server did not return a token\n"));
 	  return 0;
@@ -170,26 +188,6 @@ imap_step_recv (char **data)
     p[strlen (p) - 1] = '\0';
   if (p[strlen (p) - 1] == '\r')
     p[strlen (p) - 1] = '\0';
-
-  return 1;
-}
-
-int
-imap_auth_finish (void)
-{
-  char *in;
-
-  for (;;)
-    {
-      if (!readln (&in))
-	return 0;
-
-      /* skip untagged responses which can be returned by the server after
-	 authentication (e.g. dovecot returns new '* CAPABILITY' information
-	 before the final '. OK'). */
-      if (in[0] != '*')
-	break;
-    }
 
   return 1;
 }

@@ -229,6 +229,8 @@ step_send (const char *data)
   return 1;
 }
 
+/* Return 1 on token, 2 on protocol success, 3 on protocol fail, 0 on
+   errors. */
 static int
 step_recv (char **data)
 {
@@ -239,17 +241,6 @@ step_recv (char **data)
 
   if (!readln (data))
     return 0;
-
-  return 1;
-}
-
-static int
-auth_finish (void)
-{
-  if (args_info.imap_flag)
-    return imap_auth_finish ();
-  if (args_info.smtp_flag)
-    return smtp_auth_finish ();
 
   return 1;
 }
@@ -670,15 +661,14 @@ main (int argc, char *argv[])
 
       do
 	{
+	  int res2;
+
 	  res = gsasl_step64 (xctx, in, &out);
 	  if (res != GSASL_NEEDS_MORE && res != GSASL_OK)
 	    break;
 
 	  if (!step_send (out))
 	    return 1;
-
-	  if (res != GSASL_NEEDS_MORE)
-	    break;
 
 	no_client_first:
 	  if (!args_info.quiet_given &&
@@ -692,17 +682,22 @@ main (int argc, char *argv[])
 				   "from server (press RET if none):\n"));
 	    }
 
-	  if (!step_recv (&in))
+	  /* Return 1 on token, 2 on protocol success, 3 on protocol fail, 0 on
+	     errors. */
+	  res2 = step_recv (&in);
+	  if (!res2)
 	    return 1;
+	  if (res2 == 3)
+	    error (EXIT_FAILURE, 0, _("server error"));
+	  if (res2 == 2)
+	    break;
 	}
-      while (res == GSASL_NEEDS_MORE);
+      while (args_info.imap_flag || args_info.smtp_flag
+	     || res == GSASL_NEEDS_MORE);
 
       if (res != GSASL_OK)
 	error (EXIT_FAILURE, 0, _("mechanism error: %s"),
 	       gsasl_strerror (res));
-
-      if (!auth_finish ())
-	return 1;
 
       if (!args_info.quiet_given)
 	{

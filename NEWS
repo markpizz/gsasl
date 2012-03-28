@@ -8,6 +8,11 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.7.2 (unreleased) [alpha]
 
+** gsasl: The client lets the server decide when authentication is complete.
+Before the client quit from the authentication loop when the local
+mechanism was finished, but some mechanisms (OPENID20) have optional
+additional round-trips.
+
 * Version 1.7.1 (released 2012-02-09) [alpha]
 
 ** gsasl: Don't crash after getpass() on Mac OS X.

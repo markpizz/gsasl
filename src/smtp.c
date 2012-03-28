@@ -152,6 +152,8 @@ smtp_step_send (const char *data)
   return 1;
 }
 
+/* Return 1 on token, 2 on protocol success, 3 on protocol fail, 0 on
+   errors. */
 int
 smtp_step_recv (char **data)
 {
@@ -162,32 +164,34 @@ smtp_step_recv (char **data)
 
   p = *data;
 
-  if (p[0] != '3' || p[1] != '3' || p[2] != '4' || p[3] != ' ')
-    {
-      fprintf (stderr, _("error: Server did not return expected SASL "
-			 "data (it must begin with '334 '):\n%s\n"), p);
-      return 0;
-    }
-
-  memmove (&p[0], &p[4], strlen (p) - 3);
-
-  if (p[strlen (p) - 1] == '\n')
-    p[strlen (p) - 1] = '\0';
-  if (p[strlen (p) - 1] == '\r')
-    p[strlen (p) - 1] = '\0';
-
-  return 1;
-}
-
-int
-smtp_auth_finish (void)
-{
-  char *in;
-
-  if (!readln (&in))
+  if (strlen (p) <= 3)
     return 0;
 
-  return 1;
+  if (strncmp (p, "334 ", 4) == 0)
+    {
+      memmove (&p[0], &p[4], strlen (p) - 3);
+
+      if (p[strlen (p) - 1] == '\n')
+	p[strlen (p) - 1] = '\0';
+      if (p[strlen (p) - 1] == '\r')
+	p[strlen (p) - 1] = '\0';
+
+      return 1;
+    }
+
+  if (strncmp (p, "235 ", 4) == 0)
+    {
+      /* Never a token here, we don't support additional server
+	 information on success. */
+      return 2;
+    }
+
+  if (strncmp (p, "535 ", 4) == 0)
+    return 3;
+
+  fprintf (stderr, _("error: could not parse server data:\n%s\n"), p);
+
+  return 0;
 }
 
 int
