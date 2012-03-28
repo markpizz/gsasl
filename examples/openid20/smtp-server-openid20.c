@@ -255,9 +255,9 @@ gettrimline (char **line, size_t * n, FILE * fh)
 	(*line)[strlen (*line) - 1] = '\0';
       if ((*line)[strlen (*line) - 1] == '\r')
 	(*line)[strlen (*line) - 1] = '\0';
-    }
 
-  printf ("C: %s\n", *line);
+      printf ("C: %s\n", *line);
+    }
 
   return s;
 }
