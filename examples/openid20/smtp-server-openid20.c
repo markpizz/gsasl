@@ -93,15 +93,15 @@ get_redirect_url (Gsasl_session * sctx)
   const char *nonce = gsasl_session_hook_get (sctx);
 
   asprintf (&tmp, "%s", store_path);
-  mkdir (tmp, 0777);
+  mkdir (tmp, 0770);
   free (tmp);
 
   asprintf (&tmp, "%s/state", store_path);
-  mkdir (tmp, 0777);
+  mkdir (tmp, 0770);
   free (tmp);
 
   asprintf (&tmp, "%s/state/%s", store_path, nonce);
-  mkdir (tmp, 0777);
+  mkdir (tmp, 0770);
   free (tmp);
 
   asprintf (&tmp, "%s/state/%s/openid_url", store_path, nonce);
