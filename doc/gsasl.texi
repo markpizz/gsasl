@@ -2071,7 +2071,51 @@ was successful.
 The OPENID20 mechanism makes it possible to use OpenID in SASL, in a
 way that offloads the authentication exchange to an external browser.
 The protocol implemented is as specified in
-@code{draft-ietf-kitten-sasl-openid-03}.
+@code{draft-ietf-kitten-sasl-openid-08}.
+
+The mechanism makes use of the following properties:
+@code{GSASL_AUTHID} (for the OpenID User-Supplied Identifier),
+@code{GSASL_AUTHZID}, @code{GSASL_OPENID20_REDIRECT_URL},
+@code{GSASL_OPENID20_OUTCOME_DATA},
+@code{GSASL_OPENID20_AUTHENTICATE_IN_BROWSER}, and
+@code{GSASL_VALIDATE_OPENID20}.
+
+In the client, the mechanism is enabled by default.  The
+@code{GSASL_AUTHID} property is required and should contain the
+User-Supplied OpenID Identifier (for example
+@code{http://josefsson.org}).  If set, @code{GSASL_AUTHZID} will be
+used by the client.  The client will be invoked with the
+@code{GSASL_OPENID20_AUTHENTICATE_IN_BROWSER} callback to perform the
+OpenID authentication in a web browser.  The callback can retrieve the
+@code{GSASL_OPENID20_REDIRECT_URL} property to find out the URL to
+redirect the user to.  After authentication, the client can retrieve
+the @code{GSASL_OPENID20_OUTCOME_DATA} property with the OpenID Simple
+Registry (SREG) attributes sent by the server (they are not always
+sent).
+
+In the server, the mechanism is enabled by default.  The server will
+request the @code{GSASL_OPENID20_REDIRECT_URL} property, and your
+callback may inspect the @code{GSASL_AUTHID} to find the OpenID
+User-Supplied Identifier.  The server callback should perform OpenID
+discovery and return the URL to redirect the user to.  After this, the
+user would access the URL and proceed with authentication in the
+browser.  The server is invoked with the
+@code{GSASL_VALIDATE_OPENID20} callback to perform the actual
+validation of the authentication.  Usually the callback will perform
+some IPC communication with an OpenID consumer running in a web
+server.  The callback should return @code{GSASL_OK} on successful
+authentication and @code{GSASL_AUTHENTICATION_ERROR} on authentication
+errors, or any other error code.  If the server received some OpenID
+Simple Registry (SREG) attributes from the OpenID Identity Provider,
+it may use the @code{GSASL_OPENID20_OUTCOME_DATA} property to send
+these to the client.
+
+Note that the actual OpenID algorithms are not implemented by the GNU
+SASL library, but is expected to be spun off to external OpenID
+implementations.  There is a complete example of a SMTP server with
+OpenID 2.0 support distributed with GNU SASL in the examples/openid20/
+sub-directory that uses the JanRain PHP5 OpenID implementation.  The
+@code{gsasl} command line client supports OPENID20.
 
 @c **********************************************************
 @c *****************  Global Functions  *********************
