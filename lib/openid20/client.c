@@ -72,14 +72,13 @@ _gsasl_openid20_client_step (Gsasl_session * sctx,
     case 0:
       {
 	const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
-	const char *p;
+	const char *authid = gsasl_property_get (sctx, GSASL_AUTHID);
 
-	p = gsasl_property_get (sctx, GSASL_AUTHID);
-	if (!p || !*p)
+	if (!authid || !*authid)
 	  return GSASL_NO_AUTHID;
 
 	res = _gsasl_gs2_generate_header (false, 'n', NULL, authzid,
-					  strlen (p), p,
+					  strlen (authid), authid,
 					  output, output_len);
 	if (res != GSASL_OK)
 	  return res;
@@ -101,33 +100,55 @@ _gsasl_openid20_client_step (Gsasl_session * sctx,
 
 	*output_len = 1;
 	*output = strdup ("=");
+	if (!*output)
+	  return GSASL_MALLOC_ERROR;
 
 	res = GSASL_OK;
 	state->step++;
       }
       break;
 
-      /* optional */
+      /* This step is optional.  The server could have approved
+	 authentication already.  Alternatively, it wanted to send
+	 some SREGs or error data and we end up here. */
     case 2:
       {
 	gsasl_property_set_raw (sctx, GSASL_OPENID20_OUTCOME_DATA,
 				input, input_len);
 
-	*output_len = 0;
-	*output = NULL;
-
 	/* In the case of failures, the response MUST follow this
 	   syntax:
 
 	   outcome_data = "openid.error" "=" sreg_val *( "," sregp_avp )
+
+	   [RFC4422] Section 3.6 explicitly prohibits additional information in
+	   an unsuccessful authentication outcome.  Therefore, the openid.error
+	   and openid.error_code are to be sent as an additional challenge in
+	   the event of an unsuccessful outcome.  In this case, as the protocol
+	   is lock step,  the client will follow with an additional exchange
+	   containing "=", after which the server will respond with an
+	   application-level outcome.
 	*/
 
 #define ERR_PREFIX "openid.error="
 	if (input_len > strlen (ERR_PREFIX)
 	    && strncmp (ERR_PREFIX, input, strlen (ERR_PREFIX)) == 0)
-	  res = GSASL_AUTHENTICATION_ERROR;
+	  {
+	    *output_len = 1;
+	    *output = strdup ("=");
+	    if (!*output)
+	      return GSASL_MALLOC_ERROR;
+
+	    res = GSASL_NEEDS_MORE;
+	  }
 	else
-	  res = GSASL_OK;
+	  {
+	    *output_len = 0;
+	    *output = NULL;
+
+	    res = GSASL_OK;
+	  }
+
 	state->step++;
       }
       break;

@@ -39,7 +39,7 @@
 struct openid20_server_state
 {
   int step;
-  int validation_res;
+  int allow_error_step;
 };
 
 int
@@ -50,8 +50,6 @@ _gsasl_openid20_server_start (Gsasl_session * sctx, void **mech_data)
   state = (struct openid20_server_state *) calloc (sizeof (*state), 1);
   if (state == NULL)
     return GSASL_MALLOC_ERROR;
-
-  state->validation_res = GSASL_AUTHENTICATION_ERROR;
 
   *mech_data = state;
 
@@ -136,9 +134,12 @@ _gsasl_openid20_server_step (Gsasl_session * sctx,
 	       is lock step, the client will follow with an additional
 	       exchange containing "=", after which the server will
 	       respond with an application-level outcome. */
+
+	    state->allow_error_step = 1;
+	    state->step++;
 	    return GSASL_NEEDS_MORE;
 	  }
-
+	
 	outcome_data = gsasl_property_get (sctx, GSASL_OPENID20_OUTCOME_DATA);
 	if (outcome_data)
 	  {
@@ -153,17 +154,23 @@ _gsasl_openid20_server_step (Gsasl_session * sctx,
 	    *output_len = 0;
 	  }
 
-	state->validation_res = res = GSASL_OK;
+	res = GSASL_OK;
 	state->step++;
       }
       break;
 
     case 2:
       {
-	if (!(input_len == 0 && *input == '\0'))
+	/* We only get here when the previous step signalled an error
+	   to the client.  */
+
+	if (!state->allow_error_step)
+	  return GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
+
+	if (!(input_len == 1 && *input == '='))
 	  return GSASL_MECHANISM_PARSE_ERROR;
 
-	res = state->validation_res;
+	res = GSASL_AUTHENTICATION_ERROR;
 	state->step++;
       }
       break;
