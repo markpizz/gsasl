@@ -195,7 +195,7 @@ binaries:
 	cd windows && $(MAKE) -f gsasl4win.mk gsasl4win VERSION=$(VERSION)
 
 source:
-	git tag -u b565716f! -m $(VERSION) $(tag)
+	git tag -u b565716f -m $(VERSION) $(tag)
 
 release-check: syntax-check i18n tarball binaries cyclo-copy gendoc-copy gtkdoc-copy doxygen-copy coverage-my coverage-copy clang clang-copy
 
