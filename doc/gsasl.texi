@@ -1577,6 +1577,14 @@ This property holds the SAML redirect URL that the server wants the
 client to access.  It will be available in the
 @code{GSASL_SAML20_AUTHENTICATE_IN_BROWSER} callback for the client.
 
+@item @code{GSASL_OPENID20_REDIRECT_URL}
+OpenID 2.0 redirect URL.
+
+@item @code{GSASL_OPENID20_OUTCOME_DATA}
+OpenID 2.0 authentication outcome data.  This is either the OpenID
+SREG values or a value list starting with @code{"openid.error="} to
+signal error.
+
 @end itemize
 
 Next follows a list of data properties used to trigger the callback,
@@ -1625,10 +1633,23 @@ application perform authentication.  The callback should return
 @code{GSASL_OK} if the user should be permitted access, and
 @code{GSASL_AUTHENTICATION_ERROR} (or another error code) otherwise.
 
+@item @code{GSASL_VALIDATE_OPENID20}
+
+Used by the OPENID20 mechanism on the server side to request that the
+application perform authentication.  The callback should return
+@code{GSASL_OK} if the user should be permitted access, and
+@code{GSASL_AUTHENTICATION_ERROR} (or another error code) otherwise.
+
 @item @code{GSASL_SAML20_AUTHENTICATE_IN_BROWSER}
 Used by the SAML20 mechanism in the client side to request that the
 client should launch the SAML redirect URL (the
 @code{GSASL_SAML20_REDIRECT_URL} property) in a browser to continue
+with authentication.
+
+@item @code{GSASL_OPENID20_AUTHENTICATE_IN_BROWSER}
+Used by the OPENID20 mechanism in the client side to request that the
+client should launch the OpenID redirect URL (the
+@code{GSASL_OPENID20_REDIRECT_URL} property) in a browser to continue
 with authentication.
 
 @end itemize
