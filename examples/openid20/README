@@ -1,12 +1,12 @@
-GNU SASL examples/openid20/README -- Explanation of OpenID 2.0 example.
+GNU SASL examples/openid20/README -- Explanation of SMTP OpenID 2.0 example.
 Copyright (C) 2012 Simon Josefsson
 See the end for copying conditions.
 
 This directory holds a GNU SASL example application that implements a
 SMTP server with OpenID 2.0 authentication support.
 
-There is one simple SMTP server and two helper tools that implement
-the actual OpenID 2.0 protocol part:
+There is one example SMTP server and two helper tools that implement
+the actual OpenID 2.0 protocol:
 
   smtp-server-openid20.c:
 
@@ -22,8 +22,22 @@ the actual OpenID 2.0 protocol part:
       OpenID 2.0 Relying-Party, receives the return_to URL.  Intended
       to be invoked via a webserver.
 
+The PHP scripts requires JanRain's PHP5 OpenID implementation.  On
+Modern Debian/Ubuntu systems, it is available in the "php-openid"
+package:
+
+  apt-get install php-openid
+
+You need a webserver, for example Apache.  The script
+'gsasl-openid20-redirect.php' should be placed in the PATH and
+'gsasl-openid20-rp.php' be placed somewhere in the web server root so
+it can be accessed through an URL.
+
 These three tools communicate with each other using a simple
-file-based IPC interface via /tmp/gsasl-openid20-store/.
+file-based IPC interface below /tmp/gsasl-openid20-store/.  The OpenID
+library also uses that path for storage.  If you want to change the
+path, you need to modify the gsasl-openid20-rp.php script and to pass
+the new location to the smtp-server-openid20 as discussed below.
 
 Here is the normal process:
 
@@ -42,7 +56,7 @@ Here is the normal process:
    For testing, it actually works fine to run the server on
    "localhost" and be able to complete OpenID 2.0 authentication:
 
-   PATH=$PWD LD_PRELOAD=../../lib/src/.libs/libgsasl.so ./.libs/smtp-server-openid20 2000 /tmp/gsasl-openid20-store http://localhost/ http://localhost/gsasl-openid20-rp.php
+   www-data$ PATH=$PWD LD_PRELOAD=../../lib/src/.libs/libgsasl.so ./.libs/smtp-server-openid20 2000 /tmp/gsasl-openid20-store http://localhost/ http://localhost/gsasl-openid20-rp.php
 
 2) The smtp-server-openid20 receives incoming connections from
    clients.  The client sends its user-supplied identifier.  You may
@@ -53,14 +67,29 @@ Here is the normal process:
 3) smtp-server-openid20 generate a per-connection NONCE (a 64-byte
    long hex string) and create the following files:
 
-   /tmp/gsasl-openid20-store/state/NONCE/openid_url: holds the URL above
-   /tmp/gsasl-openid20-store/state/NONCE/realm: holds the realm URL
-   /tmp/gsasl-openid20-store/state/NONCE/return_to: holds the return_to URL
+   /tmp/gsasl-openid20-store/state/NONCE/openid_url:
+
+     holds the OpenID URL above, e.g.,
+     https://openidp.feide.no/simplesaml/module.php/openidProvider/user.php/jas4711
+
+   /tmp/gsasl-openid20-store/state/NONCE/realm:
+
+     holds the realm URL, e.g. http://interop.josefsson.org/
+
+   /tmp/gsasl-openid20-store/state/NONCE/return_to:
+
+     holds the return_to URL,
+     e.g. http://localhost/gsasl-openid20-rp.php
 
 4) smtp-server-openid20 invokes "gsasl-openid20-redirect.php" to get
    the redirect URL, in the following file:
 
    /tmp/gsasl-openid20-store/state/NONCE/redirect_url: holds the redirect URL
+
+   The URL is usually quite long and is dynamic for each
+   authentication attempt.  For example:
+
+   https://openidp.feide.no/simplesaml/module.php/openidProvider/server.php?openid.assoc_handle=%7BHMAC-SHA1%7D%7B4f72fc46%7D%7BoC4UoA%3D%3D%7D&openid.claimed_id=https%3A%2F%2Fopenidp.feide.no%2Fsimplesaml%2Fmodule.php%2FopenidProvider%2Fuser.php%2Fjas4711&openid.identity=https%3A%2F%2Fopenidp.feide.no%2Fsimplesaml%2Fmodule.php%2FopenidProvider%2Fuser.php%2Fjas4711&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Finterop.josefsson.org%2F&openid.return_to=http%3A%2F%2Finterop.josefsson.org%2Fgsasl-openid20-rp.php%2Ff9ff7386503e978f9643e9fe7bb01b911a621e0529aedd94b426e7320120b356%3Fjanrain_nonce%3D2012-03-28T11%253A55%253A53ZFWWO0z&openid.sreg.optional=nickname%2Cfullname%2Cemail
 
 5) smtp-server-openid20 waits for one of the following files to appear:
 
@@ -77,10 +106,16 @@ Here is the normal process:
 
    /tmp/gsasl-openid20-store/state/NONCE/sreg: SREG values provided
    /tmp/gsasl-openid20-store/state/NONCE/claimed: claimed identity
+   /tmp/gsasl-openid20-store/state/NONCE/success
 
-8) smtp-server-openid20 notice that the stamp file is present and
-   proceeds by reading the files and returning success/fail to the
-   client as appropriate.
+   on success, or on failure it writes the following file:
+
+   /tmp/gsasl-openid20-store/state/NONCE/fail
+
+8) smtp-server-openid20 notice that one of the stamp files is present
+   and proceeds by reading the files and returning success/fail to the
+   client as appropriate.  The SREG values are sent to the client when
+   provided.
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,

@@ -8,19 +8,24 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.7.2 (unreleased) [alpha]
 
-** libgsasl: Update OPENID20 implementation.
-Now following draft-ietf-kitten-sasl-openid-08.  There is a new
-example of a dummy SMTP server in examples/openid20/.
-
 ** gsasl: The client lets the server decide when authentication is complete.
 Before the client quit from the authentication loop when the local
 mechanism was finished, but some mechanisms (OPENID20) have optional
 additional round-trips.
 
+** gsasl: Added OPENID20 support.
+
+** gsasl: The --no-cb parameter now avoids even attempting to get the
+** channel binding data from GnuTLS.
+Apparently this can avoid issues when GnuTLS fails to provide the CB.
+
 ** examples: Added stand-alone example SMTP server.
 See examples/smtp-server.c.  This illustrate how to write a server
 using GNU SASL, but it can also be used for interop testing of
 clients.
+
+** examples: Added example SMTP server with OpenID 2.0 support.
+See examples/openid20/README.
 
 * Version 1.7.1 (released 2012-02-09) [alpha]
 

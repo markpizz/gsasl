@@ -4,8 +4,17 @@ See the end for copying conditions.
 
 * Version 1.7.2 (unreleased) [alpha]
 
+** libgsasl: Updated OPENID20 implementation.
+Now following draft-ietf-kitten-sasl-openid-08.
+
 ** API and ABI modifications.
-No changes since last version.
+GSASL_OPENID20_REDIRECT_URL: Added, new property.
+GSASL_OPENID20_OUTCOME_DATA:: Added, new property.
+GSASL_OPENID20_AUTHENTICATE_IN_BROWSER: Added, new callback.
+GSASL_VALIDATE_OPENID20: Added, new callback.
+GSASL_NO_OPENID20_REDIRECT_URL: Added, new error code.
+GSASL_OPENID20_AUTH_IDENTIFIER: Removed, use GSASL_AUTHID instead.
+GSASL_NO_OPENID20_AUTH_IDENTIFIER: Removed error code.
 
 * Version 1.7.1 (released 2012-02-09) [alpha]
 
@@ -23,7 +32,10 @@ Michelsen <dam@opencsw.org>.
 ** i18n: Updated translations.
 
 ** API and ABI modifications.
-No changes since last version.
+GSASL_CB_TLS_UNIQUE: Added, new property.
+GSASL_OPENID20_AUTH_IDENTIFIER: Added, new property.
+GSASL_NO_CB_TLS_UNIQUE: Added, new error code.
+GSASL_NO_OPENID20_AUTH_IDENTIFIER: Added, new error code.
 
 * Version 1.7.0 (released 2010-10-22) [alpha]
 
