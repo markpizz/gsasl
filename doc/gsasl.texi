@@ -2259,6 +2259,7 @@ Library can be used when writing your own application.
 * Example 2::		SASL client where server send data first.
 * Example 3::		SASL client, with a choice of mechanism to use.
 * Example 4::		SASL client, with callback for user info.
+* Example 5::		Example SMTP server with GNU SASL authentication.
 @end menu
 
 @node Example 1
@@ -2287,6 +2288,13 @@ Library can be used when writing your own application.
 
 @example
 @verbatiminclude client-callback.c
+@end example
+
+@node Example 5
+@section Example 5
+
+@example
+@verbatiminclude smtp-server.c
 @end example
 
 
