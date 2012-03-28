@@ -395,6 +395,8 @@ main (int argc, char *argv[])
   int yes = 1;
   Gsasl *ctx;
 
+  setvbuf (stdout, NULL, _IONBF, 0);
+
   if (argc != 5)
     {
       printf ("Usage: %s PORT STORE-PATH REALM RETURN-TO\n", argv[0]);
