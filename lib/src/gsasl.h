@@ -192,7 +192,7 @@ extern "C"
     GSASL_NO_CB_TLS_UNIQUE = 65,
     GSASL_NO_SAML20_IDP_IDENTIFIER = 66,
     GSASL_NO_SAML20_REDIRECT_URL = 67,
-    GSASL_NO_OPENID20_REDIRECT_URL = 69,
+    GSASL_NO_OPENID20_REDIRECT_URL = 68,
     /* Mechanism specific errors. */
     GSASL_GSSAPI_RELEASE_BUFFER_ERROR = 37,
     GSASL_GSSAPI_IMPORT_NAME_ERROR = 38,
@@ -319,7 +319,7 @@ extern "C"
    * @GSASL_VALIDATE_GSSAPI: Request for validation of GSSAPI/GS2.
    * @GSASL_VALIDATE_SECURID: Reqest for validation of SecurID.
    * @GSASL_VALIDATE_SAML20: Reqest for validation of SAML20.
-   * @GSASL_VALIDATE_SAML20: Reqest for validation of OpenID 2.0 login.
+   * @GSASL_VALIDATE_OPENID20: Reqest for validation of OpenID 2.0 login.
    *
    * Callback/property types.
    */
@@ -346,8 +346,8 @@ extern "C"
     GSASL_CB_TLS_UNIQUE = 18,
     GSASL_SAML20_IDP_IDENTIFIER = 19,
     GSASL_SAML20_REDIRECT_URL = 20,
-    GSASL_OPENID20_REDIRECT_URL = 22,
-    GSASL_OPENID20_OUTCOME_DATA = 23,
+    GSASL_OPENID20_REDIRECT_URL = 21,
+    GSASL_OPENID20_OUTCOME_DATA = 22,
     /* Client callbacks. */
     GSASL_SAML20_AUTHENTICATE_IN_BROWSER = 250,
     GSASL_OPENID20_AUTHENTICATE_IN_BROWSER = 251,
