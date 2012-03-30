@@ -104,6 +104,12 @@ examples/openid20/.deps/
 examples/openid20/.libs/
 examples/openid20/smtp-server-openid20
 examples/openid20/smtp-server-openid20.o
+examples/saml20/.deps/
+examples/saml20/.libs/
+examples/saml20/gsasl-saml20-request
+examples/saml20/gsasl-saml20-request.o
+examples/saml20/smtp-server-saml20
+examples/saml20/smtp-server-saml20.o
 examples/server-xmpp-saml20
 examples/server-xmpp-saml20.o
 examples/smtp-server

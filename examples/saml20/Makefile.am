@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002-2012 Simon Josefsson
+# Copyright (C) 2012 Simon Josefsson
 #
 # This file is part of GNU SASL.
 #
@@ -16,17 +16,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = openid20 saml20
-
 AM_CFLAGS = $(WERROR_CFLAGS) $(WARN_CFLAGS)
-AM_CPPFLAGS = -I$(top_srcdir)/lib/src -I../lib/src
-LDADD = ../lib/src/libgsasl.la
+AM_CPPFLAGS = -I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src \
+	$(LASSO_CFLAGS)
+LDADD = $(top_builddir)/lib/src/libgsasl.la $(LASSO_LIBS)
 
 EXTRA_DIST = README
+EXTRA_DIST += gsasl-saml20-sp.php
+EXTRA_DIST += sp-metadata.xml sp-key.pem sp-crt.pem
+EXTRA_DIST += openidp.feide.no/idp-metadata.xml
+EXTRA_DIST += idp.protectnetwork.org/idp-metadata.xml
 
-noinst_PROGRAMS = client client-serverfirst client-mech \
-	client-callback client-xmpp-saml20 server-xmpp-saml20
-
-if !WINDOWS
-noinst_PROGRAMS += smtp-server
+if LASSO
+noinst_PROGRAMS = smtp-server-saml20 gsasl-saml20-request
 endif

@@ -1,0 +1,103 @@
+GNU SASL examples/saml20/README -- Explanation of SMTP SAML 2.0 example.
+Copyright (C) 2012 Simon Josefsson
+See the end for copying conditions.
+
+This directory holds a GNU SASL example application that implements a
+SMTP server with SAML 2.0 authentication support.  The SAML
+implementation used is Lasso: http://lasso.entrouvert.org/
+
+It should be noted that this is just an example of how it could work.
+You don't need to implement it this way.  For example, sometimes
+having a Apache/PHP web server running is a problem.  Then you could
+use something like MicroHTTPD and implement everything in one process
+using Lasso in C.  Then you don't need any IPC stuff.  Also, you could
+also want to use another SAML implementation instead of Lasso.  The
+point of this example is just to proof that it works.
+
+Install the SAML SP:
+
+  The "gsasl-saml20-sp.php" script needs to be install so that it
+  reachable under some URL via a web server.  This is the
+  AssertionConsumerService (ACS) for the GNU SASL SP.  For example, on
+  interop.josefsson.org I make the ACS available as
+
+    http://interop.josefsson.org/gsasl-saml20-sp.php
+
+  by copying the file into
+
+    /var/www/gsasl-saml20-sp.php
+
+  Configure the tool by specifying the state and configuration
+  directories in a file called gsasl-saml20-config.php in the same
+  directory, like this:
+
+  echo '<?php $state_path = "/tmp/gsasl-saml20"; $cfg_path = "/etc/gsasl-saml20"; ?>' > /var/www/gsasl-saml20-config.php
+
+  Of course you can chose different paths, but then you need to update
+  the paths accordingly in the rest of this documentation.
+
+Create SAML SP configuration:
+
+  /etc/gsasl-saml20/sp-key.pem
+  /etc/gsasl-saml20/sp-crt.pem
+
+    This is a private key and certificate for your SP.  It can be
+    self-signed.  You may generate the files with GnuTLS like this:
+
+    certtool -p --outfile sp-key.pem
+    echo 'organization=My SP' > sp-crt.template
+    certtool --generate-self-signed --load-privkey sp-key.pem
+             --template sp-crt.template --outfile sp-crt.pem
+
+    Currently the private key is not used to sign requests.
+
+  /etc/gsasl-saml20/sp-metadata.xml
+
+    This is specific for your SP.  Use sp-metadata.xml as a starting
+    point if you are unsure, and use a text editor to modify it.  You
+    need to:
+
+      1) Change the entityID to something (the URL does not have to
+         resolve to anything, but should be unique to this SP).
+
+      2) Replace the ACS URL to point at your gsasl-saml20-sp.php.
+
+      3) Replace the certificate data (in two places) with the base64
+         data from sp-crt.pem.
+
+      4) Update with your contact information at the bottom.
+
+    You may want to make the SP metadata reachable over the web as
+    well, for example by doing:
+
+      ln -s /etc/gsasl-saml20/sp-metadata.xml /var/www/
+
+  /etc/gsasl-saml20/IDP/idp-metadata.xml
+
+    This is the XML metadata for each IdP.  Replace "IDP" in the
+    filename with the Identity Provider Identifier you expect users to
+    type.
+
+  /etc/gsasl-saml20/openidp.feide.no/idp-metadata.xml
+
+    Here we used Feide OpenIdP as an example.  The content of
+    idp-metadata.xml is retrieved from the IdP.  For Feide OpenIdP you
+    can retrieve it from the following URL:
+
+    https://openidp.feide.no/simplesaml/saml2/idp/metadata.php
+
+  /etc/gsasl-saml20/idp.protectnetwork.org/idp-metadata.xml
+
+    As the second test IdP we used Protect Network.  You can retrieve
+    the file from here:
+
+      http://www.protectnetwork.org/protectnetwork-metadata.xml
+
+    Lasso requires that the KeyDescriptor tags are qualified with
+    attributes use="signing" or use="encryption" respectively, so you
+    need to modify the file slightly.
+
+----------------------------------------------------------------------
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.

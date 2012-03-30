@@ -61,7 +61,7 @@ AC_MSG_CHECKING([if backwards compatibility code should be present])
 AC_MSG_RESULT($obsolete)
 AM_CONDITIONAL(OBSOLETE, test "$obsolete" = "yes")
 
-# Check for gnutls
+# Check for GnuTLS.
 AC_ARG_WITH(gnutls,
   AS_HELP_STRING([--without-gnutls], [disable GnuTLS support]),
 	gnutls=$withval, gnutls=yes)
@@ -89,6 +89,18 @@ GTK_DOC_CHECK(1.1)
 # For gnulib stuff in gl/.
 gl_INIT
 AM_CONDITIONAL(WINDOWS, test "$gl_cv_func_wsastartup" = "yes")
+
+# Check for Lasso.  For examples/saml20/.
+AC_ARG_WITH(lasso,
+  AS_HELP_STRING([--without-lasso],
+                 [disable Lasso (used by examples/saml20/)]),
+  lasso=$withval, lasso=yes)
+if test "$lasso" != "no"; then
+  PKG_CHECK_MODULES(LASSO, lasso >= 2.2.1, [lasso=yes], [lasso=no])
+  AC_SUBST(LASSO_CFLAGS)
+  LASSO_CFLAGS=`echo $pkg_cv_LASSO_CFLAGS | sed -e 's,\\\\,,g'`
+fi
+AM_CONDITIONAL(LASSO, test "$lasso" = "yes")
 
 AC_ARG_ENABLE([gcc-warnings],
   [AS_HELP_STRING([--enable-gcc-warnings],
@@ -143,6 +155,7 @@ AC_CONFIG_FILES([
   doc/reference/version.xml
   examples/Makefile
   examples/openid20/Makefile
+  examples/saml20/Makefile
   gl/Makefile
   gltests/Makefile
   po/Makefile.in
@@ -157,9 +170,14 @@ AC_MSG_NOTICE([summary of build options:
   Host type:          ${host}
   Install prefix:     ${prefix}
   Compiler:           ${CC}
-  Warning flags:      errors: ${WERROR_CFLAGS} warnings: ${WARN_CFLAGS}
+  Warning flags:      $gl_gcc_warnings
   Library types:      Shared=${enable_shared}, Static=${enable_static}
   Valgrind:           ${VALGRIND}
-  GnuTLS support:     $gnutls
   Obsolete functions: $obsolete
+  GnuTLS support:     $gnutls
+        CPPFLAGS:     $INCLIBGNUTLS
+           LDADD:     $LTLIBGNUTLS
+  Lasso support:      $lasso
+       CPPFLAGS:      $LASSO_CFLAGS
+          LDADD:      $LASSO_LIBS
 ])
