@@ -40,7 +40,7 @@ exclude_file_name_regexp--sc_copyright_check = ^doc/gsasl.texi$$
 exclude_file_name_regexp--sc_unmarked_diagnostics = ^examples/.*|src/gsasl.c$$
 exclude_file_name_regexp--sc_bindtextdomain = ^doc/print-errors.c|examples/.*|lib/digest-md5/test-parser.c|lib/tests/test-error.c|tests/.*$$
 exclude_file_name_regexp--sc_program_name = $(exclude_file_name_regexp--sc_bindtextdomain)
-exclude_file_name_regexp--sc_prohibit_magic_number_exit = ^doc/gsasl.texi|tests.*$$
+exclude_file_name_regexp--sc_prohibit_magic_number_exit = ^doc/gsasl.texi|examples/(openid20|saml20)/.*.php|tests.*$$
 exclude_file_name_regexp--sc_trailing_blank = ^doc/.*\.(eps|png)|(lib/)?po/.*$$
 
 update-copyright-env = UPDATE_COPYRIGHT_HOLDER="Simon Josefsson" UPDATE_COPYRIGHT_USE_INTERVALS=2 UPDATE_COPYRIGHT_FORCE=1
