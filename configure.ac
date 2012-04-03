@@ -90,11 +90,15 @@ GTK_DOC_CHECK(1.1)
 gl_INIT
 AM_CONDITIONAL(WINDOWS, test "$gl_cv_func_wsastartup" = "yes")
 
-# Check for Lasso.  For examples/saml20/.
+# Check for Lasso.  For examples/saml20/.  Disabled by default on Windows.
+lasso_default=yes
+if test "$gl_cv_func_wsastartup" = "yes"; then
+  lasso_default=no
+fi
 AC_ARG_WITH(lasso,
   AS_HELP_STRING([--without-lasso],
                  [disable Lasso (used by examples/saml20/)]),
-  lasso=$withval, lasso=yes)
+  lasso=$withval, lasso=$lasso_default)
 if test "$lasso" != "no"; then
   PKG_CHECK_MODULES(LASSO, lasso >= 2.2.1, [lasso=yes], [lasso=no])
   AC_SUBST(LASSO_CFLAGS)
