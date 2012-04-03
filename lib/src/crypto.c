@@ -137,7 +137,7 @@ gsasl_sha1 (const char *in, size_t inlen, char *out[20])
  **/
 int
 gsasl_hmac_sha1 (const char *key, size_t keylen,
-		const char *in, size_t inlen, char *outhash[20])
+		 const char *in, size_t inlen, char *outhash[20])
 {
   *outhash = malloc (20);
   if (!*outhash)

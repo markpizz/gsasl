@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -147,15 +147,15 @@ doit (void)
   if (!gsasl_client_support_p (c, "SAML20"))
     {
       gsasl_done (c);
-      fail("No support for SAML20 clients.\n");
-      exit(77);
+      fail ("No support for SAML20 clients.\n");
+      exit (77);
     }
 
   if (!gsasl_server_support_p (s, "SAML20"))
     {
       gsasl_done (s);
-      fail("No support for SAML20 servers.\n");
-      exit(77);
+      fail ("No support for SAML20 servers.\n");
+      exit (77);
     }
 
   gsasl_callback_set (c, client_callback);

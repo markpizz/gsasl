@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -189,7 +189,8 @@ cb (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     case GSASL_SUGGESTED_PIN:
     case GSASL_PIN:
       {
-	const char *suggestion = gsasl_property_fast (sctx, GSASL_SUGGESTED_PIN);
+	const char *suggestion =
+	  gsasl_property_fast (sctx, GSASL_SUGGESTED_PIN);
 	if (suggestion && sasltv[i].suggestpin
 	    && strcmp (suggestion, sasltv[i].suggestpin) != 0)
 	  return GSASL_AUTHENTICATION_ERROR;
@@ -292,15 +293,17 @@ doit (void)
   if (res != GSASL_OK)
     fail ("gsasl_client_mechlist() failed (%d):\n%s\n",
 	  res, gsasl_strerror (res));
-  success("client_mechlist: %s\n", out);
-  gsasl_free (out); out = NULL;
+  success ("client_mechlist: %s\n", out);
+  gsasl_free (out);
+  out = NULL;
 
   res = gsasl_server_mechlist (ctx, &out);
   if (res != GSASL_OK)
     fail ("gsasl_server_mechlist() failed (%d):\n%s\n",
 	  res, gsasl_strerror (res));
-  success("server_mechlist: %s\n", out);
-  gsasl_free (out); out = NULL;
+  success ("server_mechlist: %s\n", out);
+  gsasl_free (out);
+  out = NULL;
 
   for (i = 0; i < sizeof (sasltv) / sizeof (sasltv[0]); i++)
     {
@@ -344,7 +347,8 @@ doit (void)
 
 	  if (res != GSASL_OK && res != GSASL_NEEDS_MORE)
 	    {
-	      fail ("gsasl_step64 failed (%d): %s", res, gsasl_strerror (res));
+	      fail ("gsasl_step64 failed (%d): %s", res,
+		    gsasl_strerror (res));
 	      break;
 	    }
 
@@ -371,19 +375,20 @@ doit (void)
 	      break;
 	    }
 
-	  gsasl_free (out); out = NULL;
+	  gsasl_free (out);
+	  out = NULL;
 
 	  if (strcmp (sasltv[i].mech, "SECURID") != 0 && res == GSASL_OK)
 	    break;
 	}
 
-      if (j != (size_t) -1 && res == GSASL_OK && sasltv[i].step[j + 2])
+      if (j != (size_t) - 1 && res == GSASL_OK && sasltv[i].step[j + 2])
 	fail ("SASL entry %d mechanism %s step %d code ended prematurely\n",
 	      i, sasltv[i].mech, j);
-      else if (j != (size_t) -1 && res == GSASL_NEEDS_MORE)
+      else if (j != (size_t) - 1 && res == GSASL_NEEDS_MORE)
 	fail ("SASL entry %d mechanism %s step %d table ended prematurely\n",
 	      i, sasltv[i].mech, j);
-      else if (j != (size_t) -1 && res != GSASL_OK)
+      else if (j != (size_t) - 1 && res != GSASL_OK)
 	fail ("SASL entry %d mechanism %s step %d failed (%d):\n%s\n",
 	      i, sasltv[i].mech, j, res, gsasl_strerror (res));
       else
@@ -398,14 +403,16 @@ doit (void)
 	  fail ("gsasl_encode %d: %s\n", res, gsasl_strerror (res));
 	if (outlen != 3 && memcmp (out, "foo", outlen) != 0)
 	  fail ("gsasl_encode memcmp: %.*s\n", (int) outlen, out);
-	gsasl_free (out); out = NULL;
+	gsasl_free (out);
+	out = NULL;
 
 	res = gsasl_decode (sctx, "foo", 3, &out, &outlen);
 	if (res != GSASL_OK)
 	  fail ("gsasl_decode %d: %s\n", res, gsasl_strerror (res));
 	if (outlen != 3 && memcmp (out, "foo", outlen) != 0)
 	  fail ("gsasl_decode memcmp: %.*s\n", (int) outlen, out);
-	gsasl_free (out); out = NULL;
+	gsasl_free (out);
+	out = NULL;
       }
 
       gsasl_finish (sctx);

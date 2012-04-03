@@ -21,7 +21,7 @@
  */
 
 #ifndef DIGEST_MD5_PRINTER_H
-# define DIGEST_MD5_PRINTER_H
+#define DIGEST_MD5_PRINTER_H
 
 /* Get token types. */
 #include "tokens.h"

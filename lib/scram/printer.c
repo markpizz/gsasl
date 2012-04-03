@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 /* Get prototypes. */
@@ -105,9 +105,7 @@ scram_print_client_first (struct scram_client_first *cf, char **out)
 		cf->cbflag == 'p' ? "=" : "",
 		cf->cbflag == 'p' ? cf->cbname : "",
 		authzid ? "a=" : "",
-		authzid ? authzid : "",
-		username,
-		cf->client_nonce);
+		authzid ? authzid : "", username, cf->client_nonce);
 
   free (username);
   free (authzid);
@@ -152,8 +150,7 @@ scram_print_client_final (struct scram_client_final *cl, char **out)
   if (!scram_valid_client_final (cl))
     return -1;
 
-  n = asprintf (out, "c=%s,r=%s,p=%s",
-		cl->cbind, cl->nonce, cl->proof);
+  n = asprintf (out, "c=%s,r=%s,p=%s", cl->cbind, cl->nonce, cl->proof);
   if (n <= 0 || *out == NULL)
     return -1;
 

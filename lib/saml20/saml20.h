@@ -21,11 +21,11 @@
  */
 
 #ifndef SAML20_H
-# define SAML20_H
+#define SAML20_H
 
-# include <gsasl.h>
+#include <gsasl.h>
 
-# define GSASL_SAML20_NAME "SAML20"
+#define GSASL_SAML20_NAME "SAML20"
 
 extern Gsasl_mechanism gsasl_saml20_mechanism;
 

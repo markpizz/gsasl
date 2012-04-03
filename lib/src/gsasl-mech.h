@@ -21,7 +21,7 @@
  */
 
 #ifndef GSASL_MECH_H
-# define GSASL_MECH_H
+#define GSASL_MECH_H
 
 /* Mechanism function prototypes. */
 typedef int (*Gsasl_init_function) (Gsasl * ctx);

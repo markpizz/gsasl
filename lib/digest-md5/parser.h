@@ -21,7 +21,7 @@
  */
 
 #ifndef DIGEST_MD5_PARSER_H
-# define DIGEST_MD5_PARSER_H
+#define DIGEST_MD5_PARSER_H
 
 /* Get token types. */
 #include "tokens.h"

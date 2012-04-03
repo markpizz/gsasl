@@ -117,8 +117,8 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       break;
 
       /* If you add anything here, remember to change change
-	 gsasl_finish() in xfinish.c and Gsasl_session in
-	 internal.h.  */
+         gsasl_finish() in xfinish.c and Gsasl_session in
+         internal.h.  */
 
     default:
       break;

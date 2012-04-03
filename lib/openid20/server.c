@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 /* Get specification. */
@@ -58,9 +58,9 @@ _gsasl_openid20_server_start (Gsasl_session * sctx, void **mech_data)
 
 int
 _gsasl_openid20_server_step (Gsasl_session * sctx,
-			   void *mech_data,
-			   const char *input, size_t input_len,
-			   char **output, size_t * output_len)
+			     void *mech_data,
+			     const char *input, size_t input_len,
+			     char **output, size_t * output_len)
 {
   struct openid20_server_state *state = mech_data;
   int res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
@@ -139,7 +139,7 @@ _gsasl_openid20_server_step (Gsasl_session * sctx,
 	    state->step++;
 	    return GSASL_NEEDS_MORE;
 	  }
-	
+
 	outcome_data = gsasl_property_get (sctx, GSASL_OPENID20_OUTCOME_DATA);
 	if (outcome_data)
 	  {

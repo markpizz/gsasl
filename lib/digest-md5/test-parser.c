@@ -59,7 +59,8 @@ main (int argc, char *argv[])
   }
 
   {
-    const char *token = "qop=\"auth, auth-conf\", nonce=42, algorithm=md5-sess";
+    const char *token =
+      "qop=\"auth, auth-conf\", nonce=42, algorithm=md5-sess";
 
     printf ("challenge `%s': ", token);
     rc = digest_md5_parse_challenge (token, 0, &c);

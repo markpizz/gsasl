@@ -49,7 +49,7 @@
  */
 
 #if CRAM_MD5_DIGEST_LEN != 2*GC_MD5_DIGEST_SIZE
-# error MD5 length mismatch
+#error MD5 length mismatch
 #endif
 
 #define HEXCHAR(c) ((c & 0x0F) > 9 ? 'a' + (c & 0x0F) - 10 : '0' + (c & 0x0F))

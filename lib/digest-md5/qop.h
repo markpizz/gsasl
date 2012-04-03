@@ -21,7 +21,7 @@
  */
 
 #ifndef DIGEST_MD5_QOP_H
-# define DIGEST_MD5_QOP_H
+#define DIGEST_MD5_QOP_H
 
 extern int digest_md5_qopstr2qops (const char *qopstr);
 extern const char *digest_md5_qops2qopstr (int qops);

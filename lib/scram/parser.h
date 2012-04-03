@@ -21,7 +21,7 @@
  */
 
 #ifndef SCRAM_PARSER_H
-# define SCRAM_PARSER_H
+#define SCRAM_PARSER_H
 
 /* Get token types. */
 #include "tokens.h"

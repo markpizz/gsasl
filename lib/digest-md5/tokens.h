@@ -21,7 +21,7 @@
  */
 
 #ifndef DIGEST_MD5_TOKENS_H
-# define DIGEST_MD5_TOKENS_H
+#define DIGEST_MD5_TOKENS_H
 
 /* Get size_t. */
 #include <stddef.h>

@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 /* Get specification. */
@@ -31,35 +31,34 @@
 Gsasl_mechanism gsasl_scram_sha1_mechanism = {
   GSASL_SCRAM_SHA1_NAME,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_CLIENT
-    _gsasl_scram_sha1_client_start,
-    _gsasl_scram_sha1_client_step,
-    _gsasl_scram_sha1_client_finish,
+   _gsasl_scram_sha1_client_start,
+   _gsasl_scram_sha1_client_step,
+   _gsasl_scram_sha1_client_finish,
 #else
-    NULL,
-    NULL,
-    NULL,
+   NULL,
+   NULL,
+   NULL,
 #endif
-    NULL,
-    NULL
-  },
+   NULL,
+   NULL}
+  ,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_SERVER
-    _gsasl_scram_sha1_server_start,
-    _gsasl_scram_sha1_server_step,
-    _gsasl_scram_sha1_server_finish,
+   _gsasl_scram_sha1_server_start,
+   _gsasl_scram_sha1_server_step,
+   _gsasl_scram_sha1_server_finish,
 #else
-    NULL,
-    NULL,
-    NULL,
+   NULL,
+   NULL,
+   NULL,
 #endif
-    NULL,
-    NULL
-  }
+   NULL,
+   NULL}
 };
 #endif
 
@@ -68,34 +67,33 @@ Gsasl_mechanism gsasl_scram_sha1_mechanism = {
 Gsasl_mechanism gsasl_scram_sha1_plus_mechanism = {
   GSASL_SCRAM_SHA1_PLUS_NAME,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_CLIENT
-    _gsasl_scram_sha1_plus_client_start,
-    _gsasl_scram_sha1_client_step,
-    _gsasl_scram_sha1_client_finish,
+   _gsasl_scram_sha1_plus_client_start,
+   _gsasl_scram_sha1_client_step,
+   _gsasl_scram_sha1_client_finish,
 #else
-    NULL,
-    NULL,
-    NULL,
+   NULL,
+   NULL,
+   NULL,
 #endif
-    NULL,
-    NULL
-  },
+   NULL,
+   NULL}
+  ,
   {
-    NULL,
-    NULL,
+   NULL,
+   NULL,
 #ifdef USE_SERVER
-    _gsasl_scram_sha1_plus_server_start,
-    _gsasl_scram_sha1_server_step,
-    _gsasl_scram_sha1_server_finish,
+   _gsasl_scram_sha1_plus_server_start,
+   _gsasl_scram_sha1_server_step,
+   _gsasl_scram_sha1_server_finish,
 #else
-    NULL,
-    NULL,
-    NULL,
+   NULL,
+   NULL,
+   NULL,
 #endif
-    NULL,
-    NULL
-  }
+   NULL,
+   NULL}
 };
 #endif

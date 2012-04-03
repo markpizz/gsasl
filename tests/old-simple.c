@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -520,13 +520,13 @@ doit (void)
 	    break;
 	}
 
-      if (j != (size_t) -1 && res == GSASL_OK && sasltv[i].step[j + 2])
+      if (j != (size_t) - 1 && res == GSASL_OK && sasltv[i].step[j + 2])
 	fail ("SASL entry %d mechanism %s step %d code ended prematurely\n",
 	      i, sasltv[i].mech, j);
-      else if (j != (size_t) -1 && res == GSASL_NEEDS_MORE)
+      else if (j != (size_t) - 1 && res == GSASL_NEEDS_MORE)
 	fail ("SASL entry %d mechanism %s step %d table ended prematurely\n",
 	      i, sasltv[i].mech, j);
-      else if (j != (size_t) -1 && res != GSASL_OK)
+      else if (j != (size_t) - 1 && res != GSASL_OK)
 	fail ("SASL entry %d mechanism %s step %d failed (%d):\n%s\n",
 	      i, sasltv[i].mech, j, res, gsasl_strerror (res));
       else

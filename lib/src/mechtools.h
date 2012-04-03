@@ -21,7 +21,7 @@
  */
 
 #ifndef MECHTOOLS_H
-# define MECHTOOLS_H
+#define MECHTOOLS_H
 
 /* Get size_t. */
 #include <stddef.h>
@@ -33,8 +33,9 @@ extern int _gsasl_parse_gs2_header (const char *data, size_t len,
 				    char **authzid, size_t * headerlen);
 
 extern int _gsasl_gs2_generate_header (bool nonstd, char cbflag,
-				       const char *cbname, const char *authzid,
-				       size_t extralen, const char *extra,
-				       char **gs2h, size_t *gs2hlen);
+				       const char *cbname,
+				       const char *authzid, size_t extralen,
+				       const char *extra, char **gs2h,
+				       size_t * gs2hlen);
 
 #endif

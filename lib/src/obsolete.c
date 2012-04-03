@@ -23,7 +23,7 @@
 #include "internal.h"
 
 #if USE_DIGEST_MD5
-# include "qop.h"
+#include "qop.h"
 #endif
 
 /**
@@ -1630,7 +1630,7 @@ gsasl_server_callback_service_get (Gsasl * ctx)
 }
 
 #if HAVE_LIBIDN
-# include <stringprep.h>
+#include <stringprep.h>
 #endif
 
 /**
@@ -2092,7 +2092,7 @@ _gsasl_obsolete_callback (Gsasl * ctx, Gsasl_session * sctx,
       {
 	Gsasl_server_callback_securid cb_securid
 	  = gsasl_server_callback_securid_get (sctx->ctx);
-#define MAX_SECURID 32 /* See RFC 2808. */
+#define MAX_SECURID 32		/* See RFC 2808. */
 	char buf[MAX_SECURID + 1];
 	size_t buflen = MAX_SECURID;
 	if (!cb_securid)
@@ -2161,7 +2161,8 @@ _gsasl_obsolete_callback (Gsasl * ctx, Gsasl_session * sctx,
 	  break;
 	qops = cb_qop (sctx);
 	if (qops & 0x07)
-	  gsasl_property_set (sctx, GSASL_QOPS, digest_md5_qops2qopstr(qops));
+	  gsasl_property_set (sctx, GSASL_QOPS,
+			      digest_md5_qops2qopstr (qops));
 	return GSASL_OK;
 	break;
       }

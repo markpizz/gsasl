@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -36,22 +36,24 @@ main (void)
   const char *name;
   int i = 0;
 
-  do {
-    last = this;
+  do
+    {
+      last = this;
 
-    this = gsasl_strerror (i);
-    name = gsasl_strerror_name (i);
+      this = gsasl_strerror (i);
+      name = gsasl_strerror_name (i);
 
-    printf ("%s (%d)\n\t%s\n", name ? name : "NULL", i, this);
+      printf ("%s (%d)\n\t%s\n", name ? name : "NULL", i, this);
 
-    if (this == NULL)
-      {
-	printf ("Null error string?!\n");
-	return EXIT_FAILURE;
-      }
+      if (this == NULL)
+	{
+	  printf ("Null error string?!\n");
+	  return EXIT_FAILURE;
+	}
 
-    i++;
-  } while (this != last  && this != NULL);
+      i++;
+    }
+  while (this != last && this != NULL);
 
   return EXIT_SUCCESS;
 }

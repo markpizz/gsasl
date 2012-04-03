@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 /* Get specification. */
@@ -48,7 +48,8 @@ Gsasl_mechanism gsasl_login_mechanism = {
    NULL,
 #endif
    NULL,
-   NULL},
+   NULL}
+  ,
   {
    NULL,
    NULL,

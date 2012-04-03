@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 /* Get specification. */
@@ -60,9 +60,9 @@ _gsasl_openid20_client_start (Gsasl_session * sctx, void **mech_data)
 
 int
 _gsasl_openid20_client_step (Gsasl_session * sctx,
-			   void *mech_data,
-			   const char *input, size_t input_len,
-			   char **output, size_t * output_len)
+			     void *mech_data,
+			     const char *input, size_t input_len,
+			     char **output, size_t * output_len)
 {
   struct openid20_client_state *state = mech_data;
   int res = GSASL_MECHANISM_CALLED_TOO_MANY_TIMES;
@@ -107,8 +107,8 @@ _gsasl_openid20_client_step (Gsasl_session * sctx,
       break;
 
       /* This step is optional.  The server could have approved
-	 authentication already.  Alternatively, it wanted to send
-	 some SREGs or error data and we end up here. */
+         authentication already.  Alternatively, it wanted to send
+         some SREGs or error data and we end up here. */
     case 2:
       {
 	gsasl_property_set_raw (sctx, GSASL_OPENID20_OUTCOME_DATA,
@@ -126,7 +126,7 @@ _gsasl_openid20_client_step (Gsasl_session * sctx,
 	   is lock step,  the client will follow with an additional exchange
 	   containing "=", after which the server will respond with an
 	   application-level outcome.
-	*/
+	 */
 
 #define ERR_PREFIX "openid.error="
 	if (input_len > strlen (ERR_PREFIX)

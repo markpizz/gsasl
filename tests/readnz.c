@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -55,8 +55,7 @@ doit2 (bool server_p)
     res = gsasl_client_mechlist (ctx, &mechs);
   if (res != GSASL_OK)
     {
-      fail ("mechlist() failed (%d):\n%s\n",
-	    res, gsasl_strerror (res));
+      fail ("mechlist() failed (%d):\n%s\n", res, gsasl_strerror (res));
       return;
     }
 

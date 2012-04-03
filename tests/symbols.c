@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <assert.h>
@@ -88,10 +88,14 @@ main (void)
   assert_symbol_exists ((const void *) gsasl_client_application_data_set);
   assert_symbol_exists ((const void *) gsasl_client_callback_anonymous_get);
   assert_symbol_exists ((const void *) gsasl_client_callback_anonymous_set);
-  assert_symbol_exists ((const void *) gsasl_client_callback_authentication_id_get);
-  assert_symbol_exists ((const void *) gsasl_client_callback_authentication_id_set);
-  assert_symbol_exists ((const void *) gsasl_client_callback_authorization_id_get);
-  assert_symbol_exists ((const void *) gsasl_client_callback_authorization_id_set);
+  assert_symbol_exists ((const void *)
+			gsasl_client_callback_authentication_id_get);
+  assert_symbol_exists ((const void *)
+			gsasl_client_callback_authentication_id_set);
+  assert_symbol_exists ((const void *)
+			gsasl_client_callback_authorization_id_get);
+  assert_symbol_exists ((const void *)
+			gsasl_client_callback_authorization_id_set);
   assert_symbol_exists ((const void *) gsasl_client_callback_maxbuf_get);
   assert_symbol_exists ((const void *) gsasl_client_callback_maxbuf_set);
   assert_symbol_exists ((const void *) gsasl_client_callback_passcode_get);

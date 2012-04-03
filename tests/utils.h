@@ -19,11 +19,11 @@
  */
 
 #ifndef UTILS_H
-# define UTILS_H
+#define UTILS_H
 
-# include <string.h>
-# include <stdarg.h>
-# include <gsasl.h>
+#include <string.h>
+#include <stdarg.h>
+#include <gsasl.h>
 
 extern int debug;
 extern int error_count;

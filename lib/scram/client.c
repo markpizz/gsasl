@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 /* Get specification. */
@@ -48,7 +48,7 @@ struct scram_client_state
 {
   int plus;
   int step;
-  char *cfmb; /* client first message bare */
+  char *cfmb;			/* client first message bare */
   char *serversignature;
   char *authmessage;
   char *cbtlsunique;
@@ -220,11 +220,11 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	/* Point p to client-first-message-bare. */
 	p = strchr (*output, ',');
 	if (!p)
-	    return GSASL_AUTHENTICATION_ERROR;
+	  return GSASL_AUTHENTICATION_ERROR;
 	p++;
 	p = strchr (p, ',');
 	if (!p)
-	    return GSASL_AUTHENTICATION_ERROR;
+	  return GSASL_AUTHENTICATION_ERROR;
 	p++;
 
 	/* Save "client-first-message-bare" for the next step. */
@@ -343,8 +343,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	    n = asprintf (&state->authmessage, "%s,%.*s,%.*s",
 			  state->cfmb,
 			  (int) input_len, input,
-			  (int) (strlen (cfmwp) - 4),
-			  cfmwp);
+			  (int) (strlen (cfmwp) - 4), cfmwp);
 	    free (cfmwp);
 	    if (n <= 0 || !state->authmessage)
 	      return GSASL_MALLOC_ERROR;
@@ -353,8 +352,7 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 	  /* ClientKey := HMAC(SaltedPassword, "Client Key") */
 #define CLIENT_KEY "Client Key"
 	  rc = gsasl_hmac_sha1 (saltedpassword, 20,
-				CLIENT_KEY, strlen (CLIENT_KEY),
-				&clientkey);
+				CLIENT_KEY, strlen (CLIENT_KEY), &clientkey);
 	  if (rc != 0)
 	    return rc;
 

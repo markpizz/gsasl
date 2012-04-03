@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 /* Get specification. */
@@ -168,7 +168,7 @@ int
 _gsasl_gs2_generate_header (bool nonstd, char cbflag,
 			    const char *cbname, const char *authzid,
 			    size_t extralen, const char *extra,
-			    char **gs2h, size_t *gs2hlen)
+			    char **gs2h, size_t * gs2hlen)
 {
   int elen = extralen;
   char *gs2cbflag;

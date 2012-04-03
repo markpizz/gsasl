@@ -30,7 +30,7 @@
 #include <string.h>
 
 void
-scram_free_client_first (struct scram_client_first * cf)
+scram_free_client_first (struct scram_client_first *cf)
 {
   free (cf->cbname);
   free (cf->authzid);
@@ -41,7 +41,7 @@ scram_free_client_first (struct scram_client_first * cf)
 }
 
 void
-scram_free_server_first (struct scram_server_first * sf)
+scram_free_server_first (struct scram_server_first *sf)
 {
   free (sf->nonce);
   free (sf->salt);
@@ -50,7 +50,7 @@ scram_free_server_first (struct scram_server_first * sf)
 }
 
 void
-scram_free_client_final (struct scram_client_final * cl)
+scram_free_client_final (struct scram_client_final *cl)
 {
   free (cl->cbind);
   free (cl->nonce);
@@ -60,7 +60,7 @@ scram_free_client_final (struct scram_client_final * cl)
 }
 
 void
-scram_free_server_final (struct scram_server_final * sl)
+scram_free_server_final (struct scram_server_final *sl)
 {
   free (sl->verifier);
 

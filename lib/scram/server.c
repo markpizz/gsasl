@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 /* Get specification. */
@@ -53,9 +53,9 @@ struct scram_server_state
   int plus;
   int step;
   char *cbind;
-  char *gs2header; /* copy of client first gs2-header */
-  char *cfmb_str; /* copy of client first message bare */
-  char *sf_str; /* copy of server first message */
+  char *gs2header;		/* copy of client first gs2-header */
+  char *cfmb_str;		/* copy of client first message bare */
+  char *sf_str;			/* copy of server first message */
   char *snonce;
   char *clientproof;
   char *storedkey;
@@ -87,8 +87,7 @@ scram_start (Gsasl_session * sctx, void **mech_data, int plus)
   if (rc != GSASL_OK)
     goto end;
 
-  rc = gsasl_base64_to (buf, SNONCE_ENTROPY_BYTES,
-			&state->snonce, NULL);
+  rc = gsasl_base64_to (buf, SNONCE_ENTROPY_BYTES, &state->snonce, NULL);
   if (rc != GSASL_OK)
     goto end;
 
@@ -96,8 +95,7 @@ scram_start (Gsasl_session * sctx, void **mech_data, int plus)
   if (rc != GSASL_OK)
     goto end;
 
-  rc = gsasl_base64_to (buf, DEFAULT_SALT_BYTES,
-			&state->sf.salt, NULL);
+  rc = gsasl_base64_to (buf, DEFAULT_SALT_BYTES, &state->sf.salt, NULL);
   if (rc != GSASL_OK)
     goto end;
 
@@ -119,7 +117,7 @@ scram_start (Gsasl_session * sctx, void **mech_data, int plus)
 
   return GSASL_OK;
 
- end:
+end:
   free (state->sf.salt);
   free (state->snonce);
   free (state);
@@ -169,9 +167,8 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 	/* In non-PLUS mode, but where have channel bindings data (and
 	   thus advertised PLUS) we reject a client 'y' cbflag. */
 	if (!state->plus
-	    && state->cbtlsuniquelen > 0
-	    && state->cf.cbflag == 'y')
-	    return GSASL_AUTHENTICATION_ERROR;
+	    && state->cbtlsuniquelen > 0 && state->cf.cbflag == 'y')
+	  return GSASL_AUTHENTICATION_ERROR;
 
 	/* Check that username doesn't fail SASLprep. */
 	{

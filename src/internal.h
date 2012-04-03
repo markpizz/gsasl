@@ -22,7 +22,7 @@
 #define _INTERNAL_H
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -40,7 +40,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #ifdef HAVE_PWD_H
-# include <pwd.h>		/* getpwuid */
+#include <pwd.h>		/* getpwuid */
 #endif
 
 #include <gsasl.h>
@@ -70,9 +70,9 @@ extern char *b64cbtlsunique;
 
 /* This feature is available in gcc versions 2.5 and later.  */
 #if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
-# define GSASL_ATTR_NO_RETRUN
+#define GSASL_ATTR_NO_RETRUN
 #else
-# define GSASL_ATTR_NO_RETRUN __attribute__ ((__noreturn__))
+#define GSASL_ATTR_NO_RETRUN __attribute__ ((__noreturn__))
 #endif
 
 #endif /* _INTERNAL_H */

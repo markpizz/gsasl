@@ -182,7 +182,7 @@ smtp_step_recv (char **data)
   if (strncmp (p, "235 ", 4) == 0)
     {
       /* Never a token here, we don't support additional server
-	 information on success. */
+         information on success. */
       return 2;
     }
 

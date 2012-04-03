@@ -42,7 +42,7 @@ gsasl_done (Gsasl * ctx)
     if (ctx->client_mechs[i].client.done)
       ctx->client_mechs[i].client.done (ctx);
 
-    free (ctx->client_mechs);
+  free (ctx->client_mechs);
 #endif
 
 #ifdef USE_SERVER

@@ -21,7 +21,7 @@
  */
 
 #ifndef DIGEST_MD5_NONASCII_H
-# define DIGEST_MD5_NONASCII_H
+#define DIGEST_MD5_NONASCII_H
 
 extern char *latin1toutf8 (const char *str);
 

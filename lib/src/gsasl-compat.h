@@ -21,13 +21,13 @@
  */
 
 #ifndef GSASL_COMPAT_H
-# define GSASL_COMPAT_H
+#define GSASL_COMPAT_H
 
 #ifndef __attribute__
 /* This feature is available in gcc versions 2.5 and later.  */
-# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
-#  define __attribute__(Spec)	/* empty */
-# endif
+#if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
+#define __attribute__(Spec)	/* empty */
+#endif
 #endif
 
 /* Old error codes */
@@ -287,8 +287,8 @@ __attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_maxbuf
 gsasl_client_callback_maxbuf_get (Gsasl * ctx) __attribute__ ((deprecated));
 extern GSASL_API
-void gsasl_client_callback_realm_set (Gsasl * ctx,
-				      Gsasl_client_callback_realm cb)
+  void gsasl_client_callback_realm_set (Gsasl * ctx,
+					Gsasl_client_callback_realm cb)
   __attribute__ ((deprecated));
 extern GSASL_API Gsasl_client_callback_realm
 gsasl_client_callback_realm_get (Gsasl * ctx) __attribute__ ((deprecated));

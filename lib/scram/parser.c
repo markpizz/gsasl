@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 /* Get prototypes. */
@@ -102,7 +102,7 @@ scram_parse_client_first (const char *str, size_t len,
       if (!cf->cbname)
 	return -1;
       memcpy (cf->cbname, str, p - str);
-      cf->cbname[p- str] = '\0';
+      cf->cbname[p - str] = '\0';
       len -= (p - str);
       str += (p - str);
     }

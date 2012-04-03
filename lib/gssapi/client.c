@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 /* Get malloc, free. */
@@ -34,11 +34,11 @@
 #include "x-gssapi.h"
 
 #ifdef HAVE_LIBGSS
-# include <gss.h>
+#include <gss.h>
 #elif HAVE_GSSAPI_H
-# include <gssapi.h>
+#include <gssapi.h>
 #elif HAVE_GSSAPI_GSSAPI_H
-# include <gssapi/gssapi.h>
+#include <gssapi/gssapi.h>
 #endif
 
 #include "gss-extra.h"

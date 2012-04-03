@@ -21,28 +21,28 @@
  */
 
 #ifndef GSASL_H
-# define GSASL_H
+#define GSASL_H
 
-# include <stdio.h>		/* FILE */
-# include <stddef.h>		/* size_t */
-# include <unistd.h>		/* ssize_t */
+#include <stdio.h>		/* FILE */
+#include <stddef.h>		/* size_t */
+#include <unistd.h>		/* ssize_t */
 
-# ifndef GSASL_API
-#  if defined GSASL_BUILDING && defined HAVE_VISIBILITY && HAVE_VISIBILITY
-#   define GSASL_API __attribute__((__visibility__("default")))
-#  elif defined GSASL_BUILDING && defined _MSC_VER && ! defined GSASL_STATIC
-#   define GSASL_API __declspec(dllexport)
-#  elif defined _MSC_VER && ! defined GSASL_STATIC
-#   define GSASL_API __declspec(dllimport)
-#  else
-#   define GSASL_API
-#  endif
-# endif
+#ifndef GSASL_API
+#if defined GSASL_BUILDING && defined HAVE_VISIBILITY && HAVE_VISIBILITY
+#define GSASL_API __attribute__((__visibility__("default")))
+#elif defined GSASL_BUILDING && defined _MSC_VER && ! defined GSASL_STATIC
+#define GSASL_API __declspec(dllexport)
+#elif defined _MSC_VER && ! defined GSASL_STATIC
+#define GSASL_API __declspec(dllimport)
+#else
+#define GSASL_API
+#endif
+#endif
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C"
 {
-# endif
+#endif
 
   /**
    * GSASL_VERSION
@@ -51,7 +51,7 @@ extern "C"
    * version number.  Used together with gsasl_check_version() to
    * verify header file and run-time library consistency.
    */
-# define GSASL_VERSION "1.7.3"
+#define GSASL_VERSION "1.7.3"
 
   /**
    * GSASL_VERSION_MAJOR
@@ -62,7 +62,7 @@ extern "C"
    *
    * Since: 1.1
    */
-# define GSASL_VERSION_MAJOR 1
+#define GSASL_VERSION_MAJOR 1
 
   /**
    * GSASL_VERSION_MINOR
@@ -73,7 +73,7 @@ extern "C"
    *
    * Since: 1.1
    */
-# define GSASL_VERSION_MINOR 7
+#define GSASL_VERSION_MINOR 7
 
   /**
    * GSASL_VERSION_PATCH
@@ -84,7 +84,7 @@ extern "C"
    *
    * Since: 1.1
    */
-# define GSASL_VERSION_PATCH 3
+#define GSASL_VERSION_PATCH 3
 
   /**
    * GSASL_VERSION_NUMBER
@@ -95,7 +95,7 @@ extern "C"
    *
    * Since: 1.1
    */
-# define GSASL_VERSION_NUMBER 0x010703
+#define GSASL_VERSION_NUMBER 0x010703
 
   /* RFC 2222: SASL mechanisms are named by strings, from 1 to 20
    * characters in length, consisting of upper-case letters, digits,
@@ -210,8 +210,8 @@ extern "C"
     GSASL_GSSAPI_INQUIRE_MECH_FOR_SASLNAME_ERROR = 62,
     GSASL_GSSAPI_TEST_OID_SET_MEMBER_ERROR = 63,
     GSASL_GSSAPI_RELEASE_OID_SET_ERROR = 64
-    /* When adding new values, note that integers are not necessarily
-       assigned monotonously increasingly. */
+      /* When adding new values, note that integers are not necessarily
+         assigned monotonously increasingly. */
   } Gsasl_rc;
 
   /**
@@ -474,15 +474,15 @@ extern "C"
   extern GSASL_API void gsasl_free (void *ptr);
 
   /* Get the mechanism API. */
-# include <gsasl-mech.h>
+#include <gsasl-mech.h>
 
 #ifndef GSASL_NO_OBSOLETE
   /* For compatibility with earlier versions. */
-# include <gsasl-compat.h>
+#include <gsasl-compat.h>
 #endif
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif				/* GSASL_H */

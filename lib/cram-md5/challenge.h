@@ -21,9 +21,9 @@
  */
 
 #ifndef CHALLENGE_H
-# define CHALLENGE_H
+#define CHALLENGE_H
 
-# define CRAM_MD5_CHALLENGE_LEN 35
+#define CRAM_MD5_CHALLENGE_LEN 35
 
 /* Store zero terminated CRAM-MD5 challenge in output buffer.  The
    CHALLENGE buffer must be allocated by the caller, and must have

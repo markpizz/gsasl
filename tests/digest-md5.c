@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -181,8 +181,8 @@ doit (void)
       || !gsasl_server_support_p (ctx, "DIGEST-MD5"))
     {
       gsasl_done (ctx);
-      fail("No support for DIGEST-MD5.\n");
-      exit(77);
+      fail ("No support for DIGEST-MD5.\n");
+      exit (77);
     }
 
   gsasl_callback_set (ctx, callback);
@@ -416,8 +416,7 @@ doit (void)
       res = gsasl_encode (client, "foo", 3, &s1, &s1len);
       if (res != GSASL_OK)
 	{
-	  fail ("gsasl_encode failed (%d):\n%s\n", res,
-		gsasl_strerror (res));
+	  fail ("gsasl_encode failed (%d):\n%s\n", res, gsasl_strerror (res));
 	  return;
 	}
 
@@ -449,8 +448,7 @@ doit (void)
       free (s1);
       if (res != GSASL_OK)
 	{
-	  fail ("gsasl_decode failed (%d):\n%s\n", res,
-		gsasl_strerror (res));
+	  fail ("gsasl_decode failed (%d):\n%s\n", res, gsasl_strerror (res));
 	  return;
 	}
 
@@ -497,8 +495,7 @@ doit (void)
       free (s1);
       if (res != GSASL_OK)
 	{
-	  fail ("gsasl_decode failed (%d):\n%s\n", res,
-		gsasl_strerror (res));
+	  fail ("gsasl_decode failed (%d):\n%s\n", res, gsasl_strerror (res));
 	  return;
 	}
 

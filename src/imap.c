@@ -160,8 +160,8 @@ imap_step_recv (char **data)
   if (!args_info.server_flag)
     {
       /* skip untagged responses which can be returned by the server after
-	 authentication (e.g. dovecot returns new '* CAPABILITY' information
-	 before the final '. OK'). */
+         authentication (e.g. dovecot returns new '* CAPABILITY' information
+         before the final '. OK'). */
       while (*p == '*')
 	{
 	  if (!readln (data))

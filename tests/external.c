@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -101,8 +101,8 @@ doit (void)
       || !gsasl_server_support_p (ctx, "EXTERNAL"))
     {
       gsasl_done (ctx);
-      fail("No support for EXTERNAL.\n");
-      exit(77);
+      fail ("No support for EXTERNAL.\n");
+      exit (77);
     }
 
   gsasl_callback_set (ctx, callback);

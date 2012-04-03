@@ -26,7 +26,7 @@
 #include "sockets.h"
 
 #ifdef HAVE_LIBGNUTLS
-# include <gnutls/gnutls.h>
+#include <gnutls/gnutls.h>
 gnutls_session session;
 bool using_tls = false;
 #endif
@@ -263,10 +263,10 @@ const char version_etc_copyright[] =
   "Copyright %s %d Simon Josefsson.";
 
 static void
-usage (int status) GSASL_ATTR_NO_RETRUN;
-
-static void
 usage (int status)
+  GSASL_ATTR_NO_RETRUN;
+
+     static void usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -355,7 +355,8 @@ main (int argc, char *argv[])
 	{
 	  connect_hostname = xstrdup (args_info.connect_arg);
 	  *strrchr (connect_hostname, ':') = '\0';
-	  connect_service = xstrdup (strrchr (args_info.connect_arg, ':') + 1);
+	  connect_service =
+	    xstrdup (strrchr (args_info.connect_arg, ':') + 1);
 	}
       else
 	{
@@ -597,8 +598,7 @@ main (int argc, char *argv[])
 	  gnutls_datum cb;
 
 	  res = gnutls_session_channel_binding (session,
-						GNUTLS_CB_TLS_UNIQUE,
-						&cb);
+						GNUTLS_CB_TLS_UNIQUE, &cb);
 	  if (res != GNUTLS_E_SUCCESS)
 	    error (EXIT_FAILURE, 0, _("getting channel binding failed: %s"),
 		   gnutls_strerror (res));
@@ -729,7 +729,8 @@ main (int argc, char *argv[])
 
 	  if (!args_info.quiet_given)
 	    {
-	      fprintf (stderr, _("Enter application data (EOF to finish):\n"));
+	      fprintf (stderr,
+		       _("Enter application data (EOF to finish):\n"));
 	      fflush (stderr);
 	    }
 
@@ -761,7 +762,7 @@ main (int argc, char *argv[])
 
 		  if (args_info.imap_flag || args_info.smtp_flag)
 		    {
-		      if (len < 2 || strcmp (&line[len-2], "\r\n") != 0)
+		      if (len < 2 || strcmp (&line[len - 2], "\r\n") != 0)
 			{
 			  line = xrealloc (line, len + 2);
 			  line[len - 1] = '\r';
@@ -776,8 +777,7 @@ main (int argc, char *argv[])
 		      line[len] = '\0';
 		    }
 
-		  res = gsasl_encode (xctx, line, len,
-				      &out, &output_len);
+		  res = gsasl_encode (xctx, line, len, &out, &output_len);
 		  if (res != GSASL_OK)
 		    break;
 
@@ -842,13 +842,14 @@ main (int argc, char *argv[])
 
 		  res = gsasl_decode (xctx, sockbuf, sockpos,
 				      &out, &output_len);
-		  if (res == GSASL_NEEDS_MORE) {
+		  if (res == GSASL_NEEDS_MORE)
+		    {
 #define MAX_INPUT_SIZE	0x100000
-		    if (sockpos > MAX_INPUT_SIZE)
-		      error (EXIT_FAILURE, 0,
-			     _("SASL record too large: %zu\n"), sockpos);
-		    continue;
-		  }
+		      if (sockpos > MAX_INPUT_SIZE)
+			error (EXIT_FAILURE, 0,
+			       _("SASL record too large: %zu\n"), sockpos);
+		      continue;
+		    }
 		  if (res != GSASL_OK)
 		    break;
 
@@ -858,7 +859,7 @@ main (int argc, char *argv[])
 		  sockalloc = 0;
 		  sockalloc1 = 1000;
 
-		  printf("%.*s", (int) output_len, out);
+		  printf ("%.*s", (int) output_len, out);
 		  free (out);
 		}
 	      /* If there was an error, quit.  */

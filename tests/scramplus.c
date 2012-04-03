@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -35,8 +35,8 @@
 #define N_AUTHID 4
 static const char *AUTHID[N_AUTHID] = {
   "Ali Baba", "BAB,ABA", ",=,=", "="
-  /* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
-  /* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
+    /* "Ali " "\xC2\xAD" "Bab" "\xC2\xAA" */
+    /* "Al\xC2\xAA""dd\xC2\xAD""in\xC2\xAE" */
 };
 
 #define N_AUTHZID 4
@@ -94,7 +94,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       break;
 
     case GSASL_SCRAM_SALTED_PASSWORD:
-      if (i & 0x04 && i & 0x08) /* Only works with fixed salt. */
+      if (i & 0x04 && i & 0x08)	/* Only works with fixed salt. */
 	{
 	  const char *str[] = {
 	    "06bfd2d70a0fa425c20473722a93700df39f3cbd",
@@ -140,8 +140,8 @@ doit (void)
       || !gsasl_server_support_p (ctx, "SCRAM-SHA-1-PLUS"))
     {
       gsasl_done (ctx);
-      fail("No support for SCRAM-SHA-1-PLUS.\n");
-      exit(77);
+      fail ("No support for SCRAM-SHA-1-PLUS.\n");
+      exit (77);
     }
 
   gsasl_callback_set (ctx, callback);
@@ -244,7 +244,7 @@ doit (void)
 
       /* Modify cbdata. */
       if (i == 19)
-	  s1[30] = 'B';
+	s1[30] = 'B';
 
       if (debug)
 	printf ("C: %.*s [%c]\n", (int) s1len,

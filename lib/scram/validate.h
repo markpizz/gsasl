@@ -21,7 +21,7 @@
  */
 
 #ifndef SCRAM_VALIDATE_H
-# define SCRAM_VALIDATE_H
+#define SCRAM_VALIDATE_H
 
 /* Get token types. */
 #include "tokens.h"

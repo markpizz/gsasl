@@ -31,8 +31,7 @@
 extern Gsasl_mechanism gsasl_scram_sha1_mechanism;
 extern Gsasl_mechanism gsasl_scram_sha1_plus_mechanism;
 
-int
-_gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data);
+int _gsasl_scram_sha1_client_start (Gsasl_session * sctx, void **mech_data);
 
 int
 _gsasl_scram_sha1_plus_client_start (Gsasl_session * sctx, void **mech_data);
@@ -43,12 +42,10 @@ _gsasl_scram_sha1_client_step (Gsasl_session * sctx,
 			       const char *input, size_t input_len,
 			       char **output, size_t * output_len);
 
-void
-_gsasl_scram_sha1_client_finish (Gsasl_session * sctx, void *mech_data);
+void _gsasl_scram_sha1_client_finish (Gsasl_session * sctx, void *mech_data);
 
 
-int
-_gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data);
+int _gsasl_scram_sha1_server_start (Gsasl_session * sctx, void **mech_data);
 
 int
 _gsasl_scram_sha1_plus_server_start (Gsasl_session * sctx, void **mech_data);
@@ -60,7 +57,6 @@ _gsasl_scram_sha1_server_step (Gsasl_session * sctx,
 			       size_t input_len,
 			       char **output, size_t * output_len);
 
-void
-_gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data);
+void _gsasl_scram_sha1_server_finish (Gsasl_session * sctx, void *mech_data);
 
 #endif /* SCRAM_H */

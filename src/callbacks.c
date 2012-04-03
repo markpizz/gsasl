@@ -25,7 +25,7 @@
 #include "readline.h"
 
 #if HAVE_LANGINFO_CODESET
-# include <langinfo.h>		/* For nl_langinfo. */
+#include <langinfo.h>		/* For nl_langinfo. */
 #endif
 
 static char *

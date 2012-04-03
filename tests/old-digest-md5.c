@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -55,7 +55,7 @@ server_cb_retrieve (Gsasl_session_ctx * xctx,
 static Gsasl_qop
 server_cb_qop (Gsasl_session_ctx * xctx)
 {
-  int i = *(int*) gsasl_appinfo_get (xctx);
+  int i = *(int *) gsasl_appinfo_get (xctx);
   if (i == 1 || i == 3)
     return GSASL_QOP_AUTH;
   else if (i == 2)
@@ -134,8 +134,8 @@ doit (void)
       || !gsasl_server_support_p (ctx, "DIGEST-MD5"))
     {
       gsasl_done (ctx);
-      fail("No support for DIGEST-MD5.\n");
-      exit(77);
+      fail ("No support for DIGEST-MD5.\n");
+      exit (77);
     }
 
   gsasl_server_callback_retrieve_set (ctx, server_cb_retrieve);
@@ -169,7 +169,7 @@ doit (void)
 	  return;
 	}
 
-      gsasl_appinfo_set (server, (void*) &i);
+      gsasl_appinfo_set (server, (void *) &i);
 
       /* Server begins... */
 

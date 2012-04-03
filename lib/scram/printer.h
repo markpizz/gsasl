@@ -21,7 +21,7 @@
  */
 
 #ifndef SCRAM_PRINTER_H
-# define SCRAM_PRINTER_H
+#define SCRAM_PRINTER_H
 
 /* Get token types. */
 #include "tokens.h"

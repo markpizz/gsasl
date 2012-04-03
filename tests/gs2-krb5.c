@@ -19,7 +19,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
 #include <stdio.h>
@@ -131,8 +131,8 @@ doit (void)
       || !gsasl_server_support_p (ctx, "GS2-KRB5"))
     {
       gsasl_done (ctx);
-      fail("No support for GS2-KRB5.\n");
-      exit(77);
+      fail ("No support for GS2-KRB5.\n");
+      exit (77);
     }
 
   gsasl_callback_set (ctx, callback);
@@ -174,7 +174,7 @@ doit (void)
 	{
 	  res1 = gsasl_step64 (server, s1, &s2);
 	  if (s1 == NULL && res1 == GSASL_OK)
-	    fail("gsasl_step64 direct success?\n");
+	    fail ("gsasl_step64 direct success?\n");
 	  if (s1)
 	    {
 	      gsasl_free (s1);
