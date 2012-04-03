@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002-2012 Simon Josefsson
 See the end for copying conditions.
 
-* Version 1.7.3 (unreleased) [alpha]
+* Version 1.7.3 (released 2012-04-03) [alpha]
 
 ** libgsasl: The SAML20 mechanism is now enabled by default.
 
