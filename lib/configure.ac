@@ -169,7 +169,7 @@ AM_CONDITIONAL(SCRAM, test "$scram_sha1" != "no")
 # SAML20
 AC_ARG_ENABLE(saml20,
   AS_HELP_STRING([--disable-saml20], [don't use the SAML20 mechanism]),
-  saml20=$enableval, saml20=no)
+  saml20=$enableval, saml20=yes)
 if test "$saml20" != "no" ; then
 	saml20=yes
 	AC_DEFINE(USE_SAML20, 1, [Define to 1 if you want SAML20.])

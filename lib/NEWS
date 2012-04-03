@@ -4,6 +4,11 @@ See the end for copying conditions.
 
 * Version 1.7.3 (unreleased) [alpha]
 
+** The SAML20 mechanism is now enabled by default.
+
+** libgsasl: Unified some of the SAML and OpenID callbacks/properties.
+See API changes below.
+
 ** API and ABI modifications.
 GSASL_REDIRECT_URL: Added, replaces the next two properties.
 GSASL_OPENID20_REDIRECT_URL: Removed.
