@@ -2077,6 +2077,17 @@ will hopefully complete authentication in the browser.  The server
 callback @code{GSASL_VALIDATE_SAML20} should check whether the
 authentication attempt was successful.
 
+Note that SAML itself is not implemented by the GNU SASL library.  On
+the client side, no SAML knowledge is needed, it is only required on
+the server side.  Your server application is expected to call a SAML
+library of your choice to generate the AuthRequest and to implement an
+AssertionConsumerService to validate the AuthResponse.  There is an
+example of a SMTP server with SAML 2.0 support distributed with GNU
+SASL in the examples/saml20/ sub-directory that uses the Lasso SAML
+implementation (@url{http://lasso.entrouvert.org/}).  That may be used
+as inspiration for your own implementation.  The @code{gsasl} command
+line client supports SAML20 as a client.
+
 @node OPENID20
 @section The OPENID20 mechanism
 @cindex OpenID
@@ -2122,12 +2133,16 @@ received some OpenID Simple Registry (SREG) attributes from the OpenID
 Identity Provider, it may use the @code{GSASL_OPENID20_OUTCOME_DATA}
 property to send these to the client.
 
-Note that the actual OpenID algorithms are not implemented by the GNU
-SASL library, but is expected to be spun off to external OpenID
-implementations.  There is a complete example of a SMTP server with
-OpenID 2.0 support distributed with GNU SASL in the examples/openid20/
-sub-directory that uses the JanRain PHP5 OpenID implementation.  The
-@code{gsasl} command line client supports OPENID20.
+Note that OpenID itself is not implemented by the GNU SASL library.
+On the client side, no OpenID knowledge is required, it is only
+required on the server side.  Your server application is expected to
+use a OpenID library of your choice to generate the redirect URL and
+to implement the Service Provider to validate the response from the
+IdP.  There is a complete example of a SMTP server with OpenID 2.0
+support distributed with GNU SASL in the examples/openid20/
+sub-directory that uses the JanRain PHP5 OpenID implementation.  That
+may be used as inspiration for your own implementation.  The
+@code{gsasl} command line client supports OPENID20 as a client.
 
 @c **********************************************************
 @c *****************  Global Functions  *********************
