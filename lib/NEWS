@@ -2,6 +2,8 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002-2012 Simon Josefsson
 See the end for copying conditions.
 
+* Version 1.7.3 (unreleased) [alpha]
+
 * Version 1.7.2 (released 2012-03-28) [alpha]
 
 ** libgsasl: Updated OPENID20 implementation.

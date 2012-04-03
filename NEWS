@@ -1,10 +1,12 @@
 GNU SASL NEWS -- History of user-visible changes.
-Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 Simon Josefsson
+Copyright (C) 2002-2012 Simon Josefsson
 See the end for copying conditions.
 
 Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
+
+* Version 1.7.3 (unreleased) [alpha]
 
 * Version 1.7.2 (released 2012-03-28) [alpha]
 
