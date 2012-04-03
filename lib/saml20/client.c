@@ -72,34 +72,37 @@ _gsasl_saml20_client_step (Gsasl_session * sctx,
     case 0:
       {
 	const char *authzid = gsasl_property_get (sctx, GSASL_AUTHZID);
-	const char *p;
+	const char *idp =
+	  gsasl_property_get (sctx, GSASL_SAML20_IDP_IDENTIFIER);
 
-	p = gsasl_property_get (sctx, GSASL_SAML20_IDP_IDENTIFIER);
-	if (!p || !*p)
+	if (!idp || !*idp)
 	  return GSASL_NO_SAML20_IDP_IDENTIFIER;
 
 	res = _gsasl_gs2_generate_header (false, 'n', NULL, authzid,
-					  strlen (p), p,
+					  strlen (idp), idp,
 					  output, output_len);
 	if (res != GSASL_OK)
 	  return res;
 
 	res = GSASL_NEEDS_MORE;
 	state->step++;
-	break;
       }
+      break;
 
     case 1:
       {
 	gsasl_property_set_raw (sctx, GSASL_REDIRECT_URL, input, input_len);
 
 	res = gsasl_callback (NULL, sctx, GSASL_AUTHENTICATE_IN_BROWSER);
-	if (res == GSASL_OK)
-	  {
-	    *output_len = 0;
-	    *output = NULL;
-	  }
+	if (res != GSASL_OK)
+	  return res;
 
+	*output_len = 1;
+	*output = strdup ("=");
+	if (!*output)
+	  return GSASL_MALLOC_ERROR;
+
+	res = GSASL_OK;
 	state->step++;
       }
       break;

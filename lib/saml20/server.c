@@ -113,7 +113,17 @@ _gsasl_saml20_server_step (Gsasl_session * sctx,
 
     case 1:
       {
+	if (!(input_len == 1 && *input == '='))
+	  return GSASL_MECHANISM_PARSE_ERROR;
+
 	res = gsasl_callback (NULL, sctx, GSASL_VALIDATE_SAML20);
+	if (res != GSASL_OK)
+	  return res;
+
+	*output = NULL;
+	*output_len = 0;
+
+	res = GSASL_OK;
 	state->step++;
 	break;
       }
