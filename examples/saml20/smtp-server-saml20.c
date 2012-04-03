@@ -76,7 +76,8 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 		|| (idp[n] >= 'A' && idp[n] <= 'Z')
 		|| (idp[n] >= '0' && idp[n] <= '9') || idp[n] == '.'))
 	    {
-	      printf ("Cannot handle identifier (%ld): %s\n", n, idp);
+	      printf ("Cannot handle identifier (%ld): %s\n",
+		      (unsigned long) n, idp);
 	      return GSASL_AUTHENTICATION_ERROR;
 	    }
 

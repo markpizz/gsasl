@@ -18,6 +18,7 @@
 
 AM_CFLAGS = $(WERROR_CFLAGS) $(WARN_CFLAGS)
 AM_CPPFLAGS = -I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src
+AM_LDFLAGS = -no-install
 LDADD = $(top_builddir)/lib/src/libgsasl.la
 
 EXTRA_DIST = README gsasl-openid20-redirect.php gsasl-openid20-rp.php
