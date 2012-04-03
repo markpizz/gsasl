@@ -4,7 +4,11 @@ See the end for copying conditions.
 
 * Version 1.7.3 (unreleased) [alpha]
 
-** The SAML20 mechanism is now enabled by default.
+** libgsasl: The SAML20 mechanism is now enabled by default.
+
+** libgsasl: The SAML20 mechanism was updated to draft -09.
+There was a minor protocol change, the final client response is now
+"=" instead of the empty string.
 
 ** libgsasl: Unified some of the SAML and OpenID callbacks/properties.
 See API changes below.

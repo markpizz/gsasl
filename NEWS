@@ -8,6 +8,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.7.3 (unreleased) [alpha]
 
+** The SAML20 mechanism has been updated and is now enabled by default.
+
 ** Doc fixes and updates for the callback/property change in the library.
 See lib/NEWS for details.
 
