@@ -49,8 +49,12 @@ server_xmpp (Gsasl_session * session)
     {
       char buf[BUFSIZ] = "";
 
-      if (fgets (buf, sizeof (buf) - 1, stdin) == NULL)
-	break;
+      p = fgets (buf, sizeof (buf) - 1, stdin);
+      if (p == NULL)
+	{
+	  perror ("fgets");
+	  break;
+	}
       if (buf[strlen (buf) - 1] == '\n')
         buf[strlen (buf) - 1] = '\0';
 
@@ -63,7 +67,7 @@ server_xmpp (Gsasl_session * session)
 	{
 	  printf ("<challenge xmlns='urn:ietf:params:xml:ns:xmpp-sasl'>"
 		  "%s</challenge>\n", p);
-	  free (p);
+	  gsasl_free (p);
 	}
     }
   while (rc == GSASL_NEEDS_MORE);
@@ -145,6 +149,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     case GSASL_VALIDATE_SAML20:
       {
 	char buf[BUFSIZ] = "";
+	char *p;
 
 	puts ("Authorization decision time!");
 	printf ("User identity: %s\n",
@@ -152,8 +157,12 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	printf ("Accept user? (y/n) ");
 	fflush (stdout);
 
-	if (fgets (buf, sizeof (buf) - 1, stdin) == NULL)
-	  break;
+	p = fgets (buf, sizeof (buf) - 1, stdin);
+	if (p == NULL)
+	  {
+	    perror ("fgets");
+	    break;
+	  }
 	if (buf[strlen (buf) - 1] == '\n')
 	  buf[strlen (buf) - 1] = '\0';
 

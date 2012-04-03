@@ -66,7 +66,13 @@ client_xmpp (Gsasl_session * session)
     {
       char *b64;
 
-      fgets (buf, sizeof (buf) - 1, stdin);
+      p = fgets (buf, sizeof (buf) - 1, stdin);
+      if (p == NULL)
+	{
+	  perror ("fgets");
+	  return;
+	}
+
       if (buf[strlen (buf) - 1] == '\n')
         buf[strlen (buf) - 1] = '\0';
 
@@ -84,6 +90,7 @@ client_xmpp (Gsasl_session * session)
       printf ("<response xmlns='urn:ietf:params:xml:ns:xmpp-sasl'>"
 	      "%s</response>\n", p);
 
+      gsasl_free (p);
     }
   while (rc == GSASL_NEEDS_MORE);
 

@@ -37,7 +37,12 @@ client_authenticate (Gsasl_session * session)
   do
     {
       printf ("Input base64 encoded data from server:\n");
-      fgets (buf, sizeof (buf) - 1, stdin);
+      p = fgets (buf, sizeof (buf) - 1, stdin);
+      if (p == NULL)
+	{
+	  perror ("fgets");
+	  return;
+	}
       if (buf[strlen (buf) - 1] == '\n')
         buf[strlen (buf) - 1] = '\0';
 
@@ -46,7 +51,7 @@ client_authenticate (Gsasl_session * session)
       if (rc == GSASL_NEEDS_MORE || rc == GSASL_OK)
         {
           printf ("Output:\n%s\n", p);
-          free (p);
+          gsasl_free (p);
         }
     }
   while (rc == GSASL_NEEDS_MORE);
@@ -91,6 +96,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 {
   char buf[BUFSIZ] = "";
   int rc = GSASL_NO_CALLBACK;
+  char *p;
 
   /* Get user info from user. */
 
@@ -100,7 +106,12 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     {
     case GSASL_PASSCODE:
       printf ("Enter passcode:\n");
-      fgets (buf, sizeof (buf) - 1, stdin);
+      p = fgets (buf, sizeof (buf) - 1, stdin);
+      if (p == NULL)
+	{
+	  perror ("fgets");
+	  break;
+	}
       buf[strlen (buf) - 1] = '\0';
 
       gsasl_property_set (sctx, GSASL_PASSCODE, buf);
@@ -109,7 +120,12 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
     case GSASL_AUTHID:
       printf ("Enter username:\n");
-      fgets (buf, sizeof (buf) - 1, stdin);
+      p = fgets (buf, sizeof (buf) - 1, stdin);
+      if (p == NULL)
+	{
+	  perror ("fgets");
+	  break;
+	}
       buf[strlen (buf) - 1] = '\0';
 
       gsasl_property_set (sctx, GSASL_AUTHID, buf);

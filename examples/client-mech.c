@@ -37,7 +37,12 @@ client_authenticate (Gsasl_session * session)
   do
     {
       printf ("Input base64 encoded data from server:\n");
-      fgets (buf, sizeof (buf) - 1, stdin);
+      p = fgets (buf, sizeof (buf) - 1, stdin);
+      if (p == NULL)
+	{
+	  perror ("fgets");
+	  return;
+	}
       if (buf[strlen (buf) - 1] == '\n')
         buf[strlen (buf) - 1] = '\0';
 
@@ -46,7 +51,7 @@ client_authenticate (Gsasl_session * session)
       if (rc == GSASL_NEEDS_MORE || rc == GSASL_OK)
         {
           printf ("Output:\n%s\n", p);
-          free (p);
+          gsasl_free (p);
         }
     }
   while (rc == GSASL_NEEDS_MORE);
@@ -71,16 +76,28 @@ client_mechanism (Gsasl * ctx)
   static char mech[GSASL_MAX_MECHANISM_SIZE + 1] = "";
   char mechlist[BUFSIZ] = "";
   const char *suggestion;
+  char *p;
 
   printf ("Enter list of server supported mechanisms, separate by SPC:\n");
-  fgets (mechlist, sizeof (mechlist) - 1, stdin);
+  p = fgets (mechlist, sizeof (mechlist) - 1, stdin);
+  if (p == NULL)
+    {
+      perror ("fgets");
+      return NULL;
+    }
 
   suggestion = gsasl_client_suggest_mechanism (ctx, mechlist);
   if (suggestion)
     printf ("Library suggests use of `%s'.\n", suggestion);
 
   printf ("Enter mechanism to use:\n");
-  fgets (mech, sizeof (mech) - 1, stdin);
+  p = fgets (mech, sizeof (mech) - 1, stdin);
+  if (p == NULL)
+    {
+      perror ("fgets");
+      return NULL;
+    }
+
   mech[strlen (mech) - 1] = '\0';
 
   return mech;
