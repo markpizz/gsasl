@@ -8,6 +8,15 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.7.3 (unreleased) [alpha]
 
+** Doc fixes and updates for the callback/property change in the library.
+See lib/NEWS for details.
+
+** examples: Added example SMTP server with SAML 2.0 support.
+See examples/saml20/README.  It uses Lasso as the SAML implementation.
+You may disable Lasso by using --without-lasso.  Note that Lasso is
+only needed for this example server, it is not needed by the GNU SASL
+library or command line tools itself.
+
 * Version 1.7.2 (released 2012-03-28) [alpha]
 
 ** gsasl: The client lets the server decide when authentication is complete.
