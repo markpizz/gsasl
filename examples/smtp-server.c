@@ -1,5 +1,5 @@
 /* smtp-server.c --- Example SMTP server with SASL authentication
- * Copyright (C) 2012  Simon Josefsson
+ * Copyright (C) 2012 Simon Josefsson
  *
  * This file is part of GNU SASL.
  *

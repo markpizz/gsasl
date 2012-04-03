@@ -1,7 +1,7 @@
 <?php # -*- mode: php -*-
 
 // gsasl-saml20-sp.php --- SAML SP for smtp-server-saml20.c.
-// Copyright (C) 2012  Simon Josefsson
+// Copyright (C) 2012 Simon Josefsson
 //
 // This file is part of GNU SASL.
 //

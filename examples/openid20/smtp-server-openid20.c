@@ -1,5 +1,5 @@
 /* smtp-server-openid20.c --- Example SMTP server with OpenID 2.0 support
- * Copyright (C) 2012  Simon Josefsson
+ * Copyright (C) 2012 Simon Josefsson
  *
  * This file is part of GNU SASL.
  *

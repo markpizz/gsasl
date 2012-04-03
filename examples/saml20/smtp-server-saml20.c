@@ -1,5 +1,5 @@
 /* smtp-server-saml20.c --- Example SMTP server with SAML 2.0 support
- * Copyright (C) 2012  Simon Josefsson
+ * Copyright (C) 2012 Simon Josefsson
  *
  * This file is part of GNU SASL.
  *

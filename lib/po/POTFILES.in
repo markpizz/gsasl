@@ -1,3 +1,3 @@
 # List of source files containing translatable strings for GNU SASL Library.
-# Copyright (c) 2002, 2003, 2004 by Simon Josefsson
+# Copyright (c) 2002-2012 Simon Josefsson
 src/error.c

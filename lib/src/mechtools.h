@@ -1,5 +1,5 @@
 /* mechtools.h --- Helper functions available for use by any mechanism.
- * Copyright (C) 2010-2012  Simon Josefsson
+ * Copyright (C) 2010-2012 Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
