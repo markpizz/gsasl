@@ -91,37 +91,79 @@ get_redirect_url (Gsasl_session * sctx)
   char *line = NULL;
   size_t n = 0;
   const char *nonce = gsasl_session_hook_get (sctx);
+  int rc;
 
-  asprintf (&tmp, "%s", store_path);
+  rc = asprintf (&tmp, "%s", store_path);
+  if (rc <= 0)
+    {
+      perror ("asprintf");
+      return NULL;
+    }
   mkdir (tmp, 0770);
   free (tmp);
 
-  asprintf (&tmp, "%s/state", store_path);
+  rc = asprintf (&tmp, "%s/state", store_path);
+  if (rc <= 0)
+    {
+      perror ("asprintf");
+      return NULL;
+    }
   mkdir (tmp, 0770);
   free (tmp);
 
-  asprintf (&tmp, "%s/state/%s", store_path, nonce);
+  rc = asprintf (&tmp, "%s/state/%s", store_path, nonce);
+  if (rc <= 0)
+    {
+      perror ("asprintf");
+      return NULL;
+    }
   mkdir (tmp, 0770);
   free (tmp);
 
-  asprintf (&tmp, "%s/state/%s/openid_url", store_path, nonce);
+  rc = asprintf (&tmp, "%s/state/%s/openid_url", store_path, nonce);
+  if (rc <= 0)
+    {
+      perror ("asprintf");
+      return NULL;
+    }
   if (write_file (tmp, gsasl_property_fast (sctx, GSASL_AUTHID)))
     return NULL;
   free (tmp);
 
-  asprintf (&tmp, "%s/state/%s/realm", store_path, nonce);
+  rc = asprintf (&tmp, "%s/state/%s/realm", store_path, nonce);
+  if (rc <= 0)
+    {
+      perror ("asprintf");
+      return NULL;
+    }
   if (write_file (tmp, realm))
     return NULL;
   free (tmp);
 
-  asprintf (&tmp, "%s/state/%s/return_to", store_path, nonce);
-  asprintf (&tmp2, "%s/%s", return_to, nonce);
+  rc = asprintf (&tmp, "%s/state/%s/return_to", store_path, nonce);
+  if (rc <= 0)
+    {
+      perror ("asprintf");
+      return NULL;
+    }
+  rc = asprintf (&tmp2, "%s/%s", return_to, nonce);
+  if (rc <= 0)
+    {
+      perror ("asprintf");
+      return NULL;
+    }
   if (write_file (tmp, tmp2))
     return NULL;
   free (tmp);
   free (tmp2);
 
-  asprintf (&tmp, "gsasl-openid20-redirect.php %s %s", store_path, nonce);
+  rc =
+    asprintf (&tmp, "gsasl-openid20-redirect.php %s %s", store_path, nonce);
+  if (rc <= 0)
+    {
+      perror ("asprintf");
+      return NULL;
+    }
   fh = popen (tmp, "r");
   free (tmp);
   if (!fh)
@@ -133,7 +175,12 @@ get_redirect_url (Gsasl_session * sctx)
     printf ("gsasl-openid20-redirect.php: %s", line);
   pclose (fh);
 
-  asprintf (&tmp, "%s/state/%s/redirect_url", store_path, nonce);
+  rc = asprintf (&tmp, "%s/state/%s/redirect_url", store_path, nonce);
+  if (rc <= 0)
+    {
+      perror ("asprintf");
+      return NULL;
+    }
   fh = fopen (tmp, "r");
   if (!fh)
     {
@@ -165,9 +212,13 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
     case GSASL_REDIRECT_URL:
       {
 	line = get_redirect_url (sctx);
-
-	gsasl_property_set (sctx, prop, line);
-	rc = GSASL_OK;
+	if (line == NULL)
+	  rc = GSASL_AUTHENTICATION_ERROR;
+	else
+	  {
+	    rc = GSASL_OK;
+	    gsasl_property_set (sctx, prop, line);
+	  }
       }
       break;
 
@@ -179,13 +230,23 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 	do
 	  {
 	    sleep (1);
-	    
-	    asprintf (&tmp, "%s/state/%s/success", store_path, nonce);
+
+	    rc = asprintf (&tmp, "%s/state/%s/success", store_path, nonce);
+	    if (rc <= 0)
+	      {
+		perror ("asprintf");
+		break;
+	      }
 	    fh = fopen (tmp, "r");
 	    free (tmp);
 	    if (!fh)
 	      {
-		asprintf (&tmp, "%s/state/%s/fail", store_path, nonce);
+		rc = asprintf (&tmp, "%s/state/%s/fail", store_path, nonce);
+		if (rc <= 0)
+		  {
+		    perror ("asprintf");
+		    break;
+		  }
 		fh = fopen (tmp, "r");
 		free (tmp);
 		if (!fh)
@@ -208,7 +269,12 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
 	    gsasl_property_set (sctx, GSASL_AUTHID, line);
 
-	    asprintf (&tmp, "%s/state/%s/sreg", store_path, nonce);
+	    rc = asprintf (&tmp, "%s/state/%s/sreg", store_path, nonce);
+	    if (rc <= 0)
+	      {
+		perror ("asprintf");
+		break;
+	      }
 	    fh = fopen (tmp, "r");
 	    free (tmp);
 	    if (fh)
@@ -276,7 +342,7 @@ server_auth (FILE * fh, Gsasl_session * session)
      handle well in excess of the number of concurrent transactions a
      SASL server shall see. */
   char bin_nonce[32];
-  char nonce[2*sizeof(bin_nonce) + 1];
+  char nonce[2 * sizeof (bin_nonce) + 1];
 
   gsasl_nonce (bin_nonce, sizeof (bin_nonce));
   hex_encode (nonce, bin_nonce, sizeof (bin_nonce));
