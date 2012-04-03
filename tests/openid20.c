@@ -52,7 +52,7 @@ client_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       rc = GSASL_OK;
       break;
 
-    case GSASL_OPENID20_AUTHENTICATE_IN_BROWSER:
+    case GSASL_AUTHENTICATE_IN_BROWSER:
       rc = GSASL_OK;
       break;
 
@@ -71,7 +71,7 @@ server_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
   switch (prop)
     {
-    case GSASL_OPENID20_REDIRECT_URL:
+    case GSASL_REDIRECT_URL:
       gsasl_property_set (sctx, prop,
 			  "http://idp.example/NONCE/?openid.foo=bar");
       rc = GSASL_OK;

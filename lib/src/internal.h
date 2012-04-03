@@ -103,8 +103,7 @@ struct Gsasl_session
   char *scram_salted_password;
   char *cb_tls_unique;
   char *saml20_idp_identifier;
-  char *saml20_redirect_url;
-  char *openid20_redirect_url;
+  char *redirect_url;
   char *openid20_outcome_data;
   /* If you add anything here, remember to change change
      gsasl_finish() in xfinish.c and map() in property.c.  */

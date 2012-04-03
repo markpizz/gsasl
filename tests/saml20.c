@@ -64,7 +64,7 @@ client_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
   /* The first round, the mechanism will need an authorization name
      and a SAML IDP.  The next round it will request that the client
      redirects the user (in the browser) using the data stored in the
-     GSASL_SAML20_REDIRECT_URL property.  */
+     GSASL_REDIRECT_URL property.  */
 
   switch (prop)
     {
@@ -77,9 +77,9 @@ client_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       rc = GSASL_OK;
       break;
 
-    case GSASL_SAML20_AUTHENTICATE_IN_BROWSER:
+    case GSASL_AUTHENTICATE_IN_BROWSER:
       printf ("client got redirect URL: %s\n",
-	      gsasl_property_get (sctx, GSASL_SAML20_REDIRECT_URL));
+	      gsasl_property_get (sctx, GSASL_REDIRECT_URL));
       rc = GSASL_OK;
       break;
 
@@ -102,7 +102,7 @@ server_callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
   switch (prop)
     {
-    case GSASL_SAML20_REDIRECT_URL:
+    case GSASL_REDIRECT_URL:
       printf ("server got identity: %s\n",
 	      gsasl_property_get (sctx, GSASL_SAML20_IDP_IDENTIFIER));
       gsasl_property_set (sctx, prop, samlchallenge);

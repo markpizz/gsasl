@@ -135,7 +135,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
   switch (prop)
     {
-    case GSASL_SAML20_REDIRECT_URL:
+    case GSASL_REDIRECT_URL:
       printf ("server got identity: %s\n",
 	      gsasl_property_get (sctx, GSASL_SAML20_IDP_IDENTIFIER));
       gsasl_property_set (sctx, prop, samlchallenge);

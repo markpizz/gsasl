@@ -56,7 +56,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
   switch (prop)
     {
-    case GSASL_SAML20_REDIRECT_URL:
+    case GSASL_REDIRECT_URL:
       {
 	FILE *fh;
 	char *reqid, *redirect_url, *tmp;

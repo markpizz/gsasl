@@ -1570,15 +1570,12 @@ bindings for a session.
 This property holds the SAML identifier of the user.  The SAML20
 mechanism in client mode will send it to the other end for
 identification purposes, and in server mode it will be accessible in
-the @code{GSASL_SAML20_REDIRECT_URL} callback.
+the @code{GSASL_REDIRECT_URL} callback.
 
-@item @code{GSASL_SAML20_REDIRECT_URL}
-This property holds the SAML redirect URL that the server wants the
-client to access.  It will be available in the
-@code{GSASL_SAML20_AUTHENTICATE_IN_BROWSER} callback for the client.
-
-@item @code{GSASL_OPENID20_REDIRECT_URL}
-OpenID 2.0 redirect URL.
+@item @code{GSASL_REDIRECT_URL}
+This property holds the OpenID or SAML redirect URL that the server
+wants the client to access.  It will be available in the
+@code{GSASL_AUTHENTICATE_IN_BROWSER} callback for the client.
 
 @item @code{GSASL_OPENID20_OUTCOME_DATA}
 OpenID 2.0 authentication outcome data.  This is either the OpenID
@@ -1640,17 +1637,11 @@ application perform authentication.  The callback should return
 @code{GSASL_OK} if the user should be permitted access, and
 @code{GSASL_AUTHENTICATION_ERROR} (or another error code) otherwise.
 
-@item @code{GSASL_SAML20_AUTHENTICATE_IN_BROWSER}
-Used by the SAML20 mechanism in the client side to request that the
-client should launch the SAML redirect URL (the
-@code{GSASL_SAML20_REDIRECT_URL} property) in a browser to continue
-with authentication.
-
-@item @code{GSASL_OPENID20_AUTHENTICATE_IN_BROWSER}
-Used by the OPENID20 mechanism in the client side to request that the
-client should launch the OpenID redirect URL (the
-@code{GSASL_OPENID20_REDIRECT_URL} property) in a browser to continue
-with authentication.
+@item @code{GSASL_AUTHENTICATE_IN_BROWSER}
+Used by the OPENID20 and SAML20 mechanisms in the client side to
+request that the client should launch the redirect URL (the
+@code{GSASL_REDIRECT_URL} property) in a browser to continue with
+authentication.
 
 @end itemize
 
@@ -2064,26 +2055,27 @@ that offloads the authentication exchange to an external browser.  The
 protocol implemented is as specified in
 @code{draft-ietf-kitten-sasl-saml-01}.
 
-The mechanism makes use of the following properties: GSASL_AUTHZID,
-GSASL_SAML20_IDP_IDENTIFIER, GSASL_SAML20_REDIRECT_URL,
-GSASL_SAML20_AUTHENTICATE_IN_BROWSER and GSASL_VALIDATE_SAML20.
+The mechanism makes use of the following properties:
+@code{GSASL_AUTHZID}, @code{GSASL_SAML20_IDP_IDENTIFIER},
+@code{GSASL_REDIRECT_URL}, @code{GSASL_AUTHENTICATE_IN_BROWSER} and
+@code{GSASL_VALIDATE_SAML20}.
 
-In client mode, the mechanism will retrieve the GSASL_AUTHZID and
-GSASL_SAML20_IDP_IDENTIFIER properties and form a request to the
+In client mode, the mechanism will retrieve the @code{GSASL_AUTHZID} and
+@code{GSASL_SAML20_IDP_IDENTIFIER} properties and form a request to the
 server.  The server will respond with a redirect URL stored in the
-GSASL_SAML20_REDIRECT_URL property, which the client can retrieve from
-the GSASL_SAML20_AUTHENTICATE_IN_BROWSER callback.  The intention is
-that the client launches a browser to the given URL, and then proceeds
-with authentication.  The server responds whether authentication was
+@code{GSASL_REDIRECT_URL} property, which the client can retrieve from the
+@code{GSASL_AUTHENTICATE_IN_BROWSER} callback.  The intention is that the
+client launches a browser to the given URL, and then proceeds with
+authentication.  The server responds whether authentication was
 successful or not.
 
 In server mode, the mechanism will invoke the
-GSASL_SAML20_REDIRECT_URL callback and the application can inspect the
-GSASL_AUTHZID and GSASL_SAML20_IDP_IDENTIFIER properties when forming
-the redirect URL.  The URL is passed to the client which will
-hopefully complete authentication in the browser.  The server callback
-GSASL_VALIDATE_SAML20 should check whether the authentication attempt
-was successful.
+@code{GSASL_REDIRECT_URL} callback and the application can inspect the
+@code{GSASL_AUTHZID} and @code{GSASL_SAML20_IDP_IDENTIFIER} properties
+when forming the redirect URL.  The URL is passed to the client which
+will hopefully complete authentication in the browser.  The server
+callback @code{GSASL_VALIDATE_SAML20} should check whether the
+authentication attempt was successful.
 
 @node OPENID20
 @section The OPENID20 mechanism
@@ -2096,9 +2088,9 @@ The protocol implemented is as specified in
 
 The mechanism makes use of the following properties:
 @code{GSASL_AUTHID} (for the OpenID User-Supplied Identifier),
-@code{GSASL_AUTHZID}, @code{GSASL_OPENID20_REDIRECT_URL},
+@code{GSASL_AUTHZID}, @code{GSASL_REDIRECT_URL},
 @code{GSASL_OPENID20_OUTCOME_DATA},
-@code{GSASL_OPENID20_AUTHENTICATE_IN_BROWSER}, and
+@code{GSASL_AUTHENTICATE_IN_BROWSER}, and
 @code{GSASL_VALIDATE_OPENID20}.
 
 In the client, the mechanism is enabled by default.  The
@@ -2106,30 +2098,29 @@ In the client, the mechanism is enabled by default.  The
 User-Supplied OpenID Identifier (for example
 @code{http://josefsson.org}).  If set, @code{GSASL_AUTHZID} will be
 used by the client.  The client will be invoked with the
-@code{GSASL_OPENID20_AUTHENTICATE_IN_BROWSER} callback to perform the
-OpenID authentication in a web browser.  The callback can retrieve the
-@code{GSASL_OPENID20_REDIRECT_URL} property to find out the URL to
-redirect the user to.  After authentication, the client can retrieve
-the @code{GSASL_OPENID20_OUTCOME_DATA} property with the OpenID Simple
+@code{GSASL_AUTHENTICATE_IN_BROWSER} callback to perform the OpenID
+authentication in a web browser.  The callback can retrieve the
+@code{GSASL_REDIRECT_URL} property to find out the URL to redirect the
+user to.  After authentication, the client can retrieve the
+@code{GSASL_OPENID20_OUTCOME_DATA} property with the OpenID Simple
 Registry (SREG) attributes sent by the server (they are not always
 sent).
 
 In the server, the mechanism is enabled by default.  The server will
-request the @code{GSASL_OPENID20_REDIRECT_URL} property, and your
-callback may inspect the @code{GSASL_AUTHID} to find the OpenID
-User-Supplied Identifier.  The server callback should perform OpenID
-discovery and return the URL to redirect the user to.  After this, the
-user would access the URL and proceed with authentication in the
-browser.  The server is invoked with the
-@code{GSASL_VALIDATE_OPENID20} callback to perform the actual
-validation of the authentication.  Usually the callback will perform
-some IPC communication with an OpenID consumer running in a web
-server.  The callback should return @code{GSASL_OK} on successful
-authentication and @code{GSASL_AUTHENTICATION_ERROR} on authentication
-errors, or any other error code.  If the server received some OpenID
-Simple Registry (SREG) attributes from the OpenID Identity Provider,
-it may use the @code{GSASL_OPENID20_OUTCOME_DATA} property to send
-these to the client.
+request the @code{GSASL_REDIRECT_URL} property, and your callback may
+inspect the @code{GSASL_AUTHID} to find the OpenID User-Supplied
+Identifier.  The server callback should perform OpenID discovery and
+return the URL to redirect the user to.  After this, the user would
+access the URL and proceed with authentication in the browser.  The
+server is invoked with the @code{GSASL_VALIDATE_OPENID20} callback to
+perform the actual validation of the authentication.  Usually the
+callback will perform some IPC communication with an OpenID consumer
+running in a web server.  The callback should return @code{GSASL_OK}
+on successful authentication and @code{GSASL_AUTHENTICATION_ERROR} on
+authentication errors, or any other error code.  If the server
+received some OpenID Simple Registry (SREG) attributes from the OpenID
+Identity Provider, it may use the @code{GSASL_OPENID20_OUTCOME_DATA}
+property to send these to the client.
 
 Note that the actual OpenID algorithms are not implemented by the GNU
 SASL library, but is expected to be spun off to external OpenID

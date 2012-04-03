@@ -134,9 +134,9 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
       rc = GSASL_OK;
       break;
 
-    case GSASL_SAML20_AUTHENTICATE_IN_BROWSER:
+    case GSASL_AUTHENTICATE_IN_BROWSER:
       printf ("client got redirect URL: %s\n",
-	      gsasl_property_get (sctx, GSASL_SAML20_REDIRECT_URL));
+	      gsasl_property_get (sctx, GSASL_REDIRECT_URL));
       rc = GSASL_OK;
       break;
 
