@@ -200,8 +200,6 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 		return GSASL_AUTHENTICATION_ERROR;
 	      }
 
-	    gsasl_property_set (sctx, GSASL_AUTHID, line);
-
 	    rc = asprintf (&tmp, "%s/%s/subject", cfg->state_path, id);
 	    if (rc <= 0)
 	      return GSASL_AUTHENTICATION_ERROR;
