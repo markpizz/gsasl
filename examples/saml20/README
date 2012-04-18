@@ -16,6 +16,29 @@ point of this example is just to proof that it works.
 
 This setup was tested with GNU SASL version 1.7.3.
 
+There is one example SMTP server and some helper tools that implement
+the actual SAML part:
+
+  smtp-server-saml20.c:
+
+      The actual SMTP server, based on ../smtp-server.c.  It invokes
+      gsasl-saml20-request.c to generate the request, and then waits
+      for gsasl-saml20-sp.php to accept the SAML response.
+
+  gsasl-saml20-request.c
+
+      Given a Identity Provider identifier it generates a SAML Request
+      and prints a user redirect URL.  This tool is invoked by
+      smtp-server-saml20.c.  It uses Lasso as the SAML library.
+
+  gsasl-saml20-sp.php:
+
+      This is the SAML SP responsible for accepting SAML Responses.
+      Intended to be invoked via a webserver.
+
+These three tools communicate with each other using a simple
+file-based IPC interface, normally placed below /tmp/gsasl-saml20/.
+
 Install the SAML SP:
 
   The "gsasl-saml20-sp.php" script needs to be install so that it is
@@ -98,6 +121,73 @@ Create SAML SP configuration:
     Lasso requires that the KeyDescriptor tags are qualified with
     attributes use="signing" or use="encryption" respectively, so you
     need to modify the file slightly.
+
+Here is the normal process:
+
+1) Start the example SMTP server "smtp-server-saml20", for example
+   when running it on the interop.josefsson.org server the following
+   is used:
+
+     su -c "env LD_LIBRARY_PATH=/root/gsasl/lib/src/.libs PATH=$PATH:/root/gsasl/examples/saml20 nohup /root/gsasl/examples/saml20/smtp-server-saml20 2001 /etc/gsasl-saml20 /tmp/gsasl-saml20 /etc/gsasl-saml20/sp-metadata.xml /etc/gsasl-saml20/sp-key.pem /etc/gsasl-saml20/sp-crt.pem 2>&1 | logger -t saml20" www-data &
+
+   For permission reasons, you should run the server under the same
+   user as the webserver runs gsasl-saml20-sp.php.
+
+   The "gsasl-saml20" tool takes some parameters, the port, the
+   configuration directory, the IPC directory, and the metadata, key
+   and certificate for the SP.
+
+2) The smtp-server-saml20 receives incoming connections from clients.
+   The client sends the Identity Provider Identifier.  You may use the
+   gsasl command line tool to act as a client.  For example:
+
+jas@latte:~$ gsasl --smtp -m SAML20 interop.josefsson.org 2001Trying ‘interop.josefsson.org’...
+220 localhost ESMTP GNU SASL smtp-server
+EHLO [127.0.0.1]
+250-localhost
+250 AUTH ANONYMOUS EXTERNAL LOGIN PLAIN SECURID DIGEST-MD5 CRAM-MD5 SCRAM-SHA-1 SAML20 OPENID20
+EHLO [127.0.0.1]
+250-localhost
+250 AUTH ANONYMOUS EXTERNAL LOGIN PLAIN SECURID DIGEST-MD5 CRAM-MD5 SCRAM-SHA-1 SAML20 OPENID20
+AUTH SAML20
+334 
+Enter SAML authentication identifier (e.g. "http://example.org/"): 
+
+   At the prompt, you could type for example "openidp.feide.no".
+
+3) smtp-server-saml20 invokes "gsasl-saml20-request" to get the
+   redirect URL, which is also stored in this file:
+
+   /tmp/gsasl-saml20/SESSIONID/redirect_url
+
+   The SESSIONID will be unique for every SAML Request, it looks for
+   example like "_B6F098F6D17C63796A9DF3BB63EF58AA".
+
+4) The server continue with the SMTP authentication process, the
+   output from the gsasl client looks like:
+
+biwsb3BlbmlkcC5mZWlkZS5ubw==
+334 aHR0cHM6Ly9vcGVuaWRwLmZlaWRlLm5vL3NpbXBsZXNhbWwvc2FtbDIvaWRwL1NTT1NlcnZpY2UucGhwP1NBTUxSZXF1ZXN0PWZaRlBiNE13RE1XJTJGQ3NvZFFzdEthUVJJdEF5cDB2NVVZOXBobHltaXBzMFVraXdPM2ZidEIxU2R0a3N2UGp6N0p6OCUyRnA4ZzdhVmpSdTZONmdvOGUwSGxmblZUSXBrWkdlcXVZNWlpUUtkNEJNdGV3dXJpJTJGWSUyRk1nWk1acXB4c3R5UiUyRmtPc0VSd1RxaEZmRzJaVWJlMW5FVnJwSXFMbWZMVFJ3dFYzR3hLcXRvdlk2ajIycVJGQVh4WHNEaU1KJTJCUkFSOGd4QjYyQ2gxWGJwREMyZHdQYiUyRnhaOGh3bWJMRmcwZXlWZU9Wd2cxRGNUZFRST1lPTVVtMUFpYjBKV2hCN0NKU21LRG9qWVhSTXh6S25RNWZXOVdNTjlpUWFDTXpSRUslMkZTdG9FcG00eTBYQ0tNRG5iREVlSUVGeVZQUjU1TnpteCUyQjJTZVVBNnROOEs0UldrU3RBbTBQOUlBY3BUJTJGdEMzMDBLZjJMcHVkWFBBeWhiY3VkbHFMNUhnMTAzRjNQZEZURTNtJTJCblVlWXNWeWhBT2VJVlV1clBqUVh1ZnMzUyUyRkx6eiUyRjhmekh3JTNEJTNEJlNpZ0FsZz1odHRwJTNBJTJGJTJGd3d3LnczLm9yZyUyRjIwMDAlMkYwOSUyRnhtbGRzaWclMjNyc2Etc2hhMSZTaWduYXR1cmU9RU1hR3JERWZFZUlXeGJSUFREazZNUXllJTJGalF1cVVsY1p0bE9Ob0VnMkVSOUxwckU4UWhSbXdpMU02QzliMnNJbEU1b01PZXUzeCUyRlM1aWJiTlV3Y1ZwMk1lRTRlWnFWdm5xQThGZzklMkJhc2FHQTY4QVpRWWxxelNGZXJqdWljWkwwN2NWVkElMkZGRWsyWmJPcGdUdGZKbWg1dWtiUXY5VUROeHUwazlkWHY4ejQwVldsVDVSRUJHYjFkUVRFMEFFczNrQyUyQlZxR0ZkUVpHYmtJeGt3MVBZblVHTkQzJTJCUnZ1OFcyTENRTGE5ZDN1RGlTUllMekhvJTJGSGZKTnhuTVFjTVliMHV0dFNQNnp2bktqJTJCSGJRTGxERUNMemxpJTJCRkFuWUYxTDBpOXo0cFFSQUthVmRNYmNHaWFBZSUyRnVoZDAlMkJUQVVRZlJraGpDRWFoS1dYeXN5OEtualIlMkY5TThDZWNUMU4lMkJ1NFV4emhVM1BDcG1zVnNUVW9ZekxYUGxWRnBod2owb0l4S2JGQUd0bnF3TktieENTV2JaUk5RJTNEJTNE
+Visit this URL to proceed with authentication:
+https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php?SAMLRequest=fZFPb4MwDMW%2FCsodQstKaQRItAyp0v5UY9phlymips0UkiwO3fbtB1SdtksvPjz7Jz8%2Fp8g7aVjRu6N6go8e0HlfnVTIpkZGequY5iiQKd4BMtewuri%2FY%2FMgZMZqpxstyR%2FkOsERwTqhFfG2ZUbe1nEVrpIqLmfLTRwtV3GxKqtovY6j22qRFAXxXsDiMJ%2BRAR8gxB62Ch1XbpDC2dwPb%2FxZ8hwmbLFg0eyVeOVwg1DcTdTROYOMUm1Aib0JWhB7CJSmKDojYXRMxzKnQ5fW9WMN9iQaCMzREK%2FStoEpm4y0XCKMDnbDEeIEFyVPR55Nzmx%2B2SeUA6tN8K4RWkStAm0P9IAcpT%2FtC300Kf2LpudXPAyhbcudlqL5Hg103F3PdFTE3m%2BnUeYsVyhAOeIVUurPjQXufs3S%2FLzz%2F8fzHw%3D%3D&SigAlg=http%3A%2F%2Fwww.w3.org%2F2000%2F09%2Fxmldsig%23rsa-sha1&Signature=EMaGrDEfEeIWxbRPTDk6MQye%2FjQuqUlcZtlONoEg2ER9LprE8QhRmwi1M6C9b2sIlE5oMOeu3x%2FS5ibbNUwcVp2MeE4eZqVvnqA8Fg9%2BasaGA68AZQYlqzSFerjuicZL07cVVA%2FFEk2ZbOpgTtfJmh5ukbQv9UDNxu0k9dXv8z40VWlT5REBGb1dQTE0AEs3kC%2BVqGFdQZGbkIxkw1PYnUGND3%2BRvu8W2LCQLa9d3uDiSRYLzHo%2FHfJNxnMQcMYb0uttSP6zvnKj%2BHbQLlDECLzli%2BFAnYF1L0i9z4pQRAKaVdMbcGiaAe%2Fuhd0%2BTAUQfRkhjCEahKWXysy8KnjR%2F9M8CecT1N%2Bu4UxzhU3PCpmsVsTUoYzLXPlVFphwj0oIxKbFAGtnqwNKbxCSWbZRNQ%3D%3D
+PQ==
+
+5) smtp-server-saml20 waits for one of the following files to appear:
+
+   /tmp/gsasl-saml20/_B6F098F6D17C63796A9DF3BB63EF58AA/success
+   /tmp/gsasl-saml20/_B6F098F6D17C63796A9DF3BB63EF58AA/fail
+
+6) Meanwhile the user will receive the redirect URL over the SMTP
+   connection and will access the URL in his browser.  Eventually,
+   after IdP approval, the browser will be redirected to the SP with
+   the SAML response.
+
+7) The gsasl-saml20-sp.php verify the SAML Response (using Lasso as
+   the SAML library) and writes files to the IPC store.
+
+8) smtp-server-saml20 notice that one of the IPC files is present and
+   proceeds by reading the files and returning success/fail to the
+   client as appropriate.
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
