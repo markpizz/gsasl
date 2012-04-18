@@ -14,9 +14,11 @@ using Lasso in C.  Then you don't need any IPC stuff.  Also, you could
 also want to use another SAML implementation instead of Lasso.  The
 point of this example is just to proof that it works.
 
+This setup was tested with GNU SASL version 1.7.3.
+
 Install the SAML SP:
 
-  The "gsasl-saml20-sp.php" script needs to be install so that it
+  The "gsasl-saml20-sp.php" script needs to be install so that it is
   reachable under some URL via a web server.  This is the
   AssertionConsumerService (ACS) for the GNU SASL SP.  For example, on
   interop.josefsson.org I make the ACS available as
