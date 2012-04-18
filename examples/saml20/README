@@ -187,7 +187,11 @@ PQ==
 
 8) smtp-server-saml20 notice that one of the IPC files is present and
    proceeds by reading the files and returning success/fail to the
-   client as appropriate.
+   client as appropriate.  The client will print something like this:
+
+235 OK [authid: _d69b0f484333df7eea73fccfd0b4dae2629f2eeb89 authzid: N/A]
+Client authentication finished (server trusted)...
+Enter application data (EOF to finish):
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,
