@@ -25,6 +25,7 @@ We require several tools to build the software, including:
 - Valgrind <http://valgrind.org/> (optional)
 - dia <http://live.gnome.org/Dia/> (for images in manual)
 - GnuTLS <http://www.gnu.org/software/gnutls/> (for TLS support)
+- Lasso <http://lasso.entrouvert.org/> (for examples/saml20/)
 
 The required software is typically distributed with your operating
 system, and the instructions for installing them differ.  Here are
@@ -34,7 +35,7 @@ gNewSense/Debian/Ubuntu:
 sudo apt-get install git-core autoconf automake libtool gettext cvs make
 sudo apt-get install texinfo texlive texlive-generic-recommended texlive-extra-utils
 sudo apt-get install help2man gtk-doc-tools valgrind
-sudo apt-get install dia libgnutls-dev gengetopt gperf
+sudo apt-get install dia libgnutls-dev gengetopt gperf liblasso3-dev
 
 To download the version controlled sources:
 
