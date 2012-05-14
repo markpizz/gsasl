@@ -72,6 +72,7 @@ build-x64/gsasl-$(VERSION)/Makefile: src/gsasl-$(VERSION)/configure
 
 inst-x64/bin/libgsasl-$(GSASL_DLL_VERSION).dll: build-x64/gsasl-$(VERSION)/Makefile
 	make -C build-x64/gsasl-$(VERSION) install
+	make -C build-x64/gsasl-$(VERSION)/tests check
 
 gsasl-$(VERSION)-x64.zip: inst-x64/bin/libgsasl-$(GSASL_DLL_VERSION).dll
 	rm -f gsasl-$(VERSION)-x64.zip
