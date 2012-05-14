@@ -95,9 +95,9 @@ _gsasl_saml20_server_step (Gsasl_session * sctx,
 	gsasl_property_set_raw (sctx, GSASL_SAML20_IDP_IDENTIFIER,
 				input, input_len);
 
-	p = gsasl_property_get (sctx, GSASL_REDIRECT_URL);
+	p = gsasl_property_get (sctx, GSASL_SAML20_REDIRECT_URL);
 	if (!p || !*p)
-	  return GSASL_NO_REDIRECT_URL;
+	  return GSASL_NO_SAML20_REDIRECT_URL;
 
 	*output_len = strlen (p);
 	*output = malloc (*output_len);

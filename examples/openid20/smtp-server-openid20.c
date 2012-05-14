@@ -209,7 +209,7 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
   switch (prop)
     {
-    case GSASL_REDIRECT_URL:
+    case GSASL_OPENID20_REDIRECT_URL:
       {
 	line = get_redirect_url (sctx);
 	if (line == NULL)

@@ -108,8 +108,12 @@ map (Gsasl_session * sctx, Gsasl_property prop)
       p = &sctx->saml20_idp_identifier;
       break;
 
-    case GSASL_REDIRECT_URL:
-      p = &sctx->redirect_url;
+    case GSASL_SAML20_REDIRECT_URL:
+      p = &sctx->saml20_redirect_url;
+      break;
+
+    case GSASL_OPENID20_REDIRECT_URL:
+      p = &sctx->openid20_redirect_url;
       break;
 
     case GSASL_OPENID20_OUTCOME_DATA:

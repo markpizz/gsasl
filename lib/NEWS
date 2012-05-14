@@ -13,14 +13,6 @@ There was a minor protocol change, the final client response is now
 ** libgsasl: Unified some of the SAML and OpenID callbacks/properties.
 See API changes below.
 
-** API and ABI modifications.
-GSASL_REDIRECT_URL: Added, replaces the next two properties.
-GSASL_OPENID20_REDIRECT_URL: Removed.
-GSASL_SAML20_REDIRECT_URL: Removed.
-GSASL_AUTHENTICATE_IN_BROWSER: Added, replaces the next two callbacks.
-GSASL_SAML20_AUTHENTICATE_IN_BROWSER: Removed.
-GSASL_OPENID20_AUTHENTICATE_IN_BROWSER: Removed.
-
 * Version 1.7.2 (released 2012-03-28) [alpha]
 
 ** libgsasl: Updated OPENID20 implementation.
