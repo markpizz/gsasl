@@ -1391,14 +1391,14 @@ int callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
 Again, it is bad style to use a fixed size buffer.  Mmm'kay.
 
-Which properties you should handle is up to you.  If you don't know
-how to respond to a certain property, simply return
+Which properties you should handle is up to you.  If you don't know how
+to respond to a certain property, simply return
 @code{GSASL_NO_CALLBACK}.  The basic properties to support are
 authentication identity (@code{GSASL_AUTHID}), authorization identity
-(@code{GSASL_AUTHZID}), and password (@code{GSASL_PASSWORD}).  See
-@xref{Properties}, for the list of all properties, and what your
-callback should (ideally) do for them, and which properties each
-mechanism require in order to work.
+(@code{GSASL_AUTHZID}), and password (@code{GSASL_PASSWORD}).
+@xref{Properties} for the list of all properties, and what your callback
+should (ideally) do for them, and which properties each mechanism
+require in order to work.
 
 @c **********************************************************
 @c *******************  Properties  *************************
@@ -1414,7 +1414,7 @@ value the application has not yet provided, this is handled through a
 callback.  The application provides a callback, using
 @code{gsasl_callback_set}, which will be invoked with a property
 parameter.  The callback should set the property before returning, or
-fail.  For more information, see @xref{Callback Functions}.
+fail.  @xref{Callback Functions} for more information.
 
 There are two kind of properties.  The first, a ``data property'' is
 the simplest to understand because it normally refers to short

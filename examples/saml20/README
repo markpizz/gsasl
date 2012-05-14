@@ -150,8 +150,8 @@ EHLO [127.0.0.1]
 250-localhost
 250 AUTH ANONYMOUS EXTERNAL LOGIN PLAIN SECURID DIGEST-MD5 CRAM-MD5 SCRAM-SHA-1 SAML20 OPENID20
 AUTH SAML20
-334 
-Enter SAML authentication identifier (e.g. "http://example.org/"): 
+334
+Enter SAML authentication identifier (e.g. "http://example.org/"):
 
    At the prompt, you could type for example "openidp.feide.no".
 
