@@ -2,6 +2,21 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002-2012 Simon Josefsson
 See the end for copying conditions.
 
+* Version 1.7.4 (unreleased) [alpha]
+
+** libgsasl: Reverted unification of OpenID and SAML properties/callbacks.
+The reason was that client and servers needs to know whether it is
+SAML or OpenID that is used, and using the same property and callback
+symbol for both makes this more difficult.
+
+** API and ABI modifications.
+GSASL_REDIRECT_URL: Removed.
+GSASL_OPENID20_REDIRECT_URL: Added.
+GSASL_SAML20_REDIRECT_URL: Added.
+GSASL_AUTHENTICATE_IN_BROWSER: Removed.
+GSASL_SAML20_AUTHENTICATE_IN_BROWSER: Added.
+GSASL_OPENID20_AUTHENTICATE_IN_BROWSER: Added.
+
 * Version 1.7.3 (released 2012-04-03) [alpha]
 
 ** libgsasl: The SAML20 mechanism is now enabled by default.
