@@ -9,6 +9,8 @@ The reason was that client and servers needs to know whether it is
 SAML or OpenID that is used, and using the same property and callback
 symbol for both makes this more difficult.
 
+** i18n: Updated translations.
+
 ** API and ABI modifications.
 GSASL_REDIRECT_URL: Removed.
 GSASL_OPENID20_REDIRECT_URL: Added.
