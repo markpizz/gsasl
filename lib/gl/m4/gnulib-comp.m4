@@ -134,6 +134,8 @@ AC_DEFUN([gl_EARLY],
   # Code from module strnlen-tests:
   # Code from module strverscmp:
   # Code from module strverscmp-tests:
+  # Code from module sys_types:
+  # Code from module sys_types-tests:
   # Code from module test-framework-sh:
   # Code from module test-framework-sh-tests:
   # Code from module unistd:
@@ -273,6 +275,8 @@ if test $HAVE_STRVERSCMP = 0; then
   gl_PREREQ_STRVERSCMP
 fi
 gl_STRING_MODULE_INDICATOR([strverscmp])
+gl_SYS_TYPES_H
+AC_PROG_MKDIR_P
 gl_UNISTD_H
 gl_FUNC_VASNPRINTF
 gl_FUNC_VASPRINTF
@@ -508,6 +512,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/string.in.h
   lib/strnlen.c
   lib/strverscmp.c
+  lib/sys_types.in.h
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
@@ -570,6 +575,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/msvc-inval.m4
   m4/multiarch.m4
   m4/nls.m4
+  m4/off_t.m4
   m4/po.m4
   m4/printf-posix.m4
   m4/printf.m4
@@ -588,6 +594,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/string_h.m4
   m4/strnlen.m4
   m4/strverscmp.m4
+  m4/sys_types_h.m4
   m4/threadlib.m4
   m4/uintmax_t.m4
   m4/unistd_h.m4
@@ -638,6 +645,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-string.c
   tests/test-strnlen.c
   tests/test-strverscmp.c
+  tests/test-sys_types.c
   tests/test-sys_wait.h
   tests/test-unistd.c
   tests/test-vasnprintf.c

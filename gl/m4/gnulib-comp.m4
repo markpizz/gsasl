@@ -379,6 +379,7 @@ gl_STDIO_MODULE_INDICATOR([fseek])
 gl_FUNC_FSEEKO
 if test $HAVE_FSEEKO = 0 || test $REPLACE_FSEEKO = 1; then
   AC_LIBOBJ([fseeko])
+  gl_PREREQ_FSEEKO
 fi
 gl_STDIO_MODULE_INDICATOR([fseeko])
 gl_FUNC_FSTAT
@@ -463,6 +464,7 @@ if test $HAVE_INET_NTOP = 0 || test $REPLACE_INET_NTOP = 1; then
 fi
 gl_ARPA_INET_MODULE_INDICATOR([inet_ntop])
 gl_INLINE
+AC_REQUIRE([gl_LARGEFILE])
 gl_LOCALCHARSET
 LOCALCHARSET_TESTS_ENVIRONMENT="CHARSETALIASDIR=\"\$(abs_top_builddir)/$gl_source_base\""
 AC_SUBST([LOCALCHARSET_TESTS_ENVIRONMENT])
@@ -622,7 +624,6 @@ m4_ifdef([AM_XGETTEXT_OPTION],
   [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
    AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
 gl_VERSION_ETC
-AC_SUBST([WARN_CFLAGS])
 gl_WCHAR_H
 gl_WCTYPE_H
 gl_XALLOC
@@ -678,6 +679,7 @@ if test "$ac_cv_header_winsock2_h" = yes; then
   AC_LIBOBJ([accept])
 fi
 gl_SYS_SOCKET_MODULE_INDICATOR([accept])
+AC_REQUIRE([AC_C_INLINE])
 AC_REQUIRE([gl_HEADER_SYS_SOCKET])
 if test "$ac_cv_header_winsock2_h" = yes; then
   AC_LIBOBJ([bind])
@@ -711,7 +713,7 @@ gl_STDIO_MODULE_INDICATOR([fdopen])
 gl_FUNC_UNGETC_WORKS
 gl_FUNC_UNGETC_WORKS
 gl_FUNC_FTRUNCATE
-if test $HAVE_FTRUNCATE = 0; then
+if test $HAVE_FTRUNCATE = 0 || test $REPLACE_FTRUNCATE = 1; then
   AC_LIBOBJ([ftruncate])
   gl_PREREQ_FTRUNCATE
 fi
@@ -1205,6 +1207,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/netdb_h.m4
   m4/netinet_in_h.m4
   m4/nocrash.m4
+  m4/off_t.m4
   m4/open.m4
   m4/pathmax.m4
   m4/perror.m4

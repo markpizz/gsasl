@@ -510,6 +510,14 @@ EXTRA_DIST += test-strverscmp.c signature.h macros.h
 
 ## end   gnulib module strverscmp-tests
 
+## begin gnulib module sys_types-tests
+
+TESTS += test-sys_types
+check_PROGRAMS += test-sys_types
+EXTRA_DIST += test-sys_types.c
+
+## end   gnulib module sys_types-tests
+
 ## begin gnulib module test-framework-sh-tests
 
 TESTS += test-init.sh
