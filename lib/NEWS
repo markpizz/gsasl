@@ -11,6 +11,12 @@ symbol for both makes this more difficult.
 
 ** i18n: Updated translations.
 
+** GSS-API server: Don't output zero-length tokens on context init success.
+Reported by Andreas Oberritter <obi@saftware.de>.
+
+** GSS-API server: Only proceed to next step when context is established.
+Reported by Andreas Oberritter <obi@saftware.de>.
+
 ** API and ABI modifications.
 GSASL_REDIRECT_URL: Removed.
 GSASL_OPENID20_REDIRECT_URL: Added.
