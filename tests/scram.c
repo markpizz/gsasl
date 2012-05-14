@@ -205,8 +205,14 @@ doit (void)
       if (i == 18)
 	{
 	  char *s;
+	  int l;
 
-	  asprintf (&s, "%s,a=b", s1);
+	  l = asprintf (&s, "%s,a=b", s1);
+	  if (l < 0)
+	    {
+	      fail ("malloc");
+	      return;
+	    }
 	  gsasl_free (s1);
 	  s1 = s;
 	  s1len = strlen (s);
@@ -215,8 +221,14 @@ doit (void)
       if (i == 20)
 	{
 	  char *s;
+	  int l;
 
-	  asprintf (&s, "%s,a=b,b=c,c=d", s1);
+	  l = asprintf (&s, "%s,a=b,b=c,c=d", s1);
+	  if (l < 0)
+	    {
+	      fail ("malloc");
+	      return;
+	    }
 	  gsasl_free (s1);
 	  s1 = s;
 	  s1len = strlen (s);
@@ -258,9 +270,15 @@ doit (void)
       if (i == 19 && s1len > 31)
 	{
 	  char *s;
+	  int l;
 
-	  asprintf (&s, "%.*s,a=b,%s", (int) (s1len - 31),
-		    s1, s1 + s1len - 31 + 1);
+	  l = asprintf (&s, "%.*s,a=b,%s", (int) (s1len - 31),
+			s1, s1 + s1len - 31 + 1);
+	  if (l < 0)
+	    {
+	      fail ("malloc");
+	      return;
+	    }
 	  gsasl_free (s1);
 	  s1 = s;
 	  s1len = strlen (s);
@@ -269,9 +287,15 @@ doit (void)
       if (i == 21 && s1len > 31)
 	{
 	  char *s;
+	  int l;
 
-	  asprintf (&s, "%.*s,a=b,b=c,c=d,%s", (int) (s1len - 31),
-		    s1, s1 + s1len - 31 + 1);
+	  l = asprintf (&s, "%.*s,a=b,b=c,c=d,%s", (int) (s1len - 31),
+			s1, s1 + s1len - 31 + 1);
+	  if (l < 0)
+	    {
+	      fail ("malloc");
+	      return;
+	    }
 	  gsasl_free (s1);
 	  s1 = s;
 	  s1len = strlen (s);

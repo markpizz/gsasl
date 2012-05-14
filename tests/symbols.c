@@ -19,21 +19,22 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+# include "config.h"
 #endif
 
-#include <assert.h>
-
 #include <gsasl.h>
+
+#include "utils.h"
 
 static void
 assert_symbol_exists (const void *p)
 {
-  assert (p);
+  if (!p)
+    fail ("null symbol?!\n");
 }
 
-int
-main (void)
+void
+doit (void)
 {
   /* LIBGSASL_1.1 */
   assert_symbol_exists ((const void *) GSASL_VALID_MECHANISM_CHARACTERS);
@@ -163,5 +164,5 @@ main (void)
   assert_symbol_exists ((const void *) gsasl_sha1);
   assert_symbol_exists ((const void *) gsasl_hmac_sha1);
 
-  return 0;
+  success ("all symbols exists\n");
 }
