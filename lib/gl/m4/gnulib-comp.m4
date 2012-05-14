@@ -130,6 +130,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module stdlib-tests:
   # Code from module string:
   # Code from module string-tests:
+  # Code from module strndup:
   # Code from module strnlen:
   # Code from module strnlen-tests:
   # Code from module strverscmp:
@@ -263,6 +264,11 @@ gl_STDINT_H
 gl_STDIO_H
 gl_STDLIB_H
 gl_HEADER_STRING_H
+gl_FUNC_STRNDUP
+if test $HAVE_STRNDUP = 0 || test $REPLACE_STRNDUP = 1; then
+  AC_LIBOBJ([strndup])
+fi
+gl_STRING_MODULE_INDICATOR([strndup])
 gl_FUNC_STRNLEN
 if test $HAVE_DECL_STRNLEN = 0 || test $REPLACE_STRNLEN = 1; then
   AC_LIBOBJ([strnlen])
@@ -510,6 +516,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdlib.in.h
   lib/str-two-way.h
   lib/string.in.h
+  lib/strndup.c
   lib/strnlen.c
   lib/strverscmp.c
   lib/sys_types.in.h
@@ -592,6 +599,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdio_h.m4
   m4/stdlib_h.m4
   m4/string_h.m4
+  m4/strndup.m4
   m4/strnlen.m4
   m4/strverscmp.m4
   m4/sys_types_h.m4

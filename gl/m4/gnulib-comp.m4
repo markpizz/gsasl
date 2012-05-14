@@ -257,9 +257,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module striconv-tests:
   # Code from module string:
   # Code from module string-tests:
-  # Code from module strndup:
-  # Code from module strnlen:
-  # Code from module strnlen-tests:
   # Code from module strtok_r:
   # Code from module symlink:
   # Code from module symlink-tests:
@@ -593,17 +590,6 @@ if test $gl_cond_libtool = false; then
   gl_libdeps="$gl_libdeps $LIBICONV"
 fi
 gl_HEADER_STRING_H
-gl_FUNC_STRNDUP
-if test $HAVE_STRNDUP = 0 || test $REPLACE_STRNDUP = 1; then
-  AC_LIBOBJ([strndup])
-fi
-gl_STRING_MODULE_INDICATOR([strndup])
-gl_FUNC_STRNLEN
-if test $HAVE_DECL_STRNLEN = 0 || test $REPLACE_STRNLEN = 1; then
-  AC_LIBOBJ([strnlen])
-  gl_PREREQ_STRNLEN
-fi
-gl_STRING_MODULE_INDICATOR([strnlen])
 gl_FUNC_STRTOK_R
 if test $HAVE_STRTOK_R = 0 || test $REPLACE_STRTOK_R = 1; then
   AC_LIBOBJ([strtok_r])
@@ -859,10 +845,6 @@ if test $HAVE_DECL_STRERROR_R = 0 || test $REPLACE_STRERROR_R = 1; then
   gl_PREREQ_STRERROR_R
 fi
 gl_STRING_MODULE_INDICATOR([strerror_r])
-dnl Check for prerequisites for memory fence checks.
-gl_FUNC_MMAP_ANON
-AC_CHECK_HEADERS_ONCE([sys/mman.h])
-AC_CHECK_FUNCS_ONCE([mprotect])
 gl_FUNC_SYMLINK
 if test $HAVE_SYMLINK = 0 || test $REPLACE_SYMLINK = 1; then
   AC_LIBOBJ([symlink])
@@ -1115,8 +1097,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/striconv.c
   lib/striconv.h
   lib/string.in.h
-  lib/strndup.c
-  lib/strnlen.c
   lib/strtok_r.c
   lib/sys_select.in.h
   lib/sys_socket.in.h
@@ -1264,8 +1244,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strerror.m4
   m4/strerror_r.m4
   m4/string_h.m4
-  m4/strndup.m4
-  m4/strnlen.m4
   m4/strtok_r.m4
   m4/symlink.m4
   m4/sys_ioctl_h.m4
@@ -1419,7 +1397,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-strerror_r.c
   tests/test-striconv.c
   tests/test-string.c
-  tests/test-strnlen.c
   tests/test-symlink.c
   tests/test-symlink.h
   tests/test-sys_ioctl.c
