@@ -1578,7 +1578,9 @@ client to access.  It will be available in the
 @code{GSASL_SAML20_AUTHENTICATE_IN_BROWSER} callback for the client.
 
 @item @code{GSASL_OPENID20_REDIRECT_URL}
-OpenID 2.0 redirect URL.
+This property holds the SAML redirect URL that the server wants the
+client to access.  It will be available in the
+@code{GSASL_OPENID20_AUTHENTICATE_IN_BROWSER} callback for the client.
 
 @item @code{GSASL_OPENID20_OUTCOME_DATA}
 OpenID 2.0 authentication outcome data.  This is either the OpenID
@@ -1699,9 +1701,9 @@ entirely dependent on callbacks.
 * SECURID::                 Authentication using tokens.
 * GSSAPI::                  GSSAPI (Kerberos 5) authentication.
 * GS2-KRB5::                Improved GSSAPI (Kerberos 5) authentication.
+* SAML20::                  Authenticate using SAML 2.0 via a browser.
+* OPENID20::                Authenticate using OpenID 2.0 via a browser.
 * KERBEROS_V5::             Experimental KERBEROS_V5 authentication.
-* SAML20::                  Experimental SAML20 authentication.
-* OPENID20::                Experimental OPENID20 authentication.
 @end menu
 
 @node EXTERNAL
@@ -2022,88 +2024,56 @@ PLUS variant, which can also bind the authentication to a secure
 channel through channel bindings.  Currently this is not supported by
 GNU SASL.
 
-@node KERBEROS_V5
-@section The KERBEROS_V5 mechanism
-@cindex KERBEROS_V5
-
-The KERBEROS_V5 is an experimental mechanism, the protocol
-specification is available on the GNU SASL homepage.  It can operate
-in three modes, non-infrastructure mode, infrastructure mode and
-proxied infrastructure mode.  Currently only non-infrastructure mode
-is supported.
-
-In the non-infrastructure mode, it works as a superset of most
-features provided by PLAIN, CRAM-MD5, DIGEST-MD5 and GSSAPI while at
-the same time building on what is believed to be proven technology
-(the RFC 1510 network security system).  In the non-infrastructure
-mode, the client must specify (via callbacks) the name of the user,
-and optionally the server name and realm.  The server must be able to
-retrieve passwords given the name of the user.
-
-In the infrastructure mode (proxied or otherwise), it allows clients
-and servers to authenticate via SASL in an RFC 1510 environment, using
-a trusted third party, a ``Key Distribution Central''.  In the normal
-mode, clients acquire tickets out of band and then invokes a one
-roundtrip AP-REQ and AP-REP exchange.  In the proxied mode, which can
-be used by clients without IP addresses or without connectivity to the
-KDC (e.g., when the KDC is IPv4 and the client is IPV6-only), the
-client uses the server to proxy ticket requests and finishes with the
-AP-REQ/AP-REP exchange.  In infrastructure mode (proxied or
-otherwise), neither the client nor server need to implement any
-callbacks (this will likely change later, to allow a server to
-authorize users, similar to the GSSAPI callback).
-
-XXX: update when implementation has matured
-
 @node SAML20
 @section The SAML20 mechanism
 @cindex SAML
 
 The SAML20 mechanism makes it possible to use SAML in SASL, in a way
 that offloads the authentication exchange to an external browser.  The
-protocol implemented is as specified in
-@code{draft-ietf-kitten-sasl-saml-09}.
+protocol implemented is as specified in RFC 6595.
 
 The mechanism makes use of the following properties: GSASL_AUTHZID,
-GSASL_SAML20_IDP_IDENTIFIER, GSASL_SAML20_REDIRECT_URL,
-GSASL_SAML20_AUTHENTICATE_IN_BROWSER and GSASL_VALIDATE_SAML20.
+@code{GSASL_SAML20_IDP_IDENTIFIER}, @code{GSASL_SAML20_REDIRECT_URL},
+@code{GSASL_SAML20_AUTHENTICATE_IN_BROWSER} and
+@code{GSASL_VALIDATE_SAML20}.
 
-In client mode, the mechanism will retrieve the GSASL_AUTHZID and
-GSASL_SAML20_IDP_IDENTIFIER properties and form a request to the
+In client mode, the mechanism will retrieve the @code{GSASL_AUTHZID} and
+@code{GSASL_SAML20_IDP_IDENTIFIER} properties and form a request to the
 server.  The server will respond with a redirect URL stored in the
-GSASL_SAML20_REDIRECT_URL property, which the client can retrieve from
-the GSASL_SAML20_AUTHENTICATE_IN_BROWSER callback.  The intention is
-that the client launches a browser to the given URL, and then proceeds
-with authentication.  The server responds whether authentication was
-successful or not.
+@code{GSASL_SAML20_REDIRECT_URL} property, which the client can retrieve
+from the @code{GSASL_SAML20_AUTHENTICATE_IN_BROWSER} callback.  The
+intention is that the client launches a browser to the given URL, and
+then proceeds with authentication.  The server responds whether
+authentication was successful or not.
 
 In server mode, the mechanism will invoke the
-GSASL_SAML20_REDIRECT_URL callback and the application can inspect the
-GSASL_AUTHZID and GSASL_SAML20_IDP_IDENTIFIER properties when forming
-the redirect URL.  The URL is passed to the client which will
-hopefully complete authentication in the browser.  The server callback
-GSASL_VALIDATE_SAML20 should check whether the authentication attempt
-was successful.
+@code{GSASL_SAML20_REDIRECT_URL} callback and the application can
+inspect the @code{GSASL_AUTHZID} and @code{GSASL_SAML20_IDP_IDENTIFIER}
+properties when forming the redirect URL.  The URL is passed to the
+client which will hopefully complete authentication in the browser.  The
+server callback @code{GSASL_VALIDATE_SAML20} should check whether the
+authentication attempt was successful.
 
 Note that SAML itself is not implemented by the GNU SASL library.  On
-the client side, no SAML knowledge is needed, it is only required on
-the server side.  Your server application is expected to call a SAML
+the client side, no SAML knowledge is needed, it is only required on the
+server side.  The client only needs to be able to start a browser
+accessing the redirect URL.  The server side is expected to call a SAML
 library of your choice to generate the AuthRequest and to implement an
-AssertionConsumerService to validate the AuthResponse.  There is an
-example of a SMTP server with SAML 2.0 support distributed with GNU
-SASL in the examples/saml20/ sub-directory that uses the Lasso SAML
-implementation (@url{http://lasso.entrouvert.org/}).  That may be used
-as inspiration for your own implementation.  The @code{gsasl} command
-line client supports SAML20 as a client.
+AssertionConsumerService to validate the AuthResponse.  There is a
+complete proof-of-concept example of a SMTP server with SAML 2.0 support
+distributed with GNU SASL in the examples/saml20/ sub-directory.  It
+uses the Lasso SAML implementation (@url{http://lasso.entrouvert.org/}).
+The example may be used as inspiration for your own server
+implementation.  The @code{gsasl} command line client supports SAML20 as
+a client.
 
 @node OPENID20
 @section The OPENID20 mechanism
 @cindex OpenID
 
-The OPENID20 mechanism makes it possible to use OpenID in SASL, in a
-way that offloads the authentication exchange to an external browser.
-The protocol implemented is as specified in
-@code{draft-ietf-kitten-sasl-openid-08}.
+The OPENID20 mechanism makes it possible to use OpenID in SASL, in a way
+that offloads the authentication exchange to an external browser.  The
+protocol implemented is as specified in RFC 6616.
 
 The mechanism makes use of the following properties:
 @code{GSASL_AUTHID} (for the OpenID User-Supplied Identifier),
@@ -2142,16 +2112,50 @@ Simple Registry (SREG) attributes from the OpenID Identity Provider,
 it may use the @code{GSASL_OPENID20_OUTCOME_DATA} property to send
 these to the client.
 
-Note that OpenID itself is not implemented by the GNU SASL library.
-On the client side, no OpenID knowledge is required, it is only
-required on the server side.  Your server application is expected to
-use a OpenID library of your choice to generate the redirect URL and
-to implement the Service Provider to validate the response from the
-IdP.  There is a complete example of a SMTP server with OpenID 2.0
-support distributed with GNU SASL in the examples/openid20/
-sub-directory that uses the JanRain PHP5 OpenID implementation.  That
-may be used as inspiration for your own implementation.  The
-@code{gsasl} command line client supports OPENID20 as a client.
+Note that OpenID itself is not implemented by the GNU SASL library.  On
+the client side, no OpenID knowledge is required, it is only required on
+the server side.  The client only needs to be able to start a browser
+accessing the redirect URL.  The server side is expected to use an
+OpenID library of your choice to generate the redirect URL and to
+implement the Service Provider to validate the response from the IdP.
+There is a complete proof-of-concept example with a SMTP server with
+OpenID 2.0 support distributed with GNU SASL in the examples/openid20/
+sub-directory.  It uses the JanRain PHP5 OpenID implementation.  The
+example may be used as inspiration for your own server implementation.
+The @code{gsasl} command line client supports OPENID20 as a client.
+
+@node KERBEROS_V5
+@section The KERBEROS_V5 mechanism
+@cindex KERBEROS_V5
+
+The KERBEROS_V5 is an experimental mechanism, the protocol
+specification is available on the GNU SASL homepage.  It can operate
+in three modes, non-infrastructure mode, infrastructure mode and
+proxied infrastructure mode.  Currently only non-infrastructure mode
+is supported.
+
+In the non-infrastructure mode, it works as a superset of most
+features provided by PLAIN, CRAM-MD5, DIGEST-MD5 and GSSAPI while at
+the same time building on what is believed to be proven technology
+(the RFC 1510 network security system).  In the non-infrastructure
+mode, the client must specify (via callbacks) the name of the user,
+and optionally the server name and realm.  The server must be able to
+retrieve passwords given the name of the user.
+
+In the infrastructure mode (proxied or otherwise), it allows clients
+and servers to authenticate via SASL in an RFC 1510 environment, using
+a trusted third party, a ``Key Distribution Central''.  In the normal
+mode, clients acquire tickets out of band and then invokes a one
+roundtrip AP-REQ and AP-REP exchange.  In the proxied mode, which can
+be used by clients without IP addresses or without connectivity to the
+KDC (e.g., when the KDC is IPv4 and the client is IPV6-only), the
+client uses the server to proxy ticket requests and finishes with the
+AP-REQ/AP-REP exchange.  In infrastructure mode (proxied or
+otherwise), neither the client nor server need to implement any
+callbacks (this will likely change later, to allow a server to
+authorize users, similar to the GSSAPI callback).
+
+XXX: update when implementation has matured
 
 @c **********************************************************
 @c *****************  Global Functions  *********************
