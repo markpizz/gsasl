@@ -569,15 +569,11 @@ int
 digest_md5_parse_challenge (const char *challenge, size_t len,
 			    digest_md5_challenge * out)
 {
-  size_t inlen = len ? len : strlen (challenge);
-  char *subopts = malloc (inlen + 1);
+  char *subopts = len ? strndup (challenge, len) : strdup (challenge);
   int rc;
 
   if (!subopts)
     return -1;
-
-  memcpy (subopts, challenge, inlen);
-  subopts[inlen] = '\0';
 
   rc = parse_challenge (subopts, out);
 
@@ -590,15 +586,11 @@ int
 digest_md5_parse_response (const char *response, size_t len,
 			   digest_md5_response * out)
 {
-  size_t inlen = len ? len : strlen (response);
-  char *subopts = malloc (inlen + 1);
+  char *subopts = len ? strndup (response, len) : strdup (response);
   int rc;
 
   if (!subopts)
     return -1;
-
-  memcpy (subopts, response, inlen);
-  subopts[inlen] = '\0';
 
   rc = parse_response (subopts, out);
 
@@ -611,15 +603,11 @@ int
 digest_md5_parse_finish (const char *finish, size_t len,
 			 digest_md5_finish * out)
 {
-  size_t inlen = len ? len : strlen (finish);
-  char *subopts = malloc (inlen + 1);
+  char *subopts = len ? strndup (finish, len) : strdup (finish);
   int rc;
 
   if (!subopts)
     return -1;
-
-  memcpy (subopts, finish, inlen);
-  subopts[inlen] = '\0';
 
   rc = parse_finish (subopts, out);
 
