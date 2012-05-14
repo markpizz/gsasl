@@ -24,7 +24,7 @@ all:
 	@echo '  make -f gsasl4win.mk gsasl4win32kfw322 VERSION=1.6.1'
 
 clean:
-	rm -rf src build-x86 build-x64 inst-x86 inst-x64 kfw322x86 kfw323x86
+	rm -rf src build-x86 build-x64 inst-x86 inst-x64 kfw322x86
 
 gsasl4win: gsasl4win32 gsasl4win64 gsasl4win32kfw322
 gsasl4win32: gsasl-$(VERSION)-x86.zip
@@ -80,13 +80,13 @@ gsasl-$(VERSION)-x64.zip: inst-x64/bin/libgsasl-$(GSASL_DLL_VERSION).dll
 
 # x86 KfW 3.2.2 flavor
 
-build-x86-kfw322/gsasl-$(VERSION)/Makefile: src/gsasl-$(VERSION)/configure kfw322x86/kfw-3-2-2-final/inc/krb5/win-mac.h install-kfw322
+build-x86-kfw322/gsasl-$(VERSION)/Makefile: src/gsasl-$(VERSION)/configure kfw322sdkx86/kfw-3-2-2-final/inc/krb5/win-mac.h
 	rm -rf build-x86-kfw322/gsasl-$(VERSION)
 	mkdir -p build-x86-kfw322/gsasl-$(VERSION) && \
 	cd build-x86-kfw322/gsasl-$(VERSION) && \
-	lt_cv_deplibs_check_method=pass_all ../../src/gsasl-$(VERSION)/configure --host=i686-w64-mingw32 --build=i686-pc-linux-gnu --prefix=$(PWD)/inst-x86-kfw322 --without-libgcrypt --disable-obsolete --with-gssapi-impl=kfw LDFLAGS="-L$(PWD)/kfw322x86/kfw-3-2-2-final/lib/i386" CPPFLAGS="-I$(PWD)/kfw322x86/kfw-3-2-2-final/inc/krb5 -DSSIZE_T_DEFINED"
+	lt_cv_deplibs_check_method=pass_all ../../src/gsasl-$(VERSION)/configure --host=i686-w64-mingw32 --build=i686-pc-linux-gnu --prefix=$(PWD)/inst-x86-kfw322 --without-libgcrypt --disable-obsolete --with-gssapi-impl=kfw LDFLAGS="-L$(PWD)/kfw322sdkx86/kfw-3-2-2-final/lib/i386" CPPFLAGS="-I$(PWD)/kfw322sdkx86/kfw-3-2-2-final/inc/krb5 -DSSIZE_T_DEFINED"
 
-inst-x86-kfw322/bin/libgsasl-$(GSASL_DLL_VERSION).dll: build-x86-kfw322/gsasl-$(VERSION)/Makefile
+inst-x86-kfw322/bin/libgsasl-$(GSASL_DLL_VERSION).dll: build-x86-kfw322/gsasl-$(VERSION)/Makefile install-kfw322
 	make -C build-x86-kfw322/gsasl-$(VERSION) install
 	make -C build-x86-kfw322/gsasl-$(VERSION)/tests check
 
@@ -94,56 +94,23 @@ gsasl-$(VERSION)-x86-kfw322.zip: inst-x86-kfw322/bin/libgsasl-$(GSASL_DLL_VERSIO
 	rm -f gsasl-$(VERSION)-x86-kfw322.zip
 	cd inst-x86-kfw322 && zip -r ../gsasl-$(VERSION)-x86-kfw322.zip *
 
-# x86 KfW 3.2.3 flavor (not built right now due to crashes)
-
-build-x86-kfw323/gsasl-$(VERSION)/Makefile: src/gsasl-$(VERSION)/configure kfw323x86/kfw-3-2-3-final/inc/krb5/win-mac.h install-x86-kfw323
-	rm -rf build-x86-kfw323/gsasl-$(VERSION)
-	mkdir -p build-x86-kfw323/gsasl-$(VERSION) && \
-	cd build-x86-kfw323/gsasl-$(VERSION) && \
-	lt_cv_deplibs_check_method=pass_all ../../src/gsasl-$(VERSION)/configure --host=i686-w64-mingw32 --build=i686-pc-linux-gnu --prefix=$(PWD)/inst-x86-kfw323 --without-libgcrypt --disable-obsolete --with-gssapi-impl=kfw LDFLAGS="-L$(PWD)/kfw323x86/kfw-3-2-3-final/lib/i386" CPPFLAGS="-I$(PWD)/kfw323x86/kfw-3-2-3-final/inc/krb5 -DSSIZE_T_DEFINED"
-
-inst-x86-kfw323/bin/libgsasl-$(GSASL_DLL_VERSION).dll: build-x86-kfw323/gsasl-$(VERSION)/Makefile
-	make -C build-x86-kfw323/gsasl-$(VERSION) install
-	make -C build-x86-kfw323/gsasl-$(VERSION)/tests check
-
-gsasl-$(VERSION)-x86-kfw323.zip: inst-x86-kfw323/bin/libgsasl-$(GSASL_DLL_VERSION).dll
-	rm -f gsasl-$(VERSION)-x86-kfw323.zip
-	cd inst-x86-kfw323 && zip -r ../gsasl-$(VERSION)-x86-kfw323.zip *
-
 # KfW 3.2.2
-
-install-kfw322:
-	rm -rf tmp && \
-	mkdir tmp && \
-	cd tmp && \
-	wget http://web.mit.edu/kerberos/dist/kfw/3.2/kfw-3.2.2/kfw-3-2-2.zip && \
-	unzip kfw-3-2-2.zip && \
-	cp -v kfw-3-2-2-final/bin/i386/*.dll $(HOME)/.wine/drive_c/windows/system32/
 
 dist/kfw-3-2-2-sdk.zip:
 	-mkdir dist
 	cd dist && wget http://web.mit.edu/kerberos/dist/kfw/3.2/kfw-3.2.2/kfw-3-2-2-sdk.zip
 
-kfw322x86/kfw-3-2-2-final/inc/krb5/win-mac.h: dist/kfw-3-2-2-sdk.zip
-	-mkdir kfw322x86
-	cd kfw322x86 && unzip ../dist/kfw-3-2-2-sdk.zip
-	perl -pi -e 's,sys\\,sys/,' kfw322x86/kfw-3-2-2-final/inc/krb5/win-mac.h
+kfw322sdkx86/kfw-3-2-2-final/inc/krb5/win-mac.h: dist/kfw-3-2-2-sdk.zip
+	-mkdir kfw322sdkx86
+	cd kfw322sdkx86 && unzip -u ../dist/kfw-3-2-2-sdk.zip
+	perl -pi -e 's,sys\\,sys/,' kfw322sdkx86/kfw-3-2-2-final/inc/krb5/win-mac.h
 
-# KfW 3.2.3 x86
-
-install-x86-kfw323:
-	rm -rf tmp && \
-	mkdir tmp && \
-	cd tmp && \
-	wget http://web.mit.edu/kerberos/dist/kfw/3.2/kfw-3.2.3-alpha1/kfw-3-2-3-i386.zip && \
-	unzip kfw-3-2-3-i386.zip && \
-	cp -v kfw-3-2-3-final/bin/i386/*.dll $(HOME)/.wine/drive_c/windows/system32/
-
-dist/kfw-3-2-3-i386-sdk.zip:
+dist/kfw-3-2-2.zip:
 	-mkdir dist
-	cd dist && wget http://web.mit.edu/kerberos/dist/kfw/3.2/kfw-3.2.3-alpha1/kfw-3-2-3-i386-sdk.zip
+	cd dist && wget http://web.mit.edu/kerberos/dist/kfw/3.2/kfw-3.2.2/kfw-3-2-2.zip
 
-kfw323x86/kfw-3-2-3-final/inc/krb5/win-mac.h: dist/kfw-3-2-3-i386-sdk.zip
-	-mkdir kfw323x86
-	cd kfw323x86 && unzip ../dist/kfw-3-2-3-i386-sdk.zip
-	perl -pi -e 's,sys\\,sys/,' kfw323x86/kfw-3-2-3-final/inc/krb5/win-mac.h
+install-kfw322: dist/kfw-3-2-2.zip
+	-mkdir kfw322x86
+	cd kfw322x86 && unzip -u ../dist/kfw-3-2-2.zip
+	mkdir -p build-x86-kfw322/gsasl-$(VERSION)/lib/src/.libs
+	cp -v kfw322x86/kfw-3-2-2-final/bin/i386/*.dll build-x86-kfw322/gsasl-$(VERSION)/lib/src/.libs/
