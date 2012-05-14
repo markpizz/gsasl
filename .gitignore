@@ -705,6 +705,8 @@ lib/gltests/test-strnlen
 lib/gltests/test-strnlen.o
 lib/gltests/test-strverscmp
 lib/gltests/test-strverscmp.o
+lib/gltests/test-sys_types
+lib/gltests/test-sys_types.o
 lib/gltests/test-sys_wait
 lib/gltests/test-sys_wait.o
 lib/gltests/test-unistd
