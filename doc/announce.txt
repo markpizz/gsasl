@@ -1,6 +1,5 @@
 To: help-gsasl@gnu.org, info-gnu@gnu.org
-Subject: GNU SASL 1.7.2 released (development version)
-
+Subject: GNU SASL 1.7.3 released (development version)
 <#part sign=pgpmime>
 GNU SASL is a modern C library that implement the standard network
 security protocol Simple Authentication and Security Layer (SASL).  The
@@ -9,38 +8,37 @@ SCRAM-SHA-1) are implemented.  GNU SASL can be used by network
 applications for IMAP, SMTP, XMPP and similar protocols to provide
 authentication services.
 
+This is the first release candidate of 1.8.0.  Please test this release
+as if it were a new stable release that replaces the earlier 1.4.x and
+1.6.x branches.  It should be a drop-in.
+
 NEWS entries:
 
-** gsasl: The client lets the server decide when authentication is complete.
-Before the client quit from the authentication loop when the local
-mechanism was finished, but some mechanisms (OPENID20) have optional
-additional round-trips.
+** libgsasl: The SAML20 mechanism is now enabled by default.
 
-** gsasl: Added OPENID20 support.
+** libgsasl: The SAML20 mechanism was updated to draft -09.
+There was a minor protocol change, the final client response is now
+"=" instead of the empty string.
 
-** gsasl: The --no-cb parameter now avoids even attempting to get the
-** channel binding data from GnuTLS.
-Apparently this can avoid issues when GnuTLS fails to provide the CB.
+** libgsasl: Unified some of the SAML and OpenID callbacks/properties.
+See API changes below.
 
-** examples: Added stand-alone example SMTP server.
-See examples/smtp-server.c.  This illustrate how to write a server
-using GNU SASL, but it can also be used for interop testing of
-clients.
+** Doc fixes and updates for the callback/property change in the library.
+See lib/NEWS for details.
 
-** examples: Added example SMTP server with OpenID 2.0 support.
-See examples/openid20/README.
-
-** libgsasl: Updated OPENID20 implementation.
-Now following draft-ietf-kitten-sasl-openid-08.
+** examples: Added example SMTP server with SAML 2.0 support.
+See examples/saml20/README.  It uses Lasso as the SAML implementation.
+You may disable Lasso by using --without-lasso.  Note that Lasso is
+only needed for this example server, it is not needed by the GNU SASL
+library or command line tools itself.
 
 ** API and ABI modifications.
-GSASL_OPENID20_REDIRECT_URL: Added, new property.
-GSASL_OPENID20_OUTCOME_DATA:: Added, new property.
-GSASL_OPENID20_AUTHENTICATE_IN_BROWSER: Added, new callback.
-GSASL_VALIDATE_OPENID20: Added, new callback.
-GSASL_NO_OPENID20_REDIRECT_URL: Added, new error code.
-GSASL_OPENID20_AUTH_IDENTIFIER: Removed, use GSASL_AUTHID instead.
-GSASL_NO_OPENID20_AUTH_IDENTIFIER: Removed error code.
+GSASL_REDIRECT_URL: Added, replaces the next two properties.
+GSASL_OPENID20_REDIRECT_URL: Removed.
+GSASL_SAML20_REDIRECT_URL: Removed.
+GSASL_AUTHENTICATE_IN_BROWSER: Added, replaces the next two callbacks.
+GSASL_SAML20_AUTHENTICATE_IN_BROWSER: Removed.
+GSASL_OPENID20_AUTHENTICATE_IN_BROWSER: Removed.
 
 Improving GNU SASL is costly, but you can help!  We are looking for
 organizations that find GNU SASL useful and wish to contribute back.
@@ -77,17 +75,17 @@ invited to join our help-gsasl mailing list, see:
 <https://lists.gnu.org/mailman/listinfo/help-gsasl>.
 
 Here are the compressed sources of the entire package:
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.2.tar.gz (4.7MB)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.2.tar.gz.sig (OpenPGP)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.3.tar.gz (4.8MB)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.3.tar.gz.sig (OpenPGP)
 
 Here are the compressed sources of the LGPL library (included above):
-  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.2.tar.gz (1.2MB)
-  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.2.tar.gz.sig (OpenPGP)
+  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.3.tar.gz (1.2MB)
+  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.3.tar.gz.sig (OpenPGP)
 
 We also provide pre-built Windows binaries:
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.2-x86.zip (32-bit)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.2-x64.zip (64-bit)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.2-x86-kfw322.zip (32-bit Kerberos)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.3-x86.zip (32-bit)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.3-x64.zip (64-bit)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.3-x86-kfw322.zip (32-bit Kerberos)
 
 For code coverage, cyclomatic code complexity charts and clang output see:
   https://www.gnu.org/software/gsasl/coverage/
@@ -112,20 +110,20 @@ The key is available from:
 
 Here are the SHA-1 and SHA-224 checksums:
 
-20fa66609a43b357fdd8235a655615cd5b1dba21  gsasl-1.7.2.tar.gz
-f1e4170fec985fe12f6e716f4b59110aeeab0956c394f3f30f556e58  gsasl-1.7.2.tar.gz
+946b4de7269bd4c5287480f8e211e02cfe26da4a  gsasl-1.7.3.tar.gz
+b613f535070028ec90317e68739658fca28aa28574676c1db9c62b16  gsasl-1.7.3.tar.gz
 
-fab42a7baf8e820ff940d51afaa9eae9472092c8  libgsasl-1.7.2.tar.gz
-b8a6a5278968407c180dab295c064a6cb72a3b3bb291b58a4dea1b36  libgsasl-1.7.2.tar.gz
+224f63d2432fdc59e231ed55c1ff1121a6c28124  libgsasl-1.7.3.tar.gz
+d861cdd611737a281caf053672003eecb6666f3934f831e5a60fb9f2  libgsasl-1.7.3.tar.gz
 
-21893d29673df7e452c1d9c7d1dd713cf1619533  gsasl-1.7.2-x86.zip
-f9338d443b4765f3b2e08af7769ba548e27e25a7be04d20aed6a26d3  gsasl-1.7.2-x86.zip
+7715e10803a1298d499c22035cd65f01d2f2c0b0  gsasl-1.7.3-x86.zip
+279b7d1afb2955d5a1072441bb0a7753f3b4123dfcee6af0f1d9f815  gsasl-1.7.3-x86.zip
 
-47bfbfaff185b98d55310e13c0062a108cae4956  gsasl-1.7.2-x64.zip
-9f49c9bc5c59bab5f3fe699b40159db069a2c3ec3b9c7483604fdf9e  gsasl-1.7.2-x64.zip
+14d6ee5749feb12b46b9544cdd6f387190005229  gsasl-1.7.3-x64.zip
+2f1d1b21eb90375bf76043bd61584543b5d12ec3bba8c1eccbc49611  gsasl-1.7.3-x64.zip
 
-9db4f45f25a4cefa5fe2615f2ecf2cf8b217bb74  gsasl-1.7.2-x86-kfw322.zip
-910a991ae88b43a5f1d36cd09c91a0e088e6ef22cd8dd34976824fb0  gsasl-1.7.2-x86-kfw322.zip
+20f9dd2c0ce0243985fd1062eb499f1b12df3559  gsasl-1.7.3-x86-kfw322.zip
+7b6ad8080d6fa676bf5a24a602dea7013f2aee33dfa1edeccdd80f9d  gsasl-1.7.3-x86-kfw322.zip
 
 Happy hacking,
 Simon
