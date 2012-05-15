@@ -20,6 +20,7 @@ We require several tools to build the software, including:
 - Texlive & epsf <http://www.tug.org/texlive/> (for PDF manual)
 - CVS <http://www.gnu.org/software/cvs/> (for gettext autopoint)
 - GTK-DOC <http://www.gtk.org/gtk-doc/> (for API manual)
+- Doxygen <http://www.stack.nl/~dimitri/doxygen/> (for API manual)
 - Git <http://git.or.cz/>
 - Perl <http://www.cpan.org/>
 - Valgrind <http://valgrind.org/> (optional)
@@ -50,6 +51,11 @@ Then build the project normally:
 
 $ make
 $ make check
+
+To prepare releases (see rules in cfg.mk) you need some additional
+tools:
+
+sudo apt-get install pmccabe mingw-w64 wine clang lcov doxygen
 
 Happy hacking!
 
