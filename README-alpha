@@ -64,7 +64,7 @@ by putting the following in your ~/.valgrindrc:
 To prepare releases (see rules in cfg.mk) you need some additional
 tools:
 
-sudo apt-get install pmccabe mingw-w64 wine clang lcov doxygen
+sudo apt-get install pmccabe mingw-w64 wine clang lcov doxygen ncftp
 
 Happy hacking!
 
