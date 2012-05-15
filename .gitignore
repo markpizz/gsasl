@@ -1079,5 +1079,6 @@ windows/inst-x64/
 windows/inst-x86-kfw322/
 windows/inst-x86/
 windows/kfw322x86/
+windows/kfw322sdkx86/
 windows/src/
 windows/tmp/
