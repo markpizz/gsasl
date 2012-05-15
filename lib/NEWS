@@ -17,6 +17,10 @@ Reported by Andreas Oberritter <obi@saftware.de>.
 ** GSS-API server: Only proceed to next step when context is established.
 Reported by Andreas Oberritter <obi@saftware.de>.
 
+** Rewrote DIGEST-MD5 code to avoid false positive complaint from valgrind.
+
+** Update gnulib files.
+
 ** API and ABI modifications.
 GSASL_REDIRECT_URL: Removed.
 GSASL_OPENID20_REDIRECT_URL: Added.

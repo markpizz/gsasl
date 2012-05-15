@@ -11,6 +11,8 @@ SASL.  That include the manual, the command line tool, and self tests.
 ** Doc fixes and updates for the callback/property change in the library.
 See lib/NEWS for details.  This affects SAML and OpenID.
 
+** Slight fixes to Windows build script.
+
 * Version 1.7.3 (released 2012-04-03) [alpha]
 
 ** The SAML20 mechanism has been updated and is now enabled by default.
