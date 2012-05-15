@@ -20,8 +20,8 @@
 # The simplest way to use this file is to put the following in ~/.valgrindrc:
 # --suppressions=/path/to/gsasl/tests/libgsasl.supp
 #
-# The memory leaks that are hidden here are those from libgcrypt,
-# nothing we can do about.
+# The memory leaks that are hidden here are those from external
+# libraries that we we can do nothing about.
 
 {
    libgsasl-gcrypt1
@@ -188,4 +188,21 @@
    fun:gcry_create_nonce
    fun:gc_nonce
    fun:gsasl_nonce
+}
+
+{
+   gsasl-mit-krb5-gss
+   Memcheck:Addr1
+   fun:__libc_res_nquerydomain
+   fun:__libc_res_nsearch
+   fun:__GI__nss_dns_gethostbyname3_r.constprop.3
+   fun:gethostbyname2_r@@GLIBC_2.2.5
+   fun:gaih_inet
+   fun:getaddrinfo
+   fun:krb5_sname_to_principal
+   fun:krb5_gss_import_name
+   fun:gssint_import_internal_name
+   fun:gss_add_cred
+   fun:gss_acquire_cred
+   fun:_gsasl_gssapi_server_start
 }
