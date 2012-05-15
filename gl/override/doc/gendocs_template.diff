@@ -14,7 +14,7 @@
 +<ul>
 +  <li><a href="../reference/">HTML API Reference Manual (GTK-DOC)</a>.</li>
 +  <li><a href="../reference/%%PACKAGE%%.pdf">PDF Reference API Manual (GTK-DOC)</a>.
-+  <li><a href="../reference/gsasl.devhelp">DevHelp API Reference Manual (GTK-DOC)</a>.</li>
++  <li><a href="../reference/gsasl.devhelp2">DevHelp API Reference Manual (GTK-DOC)</a>.</li>
 +</ul>
 +
  <p>You can <a href="http://shop.fsf.org/">buy printed copies of
