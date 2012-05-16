@@ -141,7 +141,8 @@ Here is the normal process:
    The client sends the Identity Provider Identifier.  You may use the
    gsasl command line tool to act as a client.  For example:
 
-jas@latte:~$ gsasl --smtp -m SAML20 interop.josefsson.org 2001Trying ‘interop.josefsson.org’...
+jas@latte:~$ gsasl --smtp -m SAML20 interop.josefsson.org 2001
+Trying ‘interop.josefsson.org’...
 220 localhost ESMTP GNU SASL smtp-server
 EHLO [127.0.0.1]
 250-localhost
