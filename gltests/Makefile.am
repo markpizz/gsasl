@@ -58,24 +58,6 @@ AM_LIBTOOLFLAGS = --preserve-dup-deps
 
 TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 
-## begin gnulib module accept
-
-
-EXTRA_DIST += accept.c w32sock.h
-
-EXTRA_libtests_a_SOURCES += accept.c
-
-## end   gnulib module accept
-
-## begin gnulib module accept-tests
-
-TESTS += test-accept
-check_PROGRAMS += test-accept
-test_accept_LDADD = $(LDADD) @LIBSOCKET@
-EXTRA_DIST += test-accept.c signature.h macros.h
-
-## end   gnulib module accept-tests
-
 ## begin gnulib module alloca-opt-tests
 
 TESTS += test-alloca-opt
@@ -107,24 +89,6 @@ check_PROGRAMS += test-binary-io
 EXTRA_DIST += test-binary-io.sh test-binary-io.c macros.h
 
 ## end   gnulib module binary-io-tests
-
-## begin gnulib module bind
-
-
-EXTRA_DIST += bind.c w32sock.h
-
-EXTRA_libtests_a_SOURCES += bind.c
-
-## end   gnulib module bind
-
-## begin gnulib module bind-tests
-
-TESTS += test-bind
-check_PROGRAMS += test-bind
-test_bind_LDADD = $(LDADD) @LIBSOCKET@ $(INET_PTON_LIB)
-EXTRA_DIST += test-bind.c signature.h macros.h
-
-## end   gnulib module bind-tests
 
 ## begin gnulib module btowc
 
@@ -345,23 +309,6 @@ EXTRA_DIST += test-fstat.c signature.h macros.h
 
 ## end   gnulib module fstat-tests
 
-## begin gnulib module ftruncate
-
-
-EXTRA_DIST += ftruncate.c
-
-EXTRA_libtests_a_SOURCES += ftruncate.c
-
-## end   gnulib module ftruncate
-
-## begin gnulib module ftruncate-tests
-
-TESTS += test-ftruncate.sh
-check_PROGRAMS += test-ftruncate
-EXTRA_DIST += test-ftruncate.c test-ftruncate.sh signature.h macros.h
-
-## end   gnulib module ftruncate-tests
-
 ## begin gnulib module fwrite-tests
 
 TESTS += test-fwrite
@@ -432,24 +379,6 @@ EXTRA_DIST += getpagesize.c
 EXTRA_libtests_a_SOURCES += getpagesize.c
 
 ## end   gnulib module getpagesize
-
-## begin gnulib module gettimeofday
-
-
-EXTRA_DIST += gettimeofday.c
-
-EXTRA_libtests_a_SOURCES += gettimeofday.c
-
-## end   gnulib module gettimeofday
-
-## begin gnulib module gettimeofday-tests
-
-TESTS += test-gettimeofday
-check_PROGRAMS += test-gettimeofday
-
-EXTRA_DIST += signature.h test-gettimeofday.c
-
-## end   gnulib module gettimeofday-tests
 
 ## begin gnulib module iconv-h-tests
 
@@ -570,41 +499,6 @@ check_PROGRAMS += test-inttypes
 EXTRA_DIST += test-inttypes.c
 
 ## end   gnulib module inttypes-tests
-
-## begin gnulib module ioctl
-
-
-EXTRA_DIST += ioctl.c w32sock.h
-
-EXTRA_libtests_a_SOURCES += ioctl.c
-
-## end   gnulib module ioctl
-
-## begin gnulib module ioctl-tests
-
-TESTS += test-ioctl
-check_PROGRAMS += test-ioctl
-EXTRA_DIST += test-ioctl.c signature.h macros.h
-
-## end   gnulib module ioctl-tests
-
-## begin gnulib module listen
-
-
-EXTRA_DIST += listen.c w32sock.h
-
-EXTRA_libtests_a_SOURCES += listen.c
-
-## end   gnulib module listen
-
-## begin gnulib module listen-tests
-
-TESTS += test-listen
-check_PROGRAMS += test-listen
-test_listen_LDADD = $(LDADD) @LIBSOCKET@
-EXTRA_DIST += test-listen.c signature.h macros.h
-
-## end   gnulib module listen-tests
 
 ## begin gnulib module locale
 
@@ -825,40 +719,6 @@ EXTRA_DIST += test-pathmax.c
 
 ## end   gnulib module pathmax-tests
 
-## begin gnulib module perror
-
-
-EXTRA_DIST += perror.c
-
-EXTRA_libtests_a_SOURCES += perror.c
-
-## end   gnulib module perror
-
-## begin gnulib module perror-tests
-
-TESTS += test-perror.sh test-perror2
-check_PROGRAMS += test-perror test-perror2
-EXTRA_DIST += macros.h signature.h test-perror.c test-perror2.c test-perror.sh
-
-## end   gnulib module perror-tests
-
-## begin gnulib module pipe-posix
-
-
-EXTRA_DIST += pipe.c
-
-EXTRA_libtests_a_SOURCES += pipe.c
-
-## end   gnulib module pipe-posix
-
-## begin gnulib module pipe-posix-tests
-
-TESTS += test-pipe
-check_PROGRAMS += test-pipe
-EXTRA_DIST += test-pipe.c signature.h macros.h
-
-## end   gnulib module pipe-posix-tests
-
 ## begin gnulib module poll-h-tests
 
 TESTS += test-poll-h
@@ -866,15 +726,6 @@ check_PROGRAMS += test-poll-h
 EXTRA_DIST += test-poll-h.c
 
 ## end   gnulib module poll-h-tests
-
-## begin gnulib module poll-tests
-
-TESTS += test-poll
-check_PROGRAMS += test-poll
-test_poll_LDADD = $(LDADD) $(LIB_POLL) @LIBSOCKET@ $(INET_PTON_LIB)
-EXTRA_DIST += test-poll.c signature.h macros.h
-
-## end   gnulib module poll-tests
 
 ## begin gnulib module putenv
 
@@ -909,18 +760,6 @@ EXTRA_DIST += test-recv.c signature.h macros.h
 EXTRA_DIST += same-inode.h
 
 ## end   gnulib module same-inode
-
-## begin gnulib module select-tests
-
-TESTS += test-select test-select-in.sh test-select-out.sh
-# test-select-stdin has to be run by hand.
-check_PROGRAMS += test-select test-select-fd test-select-stdin
-test_select_LDADD = $(LDADD) @LIB_SELECT@ @LIBSOCKET@ $(INET_PTON_LIB)
-test_select_fd_LDADD = $(LDADD) @LIB_SELECT@
-test_select_stdin_LDADD = $(LDADD) @LIB_SELECT@
-EXTRA_DIST += macros.h signature.h test-select.c test-select.h test-select-fd.c test-select-in.sh test-select-out.sh test-select-stdin.c
-
-## end   gnulib module select-tests
 
 ## begin gnulib module setenv
 
@@ -960,24 +799,6 @@ check_PROGRAMS += test-setlocale1 test-setlocale2
 EXTRA_DIST += test-setlocale1.sh test-setlocale1.c test-setlocale2.sh test-setlocale2.c signature.h macros.h
 
 ## end   gnulib module setlocale-tests
-
-## begin gnulib module setsockopt
-
-
-EXTRA_DIST += setsockopt.c w32sock.h
-
-EXTRA_libtests_a_SOURCES += setsockopt.c
-
-## end   gnulib module setsockopt
-
-## begin gnulib module setsockopt-tests
-
-TESTS += test-setsockopt
-check_PROGRAMS += test-setsockopt
-test_setsockopt_LDADD = $(LDADD) @LIBSOCKET@
-EXTRA_DIST += test-setsockopt.c signature.h macros.h
-
-## end   gnulib module setsockopt-tests
 
 ## begin gnulib module shutdown-tests
 
@@ -1194,23 +1015,6 @@ EXTRA_DIST += test-strerror.c signature.h macros.h
 
 ## end   gnulib module strerror-tests
 
-## begin gnulib module strerror_r-posix
-
-
-EXTRA_DIST += strerror_r.c
-
-EXTRA_libtests_a_SOURCES += strerror_r.c
-
-## end   gnulib module strerror_r-posix
-
-## begin gnulib module strerror_r-posix-tests
-
-TESTS += test-strerror_r
-check_PROGRAMS += test-strerror_r
-EXTRA_DIST += test-strerror_r.c signature.h macros.h
-
-## end   gnulib module strerror_r-posix-tests
-
 ## begin gnulib module striconv-tests
 
 TESTS += test-striconv
@@ -1245,46 +1049,6 @@ check_PROGRAMS += test-symlink
 EXTRA_DIST += test-symlink.h test-symlink.c signature.h macros.h
 
 ## end   gnulib module symlink-tests
-
-## begin gnulib module sys_ioctl
-
-BUILT_SOURCES += sys/ioctl.h
-
-# We need the following in order to create <sys/ioctl.h> when the system
-# does not have a complete one.
-sys/ioctl.h: sys_ioctl.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(WARN_ON_USE_H)
-	$(AM_V_at)$(MKDIR_P) sys
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
-	      -e 's|@''HAVE_SYS_IOCTL_H''@|$(HAVE_SYS_IOCTL_H)|g' \
-	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
-	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
-	      -e 's|@''NEXT_SYS_IOCTL_H''@|$(NEXT_SYS_IOCTL_H)|g' \
-	      -e 's/@''GNULIB_IOCTL''@/$(GNULIB_IOCTL)/g' \
-	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H)|g' \
-	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS)|g' \
-	      -e 's|@''REPLACE_IOCTL''@|$(REPLACE_IOCTL)|g' \
-	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
-	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
-	      < $(srcdir)/sys_ioctl.in.h; \
-	} > $@-t && \
-	mv $@-t $@
-MOSTLYCLEANFILES += sys/ioctl.h sys/ioctl.h-t
-MOSTLYCLEANDIRS += sys
-
-EXTRA_DIST += sys_ioctl.in.h
-
-## end   gnulib module sys_ioctl
-
-## begin gnulib module sys_ioctl-tests
-
-TESTS += test-sys_ioctl
-check_PROGRAMS += test-sys_ioctl
-EXTRA_DIST += test-sys_ioctl.c
-
-## end   gnulib module sys_ioctl-tests
 
 ## begin gnulib module sys_select-tests
 
