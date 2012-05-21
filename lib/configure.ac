@@ -432,3 +432,32 @@ AC_CONFIG_FILES([
   tests/Makefile
 ])
 AC_OUTPUT
+
+AC_MSG_NOTICE([summary of build options:
+
+  version:            ${VERSION}
+  Host type:          ${host}
+  Install prefix:     ${prefix}
+  Compiler:           ${CC}
+  Warning flags:      $gl_gcc_warnings
+  Library types:      Shared=${enable_shared}, Static=${enable_static}
+  Valgrind:           ${VALGRIND}
+  Obsolete functions: $obsolete
+
+  ANONYMOUS:          $anonymous
+  EXTERNAL:           $external
+  PLAIN:              $plain
+  LOGIN:              $login
+  SECURID:            $securid
+  NTLM:               $ntlm (libs: $LTLIBNTLM)
+  CRAM-MD5:           $cram_md5
+  DIGEST-MD5:         $digest_md5
+  SCRAM-SHA-1:        $scram_sha1
+  SAML20:             $saml20
+  OPENID20:           $openid20
+  GS2:                $gs2
+  GSSAPI:             $gssapi
+
+  Client side:        $client
+  Server side:        $server
+])
