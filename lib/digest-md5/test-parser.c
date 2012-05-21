@@ -179,7 +179,10 @@ main (int argc, char *argv[])
 
   rc = gc_init ();
   if (rc != 0)
-    abort ();
+    {
+      printf ("gc_init error %d\n", rc);
+      abort ();
+    }
 
   memset (buf16, 'Q', 16);
 
