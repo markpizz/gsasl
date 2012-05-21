@@ -17,9 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AM_CFLAGS = $(WERROR_CFLAGS) $(WARN_CFLAGS)
-AM_CPPFLAGS = -I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src
+AM_CPPFLAGS = -I$(top_srcdir)/gl -I$(top_builddir)/gl \
+	-I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src
 AM_LDFLAGS = -no-install
-LDADD = $(top_builddir)/lib/src/libgsasl.la
+LDADD = $(top_builddir)/lib/src/libgsasl.la $(top_builddir)/gl/libgl.la
 
 EXTRA_DIST = README gsasl-openid20-redirect.php gsasl-openid20-rp.php
 

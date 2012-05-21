@@ -17,10 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AM_CFLAGS = $(WERROR_CFLAGS) $(WARN_CFLAGS)
-AM_CPPFLAGS = -I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src \
+AM_CPPFLAGS = -I$(top_srcdir)/gl -I$(top_builddir)/gl \
+	-I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src \
 	$(LASSO_CFLAGS)
 AM_LDFLAGS = -no-install
-LDADD = $(top_builddir)/lib/src/libgsasl.la $(LASSO_LIBS)
+LDADD = $(top_builddir)/lib/src/libgsasl.la $(top_builddir)/gl/libgl.la \
+	$(LASSO_LIBS)
 
 EXTRA_DIST = README
 EXTRA_DIST += gsasl-saml20-sp.php
