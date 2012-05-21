@@ -278,16 +278,8 @@ gss_check_version (0);
     gssapi_impl=no
   else
     AC_MSG_WARN([GNU GSS not found (see http://www.gnu.org/software/gss/)...])
-    AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
-    if test "$KRB5_CONFIG" != "no" ; then
-      AC_MSG_NOTICE([MIT/Heimdal found])
-      GSS_CFLAGS="`$KRB5_CONFIG --cflags`"
-      GSS_LIBS="`$KRB5_CONFIG --libs gssapi`"
-      gssapi_impl=mitheimdal
-    else
-      gssapi_impl=no
-      AC_MSG_WARN([krb5-config not found, disabling GSSAPI])
-    fi
+    AC_MSG_WARN([Auto-detecting MIT/Heimdal is unreliable, disabling GSSAPI])
+    gssapi_impl=no
   fi
 fi
 
