@@ -2,6 +2,10 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002-2012 Simon Josefsson
 See the end for copying conditions.
 
+* Version 1.7.5 (unreleased) [alpha]
+
+** Build fixes.
+
 * Version 1.7.4 (released 2012-05-16) [alpha]
 
 ** libgsasl: Reverted unification of OpenID and SAML properties/callbacks.

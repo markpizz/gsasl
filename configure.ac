@@ -18,7 +18,7 @@ dnl Process this file with autoconf to produce a configure script.
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AC_PREREQ(2.61)
-AC_INIT([GNU SASL], [1.7.4], [bug-gsasl@gnu.org], [gsasl])
+AC_INIT([GNU SASL], [1.7.5], [bug-gsasl@gnu.org], [gsasl])
 AC_CONFIG_AUX_DIR([lib/build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 
