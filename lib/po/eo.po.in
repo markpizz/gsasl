@@ -1,14 +1,14 @@
 # Esperanto translation.
-# Copyright (C) 2011 Free Software Foundation, Inc.
+# Copyright (C) 2011, 2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libgsasl package.
-# Felipe Castro <fefcas@gmail.com>, 2011.
+# Felipe Castro <fefcas@gmail.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libgsasl 1.6.1\n"
+"Project-Id-Version: libgsasl 1.7.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2011-05-01 17:34+0200\n"
-"PO-Revision-Date: 2011-05-09 20:25-0300\n"
+"POT-Creation-Date: 2012-05-16 00:55+0200\n"
+"PO-Revision-Date: 2012-05-18 20:25-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -150,7 +150,7 @@ msgstr "Eraro pri integreco en aplikaĵa datumaro"
 
 #: src/error.c:120
 msgid "No more realms available (non-fatal)"
-msgstr "Neniu pli 'realm' disponeblaj (ne-ĉesiga)"
+msgstr "Neniu plia 'realm' disponeblaj (ne-ĉesiga)"
 
 #: src/error.c:122
 msgid "Client-side functionality not available in library (application error)"
@@ -276,6 +276,18 @@ msgstr "Eraro de GSSAPI dum ellasado de OID-aro."
 msgid "Authentication failed because a tls-unique CB was not provided."
 msgstr "Aŭtentigo malsukcesis ĉar tls-unika CB ne estis provizata."
 
-#: src/error.c:224
+#: src/error.c:204
+msgid "Callback failed to provide SAML20 IdP identifier."
+msgstr "Eventvoko malsukcesis provizi identigilon SAML20 IdP."
+
+#: src/error.c:206
+msgid "Callback failed to provide SAML20 redirect URL."
+msgstr "Eventvoko malsukcesis provizi rekondukan URL SAML20."
+
+#: src/error.c:208
+msgid "Callback failed to provide OPENID20 redirect URL."
+msgstr "Eventvoko malsukcesis provizi rekondukan URL OPENID20."
+
+#: src/error.c:230
 msgid "Libgsasl unknown error"
 msgstr "Nekonata eraro de Libgsasl"

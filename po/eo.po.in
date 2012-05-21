@@ -1,14 +1,14 @@
 # Esperanto translation.
-# Copyright (C) 2011 Free Software Foundation, Inc.
+# Copyright (C) 2011, 2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
-# Felipe Castro <fefcas@gmail.com>, 2011.
+# Felipe Castro <fefcas@gmail.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 1.6.1\n"
+"Project-Id-Version: gsasl 1.7.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2011-05-01 17:35+0200\n"
-"PO-Revision-Date: 2011-05-09 20:27-0300\n"
+"POT-Creation-Date: 2012-05-16 00:55+0200\n"
+"PO-Revision-Date: 2012-05-18 20:27-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -21,23 +21,23 @@ msgstr ""
 msgid "Chose SASL mechanisms:\n"
 msgstr "Elektitaj mekanismoj SASL:\n"
 
-#: src/imap.c:106 src/smtp.c:110 src/gsasl.c:206
+#: src/imap.c:106 src/smtp.c:113 src/gsasl.c:206
 #, c-format
 msgid "Using mechanism:\n"
 msgstr "Uzata mekanismo:\n"
 
-#: src/imap.c:156
+#: src/imap.c:180
 #, c-format
 msgid "error: server did not return a token\n"
 msgstr "eraro: servilo ne liveris ĵetonon\n"
 
-#: src/smtp.c:158
+#: src/smtp.c:192
 #, c-format
 msgid ""
-"error: Server did not return expected SASL data (it must begin with '334 '):\n"
+"error: could not parse server data:\n"
 "%s\n"
 msgstr ""
-"eraro: Servilo ne redonis atenditan datumaron SASL (ĝi devas komenciĝi per '334 '):\n"
+"eraro: ne eblis analizi la servilan datumaron:\n"
 "%s\n"
 
 #: src/gsasl.c:178
@@ -60,205 +60,217 @@ msgstr "Eligo el servilo:\n"
 msgid "Output from client:\n"
 msgstr "Eligo el kliento:\n"
 
-#: src/gsasl.c:281
+#: src/gsasl.c:272
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Provu '%s --help' por pli da informoj.\n"
 
-#: src/gsasl.c:336
+#: src/gsasl.c:327
 #, c-format
 msgid "missing argument"
 msgstr "mankas argumento"
 
-#: src/gsasl.c:343
+#: src/gsasl.c:334
 #, c-format
 msgid "need both --x509-cert-file and --x509-key-file"
 msgstr "necesas kaj --x509-cert-file kaj --x509-key-file"
 
-#: src/gsasl.c:347
+#: src/gsasl.c:338
 #, c-format
 msgid "cannot use both --starttls and --no-starttls"
 msgstr "ne povas uzi kaj --starttls kaj --no-starttls"
 
-#: src/gsasl.c:350
+#: src/gsasl.c:341
 #, c-format
 msgid "cannot use both --smtp and --imap"
 msgstr "ne povas uzi kaj --smtp kaj --imap"
 
-#: src/gsasl.c:415
+#: src/gsasl.c:407
 #, c-format
 msgid "initialization failure: %s"
 msgstr "ekiga malsukceso: %s"
 
-#: src/gsasl.c:430
+#: src/gsasl.c:422
 #, c-format
 msgid "error listing mechanisms: %s"
 msgstr "eraro dum listigo de mekanismoj: %s"
 
-#: src/gsasl.c:437
+#: src/gsasl.c:429
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Tiu ĉi kliento subtenas la jenajn mekanismojn:\n"
 
-#: src/gsasl.c:440
+#: src/gsasl.c:432
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Tiu ĉi servilo subtenas la jenajn mekanismojn:\n"
 
-#: src/gsasl.c:508
+#: src/gsasl.c:494
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
 msgstr "Ĝenerala ekigo de GnuTLS malsukcesis: %s"
 
-#: src/gsasl.c:513
+#: src/gsasl.c:499
 #, c-format
 msgid "GnuTLS initialization failed: %s"
 msgstr "Ekigo de GnuTLS malsukcesis: %s"
 
-#: src/gsasl.c:518
+#: src/gsasl.c:504
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
 msgstr "difino de GnuTLS-defaŭltoj malsukcesis: %s"
 
-#: src/gsasl.c:524
+#: src/gsasl.c:510
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
 msgstr "rezervo de sennoma legitimilo GnuTLS: %s"
 
-#: src/gsasl.c:529
+#: src/gsasl.c:515
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
 msgstr "difino de sennoma legitimilo GnuTLS: %s"
 
-#: src/gsasl.c:534
+#: src/gsasl.c:520
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
 msgstr "rezervo de X.509-legitimilo GnuTLS: %s"
 
-#: src/gsasl.c:542
+#: src/gsasl.c:528
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
 msgstr "ŝargo je X.509-legitimilo GnuTLS: %s"
 
-#: src/gsasl.c:550
+#: src/gsasl.c:536
 #, c-format
 msgid "no X.509 CAs found: %s"
 msgstr "neniu X.509 CA trovite: %s"
 
-#: src/gsasl.c:553
+#: src/gsasl.c:539
 #, c-format
 msgid "no X.509 CAs found"
 msgstr "neniu X.509 CA trovite"
 
-#: src/gsasl.c:559
+#: src/gsasl.c:545
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
 msgstr "difino de X.509-legitimilo GnuTLS: %s"
 
-#: src/gsasl.c:570
+#: src/gsasl.c:556
 #, c-format
 msgid "setting GnuTLS cipher priority (%s): %s\n"
 msgstr "difino de ĉifra prioritato GnuTLS (%s): %s\n"
 
-#: src/gsasl.c:582
+#: src/gsasl.c:568
 #, c-format
 msgid "GnuTLS handshake failed: %s"
 msgstr "Kvitanco GnuTLS malsukcesis: %s"
 
-#: src/gsasl.c:591
+#: src/gsasl.c:577
 #, c-format
 msgid "verifying peer certificate: %s"
 msgstr "kontrolado de samtavolana atestilo: %s"
 
-#: src/gsasl.c:595
+#: src/gsasl.c:581
 #, c-format
 msgid "server certificate is not trusted"
 msgstr "servila atestilo ne estas fidinda"
 
-#: src/gsasl.c:599
+#: src/gsasl.c:585
 #, c-format
 msgid "server certificate hasn't got a known issuer"
 msgstr "servila atestilo ne havis konatan eldonanto"
 
-#: src/gsasl.c:602
+#: src/gsasl.c:588
 #, c-format
 msgid "server certificate has been revoked"
 msgstr "servila atestilo estas revokata"
 
-#: src/gsasl.c:606
+#: src/gsasl.c:592
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
 msgstr "ni ne povis kontroli servilan atestilon (rc=%d)"
 
-#: src/gsasl.c:617
+#: src/gsasl.c:603
 #, c-format
 msgid "getting channel binding failed: %s"
 msgstr "akiro de kanalo-ligado malsukcesis: %s"
 
-#: src/gsasl.c:647
+#: src/gsasl.c:633
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Ni ne povis trovi mekanismon...\n"
 
-#: src/gsasl.c:664
+#: src/gsasl.c:650
 #, c-format
 msgid "mechanism unavailable: %s"
 msgstr "mekanismo nedisponebla: %s"
 
-#: src/gsasl.c:693
+#: src/gsasl.c:678
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
 msgstr "Enmetu aŭtentigan datumaron base64 el kliento (premu RET se nenio):\n"
 
-#: src/gsasl.c:696
+#: src/gsasl.c:681
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
 msgstr "Enmetu aŭtentigan datumaron base64 el servilo (premu RET se nenio):\n"
 
-#: src/gsasl.c:706
+#: src/gsasl.c:691
+#, c-format
+msgid "server error"
+msgstr "servila eraro"
+
+#: src/gsasl.c:699
 #, c-format
 msgid "mechanism error: %s"
 msgstr "mekanisma eraro: %s"
 
-#: src/gsasl.c:715
+#: src/gsasl.c:705
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Servila aŭtentigo finis (kliento estas fidinda)...\n"
 
-#: src/gsasl.c:718
+#: src/gsasl.c:708
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Klienta aŭtentigo finis (servilo estas fidinda)...\n"
 
-#: src/gsasl.c:742
+#: src/gsasl.c:733
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Enmetu aplikaĵan datumaron (EOF por fini):\n"
 
-#: src/gsasl.c:814
+#: src/gsasl.c:804
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Base64-enkodita aplikaĵ-datumaro por sendi:\n"
 
-#: src/gsasl.c:859
+#: src/gsasl.c:850
 #, c-format
 msgid "SASL record too large: %zu\n"
 msgstr "Rikordo SASL tro granda: %zu\n"
 
-#: src/gsasl.c:883
+#: src/gsasl.c:874
 #, c-format
 msgid "encoding error: %s"
 msgstr "enkoda eraro: %s"
 
-#: src/gsasl.c:888
+#: src/gsasl.c:879
 #, c-format
 msgid "Session finished...\n"
 msgstr "Seanco finiĝis...\n"
 
-#: src/gsasl.c:904
+#: src/gsasl.c:895
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
 msgstr "ĉesigo de seanco GnuTLS malsukcesis: %s"
+
+#~ msgid ""
+#~ "error: Server did not return expected SASL data (it must begin with '334 '):\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "eraro: Servilo ne redonis atenditan datumaron SASL (ĝi devas komenciĝi per '334 '):\n"
+#~ "%s\n"
 
 #~ msgid ""
 #~ "error: Server did not return expected SASL data (it must begin with '+ '):\n"

@@ -1,14 +1,14 @@
 # Finnish messages for libgsasl.
-# Copyright © 2009, 2011 Free Software Foundation, Inc.
+# Copyright © 2009, 2011, 2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libgsasl package.
-# Jorma Karvonen <karvonen.jorma@gmail.com>, 2009-2011.
+# Jorma Karvonen <karvonen.jorma@gmail.com>, 2009-2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libgsasl 1.6.1\n"
+"Project-Id-Version: libgsasl 1.7.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2011-05-01 17:34+0200\n"
-"PO-Revision-Date: 2011-05-05 10:50+0200\n"
+"POT-Creation-Date: 2012-05-16 00:55+0200\n"
+"PO-Revision-Date: 2012-05-18 14:45+0200\n"
 "Last-Translator: Jorma Karvonen <karvonen.jorma@gmail.com>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -277,6 +277,18 @@ msgstr "GSSAPI-virhe julkaistaessa OID-joukko."
 msgid "Authentication failed because a tls-unique CB was not provided."
 msgstr "Todennus epäonnistui koska tls-unique CB ei tarjottu."
 
-#: src/error.c:224
+#: src/error.c:204
+msgid "Callback failed to provide SAML20 IdP identifier."
+msgstr "Vastakutsu ei kyennyt tarjoamaan SAML20 IdP -pääavainta."
+
+#: src/error.c:206
+msgid "Callback failed to provide SAML20 redirect URL."
+msgstr "Vastakutsu ei kyennyt tarjoamaan SAML20 uudelleenohjausverkko-osoitetta."
+
+#: src/error.c:208
+msgid "Callback failed to provide OPENID20 redirect URL."
+msgstr "Vastakutsu ei kyennyt tarjoamaan OPENID20 uudelleenohjausverkko-osoitetta."
+
+#: src/error.c:230
 msgid "Libgsasl unknown error"
 msgstr "Tuntematon Libgsasl-virhe"

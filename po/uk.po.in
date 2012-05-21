@@ -3,20 +3,20 @@
 # Copyright (C) 2011 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2011.
+# Yuri Chornoivan <yurchor@ukr.net>, 2011, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl 1.6.1\n"
+"Project-Id-Version: gsasl 1.7.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2011-05-01 17:35+0200\n"
-"PO-Revision-Date: 2011-05-04 16:06+0300\n"
+"POT-Creation-Date: 2012-05-16 00:55+0200\n"
+"PO-Revision-Date: 2012-05-18 12:46+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: src/imap.c:76 src/smtp.c:79
@@ -24,23 +24,23 @@ msgstr ""
 msgid "Chose SASL mechanisms:\n"
 msgstr "Виберіть механізми SASL:\n"
 
-#: src/imap.c:106 src/smtp.c:110 src/gsasl.c:206
+#: src/imap.c:106 src/smtp.c:113 src/gsasl.c:206
 #, c-format
 msgid "Using mechanism:\n"
 msgstr "Використаний механізм:\n"
 
-#: src/imap.c:156
+#: src/imap.c:180
 #, c-format
 msgid "error: server did not return a token\n"
 msgstr "помилка: сервером не повернуто лексему\n"
 
-#: src/smtp.c:158
+#: src/smtp.c:192
 #, c-format
 msgid ""
-"error: Server did not return expected SASL data (it must begin with '334 '):\n"
+"error: could not parse server data:\n"
 "%s\n"
 msgstr ""
-"помилка: сервером не повернуто очікувані дані SASL (відповідь мала починатися з «334 »):\n"
+"помилка: не вдалося обробити дані сервера:\n"
 "%s\n"
 
 #: src/gsasl.c:178
@@ -63,202 +63,214 @@ msgstr "Дані, виведені сервером:\n"
 msgid "Output from client:\n"
 msgstr "Дані, виведені клієнтом:\n"
 
-#: src/gsasl.c:281
+#: src/gsasl.c:272
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
 
-#: src/gsasl.c:336
+#: src/gsasl.c:327
 #, c-format
 msgid "missing argument"
 msgstr "не вистачає аргументу"
 
-#: src/gsasl.c:343
+#: src/gsasl.c:334
 #, c-format
 msgid "need both --x509-cert-file and --x509-key-file"
 msgstr "слід вказати два параметри: --x509-cert-file і --x509-key-file"
 
-#: src/gsasl.c:347
+#: src/gsasl.c:338
 #, c-format
 msgid "cannot use both --starttls and --no-starttls"
 msgstr "не можна використовувати одночасно --starttls і --no-starttls"
 
-#: src/gsasl.c:350
+#: src/gsasl.c:341
 #, c-format
 msgid "cannot use both --smtp and --imap"
 msgstr "не можна використовувати одночасно --smtp і --imap"
 
-#: src/gsasl.c:415
+#: src/gsasl.c:407
 #, c-format
 msgid "initialization failure: %s"
 msgstr "помилка ініціалізації: %s"
 
-#: src/gsasl.c:430
+#: src/gsasl.c:422
 #, c-format
 msgid "error listing mechanisms: %s"
 msgstr "помилка під час спроби побудови списку механізмів: %s"
 
-#: src/gsasl.c:437
+#: src/gsasl.c:429
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Цим клієнтом підтримуються такі механізми:\n"
 
-#: src/gsasl.c:440
+#: src/gsasl.c:432
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Цим сервером підтримуються такі механізми:\n"
 
-#: src/gsasl.c:508
+#: src/gsasl.c:494
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
 msgstr "Помилка ініціалізації GnuTLS на загальному рівні: %s"
 
-#: src/gsasl.c:513
+#: src/gsasl.c:499
 #, c-format
 msgid "GnuTLS initialization failed: %s"
 msgstr "Помилка ініціалізації GnuTLS: %s"
 
-#: src/gsasl.c:518
+#: src/gsasl.c:504
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
 msgstr "помилка встановлення типових параметрів GnuTLS: %s"
 
-#: src/gsasl.c:524
+#: src/gsasl.c:510
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
 msgstr "розміщення анонімних реєстраційних даних GnuTLS: %s"
 
-#: src/gsasl.c:529
+#: src/gsasl.c:515
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
 msgstr "встановлення анонімних реєстраційних даних GnuTLS: %s"
 
-#: src/gsasl.c:534
+#: src/gsasl.c:520
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
 msgstr "розміщення реєстраційних даних GnuTLS для X.509: %s"
 
-#: src/gsasl.c:542
+#: src/gsasl.c:528
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
 msgstr "завантаження реєстраційних даних GnuTLS для X.509: %s"
 
-#: src/gsasl.c:550
+#: src/gsasl.c:536
 #, c-format
 msgid "no X.509 CAs found: %s"
 msgstr "не знайдено CA X.509: %s"
 
-#: src/gsasl.c:553
+#: src/gsasl.c:539
 #, c-format
 msgid "no X.509 CAs found"
 msgstr "не знайдено CA X.509"
 
-#: src/gsasl.c:559
+#: src/gsasl.c:545
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
 msgstr "встановлення анонімних реєстраційних даних GnuTLS для X.509: %s"
 
-#: src/gsasl.c:570
+#: src/gsasl.c:556
 #, c-format
 msgid "setting GnuTLS cipher priority (%s): %s\n"
 msgstr "встановлення пріоритету шифрування GnuTLS (%s): %s\n"
 
-#: src/gsasl.c:582
+#: src/gsasl.c:568
 #, c-format
 msgid "GnuTLS handshake failed: %s"
 msgstr "Помилка під час спроби встановлення зв’язку з GnuTLS: %s"
 
-#: src/gsasl.c:591
+#: src/gsasl.c:577
 #, c-format
 msgid "verifying peer certificate: %s"
 msgstr "перевірка сертифіката вузла: %s"
 
-#: src/gsasl.c:595
+#: src/gsasl.c:581
 #, c-format
 msgid "server certificate is not trusted"
 msgstr "сертифікат сервера не є надійним"
 
-#: src/gsasl.c:599
+#: src/gsasl.c:585
 #, c-format
 msgid "server certificate hasn't got a known issuer"
 msgstr "сертифікат сервера не було створено відомим видавцем"
 
-#: src/gsasl.c:602
+#: src/gsasl.c:588
 #, c-format
 msgid "server certificate has been revoked"
 msgstr "сертифікат сервера було відкликано"
 
-#: src/gsasl.c:606
+#: src/gsasl.c:592
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
 msgstr "не вдалося перевірити сертифікат сервера (rc=%d)"
 
-#: src/gsasl.c:617
+#: src/gsasl.c:603
 #, c-format
 msgid "getting channel binding failed: %s"
 msgstr "помилка під час спроби прив’язатися до каналу: %s"
 
-#: src/gsasl.c:647
+#: src/gsasl.c:633
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Не вдалося знайти механізм...\n"
 
-#: src/gsasl.c:664
+#: src/gsasl.c:650
 #, c-format
 msgid "mechanism unavailable: %s"
 msgstr "механізм недоступний: %s"
 
-#: src/gsasl.c:693
+#: src/gsasl.c:678
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
 msgstr "Вкажіть дані розпізнавання у форматі base64 від клієнта (натисніть Enter, якщо таких даних немає):\n"
 
-#: src/gsasl.c:696
+#: src/gsasl.c:681
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
 msgstr "Вкажіть дані розпізнавання у форматі base64 від сервера (натисніть Enter, якщо таких даних немає):\n"
 
-#: src/gsasl.c:706
+#: src/gsasl.c:691
+#, c-format
+msgid "server error"
+msgstr "помилка на сервері"
+
+#: src/gsasl.c:699
 #, c-format
 msgid "mechanism error: %s"
 msgstr "помилка механізму: %s"
 
-#: src/gsasl.c:715
+#: src/gsasl.c:705
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Розпізнавання на сервері завершено (клієнт визнано надійним)...\n"
 
-#: src/gsasl.c:718
+#: src/gsasl.c:708
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Розпізнавання на клієнті завершено (сервер визнано надійним)...\n"
 
-#: src/gsasl.c:742
+#: src/gsasl.c:733
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Вкажіть дані заяви (дані мають завершуватися символом EOF):\n"
 
-#: src/gsasl.c:814
+#: src/gsasl.c:804
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Закодовані у форматі Base64 дані, які буде надіслано:\n"
 
-#: src/gsasl.c:859
+#: src/gsasl.c:850
 #, c-format
 msgid "SASL record too large: %zu\n"
 msgstr "Запис SASL є занадто великим: %zu\n"
 
-#: src/gsasl.c:883
+#: src/gsasl.c:874
 #, c-format
 msgid "encoding error: %s"
 msgstr "помилка кодування: %s"
 
-#: src/gsasl.c:888
+#: src/gsasl.c:879
 #, c-format
 msgid "Session finished...\n"
 msgstr "Сеанс завершено...\n"
 
-#: src/gsasl.c:904
+#: src/gsasl.c:895
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
 msgstr "спроба переривання сеансу GnuTLS зазнала невдачі: %s"
+
+#~ msgid ""
+#~ "error: Server did not return expected SASL data (it must begin with '334 '):\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "помилка: сервером не повернуто очікувані дані SASL (відповідь мала починатися з «334 »):\n"
+#~ "%s\n"
