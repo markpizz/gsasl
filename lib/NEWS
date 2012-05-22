@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002-2012 Simon Josefsson
 See the end for copying conditions.
 
-* Version 1.7.5 (unreleased) [alpha]
+* Version 1.7.5 (released 2012-05-22) [beta]
 
 ** i18n: Updated translations.
 
