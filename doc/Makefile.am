@@ -364,7 +364,7 @@ doit:
 			-pkg-name "$(PACKAGE_NAME)" \
 			-includefuncprefix \
 			-seeinfo $(PACKAGE) -verbatimcopying \
-			-copyright "2002-2010 Simon Josefsson" \
+			-copyright "2002-2012 Simon Josefsson" \
 			-function $$i \
 			$(GDOC_SRC) > man/$$i.3 && \
 		$(srcdir)/gdoc -texinfo -function $$i \
