@@ -19,8 +19,9 @@
 SUBDIRS = openid20 saml20
 
 AM_CFLAGS = $(WERROR_CFLAGS) $(WARN_CFLAGS)
-AM_CPPFLAGS = -I$(top_srcdir)/lib/src -I../lib/src
-LDADD = ../lib/src/libgsasl.la
+AM_CPPFLAGS = -I$(top_srcdir)/gl -I$(top_builddir)/gl \
+	-I$(top_srcdir)/lib/src -I$(top_builddir)/lib/src
+LDADD = $(top_builddir)/lib/src/libgsasl.la $(top_builddir)/gl/libgl.la
 
 EXTRA_DIST = README
 
