@@ -1,5 +1,5 @@
 To: help-gsasl@gnu.org, info-gnu@gnu.org
-Subject: GNU SASL 1.7.4 released (development version)
+Subject: GNU SASL 1.7.5 released (development version)
 <#part sign=pgpmime>
 GNU SASL is a modern C library that implement the standard network
 security protocol Simple Authentication and Security Layer (SASL).  The
@@ -8,42 +8,16 @@ GNU SASL can be used by network applications for IMAP, SMTP, XMPP and
 similar protocols to provide authentication services.  Support for the
 more recent SCRAM-SHA-1, OPENID20 and SAML20 mechanisms is included.
 
-Note!  This is the second release candidate of 1.8.0.  Please test this
+Note!  This is the third release candidate of 1.8.0.  Please test this
 release as if it were a new stable release that replaces the earlier
 1.4.x and 1.6.x branches.  It should be a drop-in.  I plan to make the
 final release later this month.
 
 NEWS entries:
 
-** libgsasl: Reverted unification of OpenID and SAML properties/callbacks.
-The reason was that client and servers needs to know whether it is
-SAML or OpenID that is used, and using the same property and callback
-symbol for both makes this more difficult.
-
-** GSS-API server: Don't output zero-length tokens on context init success.
-Reported by Andreas Oberritter <obi@saftware.de>.
-
-** GSS-API server: Only proceed to next step when context is established.
-Reported by Andreas Oberritter <obi@saftware.de>.
-
-** Doc fixes and updates for the callback/property change in the library.
-See lib/NEWS for details.  This affects SAML and OpenID.
-
-** Rewrote DIGEST-MD5 code to avoid false positive complaint from valgrind.
-
-** Slight fixes to Windows build script.
-
 ** i18n: Updated translations.
 
-** Update gnulib files.
-
-** API and ABI modifications.
-GSASL_REDIRECT_URL: Removed.
-GSASL_OPENID20_REDIRECT_URL: Added.
-GSASL_SAML20_REDIRECT_URL: Added.
-GSASL_AUTHENTICATE_IN_BROWSER: Removed.
-GSASL_SAML20_AUTHENTICATE_IN_BROWSER: Added.
-GSASL_OPENID20_AUTHENTICATE_IN_BROWSER: Added.
+** Build fixes.
 
 Improving GNU SASL is costly, but you can help!  We are looking for
 organizations that find GNU SASL useful and wish to contribute back.
@@ -80,17 +54,17 @@ invited to join our help-gsasl mailing list, see:
   https://lists.gnu.org/mailman/listinfo/help-gsasl
 
 Here are the compressed sources of the entire package:
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.4.tar.gz (4.8MB)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.4.tar.gz.sig (OpenPGP)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.5.tar.gz (4.7MB)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.5.tar.gz.sig (OpenPGP)
 
 Here are the compressed sources of the LGPL library (included above):
-  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.4.tar.gz (1.2MB)
-  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.4.tar.gz.sig (OpenPGP)
+  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.5.tar.gz (1.2MB)
+  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.5.tar.gz.sig (OpenPGP)
 
 We also provide pre-built Windows binaries:
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.4-x86.zip (32-bit)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.4-x64.zip (64-bit)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.4-x86-kfw322.zip (32-bit Kerberos)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.5-x86.zip (32-bit)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.5-x64.zip (64-bit)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.5-x86-kfw322.zip (32-bit Kerberos)
 
 For code coverage, cyclomatic code complexity charts and clang output see:
   https://www.gnu.org/software/gsasl/coverage/
@@ -114,20 +88,20 @@ The key is available from:
 
 Here are the SHA-1 and SHA-224 checksums:
 
-a40dd0d6d8971b1d36f0aa35146b128e87a05ef1  gsasl-1.7.4.tar.gz
-a18adcafd4fec7b537de84f0f85f606bfb4f7c6aad4ad8abbdad0b46  gsasl-1.7.4.tar.gz
+d23a45e54e91386f3af62aba6786cafaabd5ee68  gsasl-1.7.5.tar.gz
+b54d4bc18288df51da4a1ecce3c05bd52b76311eedeea789abda72b9  gsasl-1.7.5.tar.gz
 
-5433b8607f522313b4f355db80dd0e8628948395  libgsasl-1.7.4.tar.gz
-c97656905da77b7ad00a5b8e6894155f09252d6f72228ae1ea0d10bc  libgsasl-1.7.4.tar.gz
+fb5a3b6a46e9b6f26ffc9d5cc2a78613bfb079b5  libgsasl-1.7.5.tar.gz
+25a3038db4600b63d7b9edc7d722fa41bf4c17c48241ce5caab03077  libgsasl-1.7.5.tar.gz
 
-42ba6ef9c08ff2c6e01ddca769c08ce8ac5b12f6  gsasl-1.7.4-x86.zip
-ae5e23f8245ff2e6fabcf371fd60b4f3b967ebdf4205413edb93b684  gsasl-1.7.4-x86.zip
+a80cff08d5e5fb8e1ab37d5ec14ae72de0081f53  gsasl-1.7.5-x86.zip
+311ded0b88ed1252e6c0d1094b50f6a7d440ade0ed89be0f29ac264f  gsasl-1.7.5-x86.zip
 
-58dae122bb626102a1cf00c02d63cbd5b71a7f50  gsasl-1.7.4-x64.zip
-4cb83adf2ce21479dacf8f52f449099e3c95262f7ed8fc0c827db131  gsasl-1.7.4-x64.zip
+9b7c20fd2ae30b68f732c73e30d90a8c638afbcc  gsasl-1.7.5-x86-kfw322.zip
+afc303594a5cb7a86b36a15c49a847e6f43ea8414369c572c1018c55  gsasl-1.7.5-x86-kfw322.zip
 
-b201a7901baf6d8cb8eb159243913821cb1c7ceb  gsasl-1.7.4-x86-kfw322.zip
-735077e75662c0fd8e1f5b17d2a4059d3593653843a205f2380f73ad  gsasl-1.7.4-x86-kfw322.zip
+16ade995cbc87e25f40915854903970421fc2de8  gsasl-1.7.5-x64.zip
+38c801cf510c024f2de5f43b6451c3febc74cf469e15634dadcc89c2  gsasl-1.7.5-x64.zip
 
 Happy hacking,
 Simon
