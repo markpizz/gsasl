@@ -433,16 +433,19 @@ AC_CONFIG_FILES([
 ])
 AC_OUTPUT
 
-AC_MSG_NOTICE([summary of build options:
+AC_MSG_NOTICE([summary of library build options:
 
   version:            ${VERSION}
   Host type:          ${host}
   Install prefix:     ${prefix}
-  Compiler:           ${CC}
+  Compiler:           cc: ${CC} cflags: ${CFLAGS} cppflags: ${CPPFLAGS}
   Warning flags:      $gl_gcc_warnings
   Library types:      Shared=${enable_shared}, Static=${enable_static}
   Valgrind:           ${VALGRIND}
   Obsolete functions: $obsolete
+
+  Client side:        $client
+  Server side:        $server
 
   ANONYMOUS:          $anonymous
   EXTERNAL:           $external
@@ -457,7 +460,4 @@ AC_MSG_NOTICE([summary of build options:
   OPENID20:           $openid20
   GS2:                $gs2
   GSSAPI:             $gssapi
-
-  Client side:        $client
-  Server side:        $server
 ])
