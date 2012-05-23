@@ -25,6 +25,7 @@
    specifying the service name (i.e., a numerical port number or
    /etc/services name).  By default it listens on port "2000".  */
 
+#include <config.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdarg.h>
