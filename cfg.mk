@@ -201,7 +201,7 @@ release-check: syntax-check i18n tarball binaries cyclo-copy gendoc-copy gtkdoc-
 
 release-upload-www: cyclo-upload gendoc-upload gtkdoc-upload doxygen-upload coverage-upload clang-upload
 
-site = alpha.gnu.org
+site = ftp.gnu.org
 
 release-upload-ftp:
 	$(_build-aux)/gnupload --to $(site):$(PACKAGE) $(distdir).tar.gz

@@ -2,7 +2,7 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002-2012 Simon Josefsson
 See the end for copying conditions.
 
-* Version 1.8.0 (unreleased) [stable]
+* Version 1.8.0 (released 2012-05-28) [stable]
 
 ** This is a new major stable release.  Brief changes compared to 1.6.x:
 
