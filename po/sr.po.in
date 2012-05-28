@@ -5,10 +5,10 @@
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: gsasl-1.6.1\n"
+"Project-Id-Version: gsasl-1.7.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2011-05-01 17:35+0200\n"
-"PO-Revision-Date: 2012-01-05 01:21+0200\n"
+"POT-Creation-Date: 2012-05-16 00:55+0200\n"
+"PO-Revision-Date: 2012-05-24 22:19+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnu@prevod.org>\n"
 "Language: sr\n"
@@ -22,23 +22,23 @@ msgstr ""
 msgid "Chose SASL mechanisms:\n"
 msgstr "Изаберите САСЛ метод:\n"
 
-#: src/imap.c:106 src/smtp.c:110 src/gsasl.c:206
+#: src/imap.c:106 src/smtp.c:113 src/gsasl.c:206
 #, c-format
 msgid "Using mechanism:\n"
 msgstr "Користим метод:\n"
 
-#: src/imap.c:156
+#: src/imap.c:180
 #, c-format
 msgid "error: server did not return a token\n"
-msgstr "грешка: сервер није вратио ........\n"
+msgstr "грешка: сервер није вратио симбол\n"
 
-#: src/smtp.c:158
+#: src/smtp.c:192
 #, c-format
 msgid ""
-"error: Server did not return expected SASL data (it must begin with '334 '):\n"
+"error: could not parse server data:\n"
 "%s\n"
 msgstr ""
-"грешка: Сервер није вратио очекиване податке САСЛ-а (мора почињати са „334 “):\n"
+"грешка: не могу да рашчланим податке сервера:\n"
 "%s\n"
 
 #: src/gsasl.c:178
@@ -61,205 +61,217 @@ msgstr "Излаз сервера:\n"
 msgid "Output from client:\n"
 msgstr "Излаз клијента:\n"
 
-#: src/gsasl.c:281
+#: src/gsasl.c:272
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Пробајте „%s --help“ за више података.\n"
 
-#: src/gsasl.c:336
+#: src/gsasl.c:327
 #, c-format
 msgid "missing argument"
 msgstr "недостаје аргумент"
 
-#: src/gsasl.c:343
+#: src/gsasl.c:334
 #, c-format
 msgid "need both --x509-cert-file and --x509-key-file"
 msgstr "потребни су и „--x509-cert-file“ и „--x509-key-file“"
 
-#: src/gsasl.c:347
+#: src/gsasl.c:338
 #, c-format
 msgid "cannot use both --starttls and --no-starttls"
 msgstr "не могу да користим и „--starttls“ и „--no-starttls“"
 
-#: src/gsasl.c:350
+#: src/gsasl.c:341
 #, c-format
 msgid "cannot use both --smtp and --imap"
 msgstr "не могу да користим и „--smtp“ и „--imap“"
 
-#: src/gsasl.c:415
+#: src/gsasl.c:407
 #, c-format
 msgid "initialization failure: %s"
 msgstr "неуспех покретања: %s"
 
-#: src/gsasl.c:430
+#: src/gsasl.c:422
 #, c-format
 msgid "error listing mechanisms: %s"
 msgstr "грешка исписивања метода: %s"
 
-#: src/gsasl.c:437
+#: src/gsasl.c:429
 #, c-format
 msgid "This client supports the following mechanisms:\n"
 msgstr "Овај клијент подржава следеће методе:\n"
 
-#: src/gsasl.c:440
+#: src/gsasl.c:432
 #, c-format
 msgid "This server supports the following mechanisms:\n"
 msgstr "Овај сервер подржава следеће методе:\n"
 
-#: src/gsasl.c:508
+#: src/gsasl.c:494
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
 msgstr "није успело глобално ГнуТЛС покретање: %s"
 
-#: src/gsasl.c:513
+#: src/gsasl.c:499
 #, c-format
 msgid "GnuTLS initialization failed: %s"
 msgstr "није успело ГнуТЛС покретање: %s"
 
-#: src/gsasl.c:518
+#: src/gsasl.c:504
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
 msgstr "није успело подешавање основних ГнуТЛС вредности: %s"
 
-#: src/gsasl.c:524
+#: src/gsasl.c:510
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
 msgstr "добављам анонимно ГнуТЛС уверење: %s"
 
-#: src/gsasl.c:529
+#: src/gsasl.c:515
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
 msgstr "задајем анонимно ГнуТЛС уверење: %s"
 
-#: src/gsasl.c:534
+#: src/gsasl.c:520
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
 msgstr "добављам X.509 ГнуТЛС уверење: %s"
 
-#: src/gsasl.c:542
+#: src/gsasl.c:528
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
 msgstr "учитавам X.509 ГнуТЛС уверење: %s"
 
-#: src/gsasl.c:550
+#: src/gsasl.c:536
 #, c-format
 msgid "no X.509 CAs found: %s"
 msgstr "нисам пронашао X.509 издаваче уверења: %s"
 
-#: src/gsasl.c:553
+#: src/gsasl.c:539
 #, c-format
 msgid "no X.509 CAs found"
 msgstr "нисам пронашао Х.509 издаваче уверења"
 
-#: src/gsasl.c:559
+#: src/gsasl.c:545
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
 msgstr "задајем X.509 ГнуТЛС уверење: %s"
 
-#: src/gsasl.c:570
+#: src/gsasl.c:556
 #, c-format
 msgid "setting GnuTLS cipher priority (%s): %s\n"
 msgstr "задајем приоритет ГнуТЛС шифрера (%s): %s\n"
 
-#: src/gsasl.c:582
+#: src/gsasl.c:568
 #, c-format
 msgid "GnuTLS handshake failed: %s"
 msgstr "није успело ГнуТЛС руковање: %s"
 
-#: src/gsasl.c:591
+#: src/gsasl.c:577
 #, c-format
 msgid "verifying peer certificate: %s"
 msgstr "проверавам парњаково уверење: %s"
 
-#: src/gsasl.c:595
+#: src/gsasl.c:581
 #, c-format
 msgid "server certificate is not trusted"
 msgstr "уверење сервера није од поверења"
 
-#: src/gsasl.c:599
+#: src/gsasl.c:585
 #, c-format
 msgid "server certificate hasn't got a known issuer"
 msgstr "уверење сервера нема познатог издавача"
 
-#: src/gsasl.c:602
+#: src/gsasl.c:588
 #, c-format
 msgid "server certificate has been revoked"
 msgstr "уверење сервера је повучено"
 
-#: src/gsasl.c:606
+#: src/gsasl.c:592
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
 msgstr "не могу да проверим уверење сервера (rc=%d)"
 
-#: src/gsasl.c:617
+#: src/gsasl.c:603
 #, c-format
 msgid "getting channel binding failed: %s"
 msgstr "није успело добављање везова канала: %s"
 
-#: src/gsasl.c:647
+#: src/gsasl.c:633
 #, c-format
 msgid "Cannot find mechanism...\n"
 msgstr "Не могу да пронађем метод...\n"
 
-#: src/gsasl.c:664
+#: src/gsasl.c:650
 #, c-format
 msgid "mechanism unavailable: %s"
 msgstr "метод није доступан: %s"
 
-#: src/gsasl.c:693
+#: src/gsasl.c:678
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
 msgstr "Унесите податке за потврду клијента у основи64 (притисните <RET> за ништа):\n"
 
-#: src/gsasl.c:696
+#: src/gsasl.c:681
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
 msgstr "Унесите податке за потврду сервера у основи64 (притисните <RET> за ништа):\n"
 
-#: src/gsasl.c:706
+#: src/gsasl.c:691
+#, c-format
+msgid "server error"
+msgstr "грешка сервера"
+
+#: src/gsasl.c:699
 #, c-format
 msgid "mechanism error: %s"
 msgstr "грешка метода: %s"
 
-#: src/gsasl.c:715
+#: src/gsasl.c:705
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
 msgstr "Потврђивање сервера је завршено (клијенту се верује)...\n"
 
-#: src/gsasl.c:718
+#: src/gsasl.c:708
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
 msgstr "Потврђивање клијента је завршено (серверу се верује)...\n"
 
-#: src/gsasl.c:742
+#: src/gsasl.c:733
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
 msgstr "Унесите податке за обраду (<EOF> за крај):\n"
 
-#: src/gsasl.c:814
+#: src/gsasl.c:804
 #, c-format
 msgid "Base64 encoded application data to send:\n"
 msgstr "Кодирани подаци програма у основи64 за слање:\n"
 
-#: src/gsasl.c:859
+#: src/gsasl.c:850
 #, c-format
 msgid "SASL record too large: %zu\n"
 msgstr "Снимак САСЛ-а је превелик: %zu\n"
 
-#: src/gsasl.c:883
+#: src/gsasl.c:874
 #, c-format
 msgid "encoding error: %s"
 msgstr "грешка кодирања: %s"
 
-#: src/gsasl.c:888
+#: src/gsasl.c:879
 #, c-format
 msgid "Session finished...\n"
 msgstr "Сесија је завршена...\n"
 
-#: src/gsasl.c:904
+#: src/gsasl.c:895
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
 msgstr "није успело завршавање ГнуТЛС сесије: %s"
+
+#~ msgid ""
+#~ "error: Server did not return expected SASL data (it must begin with '334 '):\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "грешка: Сервер није вратио очекиване податке САСЛ-а (мора почињати са „334 “):\n"
+#~ "%s\n"
 
 #~ msgid "Cannot initialize Windows sockets."
 #~ msgstr "Не може иницијализовати Виндоуз сокете."

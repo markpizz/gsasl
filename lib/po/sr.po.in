@@ -5,10 +5,10 @@
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: libgsasl-1.6.1\n"
+"Project-Id-Version: libgsasl-1.7.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
-"POT-Creation-Date: 2011-05-01 17:34+0200\n"
-"PO-Revision-Date: 2012-02-05 11:31+0200\n"
+"POT-Creation-Date: 2012-05-16 00:55+0200\n"
+"PO-Revision-Date: 2012-05-24 22:26+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnu@prevod.org>\n"
 "Language: sr\n"
@@ -163,23 +163,23 @@ msgstr "Функционалност на страни сервера није �
 
 #: src/error.c:128
 msgid "GSSAPI library could not deallocate memory in gss_release_buffer() in SASL library.  This is a serious internal error."
-msgstr "ГССАПИ библиотека не може да поврати меморију са gss_release_buffer() у САСЛ библиотеци. Ово је озбиљна унутрашња грешка."
+msgstr "ГССАПИ библиотека не може да поврати меморију са gss_release_buffer() у САСЛ библиотеци.  Ово је озбиљна унутрашња грешка."
 
 #: src/error.c:132
 msgid "GSSAPI library could not understand a peer name in gss_import_name() in SASL library.  This is most likely due to incorrect service and/or hostnames."
-msgstr "ГССАПИ библиотека не разуме назив парњака у gss_import_name() у САСЛ библиотеци. Ово је највероватније због погрешне услуге и/или назива рачунара."
+msgstr "ГССАПИ библиотека не разуме назив парњака у gss_import_name() у САСЛ библиотеци.  Ово је највероватније због погрешне услуге и/или назива рачунара."
 
 #: src/error.c:136
 msgid "GSSAPI error in client while negotiating security context in gss_init_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
-msgstr "ГССАПИ грешка код клијента током уговарања заштитног склопа у gss_init_sec_context() у САСЛ библиотеци. Ово је највероватније због недовољних уверења или злонамерних активности."
+msgstr "ГССАПИ грешка код клијента током уговарања заштитног склопа у gss_init_sec_context() у САСЛ библиотеци.  Ово је највероватније због недовољних уверења или злонамерних активности."
 
 #: src/error.c:140
 msgid "GSSAPI error in server while negotiating security context in gss_accept_sec_context() in SASL library.  This is most likely due insufficient credentials or malicious interactions."
-msgstr "ГССАПИ грешка код сервера током уговарања заштитног склопа у gss_accept_sec_context() у САСЛ библиотеци. Ово је највероватније због недовољних уверења или злонамерних активности."
+msgstr "ГССАПИ грешка код сервера током уговарања заштитног склопа у gss_accept_sec_context() у САСЛ библиотеци.  Ово је највероватније због недовољних уверења или злонамерних активности."
 
 #: src/error.c:144
 msgid "GSSAPI error while decrypting or decoding data in gss_unwrap() in SASL library.  This is most likely due to data corruption."
-msgstr "ГССАПИ грешка током дешифровања или декодирања података у gss_unwrap() у САСЛ библиотеци. Ово је највероватније због грешке у подацима."
+msgstr "ГССАПИ грешка током дешифровања или декодирања података у gss_unwrap() у САСЛ библиотеци.  Ово је највероватније због грешке у подацима."
 
 #: src/error.c:147
 msgid "GSSAPI error while encrypting or encoding data in gss_wrap() in SASL library."
@@ -187,11 +187,11 @@ msgstr "ГССАПИ грешка током шифровања или коди�
 
 #: src/error.c:150
 msgid "GSSAPI error acquiring credentials in gss_acquire_cred() in SASL library.  This is most likely due to not having the proper Kerberos key available in /etc/krb5.keytab on the server."
-msgstr "ГССАПИ грешка при прибављању уверења у gss_acquire_cred() у САСЛ библиотеци. Ово је највероватније зато што се немају одговарајући керберос кључеви у „/etc/krb5.keytab“ на серверу."
+msgstr "ГССАПИ грешка при прибављању уверења у gss_acquire_cred() у САСЛ библиотеци.  сОво је највероватније зато што се немају одговарајући керберос кључеви у „/etc/krb5.keytab“ на серверу."
 
 #: src/error.c:154
 msgid "GSSAPI error creating a display name denoting the client in gss_display_name() in SASL library.  This is probably because the client supplied bad data."
-msgstr "ГССАПИ грешка приликом стварања приказаног назива које одређује клијента у gss_display_name() у САСЛ библиотеци. Ово је највероватније зато што је клијент доставио лоше податке."
+msgstr "ГССАПИ грешка приликом стварања приказаног назива које одређује клијента у gss_display_name() у САСЛ библиотеци.  Ово је највероватније зато што је клијент доставио лоше податке."
 
 #: src/error.c:158
 msgid "Other entity requested integrity or confidentiality protection in GSSAPI mechanism but this is currently not implemented."
@@ -277,6 +277,18 @@ msgstr "ГССАПИ грешка приликом отпуштања ОИБ с�
 msgid "Authentication failed because a tls-unique CB was not provided."
 msgstr "Потврда идентитета није успела јер није дато тлс-јединствени ЦБ."
 
-#: src/error.c:224
+#: src/error.c:204
+msgid "Callback failed to provide SAML20 IdP identifier."
+msgstr "Повратни позив није успео да обезбеди САМЛ20 ИдП означавач."
+
+#: src/error.c:206
+msgid "Callback failed to provide SAML20 redirect URL."
+msgstr "Повратни позив није успео да обезбеди САМЛ20 адресу преусмерења."
+
+#: src/error.c:208
+msgid "Callback failed to provide OPENID20 redirect URL."
+msgstr "Повратни позив није успео да обезбеди ОПЕНИД20 адресу преусмерења."
+
+#: src/error.c:230
 msgid "Libgsasl unknown error"
 msgstr "Непозната грешка Либгсасла"
