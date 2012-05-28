@@ -1,5 +1,5 @@
 To: help-gsasl@gnu.org, info-gnu@gnu.org
-Subject: GNU SASL 1.7.5 released (development version)
+Subject: GNU SASL 1.7.6 released (development version)
 <#part sign=pgpmime>
 GNU SASL is a modern C library that implement the standard network
 security protocol Simple Authentication and Security Layer (SASL).  The
@@ -8,7 +8,7 @@ GNU SASL can be used by network applications for IMAP, SMTP, XMPP and
 similar protocols to provide authentication services.  Support for the
 more recent SCRAM-SHA-1, OPENID20 and SAML20 mechanisms is included.
 
-Note!  This is the third release candidate of 1.8.0.  Please test this
+Note!  This is the fourth release candidate of 1.8.0.  Please test this
 release as if it were a new stable release that replaces the earlier
 1.4.x and 1.6.x branches.  It should be a drop-in.  I plan to make the
 final release later this month.
@@ -54,17 +54,17 @@ invited to join our help-gsasl mailing list, see:
   https://lists.gnu.org/mailman/listinfo/help-gsasl
 
 Here are the compressed sources of the entire package:
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.5.tar.gz (4.7MB)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.5.tar.gz.sig (OpenPGP)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.6.tar.gz (4.7MB)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.6.tar.gz.sig (OpenPGP)
 
 Here are the compressed sources of the LGPL library (included above):
-  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.5.tar.gz (1.2MB)
-  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.5.tar.gz.sig (OpenPGP)
+  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.6.tar.gz (1.2MB)
+  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.6.tar.gz.sig (OpenPGP)
 
 We also provide pre-built Windows binaries:
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.5-x86.zip (32-bit)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.5-x64.zip (64-bit)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.5-x86-kfw322.zip (32-bit Kerberos)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.6-x86.zip (32-bit)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.6-x64.zip (64-bit)
+  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.6-x86-kfw322.zip (32-bit Kerberos)
 
 For code coverage, cyclomatic code complexity charts and clang output see:
   https://www.gnu.org/software/gsasl/coverage/
@@ -88,20 +88,20 @@ The key is available from:
 
 Here are the SHA-1 and SHA-224 checksums:
 
-d23a45e54e91386f3af62aba6786cafaabd5ee68  gsasl-1.7.5.tar.gz
-b54d4bc18288df51da4a1ecce3c05bd52b76311eedeea789abda72b9  gsasl-1.7.5.tar.gz
+0a2961b1d1dffb0ea2c2fe44027ccbd1bd3d6d0c  gsasl-1.7.6.tar.gz
+a5b0ed6e6285031dafb8593cd2e1434bd2cbfd1a55e8a3c6dd2df5eb  gsasl-1.7.6.tar.gz
 
-fb5a3b6a46e9b6f26ffc9d5cc2a78613bfb079b5  libgsasl-1.7.5.tar.gz
-25a3038db4600b63d7b9edc7d722fa41bf4c17c48241ce5caab03077  libgsasl-1.7.5.tar.gz
+283d80c9710a07b96810d52d64649355d51f1d40  libgsasl-1.7.6.tar.gz
+95e1d22fa57ee28290f1a5c4247c153cba9367ba940f77f11b8f15be  libgsasl-1.7.6.tar.gz
 
-a80cff08d5e5fb8e1ab37d5ec14ae72de0081f53  gsasl-1.7.5-x86.zip
-311ded0b88ed1252e6c0d1094b50f6a7d440ade0ed89be0f29ac264f  gsasl-1.7.5-x86.zip
+b24f446d0f9533b657f5a9f2f912ef7897f2f180  gsasl-1.7.6-x86.zip
+fb062a3114bcd3a689499502bc06721eac312bbec82ebec3c73eb117  gsasl-1.7.6-x86.zip
 
-9b7c20fd2ae30b68f732c73e30d90a8c638afbcc  gsasl-1.7.5-x86-kfw322.zip
-afc303594a5cb7a86b36a15c49a847e6f43ea8414369c572c1018c55  gsasl-1.7.5-x86-kfw322.zip
+b2a989113a9f7690781d48ae271eb554c0236334  gsasl-1.7.6-x86-kfw322.zip
+cb71c3f061a1019d97aecc39a75a4e71cb6ff02907f543dcfe8bf50a  gsasl-1.7.6-x86-kfw322.zip
 
-16ade995cbc87e25f40915854903970421fc2de8  gsasl-1.7.5-x64.zip
-38c801cf510c024f2de5f43b6451c3febc74cf469e15634dadcc89c2  gsasl-1.7.5-x64.zip
+55444357e9a5aa32a7949a62aa0101853824934e  gsasl-1.7.6-x64.zip
+2710e6c62f61189189011bce9fdaf5ef6bc7f47efea8772025ee40df  gsasl-1.7.6-x64.zip
 
 Happy hacking,
 Simon
