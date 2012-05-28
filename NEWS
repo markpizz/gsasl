@@ -6,6 +6,19 @@ Note that changes to the GNU SASL Library is documented in lib/NEWS.
 This file track changes to the remaining, non-library, parts of GNU
 SASL.  That include the manual, the command line tool, and self tests.
 
+* Version 1.8.0 (unreleased) [stable]
+
+** This is a new major stable release.  Brief changes compared to 1.6.x:
+
+*** SAML20 support following RFC 6595.
+
+*** OPENID20 support following RFC 6616.
+
+*** Added SMTP server examples (for e.g., SCRAM, SAML20, OPENID20).
+
+*** Various cleanups, portability and other bug fixes.
+See the NEWS entries during the 1.7.x branch for details.
+
 * Version 1.7.6 (released 2012-05-23) [beta]
 
 ** i18n: Updated translations.

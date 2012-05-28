@@ -2,6 +2,20 @@ GNU SASL LIBRARY NEWS -- History of user-visible changes.
 Copyright (C) 2002-2012 Simon Josefsson
 See the end for copying conditions.
 
+* Version 1.8.0 (unreleased) [stable]
+
+** This is a new major stable release.  Brief changes compared to 1.6.x:
+
+*** SAML20 support following RFC 6595.
+
+*** OPENID20 support following RFC 6616.
+
+*** Various cleanups, portability and other bug fixes.
+See the NEWS entries during the 1.7.x branch for details.
+
+** API and ABI modifications.
+No changes since last version.
+
 * Version 1.7.6 (released 2012-05-23) [beta]
 
 ** i18n: Updated translations.
