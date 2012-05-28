@@ -1,5 +1,5 @@
 To: help-gsasl@gnu.org, info-gnu@gnu.org
-Subject: GNU SASL 1.7.6 released (development version)
+Subject: GNU SASL 1.8.0 released (new stable branch)
 <#part sign=pgpmime>
 GNU SASL is a modern C library that implement the standard network
 security protocol Simple Authentication and Security Layer (SASL).  The
@@ -8,16 +8,20 @@ GNU SASL can be used by network applications for IMAP, SMTP, XMPP and
 similar protocols to provide authentication services.  Support for the
 more recent SCRAM-SHA-1, OPENID20 and SAML20 mechanisms is included.
 
-Note!  This is the fourth release candidate of 1.8.0.  Please test this
-release as if it were a new stable release that replaces the earlier
-1.4.x and 1.6.x branches.  It should be a drop-in.  I plan to make the
-final release later this month.
+* Version 1.8.0 (released 2012-05-28) [stable]
 
-NEWS entries:
+** This is a new major stable release.  Brief changes compared to 1.6.x:
 
-** i18n: Updated translations.
+*** SAML20 support following RFC 6595.
 
-** Build fixes.
+*** OPENID20 support following RFC 6616.
+
+*** Added SMTP server examples (for e.g., SCRAM, SAML20, OPENID20).
+
+*** Various cleanups, portability and other bug fixes.
+See the NEWS entries during the 1.7.x branch for details.
+
+** The API and ABI is fully backwards compatible with version 1.6.x.
 
 Improving GNU SASL is costly, but you can help!  We are looking for
 organizations that find GNU SASL useful and wish to contribute back.
@@ -54,17 +58,17 @@ invited to join our help-gsasl mailing list, see:
   https://lists.gnu.org/mailman/listinfo/help-gsasl
 
 Here are the compressed sources of the entire package:
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.6.tar.gz (4.7MB)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.6.tar.gz.sig (OpenPGP)
+  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.8.0.tar.gz (4.7MB)
+  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.8.0.tar.gz.sig (OpenPGP)
 
 Here are the compressed sources of the LGPL library (included above):
-  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.6.tar.gz (1.2MB)
-  ftp://alpha.gnu.org/gnu/gsasl/libgsasl-1.7.6.tar.gz.sig (OpenPGP)
+  ftp://ftp.gnu.org/gnu/gsasl/libgsasl-1.8.0.tar.gz (1.2MB)
+  ftp://ftp.gnu.org/gnu/gsasl/libgsasl-1.8.0.tar.gz.sig (OpenPGP)
 
 We also provide pre-built Windows binaries:
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.6-x86.zip (32-bit)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.6-x64.zip (64-bit)
-  ftp://alpha.gnu.org/gnu/gsasl/gsasl-1.7.6-x86-kfw322.zip (32-bit Kerberos)
+  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.8.0-x86.zip (32-bit)
+  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.8.0-x64.zip (64-bit)
+  ftp://ftp.gnu.org/gnu/gsasl/gsasl-1.8.0-x86-kfw322.zip (32-bit Kerberos)
 
 For code coverage, cyclomatic code complexity charts and clang output see:
   https://www.gnu.org/software/gsasl/coverage/
@@ -88,20 +92,20 @@ The key is available from:
 
 Here are the SHA-1 and SHA-224 checksums:
 
-0a2961b1d1dffb0ea2c2fe44027ccbd1bd3d6d0c  gsasl-1.7.6.tar.gz
-a5b0ed6e6285031dafb8593cd2e1434bd2cbfd1a55e8a3c6dd2df5eb  gsasl-1.7.6.tar.gz
+343fd97ae924dc406986c02fb9b889f4114239ae  gsasl-1.8.0.tar.gz
+e22b0c89a2d52c0632d79193c17be6cb8fbf15d54a8de9e9da166aab  gsasl-1.8.0.tar.gz
 
-283d80c9710a07b96810d52d64649355d51f1d40  libgsasl-1.7.6.tar.gz
-95e1d22fa57ee28290f1a5c4247c153cba9367ba940f77f11b8f15be  libgsasl-1.7.6.tar.gz
+08fd5dfdd3d88154cf06cb0759a732790c47b4f7  libgsasl-1.8.0.tar.gz
+aec151fc10d45f654fd6a37fe5b96171e0cb7cba6901304928732be0  libgsasl-1.8.0.tar.gz
 
-b24f446d0f9533b657f5a9f2f912ef7897f2f180  gsasl-1.7.6-x86.zip
-fb062a3114bcd3a689499502bc06721eac312bbec82ebec3c73eb117  gsasl-1.7.6-x86.zip
+d0d50fde3d2b45c265c16a4c383e02c466ce5a05  gsasl-1.8.0-x86.zip
+57e8f057b867c6fcac6449f767fa2bfea9b4616e77bdefd76ce17855  gsasl-1.8.0-x86.zip
 
-b2a989113a9f7690781d48ae271eb554c0236334  gsasl-1.7.6-x86-kfw322.zip
-cb71c3f061a1019d97aecc39a75a4e71cb6ff02907f543dcfe8bf50a  gsasl-1.7.6-x86-kfw322.zip
+5aec37928fc72e700ba71b5617bfc4b32bc873a1  gsasl-1.8.0-x64.zip
+cb1fdf45e704c3f25b86e30bdf43431797c4497abbddef10083c5516  gsasl-1.8.0-x64.zip
 
-55444357e9a5aa32a7949a62aa0101853824934e  gsasl-1.7.6-x64.zip
-2710e6c62f61189189011bce9fdaf5ef6bc7f47efea8772025ee40df  gsasl-1.7.6-x64.zip
+17557c8e959fbe913fd82042b182891a48fbac07  gsasl-1.8.0-x86-kfw322.zip
+399f10aa6fc71ae06577e90a13fe73cd4e88eaf2eb9c78cf01bfaede  gsasl-1.8.0-x86-kfw322.zip
 
 Happy hacking,
 Simon
