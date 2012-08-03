@@ -1,36 +1,37 @@
-# Slovak translation of gsasl
-# Copyright (C) 2007 Free Software Foundation, Inc.
+# Translation of gsasl to Croatian.
+# Copyright (C) 2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gsasl package.
-# Ivan Masár <helix84@centrum.sk>, 2009, 2010, 2012.
 #
+# Tomislav Krznar <tomislav.krznar@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: gsasl 1.7.4\n"
 "Report-Msgid-Bugs-To: bug-gsasl@gnu.org\n"
 "POT-Creation-Date: 2012-05-16 00:55+0200\n"
-"PO-Revision-Date: 2012-07-03 01:00+0100\n"
-"Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
-"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
-"Language: sk\n"
+"PO-Revision-Date: 2012-07-05 18:42+0200\n"
+"Last-Translator: Tomislav Krznar <tomislav.krznar@gmail.com>\n"
+"Language-Team: Croatian <lokalizacija@linux.hr>\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: src/imap.c:76 src/smtp.c:79
 #, c-format
 msgid "Chose SASL mechanisms:\n"
-msgstr "Vyberte mechanizmy SASL:\n"
+msgstr "Odaberite SASL mehanizme:\n"
 
 #: src/imap.c:106 src/smtp.c:113 src/gsasl.c:206
 #, c-format
 msgid "Using mechanism:\n"
-msgstr "Používa sa mechanizmus:\n"
+msgstr "Koristim mehanizam:\n"
 
 #: src/imap.c:180
 #, c-format
 msgid "error: server did not return a token\n"
-msgstr "chyba: server nevrátil token\n"
+msgstr "greška: poslužitelj nije vratio simbol\n"
 
 #: src/smtp.c:192
 #, c-format
@@ -38,254 +39,230 @@ msgid ""
 "error: could not parse server data:\n"
 "%s\n"
 msgstr ""
-"chyba: nebolo možné spracovať dáta servera:\n"
+"greška: ne mogu obraditi podatke poslužitelja:\n"
 "%s\n"
 
 #: src/gsasl.c:178
 #, c-format
 msgid "Choose SASL mechanism:\n"
-msgstr "Vyberte mechanizmus SASL:\n"
+msgstr "Odaberite SASL mehanizam:\n"
 
 #: src/gsasl.c:187
 #, c-format
 msgid "Input list of SASL mechanisms supported by server:\n"
-msgstr "Vstupný zoznam mechanizmov SASL, ktoré server podporuje:\n"
+msgstr "Ulazni popis SASL mehanizama koje podržava poslužitelj:\n"
 
 #: src/gsasl.c:223
 #, c-format
 msgid "Output from server:\n"
-msgstr "Výstup zo servera:\n"
+msgstr "Ispis poslužitelja:\n"
 
 #: src/gsasl.c:225
 #, c-format
 msgid "Output from client:\n"
-msgstr "Výstup od klienta:\n"
+msgstr "Ispis klijenta:\n"
 
 #: src/gsasl.c:272
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Viac informácií získate pomocou „%s --help“.\n"
+msgstr "Pokušajte „%s --help” za više informacija.\n"
 
 #: src/gsasl.c:327
 #, c-format
 msgid "missing argument"
-msgstr "chýba argument"
+msgstr "nedostaje argument"
 
 #: src/gsasl.c:334
 #, c-format
 msgid "need both --x509-cert-file and --x509-key-file"
-msgstr "vyžadujú sa oba argumenty: --x509-cert-file aj --x509-key-file"
+msgstr "zahtijeva i --x509-cert-file i --x509-key-file"
 
 #: src/gsasl.c:338
 #, c-format
 msgid "cannot use both --starttls and --no-starttls"
-msgstr "nemožno použiť súčasne --starttls a --no-starttls"
+msgstr "ne mogu koristiti i --starttls i --no-starttls"
 
 #: src/gsasl.c:341
 #, c-format
 msgid "cannot use both --smtp and --imap"
-msgstr "nemožno použiť súčasne --smtp a --imap"
+msgstr "ne mogu koristiti i --smtp i --imap"
 
 #: src/gsasl.c:407
 #, c-format
 msgid "initialization failure: %s"
-msgstr "chyba inicializácie: %s"
+msgstr "greška inicijalizacije: %s"
 
 #: src/gsasl.c:422
 #, c-format
 msgid "error listing mechanisms: %s"
-msgstr "chyba pri výpise zoznamu mechanizmov: %s"
+msgstr "greška ispisa mehanizama: %s"
 
 #: src/gsasl.c:429
 #, c-format
 msgid "This client supports the following mechanisms:\n"
-msgstr "Tento klient podporuje nasledovné mechanizmy:\n"
+msgstr "Ovaj klijent podržava sljedeće mehanizme:\n"
 
 #: src/gsasl.c:432
 #, c-format
 msgid "This server supports the following mechanisms:\n"
-msgstr "Tento server podporuje nasledovné mechanizmy:\n"
+msgstr "Ovaj poslužitelj podržava sljedeće mehanizme:\n"
 
 #: src/gsasl.c:494
 #, c-format
 msgid "GnuTLS global initialization failed: %s"
-msgstr "globálna inicializácia GnuTLS zlyhala: %s"
+msgstr "GnuTLS globalna inicijalizacija nije uspjela: %s"
 
 #: src/gsasl.c:499
 #, c-format
 msgid "GnuTLS initialization failed: %s"
-msgstr "inicializácia GnuTLS zlyhala: %s"
+msgstr "GnuTLS inicijalizacija nije uspjela: %s"
 
 #: src/gsasl.c:504
 #, c-format
 msgid "setting GnuTLS defaults failed: %s"
-msgstr "nastavenie predvolených hodnôt GnuTLS zlyhalo: %s"
+msgstr "postavljanje GnuTLS zadanih postavki nije uspjelo: %s"
 
 #: src/gsasl.c:510
 #, c-format
 msgid "allocating anonymous GnuTLS credential: %s"
-msgstr "vyhradzujú sa anonymné overovacie údaje GnuTLS: %s"
+msgstr "alociram anonimnu GnuTLS vjerodajnicu: %s"
 
 #: src/gsasl.c:515
 #, c-format
 msgid "setting anonymous GnuTLS credential: %s"
-msgstr "nastavujú sa anonymné overovacie údaje GnuTLS: %s"
+msgstr "postavljam anonimnu GnuTLS vjerodajnicu: %s"
 
 #: src/gsasl.c:520
 #, c-format
 msgid "allocating X.509 GnuTLS credential: %s"
-msgstr "vyhradzujú sa X.509 overovacie údaje GnuTLS: %s"
+msgstr "alociram X.509 GnuTLS vjerodajnicu: %s"
 
 #: src/gsasl.c:528
 #, c-format
 msgid "loading X.509 GnuTLS credential: %s"
-msgstr "načítavajú sa X.509 overovacie údaje GnuTLS: %s"
+msgstr "učitavam X.509 GnuTLS vjerodajnicu: %s"
 
 #: src/gsasl.c:536
 #, c-format
 msgid "no X.509 CAs found: %s"
-msgstr "neboli nájdené žiadne X.509 certifikačné autority: %s"
+msgstr "nijedan X.509 CA nije pronađen: %s"
 
 #: src/gsasl.c:539
 #, c-format
 msgid "no X.509 CAs found"
-msgstr "neboli nájdené žiadne X.509 certifikačné autority"
+msgstr "nijedan X.509 CA nije pronađen"
 
 #: src/gsasl.c:545
 #, c-format
 msgid "setting X.509 GnuTLS credential: %s"
-msgstr "nastavujú sa X.509 overovacie údaje GnuTLS: %s"
+msgstr "postavljam X.509 GnuTLS vjerodajnicu: %s"
 
 #: src/gsasl.c:556
 #, c-format
 msgid "setting GnuTLS cipher priority (%s): %s\n"
-msgstr "nastavuje sa priorita šifier GnuTLS (%s): %s\n"
+msgstr "postavljam GnuTLS prioritet šifriranja (%s): %s\n"
 
 #: src/gsasl.c:568
 #, c-format
 msgid "GnuTLS handshake failed: %s"
-msgstr "zlyhal GnuTLS handshake: %s"
+msgstr "GnuTLS rukovanje nije uspjelo: %s"
 
 #: src/gsasl.c:577
 #, c-format
 msgid "verifying peer certificate: %s"
-msgstr "overuje sa certifikát druhej strany: %s"
+msgstr "provjeravam certifikat člana: %s"
 
 #: src/gsasl.c:581
 #, c-format
 msgid "server certificate is not trusted"
-msgstr "certifikát servera nie je dôveryhodný"
+msgstr "certifikat poslužitelja nije pouzdan"
 
 #: src/gsasl.c:585
 #, c-format
 msgid "server certificate hasn't got a known issuer"
-msgstr "certifikát servera nemá známeho vydavateľa"
+msgstr "certifikat poslužitelja nema poznatog izdavatelja"
 
 #: src/gsasl.c:588
 #, c-format
 msgid "server certificate has been revoked"
-msgstr "certifikát servera bol odvolaný"
+msgstr "certifikat poslužitelja je ukinut"
 
 #: src/gsasl.c:592
 #, c-format
 msgid "could not verify server certificate (rc=%d)"
-msgstr "certifikát servera sa nepodarilo overiť (rc=%d)"
+msgstr "ne mogu provjeriti certifikat poslužitelja (rc=%d)"
 
 #: src/gsasl.c:603
 #, c-format
 msgid "getting channel binding failed: %s"
-msgstr "zlyhalo získavanie väzby kanála: %s"
+msgstr ""
 
 #: src/gsasl.c:633
 #, c-format
 msgid "Cannot find mechanism...\n"
-msgstr "Nepodarilo sa nájsť mechanizmus...\n"
+msgstr "Ne mogu pronaći mehanizam...\n"
 
 #: src/gsasl.c:650
 #, c-format
 msgid "mechanism unavailable: %s"
-msgstr "mechanizmus nie je dostupný: %s"
+msgstr "mehanizam nije dostupan: %s"
 
 #: src/gsasl.c:678
 #, c-format
 msgid "Enter base64 authentication data from client (press RET if none):\n"
-msgstr "Zadajte overovacie údaje v base64 od klienta (ak žiadne, stlačte Enter):\n"
+msgstr "Unesite base64 podatke ovjere klijenta (pritisnite RET ako ih nema):\n"
 
 #: src/gsasl.c:681
 #, c-format
 msgid "Enter base64 authentication data from server (press RET if none):\n"
-msgstr "Zadajte overovacie údaje v base64 od servera (ak žiadne, stlačte Enter):\n"
+msgstr "Unesite base64 podatke ovjere poslužitelja (pritisnite RET ako ih nema):\n"
 
 #: src/gsasl.c:691
 #, c-format
 msgid "server error"
-msgstr "chyba servera"
+msgstr "greška poslužitelja"
 
 #: src/gsasl.c:699
 #, c-format
 msgid "mechanism error: %s"
-msgstr "chyba mechanizmu: %s"
+msgstr "greška mehanizma: %s"
 
 #: src/gsasl.c:705
 #, c-format
 msgid "Server authentication finished (client trusted)...\n"
-msgstr "Overenie u servera dokončené (klient je dôveryhodný)...\n"
+msgstr "Ovjera poslužitelja završena (klijent je pouzdan)...\n"
 
 #: src/gsasl.c:708
 #, c-format
 msgid "Client authentication finished (server trusted)...\n"
-msgstr "Overenie u klienta dokončené (server je dôveryhodný)...\n"
+msgstr "Ovjera klijenta završena (poslužitelj je pouzdan)...\n"
 
 #: src/gsasl.c:733
 #, c-format
 msgid "Enter application data (EOF to finish):\n"
-msgstr "Zadajte dáta aplikácie (ukončite pomocou EOF):\n"
+msgstr "Unesite programske podatke (EOF za završetak):\n"
 
 #: src/gsasl.c:804
 #, c-format
 msgid "Base64 encoded application data to send:\n"
-msgstr "Dáta aplikácie v base64, ktoré sa majú poslať:\n"
+msgstr "Base64 kodirani programski podaci za slanje:\n"
 
 #: src/gsasl.c:850
 #, c-format
 msgid "SASL record too large: %zu\n"
-msgstr "Záznam SASL je príliš veľký: %zu\n"
+msgstr "SASL zapis je prevelik: %zu\n"
 
 #: src/gsasl.c:874
 #, c-format
 msgid "encoding error: %s"
-msgstr "chyba kódovania: %s"
+msgstr "greška kodiranja: %s"
 
 #: src/gsasl.c:879
 #, c-format
 msgid "Session finished...\n"
-msgstr "Relácia dokončená...\n"
+msgstr "Sjednica završena...\n"
 
 #: src/gsasl.c:895
 #, c-format
 msgid "terminating GnuTLS session failed: %s"
-msgstr "ukončenie relácie GnuTLS zlyhalo: %s"
-
-#~ msgid ""
-#~ "error: Server did not return expected SASL data (it must begin with '+ '):\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "chyba: Server nevrátil očakávané údaje SASL (musia začínať „+ “):\n"
-#~ "%s\n"
-
-#~ msgid ""
-#~ "error: Server did not return expected SASL data (it must begin with '334 '):\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "chyba: Server nevrátil očakávané údaje SASL (musia začínať „334 “):\n"
-#~ "%s\n"
-
-#~ msgid "Cannot initialize Windows sockets."
-#~ msgstr "Nepodarilo sa inicializovať Windows sockets."
-
-#~ msgid ""
-#~ "missing argument\n"
-#~ "Try `%s --help' for more information."
-#~ msgstr ""
-#~ "chýba argument\n"
-#~ "Viac informácií získate pomocou „%s --help“."
+msgstr "prekidanje GnuTLS sjednice nije uspjelo: %s"
