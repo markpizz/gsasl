@@ -523,8 +523,8 @@ want to limit the size of the library.
 Disable or enable individual mechanisms (@pxref{Mechanisms}).
 
 @item --without-stringprep
-Disable internationalized string processing.  Note that this will
-result in a SASL library that is only compatible with RFC 2222.
+Disable internationalized string processing.  Note that this will result
+in a SASL library that is compatible with RFC 2222 but not RFC 4422.
 
 @end table
 
@@ -1709,16 +1709,18 @@ entirely dependent on callbacks.
 @node EXTERNAL
 @section The EXTERNAL mechanism
 
-The EXTERNAL mechanism is used to authenticate a user to a server
-based on out-of-band authentication.  EXTERNAL is typically used over
-TLS authenticated channels.  Note that in the server, you need to make
-sure that TLS actually authenticated the client successfully.  It is
-normally not sufficient to use TLS, since it also supports anonymous
-modes.
+The EXTERNAL mechanism is used to authenticate a user to a server based
+on out-of-band authentication.  EXTERNAL is typically used over TLS
+authenticated channels.  Note that in the server, you need to make sure
+that TLS actually authenticated the client successfully and that the
+negotiated ciphersuite and other parameters are acceptable.  It is
+generally not sufficient that TLS is used, since TLS supports anonymous
+and other variants that generally provide less assurance than you
+normally want.
 
 In the client, this mechanism is always enabled, and it will send the
 @code{GSASL_AUTHZID} property as the authorization name to the server,
-if the property is set.  If the property is not set, the empty
+if the property is set.  If the property is not set, an empty
 authorization name is sent.  You need not implement a callback.
 
 In the server, this mechanism will request the
@@ -1727,14 +1729,17 @@ client is authenticated and authorized to log in.  Your callback can
 retrieve the @code{GSASL_AUTHZID} property to inspect the requested
 authorization name from the client.
 
+The EXTERNAL mechanism was initially specified in the core SASL
+framework RFC 2222 and later revised in RFC 4422.
+
 @node ANONYMOUS
 @section The ANONYMOUS mechanism
 
-The ANONYMOUS mechanism is used to ``authenticate'' clients to
-anonymous services; or rather, just indicate that the client wishes to
-use the service anonymously.  The client sends a token, usually her
-email address, which serve the purpose of some trace information
-suitable for log files.  The token is not permitted to be empty.
+The ANONYMOUS mechanism is used to ``authenticate'' clients to anonymous
+services; or rather, just indicate that the client wishes to use the
+service anonymously.  The client sends a token, usually her email
+address, which serve the purpose of some trace information suitable for
+logging.  The token cannot be empty.
 
 In the client, this mechanism is always enabled, and will send the
 @code{GSASL_ANONYMOUS_TOKEN} property as the trace information to the
@@ -1743,9 +1748,12 @@ server.
 In the server, this mechanism will invoke the
 @code{GSASL_VALIDATE_ANONYMOUS} callback to decide whether the client
 should be permitted to log in.  Your callback can retrieve the
-@code{GSASL_ANONYMOUS_TOKEN} property to, for example, save it in a
+@code{GSASL_ANONYMOUS_TOKEN} property to, for example, record it in a
 log file.  The token is normally not used to decide whether the client
 should be permitted to log in or not.
+
+The ANONYMOUS mechanism was initially specified in RFC 2245 and later
+revised in RFC 4505.
 
 @node PLAIN
 @section The PLAIN mechanism
@@ -1753,12 +1761,13 @@ should be permitted to log in or not.
 The PLAIN mechanism uses username and password to authenticate users.
 Two user names are relevant.  The first, the authentication identity,
 indicates the credential holder, i.e., whom the provided password
-belongs to.  The second, the authorization identity, is typically
-empty, to indicate that the user requests to log on to the server as
-herself.  However, if the authorization identity is not empty, the
-server should decide whether the authenticated user may log on as the
-authorization identity.  Normally, only ``super-user'' accounts such
-as @samp{admin} or similar should be allowed this.
+belongs to.  The second, the authorization identity, is typically empty
+to indicate that the user requests to log on to the server as herself
+(i.e., the authentication identity).  If the authorization identity is
+not empty, the server should decide whether the authenticated user may
+log on as the authorization identity.  This is typically used for
+super-user accounts like @samp{admin} to take on the role of a regular
+user.
 
 In the client, this mechanism is always enabled, and require the
 @code{GSASL_AUTHID} and @code{GSASL_PASSWORD} properties.  If set,
@@ -1773,20 +1782,23 @@ the client should be accepted or not.  The callback may inspect the
 @code{GSASL_AUTHID}, @code{GSASL_AUTHZID}, and @code{GSASL_PASSWORD}
 properties.  These property values will be normalized.
 
-If the first approach fails (because, e.g., your callback returns
-@samp{GSASL_NO_CALLBACK} to signal that it does not implement
-@code{GSASL_VALIDATE_SIMPLE}) the mechanism will continue to query the
-application for a password, via the @code{GSASL_PASSWORD} property.
-Your callback may use the @code{GSASL_AUTHID} and @code{GSASL_AUTHZID}
-properties to select the proper password.  The password is then
-normalized and compared to the client credential.
+If the first approach fails (because there is no callback or your
+callback returns @samp{GSASL_NO_CALLBACK} to signal that it does not
+implement @code{GSASL_VALIDATE_SIMPLE}) the mechanism will continue to
+query the application for a password, via the @code{GSASL_PASSWORD}
+property.  Your callback may use the @code{GSASL_AUTHID} and
+@code{GSASL_AUTHZID} properties to select the proper password.  The
+password is then normalized and compared to the client credential.
 
 Which approach to use?  If your database stores hashed passwords, you
 have no option, but must use the first approach.  If passwords in your
-user database are stored in prepared (SASLprep) form, the
-first approach will be faster.  If you do not have prepared passwords
-available, you can use the second approach to make sure the password
-is prepared properly before comparison.
+user database are stored in prepared (SASLprep) form, the first approach
+will be faster.  If you do not have prepared passwords available, you
+can use the second approach to make sure the password is prepared
+properly before comparison.
+
+The PLAIN mechanism was initially specified in RFC 2595 and later
+revised in RFC 4616.
 
 @node LOGIN
 @section The LOGIN mechanism
@@ -1806,17 +1818,19 @@ interpretation of a hypothetical LOGIN specification.
 @section The CRAM-MD5 mechanism
 @cindex CRAM-MD5
 
-The CRAM-MD5 is a widely used, but officially deprecated (apparently
-in favor of DIGEST-MD5), challenge-response mechanism that transfers
-hashed passwords instead of clear text passwords.  For insecure
-channels (e.g., when TLS is not used), it is safer than
-PLAIN.  The CRAM-MD5 mechanism does not support authorization
-identities; making the relationship between CRAM-MD5 and DIGEST-MD5
-similar to the relationship between LOGIN and PLAIN.
+CRAM-MD5 is a widely used challenge-response mechanism that transfers
+hashed passwords instead of clear text passwords.  It is official
+deprecated, initially in favor of first DIGEST-MD5 but today
+SCRAM-SHA-1.  For insecure channels (e.g., when TLS is not used), it is
+has better properties than PLAIN since the unhashed password is not
+leaked.  The CRAM-MD5 mechanism does not support authorization
+identities; that make the relationship between CRAM-MD5 and
+DIGEST-MD5/SCRAM-SHA-1 similar to the relationship between LOGIN and
+PLAIN.
 
 The disadvantage with hashed passwords is that the server cannot use
 normal authentication infrastructures such as PAM, because the server
-must have access to the correct password in order to validate an
+must have access to the unhashed password in order to validate every
 authentication attempt.
 
 In the client, this mechanism is always enabled, and it requires the
@@ -1824,28 +1838,32 @@ In the client, this mechanism is always enabled, and it requires the
 
 In the server, the mechanism will require the @code{GSASL_PASSWORD}
 callback property, which may use the @code{GSASL_AUTHID} property to
-determine which users' password should be used.  The
-@code{GSASL_AUTHID} will be in normalized form.  The server will then
-normalize the returned password, and compare the client response with
-the computed correct response, and accept the user accordingly.
+determine which users' password should be used.  The @code{GSASL_AUTHID}
+will be in normalized form.  The server will then normalize the
+password, and compare the client response with the computed correct
+response, and accept the user accordingly.
 
 @xref{Use of SASLprep in CRAM-MD5}, for a clarification on the
 interpretation of the CRAM-MD5 specification that this implementation
 rely on.
 
+The CRAM-MD5 mechanism was initially specified in RFC 2095 but quickly
+revised in RFC 2195.  Note that both were published before the core SASL
+framework, which explains its lack of authorization identity.
+
 @node DIGEST-MD5
 @section The DIGEST-MD5 mechanism
 @cindex DIGEST-MD5
 
-The DIGEST-MD5 mechanism is based on repeated hashing using MD5, which
-after the MD5 break may be argued to be weaker than HMAC-MD5, but
-supports more features.  For example, authorization identities and
-data integrity and privacy protection are supported.  Like CRAM-MD5,
-only a hashed password is transferred.  Consequently, DIGEST-MD5 needs
-access to the correct password (although it may be hashed, another
-improvement compared to CRAM-MD5) to verify the client response.
-Alas, this makes it impossible to use, e.g., PAM on the
-server side.
+The DIGEST-MD5 mechanism is based on repeated hashing using MD5.  After
+the MD5 break may be argued to be weaker than HMAC-MD5 that CRAM-MD5
+builds on, but DIGEST-MD5 supports other features.  For example,
+authorization identities and data integrity and privacy protection are
+supported.  Like CRAM-MD5, only a hashed password is transferred.
+Consequently, DIGEST-MD5 needs access to the correct password to verify
+the client response -- however the server can store the password in
+hashed form, another improvement compared to CRAM-MD5 .  Alas, this
+makes it impossible to use, e.g., PAM on the server side.
 
 In the client, this mechanism is always enabled, and it requires the
 @code{GSASL_AUTHID}, @code{GSASL_PASSWORD}, @code{GSASL_SERVICE}, and
@@ -1855,12 +1873,12 @@ In the client, this mechanism is always enabled, and it requires the
 In the server, the mechanism will first request the
 @code{GSASL_DIGEST_MD5_HASHED_PASSWORD} callback property to get the
 user's hashed password.  If the callback doesn't supply a hashed
-password, the @code{GSASL_PASSWORD} callback property will be
-requested.  Both callbacks may use the @code{GSASL_AUTHID},
-@code{GSASL_AUTHZID} and @code{GSASL_REALM} properties to determine
-which users' password should be used.  The server will then compare
-the client response with a computed correct response, and accept the
-user accordingly.
+password (i.e., it returns @samp{GSASL_NO_CALLBACK}), the
+@code{GSASL_PASSWORD} callback property will be requested.  Both
+callbacks may use the @code{GSASL_AUTHID}, @code{GSASL_AUTHZID} and
+@code{GSASL_REALM} properties to determine which users' password should
+be used.  The server will then compare the client response with a
+computed correct response, and accept the user accordingly.
 
 The server uses the @code{GSASL_QOPS} callback to get the set of
 quality of protection values to use.  By default, it advertises
@@ -1874,18 +1892,26 @@ values offered by the server (which may be inspected through the
 @code{GSASL_QOPS} property).  If the client does not return a value,
 @code{qop-auth} is used by default.
 
+The security layers of DIGEST-MD5 are rarely used in practice due to
+interoperability and security reasons.  You are recommended to use TLS
+instead.
+
+The DIGEST-MD5 mechanism is specified in RFC 2831.  RFC 6331 labels
+DIGEST-MD5 as historic and it contains a good exposition of the
+disadvantages with DIGEST-MD5.
+
 @node SCRAM-SHA-1
 @section The SCRAM-SHA-1 mechanism
 @cindex SCRAM
 
 The SCRAM-SHA-1 mechanism is designed to provide (almost) the same
-capabilities as CRAM-MD5 and DIGEST-MD5 but use modern cryptographic
-techniques such as HMAC-SHA-1 hashing and PKCS#5 PBKDF2 key
-derivation.  SCRAM-SHA-1 supports authorization identities.  Like
+capabilities that CRAM-MD5 and DIGEST-MD5 provides but use modern
+cryptographic techniques such as HMAC-SHA-1 hashing and PKCS#5 PBKDF2
+key derivation.  SCRAM-SHA-1 supports authorization identities.  Like
 CRAM-MD5 and DIGEST-MD5, only a hashed password is transferred.
-Consequently, SCRAM-SHA-1 needs access to the correct password to
-verify the client response.  Channel bindings are supported through
-the SCRAM-SHA-1-PLUS mechanism.
+Consequently, SCRAM-SHA-1 needs access to the correct password to verify
+the client response.  Channel bindings are supported through the
+SCRAM-SHA-1-PLUS mechanism.
 
 In the client, the non-PLUS mechanism is always enabled, and it
 requires the @code{GSASL_AUTHID} property, and either
@@ -1925,6 +1951,8 @@ does not support channel bindings.
 
 The SCRAM-SHA-1-PLUS mechanism will never complete authentication
 successfully if channel bindings are not confirmed.
+
+The SCRAM-SHA-1 mechanism is specified in RFC 5802.
 
 @node NTLM
 @section The NTLM mechanism
@@ -1968,30 +1996,41 @@ If the callbacks is invoked again, after having returned
 @code{GSASL_PIN} property, in addition to the other properties, to
 find out the client selected PIN code.
 
+The SCRAM-SHA-1 mechanism is specified in RFC 2808.
+
 @node GSSAPI
 @section The GSSAPI mechanism
 @cindex GSSAPI
 
-The GSSAPI mechanism allows you to authenticate using Kerberos V5.
-The mechanism was originally designed to allow for any GSS-API
-mechanism to be used, but problems with the protocol made it
-unpractical and it is today restricted for use with Kerberos V5.  See
-the GS2 mechanism (@pxref{GS2-KRB5}) for a general solution.
+The GSSAPI mechanism allows you to authenticate using Kerberos V5.  The
+mechanism was originally designed to allow for any GSS-API mechanism to
+be used, but problems with the protocol made it unpractical and it is
+today restricted for use with Kerberos V5.  See the GS2 mechanism
+(@pxref{GS2-KRB5}) for a general solution.  However, GSSAPI continues to
+be widely used in Kerberos V5 environments.
 
 In the client, the mechanism is enabled only if the user has acquired
 credentials (i.e., a ticket granting ticket), and it requires the
 @code{GSASL_AUTHID}, @code{GSASL_SERVICE}, and @code{GSASL_HOSTNAME}
-properties.
+properties.  For historical reasons, the @code{GSASL_AUTHID} property is
+actually used to populate the authorization identity claimed by the
+client.
 
 In the server, the mechanism requires the @code{GSASL_SERVICE} and
 @code{GSASL_HOSTNAME} properties, and it will invoke the
-@code{GSASL_VALIDATE_GSSAPI} callback property in order to validate
-the user.  The callback may inspect the @code{GSASL_AUTHZID} and
+@code{GSASL_VALIDATE_GSSAPI} callback property in order to validate the
+user.  The callback may inspect the @code{GSASL_AUTHZID} and
 @code{GSASL_GSSAPI_DISPLAY_NAME} properties to decide whether to
 authorize the user.  Note that authentication is performed by the
-GSS-API library.
+GSS-API library and that @code{GSASL_AUTHID} is not used by the server
+mechanism, its role is played by @code{GSASL_GSSAPI_DISPLAY_NAME}.
 
-XXX: explain more about quality of service, maximum buffer size, etc.
+This implementation does not support security layers.  You are
+recommended to use TLS instead.
+
+The GSSAPI mechanism was specified as part of the initial core SASL
+framework, in RFC 2222, but later revised in RFC 4752 to only apply to
+Kerberos V5.
 
 @node GS2-KRB5
 @section The GS2-KRB5 mechanism
@@ -2000,40 +2039,42 @@ XXX: explain more about quality of service, maximum buffer size, etc.
 
 GS2 is a protocol bridge between GSS-API and SASL, and allows every
 GSS-API mechanism that supports mutual authentication and channel
-bindings to be used as a SASL mechanism.  Currently we support the
-GS2-KRB5 mechanism, for Kerberos V5 authentication, however our GS2
+bindings to be used as a SASL mechanism.  Currently GS2-KRB5 is
+supported, for Kerberos V5 authentication, however our GS2
 implementation is flexible enough to easily support other GSS-API
 mechanism if any gains popularity.
 
 In the client, the mechanism is enabled only if the user has acquired
 credentials (i.e., a ticket granting ticket), and it requires the
-@code{GSASL_AUTHID}, @code{GSASL_SERVICE}, and @code{GSASL_HOSTNAME}
+@code{GSASL_AUTHZID}, @code{GSASL_SERVICE}, and @code{GSASL_HOSTNAME}
 properties.
 
 In the server, the mechanism requires the @code{GSASL_SERVICE} and
 @code{GSASL_HOSTNAME} properties, and it will invoke the
-@code{GSASL_VALIDATE_GSSAPI} callback property in order to validate
-the user.  The callback may inspect the @code{GSASL_AUTHZID} and
+@code{GSASL_VALIDATE_GSSAPI} callback property in order to validate the
+user.  The callback may inspect the @code{GSASL_AUTHZID} and
 @code{GSASL_GSSAPI_DISPLAY_NAME} properties to decide whether to
 authorize the user.  Note that authentication is performed by the
-GSS-API library.
+GSS-API library and that @code{GSASL_AUTHID} is not used by the server
+mechanism, its role is played by @code{GSASL_GSSAPI_DISPLAY_NAME}.
 
 @cindex GS2-KRB5-PLUS
-The GS2 framework supports a variant of each mechanism, called the
-PLUS variant, which can also bind the authentication to a secure
-channel through channel bindings.  Currently this is not supported by
-GNU SASL.
+The GS2 framework supports a variant of each mechanism, called the PLUS
+variant, which can also bind the authentication to a secure channel
+through channel bindings.  Currently this is not supported by GNU SASL.
+
+The GS2 mechanism family was specified in RFC 5801.
 
 @node SAML20
 @section The SAML20 mechanism
 @cindex SAML
 
 The SAML20 mechanism makes it possible to use SAML in SASL, in a way
-that offloads the authentication exchange to an external browser.  The
-protocol implemented is as specified in RFC 6595.
+that offloads the authentication exchange to an external web browser.
 
-The mechanism makes use of the following properties: GSASL_AUTHZID,
-@code{GSASL_SAML20_IDP_IDENTIFIER}, @code{GSASL_SAML20_REDIRECT_URL},
+The mechanism makes use of the following properties:
+@code{GSASL_AUTHZID}, @code{GSASL_SAML20_IDP_IDENTIFIER},
+@code{GSASL_SAML20_REDIRECT_URL},
 @code{GSASL_SAML20_AUTHENTICATE_IN_BROWSER} and
 @code{GSASL_VALIDATE_SAML20}.
 
@@ -2056,44 +2097,44 @@ authentication attempt was successful.
 
 Note that SAML itself is not implemented by the GNU SASL library.  On
 the client side, no SAML knowledge is needed, it is only required on the
-server side.  The client only needs to be able to start a browser
-accessing the redirect URL.  The server side is expected to call a SAML
-library of your choice to generate the AuthRequest and to implement an
-AssertionConsumerService to validate the AuthResponse.  There is a
+server side.  The client only needs to be able to start a web browser to
+access the redirect URL.  The server side is expected to call a SAML
+library to generate the AuthRequest and to implement an
+AssertionConsumerService (ACS) to validate the AuthResponse.  There is a
 complete proof-of-concept example of a SMTP server with SAML 2.0 support
-distributed with GNU SASL in the examples/saml20/ sub-directory.  It
-uses the Lasso SAML implementation (@url{http://lasso.entrouvert.org/}).
-The example may be used as inspiration for your own server
+distributed with GNU SASL in the @code{examples/saml20/} sub-directory.
+The example uses the Lasso SAML implementation
+(@url{http://lasso.entrouvert.org/}) and require a web server for the
+ACS side.  The example may be used as inspiration for your own server
 implementation.  The @code{gsasl} command line client supports SAML20 as
 a client.
+
+The SAML20 mechanism is specified in RFC 6595.
 
 @node OPENID20
 @section The OPENID20 mechanism
 @cindex OpenID
 
 The OPENID20 mechanism makes it possible to use OpenID in SASL, in a way
-that offloads the authentication exchange to an external browser.  The
-protocol implemented is as specified in RFC 6616.
+that offloads the authentication exchange to an external web browser.
 
-The mechanism makes use of the following properties:
-@code{GSASL_AUTHID} (for the OpenID User-Supplied Identifier),
-@code{GSASL_AUTHZID}, @code{GSASL_OPENID20_REDIRECT_URL},
-@code{GSASL_OPENID20_OUTCOME_DATA},
+The mechanism makes use of the following properties: @code{GSASL_AUTHID}
+(for the OpenID User-Supplied Identifier), @code{GSASL_AUTHZID},
+@code{GSASL_OPENID20_REDIRECT_URL}, @code{GSASL_OPENID20_OUTCOME_DATA},
 @code{GSASL_OPENID20_AUTHENTICATE_IN_BROWSER}, and
 @code{GSASL_VALIDATE_OPENID20}.
 
 In the client, the mechanism is enabled by default.  The
 @code{GSASL_AUTHID} property is required and should contain the
 User-Supplied OpenID Identifier (for example
-@code{http://josefsson.org}).  If set, @code{GSASL_AUTHZID} will be
-used by the client.  The client will be invoked with the
+@code{http://josefsson.org}).  If set, @code{GSASL_AUTHZID} will be used
+by the client.  The client will be invoked with the
 @code{GSASL_OPENID20_AUTHENTICATE_IN_BROWSER} callback to perform the
 OpenID authentication in a web browser.  The callback can retrieve the
 @code{GSASL_OPENID20_REDIRECT_URL} property to find out the URL to
-redirect the user to.  After authentication, the client can retrieve
-the @code{GSASL_OPENID20_OUTCOME_DATA} property with the OpenID Simple
-Registry (SREG) attributes sent by the server (they are not always
-sent).
+redirect the user to.  After authentication, the client can retrieve the
+@code{GSASL_OPENID20_OUTCOME_DATA} property with the OpenID Simple
+Registry (SREG) attributes sent by the server (if any).
 
 In the server, the mechanism is enabled by default.  The server will
 request the @code{GSASL_OPENID20_REDIRECT_URL} property, and your
@@ -2114,15 +2155,18 @@ these to the client.
 
 Note that OpenID itself is not implemented by the GNU SASL library.  On
 the client side, no OpenID knowledge is required, it is only required on
-the server side.  The client only needs to be able to start a browser
-accessing the redirect URL.  The server side is expected to use an
-OpenID library of your choice to generate the redirect URL and to
-implement the Service Provider to validate the response from the IdP.
-There is a complete proof-of-concept example with a SMTP server with
-OpenID 2.0 support distributed with GNU SASL in the examples/openid20/
-sub-directory.  It uses the JanRain PHP5 OpenID implementation.  The
-example may be used as inspiration for your own server implementation.
-The @code{gsasl} command line client supports OPENID20 as a client.
+the server side.  The client only needs to be able to start a web
+browser to access the redirect URL.  The server side is expected to use
+an OpenID library to generate the redirect URL and to implement the
+Service Provider (SP) to validate the response from the IdP.  There is a
+complete proof-of-concept example with a SMTP server with OpenID 2.0
+support distributed with GNU SASL in the @code{examples/openid20/}
+sub-directory.  It uses the JanRain PHP5 OpenID implementation and
+require a web server to implement the OpenID SP.  The example may be
+used as inspiration for your own server implementation.  The
+@code{gsasl} command line client supports OPENID20 as a client.
+
+The OPENID20 mechanism is specified in RFC 6616.
 
 @node KERBEROS_V5
 @section The KERBEROS_V5 mechanism
