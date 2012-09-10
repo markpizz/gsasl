@@ -2011,10 +2011,12 @@ be widely used in Kerberos V5 environments.
 
 In the client, the mechanism is enabled only if the user has acquired
 credentials (i.e., a ticket granting ticket), and it requires the
-@code{GSASL_AUTHID}, @code{GSASL_SERVICE}, and @code{GSASL_HOSTNAME}
-properties.  For historical reasons, the @code{GSASL_AUTHID} property is
-actually used to populate the authorization identity claimed by the
-client.
+@code{GSASL_AUTHZID}, @code{GSASL_SERVICE}, and @code{GSASL_HOSTNAME}
+properties.  (For historical reasons, if the @code{GSASL_AUTHZID}
+property is not specified, this mechanism checks for the
+@code{GSASL_AUTHZID} property and if present will use that as the
+authorization identity -- this behaviour will be removed after the year
+2012 so you should update your code to use only @code{GSASL_AUTHZID}.)
 
 In the server, the mechanism requires the @code{GSASL_SERVICE} and
 @code{GSASL_HOSTNAME} properties, and it will invoke the

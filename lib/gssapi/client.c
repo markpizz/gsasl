@@ -205,9 +205,13 @@ _gsasl_gssapi_client_step (Gsasl_session * sctx,
 
       /* FIXME: Fix maxbuf. */
 
-      p = gsasl_property_get (sctx, GSASL_AUTHID);
+      p = gsasl_property_get (sctx, GSASL_AUTHZID);
       if (!p)
-	return GSASL_NO_AUTHID;
+	/* The following is for backwards compatibility: this
+	   mechanism only used GSASL_AUTHID before. */
+	p = gsasl_property_get (sctx, GSASL_AUTHID);
+      if (!p)
+	p = "";
 
       bufdesc.length = 4 + strlen (p);
       bufdesc.value = malloc (bufdesc.length);

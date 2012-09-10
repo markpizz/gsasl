@@ -8,6 +8,18 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.8.1 (unreleased) [stable]
 
+** GSSAPI client: Now retrieves GSASL_AUTHZID for authorization identity.
+** GSSAPI client: Can now transmit an empty/missing authorization identity.
+Before the GSSAPI client retrieved GSASL_AUTHID (authentication
+identity) and used that as the authorization identity.  For backwards
+compatibility, the code now first tries GSASL_AUTHZID and then
+GSASL_AUTHID when discovering the authorization identity.  If you
+don't want any authorization identity (and thus let the server fall
+back on the identity implied from the Kerberos layer) then return
+GSASL_NO_CALLBACK on both.  The backwards compatibility code will be
+removed after the year 2012 so please update code to use GSASL_AUTHZID
+instead of GSASL_AUTHID.  Reported by Amon Ott.
+
 ** i18n: Updated translations.
 
 * Version 1.8.0 (released 2012-05-28) [stable]

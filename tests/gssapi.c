@@ -47,8 +47,8 @@ callback (Gsasl * ctx, Gsasl_session * sctx, Gsasl_property prop)
 
   switch (prop)
     {
-    case GSASL_AUTHID:
-      gsasl_property_set (sctx, GSASL_AUTHID, USERNAME[i]);
+    case GSASL_AUTHZID:
+      gsasl_property_set (sctx, GSASL_AUTHZID, USERNAME[i]);
       rc = GSASL_OK;
       break;
 
