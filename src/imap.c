@@ -175,13 +175,17 @@ imap_step_recv (char **data)
       if (strlen (p) >= 2 && strncmp (p, ". ", 2) == 0)
 	return 3;
 
-      if (strlen (p) >= 2 && strncmp (p, "+ ", 2) != 0)
+      if (strlen (p) >= 2 && strncmp (p, "+ ", 2) == 0)
+	memmove (&p[0], &p[2], strlen (p) - 1);
+      /* This is a workaround for servers (e.g., Microsoft Exchange)
+	 that return '+' instead of the correct '+ '.  */
+      else if (strcmp (p, "+\n") == 0)
+	p[0] = '\0';
+      else
 	{
-	  fprintf (stderr, _("error: server did not return a token\n"));
-	  return 0;
+	  fprintf (stderr, _("warning: server did not return a token\n"));
+	  return 3;
 	}
-
-      memmove (&p[0], &p[2], strlen (p) - 1);
     }
 
   if (p[strlen (p) - 1] == '\n')

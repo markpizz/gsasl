@@ -8,6 +8,10 @@ SASL.  That include the manual, the command line tool, and self tests.
 
 * Version 1.8.1 (unreleased) [stable]
 
+** gsasl: IMAP client code now permits empty SASL tokens prefixed with '+'.
+Normally servers should send '+ '.  Buggy servers include Microsoft
+Exchange.  Reported by Adam Sjøgren.
+
 ** GSSAPI client: Now retrieves GSASL_AUTHZID for authorization identity.
 ** GSSAPI client: Can now transmit an empty/missing authorization identity.
 Before the GSSAPI client retrieved GSASL_AUTHID (authentication
