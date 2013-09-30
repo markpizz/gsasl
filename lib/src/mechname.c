@@ -1,5 +1,5 @@
 /* mechname.c --- Get name of SASL mechanism used in a session.
- * Copyright (C) 2008-2012 Simon Josefsson
+ * Copyright (C) 2008-2013 Simon Josefsson
  *
  * This file is part of GNU SASL Library.
  *
@@ -27,7 +27,7 @@
  * @sctx: libgsasl session handle.
  *
  * This function returns the name of the SASL mechanism used in the
- * session.
+ * session.  The pointer must not be deallocated by the caller.
  *
  * Return value: Returns a zero terminated character array with the
  *   name of the SASL mechanism, or NULL if not known.
