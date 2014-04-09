@@ -107,8 +107,8 @@ extern "C"
     GSASL_MIN_MECHANISM_SIZE = 1,
     GSASL_MAX_MECHANISM_SIZE = 20
   };
-  extern GSASL_API const char *GSASL_VALID_MECHANISM_CHARACTERS;
-
+  extern GSASL_API const char *GSASL_VALID_MECHANISM_CHARACTERS_RTN(void);
+#define GSASL_VALID_MECHANISM_CHARACTERS (GSASL_VALID_MECHANISM_CHARACTERS_RTN())
   /**
    * Gsasl_rc:
    * @GSASL_OK: Successful return code, guaranteed to be always 0.

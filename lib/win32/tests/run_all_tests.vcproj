@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="9.00"
+	Name="run_all_tests"
+	ProjectGUID="{8555C573-874C-4982-B721-FD25B5691876}"
+	RootNamespace="run_all_tests"
+	TargetFrameworkVersion="196613"
+	>
+	<Platforms>
+		<Platform
+			Name="Win32"
+		/>
+	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="..\lib\debug"
+			IntermediateDirectory="../../../windows/build-x86/$(ProjectName)/$(ConfigurationName)"
+			ConfigurationType="0"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="run_tests.cmd $(OutDir) ..\..\..\tests &quot;$(TargetPath)&quot;"
+				ReBuildCommandLine="run_tests.cmd $(OutDir) ..\..\..\tests &quot;$(TargetPath)&quot;"
+				CleanCommandLine="del $(TargetPath)"
+				Output="$(OutDir)\Tests.Successful"
+				PreprocessorDefinitions=""
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="..\lib"
+			IntermediateDirectory="../../../windows/build-x86/$(ProjectName)/$(ConfigurationName)"
+			ConfigurationType="0"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="run_tests.cmd $(OutDir) ..\..\..\tests &quot;$(TargetPath)&quot;"
+				ReBuildCommandLine="run_tests.cmd $(OutDir) ..\..\..\tests &quot;$(TargetPath)&quot;"
+				CleanCommandLine="del $(TargetPath)"
+				Output="$(OutDir)\Tests.Successful"
+				PreprocessorDefinitions=""
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
+		</Filter>
+		<File
+			RelativePath=".\run_tests.cmd"
+			>
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

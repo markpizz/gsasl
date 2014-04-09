@@ -48,8 +48,10 @@
  * A zero-terminated character array, or string, with all ASCII
  * characters that may be used within a SASL mechanism name.
  **/
-const char *GSASL_VALID_MECHANISM_CHARACTERS =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
+const char *GSASL_VALID_MECHANISM_CHARACTERS_RTN(void)
+{
+  return "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
+}
 
 static int
 register_builtin_mechs (Gsasl * ctx)
