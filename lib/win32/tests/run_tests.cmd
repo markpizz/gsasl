@@ -10,32 +10,46 @@
     echo Running test command procedure: '%RUN_TESTS_CMD%'
     echo Success will create the output file: %TEST_OUTPUT%
     if exist %TEST_OUTPUT% del %TEST_OUTPUT%
-    set _STATUS=0
+    set _LAST_STATUS=0
+    set _WORST_STATUS=0
+    set _TESTS_PASSED=0
+    set _TESTS_FAILED=0
+    set _TESTS_MISSING=0
+    set _TESTS_IGNORED=0
+    set _IGNORED_LIST=
     echo.
     echo Running Tests:
     echo.
     for %%f in (*.vc*proj) do call :do_test %%f%
-    if %_STATUS% EQU 0 echo All Tests Good >%TEST_OUTPUT%
-    exit /B %_STATUS%
+    echo Tests Passed:  %_TESTS_PASSED%
+    if %_TESTS_MISSING% GTR 0 echo Tests Missing: %_TESTS_MISSING%
+    if %_TESTS_IGNORED% GTR 0 echo Tests Ignored: %_TESTS_IGNORED%  %_IGNORED_LIST%
+    if %_TESTS_FAILED%  GTR 0 echo Tests Failed:  %_TESTS_FAILED%
+    if %_WORST_STATUS% LSS %_LAST_STATUS% set _WORST_STATUS=%_LAST_STATUS%
+    if %_WORST_STATUS% EQU 0 echo All Tests Good >%TEST_OUTPUT%
+    exit /B %_WORST_STATUS%
 
 :do_test
     set _TEST=%~n1
-    if not %_STATUS% EQU 0 goto :EOF
+    if %_WORST_STATUS% LSS %_LAST_STATUS% set _WORST_STATUS=%_LAST_STATUS%
     if "%_TEST%" == "libgsasl" goto :EOF
     if "%_TEST%" == "run_all_tests" goto :EOF
     echo.   
     echo Testing %_TEST% ...
-    if not exist %TEST_BINARIES%\%_TEST%.exe set _STATUS=2
-    if not exist %TEST_BINARIES%\%_TEST%.exe exit /b %_STATUS%
+    if not exist %TEST_BINARIES%\%_TEST%.exe set /A _TESTS_MISSING=%_TESTS_MISSING% + 1
+    if not exist %TEST_BINARIES%\%_TEST%.exe set _LAST_STATUS=2
+    if not exist %TEST_BINARIES%\%_TEST%.exe exit /b %_LAST_STATUS%
     pushd ..\..\..\tests
     ..\lib\win32\tests\%TEST_BINARIES%\%_TEST%.exe
-    set _STATUS=%ERRORLEVEL%
+    set _LAST_STATUS=%ERRORLEVEL%
     popd
-    if %_STATUS% EQU 0 goto :EOF
+    if %_LAST_STATUS% EQU 0 set /A _TESTS_PASSED=%_TESTS_PASSED% + 1
+    if %_LAST_STATUS% EQU 0 goto :EOF
     set _FEATURE=
     for /F "tokens=1,2,3" %%l in (%RUN_TESTS_CMD%) do if "%%l%%m" == "::%_TEST%" set _FEATURE=%%n
 
     rem if no specific feature was found, then return the test failure status
+    if "%_FEATURE%" == "" set /A _TESTS_FAILED=%_TESTS_FAILED% + 1
     if "%_FEATURE%" == "" goto :EOF
     echo Test %_TEST% requires libgsasl built with %_FEATURE%
 
@@ -43,7 +57,9 @@
     set _FEATURE_FOUND=
     for /F "tokens=1,2,3" %%l in (%CONFIG_H%) do if "%%l %%m %%n" == "#define %_FEATURE% 1" set _FEATURE_FOUND=1
     if "%_FEATURE_FOUND%" == "1" goto :EOF
-    set _STATUS=0
+    set /A _TESTS_IGNORED=%_TESTS_IGNORED% + 1
+    set _IGNORED_LIST=%_IGNORED_LIST% %_TEST%
+    set _LAST_STATUS=0
     goto :EOF
 
 rem this table lists the tests which are known to fail if libgsasl 

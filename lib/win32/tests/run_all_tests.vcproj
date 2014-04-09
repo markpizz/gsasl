@@ -58,6 +58,49 @@
 				CompileAsManaged=""
 			/>
 		</Configuration>
+		<Configuration
+			Name="Debug-Static|Win32"
+			OutputDirectory="..\lib\debug"
+			IntermediateDirectory="../../../windows/build-x86/$(ProjectName)/$(ConfigurationName)"
+			ConfigurationType="0"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="run_tests.cmd $(OutDir) ..\..\..\tests &quot;$(TargetPath)&quot;"
+				ReBuildCommandLine="run_tests.cmd $(OutDir) ..\..\..\tests &quot;$(TargetPath)&quot;"
+				CleanCommandLine="if exist $(TargetPath) del $(TargetPath)"
+				Output="$(OutDir)\Tests.Successful"
+				PreprocessorDefinitions=""
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release-Static|Win32"
+			OutputDirectory="..\lib"
+			IntermediateDirectory="../../../windows/build-x86/$(ProjectName)/$(ConfigurationName)"
+			ConfigurationType="0"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="run_tests.cmd $(OutDir) ..\..\..\tests &quot;$(TargetPath)&quot;"
+				ReBuildCommandLine="run_tests.cmd $(OutDir) ..\..\..\tests &quot;$(TargetPath)&quot;"
+				CleanCommandLine="del $(TargetPath)"
+				Output="$(OutDir)\Tests.Successful"
+				PreprocessorDefinitions=""
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>

@@ -90,7 +90,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="if not exist ..\..\windows\dist\bin mkdir ..\..\windows\dist\bin&#x0D;&#x0A;if not exist ..\..\windows\dist\include mkdir ..\..\windows\dist\include&#x0D;&#x0A;if not exist ..\..\windows\dist\lib mkdir ..\..\windows\dist\lib&#x0D;&#x0A;copy lib\debug\libgsasl-7.dll ..\..\windows\dist\bin\&#x0D;&#x0A;copy lib\debug\libgsasl-7.lib ..\..\windows\dist\lib\&#x0D;&#x0A;copy ..\src\gsasl.h ..\..\windows\dist\include\&#x0D;&#x0A;copy ..\src\gsasl-compat.h ..\..\windows\dist\include\&#x0D;&#x0A;copy ..\src\gsasl-mech.h ..\..\windows\dist\include\&#x0D;&#x0A;"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -164,6 +164,139 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="if not exist ..\..\windows\dist\bin mkdir ..\..\windows\dist\bin&#x0D;&#x0A;if not exist ..\..\windows\dist\include mkdir ..\..\windows\dist\include&#x0D;&#x0A;if not exist ..\..\windows\dist\lib mkdir ..\..\windows\dist\lib&#x0D;&#x0A;if exist lib\libgsasl-7.dll copy lib\libgsasl-7.dll ..\..\windows\dist\bin\&#x0D;&#x0A;if exist lib\libgsasl-7.lib copy lib\libgsasl-7.lib ..\..\windows\dist\lib\&#x0D;&#x0A;if exist lib\libgsasl-7-static.lib copy lib\libgsasl-7-static.lib ..\..\windows\dist\lib\&#x0D;&#x0A;copy ..\src\gsasl.h ..\..\windows\dist\include\&#x0D;&#x0A;copy ..\src\gsasl-compat.h ..\..\windows\dist\include\&#x0D;&#x0A;copy ..\src\gsasl-mech.h ..\..\windows\dist\include\&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug-Static|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="../../windows/build-x86/$(ProjectName)/$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				Description="Generating configuration..."
+				CommandLine="if not exist ..\gl\stdalign.h copy ..\gl\stdalign.in.h ..\gl\stdalign.h&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="include;../src;../gl;.."
+				PreprocessorDefinitions="WIN32;_DEBUG;GSASL_STATIC;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="lib/debug/$(ProjectName)-7-static.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine=""
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release-Static|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="../../windows/build-x86/$(ProjectName)/$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="2"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				Description="Generating configuration..."
+				CommandLine="if not exist ..\gl\stdalign.h copy ..\gl\stdalign.in.h ..\gl\stdalign.h&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="include;../src;../gl;.."
+				PreprocessorDefinitions="WIN32;NDEBUG;GSASL_STATIC;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE"
+				RuntimeLibrary="0"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="lib/$(ProjectName)-7-static.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="if not exist ..\..\windows\dist\bin mkdir ..\..\windows\dist\bin&#x0D;&#x0A;if not exist ..\..\windows\dist\include mkdir ..\..\windows\dist\include&#x0D;&#x0A;if not exist ..\..\windows\dist\lib mkdir ..\..\windows\dist\lib&#x0D;&#x0A;if exist lib\libgsasl-7.dll copy lib\libgsasl-7.dll ..\..\windows\dist\bin\&#x0D;&#x0A;if exist lib\libgsasl-7.lib copy lib\libgsasl-7.lib ..\..\windows\dist\lib\&#x0D;&#x0A;if exist lib\libgsasl-7-static.lib copy lib\libgsasl-7-static.lib ..\..\windows\dist\lib\&#x0D;&#x0A;copy ..\src\gsasl.h ..\..\windows\dist\include\&#x0D;&#x0A;copy ..\src\gsasl-compat.h ..\..\windows\dist\include\&#x0D;&#x0A;copy ..\src\gsasl-mech.h ..\..\windows\dist\include\&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -213,6 +346,24 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-Static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-Static|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -321,6 +472,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\cram-md5\digest.c"
@@ -340,6 +509,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -369,6 +556,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 			<Filter
@@ -388,6 +593,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)2.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)2.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -422,6 +645,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)2.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)2.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -467,6 +708,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)2.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)2.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)2.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\digest-md5\session.c"
@@ -501,6 +760,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)3.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)3.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)3.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)3.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)3.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\external\mechinfo.c"
@@ -523,6 +800,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)3.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)3.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)3.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)3.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)3.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\external\server.c"
@@ -538,6 +833,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)3.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)3.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)3.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)3.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -571,6 +884,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)4.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)4.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)4.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)4.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)4.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\login\mechinfo.c"
@@ -593,6 +924,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)4.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)4.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)4.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)4.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)4.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\login\server.c"
@@ -608,6 +957,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)4.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)4.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)4.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)4.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -641,6 +1008,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)6.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)6.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)6.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)6.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)6.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\plain\mechinfo.c"
@@ -663,6 +1048,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)6.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)6.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)6.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)6.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)6.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\plain\server.c"
@@ -678,6 +1081,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)6.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)6.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)6.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)6.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -711,6 +1132,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)5.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)5.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\securid\mechinfo.c"
@@ -733,6 +1172,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)5.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)5.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\securid\server.c"
@@ -748,6 +1205,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)5.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)5.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -781,6 +1256,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\scram\mechinfo.c"
@@ -796,6 +1289,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -825,6 +1336,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\scram\printer.c"
@@ -840,6 +1369,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -869,6 +1416,24 @@
 							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)7.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\scram\tokens.c"
@@ -888,6 +1453,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)2.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)5.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -922,6 +1505,24 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug-Static|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release-Static|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
