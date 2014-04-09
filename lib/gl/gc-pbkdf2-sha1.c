@@ -56,8 +56,8 @@ gc_pbkdf2_sha1 (const char *P, size_t Plen,
   if (dkLen > 4294967295U)
     return GC_PKCS5_DERIVED_KEY_TOO_LONG;
 
-  l = ((dkLen - 1) / hLen) + 1;
-  r = dkLen - (l - 1) * hLen;
+  l = (unsigned int)(((dkLen - 1) / hLen) + 1);
+  r = (unsigned int)(dkLen - (l - 1) * hLen);
 
   tmp = malloc (tmplen);
   if (tmp == NULL)

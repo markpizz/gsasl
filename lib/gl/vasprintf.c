@@ -46,5 +46,5 @@ vasprintf (char **resultp, const char *format, va_list args)
 
   *resultp = result;
   /* Return the number of resulting bytes, excluding the trailing NUL.  */
-  return length;
+  return (int)length;
 }

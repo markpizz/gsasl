@@ -6,12 +6,16 @@
 
 #define PACKAGE "libgsasl"
 #define LOCALEDIR "."
+#define PACKAGE_STRING "libgsasl"
 
 #if _MSC_VER && !__cplusplus
 # define inline __inline
 #endif
 
+#include <errno.h>
+#ifndef EOVERFLOW
 #define EOVERFLOW E2BIG
+#endif
 #define GNULIB_GC_HMAC_MD5 1
 #define GNULIB_GC_MD5 1
 #define GNULIB_GC_RANDOM 1
@@ -67,10 +71,71 @@
 
 #define restrict
 #define __attribute__(x)
+#define _GL_ATTRIBUTE_CONST
+#define _GL_ATTRIBUTE_PURE(x)
+
+#define _STRING_ARCH_unaligned 1
 
 #ifndef _AC_STDINT_H
 #include <sys/types.h>
 #include "ac-stdint.h"
 #endif
+
+#include <stdio.h>
+ssize_t
+getdelim (char **lineptr, size_t *n, int delimiter, FILE *fp);
+ssize_t
+getline (char **lineptr, size_t *n, FILE *stream);
+
+#define __strverscmp strverscmp
+int
+__strverscmp (const char *s1, const char *s2);
+
+#ifndef GSASL_API
+#if defined _USRDLL && defined HAVE_VISIBILITY && HAVE_VISIBILITY
+#define GSASL_API __attribute__((__visibility__("default")))
+#elif defined _USRDLL && defined _MSC_VER && ! defined GSASL_STATIC
+#define GSASL_API __declspec(dllexport)
+#elif defined _MSC_VER && ! defined GSASL_STATIC
+#define GSASL_API __declspec(dllimport)
+#else
+#define GSASL_API
+#endif
+#endif
+
+#include <vasnprintf.h>
+extern GSASL_API int asprintf (char **resultbuf, const char *format, ...)
+       _GL_ATTRIBUTE_FORMAT ((__printf__, 3, 4));
+extern GSASL_API int vasprintf (char **resultbuf, const char *format, va_list args)
+       _GL_ATTRIBUTE_FORMAT ((__printf__, 3, 0));
+#undef GSASL_API
+
+#include <string.h>
+#include <stdlib.h>
+static char *
+strndup(const char *s, size_t n)
+{
+size_t len = strlen(s);
+char *result;
+
+  if (n < len) {
+    result = malloc(1+len);
+    if (!result)
+      return result;
+    return strcpy(result, s);
+    }
+  else
+    return strdup(s);
+}
+
+void *
+memmem (const void *haystack_start, size_t haystack_len,
+        const void *needle_start, size_t needle_len);
+
+/* Older Visual C++ versions don't have strtok_r(), but the 
+   strtok() implementation is reentrant using thread local storage */
+#define strtok_r(str, delim, savptr) strtok(str, delim)
+
+#include "internal.h"
 
 #endif /* _CONFIG_H */

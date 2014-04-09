@@ -1915,16 +1915,16 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
                 switch (a.arg[dp->arg_index].type)
                   {
                   case TYPE_COUNT_SCHAR_POINTER:
-                    *a.arg[dp->arg_index].a.a_count_schar_pointer = length;
+                    *a.arg[dp->arg_index].a.a_count_schar_pointer = (char)length;
                     break;
                   case TYPE_COUNT_SHORT_POINTER:
-                    *a.arg[dp->arg_index].a.a_count_short_pointer = length;
+                    *a.arg[dp->arg_index].a.a_count_short_pointer = (short)length;
                     break;
                   case TYPE_COUNT_INT_POINTER:
-                    *a.arg[dp->arg_index].a.a_count_int_pointer = length;
+                    *a.arg[dp->arg_index].a.a_count_int_pointer = (int)length;
                     break;
                   case TYPE_COUNT_LONGINT_POINTER:
-                    *a.arg[dp->arg_index].a.a_count_longint_pointer = length;
+                    *a.arg[dp->arg_index].a.a_count_longint_pointer = (long)length;
                     break;
 #if HAVE_LONG_LONG_INT
                   case TYPE_COUNT_LONGLONGINT_POINTER:
@@ -2693,7 +2693,7 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
                               errno = EILSEQ;
                               return NULL;
                             }
-                          if (precision < count)
+                          if (precision < (size_t)count)
                             break;
                           arg_end++;
                           characters += count;
@@ -5116,7 +5116,7 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
                       {
                         /* Verify that snprintf() has NUL-terminated its
                            result.  */
-                        if (count < maxlen
+                        if ((size_t)count < maxlen
                             && ((TCHAR_T *) (result + length)) [count] != '\0')
                           abort ();
                         /* Portability hack.  */

@@ -220,7 +220,7 @@ sha1_process_bytes (const void *buffer, size_t len, struct sha1_ctx *ctx)
       size_t add = 128 - left_over > len ? len : 128 - left_over;
 
       memcpy (&((char *) ctx->buffer)[left_over], buffer, add);
-      ctx->buflen += add;
+      ctx->buflen += (unsigned int)add;
 
       if (ctx->buflen > 64)
         {
@@ -271,7 +271,7 @@ sha1_process_bytes (const void *buffer, size_t len, struct sha1_ctx *ctx)
           left_over -= 64;
           memcpy (ctx->buffer, &ctx->buffer[16], left_over);
         }
-      ctx->buflen = left_over;
+      ctx->buflen = (unsigned int)left_over;
     }
 }
 
@@ -305,13 +305,13 @@ sha1_process_block (const void *buffer, size_t len, struct sha1_ctx *ctx)
   uint32_t c = ctx->C;
   uint32_t d = ctx->D;
   uint32_t e = ctx->E;
-  uint32_t lolen = len;
+  uint32_t lolen = (uint32_t)len;
 
   /* First increment the byte count.  RFC 1321 specifies the possible
      length of the file up to 2^64 bits.  Here we only compute the
      number of bytes.  Do a double word increment.  */
   ctx->total[0] += lolen;
-  ctx->total[1] += (len >> 31 >> 1) + (ctx->total[0] < lolen);
+  ctx->total[1] += (unsigned int)((len >> 31 >> 1) + (ctx->total[0] < lolen));
 
 #define rol(x, n) (((x) << (n)) | ((uint32_t) (x) >> (32 - (n))))
 

@@ -27,6 +27,7 @@
 #include "config.h"
 #endif
 
+#define GSASL_BUILDING 1
 /* Get specifications. */
 #include "gsasl.h"
 

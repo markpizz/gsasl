@@ -942,6 +942,15 @@ lib/tests/Makefile
 lib/tests/Makefile.in
 lib/tests/test-error
 lib/tests/test-error.o
+lib/win32/lib/
+lib/win32/*.ncb
+lib/win32/*.opensdf
+lib/win32/*.sdf
+lib/win32/*.suo
+lib/win32/*.vc*.user
+lib/win32/tests/*.vc*.user
+lib/win32/UpgradeLog.XML
+lib/win32/_UpgradeReport_Files/
 libtool
 m4/codeset.m4
 m4/fcntl-o.m4
@@ -1082,3 +1091,4 @@ windows/kfw322x86/
 windows/kfw322sdkx86/
 windows/src/
 windows/tmp/
+
