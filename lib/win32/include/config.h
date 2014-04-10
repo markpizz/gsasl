@@ -62,6 +62,7 @@
 #define USE_DIGEST_MD5 1
 #define USE_EXTERNAL 1
 #define USE_LOGIN 1
+#define USE_NTLM 1
 #define USE_PLAIN 1
 #define USE_SECURID 1
 #define USE_SERVER 1

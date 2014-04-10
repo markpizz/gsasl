@@ -942,6 +942,7 @@ lib/tests/Makefile
 lib/tests/Makefile.in
 lib/tests/test-error
 lib/tests/test-error.o
+lib/win32/include/ntlm.h
 lib/win32/lib/
 lib/win32/*.ncb
 lib/win32/*.opensdf
@@ -1091,4 +1092,5 @@ windows/kfw322x86/
 windows/kfw322sdkx86/
 windows/src/
 windows/tmp/
+
 
